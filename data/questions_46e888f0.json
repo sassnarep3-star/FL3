@@ -1,0 +1,102 @@
+{
+ "meta": {
+  "title": "Decision-blocking questions register",
+  "as_of": "2026-11-14",
+  "purpose": "Every question that must be answered before a decision can be made, split into what we already know, what we do not know, and what specific evidence would close the gap.",
+  "how_to_use": "Answer a question by writing the answer and its source into 'answer' and flipping status to 'answered'. Nothing here is answered by assumption."
+ },
+ "questions": [
+  {"id": "Q-01", "area": "Line origin", "question": "What home-field advantage should the line model use?",
+   "status": "open", "blocks": ["STR-01", "all spread lines"],
+   "we_know": ["nfl.com publishes home and road win-loss records for all 32 teams (S01).", "The repo has 32 teams and 274 team-games of PF/PA."],
+   "we_do_not_know": ["Home and road points scored/allowed by team.", "Any league-wide estimate of HFA for 2026."],
+   "evidence_needed": ["A source publishing home/away point splits (nfl.com standings does not).", "Or compute it once per-team game logs are available."],
+   "answer": null, "consequence_if_unanswered": "Every modelled line stays compressed toward pick'em and is not comparable to a market line."},
+
+  {"id": "Q-02", "area": "Validation", "question": "Where does settled-bet history come from, and who grades it?",
+   "status": "open", "blocks": ["G1", "G3", "G4", "G5", "leaderboard", "STR-01..08"],
+   "we_know": ["No settled bets exist in the repo."],
+   "we_do_not_know": ["Whether a historical closing-line source is obtainable.", "How results will be graded and by whom."],
+   "evidence_needed": ["A settled-bet ledger with price taken, closing price and result per bet."],
+   "answer": null, "consequence_if_unanswered": "The leaderboard remains empty and no strategy can pass gate G1."},
+
+  {"id": "Q-03", "area": "Coordination", "question": "Which official injury snapshot is the reference for grading - Friday's report, or the 90-minute inactives list?",
+   "status": "open", "blocks": ["STR-03", "STR-04", "any injury-based signal"],
+   "we_know": ["nfl.com publishes game status (Out/Doubtful/Questionable) on the injury report (S02).", "A separate inactives list is published closer to kickoff."],
+   "we_do_not_know": ["The inactives list for Week 10 was not captured.", "Whether any 'Questionable' player actually played."],
+   "evidence_needed": ["The Week 10 inactives list at kickoff, captured and stored."],
+   "answer": null, "consequence_if_unanswered": "Injury signals cannot be graded correctly: a Questionable player who sits is currently indistinguishable from one who plays."},
+
+  {"id": "Q-04", "area": "Market", "question": "Can a licensed, timestamped closing-line source be obtained?",
+   "status": "open", "blocks": ["G4", "STR-08", "any CLV claim", "any market-comparison page"],
+   "we_know": ["No odds feed is reachable from this environment; no odds data is in the repo."],
+   "we_do_not_know": ["Whether the user has an account or licence that could supply it."],
+   "evidence_needed": ["A data agreement or API key for a licensed odds provider, plus storage in the repo's external-storage convention."],
+   "answer": null, "consequence_if_unanswered": "Gate G4 cannot be evaluated and the site cannot show whether a model line beat the market."},
+
+  {"id": "Q-05", "area": "Depth charts", "question": "How should disagreements between Ourlads and the official NFL report be governed?",
+   "status": "proposed-answer", "blocks": ["STR-03", "backup-deficiency index"],
+   "we_know": ["14 disagreements were found in Week 10 alone (data/depth_risk.json -> conflicts).", "The official report is the league's own publication."],
+   "we_do_not_know": ["Whether the NFL publishes a machine-readable depth chart at all."],
+   "evidence_needed": ["Confirm whether an official depth-chart feed exists."],
+   "answer": "Proposed and implemented: the official NFL report governs availability; Ourlads governs depth ORDER only. Every disagreement is published. A reviewer should confirm or overrule this.",
+   "consequence_if_unanswered": "Without a rule the two sources silently contradict each other 14 times a week."},
+
+  {"id": "Q-06", "area": "Player props", "question": "Which player-level stat source will be the baseline for prop modelling?",
+   "status": "open", "blocks": ["STR-05", "STR-07", "all prop combos"],
+   "we_know": ["A league-wide player-statistics endpoint was confirmed reachable and returns real 2026 data (ESPN byathlete API), but it was not ingested."],
+   "we_do_not_know": ["Whether it is complete enough to grade props.", "Its terms of use for republication."],
+   "evidence_needed": ["A deliberate ingest decision plus a licence check before publishing derived numbers."],
+   "answer": null, "consequence_if_unanswered": "No prop or prop-combo strategy can move past 'blocked-input'."},
+
+  {"id": "Q-07", "area": "Correlation", "question": "Which correlations are real, and at what value?",
+   "status": "open", "blocks": ["G7", "STR-05", "STR-06", "all parlays"],
+   "we_know": ["The engine prices two-leg parlays with a Gaussian copula and refuses to price when rho is unset.", "At rho=0.6, two 55% legs move from 30.25% (naive) to 40.35% (copula)."],
+   "we_do_not_know": ["Any empirical rho - none has been estimated from data in this repo."],
+   "evidence_needed": ["Per-player game logs to estimate rho for each proposed pair."],
+   "answer": null, "consequence_if_unanswered": "Parlays stay unpriced rather than mispriced."},
+
+  {"id": "Q-08", "area": "Luck removal", "question": "What is the pre-registered rule for calling a strategy 'skill based'?",
+   "status": "proposed-answer", "blocks": ["G8", "all promotion decisions"],
+   "we_know": ["Six procedures (L1-L6) are specified in data/strategies.json."],
+   "we_do_not_know": ["The pass threshold for each, and who signs off."],
+   "evidence_needed": ["Agreed thresholds before any results are seen - pre-registration is the point."],
+   "answer": "Proposed: all of L1, L4 and L5 must pass, plus a positive bootstrap 5th percentile. A reviewer should ratify or change this BEFORE results exist.",
+   "consequence_if_unanswered": "Thresholds chosen after seeing results are not evidence."},
+
+  {"id": "Q-09", "area": "Rewards", "question": "What does the leaderboard reward, and who funds it?",
+   "status": "open", "blocks": ["reward scheme"],
+   "we_know": ["A three-tier design and a risk-adjusted, deflation-corrected scoring rule are proposed in data/strategies.json."],
+   "we_do_not_know": ["The reward medium, budget and governance."],
+   "evidence_needed": ["A decision from the user."],
+   "answer": null, "consequence_if_unanswered": "The competition exists on paper only and allocates nothing."},
+
+  {"id": "Q-10", "area": "Data freshness", "question": "How often must the injury and depth data be refreshed, and by what process?",
+   "status": "open", "blocks": ["all injury/depth pages"],
+   "we_know": ["The capture in this repo is a snapshot from 2026-11-14 and will be stale the moment Week 11 reports publish."],
+   "we_do_not_know": ["Whether an automated refresh is possible in this environment (external fetch is tool-mediated, not scriptable with curl)."],
+   "evidence_needed": ["An agreed refresh cadence and an execution path."],
+   "answer": null, "consequence_if_unanswered": "Pages will silently age. Every page carries its as-of date and a staleness banner."},
+
+  {"id": "Q-11", "area": "Scope", "question": "27 of 32 depth charts are transcribed. Does full league coverage change any conclusion?",
+   "status": "open", "blocks": ["backup-deficiency ranking"],
+   "we_know": ["Indianapolis is missing; the four bye teams (CHI, DEN, PHI, TB) do not play this week."],
+   "we_do_not_know": ["Whether the missing chart would move a team into the top of the index."],
+   "evidence_needed": ["Fetch and transcribe the Colts chart (flagged F-06)."],
+   "answer": null, "consequence_if_unanswered": "The ranking is correct for 27 teams and silent on one."},
+
+  {"id": "Q-12", "area": "Method", "question": "Is draft pedigree an acceptable proxy for replacement quality?",
+   "status": "open", "blocks": ["backup-deficiency index", "STR-03"],
+   "we_know": ["Pedigree is published and verifiable (S04 draft codes, S05 key).", "It is a proxy, not a measurement - a 7th-rounder who has played well scores badly."],
+   "we_do_not_know": ["Snap counts, PFF-style grades, or any per-player performance measure - none are in the repo."],
+   "evidence_needed": ["A snap-count or grading source."],
+   "answer": null, "consequence_if_unanswered": "The exposure ranking is directionally defensible but not precise, and is labelled that way."},
+
+  {"id": "Q-13", "area": "Legal", "question": "What does publishing model lines imply in the user's jurisdiction?",
+   "status": "open", "blocks": ["publication of any line"],
+   "we_know": ["The user is in Mexico City; the site is public on GitHub Pages."],
+   "we_do_not_know": ["Whether line publication triggers any licensing or gambling-advice obligation."],
+   "evidence_needed": ["Legal review by the user."],
+   "answer": null, "consequence_if_unanswered": "The site carries a no-betting-advice disclaimer and publishes no odds."}
+ ]
+}

@@ -1,6 +1,6 @@
 """Generate ORIGINAL lines from verified data only.
 
-Everything here is derived from data/standings.json (S01) plus, optionally, the
+Everything here is derived from data/standings_verified.json (S01) plus, optionally, the
 lineup-risk exposure score. No sportsbook number is read, stored or copied.
 
 What is deliberately NOT done:
@@ -12,7 +12,7 @@ Each of those omissions is surfaced on the site rather than papered over.
 import json
 import math
 
-lg = json.load(open("data/standings.json"))
+lg = json.load(open("data/standings_verified.json"))
 risk = {t["team"]: t for t in json.load(open("data/lineup_risk.json"))["teams"]}
 sched = json.load(open("data/schedule_2026_w10.json"))["games"]
 

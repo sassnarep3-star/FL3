@@ -1,226 +1,607 @@
 {
-  "meta": {
-    "title": "Strategy registry — specs, validation gates, and leaderboard tiers",
-    "captured_utc": "2026-11-14",
-    "purpose": "Define strategies precisely enough that they can be graded, and block any strategy that cannot be graded instead of pretending it works.",
-    "grading_status": "0 strategies have graded results. Every row below is a SPEC, not a track record. The leaderboard is live and will populate as weeks are captured.",
-    "honesty_rule": "A strategy may be shown as 'passes gates' only if the script that grades it runs on stored data. Otherwise it is 'blocked' with the missing input named."
+ "meta": {
+  "title": "Strategy registry, validation gates, correlation and luck removal",
+  "as_of": "2026-11-14",
+  "core_claim": "No strategy in this repo has been validated. The registry documents what would have to be true for one to be.",
+  "sources": [
+   "S01",
+   "S02",
+   "S03",
+   "S04",
+   "S05"
+  ]
+ },
+ "gates": [
+  {
+   "id": "G1",
+   "name": "Sample size",
+   "rule": ">= 200 settled bets before a strategy may appear on the leaderboard.",
+   "why": "Below ~200 bets a 55% hit rate and a 50% hit rate are statistically indistinguishable at 95% confidence."
   },
-
-  "gates": [
-    {
-      "id": "G1",
-      "name": "Source traceable",
-      "test": "Every input field maps to a URL under nfl.com or operations.nfl.com, stored in data/sources.json.",
-      "auto": true,
-      "fail_action": "Strategy is blocked. No exceptions."
-    },
-    {
-      "id": "G2",
-      "name": "Sample sufficiency",
-      "test": "At least 30 independent observations before any hit rate is quoted, and at least 10 per parameter estimated.",
-      "auto": true,
-      "fail_action": "Shown as 'insufficient evidence' with the current n."
-    },
-    {
-      "id": "G3",
-      "name": "Luck separation",
-      "test": "Strategy P&L must not be explained by Pythagorean luck of the clubs it backs: leave-one-luck-decile-out must keep the sign of the edge.",
-      "auto": true,
-      "fail_action": "Strategy is demoted to 'luck-driven' and cannot reach Contender."
-    },
-    {
-      "id": "G4",
-      "name": "Correlation declared",
-      "test": "Every leg in a parlay/prop combo has its shared driver listed in data/correlations.json; the largest unmeasured term sets the haircut.",
-      "auto": true,
-      "fail_action": "Ticket is rejected at construction."
-    },
-    {
-      "id": "G5",
-      "name": "Ex-ante definition",
-      "test": "The rule must be fully specified before the games it is graded on; no parameter may be chosen after seeing results.",
-      "auto": false,
-      "fail_action": "Strategy is flagged as overfit and cannot be graded."
-    },
-    {
-      "id": "G6",
-      "name": "Price beatable",
-      "test": "Strategy must beat the available price by more than the declared edge threshold after any vig.",
-      "auto": true,
-      "fail_action": "Cannot reach Champion. BLOCKED IN v0: no licensed odds feed (flag F07)."
-    },
-    {
-      "id": "G7",
-      "name": "Stability",
-      "test": "Leave-one-club-out and leave-one-week-out must both keep the sign of the edge.",
-      "auto": true,
-      "fail_action": "Edge is attributed to a single club/week and marked fragile."
-    },
-    {
-      "id": "G8",
-      "name": "Reproducible",
-      "test": "A script in scripts/ recomputes the strategy's signal from stored data with no manual steps.",
-      "auto": true,
-      "fail_action": "Strategy is not allowed on the leaderboard."
-    }
-  ],
-
-  "tiers": [
-    {
-      "tier": 0,
-      "name": "Blocked",
-      "requirement": "Fails G1 or G8, or a required input does not exist.",
-      "reward": "none — listed for transparency only",
-      "color": "grey"
-    },
-    {
-      "tier": 1,
-      "name": "Explorer",
-      "requirement": "Passes G1, G2-definition and G8; signal computable but not yet graded on results.",
-      "reward": "Entry on the board, no ranking credit",
-      "color": "blue"
-    },
-    {
-      "tier": 2,
-      "name": "Contender",
-      "requirement": "Passes G1–G5, G7, G8 with >=30 graded observations and live results.",
-      "reward": "Ranked; earns leaderboard points",
-      "color": "silver"
-    },
-    {
-      "tier": 3,
-      "name": "Champion",
-      "requirement": "Contender plus G6: measurable positive edge over a verifiable price.",
-      "reward": "Top of board; eligible for the season reward pool weighting",
-      "color": "gold"
-    },
-    {
-      "tier": 4,
-      "name": "Proven",
-      "requirement": "Champion plus an out-of-sample repeat in a later season with stable closing-line value.",
-      "reward": "Permanent board entry, highest weight",
-      "color": "platinum"
-    }
-  ],
-
-  "scoring": {
-    "formula": "score = sum over graded bets of (result x weight) / sqrt(n), with weight = declared edge / declared sigma, then divided by the largest unmeasured correlation haircut on the ticket.",
-    "why_sqrt_n": "Stops a strategy from winning by volume alone. It must win per unit of evidence, not per unit of action.",
-    "luck_penalty": "Any strategy whose graded P&L has |correlation with club luck_wins| > 0.30 has its score multiplied by 0.5 and is labelled luck-exposed.",
-    "minimum_to_rank": "30 graded bets and at least 3 distinct weeks.",
-    "no_bet_is_a_bet": "A strategy that abstains is scored as a no-op, not as a win. Coverage is reported separately so abstention cannot be hidden."
+  {
+   "id": "G2",
+   "name": "Holdout discipline",
+   "rule": "Parameters fixed on seasons 1..n-1, scored on an untouched season n. The holdout is used once.",
+   "why": "Prevents the backtest from being the model."
   },
-
-  "strategies": [
-    {
-      "id": "S01",
-      "name": "Margin trend, neutral-line filter",
-      "market": "Spread (single bet)",
-      "thesis": "Point differential per game is the best single predictor of win percentage we can verify (COR-01, r=0.878). When our originated line sits at least 1.5 points away from a neutral 3-point home line in the direction of the margin gap, the side is worth grading.",
-      "mechanism": "signal = (shrunk rating gap) - 1.9 HFA; bet the side whose originated spread is >= 1.5 points beyond the neutral line.",
-      "inputs": ["data/standings.json", "data/lines_week10.json"],
-      "gates": { "G1": "pass", "G2": "fail (n<30)", "G3": "untested", "G4": "n/a", "G5": "pass", "G6": "blocked (F07)", "G7": "untested", "G8": "pass" },
-      "tier": 1,
-      "evidence": "r=0.8781 (n=32) supports the input. No graded bets yet.",
-      "caveat": "A rating built from league aggregates cannot see opponent strength. It will misprice clubs with extreme schedules."
-    },
-    {
-      "id": "S02",
-      "name": "Total anchor, extreme-total fade",
-      "market": "Total (single bet)",
-      "thesis": "Extreme originated totals compress toward the league mean more than they expand. Play under when the originated total is in the top decile of the season's originated totals and over when in the bottom decile.",
-      "mechanism": "z = (total - mean(originated totals)) / sd(originated totals); act when |z| >= 1.2.",
-      "inputs": ["data/lines_week10.json"],
-      "gates": { "G1": "pass", "G2": "fail (n=14 games)", "G3": "untested", "G4": "n/a", "G5": "pass", "G6": "blocked (F07)", "G7": "untested", "G8": "pass" },
-      "tier": 1,
-      "evidence": "Only 14 originated totals exist. Far below the 30-observation floor.",
-      "caveat": "Mean reversion in totals is a claim about market behaviour, and we hold no market data. This cannot be validated without a price."
-    },
-    {
-      "id": "S03",
-      "name": "Availability gap",
-      "market": "Spread (single bet)",
-      "thesis": "When one club's capped offensive availability penalty exceeds the opponent's by 1.5 points, fade the depleted club.",
-      "mechanism": "gap = away.off - home.off (capped); act when |gap| >= 1.5.",
-      "inputs": ["data/injuries_week10.json", "data/lines_week10.json"],
-      "gates": { "G1": "pass", "G2": "fail", "G3": "untested", "G4": "n/a", "G5": "pass", "G6": "blocked (F07)", "G7": "untested", "G8": "pass" },
-      "tier": 1,
-      "evidence": "Signal computable for all 28 clubs on the Week 10 slate.",
-      "caveat": "Magnitude is a declared constant, not measured. The injury table also misses cases like BAL QB (flag F02), so this signal is incomplete by construction."
-    },
-    {
-      "id": "S04",
-      "name": "Luck fade",
-      "market": "Spread (single bet)",
-      "thesis": "Clubs in the top quartile of Pythagorean luck_wins are priced on wins that scoring margin does not support. Fade them; back the bottom quartile.",
-      "mechanism": "rank clubs by luck_wins (data/luck.json); act on games involving rank <= 8 or rank >= 25.",
-      "inputs": ["data/luck.json", "data/lines_week10.json"],
-      "gates": { "G1": "pass", "G2": "fail", "G3": "contradiction", "G4": "n/a", "G5": "pass", "G6": "blocked (F07)", "G7": "untested", "G8": "pass" },
-      "tier": 1,
-      "evidence": "Luck is measured for all 32 clubs. Range is +2.17 (DEN) to -2.17 (TB).",
-      "caveat": "By construction this strategy is a bet on luck, which fails the spirit of G3. It is kept on the board as the counter-example the luck filter exists to catch."
-    },
-    {
-      "id": "S05",
-      "name": "Two-leg cross-game correlation parlay",
-      "market": "Parlay (2 legs, different games)",
-      "thesis": "Cross-game legs are structurally independent (COR-A5), so the joint probability is the product. The only adjustment needed is for league-wide scoring shocks.",
-      "mechanism": "pick 2 legs from different games with pick_confidence >= 0.25; price at p1*p2*(1 - haircut); haircut = 0.05.",
-      "inputs": ["data/lines_week10.json", "data/correlations.json"],
-      "gates": { "G1": "pass", "G2": "fail", "G3": "untested", "G4": "pass (A5 structural)", "G5": "pass", "G6": "blocked (F07)", "G7": "untested", "G8": "pass" },
-      "tier": 1,
-      "evidence": "Independence is structural, not statistical — a stronger claim than a measured r.",
-      "caveat": "Structural independence does not create edge. A parlay of two coin flips is still a coin flip."
-    },
-    {
-      "id": "S06",
-      "name": "QB + WR shared-driver prop stack",
-      "market": "Player prop combo (same game)",
-      "thesis": "QB passing yards and his WR's receiving yards share targets (COR-A4). The stack should be PRICED as one event, not two.",
-      "mechanism": "requires player-level official per-game stats.",
-      "inputs": ["MISSING: official per-game player statistics"],
-      "gates": { "G1": "fail (no source captured)", "G2": "fail", "G3": "untested", "G4": "fail (magnitude unmeasured)", "G5": "pass", "G6": "blocked (F07)", "G7": "untested", "G8": "fail (no script can run)" },
-      "tier": 0,
-      "evidence": "Blocked. Direction of the correlation is certain from mechanism; the size is not measured.",
-      "caveat": "This is the most common way prop bettors lose money: they stack two legs of the same event and treat them as independent."
-    },
-    {
-      "id": "S07",
-      "name": "Division underdog",
-      "market": "Spread (single bet)",
-      "thesis": "Divisional underdogs are said to outperform because familiarity compresses margins.",
-      "mechanism": "requires per-game results with division flags.",
-      "inputs": ["MISSING: game-by-game results with division labels"],
-      "gates": { "G1": "fail", "G2": "fail", "G3": "untested", "G4": "n/a", "G5": "pass", "G6": "blocked (F07)", "G7": "untested", "G8": "fail" },
-      "tier": 0,
-      "evidence": "Blocked. The standings table gives division records but not per-game margins.",
-      "caveat": "Popular belief is not evidence. This stays blocked until game-level data exists."
-    },
-    {
-      "id": "S08",
-      "name": "Specialist blind spot",
-      "market": "Total / spread",
-      "thesis": "A club missing its kicker or punter loses hidden points that the standings table never shows. Weight ST absences at 2-3x the per-player penalty.",
-      "mechanism": "st penalty capped at 1.0 point per club; act when the ST gap >= 0.6.",
-      "inputs": ["data/injuries_week10.json"],
-      "gates": { "G1": "pass", "G2": "fail", "G3": "untested", "G4": "n/a", "G5": "pass", "G6": "blocked (F07)", "G7": "untested", "G8": "pass" },
-      "tier": 1,
-      "evidence": "Week 10 has two relevant absences: TEN P Tommy Townsend (Knee, Achilles) and GB K Trey Smack is full participation.",
-      "caveat": "Small effect sizes. With a 1.0-point cap this cannot move a line much, which is intentional."
-    }
-  ],
-
-  "leaderboard": {
-    "status": "live but empty",
-    "graded_entries": 0,
-    "why_empty": "Grading requires completed games plus a stored pre-game line snapshot for each week. Only Week 10 is captured, and 13 of its 14 games have not been played as of 2026-11-14.",
-    "what_unlocks_it": [
-      "capture each week's originated lines BEFORE kickoff (CI job, Monday 00:00 UTC)",
-      "capture final scores from an official NFL source after the week ends",
-      "grade every active strategy automatically in the same job",
-      "never edit a line snapshot after the fact — the file's git history is the audit trail"
-    ],
-    "reward_pool_rule": "Rewards are allocated only to tier 3 and tier 4 strategies, in proportion to sqrt(n)-normalised score. A strategy that cannot beat a verifiable price earns nothing, no matter how good the narrative."
+  {
+   "id": "G3",
+   "name": "Noise floor",
+   "rule": "Beats a permutation/null distribution at p < 0.05 over 10,000 shuffles.",
+   "why": "Separates signal from a lucky ordering of the same outcomes."
+  },
+  {
+   "id": "G4",
+   "name": "Closing-line value",
+   "rule": "Positive closing-line value over the sample.",
+   "why": "CLV is the least noisy evidence of genuine edge."
+  },
+  {
+   "id": "G5",
+   "name": "Vig survivorship",
+   "rule": "Positive return at -110 pricing; break-even is 52.38%.",
+   "why": "A strategy that only works at 0 vig does not work."
+  },
+  {
+   "id": "G6",
+   "name": "Stability",
+   "rule": "Does not depend on one season, one team or one week (leave-one-out changes ROI by < 5 pts).",
+   "why": "A single outlier cluster is not an edge."
+  },
+  {
+   "id": "G7",
+   "name": "Correlation control",
+   "rule": "Correlated legs are priced with a correlation-adjusted joint probability, not the product of marginals.",
+   "why": "Parlays that multiply marginals systematically overstate the true chance."
+  },
+  {
+   "id": "G8",
+   "name": "Luck removal",
+   "rule": "Reported skill is computed after removing one-score games, garbage time and turnover-luck residuals.",
+   "why": "The brief asks for selectively skill-based strategies, not winning streaks."
   }
+ ],
+ "strategies": [
+  {
+   "id": "STR-01",
+   "name": "Shrunk offense-vs-defense line",
+   "family": "single-bet",
+   "market": "spread",
+   "thesis": "Teams whose scoring rate diverges from the league mean after shrinkage have an exploitable expected margin.",
+   "inputs": [
+    "S01 team PF/PA",
+    "S03 schedule"
+   ],
+   "params": {
+    "k": 4.0,
+    "hfa": 0.0
+   },
+   "status": "untested",
+   "notes": "The line model this repo ships (data/lines.json). No graded results exist, so every gate is not-run.",
+   "gates": {
+    "G1": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G2": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G3": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G4": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G5": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G6": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G7": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G8": {
+     "status": "not-run",
+     "evidence": null
+    }
+   }
+  },
+  {
+   "id": "STR-02",
+   "name": "Rest/bye differential",
+   "family": "single-bet",
+   "market": "spread",
+   "thesis": "Teams off a bye outperform their baseline in the following game.",
+   "inputs": [
+    "S03 schedule"
+   ],
+   "params": {},
+   "status": "blocked-input",
+   "notes": "Blocked: the repo has the Week 10 bye list but no historical rest-vs-performance data.",
+   "gates": {
+    "G1": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G2": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G3": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G4": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G5": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G6": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G7": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G8": {
+     "status": "not-run",
+     "evidence": null
+    }
+   }
+  },
+  {
+   "id": "STR-03",
+   "name": "Backup-exposure fade",
+   "family": "single-bet",
+   "market": "spread",
+   "thesis": "When the official report rules out a high-pedigree starter and the listed backup is a late-round or undrafted player, the team under-performs its baseline.",
+   "inputs": [
+    "S02 injuries",
+    "S04 depth order",
+    "S01 results"
+   ],
+   "params": {
+    "pedigree_weight_table": "see data/lineup_risk.json"
+   },
+   "status": "untested",
+   "notes": "This is the brief's injury requirement turned into a testable hypothesis. 43 confirmed starter losses were logged this week; none are graded yet.",
+   "gates": {
+    "G1": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G2": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G3": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G4": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G5": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G6": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G7": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G8": {
+     "status": "not-run",
+     "evidence": null
+    }
+   }
+  },
+  {
+   "id": "STR-04",
+   "name": "Offensive-line continuity",
+   "family": "single-bet",
+   "market": "total",
+   "thesis": "Multiple starting linemen out depresses offensive efficiency more than the market prices.",
+   "inputs": [
+    "S02",
+    "S04"
+   ],
+   "params": {},
+   "status": "untested",
+   "notes": "Week 10 has usable cases (TEN Skoronski, NO Fuaga + McCoy, BUF Brown, HOU Rutledge). Not graded.",
+   "gates": {
+    "G1": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G2": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G3": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G4": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G5": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G6": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G7": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G8": {
+     "status": "not-run",
+     "evidence": null
+    }
+   }
+  },
+  {
+   "id": "STR-05",
+   "name": "Two-leg correlated parlay: same-game QB/WR",
+   "family": "parlay",
+   "market": "player props",
+   "thesis": "A QB passing-yards over and his WR1 receiving-yards over are positively correlated; naive multiplication understates the joint probability.",
+   "inputs": [
+    "per-player game logs"
+   ],
+   "params": {
+    "rho_prior": 0.35
+   },
+   "status": "blocked-input",
+   "notes": "Blocked: no per-player game logs are in the repo, so rho cannot be estimated - only assumed. A parlay built on an assumed rho is not validated.",
+   "gates": {
+    "G1": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G2": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G3": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G4": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G5": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G6": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G7": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G8": {
+     "status": "not-run",
+     "evidence": null
+    }
+   }
+  },
+  {
+   "id": "STR-06",
+   "name": "Three-leg team-total parlay",
+   "family": "parlay",
+   "market": "team totals",
+   "thesis": "Team totals in the same game are negatively correlated through the game script; the market sometimes prices them as independent.",
+   "inputs": [
+    "S01",
+    "S03"
+   ],
+   "params": {},
+   "status": "untested",
+   "notes": "Needs a same-game correlation estimate, which needs play-by-play. Not collected.",
+   "gates": {
+    "G1": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G2": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G3": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G4": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G5": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G6": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G7": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G8": {
+     "status": "not-run",
+     "evidence": null
+    }
+   }
+  },
+  {
+   "id": "STR-07",
+   "name": "Player prop: RB volume vs. opponent run-defense",
+   "family": "player-prop",
+   "market": "rushing yards",
+   "thesis": "Backup-forced defensive front changes (see STR-03) shift RB efficiency.",
+   "inputs": [
+    "S02",
+    "S04",
+    "per-player logs"
+   ],
+   "params": {},
+   "status": "blocked-input",
+   "notes": "Blocked on per-player logs and defensive snap data.",
+   "gates": {
+    "G1": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G2": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G3": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G4": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G5": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G6": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G7": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G8": {
+     "status": "not-run",
+     "evidence": null
+    }
+   }
+  },
+  {
+   "id": "STR-08",
+   "name": "Injury-report timing drift",
+   "family": "single-bet",
+   "market": "spread",
+   "thesis": "Lines move systematically when a Friday designation lands; the drift is exploitable before close.",
+   "inputs": [
+    "S02 snapshots",
+    "historical odds"
+   ],
+   "params": {},
+   "status": "blocked-input",
+   "notes": "Blocked: it needs historical odds, which this environment cannot access. This is the single most valuable unblocked dependency (see Q-04).",
+   "gates": {
+    "G1": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G2": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G3": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G4": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G5": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G6": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G7": {
+     "status": "not-run",
+     "evidence": null
+    },
+    "G8": {
+     "status": "not-run",
+     "evidence": null
+    }
+   }
+  }
+ ],
+ "correlation": {
+  "pairs": [
+   {
+    "pair": "QB passing yards over  <->  his WR1 receiving yards over",
+    "rho": null,
+    "basis": "not estimated - requires per-player game logs (not in repo)",
+    "status": "unverified"
+   },
+   {
+    "pair": "Team total over  <->  opponent team total under (same game)",
+    "rho": null,
+    "basis": "not estimated - requires play-by-play",
+    "status": "unverified"
+   },
+   {
+    "pair": "Spread cover  <->  game total over (same game)",
+    "rho": null,
+    "basis": "not estimated - requires play-by-play",
+    "status": "unverified"
+   },
+   {
+    "pair": "RB rushing yards over  <->  team total over",
+    "rho": null,
+    "basis": "not estimated - requires per-player logs",
+    "status": "unverified"
+   },
+   {
+    "pair": "Two different games, same week",
+    "rho": 0.0,
+    "basis": "independence is the defensible default when no shared mechanism is identified",
+    "status": "assumption"
+   }
+  ],
+  "demonstration": [
+   {
+    "rho": 0.0,
+    "naive_product": 0.3025,
+    "copula_joint": 0.3022,
+    "fair_decimal_naive": 3.306,
+    "fair_decimal_copula": 3.309,
+    "delta_pct_points": -0.03
+   },
+   {
+    "rho": 0.2,
+    "naive_product": 0.3025,
+    "copula_joint": 0.3338,
+    "fair_decimal_naive": 3.306,
+    "fair_decimal_copula": 2.996,
+    "delta_pct_points": 3.13
+   },
+   {
+    "rho": 0.4,
+    "naive_product": 0.3025,
+    "copula_joint": 0.3669,
+    "fair_decimal_naive": 3.306,
+    "fair_decimal_copula": 2.726,
+    "delta_pct_points": 6.44
+   },
+   {
+    "rho": 0.6,
+    "naive_product": 0.3025,
+    "copula_joint": 0.4035,
+    "fair_decimal_naive": 3.306,
+    "fair_decimal_copula": 2.478,
+    "delta_pct_points": 10.1
+   }
+  ],
+  "demonstration_note": "Two 55% legs. The naive product is 0.3025. Higher correlation raises the true joint probability of two 'over' legs, so multiplying marginals understates the parlay - which is why G7 exists."
+ },
+ "luck_removal": {
+  "title": "Removing luck from the equation",
+  "principle": "A strategy is only 'skill based' if its edge survives removing the outcomes that are mostly variance.",
+  "procedures": [
+   {
+    "id": "L1",
+    "name": "One-score-game exclusion",
+    "method": "Recompute ROI excluding games decided by <= 8 points, then require the sign to hold.",
+    "status": "not-run",
+    "blocker": "needs settled bet records (none exist)"
+   },
+   {
+    "id": "L2",
+    "name": "Garbage-time strip",
+    "method": "Recompute excluding plays in the final 5 minutes with a >= 17 point margin.",
+    "status": "not-run",
+    "blocker": "needs play-by-play (not collected)"
+   },
+   {
+    "id": "L3",
+    "name": "Turnover-luck regression",
+    "method": "Model turnovers as a mean-reverting series and subtract the non-persistent component from team efficiency.",
+    "status": "not-run",
+    "blocker": "needs play-by-play"
+   },
+   {
+    "id": "L4",
+    "name": "Permutation null",
+    "method": "Shuffle outcomes 10,000 times within strata; keep the strategy only if it clears the 95th percentile.",
+    "status": "not-run",
+    "blocker": "needs settled bet records"
+   },
+   {
+    "id": "L5",
+    "name": "Deflated Sharpe",
+    "method": "Deflate the observed Sharpe ratio for the number of strategies tried (multiple-comparisons correction).",
+    "status": "not-run",
+    "blocker": "needs settled bet records"
+   },
+   {
+    "id": "L6",
+    "name": "Bootstrap CI",
+    "method": "10,000-sample bootstrap of ROI; report the 5th-95th percentile band, not the point estimate.",
+    "status": "not-run",
+    "blocker": "needs settled bet records"
+   }
+  ],
+  "multiple_comparisons_note": "Eight strategies are registered here. Testing all eight and reporting the best one inflates the apparent edge; L5 exists specifically to deflate for that."
+ },
+ "leaderboard": {
+  "status": "empty-by-design",
+  "why": "A leaderboard row requires settled, graded bets. Zero bets have been settled in this repo, so no strategy has a record.",
+  "what_would_fill_it": [
+   "A settled-bet log with strategy id, market, price taken, closing price, stake and result.",
+   "At least 200 settled bets per strategy before a row is displayed (gate G1).",
+   "All eight gates recorded pass/fail with linked evidence."
+  ],
+  "reward_scheme": {
+   "design_only": true,
+   "scoring": "risk-adjusted: ROI / stdev of ROI, then deflated by the number of strategies tried (L5). Raw ROI is explicitly not the ranking metric.",
+   "tiers": [
+    {
+     "tier": "Provisional",
+     "requirement": "G1..G3 pass",
+     "reward": "listed, no capital"
+    },
+    {
+     "tier": "Validated",
+     "requirement": "G1..G6 pass",
+     "reward": "eligible for the smallest unit stake"
+    },
+    {
+     "tier": "Promoted",
+     "requirement": "G1..G8 pass on an out-of-sample season",
+     "reward": "scaled stake, reviewed monthly"
+    }
+   ],
+   "warning": "The reward scheme is a proposal. It allocates no money and has no verified historical returns behind it."
+  },
+  "rows": []
+ }
 }

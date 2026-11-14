@@ -6,7 +6,7 @@ Nothing in this file blocks the publish; it exists so the user can review after 
 import json
 
 depth = json.load(open("data/depth_risk.json"))
-src = json.load(open("data/sources.json"))
+src = json.load(open("data/sources_46e888f0.json"))
 lines = json.load(open("data/lines.json"))
 
 items = []

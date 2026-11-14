@@ -37,8 +37,28 @@ def warn(msg):
     warns.append(msg)
 
 
+# Session arena/46e888f0's own datasets. Generic names are aliased because
+# scripts/build_site.py (session arena-e8bf2075) uses the same names for
+# different, differently-shaped files.
+FILES_46E = {
+    "sources": "sources_46e888f0.json",
+    "standings": "standings_verified.json",
+    "schedule_2026_w10": "schedule_2026_w10.json",
+    "injuries_2026_w10": "injuries_2026_w10.json",
+    "depth_risk": "depth_risk.json",
+    "lineup_risk": "lineup_risk.json",
+    "lines": "lines.json",
+    "strategies": "strategies_gates.json",
+    "questions": "questions_46e888f0.json",
+    "suggestions": "suggestions_46e888f0.json",
+    "flagged": "flagged_46e888f0.json",
+}
+
+
 def load(name):
-    return json.loads((DATA / name).read_text())
+    """Resolve an aliased dataset name. Accepts with or without the .json suffix."""
+    target = FILES_46E.get(name, FILES_46E.get(name.rsplit(".", 1)[0], name))
+    return json.loads((DATA / target).read_text())
 
 
 # ---- 1 parse

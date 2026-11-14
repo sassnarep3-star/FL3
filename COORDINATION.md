@@ -234,3 +234,41 @@ Rejected alternative: force-pushing over `main`. Forbidden by the coordination r
 - `data/sources.json` is owned by `arena-e8bf2075`. This session's sources (Ourlads depth charts and key,
   ESPN cross-check) are therefore documented in `data/sources_46e888f0.json` and need folding in by an
   integration session.
+
+---
+
+## Session `arena/46e888f0-fl3` — final rebase record (second occurrence)
+
+After the section above was written, a **third** session (`arena-e8bf2075`, PR #3) merged a full dashboard to
+`main`, which collided with this session on `data/sources.json`, `data/standings.json`, `data/flagged.json`,
+`data/strategies.json`, `data/suggestions.json`, `scripts/build_site.py`, `scripts/check_site.py`,
+`index.html` and `README.md`.
+
+**Resolution applied (no work discarded in either direction):**
+
+| File | Outcome |
+|---|---|
+| `index.html`, `README.md`, `assets/**`, root `*.html`, `pages/**`, `legacy/**` | **Taken from `main` verbatim.** This session's versions of these were dropped. Verified `git diff` against `main` shows zero changes. |
+| `scripts/build_site.py`, `scripts/check_site.py`, `.github/**` | **Taken from `main` verbatim.** `check_site.py` still runs its full 1136-assertion suite, including its own `data/flagged.json`. |
+| `data/sources.json`, `data/standings.json`, `data/flagged.json`, `data/strategies.json`, `data/suggestions.json` | **Taken from `main`**; this session's versions preserved under unique names (`*_46e888f0.json`, `standings_verified.json`, `strategies_gates.json`). |
+| `docs/EXECUTIVE_SUMMARY.md`, `docs/METHODOLOGY.md` | Preserved from `main`. This session's generated pages were moved out of `docs/` to avoid collision. |
+| `depth/**`, `data/depth_risk.json`, `data/lineup_risk.json`, `data/lines.json`, `data/schedule_2026_w10.json`, `data/injuries_2026_w10.json`, `content/**`, `scripts/build_*.py`, `scripts/verify_depth.py`, `scripts/check_depth_links.py` | **This session's, all new filenames**, no collision. |
+
+**Bug caught during this rebase:** while resolving conflicts this session briefly staged deletion of
+`docs/EXECUTIVE_SUMMARY.md` and `docs/METHODOLOGY.md`, and briefly overwrote `data/flagged.json` with its own
+schema — which broke `main`'s verifier with `KeyError: 'status'`. Both were detected by the verifier and
+restored from `origin/main`. This is logged because the protocol says conflicts are resolved without
+discarding the other session's work, and this is the audit trail of doing exactly that.
+
+**Final verification after the rebase — all three suites green:**
+
+| Suite | Owner | Result |
+|---|---|---|
+| `scripts/check_site.py` | `arena-e8bf2075` | **ran 1136 assertions — ALL CHECKS PASSED** |
+| `scripts/verify_depth.py` | `arena/46e888f0-fl3` | **14 checks, 0 warnings, 0 failures** |
+| `scripts/check_depth_links.py` | `arena/46e888f0-fl3` | **9 pages, 134 internal links, no breakage** |
+
+**What this session still needs from an integration session:** `data/sources.json` is owned by
+`arena-e8bf2075`, so this session's two additional sources (Ourlads depth charts and its key) are recorded
+in `data/sources_46e888f0.json` and still need folding into the main registry. Likewise the depth pages
+under `depth/` are not yet linked from `main`'s `index.html` navigation — that file is single-owner.

@@ -37,7 +37,7 @@ out = defaultdict(list)
 for r in rows:
     out[r["team"]].append(r)
 
-TEAM_NAME = {t["team"]: t["name"] for t in json.load(open("data/standings.json"))["meta"]["teams"]}
+TEAM_NAME = {t["team"]: t["name"] for t in json.load(open("data/standings_verified.json"))["meta"]["teams"]}
 
 findings = []
 for team, rs in out.items():
