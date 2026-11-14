@@ -69,15 +69,20 @@ for g in sched:
     exp_h = BASE + (H["off"] - BASE) + (A["def"] - BASE)
     # neutral site (no calibrated HFA available -> no adjustment, and say so)
     hfa_applied = 0.0
-    line_home = round((exp_h + hfa_applied) - exp_a, 1)      # home team favoured by +x
-    total = round(exp_a + exp_h + hfa_applied, 1)
+    # Round the published components FIRST, then derive the line and total from the
+    # published values. Otherwise the displayed numbers do not add up and a reader
+    # who checks the arithmetic finds a defect rather than a model.
+    exp_a = round(exp_a, 1)
+    exp_h = round(exp_h + hfa_applied, 1)
+    line_home = round(exp_h - exp_a, 1)          # home team favoured by +x
+    total = round(exp_a + exp_h, 1)
     lines.append({
         "away": a, "home": h, "date": g["date"], "kickoff_et": g["kickoff_et"],
         "neutral_site": g["neutral_site"], "designation": g["designation"],
         "model_home_line": -line_home,       # negative = home favoured (standard notation)
         "model_total": total,
-        "exp_away_points": round(exp_a, 1),
-        "exp_home_points": round(exp_h, 1),
+        "exp_away_points": exp_a,
+        "exp_home_points": exp_h,
         "hfa_applied": hfa_applied,
         "inputs": {
             "away": {"off": A["off"], "def": A["def"], "games": A["games"], "raw_off": A["off_raw"], "raw_def": A["def_raw"]},
