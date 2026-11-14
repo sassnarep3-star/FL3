@@ -2,7 +2,11 @@
 
 Source: the [official NFL injury report for Week 10](https://www.nfl.com/injuries/league/2026/reg10)
 (SRC-001), read 2026-11-14T03:08Z–03:16Z. All 28 clubs in the Week 10 slate were read (the page renders
-in 8 chunks; chunks 0-6 carry the club tables). The Monday and Thursday slates are included.
+in 8 chunks; chunks 0-6 carry the club tables), but **only 26 of them contribute a row with a game
+status**: Baltimore's section carries practice designations with no Out/Doubtful/Questionable value, and
+the Chargers' section contributes none — and those two clubs play each other on Monday night, so their
+`availability_flags` on [Lines](lines.html) are blank *because nothing was published*, not because anyone
+is healthy ([FLG-028](flagged.html)). The Monday and Thursday slates are included.
 
 ## What the table below is
 

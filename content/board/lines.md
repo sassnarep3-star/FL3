@@ -10,7 +10,10 @@ status column says so on every row, and the reason is structural, not cosmetic:
 4. **no market number exists to compare against** - the `market_*` and `gap_to_market` columns are blank
    because no official source publishes odds ([FLG-010](flagged.html), [Q-01](questions.html));
 5. availability adjustment is `null`, so a team missing its starting QB (MIN, SEA) is priced the same as
-   one that is healthy - note `availability_flags` and see [Injuries](injuries.html).
+   one that is healthy - note `availability_flags` and see [Injuries](injuries.html). An *empty* flags cell
+   has two possible meanings and the site does not guess which: either nothing was flagged, or the club
+   published no game status at all (Baltimore and the LA Chargers, the Monday pair -
+   [FLG-028](flagged.html)).
 
 ## The slate
 
