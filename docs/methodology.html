@@ -53,6 +53,7 @@
       <tr><td>Status multiplier</td><td class="num">OUT 1.0 · DOUBTFUL 0.5 · QUESTIONABLE 0.25</td><td>expected-absence weighting</td></tr>
       <tr><td>Tier multiplier</td><td class="num">1st 1.0 · 2nd 0.6 · 3rd 0.4 · 4th 0.3 · unverified 1.0 (flagged)</td><td>verified depth charts only; unverified tier uses starter weight + explicit flag (never silently assumed)</td></tr>
       <tr><td>Regression &amp; HFA</td><td class="num">0.5 · 2.0/0.0</td><td>standard small-sample regression; typical NFL home field; neutral sites zeroed</td></tr>
+      <tr><td>QB-room cap</td><td class="num">one QB absence priced per team/game</td><td>only the top-of-room QB absence is priced (one QB plays the position); further QB absences are tracked + flagged but not stacked (e.g., BAL: Jackson priced, Huntley flagged). Added after the BAL IR case (F16)</td></tr>
     </tbody>
   </table></div>
   <div class="callout warn"><strong>v0.1 known limitations:</strong> aggregate-only ratings (no strength of schedule), design-weight injuries, and no player-level inputs. Large edges (e.g., SEA-LV ≈ 9.5 pts) are most likely a mix of real injury information and model error — they are research signals until gates G3–G8 pass. Nothing here is a betting recommendation.</div>

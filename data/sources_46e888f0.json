@@ -1,0 +1,31 @@
+{
+ "meta": {
+  "title": "Source registry",
+  "as_of": "2026-11-14",
+  "accessed": "2026-11-14",
+  "policy": "Only the sources below were used. Anything not obtainable from them is left blank and flagged for review, never inferred or filled in."
+ },
+ "sources": [
+  {"id": "S01", "name": "NFL.com official league standings - 2026 regular season", "url": "https://www.nfl.com/standings/league/2026/REG", "publisher": "National Football League", "type": "official-league", "used_for": "W-L-T, PF, PA, home/road/div/conf records, streak, last5 for all 32 teams"},
+  {"id": "S02", "name": "NFL.com official injury report - Week 10, 2026", "url": "https://www.nfl.com/injuries/", "publisher": "National Football League", "type": "official-league", "used_for": "Player, position, injury, practice status and game status for the 28 teams playing in Week 10"},
+  {"id": "S03", "name": "NFL.com official schedule - 2026 Week 10", "url": "https://www.nfl.com/schedules/2026/REG/Week10/", "publisher": "National Football League", "type": "official-league", "used_for": "14 games, kickoff times (ET), networks, byes, Thursday final score"},
+  {"id": "S04", "name": "Ourlads NFL depth charts (printer-friendly, per team)", "url": "https://www.ourlads.com/nfldepthcharts/pfdepthchart/{TEAM}", "publisher": "Ourlads Scouting Services LLC", "type": "third-party-scouting", "used_for": "Depth ordering (Player 1..5), draft pedigree codes, reserve/IR/PUP lists. NOT used for availability."},
+  {"id": "S05", "name": "Ourlads depth chart key / legend", "url": "https://www.ourlads.com/nfldepthcharts/key.aspx", "publisher": "Ourlads Scouting Services LLC", "type": "third-party-scouting", "used_for": "Decoding symbols: IR, PUP, DFR, CE, CF##, SF##, U/, T/, W/, P/, CC/, ##/R (draft year/round), ^ (IR return eligible)"},
+  {"id": "S06", "name": "ESPN scoreboard API - 2026-11-12", "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=20261112", "publisher": "ESPN", "type": "third-party-data", "used_for": "Independent cross-check of the Thursday WAS@NYG result and venue"},
+  {"id": "S07", "name": "NFL.com game page - Commanders at Giants, 2026 Week 10", "url": "https://www.nfl.com/games/commanders-at-giants-2026-reg-10", "publisher": "National Football League", "type": "official-league", "used_for": "Thursday game result cross-reference"},
+  {"id": "S08", "name": "NFL.com news roundup, Friday Nov 13 2026", "url": "https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13", "publisher": "National Football League", "type": "official-league", "used_for": "Ravens QB Lamar Jackson expected to miss 6-10 weeks (depth context)"},
+  {"id": "S09", "name": "NFL.com news - Drew Lock to start for Seahawks vs. Raiders", "url": "https://www.nfl.com/news/drew-lock-no-injury-designation-seahawks-raiders", "publisher": "National Football League", "type": "official-league", "used_for": "Cross-check that Seattle's QB2 replaces the ruled-out starter"},
+  {"id": "S10", "name": "NFL.com news - Sam Darnold ruled out for Week 10", "url": "https://www.nfl.com/news/sam-darnold-ruled-out-for-seahawks-week-10-game-vs-raiders-drew-lock-expected-to-start-again", "publisher": "National Football League", "type": "official-league", "used_for": "Cross-check of Seattle QB availability"}
+ ],
+ "rejected_or_unavailable": [
+  {"source": "ESPN core depthcharts API (sports.core.api.espn.com/.../depthcharts)", "result": "HTTP 404 - no data returned", "consequence": "Depth ordering taken from S04 only"},
+  {"source": "Licensed sportsbook odds / closing lines", "result": "Not accessible from this environment; no verified odds feed exists in the repo", "consequence": "No market comparison, no closing-line value, no vig-adjusted EV. All models are line ORIGINATION only. Flagged F-03."},
+  {"source": "Play-by-play / drive-level data", "result": "Not collected", "consequence": "One-score-game luck, situational splits and prop-level correlations cannot be computed. Recorded in the questions register."}
+ ],
+ "authority_rules": [
+  "Game availability (Out / Doubtful / Questionable) comes ONLY from S02. Ourlads O/Q flags in S04 are treated as unverified inputs and every disagreement is logged in the flagged register.",
+  "Depth ORDER comes from S04 only.",
+  "Draft pedigree comes from S04 codes decoded with S05.",
+  "Every number in data/*.json carries a src field pointing at one of these IDs."
+ ]
+}

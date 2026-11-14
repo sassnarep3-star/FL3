@@ -125,7 +125,7 @@ def build_injuries():
         rows = "".join(
             f"<tr><td>{esc(r['team'])}</td><td>{esc(r['player'])}</td><td>{esc(r['position'])}</td>"
             f"<td>{esc(r['side'])}</td><td>{esc(r['injury'])}</td>"
-            f"<td><span class='badge {'b-flag' if r['status']=='OUT' else 'b-unv'}'>{esc(r['status'])}</span></td>"
+            f"<td><span class='badge {'b-flag' if r['status'] in ('OUT', 'IR') else 'b-unv'}'>{esc(r['status'])}</span></td>"
             f"<td>{esc(r['depth_tier'])}</td><td>{esc(r['expected_replacement'])}</td>"
             f"<td>{src_chip(r['source_url'], 'report')}{src_chip(r['tier_source_url'], 'chart') if r['tier_source_url'] else ''}</td>"
             f"<td>{esc(r['flag'])}</td></tr>"

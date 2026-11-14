@@ -11,8 +11,8 @@ Run: `python3 models/originate_lines.py`
 |---|---|
 | sum(PF) == sum(PA) across 32 teams | PASS — 6,291 == 6,291 (league accounting must balance) |
 | total team-games even (each game counted twice) | PASS — 274 (137 games) |
-| every injury row has status ∈ {OUT, DOUBTFUL, QUESTIONABLE} | PASS — 160 rows, all valid (transcribed from the official report) |
-| every injury row links the official report URL | PASS — 160/160 |
+| every injury row has status ∈ {OUT, DOUBTFUL, QUESTIONABLE, IR} | PASS — 162 rows, all valid (160 transcribed from the official report + 2 IR rows from team-statement reporting) |
+| every injury row links its source | PASS — 160/160 report rows link the official report; 2/2 IR rows link The Athletic / NBC Sports |
 | every deficiency row with a replacement also links a club depth chart | PASS — 35/35 verified-replacement rows |
 | every deficiency row without verified tier has empty tier cells + flag | PASS — no inferred values |
 | every standings row links nfl.com standings | PASS — 32/32 |
@@ -57,3 +57,16 @@ F15 Wednesday-only practice snapshot.
 - No game/prop-level correlations (no data — cells left blank + flagged).
 - Stale search results (ESPN 2001 report; CBS Week 11 **2025** article) were discarded
   and are not used anywhere.
+
+## 6 · Cross-session fold-in (BAL QB case, 2026-11-14)
+Parallel session `arena-e8bf2075` flagged (their F02) that the Week 10 report lists no
+Ravens QB although Lamar Jackson is out. Independently verified and expanded:
+- The Athletic + NBC Sports (team statement, HC Jesse Minter): Jackson thumb surgery,
+  out 6–10 weeks (IR); Tyler Huntley season-ending toe; Jacoby Brissett acquired from AZ.
+- baltimoreravens.com official chart: QB1 Brissett / QB2 Joe Fagnano / QB3 Kedon Slovis;
+  **kicker slot empty** (Riley Patterson signed).
+- Model changes: 2 IR rows added (162 total, 160 report + 2 IR), QB-room cap introduced
+  (only top-of-room QB absence priced — Jackson 3.5, Huntley flagged), W10-14 updated
+  (model BAL −2.0/41.5, edges −2.5/+3.0). Counts refreshed: deficiency rows 78.
+- Flags updated: F10 rewritten (was "clean bill" — corrected), F16 added (systemic gap:
+  weekly reports omit IR/transaction-driven starter changes).

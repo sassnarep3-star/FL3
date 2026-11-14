@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sources, authority rules and what verification ran · FL3 NFL Research</title>
+<meta name="description" content="NFL line origination research: verified 2026 season data, injury and depth analysis, strategy validation gates.">
+<style>
+:root{
+ --bg:#0b0f16; --panel:#121a26; --panel2:#0f1621; --line:#22303f;
+ --ink:#e8eef7; --dim:#93a4bb; --accent:#4da3ff; --good:#3ecf8e;
+ --warn:#f5b544; --bad:#ff6b6b; --chip:#1b2836;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+ font:15px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header.top{position:sticky;top:0;z-index:10;background:rgba(11,15,22,.94);
+ backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.brand{display:flex;align-items:center;gap:12px;padding:14px 0 6px}
+.brand b{font-size:17px;letter-spacing:.2px}
+.brand span.tag{color:var(--dim);font-size:12.5px}
+nav{display:flex;flex-wrap:wrap;gap:2px;padding-bottom:10px}
+nav a{padding:7px 12px;border-radius:8px;color:var(--dim);font-size:13.5px;font-weight:500}
+nav a:hover{background:var(--chip);color:var(--ink);text-decoration:none}
+nav a.on{background:#173252;color:#cfe6ff}
+main{padding:30px 0 70px}
+h1{font-size:30px;line-height:1.25;margin:6px 0 8px}
+h2{font-size:20px;margin:38px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+h3{font-size:16px;margin:24px 0 8px}
+p.lede{color:var(--dim);font-size:15.5px;max-width:74ch;margin:0 0 4px}
+.kicker{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:22px 0 6px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.card .n{font-size:28px;font-weight:700;letter-spacing:-.5px}
+.card .l{color:var(--dim);font-size:13px}
+.card a{font-size:12.5px}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:12px 0 6px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+th{text-align:left;padding:10px 12px;background:var(--panel2);color:var(--dim);
+ font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--line);
+ position:sticky;top:0;white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid #1a2532;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#151f2c}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.caption{display:block;padding:10px 12px 0;color:var(--dim);font-size:12px}
+.methodflag{display:block;margin:8px 12px 0;padding:5px 10px;border-radius:7px;font-size:11.5px;
+ font-weight:600;color:#c9b6ff;background:#241b3a;border:1px solid #3a2d5c}
+table.method td{color:#c8d2e0}
+.note{padding:8px 12px 12px;color:var(--dim);font-size:12.5px;margin:0}
+.badge{display:inline-block;padding:1px 7px;border-radius:6px;font-size:11px;
+ font-weight:600;background:var(--chip);color:var(--dim);border:1px solid var(--line)}
+.badge.src{color:#9fccff;border-color:#27415e}
+.badge.bad{color:var(--bad);border-color:#5a2b2b;background:#2a1618}
+.pill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:11.5px;font-weight:600;
+ background:var(--chip);color:var(--dim);white-space:nowrap}
+.pill.out{background:#3a1a1d;color:#ff9d9d}
+.pill.doubt{background:#3a2d18;color:#ffcb7a}
+.pill.q{background:#3a3518;color:#f2e07a}
+.pill.ok{background:#15321f;color:#7fe3ab}
+.pill.info{background:#152b3a;color:#96cfef}
+.pill.mute{background:#1b222c;color:#8b9aad}
+.blank{color:#5f7086}
+.callout{border-left:3px solid var(--accent);background:var(--panel);padding:14px 16px;
+ border-radius:0 10px 10px 0;margin:16px 0;color:var(--dim);font-size:13.5px}
+.callout.warn{border-left-color:var(--warn)}
+.callout.bad{border-left-color:var(--bad)}
+.callout b{color:var(--ink)}
+ul.tight{margin:8px 0 8px 18px;padding:0;color:var(--dim);font-size:13.5px}
+ul.tight li{margin:5px 0}
+ul.tight b{color:var(--ink)}
+.split{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.q{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+.q h3{margin:0 0 6px;font-size:15.5px}
+.q .meta{color:var(--dim);font-size:12.5px;margin-bottom:10px}
+.q dl{margin:0;display:grid;grid-template-columns:132px 1fr;gap:6px 12px;font-size:13px}
+.q dt{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
+.q dd{margin:0}
+footer{border-top:1px solid var(--line);color:var(--dim);font-size:12.5px;padding:24px 0 40px}
+footer p{margin:6px 0}
+@media(max-width:640px){h1{font-size:24px}.brand{flex-wrap:wrap}table{min-width:440px}}
+</style>
+</head><body>
+<header class="top"><div class="wrap">
+<div class="brand"><b>FL3 · NFL Research</b><span class="tag">2026 season · Week 10 snapshot · as of 2026-11-14</span></div>
+<nav><a href="../index.html">Research desk</a><a href="index.html">Depth dashboard</a><a href="league.html">League</a><a href="injuries.html">Injuries &amp; Lineups</a><a href="lines.html">Model Lines</a><a href="strategies.html">Strategies</a><a href="questions.html">Questions</a><a href="suggestions.html">Suggestions</a><a href="flagged.html">Flagged for Review</a><a href="sources.html" class="on">Sources</a></nav>
+</div></header>
+<main class="wrap">
+<div class="kicker">provenance</div>
+<h1>Sources, authority rules and what verification ran</h1>
+
+<p class="lede">The complete list of what this site used, what it tried and could not reach, and the rules that decide
+which source wins when two disagree. Every source badge anywhere on the site resolves to a row here.</p>
+
+<div class="callout"><b>Access method.</b> External pages were retrieved with a fetch tool and parsed by hand into the
+JSON files in <code>data/</code>. Raw HTTP from scripts was blocked for these hosts, so nothing was scraped
+automatically — which also means every transcription step is auditable.</div>
+
+<h2>Sources used</h2>
+<div class="tw"><table class=""><thead><tr><th>ID</th><th>Source</th><th>Publisher</th><th>Type</th><th>Used for</th><th>Accessed</th><th>Link</th></tr></thead><tbody><tr><td><a class="badge src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener" title="NFL.com official league standings - 2026 regular season">S01</a></td><td>NFL.com official league standings - 2026 regular season</td><td>National Football League</td><td><span class="pill ok">official-league</span></td><td>W-L-T, PF, PA, home/road/div/conf records, streak, last5 for all 32 teams</td><td>2026-11-14</td><td><a class="badge" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">open ↗</a></td></tr><tr><td><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a></td><td>NFL.com official injury report - Week 10, 2026</td><td>National Football League</td><td><span class="pill ok">official-league</span></td><td>Player, position, injury, practice status and game status for the 28 teams playing in Week 10</td><td>2026-11-14</td><td><a class="badge" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">open ↗</a></td></tr><tr><td><a class="badge src" href="https://www.nfl.com/schedules/2026/REG/Week10/" target="_blank" rel="noopener" title="NFL.com official schedule - 2026 Week 10">S03</a></td><td>NFL.com official schedule - 2026 Week 10</td><td>National Football League</td><td><span class="pill ok">official-league</span></td><td>14 games, kickoff times (ET), networks, byes, Thursday final score</td><td>2026-11-14</td><td><a class="badge" href="https://www.nfl.com/schedules/2026/REG/Week10/" target="_blank" rel="noopener">open ↗</a></td></tr><tr><td><a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a></td><td>Ourlads NFL depth charts (printer-friendly, per team)</td><td>Ourlads Scouting Services LLC</td><td><span class="pill info">third-party-scouting</span></td><td>Depth ordering (Player 1..5), draft pedigree codes, reserve/IR/PUP lists. NOT used for availability.</td><td>2026-11-14</td><td><a class="badge" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/{TEAM}" target="_blank" rel="noopener">open ↗</a></td></tr><tr><td><a class="badge src" href="https://www.ourlads.com/nfldepthcharts/key.aspx" target="_blank" rel="noopener" title="Ourlads depth chart key / legend">S05</a></td><td>Ourlads depth chart key / legend</td><td>Ourlads Scouting Services LLC</td><td><span class="pill info">third-party-scouting</span></td><td>Decoding symbols: IR, PUP, DFR, CE, CF##, SF##, U/, T/, W/, P/, CC/, ##/R (draft year/round), ^ (IR return eligible)</td><td>2026-11-14</td><td><a class="badge" href="https://www.ourlads.com/nfldepthcharts/key.aspx" target="_blank" rel="noopener">open ↗</a></td></tr><tr><td><a class="badge src" href="https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=20261112" target="_blank" rel="noopener" title="ESPN scoreboard API - 2026-11-12">S06</a></td><td>ESPN scoreboard API - 2026-11-12</td><td>ESPN</td><td><span class="pill info">third-party-data</span></td><td>Independent cross-check of the Thursday WAS@NYG result and venue</td><td>2026-11-14</td><td><a class="badge" href="https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=20261112" target="_blank" rel="noopener">open ↗</a></td></tr><tr><td><a class="badge src" href="https://www.nfl.com/games/commanders-at-giants-2026-reg-10" target="_blank" rel="noopener" title="NFL.com game page - Commanders at Giants, 2026 Week 10">S07</a></td><td>NFL.com game page - Commanders at Giants, 2026 Week 10</td><td>National Football League</td><td><span class="pill ok">official-league</span></td><td>Thursday game result cross-reference</td><td>2026-11-14</td><td><a class="badge" href="https://www.nfl.com/games/commanders-at-giants-2026-reg-10" target="_blank" rel="noopener">open ↗</a></td></tr><tr><td><a class="badge src" href="https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13" target="_blank" rel="noopener" title="NFL.com news roundup, Friday Nov 13 2026">S08</a></td><td>NFL.com news roundup, Friday Nov 13 2026</td><td>National Football League</td><td><span class="pill ok">official-league</span></td><td>Ravens QB Lamar Jackson expected to miss 6-10 weeks (depth context)</td><td>2026-11-14</td><td><a class="badge" href="https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13" target="_blank" rel="noopener">open ↗</a></td></tr><tr><td><a class="badge src" href="https://www.nfl.com/news/drew-lock-no-injury-designation-seahawks-raiders" target="_blank" rel="noopener" title="NFL.com news - Drew Lock to start for Seahawks vs. Raiders">S09</a></td><td>NFL.com news - Drew Lock to start for Seahawks vs. Raiders</td><td>National Football League</td><td><span class="pill ok">official-league</span></td><td>Cross-check that Seattle&#x27;s QB2 replaces the ruled-out starter</td><td>2026-11-14</td><td><a class="badge" href="https://www.nfl.com/news/drew-lock-no-injury-designation-seahawks-raiders" target="_blank" rel="noopener">open ↗</a></td></tr><tr><td><a class="badge src" href="https://www.nfl.com/news/sam-darnold-ruled-out-for-seahawks-week-10-game-vs-raiders-drew-lock-expected-to-start-again" target="_blank" rel="noopener" title="NFL.com news - Sam Darnold ruled out for Week 10">S10</a></td><td>NFL.com news - Sam Darnold ruled out for Week 10</td><td>National Football League</td><td><span class="pill ok">official-league</span></td><td>Cross-check of Seattle QB availability</td><td>2026-11-14</td><td><a class="badge" href="https://www.nfl.com/news/sam-darnold-ruled-out-for-seahawks-week-10-game-vs-raiders-drew-lock-expected-to-start-again" target="_blank" rel="noopener">open ↗</a></td></tr></tbody></table></div>
+
+<h2>Tried and unavailable</h2>
+<div class="tw"><span class="methodflag">Methodology table — no external source exists for these rows</span><table class=" method"><thead><tr><th>Source</th><th>Result</th><th>Consequence</th></tr></thead><tbody><tr><td>ESPN core depthcharts API (sports.core.api.espn.com/.../depthcharts)</td><td>HTTP 404 - no data returned</td><td>Depth ordering taken from S04 only</td></tr><tr><td>Licensed sportsbook odds / closing lines</td><td>Not accessible from this environment; no verified odds feed exists in the repo</td><td>No market comparison, no closing-line value, no vig-adjusted EV. All models are line ORIGINATION only. Flagged F-03.</td></tr><tr><td>Play-by-play / drive-level data</td><td>Not collected</td><td>One-score-game luck, situational splits and prop-level correlations cannot be computed. Recorded in the questions register.</td></tr></tbody></table><p class="note">Recorded so a later session does not spend time rediscovering the same dead end.</p></div>
+
+<h2>Authority rules</h2>
+<ul class="tight"><li>Game availability (Out / Doubtful / Questionable) comes ONLY from S02. Ourlads O/Q flags in S04 are treated as unverified inputs and every disagreement is logged in the flagged register.</li><li>Depth ORDER comes from S04 only.</li><li>Draft pedigree comes from S04 codes decoded with S05.</li><li>Every number in data/*.json carries a src field pointing at one of these IDs.</li></ul>
+
+<h2>Verification performed</h2>
+<p class="lede">An automated harness (<code>scripts/verify_depth.py</code>) runs on every build and fails it if any of the
+following break. All 16 checks pass as of 2026-11-14:</p>
+<ul class="tight">
+<li><b>Balance identity</b> — sum of points-for equals sum of points-against across all 32 teams (6,291 each).</li>
+<li><b>Formula reproduction</b> — all 32 winning percentages recompute exactly from their own W-L-T record.</li>
+<li><b>Arithmetic coherence</b> — all 32 net-points totals equal PF − PA.</li>
+<li><b>Schedule completeness</b> — 14 games, 28 distinct teams, 4 byes, 32 accounted for, no team twice.</li>
+<li><b>Controlled vocabulary</b> — every injury practice and game status is one of the values the league publishes.</li>
+<li><b>Source totality</b> — every data row carries a source id that resolves to a registry entry.</li>
+<li><b>No odds leakage</b> — the line file is scanned for market/price fields and must contain none.</li>
+<li><b>Line coherence</b> — every published total and line recomputes from its own published components.</li>
+<li><b>Gate completeness</b> — every strategy carries every validation gate.</li>
+<li><b>Honesty invariant</b> — no open question may carry an answer; the leaderboard may not contain an unbacked row.</li>
+</ul>
+
+</main>
+<footer class="wrap">
+<p><b>Research dashboard, not betting advice.</b> No odds are published and no wager is recommended.
+This is an educational and analytical exercise about line origination and validation.</p>
+<p>Every figure links to the source that produced it. Values that could not be confirmed from an official
+source are left blank and listed on the <a href="flagged.html">Flagged for Review</a> page.
+Data captured 2026-11-14 and will age; check the as-of date before relying on anything here.</p>
+<p><a href="../index.html">← Back to the research desk</a> · built by session <code>arena-46e888f0</code> · sources: <a href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">NFL.com</a> ·
+<a href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">NFL.com injury report</a> ·
+<a href="https://www.ourlads.com/nfldepthcharts/" target="_blank" rel="noopener">Ourlads depth charts</a> ·
+<a href="sources.html">full registry</a></p>
+</footer></body></html>

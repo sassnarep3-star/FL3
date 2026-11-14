@@ -45,7 +45,9 @@ BASE_WEIGHT = {           # starter-level point value of losing the listed playe
     "K": 0.25, "P": 0.25, "LS": 0.1,
 }
 TIER_MULT = {1: 1.0, 2: 0.6, 3: 0.4, 4: 0.3, None: 1.0}   # None = tier unverified
-STATUS_MULT = {"OUT": 1.0, "DOUBTFUL": 0.5, "QUESTIONABLE": 0.25}
+STATUS_MULT = {"OUT": 1.0, "DOUBTFUL": 0.5, "QUESTIONABLE": 0.25, "IR": 1.0}
+QB_ROOM_CAP = True   # design choice: only the top-of-room QB absence is priced
+                     # (one QB plays the position); further QB absences are flagged
 OFF_POS = {"QB", "RB", "FB", "WR", "TE", "OL", "OT", "G", "C"}
 ST_POS = {"K", "P", "LS"}
 
@@ -307,7 +309,10 @@ INJURIES = [
     ("W10-13", "CIN", "Andrei Iosivas", "WR", "thumb", D),
     ("W10-13", "CIN", "Brian Parker II", "G", "knee", D),
     ("W10-13", "CIN", "Jalen Davis", "CB", "hamstring", D),
-    # LAC @ BAL — no game-status designations on the official report
+    # LAC @ BAL — no game-status designations on the official WEEKLY report; the
+    # QB room below is IR/season-ending and thus absent from that report (F16).
+    ("W10-14", "BAL", "Lamar Jackson", "QB", "broken/dislocated right thumb (surgery)", "IR"),
+    ("W10-14", "BAL", "Tyler Huntley", "QB", "toe (season-ending)", "IR"),
     # WAS @ NYG (TNF, final)
     ("W10-01", "WAS", "Colson Yankoff", "TE", "knee", S),
     ("W10-01", "WAS", "Lucas Patrick", "C", "concussion", S),
@@ -326,6 +331,18 @@ DET_C = "https://www.detroitlions.com/team/depth-chart"
 NE_C = "https://www.patriots.com/team/depth-chart/"
 AZ_C = "https://www.azcardinals.com/team/depth-chart"
 DAL_C = "https://www.dallascowboys.com/team/depth-chart"
+BAL_C = "https://www.baltimoreravens.com/team/depth-chart/"
+
+# IR / season-ending absences do not appear on the weekly game-status report.
+# These rows are sourced from the team statement as reported by trusted media and
+# the club depth chart (cross-session finding F02 of arena-e8bf2075, confirmed
+# independently on 2026-11-14 — see research/sources.md).
+ATHLETIC_URL = "https://www.nytimes.com/athletic/7779046/2026/11/13/lamar-jackson-ravens-thumb-injury-timeline/"
+NBC_URL = "https://www.nbcsports.com/fantasy/football/player-news/2026-11-13/minter-confirms-jackson-thumb-is-out-6-10-weeks"
+EXTRA_SRC = {
+    ("BAL", "Lamar Jackson"): ATHLETIC_URL,
+    ("BAL", "Tyler Huntley"): NBC_URL,
+}
 
 CHART = {
     ("MIN", "Kyler Murray"): (1, "Carson Wentz (QB2)", 2, MIN_C, ""),
@@ -387,6 +404,11 @@ CHART = {
     ("DAL", "DaRon Bland"): (1, "Cobie Durant", 2, DAL_C, ""),
     ("DAL", "Joey Porter Jr."): (1, "Shavon Revel Jr.", 2, DAL_C, ""),
     ("DAL", "Alijah Clark"): (2, "", None, DAL_C, "chart S backup"),
+    # BAL: club chart fetched 2026-11-14 — QB room completely rebuilt via IR + trade
+    ("BAL", "Lamar Jackson"): (1, "Jacoby Brissett (chart QB1, acquired from AZ)", 2, BAL_C,
+        "IR 6-10 weeks (thumb surgery) — NOT on weekly report; starter per Ravens HC Jesse Minter statement"),
+    ("BAL", "Tyler Huntley"): (2, "Joe Fagnano (chart QB2)", 2, BAL_C,
+        "season-ending toe — NOT on weekly report; QB-room cap applied (not priced on top of Jackson)"),
     # Teams whose charts were NOT fetched or unavailable -> tier None everywhere
 }
 
@@ -510,7 +532,7 @@ def injury_rows(game_id):
 
 def adjustments(game_id, team):
     """returns (off_adj, def_adj, st_adj, rows) where rows are
-    (player, pos, status, tier, weight_used, flag)"""
+    (player, pos, status, tier, weight_used, flag, injury)"""
     off = deff = st = 0.0
     rows = []
     for gid, tm, player, pos, inj, status in INJURIES:
@@ -520,18 +542,29 @@ def adjustments(game_id, team):
         base = BASE_WEIGHT.get(pos, 0.5)
         w = base * TIER_MULT[tier] * STATUS_MULT[status]
         side = pos_side(pos)
+        rows.append([player, pos, status, tier, round(w, 3), "", inj, repl, rtier, url])
+    # QB-room cap: price only the top-of-room QB absence (one QB plays the spot)
+    if QB_ROOM_CAP:
+        qbs = [r for r in rows if r[1] == "QB" and r[4] > 0]
+        qbs.sort(key=lambda r: (r[3] if r[3] is not None else 9))
+        for extra in qbs[1:]:
+            extra[5] = ("QB-room cap: not priced on top of the higher-tier QB absence "
+                        "(tracked, flagged)") + (" | " + (CHART.get((team, extra[0]), (None,"",None,"",""))[4] or "") if CHART.get((team, extra[0]), (None,"",None,"",""))[4] else "")
+            extra[4] = 0.0
+    for player, pos, status, tier, w, flag, inj, repl, rtier, url in rows:
+        side = pos_side(pos)
         if side == "OFF":
             off += w
         elif side == "DEF":
             deff += w
         else:
             st += w
-        flag = ""
-        if tier is None:
-            flag = "tier unverified (no club chart row) — position-group default weight used"
-        if note:
+        note = CHART.get((team, player), (None, "", None, "", ""))[4]
+        if tier is None and "tier unverified" not in flag:
+            flag = ("tier unverified (no club chart row) — position-group default weight used"
+                    + (" | " + note if note else "") + (" | " + flag if flag else ""))
+        elif note and note not in flag:
             flag = (flag + " | " if flag else "") + note
-        rows.append((player, pos, status, tier, round(w, 3), flag, inj))
     return off, deff, st, rows
 
 
@@ -610,10 +643,14 @@ with open(os.path.join(DATA, "2026-week10-injuries.csv"), "w", newline="") as f:
         flag = note
         if tier is None and not note:
             flag = "tier unverified — club depth chart not integrated for this team"
+        src = EXTRA_SRC.get((tm, player), W10_REPORT_URL)
+        if (tm, player) in EXTRA_SRC:
+            flag = ("NOT on the weekly game-status report (IR/season-ending) — "
+                    "sourced from team-statement reporting + club chart" + (" | " + flag if flag else ""))
         wr.writerow([gid, TEAMS[tm][0], player, pos, pos_side(pos), inj, status,
                      tier if tier is not None else "",
                      repl, rtier if rtier is not None else "",
-                     W10_REPORT_URL, url, flag])
+                     src, url, flag])
 
 with open(os.path.join(DATA, "2026-week10-depth-deficiencies.csv"), "w", newline="") as f:
     wr = csv.writer(f)
@@ -629,10 +666,14 @@ with open(os.path.join(DATA, "2026-week10-depth-deficiencies.csv"), "w", newline
         flag = note
         if tier is None and not note:
             flag = "tier/replacement unverified — club depth chart not integrated"
+        src = EXTRA_SRC.get((tm, player), W10_REPORT_URL)
+        if (tm, player) in EXTRA_SRC:
+            flag = ("NOT on the weekly game-status report (IR/season-ending) — "
+                    "sourced from team-statement reporting + club chart" + (" | " + flag if flag else ""))
         wr.writerow([TEAMS[tm][0], pos_side(pos), pos, player, status,
                      tier if tier is not None else "",
                      repl, rtier if rtier is not None else "",
-                     round(w, 3), W10_REPORT_URL, url, flag])
+                     round(w, 3), src, url, flag])
 
 # ---------------------------------------------------------------------------
 # 4) correlations computed from verified standings

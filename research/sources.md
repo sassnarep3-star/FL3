@@ -36,6 +36,16 @@ transcribed row-by-row and cross-checked (see verification-log.md).
 | 18 | https://cbssports.com/betting/news/week-10-nfl-betting-odds-lines-totals-spreads | trusted market | Week 10 spreads/totals (partial) | 2026-11-14 |
 | 19 | https://www.betus.com.pa/sportsbook/nfl/nfl-odds-week-10/ | trusted market | Week 10 spreads/totals/ML (partial) | 2026-11-14 |
 | 20 | https://sportsdata.usatoday.com/football/nfl/odds | trusted market | BetMGM spread/total snapshots | 2026-11-14 |
+| 21 | https://www.baltimoreravens.com/team/depth-chart/ | official club | BAL tiers — QB Brissett/Fagnano/Slovis (Jackson & Huntley absent — both on IR); **K slot empty** | 2026-11-14 |
+| 22 | https://www.nytimes.com/athletic/7779046/2026/11/13/lamar-jackson-ravens-thumb-injury-timeline/ | trusted media | BAL HC Jesse Minter statement: Jackson thumb surgery, 6–10 weeks; Huntley season-ending (toe); Brissett acquired from AZ; Fagnano started Week 9 | 2026-11-14 |
+| 23 | https://www.nbcsports.com/fantasy/football/player-news/2026-11-13/minter-confirms-jackson-thumb-is-out-6-10-weeks | trusted media | independent confirmation of the Minter statement | 2026-11-14 |
+
+## Cross-session fold-in (2026-11-14)
+Parallel session `arena-e8bf2075` flagged (their F02) that the weekly report misses
+non-reportable starter changes (BAL QBs). Independent verification (#21–#23) confirmed
+and expanded it → my flags F10/F16, model IR rows + QB-room cap. Their Ourlads-based
+depth reconciliation (43 starter losses, 14 conflicts C-001…C-014, `data/depth_risk.json`,
+`depth/`) is referenced on the site but not duplicated.
 
 ## Search-derived leads (web search, 2026-11-14)
 - "NFL injuries Week 11 2026 official injury report" → surfaced the current NFL.com

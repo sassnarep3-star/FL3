@@ -93,11 +93,11 @@
         <td>Q3/Q4 tier policy; label tiers "club-published" in all tables (done).</td>
       </tr>
       <tr>
-        <td>F10</td><td><span class="badge b-info">noted</span></td>
-        <td>LAC-BAL (MNF) carries no injury designations on the official report for either team.</td>
-        <td><a class="src" href="https://www.nfl.com/news/nfl-week-10-injury-report-2026-season">official report</a></td>
-        <td>Rare clean bill; BAL nonetheless signed kicker Riley Patterson for the game (special-teams change not injury-related).</td>
-        <td>No action; keep note for ST analysis.</td>
+        <td>F10</td><td><span class="badge b-flag">report gap</span></td>
+        <td>LAC-BAL (MNF) carries no designations on the official <em>weekly</em> report — but Baltimore is missing its top two QBs: Lamar Jackson (thumb surgery) on IR, out 6–10 weeks per HC Jesse Minter; Tyler Huntley season-ending (toe). MNF starter Jacoby Brissett (acquired from AZ) becomes BAL's 4th starting QB of 2026. The club chart's kicker slot is also empty (Riley Patterson signed for the game).</td>
+        <td><a class="src" href="https://www.nfl.com/news/nfl-week-10-injury-report-2026-season">official report</a> <a class="src" href="https://www.nytimes.com/athletic/7779046/2026/11/13/lamar-jackson-ravens-thumb-injury-timeline/">The Athletic</a> <a class="src" href="https://www.nbcsports.com/fantasy/football/player-news/2026-11-13/minter-confirms-jackson-thumb-is-out-6-10-weeks">NBC Sports</a> <a class="src" href="https://www.baltimoreravens.com/team/depth-chart/">BAL chart</a></td>
+        <td>Originally recorded here as a "clean bill" — corrected after cross-session finding F02 (arena-e8bf2075) prompted independent verification. IR players do not appear on weekly reports.</td>
+        <td>Folded into the model (QB adjustment + QB-room cap) and the tracker; see F16.</td>
       </tr>
       <tr>
         <td>F11</td><td><span class="badge b-info">noted</span></td>
@@ -134,13 +134,22 @@
         <td>QUESTIONABLE weightings (25%) may shift as final reports post Saturday.</td>
         <td>Weekly refresh job (S1/S8 cadence).</td>
       </tr>
+      <tr>
+        <td>F16</td><td><span class="badge b-flag">systemic gap</span></td>
+        <td>Weekly game-status reports omit IR / season-ending / trade-driven starter changes (BAL's entire QB room rebuild). Same class of gap as parallel-session finding F02 (arena-e8bf2075) — confirmed and expanded here: Jackson (IR, 6–10 wks), Huntley (season-ending), Brissett acquired, Fagnano (rookie UDFA) started Week 9, chart K slot empty.</td>
+        <td><a class="src" href="https://www.nytimes.com/athletic/7779046/2026/11/13/lamar-jackson-ravens-thumb-injury-timeline/">The Athletic</a> <a class="src" href="https://www.baltimoreravens.com/team/depth-chart/">BAL chart</a> <a class="src" href="flagged.html">this page (F10)</a></td>
+        <td>Any deficiency tracker keyed only on weekly reports will systematically under-count backup/3rd/4th-string deployments — directly the user requirement.</td>
+        <td>Model: IR rows added with QB-room cap (documented). Pipeline: weekly IR + transaction ingest proposed (S1/S2 scope extension, see also parallel session's suggestion to capture 90-minute inactives).</td>
+      </tr>
     </tbody>
   </table></div>
 
   <div class="callout">
     <strong>Review workflow:</strong> to request a change on any item, note the flag ID and desired
     change in COORDINATION.md's request log (or open a GitHub issue). Unverified cells stay blank until
-    a source confirms them — the site will never fill them by inference.
+    a source confirms them — the site will never fill them by inference. Flag-ID namespaces: this page
+    uses <strong>F1–F16</strong> (session 9b181d31); the root dashboard uses <strong>F01–F13</strong>
+    (sessions arena-e8bf2075 / arena-46e888f0) and <code>depth/</code> uses <strong>F-CONF-001…014</strong>.
   </div>
 </div>
 

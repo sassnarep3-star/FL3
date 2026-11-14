@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "title": "Correlation registry — pairs, triples and player-prop combos",
+    "captured_utc": "2026-11-14",
+    "principle": "A correlation is only allowed on the site if it is either (a) computed from verified data by scripts/compute_correlation.py, or (b) declared as an assumption with its mechanism and a pending-verification badge. No correlation is ever asserted as fact without one of those two labels.",
+    "r_squared_note": "r^2 is the share of variance in the outcome explained by the input. It is reported so strategy sizing can be honest about how much is unexplained.",
+    "sign_convention": "Positive = the two legs win together more often than chance. Negative = one leg winning makes the other less likely (hedge)."
+  },
+  "measured": [
+    {
+      "id": "COR-01",
+      "label": "Team win percentage vs point differential per game",
+      "n": 32,
+      "unit": "clubs, 2026 regular season through Week 10",
+      "r": 0.8781,
+      "r_squared": 0.771,
+      "t_stat": 10.05,
+      "df": 30,
+      "sign": "positive",
+      "interpretation": "Most of win percentage is explained by scoring margin. The remaining 22.9% of variance is where one-score luck lives — that is exactly what the LUCK-FILTER gate strips.",
+      "use": "Justifies using point differential as the primary rating input and treating raw W-L as a noisy secondary.",
+      "script": "scripts/compute_correlation.py",
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "verified": true
+    },
+    {
+      "id": "COR-02",
+      "label": "Team win percentage vs points scored per game",
+      "n": 32,
+      "r": 0.6981,
+      "r_squared": 0.4874,
+      "sign": "positive",
+      "df": 30,
+      "interpretation": "Offence alone explains under half of win percentage. Offence-only strategies must therefore carry a wider band.",
+      "use": "Sets the minimum evidence bar: an offence-only signal needs more games before it is allowed to size.",
+      "script": "scripts/compute_correlation.py",
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "verified": true,
+      "t_stat": 5.34
+    },
+    {
+      "id": "COR-03",
+      "label": "Team win percentage vs points allowed per game",
+      "n": 32,
+      "r": -0.6639,
+      "r_squared": 0.4407,
+      "sign": "negative",
+      "df": 30,
+      "interpretation": "Defence explains slightly less of win percentage than offence, and it is not a mirror image of offence.",
+      "use": "Defence-only signals get a wider band and a higher evidence bar, same as offence.",
+      "script": "scripts/compute_correlation.py",
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "verified": true,
+      "t_stat": -4.86
+    },
+    {
+      "id": "COR-04",
+      "label": "Points scored per game vs points allowed per game",
+      "n": 32,
+      "r": -0.2041,
+      "r_squared": 0.0416,
+      "sign": "weak negative",
+      "df": 30,
+      "interpretation": "Offence and defence are close to independent across clubs. This is the single most important correlation fact for parlay construction: a 'good offence' leg and a 'bad defence' leg on the SAME club are nearly independent, so stacking them does not multiply risk as violently as intuition suggests — but it also does not create free correlation the way a same-game script does.",
+      "use": "Blocks the naive parlay of 'team scores a lot' + 'team allows a lot' being treated as a hedge.",
+      "script": "scripts/compute_correlation.py",
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "verified": true,
+      "t_stat": -1.14
+    }
+  ],
+  "assumed": [
+    {
+      "id": "COR-A1",
+      "label": "Same-game: home spread and total",
+      "r": null,
+      "sign": "near zero, direction unverified",
+      "mechanism": "A blowout can come from a fast start (raises total) or a shutdown (lowers it). Margin and total have no monotone link.",
+      "pending": "Needs game-level historical results to measure. Not captured in this build.",
+      "sizing_implication": "Treat as independent for now, but do not let one leg exceed 1/2 of the parlay weight."
+    },
+    {
+      "id": "COR-A2",
+      "label": "Same-game: QB passing yards + team total points",
+      "r": null,
+      "sign": "positive, magnitude unverified",
+      "mechanism": "Passing volume drives scoring, but a trailing team passes more while scoring is already set, and a leading team runs out the clock.",
+      "pending": "Needs player-level official stats per game.",
+      "sizing_implication": "Positive correlation inflates the joint probability; any pricing that treats the legs independently will overstate the payout edge."
+    },
+    {
+      "id": "COR-A3",
+      "label": "Same-game: RB rushing yards + team spread (team winning)",
+      "r": null,
+      "sign": "positive, magnitude unverified",
+      "mechanism": "Leading teams run more; a run-heavy script is a consequence of leading, which is the same event as covering.",
+      "pending": "Needs play-level or game-level rushing splits from an official source.",
+      "sizing_implication": "This is the strongest known correlation family in NFL props. Do not stack RB rushing overs with opponent-spread legs."
+    },
+    {
+      "id": "COR-A4",
+      "label": "Same-game: WR receiving yards + QB passing yards",
+      "r": null,
+      "sign": "strongly positive, magnitude unverified",
+      "mechanism": "Shared targets. If the WR hits, the QB very likely hit.",
+      "pending": "Needs player-level official stats.",
+      "sizing_implication": "Stacking these two as independent legs is close to betting the same event twice. Gate PARLAY-IND requires an explicit shared-driver declaration."
+    },
+    {
+      "id": "COR-A5",
+      "label": "Cross-game parlay legs (different games, different clubs)",
+      "r": 0.0,
+      "sign": "independent by construction",
+      "mechanism": "No shared players, no shared clock, no shared weather. The only shared term is league-wide scoring environment, which is a level, not an outcome.",
+      "pending": "None — independence is structural. Residual correlation from shared league conditions is small and is absorbed by the parlay haircut.",
+      "sizing_implication": "Multipliers are still cut, because a shared league-wide shock (e.g. a scoring boom) hits every over simultaneously."
+    },
+    {
+      "id": "COR-A6",
+      "label": "Availability-driven change in the same game (starter out -> total and spread)",
+      "r": null,
+      "sign": "directional, sign depends on side of the ball",
+      "mechanism": "A missing starter on offence lowers that club's scoring; on defence it raises the opponent's scoring. Both move the spread the same way; the total moves in OPPOSITE directions.",
+      "pending": "The engine applies this causally (scripts/compute_lines.py) but the magnitude is a declared constant, not measured.",
+      "sizing_implication": "Do not treat 'player out' as automatically 'under'. This registry exists specifically to block that heuristic."
+    }
+  ],
+  "parlay_rules": [
+    {
+      "id": "PR-1",
+      "rule": "Never price a parlay by multiplying legs unless every shared driver is listed.",
+      "why": "r(A4) between QB and WR yardage legs is close to 1 in mechanism, so naive multiplication exaggerates the payout.",
+      "src": null,
+      "verified": false
+    },
+    {
+      "id": "PR-2",
+      "rule": "Cap same-game legs at 2 per ticket in v0.",
+      "why": "Every additional same-game leg adds an unmeasured correlation term. Two legs is the most we can decompose with the evidence we hold.",
+      "src": null,
+      "verified": false
+    },
+    {
+      "id": "PR-3",
+      "rule": "Apply a haircut equal to the largest unmeasured correlation term in the ticket.",
+      "why": "Conservative pricing. The haircut is shown on the leaderboard so the cost of uncertainty is visible rather than hidden.",
+      "src": null,
+      "verified": false
+    },
+    {
+      "id": "PR-4",
+      "rule": "Cross-game legs must come from games played on different days OR different clubs; same-club, different-game is impossible by definition.",
+      "why": "Structural independence (COR-A5) only holds if no player or club is shared.",
+      "src": null,
+      "verified": false
+    }
+  ],
+  "unmeasurable_now": [
+    {
+      "what": "Any correlation involving a market price",
+      "why": "No licensed official odds feed (flag F07). Correlations between our line and the market's line cannot be computed because we do not hold the market's line."
+    },
+    {
+      "what": "Player-level prop correlations",
+      "why": "Official per-game player statistics were not captured in this build. COR-A2/A3/A4 remain assumptions with magnitude unverified."
+    }
+  ]
+}

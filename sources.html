@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sources · FL3 NFL Decision System</title>
+<meta name="description" content="Verified NFL data, originated lines, strategy gates and open decisions. Every value links to an official source.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="brand"><span class="mark">FL3</span><span class="sub">NFL Decision System</span></div>
+  <nav><a href="index.html">Dashboard</a><a href="standings.html">Standings</a><a href="lines.html">Our Lines</a><a href="injuries.html">Injuries</a><a href="strategies.html">Strategies</a><a href="correlation.html">Correlation</a><a href="decisions.html">Decisions</a><a href="suggestions.html">Suggestions</a><a href="flagged.html">Flagged for Review</a><a href="sources.html" class="on">Sources</a><a href="methodology.html">Methodology</a></nav>
+</header>
+<main id="main">
+
+<h1>Sources</h1>
+<p class="lede">The complete list of sources used, including the ones we looked at and refused.
+A row can only carry a value if a source on this page states it.</p>
+
+<div class="note"><strong>Source policy.</strong> A row may only carry a value if an official NFL source states it. Statistical models are labelled &#x27;model output&#x27; and are never presented as facts. Third-party aggregators, social posts and memory are not used as evidence.</div>
+
+<div class="tablewrap"><table class=""><thead><tr><th>ID</th><th>Title</th><th>Publisher</th><th>Used for</th><th>Status</th><th>Link</th></tr></thead><tbody><tr><td><b>SRC-STAND-DIV</b></td><td>NFL 2026 Division Standings</td><td>NFL.com (official)</td><td>W-L-T, PCT, PF, PA, Net Pts, home/road/div/conf splits, streak, last 5 — for all 32 clubs</td><td><span class="badge ok">verified</span></td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">open</a></td></tr><tr><td><b>SRC-STAND-LEAGUE</b></td><td>NFL 2026 League Standings</td><td>NFL.com (official)</td><td>Cross-check of the same club-level figures in a different sort order</td><td><span class="badge ok">verified</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">open</a></td></tr><tr><td><b>SRC-INJ</b></td><td>Official NFL Injury Report — Week 10, 2026 season</td><td>NFL.com (official)</td><td>Player, position, injury, practice status, game status — for all 28 clubs playing in Week 10</td><td><span class="badge ok">verified</span></td><td><a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">open</a></td></tr><tr><td><b>SRC-SCHED</b></td><td>NFL 2026 Schedule — Week 10</td><td>NFL.com (official)</td><td>Fixture list, kickoff time, broadcast network, venue/international designation, final scores where published</td><td><span class="badge ok">verified</span></td><td><a class="src" href="https://www.nfl.com/schedules/2026/REG/" target="_blank" rel="noopener">open</a></td></tr><tr><td><b>SRC-SCHED-WK</b></td><td>NFL 2026 Schedule by week — Week 10</td><td>NFL.com (official)</td><td>Bye-week confirmation (clubs absent from the Week 10 slate)</td><td><span class="badge ok">verified</span></td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">open</a></td></tr><tr><td><b>SRC-INJ-POLICY</b></td><td>NFL Injury Report Policy (operations)</td><td>NFL Operations (official)</td><td>Intended source for practice-status definitions and reporting deadlines</td><td><span class="badge bad">unverified</span></td><td><a class="src" href="https://operations.nfl.com/the-rules/nfl-injury-report-policy/" target="_blank" rel="noopener">open</a></td></tr><tr><td><b>SRC-NEWS-LJ</b></td><td>NFL news roundup: Ravens confirm Lamar Jackson expected to miss 6-10 weeks</td><td>NFL.com newsroom (official league site)</td><td>Evidence that a starting QB absence can be absent from the injury table</td><td><span class="badge ok">verified</span></td><td><a class="src" href="https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13" target="_blank" rel="noopener">open</a></td></tr><tr><td><b>SRC-NEWS-DARNOLD</b></td><td>Sam Darnold ruled out for Seahawks&#x27; Week 10 game vs. Raiders</td><td>NFL.com newsroom (official league site)</td><td>Quarterback change confirmation for SEA @ LV</td><td><span class="badge ok">verified</span></td><td><a class="src" href="https://www.nfl.com/news/sam-darnold-ruled-out-for-seahawks-week-10-game-vs-raiders" target="_blank" rel="noopener">open</a></td></tr><tr><td><b>SRC-NEWS-TEAM-BYTEAM</b></td><td>NFL injury report page — club tables</td><td>NFL.com (official)</td><td>Which clubs have a table in a given week (28 of 32 in Week 10)</td><td><span class="badge ok">verified</span></td><td><a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">open</a></td></tr><tr><td><b>SRC-TIEBREAK</b></td><td>NFL Tiebreaking Procedures</td><td>NFL.com (official)</td><td>The half-win rule for ties, used in the luck model; the ordered tiebreak criteria if standings are ever recomputed</td><td><span class="badge ok">verified</span></td><td><a class="src" href="https://www.nfl.com/standings/tie-breaking-procedures" target="_blank" rel="noopener">open</a></td></tr></tbody></table></div>
+
+<h2>Deliberately rejected</h2>
+<div class="tablewrap"><table class=""><thead><tr><th>What</th><th>Why it was rejected</th><th>Consequence</th></tr></thead><tbody><tr><td>Third-party odds screens, line-history aggregators, DFS projections</td><td>Not official; no licensing; cannot be re-verified by the owner from a primary source.</td><td>Market comparison, closing-line value and implied-probability extraction are unmeasurable in this build (flag F07).</td></tr><tr><td>Depth charts and roster rankings published outside club/league control</td><td>No official NFL source states a depth-chart ordinal for each player.</td><td>&#x27;2nd/3rd/4th string&#x27; is expressed as an ordinal *model estimate* with a confidence band, never as fact (flag F05).</td></tr></tbody></table></div>
+
+<h2>What "unverified" costs us</h2>
+<p>Two entries above are marked unverified. The injury-policy page returned an empty body, so no policy
+language is quoted anywhere on this site. That is why the practice-status weights are described as our
+convention rather than the league's rule.</p>
+
+</main>
+<footer>
+  <p><strong>Snapshot 2026-11-14.</strong> NFL data © the National Football League, quoted from nfl.com
+  with links on every row. This site publishes our own model output, not betting advice, and not a
+  sportsbook quote. Values that could not be confirmed against an official source are blank and
+  listed on <a href="flagged.html">Flagged for Review</a>.</p>
+</footer>
+</body>
+</html>
