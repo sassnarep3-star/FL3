@@ -5,7 +5,13 @@ A working system for **originating NFL lines**, turning them into **betting sign
 official source, with every unconfirmable value left blank and listed on the
 [Flagged for review](flagged.html) page.
 
-The site is generated. Every table you see is rendered from `data/*.csv` by `scripts/build_site.py`;
+**Two tracks, one repo.** A parallel session built a dashboard from the repo root
+(`../index.html`, generated from `data/*.json` by its own `scripts/build_site.py`). This board is the
+`S1-b37bd750` track: CSV-first data, an arithmetic verification gate, and a model whose constants are
+fitted rather than assumed. Neither track overwrites the other's files, and both are published from the
+same Pages build. Cross-references are one click away in the left rail.
+
+The board is generated. Every table you see is rendered from `data/*.csv` by `scripts/build_board.py`;
 if a value is not in the CSV it does not exist on the site, and if a CSV row fails an identity check
 the build stops. Start with the [Executive summary](executive-summary.html), then decide the items in
 the [Suggestion register](suggestions.html).

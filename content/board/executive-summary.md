@@ -17,7 +17,7 @@ that does not carry a source id, and *nothing* is priced off an unverified input
 - **13 automated identity checks** in [verification log](verification.html); the build fails on a
   transcription error and passes with warnings on source-level noise.
 - **9 data tables**, 4 model/spec files, 4 scripts, GitHub Pages deploy - all reproducible with one
-  command (`python3 scripts/build_site.py`).
+  command (`python3 scripts/build_board.py`).
 
 ## 2. What the verified data already tells us
 

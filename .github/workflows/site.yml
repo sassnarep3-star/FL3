@@ -4,7 +4,7 @@ name: site
 #
 # GitHub Pages for this repo is configured as **legacy branch build: `main` / `docs`** (that is the
 # state of the repo, and the token available during authoring could not change it - see FLG-027).
-# So Pages publishes `docs/` directly, and this workflow is the gate that protects it: `docs/` is a
+# So Pages publishes `board/` directly, and this workflow is the gate that protects it: `board/` is a
 # build artefact of `data/`, and a commit whose artefact does not match its data - or whose data fails
 # an identity check - must never land on `main`.
 #
@@ -41,7 +41,7 @@ jobs:
         run: python3 scripts/verify.py
 
       - name: rebuild the site
-        run: python3 scripts/build_site.py --check
+        run: python3 scripts/build_board.py --check
 
       - name: internal links, anchors, orphan pages, source registry
         run: |
@@ -51,8 +51,8 @@ jobs:
         run: |
           git add -A
           if ! git diff --cached --quiet -- docs/ data/; then
-            echo "::error::committed docs/ or data/ does not match what the pipeline generates - run:"
-            echo "::error::  python3 scripts/model.py && python3 scripts/build_site.py"
+            echo "::error::committed board/ or data/ does not match what the pipeline generates - run:"
+            echo "::error::  python3 scripts/model.py && python3 scripts/build_board.py"
             git --no-pager diff --cached --stat -- docs/ data/
             exit 1
           fi

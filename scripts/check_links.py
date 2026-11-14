@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Link and registry integrity check for the generated site in docs/.
+"""Link and registry integrity check for the generated site in board/.
 
 Fails the build (exit 1) on:
-  * an internal href pointing at a file that does not exist in docs/
-  * a docs/*.html that is not reachable from index.html (orphan page)
+  * an internal href pointing at a file that does not exist in board/
+  * a board/*.html that is not reachable from index.html (orphan page)
   * an anchor (id=) targeted by an internal link that does not exist on that page
 
 External links are reported but never fail the build: a league page that moves is a finding for the
@@ -19,18 +19,18 @@ import re
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DOCS = os.path.join(REPO, "docs")
+DOCS = os.path.join(REPO, "board")
 HREF = re.compile(r'''href\s*=\s*["']([^"']+)["']''', re.I)
 ID_ATTR = re.compile(r'''\bid\s*=\s*["']([^"']+)["']''', re.I)
 
 
 def main() -> int:
     if not os.path.isdir(DOCS):
-        print("check_links: docs/ does not exist - run scripts/build_site.py first")
+        print("check_links: board/ does not exist - run scripts/build_site.py first")
         return 1
     pages = {f for f in os.listdir(DOCS) if f.endswith(".html")}
     if not pages:
-        print("check_links: no pages in docs/")
+        print("check_links: no pages in board/")
         return 1
     anchors = {f: {m for m in ID_ATTR.findall(open(os.path.join(DOCS, f), encoding="utf-8").read())}
                for f in pages}

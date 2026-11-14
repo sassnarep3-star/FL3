@@ -12,6 +12,11 @@
 </header>
 <div class="wrap">
 <nav class="side"><div class="navgroup"><span>Read first</span><a href="executive-summary.html">Executive summary</a><a href="questions.html">Questions & gaps</a><a href="suggestions.html">Suggestions</a></div><div class="navgroup"><span>Verified data</span><a href="standings.html">Standings</a><a href="games.html">Game results</a><a href="team-stats.html">Team stats</a><a href="injuries.html">Injuries & availability</a><a href="league-facts.html">League facts</a></div><div class="navgroup"><span>Model & signals</span><a href="model.html">Model</a><a href="parameters.html">Parameter register</a><a href="lines.html">Lines</a><a href="signals.html">Signals</a><a href="correlation.html">Correlation</a><a href="validation.html">Validation gates</a><a href="leaderboard.html">Leaderboard</a></div><div class="navgroup"><span>Verification & ops</span><a href="methodology.html" class=on>Methodology</a><a href="verification.html">Verification log</a><a href="sources.html">Sources</a><a href="flagged.html">Flagged for review</a></div>
+  <div class="navgroup"><span>This repo has two published tracks</span>
+    <a href="../index.html" title="the sibling dashboard built from data/*.json by scripts/build_site.py">Sibling dashboard (root)</a>
+    <a href="../docs/index.html" title="the sibling track's documentation section">Sibling docs</a>
+    <a href="../COORDINATION.md" title="shared task board - claims, scopes, source log">Task board</a>
+  </div>
   <div class="navgroup"><span>Repo</span>
     <a href="https://github.com/sassnarep3-star/FL3" rel="noopener nofollow" target="_blank">GitHub</a>
     <a href="https://github.com/sassnarep3-star/FL3/blob/main/COORDINATION.md" rel="noopener nofollow" target="_blank">Coordination board</a>
@@ -35,7 +40,7 @@
 <p>I-07 exists because it found a real bug: four hand-written CSVs had unquoted commas (and one missing column), which silently shifted <code>source_id</code> and <code>accessed_utc</code> into the wrong cells on 29 rows. It is negative-tested by corrupting a row and confirming the build exits 1.</p>
 <p>A separate link check (<code>scripts/check_links.py</code>) fails on a broken internal link, an anchor that does not exist, or a page unreachable from <code>index.html</code>; external links are reported, never fatal - a league page that moves is a finding for the review queue, not a reason to break a deploy.</p>
 <h2 id="how-the-site-gets-published">How the site gets published</h2>
-<p>Pages for this repo is a <strong>legacy branch build from <code>main</code> / <code>docs</code></strong> - the agent token could not change that setting (HTTP 403, [FLG-027](flagged.html)), so the committed <code>docs/</code> is what publishes. <code>.github/workflows/site.yml</code> is therefore the <em>gate</em>: on every push and PR it re-runs <code>model.py</code>, <code>stats_tables.py</code>, <code>make_leaderboard.py</code>, <code>verify.py</code>, <code>build_site.py --check</code> and <code>check_links.py</code>, then fails if the regenerated <code>docs/</code>/<code>data/</code> differs from what was committed. Combined with a deterministic build (no timestamp embedded in any page), that means <strong>a hand-edited or stale page cannot survive on the live site</strong>: it fails CI at the PR stage.</p>
+<p>Pages for this repo is a <strong>legacy branch build from <code>main</code> / <code>docs</code></strong> - the agent token could not change that setting (HTTP 403, [FLG-027](flagged.html)), so the committed <code>board/</code> is what publishes. <code>.github/workflows/site.yml</code> is therefore the <em>gate</em>: on every push and PR it re-runs <code>model.py</code>, <code>stats_tables.py</code>, <code>make_leaderboard.py</code>, <code>verify.py</code>, <code>build_site.py --check</code> and <code>check_links.py</code>, then fails if the regenerated <code>board/</code>/<code>data/</code> differs from what was committed. Combined with a deterministic build (no timestamp embedded in any page), that means <strong>a hand-edited or stale page cannot survive on the live site</strong>: it fails CI at the PR stage.</p>
 <h2 id="worked-example-of-the-discipline-paying-for-itself">Worked example of the discipline paying for itself</h2>
 <p>The team-stat pages publish 39 numeric columns with no header row. Rather than guess from magnitudes - the normal way a scraper "just knows" that column 6 is touchdowns - the mapping was accepted only where an identity pins it, and then confirmed by a <em>league-wide</em> identity that only a correct mapping can satisfy:</p>
 <pre><code>
@@ -48,10 +53,10 @@ python3 scripts/verify.py        # identity checks; exit 1 blocks the publish (g
 python3 scripts/model.py         # derived metrics, calibration, ratings, priced slate
 python3 scripts/stats_tables.py  # closed-form thresholds (break-even, N_min, parlay EV)
 python3 scripts/make_leaderboard.py
-python3 scripts/build_site.py    # renders docs/ from data/ + content/
+python3 scripts/build_board.py    # renders board/ from data/ + content/board/
 python3 scripts/check_links.py   # internal links + registry integrity
 </code></pre>
-<p>No third-party packages: standard library only, so the same build runs in GitHub Actions and on a laptop. <code>docs/</code> is generated - edit <code>data/</code> or <code>content/</code>, never the HTML.</p>
+<p>No third-party packages: standard library only, so the same build runs in GitHub Actions and on a laptop. <code>board/</code> is generated - edit <code>data/</code> or <code>content/</code>, never the HTML.</p>
 <h2 id="what-is-not-verified-listed-rather-than-hidden">What is <em>not</em> verified, listed rather than hidden</h2>
 <ul>
 <li>The fetchers have never been executed here: this sandbox blocks nfl.com and GitHub release assets, so</li>

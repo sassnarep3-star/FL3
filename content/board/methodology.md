@@ -60,10 +60,10 @@ that moves is a finding for the review queue, not a reason to break a deploy.
 ## How the site gets published
 
 Pages for this repo is a **legacy branch build from `main` / `docs`** - the agent token could not change
-that setting (HTTP 403, [FLG-027](flagged.html)), so the committed `docs/` is what publishes.
+that setting (HTTP 403, [FLG-027](flagged.html)), so the committed `board/` is what publishes.
 `.github/workflows/site.yml` is therefore the *gate*: on every push and PR it re-runs `model.py`,
 `stats_tables.py`, `make_leaderboard.py`, `verify.py`, `build_site.py --check` and `check_links.py`, then
-fails if the regenerated `docs/`/`data/` differs from what was committed. Combined with a deterministic
+fails if the regenerated `board/`/`data/` differs from what was committed. Combined with a deterministic
 build (no timestamp embedded in any page), that means **a hand-edited or stale page cannot survive on the
 live site**: it fails CI at the PR stage.
 
@@ -88,12 +88,12 @@ python3 scripts/verify.py        # identity checks; exit 1 blocks the publish (g
 python3 scripts/model.py         # derived metrics, calibration, ratings, priced slate
 python3 scripts/stats_tables.py  # closed-form thresholds (break-even, N_min, parlay EV)
 python3 scripts/make_leaderboard.py
-python3 scripts/build_site.py    # renders docs/ from data/ + content/
+python3 scripts/build_board.py    # renders board/ from data/ + content/board/
 python3 scripts/check_links.py   # internal links + registry integrity
 ```
 
 No third-party packages: standard library only, so the same build runs in GitHub Actions and on a laptop.
-`docs/` is generated - edit `data/` or `content/`, never the HTML.
+`board/` is generated - edit `data/` or `content/`, never the HTML.
 
 ## What is *not* verified, listed rather than hidden
 

@@ -14,7 +14,7 @@ clear before it is ever called an edge.
 | derive | `scripts/model.py` | verified rows | `derived_*`, `model_calibration.csv` | only arithmetic over verified values |
 | rate | `scripts/model.py` | standings + games | `power_ratings.csv` | no schedule adjustment (Q-04) - stated, not hidden |
 | price | `scripts/model.py` | ratings + calibration | `lines_origination.csv` | every constant tagged with `n` and `status` |
-| publish | `scripts/build_site.py` | everything | `docs/` | link check + source-registry check |
+| publish | `scripts/build_board.py` | everything | `board/` | link check + source-registry check |
 
 ## Step 1 - team strength
 

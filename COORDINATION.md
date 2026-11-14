@@ -43,7 +43,7 @@ script as "verified" unless it was actually run.
 | T7 | Validation gates (anti-luck / skill isolation) + correlation policy | done | S1-b37bd750 | `data/gates.csv`, `models/gates.yaml`, `data/decision_math.csv`, `content/validation.md`, `content/correlation.md` | Gate definitions, minimum-N math |
 | T8 | Open questions, required information, known gaps | done | S1-b37bd750 | `data/questions.csv`, `content/questions.md` | Blocking vs non-blocking |
 | T9 | Suggestions register (review + choose best path before implementing) | done | S1-b37bd750 | `data/suggestions.csv`, `content/suggestions.md` | No suggestion is implemented without an owner decision |
-| T10 | Site generator + Pages publish + link checker | done | S1-b37bd750 | `site/**`, `scripts/**`, `docs/**` (generated), `content/**`, `.github/workflows/site.yml`, `README.md`, `.gitignore` | `python3 scripts/build_site.py` |
+| T10 | Site generator + Pages publish + link checker | done | S1-b37bd750 | `site/**`, `scripts/**`, `docs/**` (generated), `content/**`, `.github/workflows/site.yml`, `README.md`, `.gitignore` | `python3 scripts/build_board.py` |
 | T11 | Flagged for Review page (irregularities + unverified items) | done | S1-b37bd750 | `data/flags.csv`, `content/flagged.md` | |
 | T12 | Executive summary | done | S1-b37bd750 | `content/executive-summary.md` | |
 | T13 | Final integration: pull --rebase, rebuild, link check, PR → main, merge, confirm Pages | in progress | S1-b37bd750 | whole repo | Runs last |
@@ -64,7 +64,7 @@ Statuses: `unclaimed` → `in progress` → `needs review` (published on Flagged
 | 2026-11-14T04:05Z | S1-b37bd750 | Wrote the data layer (`data/`: standings, team stats, games, injuries, sources, facts, questions, suggestions) from fetch-tool reads of official pages; `scripts/lib_fl3.py` + `scripts/verify.py` added |
 | 2026-11-14T05:20Z | S1-b37bd750 | Added `scripts/model.py` (derive → calibrate → rate → price) and `models/line_model.yaml`; first `verify.py` run exited 1 and found three real defects (PCT formula, rounding tolerance, source TD/INT mismatch) instead of passing silently |
 | 2026-11-14T05:55Z | S1-b37bd750 | `scripts/stats_tables.py` (break-even / minimum-sample / parlay math), `scripts/make_leaderboard.py`, `scripts/fetch_nfl_data.py` (written, **not executed** - see FLG-024), `models/gates.yaml`, `models/leaderboard.yaml`, `models/strategy_registry.yaml` |
-| 2026-11-14T06:15Z | S1-b37bd750 | Site generator `scripts/build_site.py` + `scripts/check_links.py`: 20 pages in `docs/`, every table rendered from `data/`, verify+link gates wired into the build, `README.md`, `.gitignore`, `.github/workflows/site.yml` (Pages via upload/deploy-pages) |
+| 2026-11-14T06:15Z | S1-b37bd750 | Site generator `scripts/build_board.py` + `scripts/check_links.py`: 20 pages in `board/`, every table rendered from `data/`, verify+link gates wired into the build, `README.md`, `.gitignore`, `.github/workflows/site.yml` (Pages via upload/deploy-pages) |
 | 2026-11-14T06:35Z | S1-b37bd750 | Pages settings checked: `build_type=legacy`, source `main`/`docs`; `PUT /pages {build_type: workflow}` returned **403 Resource not accessible by integration**, so deployment stays branch-based and `.github/workflows/site.yml` is a gate (regenerate → verify → build → link check → staleness check) rather than the publisher. The build was made deterministic (no timestamp in any page) so the staleness check is meaningful. Logged as FLG-027 |
 | 2026-11-14T06:20Z | S1-b37bd750 | **Structural data bug found and fixed**: `data/suggestions.csv` (21 rows), `data/sources.csv` (5 rows), `data/signals.csv` (1 row) and `data/games_2026.csv` (2 rows) had unquoted commas / a missing column, which silently shifted `source_id` and `accessed_utc` into the wrong cells. Rewritten through `csv.writer`. Added `verify.py` check **I-07** (every CSV row must parse with exactly its header's field count) so this class of error now fails the build; negative-tested by corrupting a row and confirming exit 1 | |
 
@@ -87,7 +87,7 @@ Format: `task | source | URL | accessed UTC | what was verified | irregularities
 
 | Time (UTC) | From | To | Task | Reason |
 | --- | --- | --- | --- | --- |
-| 2026-11-14T06:20Z | S1-b37bd750 | (any follow-on session) | T13 integration | Board is ready for PR → merge: run `python3 scripts/model.py && python3 scripts/build_site.py` after any `data/` edit; `fetch_nfl_data.py` still needs one run on a networked host (FLG-024) | |
+| 2026-11-14T06:20Z | S1-b37bd750 | (any follow-on session) | T13 integration | Board is ready for PR → merge: run `python3 scripts/model.py && python3 scripts/build_board.py` after any `data/` edit; `fetch_nfl_data.py` still needs one run on a networked host (FLG-024) | |
 
 ## Conflict log
 
@@ -113,7 +113,7 @@ Format: `task | source | URL | accessed UTC | what was verified | irregularities
    mark `done`.
 7. **Never mark verified without checking an official source and linking it.** Blank + flagged beats
    guessed. No inferred values.
-8. **Shared outputs** (`data/*`, site index, navigation, `docs/` static build) are rewritten only by
+8. **Shared outputs** (`data/*`, site index, navigation, `board/` static build) are rewritten only by
    the final integration session.
 9. A claim older than 60 minutes with no commits may be taken over; note the handoff in the Handoff
    log.

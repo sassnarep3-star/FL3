@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Build the GitHub Pages site in docs/ from data/ + content/.
+"""Build the FL3 review board in board/ from data/ + content/board/.
+
+`board/` is a self-contained static site published as a *subdirectory* of the repo root, which is
+what GitHub Pages builds for this repo (source: branch `main`, path `/`). It deliberately does not
+touch the root-level pages or `docs/`, which another session generates from its own `data/*.json`:
+two build systems, one repo, no shared output files.
+
 
 Design rules that the whole repo depends on:
 
@@ -28,9 +34,20 @@ from datetime import datetime, timezone
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib_fl3 import REPO, read_rows  # noqa: E402
 
-DOCS = os.path.join(REPO, "docs")
-CONTENT = os.path.join(REPO, "content")
+BOARD = os.path.join(REPO, "board")
+CONTENT = os.path.join(REPO, "content", "board")
 SITE = os.path.join(REPO, "site")
+
+# the csvs this track owns - the board copies exactly these into board/data/ and nothing else, so a
+# file another session owns is never republished here with a different interpretation
+BOARD_DATA = [
+    "standings_2026.csv", "games_2026.csv", "team_pass_off_2026.csv", "team_rush_off_2026.csv",
+    "team_pass_def_2026.csv", "injuries_2026_w10.csv", "slate_2026_w10.csv", "sources.csv",
+    "league_facts.csv", "questions.csv", "suggestions.csv", "signals.csv", "gates.csv",
+    "flags.csv", "derived_team_metrics.csv", "derived_league_stats.csv", "derived_correlations.csv",
+    "power_ratings.csv", "lines_origination.csv", "model_calibration.csv", "decision_math.csv",
+    "leaderboard.csv", "verification_report.csv",
+]
 
 # slug -> (title, nav label, group)
 PAGES = [
@@ -484,6 +501,11 @@ def page_html(slug, title, body):
 </header>
 <div class="wrap">
 <nav class="side">{navhtml}
+  <div class="navgroup"><span>This repo has two published tracks</span>
+    <a href="../index.html" title="the sibling dashboard built from data/*.json by scripts/build_site.py">Sibling dashboard (root)</a>
+    <a href="../docs/index.html" title="the sibling track's documentation section">Sibling docs</a>
+    <a href="../COORDINATION.md" title="shared task board - claims, scopes, source log">Task board</a>
+  </div>
   <div class="navgroup"><span>Repo</span>
     <a href="https://github.com/sassnarep3-star/FL3" rel="noopener nofollow" target="_blank">GitHub</a>
     <a href="https://github.com/sassnarep3-star/FL3/blob/main/COORDINATION.md" rel="noopener nofollow" target="_blank">Coordination board</a>
@@ -517,6 +539,27 @@ def build(check_only: bool = False) -> int:
         if rc != 0:
             return rc
     load_sources()
+
+    # board/ is a build artefact: recreate it from the sources each time, and copy in exactly the
+    # tables this track owns, so the published CSVs and the published pages cannot drift apart.
+    for sub in ("", "assets", "data"):
+        os.makedirs(os.path.join(BOARD, sub), exist_ok=True)
+    with open(os.path.join(SITE, "assets", "style.css"), encoding="utf-8") as fh:
+        css = fh.read()
+    with open(os.path.join(BOARD, "assets", "style.css"), "w", encoding="utf-8") as fh:
+        fh.write(css)
+    copied = []
+    for f in BOARD_DATA:
+        src = os.path.join(REPO, "data", f)
+        if not os.path.exists(src):
+            print(f"BUILD FAIL - board expects data/{f} (declared in BOARD_DATA) and it is missing")
+            return 1
+        with open(src, encoding="utf-8") as fh:
+            blob = fh.read()
+        with open(os.path.join(BOARD, "data", f), "w", encoding="utf-8") as fh:
+            fh.write(blob)
+        copied.append(f)
+
     built = {}
     for slug, title, label, group in PAGES:
         md_path = os.path.join(CONTENT, slug + ".md")
@@ -534,8 +577,8 @@ def build(check_only: bool = False) -> int:
         if slug == "sources":
             body += render_table("sources.csv", caption="Every source the data layer is allowed to cite.")
             unknown = set()
-            for fname in os.listdir(os.path.join(REPO, "data")):
-                if not fname.endswith(".csv") or fname == "sources.csv":
+            for fname in BOARD_DATA:
+                if fname == "sources.csv":
                     continue
                 for r in read_rows(fname):
                     for sid in (r.get("source_id") or "").replace(";", " ").split():
@@ -574,27 +617,27 @@ def build(check_only: bool = False) -> int:
             body += render_table("league_facts.csv",
                                  caption="Rules and cadence the model is allowed to depend on.")
         html_out = page_html(slug, title, body)
-        with open(os.path.join(DOCS, slug + ".html"), "w", encoding="utf-8") as fh:
+        with open(os.path.join(BOARD, slug + ".html"), "w", encoding="utf-8") as fh:
             fh.write(html_out)
         built[slug] = html_out
 
-    with open(os.path.join(DOCS, "index.html"), "w", encoding="utf-8") as fh:
+    with open(os.path.join(BOARD, "index.html"), "w", encoding="utf-8") as fh:
         fh.write(built["index"])
     # no build artefact may be a broken site
-    for keep in (".nojekyll", "README.md"):
+    for keep in (".nojekyll",):
         src = os.path.join(SITE, keep)
         if os.path.exists(src):
             with open(src, encoding="utf-8") as fh:
                 blob = fh.read()
-            with open(os.path.join(DOCS, keep), "w", encoding="utf-8") as fh:
+            with open(os.path.join(BOARD, keep), "w", encoding="utf-8") as fh:
                 fh.write(blob)
     if not check_only:
         rc = run_gate("check_links.py", "link and registry integrity")
         if rc != 0:
             return rc
     digest = hashlib.sha1("".join(built[k] for k in sorted(built)).encode()).hexdigest()[:12]
-    print(f"built {len(built)} pages -> docs/  (content sha1 {digest}; output is deterministic - "
-          f"no build timestamp is embedded, so CI can compare docs/ against data/)")
+    print(f"built {len(built)} pages -> board/  ({len(copied)} data tables copied; content sha1 {digest}; "
+          f"deterministic output - no build timestamp is embedded, so CI can compare board/ against data/)")
     return 0
 
 
