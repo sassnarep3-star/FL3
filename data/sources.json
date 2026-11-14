@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "title": "Source registry — official / primary sources only",
+    "policy": "A row may only carry a value if an official NFL source states it. Statistical models are labelled 'model output' and are never presented as facts. Third-party aggregators, social posts and memory are not used as evidence.",
+    "captured_utc": "2026-11-14",
+    "official_tier": "nfl.com and operations.nfl.com (the league's own sites)",
+    "secondary_tier": "League-issued statements republished by NFL.com newsroom (still nfl.com URLs)"
+  },
+  "sources": [
+    {
+      "id": "SRC-STAND-DIV",
+      "title": "NFL 2026 Division Standings",
+      "url": "https://www.nfl.com/standings/division/2026/REG",
+      "publisher": "NFL.com (official)",
+      "used_for": "W-L-T, PCT, PF, PA, Net Pts, home/road/div/conf splits, streak, last 5 — for all 32 clubs",
+      "verified": true,
+      "verified_utc": "2026-11-14",
+      "notes": "All eight divisions are rendered on this single page. Snapshot does not include the Week 10 Thursday game."
+    },
+    {
+      "id": "SRC-STAND-LEAGUE",
+      "title": "NFL 2026 League Standings",
+      "url": "https://www.nfl.com/standings/league/2026/REG",
+      "publisher": "NFL.com (official)",
+      "used_for": "Cross-check of the same club-level figures in a different sort order",
+      "verified": true,
+      "verified_utc": "2026-11-14",
+      "notes": "Second official rendering used to confirm the division-page values match."
+    },
+    {
+      "id": "SRC-INJ",
+      "title": "Official NFL Injury Report — Week 10, 2026 season",
+      "url": "https://www.nfl.com/injuries/",
+      "publisher": "NFL.com (official)",
+      "used_for": "Player, position, injury, practice status, game status — for all 28 clubs playing in Week 10",
+      "verified": true,
+      "verified_utc": "2026-11-14",
+      "notes": "Only clubs scheduled in that week appear. Clubs on bye have no table."
+    },
+    {
+      "id": "SRC-SCHED",
+      "title": "NFL 2026 Schedule — Week 10",
+      "url": "https://www.nfl.com/schedules/2026/REG/",
+      "publisher": "NFL.com (official)",
+      "used_for": "Fixture list, kickoff time, broadcast network, venue/international designation, final scores where published",
+      "verified": true,
+      "verified_utc": "2026-11-14",
+      "notes": "Kickoff times are Eastern as published by NFL.com. Individual game pages follow /games/<away>-at-<home>-2026-reg-10."
+    },
+    {
+      "id": "SRC-SCHED-WK",
+      "title": "NFL 2026 Schedule by week — Week 10",
+      "url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+      "publisher": "NFL.com (official)",
+      "used_for": "Bye-week confirmation (clubs absent from the Week 10 slate)",
+      "verified": false,
+      "verified_utc": null,
+      "notes": "URL published in NFL.com navigation; not independently fetched on 2026-11-14. Bye clubs are instead derived from the verified Week 10 fixture list and flagged as derived."
+    },
+    {
+      "id": "SRC-INJ-POLICY",
+      "title": "NFL Injury Report Policy (operations)",
+      "url": "https://operations.nfl.com/the-rules/nfl-injury-report-policy/",
+      "publisher": "NFL Operations (official)",
+      "used_for": "Intended source for practice-status definitions and reporting deadlines",
+      "verified": false,
+      "verified_utc": null,
+      "notes": "Returned an empty body on 2026-11-14. Policy language is therefore NOT quoted anywhere on this site. See flag F06."
+    },
+    {
+      "id": "SRC-NEWS-LJ",
+      "title": "NFL news roundup: Ravens confirm Lamar Jackson expected to miss 6-10 weeks",
+      "url": "https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13",
+      "publisher": "NFL.com newsroom (official league site)",
+      "used_for": "Evidence that a starting QB absence can be absent from the injury table",
+      "verified": true,
+      "verified_utc": "2026-11-14",
+      "notes": "Headline captured from the Week 10 injury page's news module."
+    },
+    {
+      "id": "SRC-NEWS-DARNOLD",
+      "title": "Sam Darnold ruled out for Seahawks' Week 10 game vs. Raiders",
+      "url": "https://www.nfl.com/news/sam-darnold-ruled-out-for-seahawks-week-10-game-vs-raiders",
+      "publisher": "NFL.com newsroom (official league site)",
+      "used_for": "Quarterback change confirmation for SEA @ LV",
+      "verified": true,
+      "verified_utc": "2026-11-14",
+      "notes": "Headline captured from the Week 10 injury page's news module."
+    },
+    {
+      "id": "SRC-NEWS-TEAM-BYTEAM",
+      "title": "NFL injury report page — club tables",
+      "url": "https://www.nfl.com/injuries/",
+      "publisher": "NFL.com (official)",
+      "used_for": "Which clubs have a table in a given week (28 of 32 in Week 10)",
+      "verified": true,
+      "verified_utc": "2026-11-14",
+      "notes": "Presence/absence of a club table is the only official signal used for bye weeks."
+    }
+  ],
+  "rejected_sources": [
+    {
+      "what": "Third-party odds screens, line-history aggregators, DFS projections",
+      "why": "Not official; no licensing; cannot be re-verified by the owner from a primary source.",
+      "consequence": "Market comparison, closing-line value and implied-probability extraction are unmeasurable in this build (flag F07)."
+    },
+    {
+      "what": "Depth charts and roster rankings published outside club/league control",
+      "why": "No official NFL source states a depth-chart ordinal for each player.",
+      "consequence": "'2nd/3rd/4th string' is expressed as an ordinal *model estimate* with a confidence band, never as fact (flag F05)."
+    }
+  ]
+}
