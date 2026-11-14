@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suggestions Board — FL3</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="brand"><h1>FL3 · NFL Decision Intelligence</h1><span class="tag">Suggestions Board · review and choose a path before anything is implemented</span></div>
+  <nav class="site">
+    <a href="index.html">Dashboard</a><a href="executive-summary.html">Summary</a>
+    <a href="requirements.html">Requirements</a><a class="active" href="suggestions.html">Suggestions</a>
+    <a href="lines.html">Lines</a><a href="injuries.html">Injuries &amp; Depth</a>
+    <a href="strategies.html">Strategies</a><a href="leaderboard.html">Leaderboard</a>
+    <a href="methodology.html">Methodology</a><a href="data.html">Data</a>
+    <a href="sources.html">Sources</a><a href="flagged.html">Flagged</a>
+  </nav>
+</header>
+<main>
+
+<div class="section">
+  <h2>Suggestions Board</h2>
+  <p class="lead">Every suggestion below is a <strong>proposal only</strong>. Each one lists the problem,
+  decision options with pros/cons, a recommended path, and what it unblocks.
+  <strong>Nothing here is implemented</strong> — a reviewer picks an option (or defers) first.
+  How to respond: record the chosen option in COORDINATION.md's request log (e.g., "S1 → option A"),
+  then the implementing session executes it.</p>
+  <div class="callout">
+    <strong>Review checklist per suggestion:</strong> ① Is the problem real (evidence linked)?
+    ② Which option fits our constraints (no-manual-input goal, sandbox network limits, budget)?
+    ③ What does it unblock, and what does it cost? ④ Approve / edit / defer.
+  </div>
+
+  <div class="qbox">
+    <h3>S1 · Ingest game-level results for Weeks 1–9 <span class="badge b-flag">high priority</span></h3>
+    <div class="meta">Problem: ratings rely on aggregates only; parlay-outcome correlations and backtests are impossible without game rows (blank cells in the correlation matrix). Evidence: <a href="data/correlation-matrix.csv">correlation-matrix.csv</a> flagged rows.</div>
+    <p><strong>Option A — GitHub-hosted dataset (nflverse) pulled via git/API.</strong> Pros: fits this environment's network rules (github.com reachable), free, historical depth, weekly automation via GitHub Actions. Cons: third-party compilation (must be labeled trusted tier, cross-checked vs NFL.com scores).</p>
+    <p><strong>Option B — transcribe NFL.com weekly result pages manually each week.</strong> Pros: official-source purity. Cons: manual labor (violates the no-manual-input goal), error-prone.</p>
+    <p><strong>Option C — defer.</strong> Cons: correlation cells stay blank; strategy gates G3/G6 stay blocked.</p>
+    <p>▶ <strong>Recommended: A</strong> with a verification step (weekly spot-check vs NFL.com game pages; mismatches → Flagged). Unblocks: SRS ratings, parlay correlations, backtesting, gates G3/G6.</p>
+    <p>Status: <span class="badge b-unv">proposed — awaiting decision</span></p>
+  </div>
+
+  <div class="qbox">
+    <h3>S2 · Build the player-stat pipeline for prop origination <span class="badge b-flag">high priority</span></h3>
+    <div class="meta">Problem: player-prop combos (explicitly requested) cannot be originated or graded without player baselines (targets, snaps, usage). Evidence: <a href="requirements.html">Q7</a>.</div>
+    <p><strong>Option A — nflverse player-stats dataset (GitHub).</strong> Pros: same fit as S1; consistent schema. Cons: weekly update latency; trusted-tier labeling.</p>
+    <p><strong>Option B — official NFL.com stats pages scraped per player.</strong> Pros: official. Cons: high fetch volume; no clean bulk export.</p>
+    <p><strong>Option C — start with injury-driven prop signals only (no stat baselines).</strong> Pros: zero new data. Cons: prop lines can't be originated — only qualitative notes.</p>
+    <p>▶ <strong>Recommended: A</strong>, staged after S1 (shared infrastructure). Unblocks: prop origination, prop correlations, strategy class P.</p>
+    <p>Status: <span class="badge b-unv">proposed — awaiting decision</span></p>
+  </div>
+
+  <div class="qbox">
+    <h3>S3 · Odds &amp; closing-line feed <span class="badge b-flag">high priority</span></h3>
+    <div class="meta">Problem: we hold only snapshots; books disagree up to 3 pts (SEA-LV) and even on who is favored (CAR-NO). CLV gate (G4) has no closing line. Evidence: <a href="flagged.html">F4, F5, F6</a>.</div>
+    <p><strong>Option A — free aggregator API or weekly snapshot service.</strong> Pros: low cost, time-stamped. Cons: coverage varies; reliability needs monitoring.</p>
+    <p><strong>Option B — paid odds API (e.g., commercial odds provider).</strong> Pros: full history, closing lines, multiple books. Cons: cost — needs budget decision (Q1-adjacent).</p>
+    <p><strong>Option C — record our own daily snapshots from the five current sources.</strong> Pros: free. Cons: partial day coverage; manual-ish unless scripted — borderline vs no-manual-input goal.</p>
+    <p>▶ <strong>Recommended: A first, upgrade to B when stakes justify.</strong> Unblocks: gate G4, open-to-close signals, resolves Q10.</p>
+    <p>Status: <span class="badge b-unv">proposed — awaiting decision</span></p>
+  </div>
+
+  <div class="qbox">
+    <h3>S4 · Depth-chart tier tie-break policy <span class="badge b-unv">medium priority</span></h3>
+    <div class="meta">Problem: club charts are self-labeled "unofficial", can be stale (MIN lists traded player), and can omit players who appear on official reports (Parsons/GB, Joseph/DET). Evidence: <a href="flagged.html">F1, F2, F3, F9</a>.</div>
+    <p><strong>Option A — hierarchy rule: coach statement &gt; official game-status report &gt; club depth chart &gt; media.</strong> Pros: deterministic; matches how teams actually announce. Cons: coach statements need monitoring.</p>
+    <p><strong>Option B — club chart always wins for tier; report wins for availability.</strong> Pros: simple separation (tier vs status). Cons: stale charts keep wrong tiers.</p>
+    <p><strong>Option C — flag everything ambiguous and keep tiers blank.</strong> Pros: maximally honest. Cons: deficiency scores thin out.</p>
+    <p>▶ <strong>Recommended: A</strong>, with every applied tie-break recorded in the Flagged page log. Unblocks: Q4, sharper deficiency scores.</p>
+    <p>Status: <span class="badge b-unv">proposed — awaiting decision</span></p>
+  </div>
+
+  <div class="qbox">
+    <h3>S5 · Recover depth data for HOU &amp; SF <span class="badge b-unv">medium priority</span></h3>
+    <div class="meta">Problem: HOU publishes its chart as an image (not machine-readable); SF's depth page returned HTTP 500 on two attempts. These teams have major Week 10 absences. Evidence: <a href="flagged.html">F7, F8</a>.</div>
+    <p><strong>Option A — fetch alternate official surfaces (club roster pages, transactions) and reconstruct tiers from jersey/roster order + beat-writer confirmations.</strong> Pros: restores coverage. Cons: reconstruction is inference-adjacent — would need its own verification rules (only "confirmed" rows enter tables).</p>
+    <p><strong>Option B — wait for SF page to recover; manually transcribe the HOU image once with dual verification.</strong> Pros: keeps "verified" bar. Cons: one-time manual step.</p>
+    <p><strong>Option C — leave blank.</strong> Pros: zero risk. Cons: user requirement (defense deficiency tracking) unmet for two key teams.</p>
+    <p>▶ <strong>Recommended: B</strong> (small, verified, one-time), then A as a fallback process. Unblocks: Q11.</p>
+    <p>Status: <span class="badge b-unv">proposed — awaiting decision</span></p>
+  </div>
+
+  <div class="qbox">
+    <h3>S6 · Contest integrity &amp; skill-scoring thresholds <span class="badge b-unv">medium priority</span></h3>
+    <div class="meta">Problem: leaderboard entries must be time-stamped pre-kickoff and ranked by skill, not luck. Evidence: <a href="requirements.html">Q8, Q12</a>; scoring design on <a href="leaderboard.html">Leaderboard</a>.</div>
+    <p><strong>Option A — git-committed entries + pre-registered thresholds (min 50 graded bets, FDR-corrected p&lt;0.05, positive CLV average).</strong> Pros: tamper-proof timestamps (this repo is the ledger); thresholds battle-tested in the literature. Cons: 50-bet minimum means nothing ranks early in a season.</p>
+    <p><strong>Option B — allow provisional ranking on smaller samples with wide uncertainty bands shown.</strong> Pros: engagement early. Cons: invites luck-chasing.</p>
+    <p><strong>Option C — both: provisional list (clearly badged) + official list after gates.</strong> Pros: balances. Cons: two leaderboards to maintain.</p>
+    <p>▶ <strong>Recommended: C</strong> with A's thresholds for the official list. Unblocks: Q8, Q12.</p>
+    <p>Status: <span class="badge b-unv">proposed — awaiting decision</span></p>
+  </div>
+
+  <div class="qbox">
+    <h3>S7 · Owner parameters: bankroll, rewards, jurisdiction <span class="badge b-flag">high priority</span></h3>
+    <div class="meta">Problem: Q1/Q2/Q9 cannot be answered from public data — they are owner decisions. Without them, staking rules and rewards are undefined.</div>
+    <p><strong>Option A — conservative default pack: paper contest only, 1-unit flat stake, recognition rewards (badges + season trophy), no cash pool.</strong> Pros: zero legal/budget exposure; starts immediately. Cons: less motivation if cash was desired.</p>
+    <p><strong>Option B — cash prize pool with % of bankroll as units, season-end payout.</strong> Pros: real incentive. Cons: needs budget + jurisdiction confirmation first.</p>
+    <p><strong>Option C — hybrid: weekly non-cash badges + optional season prize once jurisdiction clears.</strong> Pros: staged. Cons: more rules to write.</p>
+    <p>▶ <strong>Recommended: A to launch now, revisit with B/C once parameters are provided.</strong> Unblocks: Q1, Q2, Q9.</p>
+    <p>Status: <span class="badge b-unv">proposed — awaiting decision</span></p>
+  </div>
+
+  <div class="qbox">
+    <h3>S8 · Suggestions review workflow <span class="badge b-unv">low priority</span></h3>
+    <div class="meta">Problem: the brief requires suggestions to be reviewed and a path chosen before implementation; the review channel is not yet defined (Q14).</div>
+    <p><strong>Option A — decisions recorded in COORDINATION.md request log (option letter + date + reviewer initials).</strong> Pros: single shared ledger, already exists. Cons: repo-centric.</p>
+    <p><strong>Option B — GitHub Issues per suggestion with an "approved option" label.</strong> Pros: notifications, discussion threads. Cons: parallel tracking surfaces.</p>
+    <p><strong>Option C — a Decisions column added to this page, edited only by the integration session.</strong> Pros: visible on the site. Cons: requires site edits per decision.</p>
+    <p>▶ <strong>Recommended: A + C</strong> (ledger is source of truth; site reflects it). Unblocks: Q14, orderly implementation.</p>
+    <p>Status: <span class="badge b-unv">proposed — awaiting decision</span></p>
+  </div>
+
+  <h3>Decision log</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Suggestion</th><th>Options</th><th>Recommended</th><th>Reviewer decision</th><th>Date</th></tr></thead>
+    <tbody>
+      <tr><td>S1 game-data ingestion</td><td>A / B / C</td><td>A</td><td>— (awaiting review)</td><td>—</td></tr>
+      <tr><td>S2 player-stat pipeline</td><td>A / B / C</td><td>A</td><td>— (awaiting review)</td><td>—</td></tr>
+      <tr><td>S3 odds &amp; CLV feed</td><td>A / B / C</td><td>A→B</td><td>— (awaiting review)</td><td>—</td></tr>
+      <tr><td>S4 tier tie-break policy</td><td>A / B / C</td><td>A</td><td>— (awaiting review)</td><td>—</td></tr>
+      <tr><td>S5 HOU/SF depth recovery</td><td>A / B / C</td><td>B</td><td>— (awaiting review)</td><td>—</td></tr>
+      <tr><td>S6 contest thresholds</td><td>A / B / C</td><td>C</td><td>— (awaiting review)</td><td>—</td></tr>
+      <tr><td>S7 owner parameters</td><td>A / B / C</td><td>A</td><td>— (awaiting review)</td><td>—</td></tr>
+      <tr><td>S8 review workflow</td><td>A / B / C</td><td>A+C</td><td>— (awaiting review)</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+</main>
+<footer class="site">FL3 · no suggestion is implemented without a recorded reviewer decision</footer>
+</body>
+</html>

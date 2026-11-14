@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flagged for Review — FL3</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="brand"><h1>FL3 · NFL Decision Intelligence</h1><span class="tag">Flagged for Review · irregularities &amp; unverified items · nothing here blocks the build</span></div>
+  <nav class="site">
+    <a href="index.html">Dashboard</a><a href="executive-summary.html">Summary</a>
+    <a href="requirements.html">Requirements</a><a href="suggestions.html">Suggestions</a>
+    <a href="lines.html">Lines</a><a href="injuries.html">Injuries &amp; Depth</a>
+    <a href="strategies.html">Strategies</a><a href="leaderboard.html">Leaderboard</a>
+    <a href="methodology.html">Methodology</a><a href="data.html">Data</a>
+    <a href="sources.html">Sources</a><a class="active" href="flagged.html">Flagged</a>
+  </nav>
+</header>
+<main>
+
+<div class="section">
+  <h2>Flagged for Review</h2>
+  <p class="lead">Irregularities found during line-by-line verification. Each row links its sources so
+  a reviewer can check it manually. Per project rules these items <strong>do not block</strong> anything —
+  they are published here for post-launch review and change requests.</p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th>ID</th><th>Type</th><th>What we found</th><th>Evidence</th><th>Why it matters</th><th>Suggested action</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>F1</td><td><span class="badge b-flag">chart/report mismatch</span></td>
+        <td>GB's club depth chart (dated Nov 10) does not list Micah Parsons at all, yet the official Week 10 report lists "EDGE Micah Parsons (knee/illness) OUT" for Green Bay.</td>
+        <td><a class="src" href="https://www.packers.com/team/depth-chart">packers.com chart</a> <a class="src" href="https://www.nfl.com/news/nfl-week-10-injury-report-2026-season">official report</a></td>
+        <td>Tier of the replacement (Van Ness/Sorrell) and Parsons' own tier can't be confirmed from the chart.</td>
+        <td>Apply tier tie-break policy (S4); keep Parsons tier blank until resolved.</td>
+      </tr>
+      <tr>
+        <td>F2</td><td><span class="badge b-flag">chart/report mismatch</span></td>
+        <td>Detroit's club chart lists Chuck Clark and Brian Branch at safety but omits Kerby Joseph, who is OUT (knee) on the official report.</td>
+        <td><a class="src" href="https://www.detroitlions.com/team/depth-chart">detroitlions.com chart</a> <a class="src" href="https://www.nfl.com/news/nfl-week-10-injury-report-2026-season">official report</a></td>
+        <td>Joseph's tier and his replacement's tier are unverified (blank in tracker).</td>
+        <td>S4 tie-break; S5 recovery option A.</td>
+      </tr>
+      <tr>
+        <td>F3</td><td><span class="badge b-unv">stale chart</span></td>
+        <td>MIN's chart lists Kirk Cousins 4th at QB although the club traded for him Nov 10 (for a 2027 3rd-rounder) and named him in the QB competition Wednesday.</td>
+        <td><a class="src" href="https://www.vikings.com/team/depth-chart">vikings.com chart</a> <a class="src" href="https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-wednesday-nov-11">NFL.com roundup</a></td>
+        <td>QB2/3/4 ordering is timing-sensitive; the tracker uses chart order as published and flags it.</td>
+        <td>Re-check chart Friday/Saturday; S4 policy.</td>
+      </tr>
+      <tr>
+        <td>F4</td><td><span class="badge b-flag">market disagreement</span></td>
+        <td>SEA-LV spread ranged 3.5 (CBS/SBR, Nov 11) to 6.5 (ESPN/betus, Nov 13) after Sam Darnold was ruled out — a ~3-point move that not all books had made.</td>
+        <td><a class="src" href="https://www.espn.com/espn/betting/story/_/id/50414742/2026-nfl-week-10-schedule-odds-point-spreads-totals">ESPN</a> <a class="src" href="https://cbssports.com/betting/news/week-10-nfl-betting-odds-lines-totals-spreads">CBS</a> <a class="src" href="https://www.sportsbookreview.com/picks/nfl/week-10-odds-betting-lines-2026/">SBR</a></td>
+        <td>"The market line" is ambiguous here; any edge number depends on the book chosen.</td>
+        <td>Record both quotes; S3 odds feed to time-stamp moves.</td>
+      </tr>
+      <tr>
+        <td>F5</td><td><span class="badge b-flag">market disagreement</span></td>
+        <td>CAR-NO: SBR (bet365) had Panthers −1.5; BetMGM had Saints −2.5 — books disagree on the favorite itself.</td>
+        <td><a class="src" href="https://www.sportsbookreview.com/picks/nfl/week-10-odds-betting-lines-2026/">SBR</a> <a class="src" href="https://sportsdata.usatoday.com/football/nfl/odds">BetMGM/USA TODAY</a></td>
+        <td>Rare favorite-flip; likely limits/off-market timing; worth manual review of both books.</td>
+        <td>Manual review; S3.</td>
+      </tr>
+      <tr>
+        <td>F6</td><td><span class="badge b-flag">source anomaly</span></td>
+        <td>ESPN shows the MIA-IND total "opened 47.5" vs 38.5 at time of capture (9-pt move) and LAR-AZ "opened 47.5" vs 39.5. Unusual; possibly a typo in the article.</td>
+        <td><a class="src" href="https://www.espn.com/espn/betting/story/_/id/50414742/2026-nfl-week-10-schedule-odds-point-spreads-totals">ESPN</a></td>
+        <td>Open-to-close move signals would be polluted if the "opened" numbers are wrong.</td>
+        <td>Q10 — confirm via second source (S3) before using opening numbers.</td>
+      </tr>
+      <tr>
+        <td>F7</td><td><span class="badge b-flag">source format</span></td>
+        <td>Houston's official depth chart is published as an image on houstontexans.com — not machine-readable.</td>
+        <td><a class="src" href="https://www.houstontexans.com/team/depth-chart">houstontexans.com</a></td>
+        <td>HOU has the week's biggest defensive absences (Hunter, Al-Shaair) but replacement tiers stay blank (policy: no inference).</td>
+        <td>S5 option B (one-time verified transcription) or C (leave blank).</td>
+      </tr>
+      <tr>
+        <td>F8</td><td><span class="badge b-flag">source error</span></td>
+        <td>sf49ers.com depth-chart page returned HTTP 500 on two attempts (2026-11-14).</td>
+        <td><a class="src" href="https://www.sf49ers.com/team/depth-chart">sf49ers.com</a></td>
+        <td>SF faces DAL with WR1 Evans OUT and four CBs questionable — replacement tiers unverified.</td>
+        <td>Retry later; S5.</td>
+      </tr>
+      <tr>
+        <td>F9</td><td><span class="badge b-unv">source labeling</span></td>
+        <td>Six of seven club charts self-label "unofficial" (MIN, GB, SEA, DET, NE, DAL); only Arizona labels its chart "Official Depth Chart". Patriots.com adds that its chart "reflects the opinions of the Patriots.com writers."</td>
+        <td><a class="src" href="https://www.vikings.com/team/depth-chart">MIN</a> <a class="src" href="https://www.azcardinals.com/team/depth-chart">AZ</a> <a class="src" href="https://www.patriots.com/team/depth-chart/">NE</a></td>
+        <td>Tier data is club-published but not club-guaranteed — tiering must respect this.</td>
+        <td>Q3/Q4 tier policy; label tiers "club-published" in all tables (done).</td>
+      </tr>
+      <tr>
+        <td>F10</td><td><span class="badge b-info">noted</span></td>
+        <td>LAC-BAL (MNF) carries no injury designations on the official report for either team.</td>
+        <td><a class="src" href="https://www.nfl.com/news/nfl-week-10-injury-report-2026-season">official report</a></td>
+        <td>Rare clean bill; BAL nonetheless signed kicker Riley Patterson for the game (special-teams change not injury-related).</td>
+        <td>No action; keep note for ST analysis.</td>
+      </tr>
+      <tr>
+        <td>F11</td><td><span class="badge b-info">noted</span></td>
+        <td>JAX lists DT Jordan Davis and S Jessie Bates as OUT with injury designation "rest" — veteran rest, not injury.</td>
+        <td><a class="src" href="https://www.nfl.com/news/nfl-week-10-injury-report-2026-season">official report</a></td>
+        <td>Model treats "rest" OUTs like injuries (weight 0.75/0.5) — may overstate TEN-side difficulty.</td>
+        <td>Consider a "rest" status multiplier in v0.2 (methodology change → S4/S6 review).</td>
+      </tr>
+      <tr>
+        <td>F12</td><td><span class="badge b-unv">market disagreement</span></td>
+        <td>Totals disagree across books on NE-DET (49.5–51.5), KC-ATL (45.5–47.5), PIT-CIN (47.5–50), BUF-NYJ (51–51.5).</td>
+        <td><a class="src" href="https://www.espn.com/espn/betting/story/_/id/50414742/2026-nfl-week-10-schedule-odds-point-spreads-totals">ESPN</a> <a class="src" href="https://www.sportsbookreview.com/picks/nfl/week-10-odds-betting-lines-2026/">SBR</a> <a class="src" href="https://www.betus.com.pa/sportsbook/nfl/nfl-odds-week-10/">betus</a></td>
+        <td>Total-edge numbers depend on book choice (±1–2 pts).</td>
+        <td>S3; use consensus once feed exists.</td>
+      </tr>
+      <tr>
+        <td>F13</td><td><span class="badge b-info">audit note</span></td>
+        <td>Repo base commit d2e6358 contained only README.md ("# FL3") — nothing to audit line-by-line before this build.</td>
+        <td><a class="src" href="https://github.com/sassnarep3-star/FL3/commit/d2e63583328ff103a63d5b08b9a7fbc6cb029c41">base commit</a></td>
+        <td>Baseline audit is therefore trivially complete; future audits cover the files added here.</td>
+        <td>None.</td>
+      </tr>
+      <tr>
+        <td>F14</td><td><span class="badge b-model">model caution</span></td>
+        <td>Model v0.1 produces unusually large edges (SEA-LV 9.5, HOU-CLE 6.5, LAR-AZ 5.0) — larger than typical validated-model edges.</td>
+        <td><a class="src" href="data/2026-week10-lines.csv">lines CSV</a></td>
+        <td>Likely mixes real injury information with v0.1 error (aggregate-only ratings, design weights). Acting on them before gates pass would be luck-based.</td>
+        <td>Q13: research-only until G3/G5 pass (S1 enables the test).</td>
+      </tr>
+      <tr>
+        <td>F15</td><td><span class="badge b-unv">data limitation</span></td>
+        <td>Practice-participation data is a single Wednesday snapshot (from the NFL.com roundup); Thursday/Friday reports and final inactives are not integrated.</td>
+        <td><a class="src" href="https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-wednesday-nov-11">roundup</a></td>
+        <td>QUESTIONABLE weightings (25%) may shift as final reports post Saturday.</td>
+        <td>Weekly refresh job (S1/S8 cadence).</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <strong>Review workflow:</strong> to request a change on any item, note the flag ID and desired
+    change in COORDINATION.md's request log (or open a GitHub issue). Unverified cells stay blank until
+    a source confirms them — the site will never fill them by inference.
+  </div>
+</div>
+
+</main>
+<footer class="site">FL3 · flags are published, not hidden · sources linked per row</footer>
+</body>
+</html>

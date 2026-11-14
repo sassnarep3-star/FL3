@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Executive Summary — FL3</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="brand"><h1>FL3 · NFL Decision Intelligence</h1><span class="tag">Executive summary · 2026-11-14</span></div>
+  <nav class="site">
+    <a href="index.html">Dashboard</a><a class="active" href="executive-summary.html">Summary</a>
+    <a href="requirements.html">Requirements</a><a href="suggestions.html">Suggestions</a>
+    <a href="lines.html">Lines</a><a href="injuries.html">Injuries &amp; Depth</a>
+    <a href="strategies.html">Strategies</a><a href="leaderboard.html">Leaderboard</a>
+    <a href="methodology.html">Methodology</a><a href="data.html">Data</a>
+    <a href="sources.html">Sources</a><a href="flagged.html">Flagged</a>
+  </nav>
+</header>
+<main>
+
+<div class="section">
+  <h2>Executive Summary</h2>
+  <p class="lead">Situation as of Saturday, 2026-11-14 (Week 10 of the 2026 NFL season). One game
+  played (TNF: Commanders 24 @ Giants 21), 13 to come Sunday/Monday. All facts below are
+  source-linked; model numbers are labeled as model output.</p>
+
+  <h3>1 · The state of the data</h3>
+  <ul class="tight">
+    <li><strong>Verified inputs:</strong> full 32-team standings (NFL.com), Week 10 &amp; 11 slates (NFL.com),
+        the complete official Week 10 game-status injury report (160 rows, every row linked),
+        and 7 official club depth charts (MIN, GB, SEA, DET, NE, AZ, DAL) giving real
+        2nd/3rd/4th-string replacement tiers.</li>
+    <li><strong>Computed from verified data:</strong> six team-level correlations and a best-fit
+        Pythagorean exponent (x = 3.5), reproducible via <code>models/originate_lines.py</code>.</li>
+    <li><strong>Market references:</strong> five betting outlets captured per game with source links —
+        and they disagree on several games (see signals).</li>
+    <li><strong>Known gaps (blank + flagged, never inferred):</strong> game-level scores for Weeks 1–9,
+        player-level stats, closing-line history, depth charts for 25 teams (HOU chart is an
+        image; SF chart page returns HTTP 500), and owner parameters (bankroll, rewards, jurisdiction).</li>
+  </ul>
+
+  <h3>2 · Key verified findings</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>#</th><th>Finding</th><th>Implication for decisions</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Buffalo (7-1, 32.0 pts/g) and San Francisco (7-1, +79) are the class of the league; Jacksonville leads point differential at +108 with the league's best defense (15.1 allowed/g).</td><td>Power ratings anchored on these three; strength-of-schedule still unquantified (no game-level data).</td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG">NFL.com</a></td></tr>
+      <tr><td>2</td><td>QB chaos in three games: MIN traded for Kirk Cousins (Nov 10) with Kyler Murray OUT; SEA's Sam Darnold OUT (2nd-string Drew Lock starts, 3rd string Jalen Milroe behind him); AZ starts rookie Carson Beck (1st career start) with veteran Josh Johnson (2nd string) backing up.</td><td>QB uncertainty is the biggest single swing factor on the Week 10 card — all three tiers are club-chart verified.</td><td><a class="src" href="https://www.nfl.com/news/nfl-week-10-injury-report-2026-season">Official report</a> <a class="src" href="https://www.vikings.com/team/depth-chart">MIN chart</a> <a class="src" href="https://www.seahawks.com/team/depth-chart/">SEA chart</a> <a class="src" href="https://www.azcardinals.com/team/depth-chart">AZ chart</a></td></tr>
+      <tr><td>3</td><td>Defensive absences are concentrated: HOU loses Danielle Hunter (DE) and Azeez Al-Shaair (LB); GB loses Micah Parsons (EDGE); DET loses D.J. Reed (CB1) and Kerby Joseph (S) with chart-verified replacements (Rock Ya-Sin, unlisted backup at S); NE loses CB1 Carlton Davis (replacement Channing Canada, 2nd string).</td><td>Deficiency scores computed per side (see Injuries page) feed the total/spread adjustments and prop-model design.</td><td><a class="src" href="https://www.nfl.com/news/nfl-week-10-injury-report-2026-season">Official report</a> <a class="src" href="https://www.detroitlions.com/team/depth-chart">DET chart</a> <a class="src" href="https://www.patriots.com/team/depth-chart/">NE chart</a></td></tr>
+      <tr><td>4</td><td>Market books disagree materially on at least four games — SEA-LV (3.5 vs 6.5, after the Darnold news), CAR-NO (books disagree on who is even favored), LAR-AZ (SBR outlier 7.5/44.5 vs consensus 9.5/39.5), and BUF-NYJ (7.5–9).</td><td>Cross-book disagreement is itself a candidate signal class — and a warning that "the market line" is not one number.</td><td><a class="src" href="https://www.espn.com/espn/betting/story/_/id/50414742/2026-nfl-week-10-schedule-odds-point-spreads-totals">ESPN</a> <a class="src" href="https://www.sportsbookreview.com/picks/nfl/week-10-odds-betting-lines-2026/">SBR</a> <a class="src" href="https://cbssports.com/betting/news/week-10-nfl-betting-odds-lines-totals-spreads">CBS</a></td></tr>
+      <tr><td>5</td><td>Computed correlations (n=32 teams): net points/game vs win% r=+0.88; PF/g vs win% r=+0.70; PA/g vs win% r=−0.66. Best-fit Pythagorean exponent x=3.5.</td><td>Team-level signal design can lean on net efficiency; game/prop-level correlations remain unmeasured (data gap).</td><td><a class="src" href="data/correlation-matrix.csv">computed CSV</a></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>3 · Originated lines (model v0.1 — unvalidated)</h3>
+  <p>Our own lines come from a documented, reproducible model (net-points ratings + home field
+  + transparent injury weights). The three largest model-vs-market gaps this week are
+  <strong>SEA-LV</strong> (model leans LV by ~9.5 pts vs market after Seattle's QB/OL losses —
+  far too large to act on), <strong>HOU-CLE</strong> (model leans Cleveland by ~6.5 pts vs market
+  after Houston's defensive outs), and the <strong>MIN-GB total</strong> (model 34.5 vs market 41.5
+  after injuries on both offenses). Full table on the <a href="lines.html">Lines page</a>.
+  <span class="badge b-model">model output</span> — these edges likely mix real information with
+  v0.1 model error; no bet is recommended until the strategy gates pass.</p>
+
+  <h3>4 · What is deliberately missing</h3>
+  <p>Following the project's no-inference rule, the following are blank/flagged rather than
+  filled: player-prop projections (no player stats ingested), historical correlations for
+  parlay legs (no game-level results ingested), closing-line value tracking (no line history
+  feed), depth tiers for 25 teams, and any strategy performance numbers (no graded bets yet).
+  Each gap has an entry on the <a href="requirements.html">Requirements page</a> and a discovery
+  proposal on the <a href="suggestions.html">Suggestions Board</a>.</p>
+
+  <h3>5 · Decisions needed from you</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Decision</th><th>Blocks</th><th>Where</th></tr></thead>
+    <tbody>
+      <tr><td>Bankroll, unit sizing, and risk limits</td><td>Position sizing, leaderboard staking rules</td><td><a href="requirements.html">Q1</a></td></tr>
+      <tr><td>Reward structure for the leaderboard (prize pool? recognition?)</td><td>Leaderboard launch</td><td><a href="requirements.html">Q2</a></td></tr>
+      <tr><td>Which data integrations to build first (game scores vs player stats vs odds feed)</td><td>Correlation engine, prop models, CLV gate</td><td><a href="suggestions.html">S1–S3</a></td></tr>
+      <tr><td>Acceptance of source tiers (NFL.com + club sites official; ESPN/CBS/SBR trusted w/ flags)</td><td>Definition of "verified" across the project</td><td><a href="requirements.html">Q3</a></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn"><strong>Bottom line:</strong> the information foundation is verified and
+  source-linked; the analytical superstructure (signals, strategies, leaderboard) is designed and
+  scaffolded but intentionally empty of performance claims. The fastest path to decision-ready
+  output is to approve data-ingestion suggestions S1–S3, then let the validation gates promote
+  strategies on merit.</div>
+</div>
+
+</main>
+<footer class="site">FL3 · summary compiled 2026-11-14 from verified sources · see <a href="sources.html">Sources</a> and <a href="flagged.html">Flagged</a></footer>
+</body>
+</html>

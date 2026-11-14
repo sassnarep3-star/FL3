@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leaderboard &amp; Rewards — FL3</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="brand"><h1>FL3 · NFL Decision Intelligence</h1><span class="tag">Leaderboard competition · rewards · luck-free scoring</span></div>
+  <nav class="site">
+    <a href="index.html">Dashboard</a><a href="executive-summary.html">Summary</a>
+    <a href="requirements.html">Requirements</a><a href="suggestions.html">Suggestions</a>
+    <a href="lines.html">Lines</a><a href="injuries.html">Injuries &amp; Depth</a>
+    <a href="strategies.html">Strategies</a><a class="active" href="leaderboard.html">Leaderboard</a>
+    <a href="methodology.html">Methodology</a><a href="data.html">Data</a>
+    <a href="sources.html">Sources</a><a href="flagged.html">Flagged</a>
+  </nav>
+</header>
+<main>
+
+<div class="section">
+  <h2>Leaderboard Competition — design</h2>
+  <p class="lead">The contest rewards <strong>strategies</strong> (not one-off bets) that demonstrate skill
+  after validation. Ranking uses the SkillIndex (z vs luck + CLV bonus) and its 95% lower bound —
+  see <a href="methodology.html">Methodology §4</a>. Two lists are maintained:
+  an <strong>Official</strong> list (all gates passed) and a <strong>Provisional</strong> list
+  (small samples, badged loudly) — per suggestion S6 option C, pending approval.</p>
+
+  <h3>Competition rules (proposed)</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Rule</th><th>Detail</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Entry</td><td>Any pre-registered strategy (G0) in classes: single, parlay (2–3 legs), player-prop combo (2–4 legs), teaser. One row per strategy ID.</td><td><span class="badge b-info">design ready</span></td></tr>
+      <tr><td>Grading window</td><td>Weekly (Thursday–Monday slate), season standings across Weeks 1–18 + playoffs.</td><td><span class="badge b-info">design ready</span></td></tr>
+      <tr><td>Stake convention</td><td>Flat 1 unit per trigger (until Q1 defines bankroll rules). Units, not dollars.</td><td><span class="badge b-unv">needs Q1</span></td></tr>
+      <tr><td>Scoring</td><td>SkillIndex = z(units vs expected at placed prices) + 0.5·t(mean CLV). Official rank uses the 95% lower bound.</td><td><span class="badge b-info">design ready</span></td></tr>
+      <tr><td>Luck removal</td><td>Gates G2–G8 mandatory for the Official list; FDR correction across all entries each week; retired strategies keep public failure rows.</td><td><span class="badge b-info">design ready</span></td></tr>
+      <tr><td>Correlation rules</td><td>Parlay/prop legs must have measured correlation (G6). Unmeasured pairings are blocked from Official scoring and flagged on entry.</td><td><span class="badge b-flag">needs S1/S2 data</span></td></tr>
+      <tr><td>Anti-cheating</td><td>Entries git-committed before kickoff; closing lines recorded at grade time; edits after kickoff void the entry.</td><td><span class="badge b-unv">needs S6 approval</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Reward structure — options for review <span class="badge b-flag">owner decision (Q2 / S7)</span></h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Model</th><th>Structure</th><th>Incentive effect</th><th>Requirements</th></tr></thead>
+    <tbody>
+      <tr><td><strong>R1 · Recognition</strong> (recommended default)</td><td>Season trophy + weekly badges (e.g., "Best Single", "Best Parlay"), public hall of fame on this page.</td><td>Rewards durable skill; no variance-chasing for cash.</td><td>None — can start immediately</td></tr>
+      <tr><td><strong>R2 · Performance pool</strong></td><td>Cash pool split e.g. 60/25/15 among top-3 Official SkillIndex at season end; minimum sample to qualify.</td><td>Strong motivation; risk of variance-chasing if weekly payouts.</td><td>Q1 bankroll, Q9 jurisdiction confirmed</td></tr>
+      <tr><td><strong>R3 · Hybrid</strong></td><td>Weekly badges + optional season prize once jurisdiction clears.</td><td>Staged; two reward tracks to administer.</td><td>Q9 for the cash part</td></tr>
+    </tbody>
+  </table></div>
+  <p><em>No reward model is active until the owner selects one on the <a href="suggestions.html">Suggestions Board</a> (S7).</em></p>
+
+  <h3>Official leaderboard</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Rank</th><th>Strategy</th><th>Class</th><th class="num">Graded bets</th><th class="num">Units</th><th class="num">CLV</th><th>SkillIndex (95% LB)</th><th>Gates</th></tr></thead>
+    <tbody>
+      <tr><td colspan="8" style="text-align:center; color:#5b6b7f">— empty by design: no strategy has passed G2–G8 yet. First entries will appear as graded samples accumulate (est. earliest: after ~50 bets per strategy). —</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Provisional list (badged — not ranked by skill yet)</h3>
+  <div class="table-wrap"><table>
+    <caption>Seed entries registered for the competition (G0 in progress). Performance columns intentionally blank — no bets graded, so any number shown would be fabrication.</caption>
+    <thead><tr><th>Strategy</th><th>Class</th><th>Week 10 test cases (research, not bets)</th><th class="num">Graded</th><th class="num">Units</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><a href="strategies.html">SGL-1 Injury-repricing fade</a></td><td>Single</td><td>SEA-LV (Darnold OUT, market moved 3 pts), MIN-GB (Murray OUT, total −4)</td><td class="num"></td><td class="num"></td><td><span class="badge b-info">registered — awaiting data</span></td></tr>
+      <tr><td><a href="strategies.html">SGL-2 Cross-book value</a></td><td>Single</td><td>CAR-NO (favorite disagreement), LAR-AZ (SBR outlier), SEA-LV (3-pt gap)</td><td class="num"></td><td class="num"></td><td><span class="badge b-info">registered — awaiting data</span></td></tr>
+      <tr><td><a href="strategies.html">SGL-3 Deficiency-pressure under</a></td><td>Single</td><td>HOU-CLE (HOU DEF deficiency 1.75+), GB-MIN (Parsons/Jacobs out)</td><td class="num"></td><td class="num"></td><td><span class="badge b-info">registered — awaiting data</span></td></tr>
+      <tr><td><a href="strategies.html">PAR-1 Pythagorean pairs</a></td><td>Parlay</td><td>BUF-NYJ + JAX-TEN model-probability gaps</td><td class="num"></td><td class="num"></td><td><span class="badge b-flag">G6 blocked</span></td></tr>
+      <tr><td><a href="strategies.html">PROP-1 Backup-QB usage shift</a></td><td>Prop combo</td><td>MIN (Wentz/Cousins), SEA (Lock), AZ (Beck)</td><td class="num"></td><td class="num"></td><td><span class="badge b-flag">G6 blocked — needs player data</span></td></tr>
+      <tr><td><a href="strategies.html">PROP-2 Deficiency attack</a></td><td>Prop combo</td><td>NE CB2 (Channing Canada in) vs DET WRs; DAL CB depth vs SF</td><td class="num"></td><td class="num"></td><td><span class="badge b-flag">G6 blocked — needs player data</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout"><strong>How luck is kept out of the ranking:</strong> (1) expected performance is computed at real placed prices — a lucky win pays less z-score than an unlucky loss costs; (2) CLV measures whether the price beaten was actually good; (3) the FDR-corrected skill test demotes strategies that are just the lucky tail of many entries; (4) rank-by-lower-bound means a 10-2 record with a tiny sample cannot outrank a 46-34 record with a large one.</div>
+</div>
+
+</main>
+<footer class="site">FL3 · rewards pending owner decision (Q2) · scoring formula on <a href="methodology.html">Methodology</a></footer>
+</body>
+</html>

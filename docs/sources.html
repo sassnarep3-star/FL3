@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sources — FL3</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="brand"><h1>FL3 · NFL Decision Intelligence</h1><span class="tag">Source registry · tiers · what was taken · accessed dates</span></div>
+  <nav class="site">
+    <a href="index.html">Dashboard</a><a href="executive-summary.html">Summary</a>
+    <a href="requirements.html">Requirements</a><a href="suggestions.html">Suggestions</a>
+    <a href="lines.html">Lines</a><a href="injuries.html">Injuries &amp; Depth</a>
+    <a href="strategies.html">Strategies</a><a href="leaderboard.html">Leaderboard</a>
+    <a href="methodology.html">Methodology</a><a href="data.html">Data</a>
+    <a class="active" href="sources.html">Sources</a><a href="flagged.html">Flagged</a>
+  </nav>
+</header>
+<main>
+
+<div class="section">
+  <h2>Source Registry</h2>
+  <p class="lead">Tier definitions (provisional, pending Q3 sign-off):
+  <span class="badge b-ver">Official league</span> NFL.com —
+  <span class="badge b-ver">Official club</span> team-operated sites —
+  <span class="badge b-unv">Trusted market/media</span> established outlets, always labeled, never called "official" —
+  <span class="badge b-model">Model</span> our own computed output (not a source of facts).
+  All sources accessed 2026-11-14 (market snapshots 2026-11-13/14).</p>
+
+  <h3>Official league (NFL.com)</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Source</th><th>Tier</th><th>What was taken</th><th>Used in</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://www.nfl.com/standings/league/2026/REG">NFL.com — 2026 league standings</a></td><td><span class="badge b-ver">official league</span></td><td>W-L-T, PF/PA, net, home/road/div/conf, streaks for all 32 teams (post-TNF Nov 12)</td><td>data/2026-standings.csv, ratings, correlations</td></tr>
+      <tr><td><a href="https://www.nfl.com/schedules/2026/by-week/week-10">NFL.com — Week 10 schedule</a></td><td><span class="badge b-ver">official league</span></td><td>14 games: dates, times, networks, venue notes (Munich), byes (CHI/DEN/PHI/TB), TNF final score</td><td>data/2026-week10-games.csv</td></tr>
+      <tr><td><a href="https://www.nfl.com/schedules/2026/by-week/week-11">NFL.com — Week 11 schedule</a></td><td><span class="badge b-ver">official league</span></td><td>13 games incl. Mexico City SNF, byes (ATL/CLE/GB/LAR/NE/SEA)</td><td>data/2026-week11-games.csv</td></tr>
+      <tr><td><a href="https://www.nfl.com/news/nfl-week-10-injury-report-2026-season">NFL.com — Week 10 injury report (official game statuses)</a></td><td><span class="badge b-ver">official league</span></td><td>Every OUT/DOUBTFUL/QUESTIONABLE designation for all 14 games (160 rows)</td><td>data/2026-week10-injuries.csv (row-by-row)</td></tr>
+      <tr><td><a href="https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-wednesday-nov-11">NFL.com — news roundup (Wed Nov 11)</a></td><td><span class="badge b-ver">official league</span></td><td>Depth-chart news (Beck starting, Watson starting, Cousins trade + competition, Butker kicker, etc.), Wednesday practice levels, transaction notes</td><td>injuries/deficiency narrative rows, exec summary</td></tr>
+      <tr><td><a href="https://www.nfl.com/games/commanders-at-giants-2026-reg-10">NFL.com — WAS @ NYG game page</a></td><td><span class="badge b-ver">official league</span></td><td>TNF final: Commanders 24, Giants 21</td><td>validation ledger</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Official club sites (depth charts)</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Source</th><th>Tier</th><th>What was taken</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://www.vikings.com/team/depth-chart">vikings.com depth chart</a></td><td><span class="badge b-ver">official club</span></td><td>Full offense/defense/ST tiers (QB Murray→Wentz→Brosmer→Cousins etc.)</td><td>chart self-labels "2026 Unofficial" (F9); lists Cousins 4th post-trade (F3)</td></tr>
+      <tr><td><a href="https://www.packers.com/team/depth-chart">packers.com depth chart</a></td><td><span class="badge b-ver">official club</span></td><td>Tiers incl. RB Jacobs→Lloyd→Strong, C Rhyan→Burton, LB Franklin→Hopper</td><td>dated "Unofficial, Nov. 10, 2026"; omits Parsons (F1)</td></tr>
+      <tr><td><a href="https://www.seahawks.com/team/depth-chart/">seahawks.com depth chart</a></td><td><span class="badge b-ver">official club</span></td><td>QB Darnold→Lock→Milroe; LT Cross→Jones; LG Nelson→Bradford; DT Williams→Mills</td><td>—</td></tr>
+      <tr><td><a href="https://www.detroitlions.com/team/depth-chart">detroitlions.com depth chart</a></td><td><span class="badge b-ver">official club</span></td><td>C Mays→Scruggs; CB Reed→Ya-Sin→Dorsey; RB Gibbs→Vaki→Saylors</td><td>omits Kerby Joseph (F2); "Compiled by Lions Football Communications"</td></tr>
+      <tr><td><a href="https://www.patriots.com/team/depth-chart/">patriots.com depth chart</a></td><td><span class="badge b-ver">official club</span></td><td>RB Stevenson→Henderson→Kiner; LG Brown→Rouse; CB Davis→Canada; S Byard→Reed</td><td>published by Patriots.com writers (F9)</td></tr>
+      <tr><td><a href="https://www.azcardinals.com/team/depth-chart">azcardinals.com depth chart</a></td><td><span class="badge b-ver">official club</span></td><td>QB Beck→Johnson→Aguilar; C Froholdt→Eguakun; NT Lopez→Billings; S Wingard→Crawford</td><td>labeled "Official Depth Chart" (only club to do so)</td></tr>
+      <tr><td><a href="https://www.dallascowboys.com/team/depth-chart">dallascowboys.com depth chart</a></td><td><span class="badge b-ver">official club</span></td><td>RB Williams→Goodson; TE Ferguson/Spann-Ford→Schoonmaker; OLB Ezeiruaku→Houston; CB Bland→Durant, Porter→Revel</td><td>"Unofficial 2026"; co-starter cells noted as such</td></tr>
+      <tr><td><a href="https://www.houstontexans.com/team/depth-chart">houstontexans.com depth chart</a></td><td><span class="badge b-flag">unavailable</span></td><td>— (chart published as an image)</td><td>F7 · tiers left blank</td></tr>
+      <tr><td><a href="https://www.sf49ers.com/team/depth-chart">sf49ers.com depth chart</a></td><td><span class="badge b-flag">unavailable</span></td><td>— (HTTP 500 on two attempts)</td><td>F8 · tiers left blank</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Trusted market / media (never "official")</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Source</th><th>Tier</th><th>What was taken</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://www.espn.com/espn/betting/story/_/id/50414742/2026-nfl-week-10-schedule-odds-point-spreads-totals">ESPN betting — Week 10 odds (Nov 13)</a></td><td><span class="badge b-unv">trusted market</span></td><td>Spreads/totals/ML/FPI where unambiguous; "opened" values (flagged, F6)</td><td>primary market ref for 7 games</td></tr>
+      <tr><td><a href="https://www.sportsbookreview.com/picks/nfl/week-10-odds-betting-lines-2026/">SportsbookReview / bet365 lines (Nov 9)</a></td><td><span class="badge b-unv">trusted market</span></td><td>Complete 14-game spread/ML/total table (opening-ish snapshot)</td><td>primary for KC-ATL, CAR-NO, HOU-CLE rows</td></tr>
+      <tr><td><a href="https://cbssports.com/betting/news/week-10-nfl-betting-odds-lines-totals-spreads">CBS Sports betting (Nov 11)</a></td><td><span class="badge b-unv">trusted market</span></td><td>Spreads/totals incl. TNF and MNF</td><td>primary for LAC-BAL; cross-check</td></tr>
+      <tr><td><a href="https://www.betus.com.pa/sportsbook/nfl/nfl-odds-week-10/">betus Week 10 odds (Nov 13)</a></td><td><span class="badge b-unv">trusted market</span></td><td>Spreads/totals/ML, opening values</td><td>primary for PIT-CIN; cross-check</td></tr>
+      <tr><td><a href="https://sportsdata.usatoday.com/football/nfl/odds">USA TODAY sportsdata / BetMGM odds</a></td><td><span class="badge b-unv">trusted market</span></td><td>Spreads/totals snapshots</td><td>favorite-flip evidence for CAR-NO (F5)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Our own computed output (not sources of facts)</h3>
+  <ul class="tight">
+    <li><code>models/originate_lines.py</code> — line origination model v0.1 (params documented on <a href="methodology.html">Methodology</a>).</li>
+    <li><code>data/correlation-matrix.csv</code> — correlations computed from NFL.com standings (reproducible; method shown).</li>
+    <li>Deficiency points — design weights over verified OUT/DOUBTFUL rows; labeled as design units everywhere.</li>
+    <li>Strategy/leaderboard content — design documents; performance columns intentionally blank.</li>
+  </ul>
+  <p>Full fetch-by-fetch research notes: <a href="research/sources.md">research/sources.md</a> ·
+  verification steps: <a href="research/verification-log.md">research/verification-log.md</a>.</p>
+</div>
+
+</main>
+<footer class="site">FL3 · accessed 2026-11-14 · tier labels are provisional pending Q3 sign-off</footer>
+</body>
+</html>

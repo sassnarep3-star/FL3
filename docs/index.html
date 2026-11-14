@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FL3 — NFL Decision Intelligence Dashboard</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="brand">
+    <h1>FL3 · NFL Decision Intelligence</h1>
+    <span class="tag">2026 season · Week 10 in progress · verified through Thu Nov 12, 2026</span>
+  </div>
+  <nav class="site">
+    <a class="active" href="index.html">Dashboard</a>
+    <a href="executive-summary.html">Summary</a>
+    <a href="requirements.html">Requirements</a>
+    <a href="suggestions.html">Suggestions</a>
+    <a href="lines.html">Lines</a>
+    <a href="injuries.html">Injuries &amp; Depth</a>
+    <a href="strategies.html">Strategies</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="data.html">Data</a>
+    <a href="sources.html">Sources</a>
+    <a href="flagged.html">Flagged</a>
+  </nav>
+</header>
+<main>
+
+<div class="hero">
+  <h2>Collect. Organize. Analyze. Decide — with sources on every row.</h2>
+  <p>This dashboard tracks the 2026 NFL season for decision-making: verified standings and
+     schedules, the official Week 10 injury report with depth-chart deficiency tracking,
+     self-originated lines vs the betting market, a strategy framework with validation
+     gates and luck-removal scoring, and a review-first suggestions board.</p>
+  <p><strong>Data rule:</strong> every fact links an official or trusted source. Values that
+     cannot be confirmed are left <em>blank</em> and flagged on the
+     <a href="flagged.html" style="color:#9fc0e8">Flagged for Review</a> page. Nothing is inferred.</p>
+  <div class="strip">Built 2026-11-14 · Repository: sassnarep3-star/FL3 · Model v0.1 (unvalidated — gates not yet passed)</div>
+</div>
+
+<div class="cards">
+  <div class="card"><div class="num">14</div><div class="lbl">Week 10 games (1 final, 13 upcoming)</div></div>
+  <div class="card"><div class="num">32</div><div class="lbl">Teams tracked (NFL.com standings)</div></div>
+  <div class="card"><div class="num">160</div><div class="lbl">Official injury-report rows (every row linked)</div></div>
+  <div class="card"><div class="num">7</div><div class="lbl">Club depth charts verified (MIN GB SEA DET NE AZ DAL)</div></div>
+  <div class="card"><div class="num">13</div><div class="lbl">Self-originated lines vs 5 market books</div></div>
+  <div class="card"><div class="num">6</div><div class="lbl">Correlations computed from verified data</div></div>
+  <div class="card"><div class="num">15</div><div class="lbl">Flagged items awaiting review</div></div>
+  <div class="card"><div class="num">0</div><div class="lbl">Strategies that have passed all gates (honest count)</div></div>
+</div>
+
+<div class="section">
+  <h2>Start here</h2>
+  <p class="lead">Each section is a category. Tables carry per-row source links; model outputs are labeled purple.</p>
+  <div class="cards">
+    <a class="card" href="executive-summary.html" style="text-decoration:none"><div class="lbl">Overview</div><strong>Executive Summary</strong><div class="lbl">Key verified findings, signals, and decisions needed</div></a>
+    <a class="card" href="requirements.html" style="text-decoration:none"><div class="lbl">Before deciding</div><strong>Questions &amp; Requirements</strong><div class="lbl">What we know, what we don't, what must be answered first</div></a>
+    <a class="card" href="suggestions.html" style="text-decoration:none"><div class="lbl">Review first</div><strong>Suggestions Board</strong><div class="lbl">8 proposals with options — choose a path before anything is built</div></a>
+    <a class="card" href="lines.html" style="text-decoration:none"><div class="lbl">Origination</div><strong>Lines &amp; Edges</strong><div class="lbl">Our lines vs the market, injury adjustments, discrepancies</div></a>
+    <a class="card" href="injuries.html" style="text-decoration:none"><div class="lbl">Tracking</div><strong>Injuries &amp; Depth Deficiencies</strong><div class="lbl">Who's out, who replaces them (2nd/3rd/4th string), deficiency scores</div></a>
+    <a class="card" href="strategies.html" style="text-decoration:none"><div class="lbl">Research</div><strong>Strategy Catalog</strong><div class="lbl">Singles, parlays, prop combos — each behind validation gates</div></a>
+    <a class="card" href="leaderboard.html" style="text-decoration:none"><div class="lbl">Competition</div><strong>Leaderboard &amp; Rewards</strong><div class="lbl">Skill-based scoring that removes luck, reward structure options</div></a>
+    <a class="card" href="methodology.html" style="text-decoration:none"><div class="lbl">How</div><strong>Methodology</strong><div class="lbl">Line model, signal research, correlations, validation gates</div></a>
+    <a class="card" href="data.html" style="text-decoration:none"><div class="lbl">Tables</div><strong>Data Hub</strong><div class="lbl">Standings, schedules, CSVs — all entries with sources</div></a>
+    <a class="card" href="flagged.html" style="text-decoration:none"><div class="lbl">Review</div><strong>Flagged for Review</strong><div class="lbl">Irregularities, unverified items, source links</div></a>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Verified highlights <span class="badge b-ver">source-linked</span></h2>
+  <div class="table-wrap">
+    <table>
+      <caption>Standings &amp; slate facts — every row transcribed from NFL.com on 2026-11-14.</caption>
+      <thead><tr><th>Finding</th><th>Value</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>League leaders (record)</td><td>Buffalo Bills 7-1 · San Francisco 49ers 7-1</td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG">NFL.com standings</a></td></tr>
+        <tr><td>Best point differential</td><td>Jacksonville Jaguars +108 (229 PF / 121 PA in 8 games)</td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG">NFL.com standings</a></td></tr>
+        <tr><td>Highest scoring offense</td><td>Buffalo Bills — 256 points (32.0/game)</td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG">NFL.com standings</a></td></tr>
+        <tr><td>Stingiest defense</td><td>Jacksonville Jaguars — 121 allowed (15.1/game)</td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG">NFL.com standings</a></td></tr>
+        <tr><td>Winless team</td><td>Los Angeles Chargers 0-8 (8L streak, −98 net)</td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG">NFL.com standings</a></td></tr>
+        <tr><td>TNF result (Week 10)</td><td>Commanders 24 @ Giants 21 (Nov 12)</td><td><a class="src" href="https://www.nfl.com/games/commanders-at-giants-2026-reg-10">NFL.com game</a></td></tr>
+        <tr><td>Week 10 byes</td><td>CHI, DEN, PHI, TB</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10">NFL.com schedule</a></td></tr>
+        <tr><td>Week 10 MNF</td><td>Chargers at Ravens — Baltimore activates kicker Riley Patterson for the game</td><td><a class="src" href="https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-wednesday-nov-11">NFL.com roundup</a></td></tr>
+        <tr><td>Biggest QB news</td><td>MIN: Kyler Murray OUT, traded for Kirk Cousins (Nov 10) · SEA: Sam Darnold OUT (Drew Lock = 2nd-string starter) · AZ: rookie Carson Beck first career start · CLE: Deshaun Watson starts</td><td><a class="src" href="https://www.nfl.com/news/nfl-week-10-injury-report-2026-season">Official report</a> <a class="src" href="https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-wednesday-nov-11">Roundup</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section">
+  <h2>How decisions are gated here</h2>
+  <div class="flow">
+    <span class="step">1 · Data provenance</span><span class="arrow">→</span>
+    <span class="step">2 · Sample size</span><span class="arrow">→</span>
+    <span class="step">3 · Out-of-sample test</span><span class="arrow">→</span>
+    <span class="step">4 · Closing-line value</span><span class="arrow">→</span>
+    <span class="step">5 · Skill vs luck test</span><span class="arrow">→</span>
+    <span class="step">6 · Correlation audit</span><span class="arrow">→</span>
+    <span class="step">7 · Capacity</span><span class="arrow">→</span>
+    <span class="step">Leaderboard entry</span>
+  </div>
+  <p>Nothing enters the leaderboard until it passes every gate. Suggestions on the
+     <a href="suggestions.html">Suggestions Board</a> are proposals only — each lists
+     decision options and waits for a human choice before implementation.</p>
+</div>
+
+</main>
+<footer class="site">
+  FL3 NFL Decision Intelligence · data verified against official sources on 2026-11-14 ·
+  unverified values are blank and flagged · model output is labeled, never presented as fact
+</footer>
+</body>
+</html>
