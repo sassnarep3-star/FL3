@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Repo Review — FL3</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><a href="../index.html">FL3</a><span class="brand-sub">NFL Lines &amp; Decision Dashboard</span></div>
+  <div class="topbar-note">Verified data only · blank &amp; flagged where unverified</div>
+</header>
+<div class="layout">
+  <nav class="sidebar">
+    <div class="nav-cat"><div class="nav-cat-title">Overview</div><a class="nav-item" href="../index.html">Dashboard</a><a class="nav-item" href="../executive-summary.html">Executive Summary</a></div><div class="nav-cat"><div class="nav-cat-title">Decisions</div><a class="nav-item" href="../questions.html">Questions &amp; Answers</a><a class="nav-item" href="../suggestions.html">Suggestions</a></div><div class="nav-cat"><div class="nav-cat-title">NFL Lines</div><a class="nav-item" href="../lines/strategies.html">Strategies &amp; Signals</a><a class="nav-item" href="../lines/validation.html">Validation Gates</a><a class="nav-item" href="../lines/leaderboard.html">Leaderboard</a><a class="nav-item" href="../lines/market-data.html">Market Data (Lines)</a></div><div class="nav-cat"><div class="nav-cat-title">Injuries</div><a class="nav-item" href="../injuries/injury-report.html">Injury Report</a><a class="nav-item" href="../injuries/depth-charts.html">Depth Charts</a></div><div class="nav-cat"><div class="nav-cat-title">League Data</div><a class="nav-item" href="../standings.html">2026 Standings</a></div><div class="nav-cat"><div class="nav-cat-title">Review</div><a class="nav-item active" href="repo-review.html">Repo Review</a><a class="nav-item" href="flagged-review.html">Flagged for Review</a></div>
+  </nav>
+  <main class="content">
+    <h1>Repo Review</h1>
+    
+<div class="note">Line-by-line review of the repository. The repo was audited at the start of this session: it
+contained only a README and a single initial commit. All work in this project was therefore built from scratch and
+verified against official sources. Irregularities are logged below and on the
+<a href="flagged-review.html">Flagged for Review</a> page.</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>ID</th><th>Area</th><th>Finding</th><th>Verification performed</th><th>Irregularity</th><th>Sources</th><th>Flag</th></tr></thead>
+<tbody><tr class=""><td>RA01</td><td>Repository contents</td><td>Repository contained only a README.md (&#x27;# FL3&#x27;, 5 bytes) and a single initial commit (d2e6358) on main. No source code, data, configuration, or documentation existed prior to this session.</td><td>Verified via git log, git status, and directory listing of the checkout.</td><td>None — empty repo state, nothing pre-existing to audit.</td><td><div class="src-links"><a href="https://github.com/sassnarep3-star/FL3" target="_blank" rel="noopener noreferrer">https://github.com/sassnarep3-star/FL3</a></div></td><td class="flag-col"></td></tr><tr class=""><td>RA02</td><td>Git state</td><td>Working branch arena/576c1890-fl3 branched from main (d2e6358). No prior branches, tags, or history beyond the initial commit.</td><td>Verified via git log --oneline and git branch -a.</td><td>None.</td><td><div class="src-links"><a href="https://github.com/sassnarep3-star/FL3" target="_blank" rel="noopener noreferrer">https://github.com/sassnarep3-star/FL3</a></div></td><td class="flag-col"></td></tr><tr class=""><td>RA03</td><td>Shared task board</td><td>COORDINATION.md did not exist and was created by this session as the shared task board; all tasks T1-T10 were claimed by session 576c1890 (sole active session).</td><td>Verified via file creation and git history.</td><td>None — protocol followed (read/create before starting).</td><td><div class="src-links"><a href="https://github.com/sassnarep3-star/FL3" target="_blank" rel="noopener noreferrer">https://github.com/sassnarep3-star/FL3</a></div></td><td class="flag-col"></td></tr></tbody>
+</table>
+</div>
+
+  </main>
+</div>
+<footer class="footer">
+  <p>FL3 — NFL lines research, injury tracking, and decision support. Every table row carries a source link. Values that cannot be confirmed from an official source are left blank and flagged as unverified.</p>
+</footer>
+</body>
+</html>

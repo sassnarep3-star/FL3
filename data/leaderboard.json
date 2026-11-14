@@ -1,0 +1,23 @@
+{
+  "dataset": "Leaderboard competition design — rewards for top-performing strategies",
+  "retrieved": "2026-11-14",
+  "note": "Design specification for the leaderboard that rewards top-performing strategies. All scoring is luck-adjusted and risk-controlled; raw profit alone never earns rewards. Numeric reward tiers are proposals pending the owner's decision (see Questions Q07 and Suggestions S07).",
+  "scoring": [
+    {"id": "LB01", "metric": "CLV (closing line value)", "description": "Primary skill metric: difference between the price taken and the closing price, measured per bet. Rewards price-finding skill independent of outcome variance.", "sources": ["https://www.sharkbetting.com/blog/closing-line-value-clv-explained"]},
+    {"id": "LB02", "metric": "Edge % (edge over break-even)", "description": "Hit probability minus break-even probability at the taken price; the expected edge per bet.", "sources": ["https://github.com/jcollins901/nfl-edge"]},
+    {"id": "LB03", "metric": "Risk-adjusted return", "description": "Return measured against volatility and drawdown, so strategies are not rewarded for taking excessive risk.", "sources": ["https://www.sharkbetting.com/blog/closing-line-value-clv-explained"]},
+    {"id": "LB04", "metric": "Luck-adjusted efficiency score", "description": "Signal quality measured with luck-adjusted efficiency inputs (INT/drop/fumble luck stripped), used for strategy-level ranking.", "sources": ["https://www.unexpectedpoints.com/p/luck-adjusted-quarterback-efficiency"]}
+  ],
+  "rules": [
+    {"id": "LR01", "rule": "Gate-first eligibility", "description": "A strategy appears on the leaderboard only after passing all applicable validation gates (VG01-VG07). Gates are a prerequisite, not a ranking factor.", "sources": ["https://sharppicks.ai/tools/edge-calculator"]},
+    {"id": "LR02", "rule": "Minimum bet requirement", "description": "Strategies must have a minimum number of scored bets in the period before ranking; strategies below the minimum are shown but not ranked or rewarded.", "sources": ["https://www.sharkbetting.com/blog/closing-line-value-clv-explained"]},
+    {"id": "LR03", "rule": "Walk-forward periods", "description": "Rankings are computed over walk-forward periods using only data available at the time of each bet; no look-ahead.", "sources": ["https://github.com/jcollins901/nfl-edge"]},
+    {"id": "LR04", "rule": "Demotion on gate failure", "description": "A strategy that fails a validation gate at any refresh point is demoted (suspended from rewards) until it passes a fresh walk-forward validation.", "sources": ["https://sharppicks.ai/tools/edge-calculator"]},
+    {"id": "LR05", "rule": "No strategy changes mid-period", "description": "A strategy's logic is frozen for the scoring period; any change resets its walk-forward clock and forfeits the current period's rewards.", "sources": ["https://github.com/jcollins901/nfl-edge"]}
+  ],
+  "rewards": [
+    {"tier": "Tier 1 — Top strategy", "description": "Highest luck-adjusted composite score for the period (proposal: reward as determined by the owner).", "status": "Proposal — reward value pending decision (Q07)"},
+    {"tier": "Tier 2 — Runner-up", "description": "Second-highest luck-adjusted composite score for the period (proposal: reward as determined by the owner).", "status": "Proposal — reward value pending decision (Q07)"},
+    {"tier": "Tier 3 — Qualified performers", "description": "All strategies that pass gates and meet the minimum-bet requirement in the period, listed in ranked order (proposal: recognition, no monetary reward).", "status": "Proposal — reward value pending decision (Q07)"}
+  ]
+}
