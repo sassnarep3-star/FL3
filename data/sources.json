@@ -53,9 +53,9 @@
       "url": "https://www.nfl.com/schedules/2026/by-week/week-10",
       "publisher": "NFL.com (official)",
       "used_for": "Bye-week confirmation (clubs absent from the Week 10 slate)",
-      "verified": false,
-      "verified_utc": null,
-      "notes": "URL published in NFL.com navigation; not independently fetched on 2026-11-14. Bye clubs are instead derived from the verified Week 10 fixture list and flagged as derived."
+      "verified": true,
+      "verified_utc": "2026-11-14",
+      "notes": "Fetched 2026-11-14 and confirmed it lists the same 14-game Week 10 slate as SRC-SCHED, including the WAS 24-21 NYG final and the Munich international game."
     },
     {
       "id": "SRC-INJ-POLICY",
@@ -96,6 +96,16 @@
       "verified": true,
       "verified_utc": "2026-11-14",
       "notes": "Presence/absence of a club table is the only official signal used for bye weeks."
+    },
+    {
+      "id": "SRC-TIEBREAK",
+      "title": "NFL Tiebreaking Procedures",
+      "url": "https://www.nfl.com/standings/tie-breaking-procedures",
+      "publisher": "NFL.com (official)",
+      "used_for": "The half-win rule for ties, used in the luck model; the ordered tiebreak criteria if standings are ever recomputed",
+      "verified": true,
+      "verified_utc": "2026-11-14",
+      "notes": "Quote used verbatim: 'Tie games count as one-half win and one-half loss for both clubs.' Also notes the higher seed does NOT host the conference championship."
     }
   ],
   "rejected_sources": [

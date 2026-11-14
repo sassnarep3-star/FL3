@@ -1,0 +1,232 @@
+{
+  "meta": {
+    "title": "Suggestion register — paths to choose from before anything is implemented",
+    "captured_utc": "2026-11-14",
+    "how_to_choose": "Each suggestion lists 2-3 mutually exclusive paths. Pick ONE path per suggestion. The recommendation column is the engine's opinion, not a decision; the owner decides. Nothing here has been implemented yet unless the status says so.",
+    "status_legend": {
+      "proposed": "not started — awaiting a path choice",
+      "in progress": "partially built in this session",
+      "implemented": "built and verified in this session",
+      "blocked": "cannot start until a named dependency exists"
+    }
+  },
+  "suggestions": [
+    {
+      "id": "SG-01",
+      "title": "Write a source contract for every official page we use",
+      "problem": "Right now each dataset was captured by hand once. There is no written agreement about which page owns which field, or what happens when a page changes shape.",
+      "unblocks": ["Q01"],
+      "status": "implemented",
+      "implemented_note": "data/sources.json now records publisher, fields used, verification state and a rejection list. The refresh job (SG-02) enforces it.",
+      "paths": [
+        { "id": "A", "name": "Hand-curated registry", "effort": "low", "cost": "free", "pros": "Exact, reviewable, no scraping fragility beyond the four pages we already read.", "cons": "Breaks silently if NFL.com renames a column.", "recommended": true },
+        { "id": "B", "name": "Scrape everything with selectors", "effort": "high", "cost": "free", "pros": "More fields per page.", "cons": "Every selector is a liability; no SLA; likely violates nothing but is fragile.", "recommended": false },
+        { "id": "C", "name": "Buy a data vendor", "effort": "low", "cost": "recurring fee", "pros": "Stable schema.", "cons": "No longer an 'official source' claim; costs money.", "recommended": false }
+      ],
+      "decision_needed_from_owner": "Accept that four hand-verified pages are the foundation, or approve a vendor budget."
+    },
+    {
+      "id": "SG-02",
+      "title": "Freeze the line at kickoff and never edit it",
+      "problem": "An originated line is worthless for grading if it can be quietly improved after the game.",
+      "unblocks": ["Q02", "Q08"],
+      "status": "implemented",
+      "implemented_note": "Git history is the audit trail. .github/workflows/pages.yml regenerates the site on every push so the published line always matches the committed data.",
+      "paths": [
+        { "id": "A", "name": "Weekly commit at first kickoff", "effort": "low", "cost": "free", "pros": "Simple, auditable, works with the CI already in place.", "cons": "Depends on the job running on time.", "recommended": true },
+        { "id": "B", "name": "Signed tag per week", "effort": "medium", "cost": "free", "pros": "Cryptographic proof of when the line was fixed.", "cons": "Extra ceremony for a single-owner repo.", "recommended": false },
+        { "id": "C", "name": "No freeze", "effort": "none", "cost": "free", "pros": "Frictionless.", "cons": "Destroys the credibility of every future grade. Not a real option.", "recommended": false }
+      ],
+      "decision_needed_from_owner": "Choose the freeze mechanism. Until then, treat all grades as provisional."
+    },
+    {
+      "id": "SG-03",
+      "title": "Capture the official injury-report policy text",
+      "problem": "The engine needs a defensible mapping from practice status to whether a player suits up. The policy page returned an empty body (flag F06).",
+      "unblocks": ["Q03"],
+      "status": "blocked",
+      "blocked_by": "operations.nfl.com returned empty on 2026-11-14",
+      "paths": [
+        { "id": "A", "name": "Re-fetch with a rendering client and archive", "effort": "low", "cost": "free", "pros": "Gives us the league's own wording.", "cons": "Still a manual archive; may drift.", "recommended": true },
+        { "id": "B", "name": "Treat statuses as labels only, never as probabilities", "effort": "low", "cost": "free", "pros": "Zero risk of asserting a rule that does not exist.", "cons": "Kills the availability signal entirely.", "recommended": false },
+        { "id": "C", "name": "Use community-reported availability rates", "effort": "medium", "cost": "free", "pros": "Empirical, not doctrinal.", "cons": "Not official, so it violates the project's own source rule.", "recommended": false }
+      ],
+      "decision_needed_from_owner": "Give the green light to archive an official copy, or accept a label-only model."
+    },
+    {
+      "id": "SG-04",
+      "title": "Reconcile the Friday report against the 90-minute inactives",
+      "problem": "185 of 345 Week 10 rows have a blank game status. We do not know whether blank means 'playing'.",
+      "unblocks": ["Q04", "M05", "M06"],
+      "status": "proposed",
+      "paths": [
+        { "id": "A", "name": "Collect the inactive list each week and measure", "effort": "medium", "cost": "free", "pros": "Turns a guess into a measured rate per status label.", "cons": "Needs 8-10 weeks before the rate is trustworthy.", "recommended": true },
+        { "id": "B", "name": "Ignore blank-status rows entirely", "effort": "none", "cost": "free", "pros": "No false precision. This is what v0 already does.", "cons": "Misses genuine late-week scratches.", "recommended": false }
+      ],
+      "decision_needed_from_owner": "Approve weekly inactive capture, or accept that blank stays blank."
+    },
+    {
+      "id": "SG-05",
+      "title": "Use snap counts as the depth-chart substitute",
+      "problem": "You asked to detect 2nd/3rd/4th string replacements. No official source publishes a depth ordinal (flag F05).",
+      "unblocks": ["Q05", "M04", "M08"],
+      "status": "blocked",
+      "blocked_by": "no official snap-count feed captured",
+      "paths": [
+        { "id": "A", "name": "Official participation counts as ordinal proxy", "effort": "medium", "cost": "free", "pros": "Official, quantitative, and directly measures who actually played.", "cons": "Post-game, not predictive; needs the box score.", "recommended": true },
+        { "id": "B", "name": "Rank players by official season stat volume", "effort": "low", "cost": "free", "pros": "Available from nfl.com player pages.", "cons": "Volume is not depth; a WR2 with more targets than a WR1 breaks it.", "recommended": false },
+        { "id": "C", "name": "Say 'starter vs backup' only", "effort": "none", "cost": "free", "pros": "Honest. No ordinal claimed.", "cons": "Loses the 2nd/3rd/4th string distinction you asked for.", "recommended": false }
+      ],
+      "decision_needed_from_owner": "Accept participation counts as the ordinal, or accept a starter/backup binary."
+    },
+    {
+      "id": "SG-06",
+      "title": "Decide the market-price question once, in writing",
+      "problem": "Every 'value' claim in betting requires a price. We hold none (flag F07).",
+      "unblocks": ["Q06", "G6"],
+      "status": "blocked",
+      "blocked_by": "no licensed odds feed",
+      "paths": [
+        { "id": "A", "name": "License an odds feed", "effort": "high", "cost": "paid", "pros": "Unlocks edge, CLV, and the Champion tier.", "cons": "Cost, contract, and jurisdiction rules.", "recommended": true },
+        { "id": "B", "name": "Publish lines with no market comparison", "effort": "none", "cost": "free", "pros": "Fully honest; the site already does this.", "cons": "Cannot ever call a strategy 'good' in market terms.", "recommended": false },
+        { "id": "C", "name": "Compare to a public consensus number", "effort": "medium", "cost": "free", "pros": "Cheap proxy.", "cons": "Unverifiable provenance; breaks the official-source rule.", "recommended": false }
+      ],
+      "decision_needed_from_owner": "Fund a feed, or accept that 'edge vs market' stays out of scope."
+    },
+    {
+      "id": "SG-07",
+      "title": "Backtest and calibrate sigma before trusting any band",
+      "problem": "The line bands are derived from declared constants, not from observed error.",
+      "unblocks": ["Q07"],
+      "status": "blocked",
+      "blocked_by": "no historical weekly snapshots",
+      "paths": [
+        { "id": "A", "name": "Rebuild 2025 week-by-week and replay the engine", "effort": "high", "cost": "free", "pros": "Real calibration: how often does the 90% band contain the result?", "cons": "18 weeks of manual capture.", "recommended": true },
+        { "id": "B", "name": "Keep declared constants and label them", "effort": "none", "cost": "free", "pros": "Already done, already honest.", "cons": "Bands stay unfalsified.", "recommended": false }
+      ],
+      "decision_needed_from_owner": "Authorise a historical rebuild, or keep bands clearly marked as uncalibrated."
+    },
+    {
+      "id": "SG-08",
+      "title": "Dry-run the grading pipeline on Week 10",
+      "problem": "The leaderboard is empty because nothing has been graded. The pipeline itself is untested.",
+      "unblocks": ["Q08"],
+      "status": "proposed",
+      "paths": [
+        { "id": "A", "name": "Grade Week 10 as soon as the last game ends", "effort": "low", "cost": "free", "pros": "Proves the pipeline end to end with 14 real games.", "cons": "n=14 is far below any threshold; results prove plumbing, not skill.", "recommended": true },
+        { "id": "B", "name": "Wait for 30 games before grading anything", "effort": "none", "cost": "free", "pros": "No misleading numbers.", "cons": "Bugs stay undiscovered for weeks.", "recommended": false }
+      ],
+      "decision_needed_from_owner": "Approve a clearly-labelled plumbing test, or hold until the sample is meaningful."
+    },
+    {
+      "id": "SG-09",
+      "title": "Settle whether luck-fading is real",
+      "problem": "The luck fade strategy (S04) is the counter-example the luck filter exists to catch. Nobody has tested whether fading lucky teams works.",
+      "unblocks": ["Q09"],
+      "status": "blocked",
+      "blocked_by": "needs multi-season game-level history with prices",
+      "paths": [
+        { "id": "A", "name": "Test on 3 prior seasons", "effort": "high", "cost": "paid data or manual capture", "pros": "Settles a decades-old market question with our own numbers.", "cons": "Large lift; needs prices, which we do not have.", "recommended": true },
+        { "id": "B", "name": "Drop the luck-fade strategy", "effort": "none", "cost": "free", "pros": "Removes a claim we cannot support.", "cons": "Also removes a useful counter-example.", "recommended": false }
+      ],
+      "decision_needed_from_owner": "Fund the test, or keep S04 labelled as untested."
+    },
+    {
+      "id": "SG-10",
+      "title": "Capture official player-game statistics",
+      "problem": "Every prop correlation magnitude is unmeasured without per-game player stats.",
+      "unblocks": ["Q10", "M03", "S06"],
+      "status": "blocked",
+      "blocked_by": "player-level stats not captured",
+      "paths": [
+        { "id": "A", "name": "Capture official box scores per game", "effort": "medium", "cost": "free", "pros": "Unlocks all prop work, plus snap-count cross-checks.", "cons": "345-row pages already large; box scores are bigger.", "recommended": true },
+        { "id": "B", "name": "Keep props blocked", "effort": "none", "cost": "free", "pros": "Zero risk of a wrong correlation claim.", "cons": "Player props were explicitly requested.", "recommended": false }
+      ],
+      "decision_needed_from_owner": "Approve box-score capture, or accept that props stay blocked."
+    },
+    {
+      "id": "SG-11",
+      "title": "Signed weekly snapshots",
+      "problem": "Git history is good; cryptographic proof is better.",
+      "unblocks": ["Q11"],
+      "status": "proposed",
+      "paths": [
+        { "id": "A", "name": "Checksum each week's JSON into a published index", "effort": "low", "cost": "free", "pros": "Anyone can verify a line was not changed after the fact.", "cons": "Marginally more machinery.", "recommended": true },
+        { "id": "B", "name": "Rely on git history", "effort": "none", "cost": "free", "pros": "Already works.", "cons": "A force-push could rewrite it.", "recommended": false }
+      ],
+      "decision_needed_from_owner": "Pick checksum publication, or accept git as the only record."
+    },
+    {
+      "id": "SG-12",
+      "title": "Choose the reward weighting explicitly",
+      "problem": "sqrt(n) normalisation rewards precision over volume, which is a values choice, not a fact.",
+      "unblocks": ["Q12"],
+      "status": "proposed",
+      "paths": [
+        { "id": "A", "name": "Precision-weighted (current)", "effort": "none", "cost": "free", "pros": "Punishes volume-chasing; rewards selectivity, which is what you asked for.", "cons": "Rewards abstention; a strategy that bets twice a year and wins both looks great.", "recommended": true },
+        { "id": "B", "name": "Total-profit-weighted", "effort": "none", "cost": "free", "pros": "Intuitive.", "cons": "Rewards volume; a lucky high-volume strategy beats a skilled selective one.", "recommended": false },
+        { "id": "C", "name": "Run both and publish a spread", "effort": "low", "cost": "free", "pros": "Shows how much the ranking depends on the choice.", "cons": "Two leaderboards to explain.", "recommended": false }
+      ],
+      "decision_needed_from_owner": "Confirm precision-weighting, or switch to profit-weighting."
+    },
+    {
+      "id": "SG-13",
+      "title": "Capture game-by-game results with margins",
+      "problem": "No backtest is possible from season aggregates alone.",
+      "unblocks": ["M02", "S07"],
+      "status": "proposed",
+      "paths": [
+        { "id": "A", "name": "Capture the scoreboard each week", "effort": "medium", "cost": "free", "pros": "Unlocks calibration, division tests, and real grading.", "cons": "Weekly manual step until the refresh job handles it.", "recommended": true },
+        { "id": "B", "name": "Stay aggregate-only", "effort": "none", "cost": "free", "pros": "No new work.", "cons": "Every backtest stays parked.", "recommended": false }
+      ],
+      "decision_needed_from_owner": "Approve weekly scoreboard capture."
+    },
+    {
+      "id": "SG-14",
+      "title": "Add turnover margin to the luck model",
+      "problem": "Pythagorean luck cannot separate takeaways from luck without turnover data.",
+      "unblocks": ["M07"],
+      "status": "blocked",
+      "blocked_by": "turnover margin not in the official standings table",
+      "paths": [
+        { "id": "A", "name": "Derive from box scores", "effort": "medium", "cost": "free", "pros": "Completes the luck decomposition.", "cons": "Depends on SG-10/SG-13 landing first.", "recommended": true },
+        { "id": "B", "name": "Accept an incomplete luck model", "effort": "none", "cost": "free", "pros": "Already caveated on the site.", "cons": "Some 'luck' is really takeaways.", "recommended": false }
+      ],
+      "decision_needed_from_owner": "Sequence SG-14 after box-score capture, or accept the caveat."
+    },
+    {
+      "id": "SG-15",
+      "title": "Add venue and weather context",
+      "problem": "The Munich game is a neutral site, and outdoor totals depend on wind. Neither is in the model.",
+      "unblocks": ["M09"],
+      "status": "proposed",
+      "paths": [
+        { "id": "A", "name": "Flag neutral-site games only", "effort": "low", "cost": "free", "pros": "Fixes the biggest error (HFA applied at a neutral site).", "cons": "Weather still absent.", "recommended": true },
+        { "id": "B", "name": "Full weather integration", "effort": "high", "cost": "needs a non-NFL weather source", "pros": "Best totals.", "cons": "Violates the official-source rule for one input.", "recommended": false }
+      ],
+      "decision_needed_from_owner": "Approve the neutral-site flag at minimum."
+    },
+    {
+      "id": "SG-16",
+      "title": "Flag short weeks and byes",
+      "problem": "Thursday games and post-bye teams are invisible to a model that only sees season aggregates.",
+      "unblocks": ["M10"],
+      "status": "proposed",
+      "paths": [
+        { "id": "A", "name": "Tag rest days from the schedule", "effort": "low", "cost": "free", "pros": "Cheap, official, immediately usable.", "cons": "Small effect, needs measurement before weighting.", "recommended": true },
+        { "id": "B", "name": "Ignore rest", "effort": "none", "cost": "free", "pros": "Simpler.", "cons": "Known bias left in.", "recommended": false }
+      ],
+      "decision_needed_from_owner": "Approve rest tagging."
+    }
+  ],
+  "priority_order": [
+    { "rank": 1, "id": "SG-13", "why": "Nothing can be graded, calibrated, or backtested without game-level results." },
+    { "rank": 2, "id": "SG-02", "why": "A grade is meaningless if the line can move after kickoff." },
+    { "rank": 3, "id": "SG-06", "why": "Decides whether 'edge' is ever in scope." },
+    { "rank": 4, "id": "SG-10", "why": "Unblocks every prop and correlation-magnitude question." },
+    { "rank": 5, "id": "SG-05", "why": "Turns the 2nd/3rd/4th-string request into something measurable." },
+    { "rank": 6, "id": "SG-04", "why": "Settles what a blank game status means." },
+    { "rank": 7, "id": "SG-07", "why": "Makes the uncertainty bands falsifiable." },
+    { "rank": 8, "id": "SG-15", "why": "The Munich game is currently mispriced by a full home-field advantage." }
+  ]
+}
