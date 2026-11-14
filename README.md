@@ -51,7 +51,7 @@ no route to nfl.com ([`COORDINATION.md`](COORDINATION.md) capability table).
 | Data layer + provenance + verification | working; 32/32 clubs, 33/137 games, 160 availability rows |
 | Model that prices a slate | runs end to end, **constants fitted on 33 games in-sample** — labelled provisional everywhere |
 | Signal catalogue, gates, leaderboard schema | specified; 1 of 13 gates (G-10) is live, the rest wait on market data |
-| Site | 20 pages, all generated, link-checked, deployed from the `site` workflow |
+| Site | 20 generated pages in `docs/`, link-checked; Pages publishes `main`/`docs` and the `site` workflow is the gate that keeps a stale or failing build off `main` |
 | Blockers | market prices (Q-01), lineups (Q-02), IR/transactions (Q-03), game history (Q-04) |
 
 Nothing here is betting advice; nothing here claims a strategy is profitable. The strongest claim the

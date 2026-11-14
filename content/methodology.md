@@ -41,8 +41,31 @@ Media, aggregators and other betting sites are recorded as `secondary` or `comme
 | V-10 | injury rows use only legal designations and known clubs |
 | V-11 | rounding-boundary warnings are surfaced rather than silently tolerated |
 
-Plus a build-time check that **no row cites an unregistered `source_id`**, and a link check
-(`scripts/check_links.py`) that fails the deploy on a broken internal link.
+Plus three integrity checks over the repo itself:
+
+| Check | What it proves |
+|---|---|
+| I-05 | no row cites a `source_id` that is missing from `data/sources.csv` |
+| I-06 / I-06b | our numbers are all present, and **no market value was invented** anywhere |
+| I-07 | every `data/*.csv` row parses with exactly its header's field count |
+
+I-07 exists because it found a real bug: four hand-written CSVs had unquoted commas (and one missing
+column), which silently shifted `source_id` and `accessed_utc` into the wrong cells on 29 rows. It is
+negative-tested by corrupting a row and confirming the build exits 1.
+
+A separate link check (`scripts/check_links.py`) fails on a broken internal link, an anchor that does not
+exist, or a page unreachable from `index.html`; external links are reported, never fatal - a league page
+that moves is a finding for the review queue, not a reason to break a deploy.
+
+## How the site gets published
+
+Pages for this repo is a **legacy branch build from `main` / `docs`** - the agent token could not change
+that setting (HTTP 403, [FLG-027](flagged.html)), so the committed `docs/` is what publishes.
+`.github/workflows/site.yml` is therefore the *gate*: on every push and PR it re-runs `model.py`,
+`stats_tables.py`, `make_leaderboard.py`, `verify.py`, `build_site.py --check` and `check_links.py`, then
+fails if the regenerated `docs/`/`data/` differs from what was committed. Combined with a deterministic
+build (no timestamp embedded in any page), that means **a hand-edited or stale page cannot survive on the
+live site**: it fails CI at the PR stage.
 
 ## Worked example of the discipline paying for itself
 

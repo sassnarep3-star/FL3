@@ -19,6 +19,8 @@ python3 scripts/check_links.py      # internal links, anchors, orphan pages
 ```
 
 `build_site.py` runs `verify.py` and `check_links.py` itself, so a single command is enough locally.
-GitHub Pages is deployed by `.github/workflows/site.yml`, which additionally fails the build if `docs/`
-in the commit does not match what the current `data/` would generate - that is what keeps a hand-patched
-page from surviving on the live site.
+GitHub Pages for this repo is a **legacy branch build from `main` / `docs`** (the token available while
+authoring could not change the Pages setting - see FLG-027), so `docs/` is committed and is what
+publishes. `.github/workflows/site.yml` is the gate: it re-runs the whole pipeline and fails if the
+committed `docs/` does not match what `data/` generates, or if a verification or link check fails - that
+is what keeps a hand-patched page from surviving on the live site.

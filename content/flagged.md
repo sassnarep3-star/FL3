@@ -8,7 +8,7 @@ in a specific cell, which is the thing that actually has to be protected.
 update `data/`, (b) approve the value as-is and record the exception in `COORDINATION.md`, or (c) mark it
 `resolved: <what changed>` in `data/flags.csv` and rebuild.
 
-:::table flags.csv | 26 open items: 7 high, 12 medium, 7 low and info | id,severity,page,item,finding,action_required,source_url,status
+:::table flags.csv | 27 open items: 7 high, 12 medium, 8 low and info | id,severity,page,item,finding,action_required,source_url,status
 
 ## The six that matter most
 
