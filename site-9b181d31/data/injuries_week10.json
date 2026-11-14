@@ -1,0 +1,676 @@
+{
+  "meta": {
+    "title": "Official NFL injury report — Week 10, 2026 season",
+    "source": "SRC-INJ",
+    "source_url": "https://www.nfl.com/injuries/",
+    "captured_utc": "2026-11-14",
+    "week": 10,
+    "season": 2026,
+    "field_notes": {
+      "injury": "Printed verbatim in the 'Injuries' column. May be blank in the official table (blank = blank here).",
+      "practice": "Full Participation in Practice | Limited Participation in Practice | Did Not Participate In Practice",
+      "game_status": "Out | Doubtful | Questionable, or blank when NFL.com prints no game status",
+      "status_semantics": "As printed by NFL.com. No interpretation, no inferred severity."
+    },
+    "coverage": {
+      "clubs_with_table": 28,
+      "clubs_without_table": ["CIN-table-partial-see-flags", "SF-ok"],
+      "note": "Every club appearing on the Week 10 slate has a table. Clubs absent from the slate are treated as on bye and flagged as derived."
+    }
+  },
+  "games": [
+    {
+      "game_id": "WAS-NYG-W10",
+      "away": "WAS",
+      "home": "NYG",
+      "status_line": "FINAL — Commanders 24, Giants 21 (Thu Nov 12, 8:15 PM ET, Prime Video)",
+      "result_captured": true,
+      "src": "https://www.nfl.com/schedules/2026/REG/",
+      "teams": [
+        {
+          "abbr": "WAS",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "John Bates", "pos": "TE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Treylon Burks", "pos": "WR", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "Jayden Daniels", "pos": "QB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Matt Gulbin", "pos": "C", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Chig Okonkwo", "pos": "TE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Lucas Patrick", "pos": "C", "injury": "Concussion", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Amik Robertson", "pos": "CB", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Shy Tuttle", "pos": "DT", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Colson Yankoff", "pos": "TE", "injury": "Knee", "practice": "Did Not Participate In Practice", "game_status": "Out" }
+          ]
+        },
+        {
+          "abbr": "NYG",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Abdul Carter", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Jermaine Eluemunor", "pos": "T", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Malik Harrison", "pos": "LB", "injury": "Groin", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Colton Hood", "pos": "CB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Theo Johnson", "pos": "TE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Charlie Jones", "pos": "WR", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "J.J. McCarthy", "pos": "QB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Darnell Mooney", "pos": "WR", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Malik Nabers", "pos": "WR", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Cam Skattebo", "pos": "RB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Andrew Thomas", "pos": "T", "injury": "", "practice": "Full Participation in Practice", "game_status": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "game_id": "NE-DET-W10",
+      "away": "NE",
+      "home": "DET",
+      "status_line": "Sun Nov 15, 9:30 AM ET — Munich (international game), FOX",
+      "result_captured": false,
+      "src": "https://www.nfl.com/schedules/2026/REG/",
+      "teams": [
+        {
+          "abbr": "NE",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Ben Brown", "pos": "C", "injury": "Knee", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "A.J. Brown", "pos": "WR", "injury": "Ankle, Knee", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Kevin Byard", "pos": "S", "injury": "Chest", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Carlton Davis III", "pos": "CB", "injury": "Knee", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Reggie Gilliam", "pos": "FB", "injury": "Knee", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "TreVeyon Henderson", "pos": "RB", "injury": "Illness", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Hunter Henry", "pos": "TE", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Cameron Latu", "pos": "TE", "injury": "Back", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Drake Maye", "pos": "QB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Morgan Moses", "pos": "T", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Walter Rouse", "pos": "T", "injury": "Concussion", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Brenden Schooler", "pos": "S", "injury": "Hamstring", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Rhamondre Stevenson", "pos": "RB", "injury": "Knee", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Greg Van Roten", "pos": "G", "injury": "Hamstring", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Charles Woods", "pos": "CB", "injury": "Hamstring", "practice": "Full Participation in Practice", "game_status": "Questionable" }
+          ]
+        },
+        {
+          "abbr": "DET",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Brian Branch", "pos": "S", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Jared Goff", "pos": "QB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Kerby Joseph", "pos": "S", "injury": "Knee", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Cade Mays", "pos": "C", "injury": "Ankle", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "D.J. Reed", "pos": "CB", "injury": "Hip", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Jacob Saylors", "pos": "RB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Amon-Ra St. Brown", "pos": "WR", "injury": "Rib", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Sione Vaki", "pos": "RB", "injury": "Ankle", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "DJ Wonnum", "pos": "DE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "game_id": "KC-ATL-W10",
+      "away": "KC",
+      "home": "ATL",
+      "status_line": "Sun Nov 15, 1:00 PM ET, CBS",
+      "result_captured": false,
+      "src": "https://www.nfl.com/schedules/2026/REG/",
+      "teams": [
+        {
+          "abbr": "KC",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Jeffrey Bassa", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Mansoor Delane", "pos": "CB", "injury": "Shoulder", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Justin Fields", "pos": "QB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Jaden Hicks", "pos": "S", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Travis Kelce", "pos": "TE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Patrick Mahomes", "pos": "QB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Jaylon Moore", "pos": "T", "injury": "Ankle", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Omarr Norman-Lott", "pos": "DT", "injury": "Knee", "practice": "Limited Participation in Practice", "game_status": "Out" },
+            { "name": "Jaydn Ott", "pos": "RB", "injury": "Hamstring", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Rashee Rice", "pos": "WR", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Kenneth Walker III", "pos": "RB", "injury": "Groin", "practice": "Did Not Participate In Practice", "game_status": "Questionable" },
+            { "name": "Peter Woods", "pos": "DT", "injury": "Neck", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Xavier Worthy", "pos": "WR", "injury": "", "practice": "Full Participation in Practice", "game_status": "" }
+          ]
+        },
+        {
+          "abbr": "ATL",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Zachariah Branch", "pos": "WR", "injury": "Hamstring", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Kendal Daniels", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Divine Deablo", "pos": "LB", "injury": "Forearm", "practice": "Did Not Participate In Practice", "game_status": "Doubtful" },
+            { "name": "Gervon Dexter Sr.", "pos": "DT", "injury": "Illness", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Jake Matthews", "pos": "T", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Liam McCullough", "pos": "LS", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "James Pearce Jr.", "pos": "DE", "injury": "Back", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Za'Darius Smith", "pos": "DE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Jawaan Taylor", "pos": "T", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Cameron Thomas", "pos": "DE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Josh Woods", "pos": "LB", "injury": "Ankle", "practice": "Full Participation in Practice", "game_status": "Questionable" }
+          ]
+        }
+      ]
+    },
+    {
+      "game_id": "MIN-GB-W10",
+      "away": "MIN",
+      "home": "GB",
+      "status_line": "Sun Nov 15, 1:00 PM ET, FOX",
+      "result_captured": false,
+      "src": "https://www.nfl.com/schedules/2026/REG/",
+      "teams": [
+        {
+          "abbr": "MIN",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Jordan Addison", "pos": "WR", "injury": "Thumb", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Blake Cashman", "pos": "LB", "injury": "Concussion", "practice": "Limited Participation in Practice", "game_status": "Out" },
+            { "name": "Christian Darrisaw", "pos": "T", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "T.J. Hockenson", "pos": "TE", "injury": "Wrist, Chest", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Tyrion Ingram-Dawkins", "pos": "DT", "injury": "Ankle", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Theo Jackson", "pos": "S", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Jauan Jennings", "pos": "WR", "injury": "Calf", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Josh Metellus", "pos": "S", "injury": "Shoulder", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Kyler Murray", "pos": "QB", "injury": "Hamstring", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Harrison Smith", "pos": "S", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Kyle Van Noy", "pos": "LB", "injury": "Calf", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Jay Ward", "pos": "S", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Carson Wentz", "pos": "QB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" }
+          ]
+        },
+        {
+          "abbr": "GB",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Aaron Banks", "pos": "G", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Chris Brooks", "pos": "RB", "injury": "Ankle", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Javon Bullard", "pos": "S", "injury": "Ankle, Knee", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Zaire Franklin", "pos": "LB", "injury": "Shin", "practice": "Did Not Participate In Practice", "game_status": "Doubtful" },
+            { "name": "Travis Glover", "pos": "G", "injury": "Knee", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Ty'Ron Hopper", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Josh Jacobs", "pos": "RB", "injury": "Finger", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Xavier McKinney", "pos": "S", "injury": "Foot", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Bo Melton", "pos": "WR", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Skyy Moore", "pos": "WR", "injury": "Ankle", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Micah Parsons", "pos": "LB", "injury": "Knee, Illness", "practice": "Limited Participation in Practice", "game_status": "Out" },
+            { "name": "Sean Rhyan", "pos": "C", "injury": "Ankle", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Trey Smack", "pos": "K", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Lukas Van Ness", "pos": "LB", "injury": "Back", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Josh Whyle", "pos": "TE", "injury": "Concussion", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Savion Williams", "pos": "WR", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Kevin Zeitler", "pos": "G", "injury": "Ankle, Triceps", "practice": "Did Not Participate In Practice", "game_status": "Questionable" }
+          ]
+        }
+      ]
+    },
+    {
+      "game_id": "JAX-TEN-W10",
+      "away": "JAX",
+      "home": "TEN",
+      "status_line": "Sun Nov 15, 1:00 PM ET, FOX",
+      "result_captured": false,
+      "src": "https://www.nfl.com/schedules/2026/REG/",
+      "teams": [
+        {
+          "abbr": "JAX",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Jessie Bates", "pos": "S", "injury": "Not injury related - resting player", "practice": "Limited Participation in Practice", "game_status": "Out" },
+            { "name": "Ezra Cleveland", "pos": "G", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Branson Combs", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Jordan Davis", "pos": "DT", "injury": "Not injury related - resting player", "practice": "Limited Participation in Practice", "game_status": "Out" },
+            { "name": "BJ Green II", "pos": "DE", "injury": "Forearm", "practice": "Full Participation in Practice", "game_status": "Out" },
+            { "name": "Robert Hainsey", "pos": "C", "injury": "Concussion", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Antonio Johnson", "pos": "S", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Jakobi Meyers", "pos": "WR", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Chris Rodriguez Jr.", "pos": "RB", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Bhayshul Tuten", "pos": "RB", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Travon Walker", "pos": "DE", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" }
+          ]
+        },
+        {
+          "abbr": "TEN",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Cody Barton", "pos": "LB", "injury": "Concussion", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "John Franklin-Myers", "pos": "DE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Marcus Harris", "pos": "CB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Anthony Hill Jr.", "pos": "LB", "injury": "Neck", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Jaylon Jones", "pos": "CB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "JC Latham", "pos": "T", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Tony Pollard", "pos": "RB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Peter Skoronski", "pos": "G", "injury": "Hamstring", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Tyjae Spears", "pos": "RB", "injury": "Knee", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Carnell Tate", "pos": "WR", "injury": "Shoulder", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Tommy Townsend", "pos": "P", "injury": "Knee, Achilles", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Kevin Winston Jr.", "pos": "S", "injury": "", "practice": "Full Participation in Practice", "game_status": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "game_id": "BUF-NYJ-W10",
+      "away": "BUF",
+      "home": "NYJ",
+      "status_line": "Sun Nov 15, 1:00 PM ET, CBS",
+      "result_captured": false,
+      "src": "https://www.nfl.com/schedules/2026/REG/",
+      "teams": [
+        {
+          "abbr": "BUF",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Alec Anderson", "pos": "G", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Christian Benford", "pos": "CB", "injury": "Wrist", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Terrel Bernard", "pos": "LB", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "Spencer Brown", "pos": "T", "injury": "Ankle", "practice": "Did Not Participate In Practice", "game_status": "Doubtful" },
+            { "name": "Dion Dawkins", "pos": "T", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Sam Franklin Jr.", "pos": "S", "injury": "Shoulder", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Greg Gaines", "pos": "DT", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Jordan Hancock", "pos": "CB", "injury": "Hamstring", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Dalton Kincaid", "pos": "TE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Connor McGovern", "pos": "C", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Ed Oliver", "pos": "DE", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "Ar'maj Reed-Adams", "pos": "G", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "T.J. Sanders", "pos": "DE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Tyrell Shavers", "pos": "WR", "injury": "Knee", "practice": "Full Participation in Practice", "game_status": "Questionable" }
+          ]
+        },
+        {
+          "abbr": "NYJ",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Jarvis Brownlee Jr.", "pos": "CB", "injury": "Illness", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Omar Cooper Jr.", "pos": "WR", "injury": "Ankle", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Adonai Mitchell", "pos": "WR", "injury": "Knee", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Joseph Ossai", "pos": "DE", "injury": "Ankle", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "VJ Payne", "pos": "S", "injury": "Knee", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Harrison Phillips", "pos": "DT", "injury": "Ankle", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Trevin Wallace", "pos": "LB", "injury": "Groin", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Garrett Wilson", "pos": "WR", "injury": "Concussion", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Nahshon Wright", "pos": "CB", "injury": "Back", "practice": "Full Participation in Practice", "game_status": "Questionable" }
+          ]
+        }
+      ]
+    },
+    {
+      "game_id": "MIA-IND-W10",
+      "away": "MIA",
+      "home": "IND",
+      "status_line": "Sun Nov 15, 1:00 PM ET, CBS",
+      "result_captured": false,
+      "src": "https://www.nfl.com/schedules/2026/REG/",
+      "teams": [
+        {
+          "abbr": "MIA",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Tucker Addington", "pos": "LS", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Kaytron Allen", "pos": "RB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Darrell Baker Jr.", "pos": "CB", "injury": "Knee", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Chris Bell", "pos": "WR", "injury": "Knee", "practice": "Did Not Participate In Practice", "game_status": "Doubtful" },
+            { "name": "Aaron Brewer", "pos": "C", "injury": "Concussion", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Malik Herring", "pos": "DE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Will Kacmarek", "pos": "TE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Michael Taaffe", "pos": "S", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Dante Trader Jr.", "pos": "S", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Jared Wayne", "pos": "WR", "injury": "Quadricep", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Jaylen Wright", "pos": "RB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" }
+          ]
+        },
+        {
+          "abbr": "IND",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Mo Alie-Cox", "pos": "TE", "injury": "Groin", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "CJ Allen", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Jaylon Carlies", "pos": "LB", "injury": "Neck", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Akeem Davis-Gaither", "pos": "LB", "injury": "Knee", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "A.J. Haulcy", "pos": "S", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Arden Key", "pos": "DE", "injury": "Hamstring", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Will Mallory", "pos": "TE", "injury": "Hamstring", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Luke Rhodes", "pos": "LS", "injury": "Hamstring", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Grover Stewart", "pos": "DT", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Jonathan Taylor", "pos": "RB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Jerry Tillery", "pos": "DT", "injury": "Calf", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Jalen Travis", "pos": "T", "injury": "Knee", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Justin Walley", "pos": "CB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Charvarius Ward", "pos": "CB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "game_id": "CAR-NO-W10",
+      "away": "CAR",
+      "home": "NO",
+      "status_line": "Sun Nov 15, 1:00 PM ET, FOX",
+      "result_captured": false,
+      "src": "https://www.nfl.com/schedules/2026/REG/",
+      "teams": [
+        {
+          "abbr": "CAR",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Jonathon Brooks", "pos": "RB", "injury": "Groin", "practice": "Limited Participation in Practice", "game_status": "Doubtful" },
+            { "name": "Brady Christensen", "pos": "G", "injury": "Hamstring", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Trevor Etienne", "pos": "RB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Chuba Hubbard", "pos": "RB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Lee Hunter", "pos": "DT", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Mike Jackson", "pos": "CB", "injury": "Groin", "practice": "Limited Participation in Practice", "game_status": "Doubtful" },
+            { "name": "Will Lee III", "pos": "CB", "injury": "Hamstring", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Xavier Legette", "pos": "WR", "injury": "Knee", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Damien Lewis", "pos": "G", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Bobby Okereke", "pos": "LB", "injury": "Foot", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Jaelan Phillips", "pos": "LB", "injury": "Hamstring", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Torricelli Simpkins III", "pos": "G", "injury": "", "practice": "Full Participation in Practice", "game_status": "" }
+          ]
+        },
+        {
+          "abbr": "NO",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Kelvin Banks Jr.", "pos": "T", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "CJ Donaldson", "pos": "RB", "injury": "Shoulder", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "David Edwards", "pos": "G", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Martin Emerson", "pos": "CB", "injury": "Shin", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Travis Etienne", "pos": "RB", "injury": "Hamstring", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Noah Fant", "pos": "TE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Taliese Fuaga", "pos": "T", "injury": "Knee", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Alvin Kamara", "pos": "RB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Erik McCoy", "pos": "C", "injury": "Biceps", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Christen Miller", "pos": "DT", "injury": "Knee", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Asim Richards", "pos": "T", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Quincy Riley", "pos": "CB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "game_id": "HOU-CLE-W10",
+      "away": "HOU",
+      "home": "CLE",
+      "status_line": "Sun Nov 15, 1:00 PM ET, FOX",
+      "result_captured": false,
+      "src": "https://www.nfl.com/schedules/2026/REG/",
+      "teams": [
+        {
+          "abbr": "HOU",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Azeez Al-Shaair", "pos": "LB", "injury": "Groin, Not injury related - personal matter", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Will Anderson Jr.", "pos": "DE", "injury": "Ankle", "practice": "Did Not Participate In Practice", "game_status": "Questionable" },
+            { "name": "Reed Blankenship", "pos": "S", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Trent Brown", "pos": "T", "injury": "Wrist, Illness", "practice": "Did Not Participate In Practice", "game_status": "Questionable" },
+            { "name": "Tank Dell", "pos": "WR", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Blake Fisher", "pos": "T", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Marvin Harrison Jr.", "pos": "WR", "injury": "Hamstring", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Jacob Hummel", "pos": "LB", "injury": "Groin", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Danielle Hunter", "pos": "DE", "injury": "Hamstring", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Brevin Jordan", "pos": "TE", "injury": "Finger, Foot", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Woody Marks", "pos": "RB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "David Montgomery", "pos": "RB", "injury": "Groin", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Keylan Rutledge", "pos": "G", "injury": "Neck, Shoulder", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Jaylin Smith", "pos": "CB", "injury": "Hamstring", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Wyatt Teller", "pos": "G", "injury": "Illness, Back", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Tommy Togiai", "pos": "DT", "injury": "", "practice": "Full Participation in Practice", "game_status": "" }
+          ]
+        },
+        {
+          "abbr": "CLE",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Austin Barber", "pos": "T", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Denzel Boston", "pos": "WR", "injury": "Toe", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Michael Burton", "pos": "FB", "injury": "Calf", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Maliek Collins", "pos": "DT", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Harold Fannin Jr.", "pos": "TE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Ronnie Hickman Jr.", "pos": "S", "injury": "Concussion", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Tytus Howard", "pos": "T", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Elgton Jenkins", "pos": "C", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Donovan McMillon", "pos": "S", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Carson Schwesinger", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Denzel Ward", "pos": "CB", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Quincy Williams", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "game_id": "LA-AZ-W10",
+      "away": "LA",
+      "home": "AZ",
+      "status_line": "Sun Nov 15, 4:05 PM ET, CBS",
+      "result_captured": false,
+      "src": "https://www.nfl.com/schedules/2026/REG/",
+      "teams": [
+        {
+          "abbr": "LA",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Davis Allen", "pos": "TE", "injury": "Oblique", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Steve Avila", "pos": "G", "injury": "Hamstring", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Joe Cardona", "pos": "LS", "injury": "Ankle", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Kam Curl", "pos": "S", "injury": "Toe", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Aaron Donald", "pos": "DT", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "Terrance Ferguson", "pos": "TE", "injury": "Ankle, Hamstring", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Braden Fiske", "pos": "DT", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "Myles Garrett", "pos": "LB", "injury": "Knee, Not injury related - resting player", "practice": "Did Not Participate In Practice", "game_status": "Questionable" },
+            { "name": "Tyler Higbee", "pos": "TE", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Trent McDuffie", "pos": "CB", "injury": "Back", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Puka Nacua", "pos": "WR", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "Colby Parkinson", "pos": "TE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Matthew Stafford", "pos": "QB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Byron Young", "pos": "LB", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" }
+          ]
+        },
+        {
+          "abbr": "AZ",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Budda Baker", "pos": "S", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Zachary Carter", "pos": "DT", "injury": "Knee", "practice": "Limited Participation in Practice", "game_status": "Out" },
+            { "name": "Hjalte Froholdt", "pos": "C", "injury": "Concussion", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Jon Gaines II", "pos": "G", "injury": "Ankle", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Bam Knight", "pos": "RB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Hunter Long", "pos": "TE", "injury": "Knee", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Roy Lopez", "pos": "DT", "injury": "Toe, Ankle", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Max Melton", "pos": "CB", "injury": "Knee, Hand", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Darius Robinson", "pos": "DT", "injury": "Wrist", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Isaac Seumalo", "pos": "G", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Dante Stills", "pos": "DT", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Josh Sweat", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Jayden Williams", "pos": "T", "injury": "Knee", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Mack Wilson", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Andrew Wingard", "pos": "S", "injury": "Groin", "practice": "Did Not Participate In Practice", "game_status": "Questionable" }
+          ]
+        }
+      ]
+    },
+    {
+      "game_id": "SEA-LV-W10",
+      "away": "SEA",
+      "home": "LV",
+      "status_line": "Sun Nov 15, 4:05 PM ET, CBS",
+      "result_captured": false,
+      "src": "https://www.nfl.com/schedules/2026/REG/",
+      "teams": [
+        {
+          "abbr": "SEA",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "AJ Barner", "pos": "TE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Anthony Bradford", "pos": "G", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Charles Cross", "pos": "T", "injury": "Ankle", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Sam Darnold", "pos": "QB", "injury": "Ribs, Quadricep", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Derick Hall", "pos": "LB", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "Drew Lock", "pos": "QB", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Quenton Nelson", "pos": "G", "injury": "Knee", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Uchenna Nwosu", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Patrick O'Connell", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Connor O'Toole", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Brandon Pili", "pos": "DT", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Jarran Reed", "pos": "DT", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Rashid Shaheed", "pos": "WR", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Jaxon Smith-Njigba", "pos": "WR", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Leonard Williams", "pos": "DT", "injury": "Stinger", "practice": "Did Not Participate In Practice", "game_status": "Out" }
+          ]
+        },
+        {
+          "abbr": "LV",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Thomas Booker", "pos": "DT", "injury": "Ankle", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Foley Fatukasi", "pos": "DT", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Ian Thomas", "pos": "TE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Dont'e Thornton Jr.", "pos": "WR", "injury": "Back", "practice": "Did Not Participate In Practice", "game_status": "Questionable" },
+            { "name": "Trey Zuhn III", "pos": "C", "injury": "", "practice": "Full Participation in Practice", "game_status": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "game_id": "SF-DAL-W10",
+      "away": "SF",
+      "home": "DAL",
+      "status_line": "Sun Nov 15, 4:25 PM ET, FOX",
+      "result_captured": false,
+      "src": "https://www.nfl.com/schedules/2026/REG/",
+      "teams": [
+        {
+          "abbr": "SF",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Mike Evans", "pos": "WR", "injury": "Achilles", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Renardo Green", "pos": "CB", "injury": "Back", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Dre Greenlaw", "pos": "LB", "injury": "Knee", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Nate Hobbs", "pos": "CB", "injury": "Groin", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Deommodore Lenoir", "pos": "CB", "injury": "Foot", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Christian McCaffrey", "pos": "RB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Siran Neal", "pos": "S", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Demarcus Robinson", "pos": "WR", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Deebo Samuel Sr.", "pos": "WR", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Upton Stout", "pos": "CB", "injury": "Shoulder, Neck", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "C.J. West", "pos": "DT", "injury": "Knee", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Trent Williams", "pos": "T", "injury": "Shoulder", "practice": "Did Not Participate In Practice", "game_status": "Questionable" }
+          ]
+        },
+        {
+          "abbr": "DAL",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "DaRon Bland", "pos": "CB", "injury": "Ankle", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Jonathan Bullard", "pos": "DT", "injury": "Calf", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Alijah Clark", "pos": "S", "injury": "Illness", "practice": "Did Not Participate In Practice", "game_status": "Questionable" },
+            { "name": "Donovan Ezeiruaku", "pos": "LB", "injury": "Ankle", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Jake Ferguson", "pos": "TE", "injury": "Knee, Ankle", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Tyler Goodson", "pos": "RB", "injury": "Ankle, Knee", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Malik Hooker", "pos": "S", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "Marist Liufau", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "P.J. Locke", "pos": "S", "injury": "Concussion", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Von Miller", "pos": "LB", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "Jonathan Mingo", "pos": "WR", "injury": "Ankle", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Devin Moore", "pos": "CB", "injury": "Hip", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "DeMarvion Overshown", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "George Pickens", "pos": "WR", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Joey Porter Jr.", "pos": "CB", "injury": "Ankle, Foot", "practice": "Limited Participation in Practice", "game_status": "Questionable" },
+            { "name": "Luke Schoonmaker", "pos": "TE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Brevyn Spann-Ford", "pos": "TE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Juanyeh Thomas", "pos": "S", "injury": "Hamstring", "practice": "Did Not Participate In Practice", "game_status": "Doubtful" },
+            { "name": "KaVontae Turpin", "pos": "WR", "injury": "", "practice": "Full Participation in Practice", "game_status": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "game_id": "PIT-CIN-W10",
+      "away": "PIT",
+      "home": "CIN",
+      "status_line": "Sun Nov 15, 8:20 PM ET, NBC",
+      "result_captured": false,
+      "src": "https://www.nfl.com/schedules/2026/REG/",
+      "teams": [
+        {
+          "abbr": "PIT",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Brandin Echols", "pos": "CB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "DeShon Elliott", "pos": "S", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Derrick Harmon", "pos": "DT", "injury": "Foot", "practice": "Full Participation in Practice", "game_status": "Questionable" },
+            { "name": "Cameron Heyward", "pos": "DT", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Ben Skowronek", "pos": "WR", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Doneiko Slaughter", "pos": "CB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Darnell Washington", "pos": "TE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "T.J. Watt", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" }
+          ]
+        },
+        {
+          "abbr": "CIN",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Jonathan Allen", "pos": "DT", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Jalen Davis", "pos": "CB", "injury": "Hamstring", "practice": "Full Participation in Practice", "game_status": "Doubtful" },
+            { "name": "Kyle Dugger", "pos": "S", "injury": "Quadricep", "practice": "Did Not Participate In Practice", "game_status": "Out" },
+            { "name": "Dylan Fairchild", "pos": "G", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "B.J. Hill", "pos": "DT", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "Andrei Iosivas", "pos": "WR", "injury": "Thumb", "practice": "Full Participation in Practice", "game_status": "Doubtful" },
+            { "name": "Dexter Lawrence", "pos": "DT", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "Brian Parker II", "pos": "G", "injury": "Knee", "practice": "Full Participation in Practice", "game_status": "Doubtful" },
+            { "name": "DJ Turner II", "pos": "CB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "game_id": "LAC-BAL-W10",
+      "away": "LAC",
+      "home": "BAL",
+      "status_line": "Mon Nov 16, 8:15 PM ET, ESPN/ABC",
+      "result_captured": false,
+      "src": "https://www.nfl.com/schedules/2026/REG/",
+      "teams": [
+        {
+          "abbr": "LAC",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Kayode Awosika", "pos": "G", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Bud Dupree", "pos": "DE", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "Justin Eboigbe", "pos": "DE", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Alex Harkey", "pos": "G", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Tre Harris", "pos": "WR", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Cam Hart", "pos": "CB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Daiyan Henley", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Deane Leonard", "pos": "CB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Khalil Mack", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Ladd McConkey", "pos": "WR", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "Keaton Mitchell", "pos": "RB", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "David Njoku", "pos": "TE", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Denzel Perryman", "pos": "LB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Trey Pipkins", "pos": "T", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "Rodney Shelley", "pos": "CB", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Branson Taylor", "pos": "G", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "Brenen Thompson", "pos": "WR", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "Isas Waxter", "pos": "CB", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" },
+            { "name": "Kendall Williamson", "pos": "S", "injury": "", "practice": "Did Not Participate In Practice", "game_status": "" }
+          ]
+        },
+        {
+          "abbr": "BAL",
+          "src": "https://www.nfl.com/injuries/",
+          "players": [
+            { "name": "Rasheen Ali", "pos": "RB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Rashod Bateman", "pos": "WR", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Kyle Hamilton", "pos": "S", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Jaylinn Hawkins", "pos": "S", "injury": "", "practice": "Limited Participation in Practice", "game_status": "" },
+            { "name": "Matthew Hibner", "pos": "TE", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Olaivavega Ioane", "pos": "G", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Adam Randall", "pos": "RB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" },
+            { "name": "Nate Wiggins", "pos": "CB", "injury": "", "practice": "Full Participation in Practice", "game_status": "" }
+          ]
+        }
+      ]
+    }
+  ]
+}

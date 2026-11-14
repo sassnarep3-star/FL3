@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Originated Lines &amp; Edges — FL3</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="brand"><h1>FL3 · NFL Decision Intelligence</h1><span class="tag">Our lines vs the market · Week 10, 2026 · model v0.1 (unvalidated)</span></div>
+  <nav class="site">
+    <a href="index.html">Dashboard</a><a href="executive-summary.html">Summary</a>
+    <a href="requirements.html">Requirements</a><a href="suggestions.html">Suggestions</a>
+    <a class="active" href="lines.html">Lines</a><a href="injuries.html">Injuries &amp; Depth</a>
+    <a href="strategies.html">Strategies</a><a href="leaderboard.html">Leaderboard</a>
+    <a href="methodology.html">Methodology</a><a href="data.html">Data</a>
+    <a href="sources.html">Sources</a><a href="flagged.html">Flagged</a>
+  </nav>
+</header>
+<main>
+
+<div class="section">
+  <h2>Originated Lines — Week 10 <span class="badge b-model">model output</span></h2>
+  <p class="lead">Our lines are produced by the documented v0.1 model (net-points ratings + HFA +
+  transparent injury weights — full spec on <a href="methodology.html">Methodology</a>, reproducible via
+  <code>models/originate_lines.py</code>). Market numbers are reference snapshots from five outlets,
+  each row linking its source. <strong>Edge = model margin − market-implied margin</strong> (positive
+  leans toward the home side vs the market). These are research comparisons, NOT recommendations —
+  no strategy has passed the validation gates.</p>
+  <div class="callout warn"><strong>Read the edges skeptically:</strong> v0.1 is unvalidated and its
+  injury weights are design choices. An edge of 9.5 (SEA-LV) more likely signals model error or
+  missing data than a 9.5-point market mistake. Gate G3 (out-of-sample testing) is what converts
+  these numbers into evidence — see <a href="suggestions.html">S1</a>.</div>
+
+  <h3>The card</h3>
+  <div class="table-wrap"><table>
+    <caption>All 13 upcoming games. "Our line" columns are model output; market columns are linked sources. Adjustment columns show total injury weight applied (offense/defense).</caption>
+    <thead><tr>
+      <th>Game</th><th class="num">Our spread (home)</th><th class="num">Our total</th>
+      <th class="num">Market (home)</th><th class="num">Total</th>
+      <th class="num">Edge S</th><th class="num">Edge T</th>
+      <th>Injury adj (home off/def · away off/def)</th><th>Market source &amp; discrepancies</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>NE @ DET</strong><br><span style="color:#5b6b7f">Sun 9:30 · Munich (neutral)</span></td>
+        <td class="num">DET −3.0</td><td class="num">48.5</td>
+        <td class="num">DET −2.5</td><td class="num">49.5</td>
+        <td class="num">+0.5</td><td class="num">−1.0</td>
+        <td>0.9/1.25 · 2.0/1.11 — NE loses RB2 Henderson, LG1 Brown, CB1 Davis (2nd-yr replacement Channing Canada in); DET loses C1 Mays (Scruggs in), CB1 Reed (Ya-Sin in), S Joseph</td>
+        <td><a class="src" href="https://www.espn.com/espn/betting/story/_/id/50414742/2026-nfl-week-10-schedule-odds-point-spreads-totals">ESPN</a> totals 49.5–51.5 across books <span class="badge b-unv">disagreement</span></td>
+      </tr>
+      <tr>
+        <td><strong>KC @ ATL</strong><br><span style="color:#5b6b7f">Sun 1:00 · CBS</span></td>
+        <td class="num">ATL +2.5</td><td class="num">45.0</td>
+        <td class="num">ATL +3.5</td><td class="num">45.5</td>
+        <td class="num">+1.0</td><td class="num">−0.5</td>
+        <td>1.0/0.75 · 1.0/1.69 — KC DT/DL out (Norman-Lott, Woods) + RBs Ott/Walker Q; ATL WR Branch out, LB Deablo doubtful</td>
+        <td><a class="src" href="https://www.sportsbookreview.com/picks/nfl/week-10-odds-betting-lines-2026/">SBR</a> spread 3.0–3.5, total 45.5–47.5 <span class="badge b-unv">disagreement</span></td>
+      </tr>
+      <tr>
+        <td><strong>HOU @ CLE</strong><br><span style="color:#5b6b7f">Sun 1:00 · FOX</span></td>
+        <td class="num">CLE −2.0</td><td class="num">43.5</td>
+        <td class="num">CLE +4.5</td><td class="num">39.5</td>
+        <td class="num">+6.5</td><td class="num">+4.0</td>
+        <td>0.75/0.5 · 2.75/1.75 — HOU loses WR1 Harrison Jr., TE Jordan, DE Hunter, LB Al-Shaair (all OUT) + Anderson/Montgomery Q; replacement tiers unverified (chart is image)</td>
+        <td><a class="src" href="https://www.sportsbookreview.com/picks/nfl/week-10-odds-betting-lines-2026/">SBR</a> <a class="src" href="https://cbssports.com/betting/news/week-10-nfl-betting-odds-lines-totals-spreads">CBS</a> agree HOU −4.5 <span class="badge b-model">large edge — research only</span></td>
+      </tr>
+      <tr>
+        <td><strong>MIN @ GB</strong><br><span style="color:#5b6b7f">Sun 1:00 · FOX</span></td>
+        <td class="num">GB −4.0</td><td class="num">34.5</td>
+        <td class="num">GB −3.0</td><td class="num">41.5</td>
+        <td class="num">+1.0</td><td class="num">−7.0</td>
+        <td>2.38/1.44 · 4.80/1.44 — MIN: QB1 Murray OUT (Wentz 2nd / Cousins acquired Tue), TE1 Hockenson, WR3 Jennings out; GB: RB1 Jacobs out (Lloyd 2nd in), C1 Rhyan (Burton 2nd in), EDGE Parsons out (absent from chart — flagged), LB1 Franklin doubtful</td>
+        <td><a class="src" href="https://www.espn.com/espn/betting/story/_/id/50414742/2026-nfl-week-10-schedule-odds-point-spreads-totals">ESPN</a> total opened 45.5 → 41.5 <span class="badge b-model">total edge −7 — research only</span></td>
+      </tr>
+      <tr>
+        <td><strong>MIA @ IND</strong><br><span style="color:#5b6b7f">Sun 1:00 · CBS</span></td>
+        <td class="num">IND −2.0</td><td class="num">43.0</td>
+        <td class="num">IND −3.5</td><td class="num">38.5</td>
+        <td class="num">−1.5</td><td class="num">+4.5</td>
+        <td>1.44/1.94 · 2.0/0.19 — IND loses 2 LBs + TE + OT + DT + LS (6 OUT); MIA loses C1 Brewer + WR Wayne</td>
+        <td><a class="src" href="https://www.espn.com/espn/betting/story/_/id/50414742/2026-nfl-week-10-schedule-odds-point-spreads-totals">ESPN</a> "opened 47.5" vs 38.5 now — anomalous <span class="badge b-flag">F6</span></td>
+      </tr>
+      <tr>
+        <td><strong>CAR @ NO</strong><br><span style="color:#5b6b7f">Sun 1:00 · FOX</span></td>
+        <td class="num">NO −0.5</td><td class="num">50.5</td>
+        <td class="num">NO +1.5</td><td class="num">47.5</td>
+        <td class="num">+2.0</td><td class="num">+3.0</td>
+        <td>2.25/0.94 · 0.88/1.25 — NO loses RB Donaldson, OT Fuaga, C1 McCoy, DL Miller; CAR loses LB1 Okereke + RB Brooks/DB Jackson doubtful</td>
+        <td><a class="src" href="https://www.sportsbookreview.com/picks/nfl/week-10-odds-betting-lines-2026/">SBR</a> vs <a class="src" href="https://sportsdata.usatoday.com/football/nfl/odds">BetMGM</a> — books disagree on the FAVORITE (CAR −1.5 vs NO −2.5) <span class="badge b-flag">F5</span></td>
+      </tr>
+      <tr>
+        <td><strong>BUF @ NYJ</strong><br><span style="color:#5b6b7f">Sun 1:00 · CBS</span></td>
+        <td class="num">NYJ +6.0</td><td class="num">51.0</td>
+        <td class="num">NYJ +8.5</td><td class="num">51.0</td>
+        <td class="num">+2.5</td><td class="num">0.0</td>
+        <td>0.75/1.38 · 0.50/0.44 — BUF OT Brown doubtful; NYJ LB Wallace out + WR room (Wilson Q, Mitchell Q, Cooper Q)</td>
+        <td><a class="src" href="https://www.espn.com/espn/betting/story/_/id/50414742/2026-nfl-week-10-schedule-odds-point-spreads-totals">ESPN</a> spread 7.5–9.0 across books <span class="badge b-unv">disagreement</span></td>
+      </tr>
+      <tr>
+        <td><strong>JAX @ TEN</strong><br><span style="color:#5b6b7f">Sun 1:00 · FOX</span></td>
+        <td class="num">TEN +9.0</td><td class="num">44.5</td>
+        <td class="num">TEN +10.5</td><td class="num">46.5</td>
+        <td class="num">+1.5</td><td class="num">−2.0</td>
+        <td>0.12/2.00 · 1.75/1.00 — JAX: DT Davis &amp; S Bates OUT on "rest" designations (F11), DE Green out; TEN: 2 LBs + WR + G out, RB Spears Q</td>
+        <td><a class="src" href="https://www.espn.com/espn/betting/story/_/id/50414742/2026-nfl-week-10-schedule-odds-point-spreads-totals">ESPN</a> spread 9.5–10.5</td>
+      </tr>
+      <tr>
+        <td><strong>LAR @ AZ</strong><br><span style="color:#5b6b7f">Sun 4:05 · CBS</span></td>
+        <td class="num">AZ +4.5</td><td class="num">45.0</td>
+        <td class="num">AZ +9.5</td><td class="num">39.5</td>
+        <td class="num">+5.0</td><td class="num">+5.5</td>
+        <td>1.11/1.29 · 1.44/0.50 — AZ: C1 Froholdt out (Eguakun 2nd in) + LT1 Williams Q (Wills 2nd); rookie QB Beck 1st career start; LAR: TE Ferguson + OL Avila out, OLB Garrett &amp; CB McDuffie Q</td>
+        <td><a class="src" href="https://www.espn.com/espn/betting/story/_/id/50414742/2026-nfl-week-10-schedule-odds-point-spreads-totals">ESPN</a> SBR outlier −7.5/44.5 <span class="badge b-unv">disagreement</span></td>
+      </tr>
+      <tr>
+        <td><strong>SEA @ LV</strong><br><span style="color:#5b6b7f">Sun 4:05 · CBS</span></td>
+        <td class="num">LV −3.0</td><td class="num">44.5</td>
+        <td class="num">LV +6.5</td><td class="num">40.5</td>
+        <td class="num">+9.5</td><td class="num">+4.0</td>
+        <td>0.25/0.19 · 4.50/0.75 — SEA: QB1 Darnold OUT → 2nd-string Drew Lock starts (Milroe 3rd), LT1 Cross, LG1 Nelson, DT1 Williams all OUT. Verified from SEA club chart</td>
+        <td><a class="src" href="https://www.espn.com/espn/betting/story/_/id/50414742/2026-nfl-week-10-schedule-odds-point-spreads-totals">ESPN</a> current −6.5 vs −3.5 pre-news <span class="badge b-flag">largest edge — research only (F4)</span></td>
+      </tr>
+      <tr>
+        <td><strong>SF @ DAL</strong><br><span style="color:#5b6b7f">Sun 4:25 · FOX</span></td>
+        <td class="num">DAL +4.0</td><td class="num">51.0</td>
+        <td class="num">DAL +3.5</td><td class="num">55.5</td>
+        <td class="num">−0.5</td><td class="num">−4.5</td>
+        <td>1.95/1.97 · 1.12/1.06 — SF: WR1 Evans OUT + 4 CBs questionable (chart page errors — F8); DAL: TE1 Ferguson OUT (Spann-Ford co-1/Schoonmaker 2nd), OLB1 Ezeiruaku out (Houston 2nd), S Locke out</td>
+        <td><a class="src" href="https://www.espn.com/espn/betting/story/_/id/50414742/2026-nfl-week-10-schedule-odds-point-spreads-totals">ESPN</a> spread 3.5–4.5; highest total of the week (55.5)</td>
+      </tr>
+      <tr>
+        <td><strong>PIT @ CIN</strong><br><span style="color:#5b6b7f">Sun 8:20 · NBC · SNF</span></td>
+        <td class="num">CIN −2.5</td><td class="num">46.5</td>
+        <td class="num">CIN −3.5</td><td class="num">50.0</td>
+        <td class="num">−1.0</td><td class="num">−3.5</td>
+        <td>0.75/0.88 · 0.00/0.19 — CIN: S Dugger out + WR Iosivas/G Parker/CB Davis doubtful; PIT: DT Harmon Q only</td>
+        <td><a class="src" href="https://www.betus.com.pa/sportsbook/nfl/nfl-odds-week-10/">betus</a> total 47.5–50.0 across books <span class="badge b-unv">disagreement</span></td>
+      </tr>
+      <tr>
+        <td><strong>LAC @ BAL</strong><br><span style="color:#5b6b7f">Mon 8:15 · ESPN · MNF</span></td>
+        <td class="num">BAL −2.0</td><td class="num">41.5</td>
+        <td class="num">BAL −4.5</td><td class="num">38.5</td>
+        <td class="num">−2.5</td><td class="num">+3.0</td>
+        <td>3.50/0.00 · 0/0 — weekly report shows no designations, but BAL QB1 Lamar Jackson is on IR (thumb surgery, 6–10 weeks) and QB2 Tyler Huntley is season-ending (toe): MNF starter is <strong>Jacoby Brissett</strong> (chart QB1, acquired from AZ) — BAL's 4th starting QB of 2026. Club chart's K slot is empty; BAL signed kicker Riley Patterson for the game. F16</td>
+        <td><a class="src" href="https://cbssports.com/betting/news/week-10-nfl-betting-odds-lines-totals-spreads">CBS</a> <a class="src" href="https://www.nytimes.com/athletic/7779046/2026/11/13/lamar-jackson-ravens-thumb-injury-timeline/">The Athletic</a> spread 4.5–5.5 <span class="badge b-model">research only</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>Validation ledger (gate G3 seed data)</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Game</th><th>Market closed/last</th><th>Result</th><th>vs our (retrodictive — excluded from stats)</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>WAS @ NYG (TNF, Nov 12)</td><td>NYG −1.5/−2.5 · total 41–43.5</td><td><strong>WAS 24, NYG 21</strong></td><td>WAS covered both spreads; total 45 went over both</td><td><a class="src" href="https://www.nfl.com/games/commanders-at-giants-2026-reg-10">NFL.com</a> n=1 — recorded as ledger seed only; one game proves nothing (that is what G2/G5 enforce)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>How the market columns were chosen</h3>
+  <ul class="tight">
+    <li>Each game lists a <strong>primary source</strong> (most recent unambiguous quote) and the <strong>range across books</strong> (ESPN, SBR/bet365, CBS, betus, BetMGM — all linked on <a href="sources.html">Sources</a>).</li>
+    <li>Where books disagree by ≥1.5 points or flip the favorite, the row carries a disagreement badge and the game appears on <a href="flagged.html">Flagged</a>.</li>
+    <li>Market numbers are a moving snapshot (captured 2026-11-13/14); they are not "the" line — which is precisely why we originate our own.</li>
+  </ul>
+</div>
+
+</main>
+<footer class="site">FL3 · model v0.1 is unvalidated · edges are research output, never recommendations</footer>
+</body>
+</html>

@@ -1,0 +1,311 @@
+{
+  "meta": {
+    "title": "Decision register — what we know, what we do not know, and what must be answered",
+    "captured_utc": "2026-11-14",
+    "how_to_use": "Read a row left to right. If 'blocking' is yes, no strategy in that family can be called good or bad until it is answered. 'Discovery' rows tell you which suggestion produces the missing information.",
+    "legend": {
+      "known": "Confirmed against an official NFL source, with the link attached.",
+      "unknown": "Not confirmed. Left blank everywhere else on this site rather than guessed.",
+      "blocking": "yes = decisions in this family are unfounded until answered."
+    }
+  },
+  "questions": [
+    {
+      "id": "Q01",
+      "family": "Data foundation",
+      "question": "Which official NFL source is the single source of truth for each field, and what is its refresh cadence?",
+      "known": "Standings, injuries, schedule and news headlines are all available on nfl.com. Standings and injuries are snapshotted for 2026-11-14.",
+      "unknown": "Whether nfl.com publishes a stable machine-readable feed, or whether the HTML must be scraped. No feed was found and none was probed beyond the public pages.",
+      "blocking": true,
+      "as_of": "2026-11-14",
+      "sources": [
+        "https://www.nfl.com/standings/division/2026/REG",
+        "https://www.nfl.com/injuries/",
+        "https://www.nfl.com/schedules/2026/REG/"
+      ],
+      "discovery": "Suggestion SG-01 (source-contract review) — record accept header, cadence and failure mode for each page."
+    },
+    {
+      "id": "Q02",
+      "family": "Data foundation",
+      "question": "Is 'as of this morning' the right snapshot semantics, or do we need as-of-kickoff?",
+      "known": "The standings page currently disagrees with the schedule page about WAS/NYG (flag F01).",
+      "unknown": "How often that lag appears, and whether it also affects PF/PA mid-week.",
+      "blocking": true,
+      "as_of": "2026-11-14",
+      "sources": [
+        "https://www.nfl.com/standings/division/2026/REG",
+        "https://www.nfl.com/schedules/2026/REG/"
+      ],
+      "discovery": "Suggestion SG-02 (freeze-the-line job) — diff the two pages weekly and record every disagreement."
+    },
+    {
+      "id": "Q03",
+      "family": "Injuries and availability",
+      "question": "What exactly do 'Did Not Participate', 'Limited' and 'Full' imply for the probability a player suits up?",
+      "known": "The three practice statuses exist and are printed per player. Game status (Out/Doubtful/Questionable) is printed separately.",
+      "unknown": "The league's own stated mapping from practice status to game availability. The official policy page returned an empty body (flag F06). We therefore apply a declared weight (Out 1.00, Doubtful 0.60, Questionable 0.25) that is a model choice, not a league rule.",
+      "blocking": true,
+      "as_of": "2026-11-14",
+      "sources": [
+        "https://www.nfl.com/injuries/",
+        "https://operations.nfl.com/the-rules/nfl-injury-report-policy/"
+      ],
+      "discovery": "Suggestion SG-03 (policy capture) — re-fetch the policy page via a rendering client and archive a dated copy."
+    },
+    {
+      "id": "Q04",
+      "family": "Injuries and availability",
+      "question": "When a listed player has no game status, is he expected to play?",
+      "known": "185 of 345 Week 10 rows have a blank game status (flag F04).",
+      "unknown": "Whether blank means 'expected to play' or 'not yet declared'. The official table does not say.",
+      "blocking": true,
+      "as_of": "2026-11-14",
+      "sources": [
+        "https://www.nfl.com/injuries/"
+      ],
+      "discovery": "Suggestion SG-04 (inactives reconciliation) — compare the 90-minute inactive list to the Friday report and count how often a blank-status player is inactive."
+    },
+    {
+      "id": "Q05",
+      "family": "Injuries and availability",
+      "question": "How do we identify 2nd/3rd/4th string without an official depth chart?",
+      "known": "No official NFL source publishes a machine-checkable depth ordinal (flag F05).",
+      "unknown": "Everything downstream: replacement-level drop-off, which specific backup starts, and the true size of an availability penalty.",
+      "blocking": true,
+      "as_of": "2026-11-14",
+      "sources": [
+        "https://www.nfl.com/injuries/"
+      ],
+      "discovery": "Suggestion SG-05 (snap-count evidence) — use official participation counts (if published) as the ordinal proxy instead of a depth chart."
+    },
+    {
+      "id": "Q06",
+      "family": "Lines",
+      "question": "What is our line compared to, if we hold no licensed market price?",
+      "known": "Our own originated lines exist for all 14 Week 10 games, with bands.",
+      "unknown": "Whether those lines are better or worse than the market. Unknown by definition without a price (flag F07).",
+      "blocking": true,
+      "as_of": "2026-11-14",
+      "sources": [
+        "https://www.nfl.com/standings/division/2026/REG"
+      ],
+      "discovery": "Suggestion SG-06 (legal price capture) — either license a feed or accept that 'edge vs market' can never be claimed."
+    },
+    {
+      "id": "Q07",
+      "family": "Lines",
+      "question": "How wide should the line be when a club has played eight games?",
+      "known": "The engine widens sigma by sqrt(1 + 8/games_played).",
+      "unknown": "Whether that widening is calibrated. Nothing has been graded yet, so sigma is a declared constant.",
+      "blocking": false,
+      "as_of": "2026-11-14",
+      "sources": [
+        "https://www.nfl.com/standings/division/2026/REG"
+      ],
+      "discovery": "Suggestion SG-07 (calibration backtest) — needs historical week snapshots, which do not exist yet."
+    },
+    {
+      "id": "Q08",
+      "family": "Strategies",
+      "question": "What counts as a passing grade, given that zero bets have been graded?",
+      "known": "The tier ladder and gate definitions exist and are enforced by scripts.",
+      "unknown": "Any real hit rate, edge, or closing-line value.",
+      "blocking": false,
+      "as_of": "2026-11-14",
+      "sources": [],
+      "discovery": "Suggestion SG-08 (grade-the-gates dry run) — simulate grading on Week 10 once results are final to prove the pipeline works end to end."
+    },
+    {
+      "id": "Q09",
+      "family": "Strategies",
+      "question": "Does the luck filter actually remove luck, or just rename it?",
+      "known": "Pythagorean luck is measured for all 32 clubs; range +/- 2.17 wins.",
+      "unknown": "Whether fading lucky clubs is profitable. That is an empirical claim and the data to test it does not exist here.",
+      "blocking": true,
+      "as_of": "2026-11-14",
+      "sources": [
+        "https://www.nfl.com/standings/division/2026/REG"
+      ],
+      "discovery": "Suggestion SG-09 (luck backtest) — needs a multi-season game-level history with closing lines."
+    },
+    {
+      "id": "Q10",
+      "family": "Correlation",
+      "question": "How big is the same-game correlation between prop legs?",
+      "known": "Direction is certain for COR-A2/A3/A4 from mechanism. Cross-game legs are structurally independent (COR-A5).",
+      "unknown": "Every magnitude. Player-level official stats were not captured.",
+      "blocking": true,
+      "as_of": "2026-11-14",
+      "sources": [
+        "https://www.nfl.com/standings/division/2026/REG"
+      ],
+      "discovery": "Suggestion SG-10 (player-game stats capture) — unlocks all prop correlation work."
+    },
+    {
+      "id": "Q11",
+      "family": "Governance",
+      "question": "Who is allowed to change a published line after kickoff?",
+      "known": "Nothing is protected beyond git history.",
+      "unknown": "Whether the audit trail is sufficient without a signed tag per week.",
+      "blocking": false,
+      "as_of": "2026-11-14",
+      "sources": [],
+      "discovery": "Suggestion SG-11 (signed weekly snapshots) — tag each week's line file at first kickoff."
+    },
+    {
+      "id": "Q12",
+      "family": "Governance",
+      "question": "What is the reward actually rewarding — accuracy, or honesty about uncertainty?",
+      "known": "Score uses sqrt(n) normalisation plus a luck penalty.",
+      "unknown": "Whether a strategy that abstains a lot but wins when it acts should outrank a high-volume, small-edge strategy. The current formula says yes; that is a choice, not a fact.",
+      "blocking": false,
+      "as_of": "2026-11-14",
+      "sources": [],
+      "discovery": "Suggestion SG-12 (reward-scheme A/B) — run both weightings on the same graded set once one exists."
+    },
+    {
+      "id": "Q13",
+      "family": "Governance",
+      "question": "What is the reward, and who is allowed to receive it?",
+      "known": "A scoring formula and five tiers exist. Rewards are described only as ranking credit.",
+      "unknown": "Prize type, eligibility, jurisdiction, tax treatment, appeal path. None designed.",
+      "blocking": true,
+      "as_of": "2026-11-14",
+      "sources": [
+        "https://media.nfl.com/lsb"
+      ],
+      "discovery": "Suggestion SG-12 plus flag F12 — decide reward scope before any tier-3 score is paid."
+    }
+  ],
+  "known_facts": [
+    {
+      "fact": "32 clubs, 8 divisions of 4",
+      "value": "32 / 8 / 4",
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "verified": true
+    },
+    {
+      "fact": "Week 10 games",
+      "value": "14",
+      "src": "https://www.nfl.com/schedules/2026/REG/",
+      "verified": true
+    },
+    {
+      "fact": "Clubs playing in Week 10",
+      "value": "28",
+      "src": "https://www.nfl.com/injuries/",
+      "verified": true
+    },
+    {
+      "fact": "Clubs with no Week 10 game",
+      "value": "CHI, DEN, PHI, TB",
+      "src": "https://www.nfl.com/schedules/2026/REG/",
+      "verified": true
+    },
+    {
+      "fact": "Player rows on the Week 10 official injury report",
+      "value": "345",
+      "src": "https://www.nfl.com/injuries/",
+      "verified": true
+    },
+    {
+      "fact": "Week 10 games completed as of capture",
+      "value": "1 of 14 (WAS 24, NYG 21)",
+      "src": "https://www.nfl.com/schedules/2026/REG/",
+      "verified": true
+    },
+    {
+      "fact": "Highest point differential in the league",
+      "value": "JAX +108",
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "verified": true
+    },
+    {
+      "fact": "Lowest point differential in the league",
+      "value": "LAC -98",
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "verified": true
+    },
+    {
+      "fact": "Win% vs point-differential correlation",
+      "value": "r = 0.8781 (n = 32, t = 10.05)",
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "verified": true
+    },
+    {
+      "fact": "Offence vs defence independence",
+      "value": "r = -0.2041 between PF/g and PA/g",
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "verified": true
+    },
+    {
+      "fact": "Official injury URL weekly-selector stability",
+      "value": "mismatch reported by a parallel session; not reproduced here",
+      "src": "https://www.nfl.com/injuries/league/2025/reg4",
+      "verified": false
+    }
+  ],
+  "missing_information": [
+    {
+      "id": "M01",
+      "what": "Licensed market prices / closing lines",
+      "why_blocking": "No 'edge', 'CLV' or 'beat the market' claim can be made.",
+      "unlocked_by": "SG-06"
+    },
+    {
+      "id": "M02",
+      "what": "Game-by-game results with margins",
+      "why_blocking": "No backtest, no calibration, no division-underdog test.",
+      "unlocked_by": "SG-13"
+    },
+    {
+      "id": "M03",
+      "what": "Player-level official per-game statistics",
+      "why_blocking": "No prop correlation magnitudes; S06 stays blocked.",
+      "unlocked_by": "SG-10"
+    },
+    {
+      "id": "M04",
+      "what": "Official depth-chart ordinals",
+      "why_blocking": "'2nd/3rd/4th string' cannot be stated as fact.",
+      "unlocked_by": "SG-05"
+    },
+    {
+      "id": "M05",
+      "what": "Historical weekly injury snapshots",
+      "why_blocking": "Cannot measure how much a Friday Questionable actually plays.",
+      "unlocked_by": "SG-04"
+    },
+    {
+      "id": "M06",
+      "what": "Inactive lists (90 minutes pre-kickoff)",
+      "why_blocking": "Cannot reconcile report vs reality.",
+      "unlocked_by": "SG-04"
+    },
+    {
+      "id": "M07",
+      "what": "Turnover margin",
+      "why_blocking": "Luck cannot be separated from takeaways in the Pythagorean model.",
+      "unlocked_by": "SG-14"
+    },
+    {
+      "id": "M08",
+      "what": "Snap counts",
+      "why_blocking": "Cannot size a replacement-level drop-off.",
+      "unlocked_by": "SG-05"
+    },
+    {
+      "id": "M09",
+      "what": "Weather and venue conditions",
+      "why_blocking": "Totals cannot be adjusted for wind/precipitation; the Munich game is a neutral site.",
+      "unlocked_by": "SG-15"
+    },
+    {
+      "id": "M10",
+      "what": "Rest days / short-week flags",
+      "why_blocking": "Thursday games and bye edges are invisible.",
+      "unlocked_by": "SG-16"
+    }
+  ]
+}

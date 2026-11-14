@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Methodology — FL3</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="brand"><h1>FL3 · NFL Decision Intelligence</h1><span class="tag">Line origination · signal research · validation gates · correlation · luck removal</span></div>
+  <nav class="site">
+    <a href="index.html">Dashboard</a><a href="executive-summary.html">Summary</a>
+    <a href="requirements.html">Requirements</a><a href="suggestions.html">Suggestions</a>
+    <a href="lines.html">Lines</a><a href="injuries.html">Injuries &amp; Depth</a>
+    <a href="strategies.html">Strategies</a><a href="leaderboard.html">Leaderboard</a>
+    <a class="active" href="methodology.html">Methodology</a><a href="data.html">Data</a>
+    <a href="sources.html">Sources</a><a href="flagged.html">Flagged</a>
+  </nav>
+</header>
+<main>
+
+<div class="section">
+  <h2>1 · Line origination model (v0.1) <span class="badge b-model">model output</span></h2>
+  <p class="lead">We originate our own lines from verified inputs only. The model is deterministic and
+  reproducible: <code>python3 models/originate_lines.py</code>. Design parameters are choices, not facts —
+  they are listed so they can be tested and tuned by the validation gates.</p>
+
+  <h3>Inputs (verified)</h3>
+  <ul class="tight">
+    <li>Team scoring rates: PF/game, PA/game from NFL.com standings (32 teams, through TNF Week 10).</li>
+    <li>Official Week 10 game-status report: OUT / DOUBTFUL / QUESTIONABLE for every player.</li>
+    <li>Club depth-chart tiers (1st–4th string) where verified (7 teams); tier-unverified players use a documented default weight and carry a flag.</li>
+    <li>Game context: home/away, neutral site (Munich — no home field), bye weeks.</li>
+  </ul>
+
+  <h3>Formulas</h3>
+  <div class="kv">
+    <dt>Strength rating</dt><dd>R(team) = (PF − PA) / games — net points per game (regressed by 0.5 for small-sample/schedule noise)</dd>
+    <dt>Expected points (home)</dt><dd>E<sub>h</sub> = (PF<sub>h</sub>/G<sub>h</sub> + PA<sub>a</sub>/G<sub>a</sub>)/2 + HFA/2 − Σ(off-injury w<sub>home</sub>) + Σ(def-injury w<sub>away</sub>) + Σ(ST w)/2</dd>
+    <dt>Expected points (away)</dt><dd>E<sub>a</sub> = (PF<sub>a</sub>/G<sub>a</sub> + PA<sub>h</sub>/G<sub>h</sub>)/2 − HFA/2 − Σ(off-injury w<sub>away</sub>) + Σ(def-injury w<sub>home</sub>) + Σ(ST w)/2</dd>
+    <dt>Spread / total</dt><dd>spread(home) = round½(E<sub>h</sub> − E<sub>a</sub>); total = round½(E<sub>h</sub> + E<sub>a</sub>)</dd>
+    <dt>Home field (HFA)</dt><dd>2.0 pts at home; 0.0 at neutral sites (Munich Week 10; Mexico City Week 11)</dd>
+    <dt>Injury weight</dt><dd>w = base(position) × tier-multiplier × status-multiplier</dd>
+  </div>
+  <h3>Design parameters (choices — to be validated, not facts)</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr></thead>
+    <tbody>
+      <tr><td>Base weight — QB</td><td class="num">3.5 pts</td><td>largest single-player market impact observed in NFL markets; tuning target for gate G3</td></tr>
+      <tr><td>Base — RB / WR / TE</td><td class="num">1.0 / 1.0 / 0.75</td><td>starter-level loss; backups halve the effect (tier multiplier 0.6 at 2nd string, 0.4/0.3 at 3rd/4th)</td></tr>
+      <tr><td>Base — OL / DL-EDGE / LB / CB / S</td><td class="num">0.5 / 0.75 / 0.5 / 0.75 / 0.5</td><td>premium positions (trenches, coverage) weighted above off-ball</td></tr>
+      <tr><td>Status multiplier</td><td class="num">OUT 1.0 · DOUBTFUL 0.5 · QUESTIONABLE 0.25</td><td>expected-absence weighting</td></tr>
+      <tr><td>Tier multiplier</td><td class="num">1st 1.0 · 2nd 0.6 · 3rd 0.4 · 4th 0.3 · unverified 1.0 (flagged)</td><td>verified depth charts only; unverified tier uses starter weight + explicit flag (never silently assumed)</td></tr>
+      <tr><td>Regression &amp; HFA</td><td class="num">0.5 · 2.0/0.0</td><td>standard small-sample regression; typical NFL home field; neutral sites zeroed</td></tr>
+      <tr><td>QB-room cap</td><td class="num">one QB absence priced per team/game</td><td>only the top-of-room QB absence is priced (one QB plays the position); further QB absences are tracked + flagged but not stacked (e.g., BAL: Jackson priced, Huntley flagged). Added after the BAL IR case (F16)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><strong>v0.1 known limitations:</strong> aggregate-only ratings (no strength of schedule), design-weight injuries, and no player-level inputs. Large edges (e.g., SEA-LV ≈ 9.5 pts) are most likely a mix of real injury information and model error — they are research signals until gates G3–G8 pass. Nothing here is a betting recommendation.</div>
+</div>
+
+<div class="section">
+  <h2>2 · Signal research program</h2>
+  <p class="lead">Signals are hypotheses about where our numbers systematically beat the market. Each must survive the gates before use.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Signal class</th><th>Hypothesis</th><th>Status this week (research only)</th><th>Gate needed</th></tr></thead>
+    <tbody>
+      <tr><td>S1 · Injury repricing</td><td>Markets under/over-react to QB and premium-position absences; verified depth tiers let us estimate the correct move.</td><td>SEA-LV: market moved ~3 pts on Darnold OUT but books still disagree 3.5–6.5; our model says the move is bigger. MIN-GB totals dropped 45.5→41.5 on a pile of offensive absences.</td><td>G3, G4</td></tr>
+      <tr><td>S2 · Cross-book disagreement</td><td>When books disagree ≥2 pts (spread or total), the consensus price is more likely mispriced near kickoff.</td><td>4 live examples: SEA-LV (3 pts), CAR-NO (favorite flipped), LAR-AZ (SBR outlier), BUF-NYJ (1.5 pts).</td><td>G3, G4</td></tr>
+      <tr><td>S3 · Deficiency pressure</td><td>Games with high combined defensive deficiency scores (2nd–4th string forced in) trend under the total early, then over-correct later.</td><td>HOU defense (Hunter, Al-Shaair out) and GB edge (Parsons out) are the natural tests this week.</td><td>G3, G5</td></tr>
+      <tr><td>S4 · Backup-QB game script</td><td>Backup QB starts shift usage to RB/TE and depress WR yards — a player-prop combo class.</td><td>MIN (Wentz/Cousins), SEA (Lock), AZ (Beck 1st start) give three natural experiments.</td><td>G3, G6, G7</td></tr>
+      <tr><td>S5 · Neutral-site noise</td><td>Munich/Mexico City games show total/HFA errors (travel, environment).</td><td>NE-DET (Munich) modeled with HFA=0; market total disagrees 49.5–51.5 across books.</td><td>G3 (needs multi-season neutral-site sample)</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<div class="section">
+  <h2>3 · Correlation values</h2>
+  <p class="lead">Two levels: (a) computed now from verified data; (b) required but not yet measurable — left blank + flagged, with the exact data needed to fill them.</p>
+  <h3>Computed (n = 32 teams, 2026 through TNF Week 10, NFL.com aggregates) <span class="badge b-ver">verified computation</span></h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Metric A</th><th>Metric B</th><th class="num">Pearson r</th><th>Interpretation</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Net pts/game</td><td>Win %</td><td class="num">+0.878</td><td>dominant team-level signal — net efficiency is the backbone of v0.1</td><td><a class="src" href="data/correlation-matrix.csv">CSV</a> <a class="src" href="https://www.nfl.com/standings/league/2026/REG">NFL.com</a></td></tr>
+      <tr><td>PF/game</td><td>Win %</td><td class="num">+0.698</td><td>offense wins, but less than defense loses (see PA row)</td><td><a class="src" href="data/correlation-matrix.csv">CSV</a></td></tr>
+      <tr><td>PA/game</td><td>Win %</td><td class="num">−0.664</td><td>defensive strength slightly weaker correlate than offense in 2026 to date</td><td><a class="src" href="data/correlation-matrix.csv">CSV</a></td></tr>
+      <tr><td>PF/game</td><td>PA/game</td><td class="num">−0.204</td><td>weak: good offenses do not systematically face good defenses (schedule balance)</td><td><a class="src" href="data/correlation-matrix.csv">CSV</a></td></tr>
+      <tr><td>Pythagorean exponent</td><td>win % fit</td><td class="num">x = 3.5</td><td>best-fit exponent for PF<sup>x</sup>/(PF<sup>x</sup>+PA<sup>x</sup>) vs actual win % (MSE 0.0125) — used for win-probability estimates in parlay math</td><td><a class="src" href="data/correlation-matrix.csv">CSV</a></td></tr>
+    </tbody>
+  </table></div>
+  <h3>Required but unmeasured (blank + flagged by policy) <span class="badge b-flag">unverified</span></h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Correlation</th><th>Needed for</th><th>Data required</th><th>Discovery route</th></tr></thead>
+    <tbody>
+      <tr><td>Parlay legs: game outcomes within same game/week</td><td>correct parlay pricing (G6), leg-limit rules</td><td>game-level results (weeks 1–9+)</td><td><a href="suggestions.html">S1</a></td></tr>
+      <tr><td>Player props within same game (QB yards ↔ WR yards, RB ↔ game script)</td><td>prop-combo pricing (G6)</td><td>player-level game stats</td><td><a href="suggestions.html">S2</a></td></tr>
+      <tr><td>Injury signal vs line movement</td><td>injury-repricing signal validation (G4)</td><td>time-stamped odds history</td><td><a href="suggestions.html">S3</a></td></tr>
+      <tr><td>Teaser leg correlations (NFL key numbers 3/7)</td><td>teaser strategy class</td><td>game results + closing lines</td><td><a href="suggestions.html">S1+S3</a></td></tr>
+    </tbody>
+  </table></div>
+  <p>Until measured, parlay and prop-combo strategies carry a mandatory <em>"correlation: unquantified"</em> flag and cannot pass gate G6 — which is why they sit in the catalog unvalidated.</p>
+</div>
+
+<div class="section">
+  <h2>4 · Removing luck: validation gates &amp; skill scoring</h2>
+  <p class="lead">A strategy is selectively skill-based only if its results are extremely unlikely under pure luck. Every strategy passes these gates in order; a failure stops promotion to the leaderboard.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Gate</th><th>Test</th><th>Pass condition</th><th>Removes this kind of luck</th></tr></thead>
+    <tbody>
+      <tr><td>G0 · Registration</td><td>Strategy logic + stake rules pre-committed to git before any bet is graded</td><td>commit timestamp &lt; first kickoff</td><td>back-fitting, look-ahead bias</td></tr>
+      <tr><td>G1 · Provenance</td><td>Every input row has a source link (official or labeled trusted)</td><td>100% rows linked; blanks flagged</td><td>data-selection bias</td></tr>
+      <tr><td>G2 · Sample size</td><td>Minimum graded bets (proposed: 50 for singles; 30 for parlays; 40 for prop combos)</td><td>threshold met before ranking</td><td>small-sample flukes (e.g., a 5-0 lucky week)</td></tr>
+      <tr><td>G3 · Out-of-sample</td><td>Parameters fixed on train window (proposed: Weeks 1–8), graded on Weeks 9+</td><td>positive ROI/CLV on holdout, not just train</td><td>overfitting to the season so far</td></tr>
+      <tr><td>G4 · Closing-line value</td><td>Average CLV of placed lines vs closing price</td><td>mean CLV &gt; 0 with t-test p&lt;0.05</td><td>getting lucky on bad lines that move against you later</td></tr>
+      <tr><td>G5 · Skill vs chance</td><td>Binomial/bootstrap test: results vs expected win rate at -110 (or actual prices), Benjamini–Hochberg FDR across all strategies</td><td>reject "luck" at q=0.05 after correction</td><td>multiple-testing luck (the #1 fake-skill source on leaderboards)</td></tr>
+      <tr><td>G6 · Correlation audit</td><td>Parlay/prop legs priced with measured correlation matrix; no unmeasured pairings</td><td>all leg pairs have measured r, or combo is blocked</td><td>underpriced correlated parlays that win early then regress</td></tr>
+      <tr><td>G7 · Variance decomposition</td><td>Report ROI with 95% CI; rank by lower bound, not point estimate</td><td>CI shown on leaderboard</td><td>ranking by lucky upside</td></tr>
+      <tr><td>G8 · Capacity</td><td>Strategy survives stake limits / line-move tolerance</td><td>documented limits</td><td>"paper edge" that vanishes at scale</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Skill score (leaderboard ranking formula)</h3>
+  <p><strong>SkillIndex</strong> = z = (observed units − expected units at market price) / σ<sub>luck</sub>, where σ<sub>luck</sub> = √(Σ p<sub>i</sub>(1−p<sub>i</sub>) / n) in per-bet probability terms, plus a CLV bonus: <strong>Score = z + 0.5·t(mean CLV)</strong>. Rankings use the lower bound of the 95% CI of the Score (gate G7). Strategies that fail any gate appear in the catalog with gate status but are excluded from the official ranking. This is what "selectively skill-based" means here: <em>the leaderboard ranks evidence of skill, not outcomes.</em></p>
+  <div class="callout"><strong>Worked example of luck removal:</strong> a strategy going 8-2 on even-money bets has a ~5.5% chance under pure coin-flipping (binomial). That looks great — but if 40 such strategies exist, the expected number of 8-2 or better records is ~2.2. Gate G5's FDR correction is exactly what turns "looks skilled" into "demonstrably skilled."</div>
+</div>
+
+</main>
+<footer class="site">FL3 · model v0.1 reproducible via models/originate_lines.py · parameters are design choices pending validation</footer>
+</body>
+</html>

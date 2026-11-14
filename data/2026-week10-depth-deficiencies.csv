@@ -1,0 +1,79 @@
+team,side,position,player_out,player_status,player_tier,expected_replacement,replacement_tier,deficiency_points,source_url,tier_source_url,flag
+Atlanta Falcons,DEF,LB,Divine Deablo,DOUBTFUL,,,,0.25,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Atlanta Falcons,OFF,WR,Zachariah Branch,OUT,,,,1.0,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Arizona Cardinals,OFF,OL,Hjalte Froholdt,OUT,1,Kingsley Eguakun,2,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.azcardinals.com/team/depth-chart,
+Arizona Cardinals,OFF,OL,Jon Gaines II,OUT,2,,,0.3,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.azcardinals.com/team/depth-chart,chart RG2 behind Isaiah Adams
+Arizona Cardinals,DEF,DL,Zach Carter,OUT,,,,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.azcardinals.com/team/depth-chart,not on club chart
+Baltimore Ravens,OFF,QB,Lamar Jackson,IR,1,"Jacoby Brissett (chart QB1, acquired from AZ)",2,3.5,https://www.nytimes.com/athletic/7779046/2026/11/13/lamar-jackson-ravens-thumb-injury-timeline/,https://www.baltimoreravens.com/team/depth-chart/,NOT on the weekly game-status report (IR/season-ending) — sourced from team-statement reporting + club chart | IR 6-10 weeks (thumb surgery) — NOT on weekly report; starter per Ravens HC Jesse Minter statement
+Baltimore Ravens,OFF,QB,Tyler Huntley,IR,2,Joe Fagnano (chart QB2),2,2.1,https://www.nbcsports.com/fantasy/football/player-news/2026-11-13/minter-confirms-jackson-thumb-is-out-6-10-weeks,https://www.baltimoreravens.com/team/depth-chart/,NOT on the weekly game-status report (IR/season-ending) — sourced from team-statement reporting + club chart | season-ending toe — NOT on weekly report; QB-room cap applied (not priced on top of Jackson)
+Buffalo Bills,OFF,OT,Spencer Brown,DOUBTFUL,,,,0.25,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Carolina Panthers,OFF,RB,Jonathon Brooks,DOUBTFUL,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Carolina Panthers,DEF,CB,Mike Jackson,DOUBTFUL,,,,0.375,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Carolina Panthers,DEF,LB,Bobby Okereke,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Cincinnati Bengals,OFF,WR,Andrei Iosivas,DOUBTFUL,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Cincinnati Bengals,OFF,G,Brian Parker II,DOUBTFUL,,,,0.25,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Cincinnati Bengals,DEF,CB,Jalen Davis,DOUBTFUL,,,,0.375,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Cincinnati Bengals,DEF,S,Kyle Dugger,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Cleveland Browns,OFF,FB,Michael Burton,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Cleveland Browns,DEF,S,Ronnie Hickman Jr.,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Dallas Cowboys,DEF,S,Juanyeh Thomas,DOUBTFUL,2,,,0.15,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.dallascowboys.com/team/depth-chart,chart S backup
+Dallas Cowboys,DEF,LB,Donovan Ezeiruaku,OUT,1,James Houston,2,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.dallascowboys.com/team/depth-chart,chart OLB
+Dallas Cowboys,OFF,TE,Jake Ferguson,OUT,1,Luke Schoonmaker (TE2),2,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.dallascowboys.com/team/depth-chart,chart co-TE1 with Brevyn Spann-Ford
+Dallas Cowboys,OFF,WR,Jonathan Mingo,OUT,2,,,0.6,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.dallascowboys.com/team/depth-chart,chart WR backup behind Lamb
+Dallas Cowboys,DEF,S,P.J. Locke,OUT,1,Markquese Bell (co-S),2,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.dallascowboys.com/team/depth-chart,chart co-S
+Dallas Cowboys,OFF,RB,Tyler Goodson,OUT,2,,,0.6,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.dallascowboys.com/team/depth-chart,chart RB2 behind Javonte Williams
+Detroit Lions,OFF,C,Cade Mays,OUT,1,Juice Scruggs,2,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.detroitlions.com/team/depth-chart,
+Detroit Lions,DEF,CB,D.J. Reed,OUT,1,Rock Ya-Sin,2,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.detroitlions.com/team/depth-chart,Khalil Dorsey (CB3)
+Detroit Lions,DEF,S,Kerby Joseph,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.detroitlions.com/team/depth-chart,IRREGULARITY: listed OUT on NFL.com injury report but absent from club chart
+Green Bay Packers,DEF,LB,Zaire Franklin,DOUBTFUL,1,Ty'Ron Hopper,2,0.25,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.packers.com/team/depth-chart,
+Green Bay Packers,OFF,RB,Josh Jacobs,OUT,1,MarShawn Lloyd (RB2),2,1.0,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.packers.com/team/depth-chart,Pierre Strong Jr. (RB3)
+Green Bay Packers,OFF,TE,Josh Whyle,OUT,4,n/a — chart TE4 behind Kraft/Smith/Redman,,0.225,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.packers.com/team/depth-chart,
+Green Bay Packers,DEF,EDGE,Micah Parsons,OUT,,,,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.packers.com/team/depth-chart,IRREGULARITY: listed OUT on NFL.com injury report but absent from Nov 10 club chart
+Green Bay Packers,OFF,OL,Sean Rhyan,OUT,1,Jager Burton,2,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.packers.com/team/depth-chart,chart starting C
+Houston Texans,DEF,LB,Azeez Al-Shaair,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Houston Texans,OFF,TE,Brevin Jordan,OUT,,,,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Houston Texans,DEF,DE,Danielle Hunter,OUT,,,,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Houston Texans,OFF,OL,Keylan Rutledge,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Houston Texans,OFF,WR,Marvin Harrison Jr.,OUT,,,,1.0,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Indianapolis Colts,DEF,LB,Akeem Davis-Gaither,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Indianapolis Colts,OFF,OT,Jalen Travis,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Indianapolis Colts,DEF,LB,Jaylon Carlies,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Indianapolis Colts,DEF,DT,Jerry Tillery,OUT,,,,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Indianapolis Colts,ST,LS,Luke Rhodes,OUT,,,,0.1,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Indianapolis Colts,OFF,TE,Mo Alie-Cox,OUT,,,,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Jacksonville Jaguars,DEF,DE,BJ Green II,OUT,,,,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Jacksonville Jaguars,DEF,S,Jessie Bates,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Jacksonville Jaguars,DEF,DT,Jordan Davis,OUT,,,,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Kansas City Chiefs,OFF,OL,Jaylon Moore,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Kansas City Chiefs,DEF,DT,Omarr Norman-Lott,OUT,,,,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Kansas City Chiefs,DEF,DL,Peter Woods,OUT,,,,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Los Angeles Rams,OFF,OL,Steve Avila,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Los Angeles Rams,OFF,TE,Terrance Ferguson,OUT,,,,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Miami Dolphins,OFF,WR,Chris Bell,DOUBTFUL,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Miami Dolphins,OFF,C,Aaron Brewer,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Miami Dolphins,OFF,WR,Jared Wayne,OUT,,,,1.0,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Minnesota Vikings,DEF,LB,Blake Cashman,OUT,1,Ivan Pace Jr.,2,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.vikings.com/team/depth-chart,
+Minnesota Vikings,OFF,WR,Jauan Jennings,OUT,3,Myles Price,2,0.4,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.vikings.com/team/depth-chart,chart WR3
+Minnesota Vikings,OFF,QB,Kyler Murray,OUT,1,Carson Wentz (QB2),2,3.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.vikings.com/team/depth-chart,
+Minnesota Vikings,OFF,TE,T.J. Hockenson,OUT,1,Gavin Bartholomew,2,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.vikings.com/team/depth-chart,
+Minnesota Vikings,DEF,DL,Tyrion Ingram-Dawkins,OUT,1,Elijah Williams,2,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.vikings.com/team/depth-chart,
+New England Patriots,OFF,OL,Ben Brown,OUT,1,Walter Rouse,2,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.patriots.com/team/depth-chart/,chart starting LG
+New England Patriots,DEF,CB,Carlton Davis III,OUT,1,Channing Canada,2,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.patriots.com/team/depth-chart/,
+New England Patriots,OFF,RB,TreVeyon Henderson,OUT,2,Corey Kiner (RB3),3,0.6,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.patriots.com/team/depth-chart/,chart RB2 behind Stevenson
+New Orleans Saints,OFF,RB,CJ Donaldson,OUT,,,,1.0,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+New Orleans Saints,DEF,DL,Christen Miller,OUT,,,,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+New Orleans Saints,OFF,C,Erik McCoy,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+New Orleans Saints,OFF,OT,Taliese Fuaga,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+New York Jets,DEF,LB,Trevin Wallace,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Seattle Seahawks,OFF,OT,Charles Cross,OUT,1,Josh Jones,2,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.seahawks.com/team/depth-chart/,chart LT
+Seattle Seahawks,DEF,DT,Leonard Williams,OUT,1,Rylie Mills,2,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.seahawks.com/team/depth-chart/,chart DT
+Seattle Seahawks,OFF,G,Quenton Nelson,OUT,1,Anthony Bradford,2,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.seahawks.com/team/depth-chart/,chart LG
+Seattle Seahawks,OFF,QB,Sam Darnold,OUT,1,Drew Lock (QB2),2,3.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,https://www.seahawks.com/team/depth-chart/,Jalen Milroe (QB3)
+San Francisco 49ers,OFF,WR,Mike Evans,OUT,,,,1.0,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Tennessee Titans,DEF,LB,Anthony Hill Jr.,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Tennessee Titans,OFF,WR,Carnell Tate,OUT,,,,1.0,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Tennessee Titans,DEF,LB,Cody Barton,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Tennessee Titans,OFF,G,Peter Skoronski,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Tennessee Titans,ST,P,Tommy Townsend,OUT,,,,0.25,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Washington Commanders,OFF,TE,Colson Yankoff,OUT,,,,0.75,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated
+Washington Commanders,OFF,C,Lucas Patrick,OUT,,,,0.5,https://www.nfl.com/news/nfl-week-10-injury-report-2026-season,,tier/replacement unverified — club depth chart not integrated

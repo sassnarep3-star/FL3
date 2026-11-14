@@ -1,0 +1,242 @@
+{
+  "meta": {
+    "title": "Flagged for review",
+    "captured_utc": "2026-11-14",
+    "rule": "Nothing in this file is fixed by guessing. Each item states what was observed, what could not be confirmed, and the exact page where a human can check it. Items here do NOT block the build or the merge.",
+    "status_legend": {
+      "open": "awaiting the owner's decision",
+      "accepted-risk": "documented and deliberately left as-is for now",
+      "resolved": "confirmed against an official source and closed"
+    }
+  },
+  "items": [
+    {
+      "id": "F01",
+      "status": "open",
+      "severity": "medium",
+      "title": "Standings page excludes a game the schedule page marks FINAL",
+      "observed": "nfl.com/schedules/2026/REG/ shows 'Commanders 24, Giants 21, FINAL' for the Thursday Week 10 game. nfl.com/standings/division/2026/REG still lists WAS 3-5-1 and NYG 5-3-1, i.e. before that result.",
+      "why_it_matters": "A line originated from the standings page is one game stale for those two clubs. Every other club is unaffected.",
+      "cannot_confirm": "Whether the standings page updates on a delay or simply had not refreshed at capture time. No explicit 'as of' timestamp is published on the page.",
+      "impact_on_lines": "WAS@NYG has already been played, so the originated line for that game is not actionable and is shown for completeness only.",
+      "evidence": [
+        {
+          "label": "Schedule (shows the final score)",
+          "url": "https://www.nfl.com/schedules/2026/REG/"
+        },
+        {
+          "label": "Standings (does not reflect it)",
+          "url": "https://www.nfl.com/standings/division/2026/REG"
+        }
+      ],
+      "action_needed": "Adopt the SG-02 freeze job so lines are originated from a kickoff-time snapshot, not a morning snapshot."
+    },
+    {
+      "id": "F02",
+      "status": "open",
+      "severity": "high",
+      "title": "A starting QB absence is missing from the official injury table",
+      "observed": "The Week 10 injury page's own news module carries 'Ravens confirm Lamar Jackson expected to miss 6-10 weeks'. The Ravens table on the same page lists eight players and no quarterback.",
+      "why_it_matters": "An engine that reads only the injury table would conclude Baltimore has no QB availability problem. That is exactly the failure mode the availability signal is supposed to catch.",
+      "cannot_confirm": "Whether Jackson had been placed on injured reserve or otherwise removed from the report by the time the table was rendered. The table is the only official machine-readable list.",
+      "impact_on_lines": "The LAC@BAL line is originated without a QB penalty for Baltimore. It should be read as too generous to BAL.",
+      "evidence": [
+        {
+          "label": "Injury page with the news headline",
+          "url": "https://www.nfl.com/injuries/"
+        },
+        {
+          "label": "News article",
+          "url": "https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13"
+        }
+      ],
+      "action_needed": "Add a news-headline cross-check (S03 extension) or accept that the availability signal has known blind spots."
+    },
+    {
+      "id": "F03",
+      "status": "open",
+      "severity": "medium",
+      "title": "2026 rosters differ from prior-season expectation — recorded as published",
+      "observed": "The official Week 10 tables list, among others, Kyler Murray under MIN, J.J. McCarthy under NYG, Micah Parsons under GB, Justin Fields and Patrick Mahomes both under KC, and Aaron Donald and Myles Garrett both under LA.",
+      "why_it_matters": "A reader's memory of the 2024/2025 league will disagree with these rows. The risk is that a reviewer 'corrects' a verified row to match memory.",
+      "cannot_confirm": "Nothing about the rostering itself — these are official rows. What cannot be confirmed is the trade/signing history that produced them, which was not fetched.",
+      "impact_on_lines": "None. Rows were transcribed exactly as published and were not adjusted.",
+      "evidence": [
+        {
+          "label": "Official Week 10 injury report",
+          "url": "https://www.nfl.com/injuries/"
+        }
+      ],
+      "action_needed": "Nothing to fix. Flagged so no future session 'corrects' official data to match recollections."
+    },
+    {
+      "id": "F04",
+      "status": "open",
+      "severity": "medium",
+      "title": "185 of 345 injury rows have a blank game status",
+      "observed": "Blank game status on 185 rows; 84 Questionable, 66 Out, 10 Doubtful.",
+      "why_it_matters": "Blank is ambiguous: 'will play', 'not yet declared', or 'listed for practice only'. The engine treats blank as no contribution, which is the conservative reading.",
+      "cannot_confirm": "The official definition of a blank cell. The policy page that would define it returned empty (F06).",
+      "impact_on_lines": "Available players with a minor listing contribute zero penalty. This understates availability risk, symmetrically for both clubs.",
+      "evidence": [
+        {
+          "label": "Official Week 10 injury report",
+          "url": "https://www.nfl.com/injuries/"
+        }
+      ],
+      "action_needed": "SG-04 inactive reconciliation."
+    },
+    {
+      "id": "F05",
+      "status": "open",
+      "severity": "high",
+      "title": "No official depth-chart ordinal exists, so '2nd/3rd/4th string' cannot be stated as fact",
+      "observed": "nfl.com publishes player rows with position only. No rank, no starter flag, no snap count on the injury page.",
+      "why_it_matters": "The requested feature — know when backups are replacing starters — cannot be answered from official data at the depth requested. The engine instead applies a per-position penalty constant and caps it.",
+      "cannot_confirm": "Which specific player would replace an unavailable starter, and how much worse he is.",
+      "impact_on_lines": "Availability adjustments are coarse. A backup QB and a starter QB cost the same 2.60 points, which is wrong in reality.",
+      "evidence": [
+        {
+          "label": "Official Week 10 injury report",
+          "url": "https://www.nfl.com/injuries/"
+        }
+      ],
+      "action_needed": "SG-05 (participation counts as the ordinal proxy)."
+    },
+    {
+      "id": "F06",
+      "status": "open",
+      "severity": "medium",
+      "title": "The official injury-report policy page returned an empty body",
+      "observed": "https://operations.nfl.com/the-rules/nfl-injury-report-policy/ returned no text on 2026-11-14.",
+      "why_it_matters": "We cannot quote the league's own rules for practice statuses or reporting deadlines. Anything we said about them would be recollection.",
+      "cannot_confirm": "The policy wording itself.",
+      "impact_on_lines": "The practice-status weights are labelled as declared model constants everywhere they appear.",
+      "evidence": [
+        {
+          "label": "Policy page (empty on capture)",
+          "url": "https://operations.nfl.com/the-rules/nfl-injury-report-policy/"
+        }
+      ],
+      "action_needed": "SG-03."
+    },
+    {
+      "id": "F07",
+      "status": "accepted-risk",
+      "severity": "high",
+      "title": "No licensed market price, so 'edge' and 'closing-line value' are out of scope",
+      "observed": "No official NFL odds feed exists. Third-party price screens are not official and were not used.",
+      "why_it_matters": "Gate G6 (price beatable) can never pass. The Champion and Proven tiers are unreachable by construction.",
+      "cannot_confirm": "Whether our lines are any good relative to the market.",
+      "impact_on_lines": "Lines are labelled 'originated by this model' with no market comparison anywhere on the site.",
+      "evidence": [],
+      "action_needed": "SG-06."
+    },
+    {
+      "id": "F08",
+      "status": "accepted-risk",
+      "severity": "low",
+      "title": "Local shell has no outbound network; refresh must run in CI",
+      "observed": "Direct HTTP from the build shell to nfl.com returns 000. Only the agent's fetch capability reaches the internet.",
+      "why_it_matters": "A human running scripts/fetch_official.py on this machine will get a network error, not fresh data.",
+      "cannot_confirm": "Whether GitHub Actions runners reach nfl.com — the workflow is written but has not been executed against the live network yet.",
+      "impact_on_lines": "None. Committed data is the source of truth for the build; the fetch script is an optional refresher.",
+      "evidence": [],
+      "action_needed": "First CI run will confirm or deny. If it fails, the build still succeeds because it reads committed JSON."
+    },
+    {
+      "id": "F09",
+      "status": "open",
+      "severity": "low",
+      "title": "One Week 10 game is at a neutral site but the model applies home-field advantage",
+      "observed": "NE @ DET is listed as an international game in Munich.",
+      "why_it_matters": "A full 1.9-point HFA is applied to Detroit in a game that is not at Ford Field.",
+      "cannot_confirm": "How much of a home-field effect a designated home team retains abroad. No official figure exists.",
+      "impact_on_lines": "Detroit is probably over-rated by up to ~1.9 points in that game.",
+      "evidence": [
+        {
+          "label": "Schedule (Munich designation)",
+          "url": "https://www.nfl.com/schedules/2026/REG/"
+        }
+      ],
+      "action_needed": "SG-15."
+    },
+    {
+      "id": "F10",
+      "status": "resolved",
+      "severity": "low",
+      "title": "Bye clubs derived from the official Week 10 by-week schedule — confirmed",
+      "observed": "The by-week page was fetched on 2026-11-14 and lists the same 14 games. Four clubs (CHI, DEN, PHI, TB) appear in none of them.",
+      "why_it_matters": "This is a derived fact, not a quoted one. It is almost certainly right, but it is still an inference.",
+      "cannot_confirm": "An explicit sentence saying 'these clubs are on bye'. The slate itself is now verified on two official URLs.",
+      "impact_on_lines": "No line is originated for these clubs. Nothing downstream depends on the bye label.",
+      "evidence": [
+        {
+          "label": "Schedule (main)",
+          "url": "https://www.nfl.com/schedules/2026/REG/"
+        },
+        {
+          "label": "Schedule by week (verified)",
+          "url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+        }
+      ],
+      "action_needed": "Closed. The bye list is consistent across two verified official pages.",
+      "resolved_note": "Two independent official pages agree on the slate; bye clubs are the complement and are labelled 'derived' in the build."
+    },
+    {
+      "id": "F11",
+      "status": "open",
+      "severity": "medium",
+      "title": "Official injury URL returns a week-number mismatch (reported by a parallel session)",
+      "observed": "An earlier session recorded that the NFL injury route containing /2025/reg4 rendered a page title saying Week 10 of the 2025 season while the body showed 'Injuries - WEEK 4'. That session did not import any value from the route.",
+      "why_it_matters": "If a historical week URL silently resolves to a different week, any backtest built on it would attribute the wrong week's data. This is a real risk for SG-07 and SG-13.",
+      "cannot_confirm": "This session did not reproduce the mismatch; the route was not re-fetched here. Recorded as reported, not as confirmed.",
+      "impact_on_lines": "None. This build uses only the current-week page (/injuries/), which rendered consistently and is cited on every injury row.",
+      "evidence": [
+        {
+          "label": "Route reported to mismatch",
+          "url": "https://www.nfl.com/injuries/league/2025/reg4"
+        },
+        {
+          "label": "Page actually used by this build",
+          "url": "https://www.nfl.com/injuries/"
+        }
+      ],
+      "action_needed": "Before any historical capture, verify the week selector manually and store a content hash with each snapshot."
+    },
+    {
+      "id": "F12",
+      "status": "open",
+      "severity": "medium",
+      "title": "Reward and governance rules are undefined",
+      "observed": "No contest rules, eligibility, jurisdiction, privacy terms, appeal path or compliance owner exist for the leaderboard rewards.",
+      "why_it_matters": "Rewards are a core request. A scoring formula is not a reward policy, and publishing one without the other invites a dispute later.",
+      "cannot_confirm": "Any prize type or value. Nothing has been designed, deliberately.",
+      "impact_on_lines": "None. The leaderboard awards ranking credit only; no prize, entry fee or staking feature exists.",
+      "evidence": [
+        {
+          "label": "NFL gambling policy / integrity overview",
+          "url": "https://media.nfl.com/lsb"
+        }
+      ],
+      "action_needed": "Decide reward type and governance before any tier-3 score is paid out. Keep the board reputation-only until then."
+    },
+    {
+      "id": "F13",
+      "status": "open",
+      "severity": "low",
+      "title": "This repo was worked by two parallel sessions at once — merge record",
+      "observed": "A second session (arena/39f57d31-fl3) merged a data-free research blueprint to main via PRs #1 and #2 while this session was building the verified dataset. Both PRs touched COORDINATION.md, README.md, index.html, assets/site.css and scripts/check_site.py.",
+      "why_it_matters": "Exactly the collision the coordination protocol exists to prevent. Their pages are preserved rather than deleted: see /legacy/index.html.",
+      "cannot_confirm": "Whether the other session is still active.",
+      "impact_on_lines": "None. The datasets are this session's own capture and were never touched by the other branch.",
+      "evidence": [
+        {
+          "label": "Archived blueprint",
+          "url": "https://sassnarep3-star.github.io/FL3/legacy/index.html"
+        }
+      ],
+      "action_needed": "Log the collision in COORDINATION.md and keep /legacy/ until the owner confirms it can be removed."
+    }
+  ]
+}

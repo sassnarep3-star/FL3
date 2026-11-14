@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strategy Catalog — FL3</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="brand"><h1>FL3 · NFL Decision Intelligence</h1><span class="tag">Strategy catalog · singles · parlays · player-prop combos — every entry behind validation gates</span></div>
+  <nav class="site">
+    <a href="index.html">Dashboard</a><a href="executive-summary.html">Summary</a>
+    <a href="requirements.html">Requirements</a><a href="suggestions.html">Suggestions</a>
+    <a href="lines.html">Lines</a><a href="injuries.html">Injuries &amp; Depth</a>
+    <a class="active" href="strategies.html">Strategies</a><a href="leaderboard.html">Leaderboard</a>
+    <a href="methodology.html">Methodology</a><a href="data.html">Data</a>
+    <a href="sources.html">Sources</a><a href="flagged.html">Flagged</a>
+  </nav>
+</header>
+<main>
+
+<div class="section">
+  <h2>Strategy Catalog</h2>
+  <p class="lead">Each strategy is a pre-registered rule set: what it bets, when, at what price, with what
+  stake rule. <strong>No strategy has passed all gates yet</strong> — the season data needed for G2–G8
+  does not exist in this build (see <a href="requirements.html">Q6/Q7</a>). Gate status is shown honestly
+  below. Strategy IDs are stable and can be referenced on the leaderboard.</p>
+
+  <div class="table-wrap"><table>
+    <caption>Gate legend: <span class="badge b-ver">pass</span> · <span class="badge b-unv">partial</span> · <span class="badge b-flag">fail/blocked</span> · <span class="badge b-info">pending data</span></caption>
+    <thead><tr><th>ID</th><th>Class</th><th>Strategy</th><th>Rule summary</th><th>G0</th><th>G1</th><th>G2</th><th>G3</th><th>G4</th><th>G5</th><th>G6</th><th>G7</th><th>G8</th></tr></thead>
+    <tbody>
+      <tr><td>SGL-1</td><td>Single</td><td><strong>Injury-repricing fade</strong></td><td>When a starter is ruled OUT and the verified replacement is 2nd string or better, bet the side the market has moved <em>away</em> from if open-to-close move &gt; 2 pts.</td>
+        <td><span class="badge b-unv">partial</span></td><td><span class="badge b-ver">pass</span></td><td><span class="badge b-flag">n=0</span></td><td><span class="badge b-info">needs S1</span></td><td><span class="badge b-info">needs S3</span></td><td><span class="badge b-info">pending</span></td><td class="—">—</td><td><span class="badge b-info">pending</span></td><td class="—">—</td></tr>
+      <tr><td>SGL-2</td><td>Single</td><td><strong>Cross-book value</strong></td><td>When ≥2 books disagree by ≥2 pts on spread or total, take our originated line's side vs the outlier book, at ≥1.5 pts of value, only if the outlier is not the newest quote.</td>
+        <td><span class="badge b-unv">partial</span></td><td><span class="badge b-ver">pass</span></td><td><span class="badge b-flag">n=0</span></td><td><span class="badge b-info">needs S1</span></td><td><span class="badge b-info">needs S3</span></td><td><span class="badge b-info">pending</span></td><td class="—">—</td><td><span class="badge b-info">pending</span></td><td class="—">—</td></tr>
+      <tr><td>SGL-3</td><td>Single</td><td><strong>Deficiency-pressure under</strong></td><td>Under the total when combined defensive deficiency score (OUT/DOUBTFUL, chart-verified tiers) ≥ 2.5 units and both teams' QB1s are active.</td>
+        <td><span class="badge b-unv">partial</span></td><td><span class="badge b-ver">pass</span></td><td><span class="badge b-flag">n=0</span></td><td><span class="badge b-info">needs S1</span></td><td class="—">—</td><td><span class="badge b-info">pending</span></td><td class="—">—</td><td><span class="badge b-info">pending</span></td><td class="—">—</td></tr>
+      <tr><td>PAR-1</td><td>Parlay (2–3 legs)</td><td><strong>Pythagorean regression pairs</strong></td><td>Two legs max, both from games where our win-probability (Pythagorean x=3.5) disagrees with market-implied probability by ≥7%. Legs must be from different games; mixed sides allowed.</td>
+        <td><span class="badge b-unv">partial</span></td><td><span class="badge b-ver">pass</span></td><td><span class="badge b-flag">n=0</span></td><td><span class="badge b-info">needs S1</span></td><td class="—">—</td><td><span class="badge b-info">pending</span></td><td><span class="badge b-flag">blocked</span></td><td><span class="badge b-info">pending</span></td><td class="—">—</td></tr>
+      <tr><td>PAR-2</td><td>Parlay (2 legs)</td><td><strong>Same-game structure (DEF-blocked)</strong></td><td>Same-game paired legs (e.g., team total + spread) priced with measured correlation — currently blocked because same-game r values are unmeasured.</td>
+        <td><span class="badge b-unv">partial</span></td><td><span class="badge b-ver">pass</span></td><td><span class="badge b-flag">n=0</span></td><td class="—">—</td><td class="—">—</td><td class="—">—</td><td><span class="badge b-flag">blocked</span></td><td><span class="badge b-info">pending</span></td><td class="—">—</td></tr>
+      <tr><td>PROP-1</td><td>Prop combo (3 legs)</td><td><strong>Backup-QB usage shift</strong></td><td>When a verified 2nd/3rd-string QB starts: RB receptions/receptions-adjacent over, TE receiving over, WR1 under — legs from the same game, correlation-priced (blocked until player data + r values exist).</td>
+        <td><span class="badge b-unv">partial</span></td><td><span class="badge b-ver">pass</span></td><td><span class="badge b-flag">n=0</span></td><td class="—">—</td><td class="—">—</td><td class="—">—</td><td><span class="badge b-flag">blocked</span></td><td><span class="badge b-info">pending</span></td><td class="—">—</td></tr>
+      <tr><td>PROP-2</td><td>Prop combo (2–4 legs)</td><td><strong>Deficiency attack</strong></td><td>Target the opponent of a defense with deficiency score ≥1.5 in a position group (e.g., CB2 forced in → opposing WR over). Correlation-priced combo; blocked on player data.</td>
+        <td><span class="badge b-unv">partial</span></td><td><span class="badge b-ver">pass</span></td><td><span class="badge b-flag">n=0</span></td><td class="—">—</td><td class="—">—</td><td class="—">—</td><td><span class="badge b-flag">blocked</span></td><td><span class="badge b-info">pending</span></td><td class="—">—</td></tr>
+      <tr><td>TEAS-1</td><td>Teaser</td><td><strong>Key-number teasers</strong></td><td>2-team, 6-point teasers through 3 and 7 only, legs from our top-quartile model edges; blocked until closing-line + game-result data enable pricing checks.</td>
+        <td><span class="badge b-unv">partial</span></td><td><span class="badge b-ver">pass</span></td><td><span class="badge b-flag">n=0</span></td><td class="—">—</td><td class="—">—</td><td class="—">—</td><td><span class="badge b-flag">blocked</span></td><td><span class="badge b-info">pending</span></td><td class="—">—</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn"><strong>Why almost everything is "blocked/pending":</strong> the brief demands luck be removed and only skill be rewarded. That is impossible with zero graded bets and unmeasured correlations — so the catalog honestly reports the gaps instead of fabricating performance. G0 (pre-registration) and G1 (provenance) are the only gates satisfiable today: both are marked accordingly.</div>
+
+  <h3>Pre-registration block (G0) — how a strategy enters</h3>
+  <ul class="tight">
+    <li><strong>Declare:</strong> ID, class, exact trigger rules, price requirement (min edge), stake rule, and stop conditions — committed to git before kickoff.</li>
+    <li><strong>Grade:</strong> every trigger bet logged with placed line, closing line, result, and source links (G1).</li>
+    <li><strong>Promote:</strong> gates G2–G8 run automatically as data accumulates; pass/fail recorded on the <a href="leaderboard.html">Leaderboard</a>.</li>
+    <li><strong>Retire:</strong> any strategy failing G3 (holdout) or G5 (FDR) after its sample matures is retired with a public failure record — failures stay visible to keep the competition honest.</li>
+  </ul>
+</div>
+
+</main>
+<footer class="site">FL3 · no performance claims exist yet · gate framework on <a href="methodology.html">Methodology</a></footer>
+</body>
+</html>
