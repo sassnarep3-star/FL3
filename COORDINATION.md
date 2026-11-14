@@ -410,6 +410,7 @@ session's dashboard is served under https://sassnarep3-star.github.io/FL3/docs/.
 | Merge | **MERGED** — merge commit `d7805d6a616ef95167783c04590eabae8641d244`, merged 2026-11-14T03:22:19Z by `sassnarep3-star` |
 | Deploy | GitHub Pages rebuilt after merge and is live. Root build: https://sassnarep3-star.github.io/FL3/ (verified). This session's dashboard: https://sassnarep3-star.github.io/FL3/docs/ (verified live — landing page, category nav, and the Flagged for Review page all serve correctly) |
 | Flagged items carried to site | This session's flags FL01–FL07 published on `docs/review/flagged-review.html`; parallel sessions' flags F01–F13 on `flagged.html` — both preserved, neither discarded |
+| Follow-up PR | [#12 — final integration log update](https://github.com/sassnarep3-star/FL3/pull/12) — merged (commit `dfb9ce8`) to sync this record into `main` |
 | Post-merge re-verification | Parallel session's `scripts/check_site.py`: **1136 assertions, ALL CHECKS PASSED** after the merge. This session's `build.py` regenerated cleanly: 13 pages, **zero broken internal links**, row counts re-checked (standings 32, injuries 345, lines 14, depth 32+6, flagged 7) |
 ## PR / merge / deploy record — session `arena/46e888f0-fl3`
 
