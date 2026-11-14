@@ -1,0 +1,102 @@
+{
+ "meta": {
+  "title": "Suggestions and decision log",
+  "as_of": "2026-11-14",
+  "purpose": "A reviewable queue of proposed improvements. Each item can be accepted, rejected or deferred, and the decision is recorded so the same proposal is not re-litigated.",
+  "rubric": {
+   "impact": "1 = cosmetic, 3 = changes what a reader can conclude, 5 = changes whether the product can exist",
+   "effort": "1 = under an hour, 3 = about a day, 5 = multi-session",
+   "confidence": "how sure we are that the impact claim is true, 0-100. Anything below 60 is an experiment, not a plan."
+  },
+  "decision_states": ["proposed", "accepted", "rejected", "deferred", "implemented"]
+ },
+ "suggestions": [
+  {"id": "S-01", "title": "Publish a one-line provenance tag on every figure", "status": "implemented",
+   "problem": "A dashboard that mixes verified and assumed numbers is worse than no dashboard, because readers cannot tell which is which.",
+   "proposal": "Every table row links to its source. Any value that could not be verified is blank with a visible 'unverified' marker.",
+   "impact": 5, "effort": 2, "confidence": 95,
+   "evidence": "Implemented in scripts/verify.py, which fails the build on a blank source id.",
+   "decision": "Accepted and implemented this session."},
+
+  {"id": "S-02", "title": "Separate availability from depth ordering", "status": "implemented",
+   "problem": "Ourlads and nfl.com disagreed 14 times in a single week. Merging them silently produces a confidently wrong answer.",
+   "proposal": "Official NFL report owns availability. Ourlads owns depth order. Disagreements are published, not averaged.",
+   "impact": 5, "effort": 2, "confidence": 95,
+   "evidence": "data/depth_risk.json -> conflicts (14 rows, C-001..C-014).",
+   "decision": "Accepted and implemented. Awaiting reviewer confirmation (Q-05)."},
+
+  {"id": "S-03", "title": "Ship an empty leaderboard instead of a fabricated one", "status": "implemented",
+   "problem": "A seeded leaderboard with plausible-looking ROI is the easiest way to make the whole project untrustworthy.",
+   "proposal": "Show the gate machinery and state plainly that no strategy has been graded.",
+   "impact": 4, "effort": 1, "confidence": 99,
+   "evidence": "data/strategies.json -> leaderboard.rows is [].",
+   "decision": "Accepted and implemented."},
+
+  {"id": "S-04", "title": "Pre-register the skill thresholds before seeing results", "status": "proposed",
+   "problem": "Thresholds picked after the results are not evidence, they are curve-fitting.",
+   "proposal": "Ratify the luck-removal pass rules (L1, L4, L5 + bootstrap) now, in writing, before any bet is graded.",
+   "impact": 5, "effort": 1, "confidence": 90,
+   "evidence": "Q-08 asks for exactly this sign-off.",
+   "decision": "Deferred to the user. This is the highest-value five-minute action available."},
+
+  {"id": "S-05", "title": "Get one timestamped closing line before building anything else", "status": "proposed",
+   "problem": "Four strategies and the entire leaderboard are blocked on the same missing input.",
+   "proposal": "Obtain a licensed odds source. It unblocks G4, STR-08, CLV, and any market-comparison page.",
+   "impact": 5, "effort": 3, "confidence": 90,
+   "evidence": "Rejected/unavailable list in data/sources.json; Q-04.",
+   "decision": "Deferred - requires a decision only the user can make."},
+
+  {"id": "S-06", "title": "Replace draft pedigree with snap counts in the exposure index", "status": "proposed",
+   "problem": "Pedigree measures draft status, not current ability.",
+   "proposal": "Swap the pedigree weight for a snap-share weight once snap data exists. Keep the formula shape, change one input.",
+   "impact": 4, "effort": 3, "confidence": 80,
+   "evidence": "known_weaknesses in data/lineup_risk.json; Q-12.",
+   "decision": "Deferred."},
+
+  {"id": "S-07", "title": "Add a staleness banner driven by the as-of date", "status": "implemented",
+   "problem": "Static pages silently become wrong.",
+   "proposal": "Every page prints the capture date and warns when the data is older than 7 days.",
+   "impact": 3, "effort": 1, "confidence": 95,
+   "evidence": "docs/*.html header block.",
+   "decision": "Accepted and implemented."},
+
+  {"id": "S-08", "title": "Treat reported injury status as missing data, not as 'healthy'", "status": "implemented",
+   "problem": "107 transcribed players carry no official designation. Calling them healthy would invent 107 facts.",
+   "proposal": "A third state, 'no designation published', distinct from both Out and playing.",
+   "impact": 4, "effort": 1, "confidence": 95,
+   "evidence": "data/depth_risk.json -> no_designation_published.",
+   "decision": "Accepted and implemented."},
+
+  {"id": "S-09", "title": "Score the leaderboard on risk-adjusted, deflated returns", "status": "implemented",
+   "problem": "Ranking by raw ROI rewards the luckiest high-variance strategy.",
+   "proposal": "Rank on ROI/stdev, deflated for the number of strategies tried.",
+   "impact": 4, "effort": 2, "confidence": 85,
+   "evidence": "data/strategies.json -> leaderboard.reward_scheme.",
+   "decision": "Accepted as a design. Not yet exercised because no bets are graded."},
+
+  {"id": "S-10", "title": "Split the site by audience", "status": "implemented",
+   "problem": "One long page serves neither a reader who wants the conclusion nor one who wants to audit a row.",
+   "proposal": "Dashboard for conclusions, per-category subpages for detail, a separate Flagged page for anything unresolved.",
+   "impact": 3, "effort": 2, "confidence": 90,
+   "evidence": "docs/index.html plus category pages.",
+   "decision": "Accepted and implemented."},
+
+  {"id": "S-11", "title": "Automate the weekly refresh with an explicit failure state", "status": "proposed",
+   "problem": "Manual refresh will be skipped, and a silent skip is the worst outcome.",
+   "proposal": "A scheduled job that re-captures S02/S04, diffs against the previous snapshot, and fails loudly if a source shape changes.",
+   "impact": 4, "effort": 4, "confidence": 75,
+   "evidence": "Q-10.",
+   "decision": "Deferred - external fetch is tool-mediated here, so the job cannot run unattended in this environment."},
+
+  {"id": "S-12", "title": "Grade injury signals against the inactives list", "status": "proposed",
+   "problem": "A 'Questionable' player is currently neither in nor out, so injury signals cannot be scored.",
+   "proposal": "Capture the 90-minute inactives list each week and use it as the grading truth.",
+   "impact": 5, "effort": 2, "confidence": 90,
+   "evidence": "Q-03.",
+   "decision": "Deferred, but this is the cheapest way to make STR-03 testable."}
+ ],
+ "decision_log": [
+  {"when": "2026-11-14", "what": "S-01, S-02, S-03, S-07, S-08, S-09, S-10", "by": "session arena-46e888f0", "decision": "implemented", "rationale": "Directly serves the verification requirement; no external dependency."},
+  {"when": "2026-11-14", "what": "S-04, S-05, S-06, S-11, S-12", "by": "session arena-46e888f0", "decision": "deferred to user", "rationale": "Each needs either a user decision, a licence, or data this environment cannot reach. Recorded rather than silently skipped."}
+ ]
+}

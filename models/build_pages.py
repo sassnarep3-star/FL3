@@ -11,7 +11,7 @@ from collections import defaultdict
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(BASE, "data")
-DOCS = os.path.join(BASE, "docs")
+DOCS = os.path.join(BASE, "site-9b181d31")
 
 NAV = """  <nav class="site">
     <a href="index.html">Dashboard</a><a href="executive-summary.html">Summary</a>
@@ -276,13 +276,13 @@ with open(os.path.join(DOCS, "data.html"), "w", encoding="utf-8") as f:
 import shutil
 
 for src, dst in [
-    ("data", "docs/data"),
-    ("research", "docs/research"),
-    ("models", "docs/models"),
+    ("data", "site-9b181d31/data"),
+    ("research", "site-9b181d31/research"),
+    ("models", "site-9b181d31/models"),
 ]:
     os.makedirs(os.path.join(BASE, dst), exist_ok=True)
     for fn in os.listdir(os.path.join(BASE, src)):
         s = os.path.join(BASE, src, fn)
         if os.path.isfile(s):
             shutil.copy2(s, os.path.join(BASE, dst, fn))
-print("built docs/injuries.html and docs/data.html from data/*.csv; synced docs/data, docs/research, docs/models")
+print("built site-9b181d31/injuries.html and site-9b181d31/data.html from data/*.csv; synced site-9b181d31/data, .../research, .../models")
