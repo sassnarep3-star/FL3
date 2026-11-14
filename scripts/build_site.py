@@ -262,7 +262,7 @@ def build_lines(lines, inj):
                 f"{ln['spread_band_90'][0]:+.1f} → {ln['spread_band_90'][1]:+.1f}",
                 f"{ln['total_band_90'][0]:.1f} → {ln['total_band_90'][1]:.1f}",
                 f"{ln['pick_confidence']:.2f}",
-                src_link(g["src"], "inputs"),
+                src_link(g["src"], "nfl.com"),
             ]
         )
 
@@ -290,7 +290,7 @@ carries its uncertainty. This is an input to the scoring gates, not a tip.</p>
 
 <h2>Week 10 originated lines</h2>
 {table(["Game", "Home spread", "Total", "Home win %", "Sigma", "Spread 90% band", "Total 90% band",
-        "Confidence", "Source"], rows)}
+        "Confidence", "Input source"], rows)}
 
 <h2>How the line is built</h2>
 <ol class="steps">

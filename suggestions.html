@@ -61,7 +61,7 @@ except where the status says <span class="badge ok">implemented</span>.</p>
           </header>
           <p><b>Problem.</b> An originated line is worthless for grading if it can be quietly improved after the game.</p>
           <p class="fine">Unblocks: Q02, Q08</p>
-          <p class="fine">Git history is the audit trail. .github/workflows/pages.yml regenerates the site on every push so the published line always matches the committed data.</p>
+          <p class="fine">Git history is the audit trail. .github/workflows/verify.yml re-derives every number from the committed data on each push and fails if the published pages drift from the committed JSON, so a line cannot be quietly improved after the fact.</p>
           <div class="paths">
               <div class="path rec">
                 <div class="pathhead"><b>Path A</b> · Weekly commit at first kickoff <span class="badge ok">recommended</span></div>
