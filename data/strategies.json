@@ -1,24 +1,226 @@
 {
-  "dataset": "NFL lines strategy framework — signal families and bet-type strategies",
-  "retrieved": "2026-11-14",
-  "note": "Research-based framework. Each signal and strategy is described with its inputs, the validation gates it must pass, and verified methodology sources. Signal implementations require the verified data feeds described in the Questions and Suggestions pages.",
-  "signal_families": [
-    {"id": "SG01", "name": "Opponent-adjusted EPA ratings", "description": "Expected Points Added per play, adjusted for opponent and weighted by recency, with a ridge-regression layer that controls how much model opinion may move the market number (out-of-sample weight, re-learned each run).", "inputs": ["play-by-play EPA", "opponent adjustment", "recency weights"], "sources": ["https://github.com/jcollins901/nfl-edge"]},
-    {"id": "SG02", "name": "DVOA / efficiency metrics", "description": "Defense-adjusted Value Over Average compares every play to a league-average baseline in the same situation and adjusts for opponent quality; positive offensive DVOA and negative defensive DVOA indicate above-average performance. Used to test whether an EPA signal is sustainable or fragile.", "inputs": ["play-level success points", "opponent adjustment", "situation baselines"], "sources": ["https://ftnfantasy.com/nfl/dvoa-explainer"]},
-    {"id": "SG03", "name": "Success rate & efficiency composites", "description": "Down-and-distance success rates (40% yards-to-go on 1st, 60% on 2nd, 100% on 3rd/4th) and multi-metric efficiency composites (EPA per play, down-set conversion) that smooth out explosive-play noise.", "inputs": ["play charting", "down-distance outcomes"], "sources": ["https://www.sharpfootballanalysis.com/stats-nfl/nfl-strength-of-schedule-tool/"]},
-    {"id": "SG04", "name": "Strength of schedule", "description": "Forward-looking SOS built from Vegas win totals of opponents, which incorporate offseason movement, coaching changes, injuries, and roster development that prior-year records miss.", "inputs": ["opponent win totals", "weekly schedule"], "sources": ["https://www.sharpfootballanalysis.com/stats-nfl/nfl-strength-of-schedule-tool/"]},
-    {"id": "SG05", "name": "Market-implied signals", "description": "Convert each book's no-vig prices into implied margins and totals the market is pricing; use consensus and line movement as informational inputs (never as the sole edge).", "inputs": ["no-vig spreads/totals", "line movement", "consensus"], "sources": ["https://github.com/jcollins901/nfl-edge"]},
-    {"id": "SG06", "name": "Injury-adjusted signals", "description": "Adjust team and player ratings for absences, weighting starters over backups (Adjusted Games Lost methodology) and scoring the quality drop when 2nd/3rd/4th-string players replace starters on offense and defense.", "inputs": ["official injury report", "roster status", "depth-order data"], "sources": ["https://www.nfl.com/injuries", "https://www.sharpfootballanalysis.com/betting/numbers-that-matter-for-predicting-win-totals-part-two/"]},
-    {"id": "SG07", "name": "Luck-adjusted efficiency", "description": "Strip luck from underlying performance: interception-worthy throws vs actual INTs, drops, fumble recovery rates, and DPI — producing adjusted efficiency that separates skill from variance.", "inputs": ["charting data", "play-by-play EPA", "recovery rates"], "sources": ["https://www.unexpectedpoints.com/p/luck-adjusted-quarterback-efficiency"]}
+  "meta": {
+    "title": "Strategy registry — specs, validation gates, and leaderboard tiers",
+    "captured_utc": "2026-11-14",
+    "purpose": "Define strategies precisely enough that they can be graded, and block any strategy that cannot be graded instead of pretending it works.",
+    "grading_status": "0 strategies have graded results. Every row below is a SPEC, not a track record. The leaderboard is live and will populate as weeks are captured.",
+    "honesty_rule": "A strategy may be shown as 'passes gates' only if the script that grades it runs on stored data. Otherwise it is 'blocked' with the missing input named."
+  },
+
+  "gates": [
+    {
+      "id": "G1",
+      "name": "Source traceable",
+      "test": "Every input field maps to a URL under nfl.com or operations.nfl.com, stored in data/sources.json.",
+      "auto": true,
+      "fail_action": "Strategy is blocked. No exceptions."
+    },
+    {
+      "id": "G2",
+      "name": "Sample sufficiency",
+      "test": "At least 30 independent observations before any hit rate is quoted, and at least 10 per parameter estimated.",
+      "auto": true,
+      "fail_action": "Shown as 'insufficient evidence' with the current n."
+    },
+    {
+      "id": "G3",
+      "name": "Luck separation",
+      "test": "Strategy P&L must not be explained by Pythagorean luck of the clubs it backs: leave-one-luck-decile-out must keep the sign of the edge.",
+      "auto": true,
+      "fail_action": "Strategy is demoted to 'luck-driven' and cannot reach Contender."
+    },
+    {
+      "id": "G4",
+      "name": "Correlation declared",
+      "test": "Every leg in a parlay/prop combo has its shared driver listed in data/correlations.json; the largest unmeasured term sets the haircut.",
+      "auto": true,
+      "fail_action": "Ticket is rejected at construction."
+    },
+    {
+      "id": "G5",
+      "name": "Ex-ante definition",
+      "test": "The rule must be fully specified before the games it is graded on; no parameter may be chosen after seeing results.",
+      "auto": false,
+      "fail_action": "Strategy is flagged as overfit and cannot be graded."
+    },
+    {
+      "id": "G6",
+      "name": "Price beatable",
+      "test": "Strategy must beat the available price by more than the declared edge threshold after any vig.",
+      "auto": true,
+      "fail_action": "Cannot reach Champion. BLOCKED IN v0: no licensed odds feed (flag F07)."
+    },
+    {
+      "id": "G7",
+      "name": "Stability",
+      "test": "Leave-one-club-out and leave-one-week-out must both keep the sign of the edge.",
+      "auto": true,
+      "fail_action": "Edge is attributed to a single club/week and marked fragile."
+    },
+    {
+      "id": "G8",
+      "name": "Reproducible",
+      "test": "A script in scripts/ recomputes the strategy's signal from stored data with no manual steps.",
+      "auto": true,
+      "fail_action": "Strategy is not allowed on the leaderboard."
+    }
   ],
-  "bet_types": [
-    {"id": "BT01", "name": "Single bets (spread / total / moneyline)", "description": "One market, one leg. The most liquid, most efficient market — the cleanest test of a model's true edge. Model projection is compared to market price; an edge is flagged only when both edge and expected value clear the validation gates.", "validation_gates": ["VG01", "VG02", "VG03", "VG04"], "sources": ["https://www.sportsbettingoddscalculator.com/market-efficiency", "https://beatabookie.com/nfl-betting-101-how-pff-discovers-and-defines-edges-nfl-and-ncaa-betting-picks/"]},
-    {"id": "BT02", "name": "Player prop bets", "description": "Player-level totals (passing/rushing yards, TDs, receiving). Volume from recent games, efficiency pulled toward position average, adjusted for opponent defense and the team's implied points; a fitted distribution turns each projection into P(over). Props are the least efficient market, so the edge potential is larger but modeling must be rigorous.", "validation_gates": ["VG01", "VG02", "VG03", "VG04", "VG05"], "sources": ["https://github.com/jcollins901/nfl-edge", "https://www.sportsbettingoddscalculator.com/market-efficiency"]},
-    {"id": "BT03", "name": "Parlay / combination bets", "description": "Multi-leg combinations of spreads, totals, and props. Legs are priced jointly using a fitted distribution of real NFL results (extra weight on common margins such as 3, 7, 10) and the stored correlation matrix — never by naive multiplication of independent probabilities.", "validation_gates": ["VG01", "VG02", "VG03", "VG04", "VG05", "VG06"], "sources": ["https://github.com/jcollins901/nfl-edge", "https://www.sportsbettingoddscalculator.com/market-efficiency"]}
+
+  "tiers": [
+    {
+      "tier": 0,
+      "name": "Blocked",
+      "requirement": "Fails G1 or G8, or a required input does not exist.",
+      "reward": "none — listed for transparency only",
+      "color": "grey"
+    },
+    {
+      "tier": 1,
+      "name": "Explorer",
+      "requirement": "Passes G1, G2-definition and G8; signal computable but not yet graded on results.",
+      "reward": "Entry on the board, no ranking credit",
+      "color": "blue"
+    },
+    {
+      "tier": 2,
+      "name": "Contender",
+      "requirement": "Passes G1–G5, G7, G8 with >=30 graded observations and live results.",
+      "reward": "Ranked; earns leaderboard points",
+      "color": "silver"
+    },
+    {
+      "tier": 3,
+      "name": "Champion",
+      "requirement": "Contender plus G6: measurable positive edge over a verifiable price.",
+      "reward": "Top of board; eligible for the season reward pool weighting",
+      "color": "gold"
+    },
+    {
+      "tier": 4,
+      "name": "Proven",
+      "requirement": "Champion plus an out-of-sample repeat in a later season with stable closing-line value.",
+      "reward": "Permanent board entry, highest weight",
+      "color": "platinum"
+    }
   ],
-  "strategy_rules": [
-    {"id": "SR01", "name": "Edge qualification rule", "description": "A bet is flagged only when its edge clears the minimum threshold AND its expected value per dollar clears the minimum EV threshold. Thresholds are set in advance via validation gates and are not tuned to results.", "sources": ["https://github.com/jcollins901/nfl-edge"]},
-    {"id": "SR02", "name": "Grade-based screening", "description": "Edge values are graded (e.g., >=2.5% ~ A, 0.5-2.5% ~ B, -0.5-0.5% ~ C, -2.5--0.5% ~ D, below -2.5% ~ F); only grades at or above the chosen cutoff are eligible.", "sources": ["https://beatabookie.com/nfl-betting-101-how-pff-discovers-and-defines-edges-nfl-and-ncaa-betting-picks/"]},
-    {"id": "SR03", "name": "Selective skill-based deployment", "description": "Strategies deploy only on games/markets where the composite signal is strongest; low-confidence games are skipped. Selectivity reduces variance and concentrates edge, making results measurable as skill rather than luck.", "sources": ["https://www.sharkbetting.com/blog/closing-line-value-clv-explained"]}
-  ]
+
+  "scoring": {
+    "formula": "score = sum over graded bets of (result x weight) / sqrt(n), with weight = declared edge / declared sigma, then divided by the largest unmeasured correlation haircut on the ticket.",
+    "why_sqrt_n": "Stops a strategy from winning by volume alone. It must win per unit of evidence, not per unit of action.",
+    "luck_penalty": "Any strategy whose graded P&L has |correlation with club luck_wins| > 0.30 has its score multiplied by 0.5 and is labelled luck-exposed.",
+    "minimum_to_rank": "30 graded bets and at least 3 distinct weeks.",
+    "no_bet_is_a_bet": "A strategy that abstains is scored as a no-op, not as a win. Coverage is reported separately so abstention cannot be hidden."
+  },
+
+  "strategies": [
+    {
+      "id": "S01",
+      "name": "Margin trend, neutral-line filter",
+      "market": "Spread (single bet)",
+      "thesis": "Point differential per game is the best single predictor of win percentage we can verify (COR-01, r=0.878). When our originated line sits at least 1.5 points away from a neutral 3-point home line in the direction of the margin gap, the side is worth grading.",
+      "mechanism": "signal = (shrunk rating gap) - 1.9 HFA; bet the side whose originated spread is >= 1.5 points beyond the neutral line.",
+      "inputs": ["data/standings.json", "data/lines_week10.json"],
+      "gates": { "G1": "pass", "G2": "fail (n<30)", "G3": "untested", "G4": "n/a", "G5": "pass", "G6": "blocked (F07)", "G7": "untested", "G8": "pass" },
+      "tier": 1,
+      "evidence": "r=0.8781 (n=32) supports the input. No graded bets yet.",
+      "caveat": "A rating built from league aggregates cannot see opponent strength. It will misprice clubs with extreme schedules."
+    },
+    {
+      "id": "S02",
+      "name": "Total anchor, extreme-total fade",
+      "market": "Total (single bet)",
+      "thesis": "Extreme originated totals compress toward the league mean more than they expand. Play under when the originated total is in the top decile of the season's originated totals and over when in the bottom decile.",
+      "mechanism": "z = (total - mean(originated totals)) / sd(originated totals); act when |z| >= 1.2.",
+      "inputs": ["data/lines_week10.json"],
+      "gates": { "G1": "pass", "G2": "fail (n=14 games)", "G3": "untested", "G4": "n/a", "G5": "pass", "G6": "blocked (F07)", "G7": "untested", "G8": "pass" },
+      "tier": 1,
+      "evidence": "Only 14 originated totals exist. Far below the 30-observation floor.",
+      "caveat": "Mean reversion in totals is a claim about market behaviour, and we hold no market data. This cannot be validated without a price."
+    },
+    {
+      "id": "S03",
+      "name": "Availability gap",
+      "market": "Spread (single bet)",
+      "thesis": "When one club's capped offensive availability penalty exceeds the opponent's by 1.5 points, fade the depleted club.",
+      "mechanism": "gap = away.off - home.off (capped); act when |gap| >= 1.5.",
+      "inputs": ["data/injuries_week10.json", "data/lines_week10.json"],
+      "gates": { "G1": "pass", "G2": "fail", "G3": "untested", "G4": "n/a", "G5": "pass", "G6": "blocked (F07)", "G7": "untested", "G8": "pass" },
+      "tier": 1,
+      "evidence": "Signal computable for all 28 clubs on the Week 10 slate.",
+      "caveat": "Magnitude is a declared constant, not measured. The injury table also misses cases like BAL QB (flag F02), so this signal is incomplete by construction."
+    },
+    {
+      "id": "S04",
+      "name": "Luck fade",
+      "market": "Spread (single bet)",
+      "thesis": "Clubs in the top quartile of Pythagorean luck_wins are priced on wins that scoring margin does not support. Fade them; back the bottom quartile.",
+      "mechanism": "rank clubs by luck_wins (data/luck.json); act on games involving rank <= 8 or rank >= 25.",
+      "inputs": ["data/luck.json", "data/lines_week10.json"],
+      "gates": { "G1": "pass", "G2": "fail", "G3": "contradiction", "G4": "n/a", "G5": "pass", "G6": "blocked (F07)", "G7": "untested", "G8": "pass" },
+      "tier": 1,
+      "evidence": "Luck is measured for all 32 clubs. Range is +2.17 (DEN) to -2.17 (TB).",
+      "caveat": "By construction this strategy is a bet on luck, which fails the spirit of G3. It is kept on the board as the counter-example the luck filter exists to catch."
+    },
+    {
+      "id": "S05",
+      "name": "Two-leg cross-game correlation parlay",
+      "market": "Parlay (2 legs, different games)",
+      "thesis": "Cross-game legs are structurally independent (COR-A5), so the joint probability is the product. The only adjustment needed is for league-wide scoring shocks.",
+      "mechanism": "pick 2 legs from different games with pick_confidence >= 0.25; price at p1*p2*(1 - haircut); haircut = 0.05.",
+      "inputs": ["data/lines_week10.json", "data/correlations.json"],
+      "gates": { "G1": "pass", "G2": "fail", "G3": "untested", "G4": "pass (A5 structural)", "G5": "pass", "G6": "blocked (F07)", "G7": "untested", "G8": "pass" },
+      "tier": 1,
+      "evidence": "Independence is structural, not statistical — a stronger claim than a measured r.",
+      "caveat": "Structural independence does not create edge. A parlay of two coin flips is still a coin flip."
+    },
+    {
+      "id": "S06",
+      "name": "QB + WR shared-driver prop stack",
+      "market": "Player prop combo (same game)",
+      "thesis": "QB passing yards and his WR's receiving yards share targets (COR-A4). The stack should be PRICED as one event, not two.",
+      "mechanism": "requires player-level official per-game stats.",
+      "inputs": ["MISSING: official per-game player statistics"],
+      "gates": { "G1": "fail (no source captured)", "G2": "fail", "G3": "untested", "G4": "fail (magnitude unmeasured)", "G5": "pass", "G6": "blocked (F07)", "G7": "untested", "G8": "fail (no script can run)" },
+      "tier": 0,
+      "evidence": "Blocked. Direction of the correlation is certain from mechanism; the size is not measured.",
+      "caveat": "This is the most common way prop bettors lose money: they stack two legs of the same event and treat them as independent."
+    },
+    {
+      "id": "S07",
+      "name": "Division underdog",
+      "market": "Spread (single bet)",
+      "thesis": "Divisional underdogs are said to outperform because familiarity compresses margins.",
+      "mechanism": "requires per-game results with division flags.",
+      "inputs": ["MISSING: game-by-game results with division labels"],
+      "gates": { "G1": "fail", "G2": "fail", "G3": "untested", "G4": "n/a", "G5": "pass", "G6": "blocked (F07)", "G7": "untested", "G8": "fail" },
+      "tier": 0,
+      "evidence": "Blocked. The standings table gives division records but not per-game margins.",
+      "caveat": "Popular belief is not evidence. This stays blocked until game-level data exists."
+    },
+    {
+      "id": "S08",
+      "name": "Specialist blind spot",
+      "market": "Total / spread",
+      "thesis": "A club missing its kicker or punter loses hidden points that the standings table never shows. Weight ST absences at 2-3x the per-player penalty.",
+      "mechanism": "st penalty capped at 1.0 point per club; act when the ST gap >= 0.6.",
+      "inputs": ["data/injuries_week10.json"],
+      "gates": { "G1": "pass", "G2": "fail", "G3": "untested", "G4": "n/a", "G5": "pass", "G6": "blocked (F07)", "G7": "untested", "G8": "pass" },
+      "tier": 1,
+      "evidence": "Week 10 has two relevant absences: TEN P Tommy Townsend (Knee, Achilles) and GB K Trey Smack is full participation.",
+      "caveat": "Small effect sizes. With a 1.0-point cap this cannot move a line much, which is intentional."
+    }
+  ],
+
+  "leaderboard": {
+    "status": "live but empty",
+    "graded_entries": 0,
+    "why_empty": "Grading requires completed games plus a stored pre-game line snapshot for each week. Only Week 10 is captured, and 13 of its 14 games have not been played as of 2026-11-14.",
+    "what_unlocks_it": [
+      "capture each week's originated lines BEFORE kickoff (CI job, Monday 00:00 UTC)",
+      "capture final scores from an official NFL source after the week ends",
+      "grade every active strategy automatically in the same job",
+      "never edit a line snapshot after the fact — the file's git history is the audit trail"
+    ],
+    "reward_pool_rule": "Rewards are allocated only to tier 3 and tier 4 strategies, in proportion to sqrt(n)-normalised score. A strategy that cannot beat a verifiable price earns nothing, no matter how good the narrative."
+  }
 }

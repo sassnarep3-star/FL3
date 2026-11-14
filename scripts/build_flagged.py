@@ -1,0 +1,130 @@
+"""Build data/flagged.json - the Flagged for Review register.
+
+Every irregularity, blank, scope limit or source disagreement lands here with links.
+Nothing in this file blocks the publish; it exists so the user can review after go-live.
+"""
+import json
+
+depth = json.load(open("data/depth_risk.json"))
+src = json.load(open("data/sources_46e888f0.json"))
+lines = json.load(open("data/lines.json"))
+
+items = []
+
+# ---- 1. source conflicts harvested automatically
+for c in depth["conflicts"]:
+    items.append({
+        "id": "F-CONF-" + c["id"].split("-")[1],
+        "category": "Source conflict",
+        "claim": "%s (%s, %s): the official NFL report and Ourlads disagree on availability." % (c["player"], c["team"], c["position"]),
+        "detail": "Official: game status '%s', practice '%s'. Ourlads marker: %s." % (
+            c["official_game_status"], c["official_practice"], c["ourlads_marker"]),
+        "resolution": c["resolution"],
+        "sources": ["S02", "S04"],
+        "blocks": False,
+        "reviewer_action": "Confirm the official report should govern, or overrule."
+    })
+
+# ---- 2. structural / scope / method irregularities
+items += [
+ {"id": "F-01", "category": "Repo state", "claim": "The repository contained no content to review before this session.",
+  "detail": "README.md was 5 bytes and the history was a single commit (d2e6358). There was no data, no site, no CI and no .gitignore.",
+  "resolution": "All content in this repo was authored in this session and is verified against the sources listed on each row.",
+  "sources": [], "blocks": False, "reviewer_action": "Confirm nothing pre-existing was lost."},
+
+ {"id": "F-02", "category": "Data staleness", "claim": "Every number on this site is a snapshot taken 2026-11-14 and is already ageing.",
+  "detail": "The 2026 season is in progress (Week 10). Injury designations change daily; depth charts change weekly.",
+  "resolution": "Every page prints its capture date. Nothing is presented as live.",
+  "sources": ["S01", "S02", "S03", "S04"], "blocks": False, "reviewer_action": "Trigger a refresh before acting on anything."},
+
+ {"id": "F-03", "category": "Missing input", "claim": "No market odds or closing lines exist anywhere in this repo.",
+  "detail": "This environment cannot reach a licensed odds feed. Therefore there is no closing-line value, no vig-adjusted EV, no market comparison and no 'edge vs market' figure on any page.",
+  "resolution": "The line model is line ORIGINATION only. Gate G4 is unevaluable. Recorded as Q-04 / S-05.",
+  "sources": [], "blocks": True, "reviewer_action": "Supply a licensed odds source if market comparison is required."},
+
+ {"id": "F-04", "category": "Modelling gap", "claim": "Home-field advantage is set to 0.0 in the line model.",
+  "detail": "The repo has no home/road point splits to calibrate HFA, and inventing a number from memory would violate the no-hallucination rule.",
+  "resolution": "Published as a parameter, with its value shown on the Lines page. Every modelled line is therefore compressed toward pick'em.",
+  "sources": ["S01"], "blocks": True, "reviewer_action": "Provide a home/away scoring split source, or accept the compression."},
+
+ {"id": "F-05", "category": "Modelling gap", "claim": "No injury adjustment is applied to the line model.",
+  "detail": "The backup-deficiency index exists but has never been validated against outcomes, so applying it would be an unbacked assumption.",
+  "resolution": "The index is published as a descriptive exposure ranking only, clearly separated from the line.",
+  "sources": ["S02", "S04"], "blocks": False, "reviewer_action": "Choose whether exposure should enter the line, once it can be tested."},
+
+ {"id": "F-06", "category": "Coverage gap", "claim": "The Indianapolis Colts depth chart was not transcribed.",
+  "detail": "27 of the 28 teams playing in Week 10 are covered. The Colts chart was not retrieved before the build.",
+  "resolution": "The Colts appear in the standings, schedule and injury tables but not in the backup-deficiency index.",
+  "sources": ["S04"], "blocks": False, "reviewer_action": "Fetch and add if Colts exposure matters."},
+
+ {"id": "F-07", "category": "Coverage gap", "claim": "The four Week 10 bye teams (CHI, DEN, PHI, TB) are excluded from exposure analysis.",
+  "detail": "They do not play in Week 10, so a Week 10 exposure score is meaningless for them.",
+  "resolution": "They remain in the standings and are marked BYE on the schedule page.",
+  "sources": ["S03"], "blocks": False, "reviewer_action": "None needed unless a Week 11 view is wanted."},
+
+ {"id": "F-08", "category": "Unverified data", "claim": "107 transcribed players carry no official game designation.",
+  "detail": "Absence from the official report is not evidence of health - it means no designation was published at capture time.",
+  "resolution": "Recorded as the distinct state 'no-designation-published'. Never rendered as 'healthy'.",
+  "sources": ["S02"], "blocks": False, "reviewer_action": "None; this is the honest representation."},
+
+ {"id": "F-09", "category": "Method", "claim": "Replacement quality is proxied by draft pedigree and depth ordinal.",
+  "detail": "No snap counts or player grades exist in the repo. A late-round starter who has played well is scored as a weak replacement.",
+  "resolution": "The weighting table is published in full so it can be challenged or replaced.",
+  "sources": ["S04", "S05"], "blocks": False, "reviewer_action": "Supply snap-share data to replace the proxy (S-06)."},
+
+ {"id": "F-10", "category": "Method", "claim": "The shrinkage parameter k=4.0 is a modelling convention, not a sourced fact.",
+  "detail": "It controls how hard team scoring rates are pulled toward the league mean.",
+  "resolution": "Declared as a parameter and printed on the Lines page so it can be varied.",
+  "sources": [], "blocks": False, "reviewer_action": "Set k deliberately if a different prior is preferred."},
+
+ {"id": "F-11", "category": "Empty by design", "claim": "The strategy leaderboard is empty.",
+  "detail": "No bets have been settled, so no strategy has a record and gate G1 cannot pass.",
+  "resolution": "The gate machinery and reward design are published; the rows are not fabricated.",
+  "sources": [], "blocks": True, "reviewer_action": "Provide or authorise a settled-bet ledger (Q-02)."},
+
+ {"id": "F-12", "category": "Unverified analysis", "claim": "No correlation coefficient on this site is empirically estimated.",
+  "detail": "The engine can price a two-leg parlay with a copula, but every rho in the repo is flagged 'unverified' or an explicit independence assumption.",
+  "resolution": "Parlays are left unpriced rather than mispriced.",
+  "sources": [], "blocks": True, "reviewer_action": "Supply per-player game logs to estimate rho (Q-07)."},
+
+ {"id": "F-13", "category": "Legal", "claim": "Publishing model lines may carry obligations that have not been reviewed.",
+  "detail": "The site is public. No legal review has been performed, and no odds are published.",
+  "resolution": "A no-betting-advice disclaimer appears in the site footer.",
+  "sources": [], "blocks": False, "reviewer_action": "Legal review if this becomes more than a research dashboard (Q-13)."},
+
+ {"id": "F-14", "category": "Branch naming", "claim": "Work was committed to arena/46e888f0-fl3 instead of the session-<id>/<task> convention.",
+  "detail": "The platform pins this session to that branch and forbids creating or pushing other branches.",
+  "resolution": "Recorded in COORDINATION.md. The pinned branch doubled as the integration branch.",
+  "sources": [], "blocks": False, "reviewer_action": "None; informational for later sessions."},
+
+ {"id": "F-15", "category": "Single source", "claim": "The Week 10 schedule and standings rest on one publisher (nfl.com).",
+  "detail": "Only the Thursday result was cross-checked against a second source (ESPN). The other 13 games and all 32 standings rows have a single official source.",
+  "resolution": "The Thursday WAS@NYG result matches on both nfl.com and the ESPN endpoint; the rest are single-sourced but official.",
+  "sources": ["S01", "S03", "S06", "S07"], "blocks": False, "reviewer_action": "Spot-check rows if desired."},
+
+ {"id": "F-16", "category": "Scope", "claim": "Player prop modelling was scoped out of this build.",
+  "detail": "The brief asks for player prop bet combos. A league-wide player-stat endpoint was confirmed reachable but not ingested; no prop baselines or prop lines are published.",
+  "resolution": "Two prop strategies (STR-05, STR-07) are registered as 'blocked-input' rather than silently omitted.",
+  "sources": [], "blocks": True, "reviewer_action": "Approve the player-stat ingest (Q-06) to unblock."},
+]
+
+out = {
+ "meta": {
+  "title": "Flagged for Review",
+  "as_of": "2026-11-14",
+  "statement": "Nothing in this register blocks publication. It exists so every irregularity, blank and unverified assumption is visible in one place, with a source link where a source exists.",
+  "counts": {
+    "total": len(items),
+    "blocking_input_or_validation": sum(1 for i in items if i["blocks"]),
+    "source_conflicts": sum(1 for i in items if i["category"] == "Source conflict")
+  }
+ },
+ "items": items
+}
+json.dump(out, open("data/flagged.json", "w"), indent=1)
+print("flagged items", len(items))
+cats = {}
+for i in items:
+    cats[i["category"]] = cats.get(i["category"], 0) + 1
+for k, v in sorted(cats.items(), key=lambda x: -x[1]):
+    print("  %-28s %d" % (k, v))

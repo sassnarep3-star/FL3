@@ -12,7 +12,7 @@ import os
 import re
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-DATA = os.path.join(ROOT, "data")
+DATA = os.path.join(ROOT, "data", "dashboard")
 OUT = os.path.join(ROOT, "docs")
 
 
