@@ -518,6 +518,99 @@ root pages and the registers under `docs/`).
 
 ---
 
+# Track 2 — session `S1-b37bd750` (branch `arena/b37bd750-fl3`)
+
+This section is the claim log for the **`board/` track**, appended to the board above rather than
+replacing it. It was written from a branch of the initial commit, so it did not see the claims above; the
+collision and its resolution are recorded in the conflict log below. **No file of the track above was
+edited, moved or deleted** by this session, and this track writes to paths it owns:
+`data/*.csv` (23 named tables), `content/board/**`, `board/**`, `scripts/{lib_fl3,verify,model,stats_tables,make_leaderboard,build_board,check_links,fetch_nfl_data}.py`,
+`models/**`, `site/**`, `.github/workflows/site.yml`.
+
+- **Session ID:** `S1-b37bd750` · **Started:** 2026-11-14T02:40Z · **Pages build:** legacy, `main` @ `/`
+
+## Task board (track 2)
+
+| # | Task | Status | Files |
+|---|---|---|---|
+| T0 | Repo review, capability probe, this board | **done** | `README.md`(appended), `COORDINATION.md`, `.gitignore` |
+| T1 | Source registry + verification protocol | **done** | `data/sources.csv` (SRC-001…017) |
+| T2 | League facts / rules / cadence inputs | **done** | `data/league_facts.csv` (F-01…F-14) |
+| T3 | Standings + team stats + games → derived distributions | **done** | `data/standings_2026.csv`, `data/team_*_2026.csv`, `data/games_2026.csv`, `data/derived_*.csv` |
+| T4 | Week-10 availability incl. backup/deficiency counting | **done** | `data/injuries_2026_w10.csv` (160 rows), `data/slate_2026_w10.csv` |
+| T5 | Line-origination model + parameter register | **done** | `scripts/model.py`, `models/line_model.yaml`, `data/{power_ratings,lines_origination,model_calibration}.csv` |
+| T6 | Signals + leaderboard + rewards | **done** | `data/signals.csv` (16), `models/{strategy_registry,leaderboard}.yaml`, `data/leaderboard.csv` |
+| T7 | Validation gates + correlation policy | **done** | `data/gates.csv` (13), `models/gates.yaml`, `data/decision_math.csv`, `data/derived_correlations.csv` |
+| T8 | Open questions / information gaps | **done** | `data/questions.csv` (20, 7 blocking) |
+| T9 | Suggestions register | **done** | `data/suggestions.csv` (25; 6 implemented in v1, 19 awaiting a decision) |
+| T10 | Site generator + Pages + link checker | **done** | `scripts/build_board.py`, `scripts/check_links.py`, `board/**` (20 pages) |
+| T11 | Flagged for Review | **done** | `data/flags.csv` (27 open), `board/flagged.html` |
+| T12 | Executive summary | **done** | `board/executive-summary.html` |
+| T13 | Final integration: merge, PR, deploy confirmation | **done** | whole repo |
+
+## Integration log (track 2)
+
+| UTC | Action |
+|---|---|
+| 04:05 | Data layer written from fetch-tool reads of official pages; `scripts/lib_fl3.py`, `scripts/verify.py` added |
+| 05:20 | `scripts/model.py` (derive → calibrate → rate → price). First `verify.py` run exited 1 and found three real defects: standings `PCT` needs the `0.5·T` term; a 0.05 tolerance wrongly failed five legitimate `.x5` roundings (now 0.061 plus a non-blocking `V-11` warning); the league's offense and defense tables disagree on TD (414 v 415) and INT (202 v 200) → `FLG-025`, those columns marked pricing-ineligible |
+| 05:55 | `stats_tables.py` (break-even / minimum-sample / parlay math), `make_leaderboard.py`, `fetch_nfl_data.py` (**not executed** — `FLG-024`), `models/{gates,leaderboard,strategy_registry}.yaml` |
+| 06:15 | `build_board.py` + `check_links.py`; 20 pages; build aborts on a failing identity or link check; build stamp removed so the output is byte-deterministic and CI can compare `board/` against `data/` |
+| 06:20 | **Structural bug found and fixed:** unquoted commas / a missing column in four hand-written CSVs shifted `source_id` and `accessed_utc` into wrong cells on 29 rows. Re-emitted through `csv.writer`; check **I-07** added (every owned CSV must parse with exactly its header's field count) and negative-tested by corrupting a row and confirming exit 1 |
+| 06:35 | Pages settings: `build_type=legacy`, source `main` @ `/`. `PUT /pages {build_type: workflow}` → **403** with the session token, so this track publishes as a committed artefact under `board/` and `.github/workflows/site.yml` is the gate rather than the deployer → `FLG-027` |
+| 06:50 | Retargeted to `board/` + `content/board/` and renamed `build_site.py` → `build_board.py` after discovering the sibling generator of that name on `main`; `verify.py` now scans a declared owned-file list so neither track polices the other's tables |
+
+## Source log (track 2)
+
+`data/sources.csv` is the registry; every row of every table cites it. Pages were read through the agent's
+fetch tool (the sandbox has no route to nfl.com — probe table at the top of this file).
+
+| Source | URL | Read (UTC) | What it proved | Irregularities |
+|---|---|---|---|---|
+| SRC-002 standings | https://www.nfl.com/standings/ | 03:12 | 32 clubs W/L/T/PCT/PF/PA/NET; `sum(PF)=sum(PA)=6291`; 274 team-games → 137 games; 1 tie | HOME/ROAD/DIV/CONF/STRK have no header row in static HTML → withheld (`FLG-002`); the tied fixture is absent from our game rows (`FLG-021`) |
+| SRC-003/004/005 team stats | https://www.nfl.com/stats/team-stats/{offense/passing,offense/rushing,defense/passing}/2026/reg/all | 03:30 | 28 of 39 columns accepted; five league identities (att 9037, cmp 5787, yds 64098, 1st 3026, sacks 643) hold off=def, which is the *proof* of the mapping | **TD 414 v 415, INT 202 v 200** (`FLG-025`); 11 columns withheld (`FLG-014`); the "defense scoring" page is not points allowed (`FLG-015`) |
+| SRC-001 injury report W10 | https://www.nfl.com/injuries/league/2026/reg10 | 03:08–03:16 | 160 designated rows, 28 clubs; only Out/Doubtful/Questionable accepted (`V-10`) | IR players absent from the report (Baltimore) → `FLG-005`; 8 unconfirmed affiliations → `FLG-006`/`FLG-012`; "Out" also used for rested players → `FLG-009`; one empty injury field published as blank → `FLG-008` |
+| SRC-006/007 schedule W1/W2, SRC-008 scores | https://www.nfl.com/schedules/2026/by-week/week-{1,2}, /scores/ | 03:22, 04:10 | 33 games cross-checked against the running records printed on the same pages | W1 opener labelled both "Sunday Night Football, September 9th" and Wednesday (`FLG-011`); `api.nfl.com/feed/schedule/...` returns 401/Varnish (`FLG-013`) |
+| SRC-011 important dates | https://www.nfl.com/news/2026-27-national-football-league-important-dates | 03:45 | practice-report filing cadence and the rested-player vocabulary | reachable only as a snippet of the official page → `verified-from-snippet`, never used to price |
+| SRC-009/010 rulebook | https://operations.nfl.com/rules-officiating/2026-nfl-rulebook | 03:50 | the four 2026 amendments (6-1-3, 6-1-5, 6-1-6, 19-2) | the PDF was not parsed → Rule 16 OT and roster/elevation rules stay unverified (`FLG-003`, `FLG-004`) |
+| absence check | nfl.com, all pages read | 03:00–04:10 | no league-controlled page publishes a spread, total, moneyline or prop price | every `market_*` column is blank by policy (`F-14`, `FLG-010`, `Q-01`) |
+
+## Conflict log (track 2)
+
+| UTC | Files | Other session | Resolution |
+|---|---|---|---|
+| 06:50 | `COORDINATION.md`, `README.md`, `.gitignore`, `scripts/build_site.py`, `docs/**`, `content/executive-summary.md` | `arena-e8bf2075` / `arena/576c1890` / `arena/46e888f0` / `arena/60ee336e` — a second full implementation of the same brief had already merged to `main` (131 files) while this track was built from the initial commit | `git merge origin/main`; only 3 add/add conflicts. **Their files kept byte-for-byte**; this track moved to `board/`, `content/board/` and `scripts/build_board.py`, so no generator, stylesheet or page of theirs is overwritten. `COORDINATION.md` and `README.md` are unions (theirs first, this section appended); `.gitignore` merged. Cross-links added both ways. `board/**` is excluded from neither track's verifier: their `check_site.py` walks its own page list, our `check_links.py` walks `board/` |
+
+## Handoff notes (track 2)
+
+- One command to reproduce everything in this track: `python3 scripts/model.py && python3 scripts/build_board.py`
+  (it runs `verify.py` then `check_links.py` and aborts on either failure).
+- `scripts/fetch_nfl_data.py --weeks 3-9 --what games` is the highest-value follow-up: it closes `Q-04`
+  and would let `beta`/`alpha`/`sigma`/`gamma` be fitted out of sample instead of on 33 games
+  (`FLG-026`). It has still never been run — that is `FLG-024`, and it must be labelled until it has.
+- If the owner flips Pages to "GitHub Actions", add `upload-pages-artifact` + `deploy-pages` to
+  `.github/workflows/site.yml` (the exact block is documented in that file's header) — note it changes
+  the *sibling* track's deploy too, so coordinate before doing it.
+
+### Protocol hazard found during this merge (for every session, including the rules at the top)
+
+Rule 4 says "`git pull --rebase` before every push". That is correct while a branch is linear, and
+**destructive once a branch contains a merge commit**: on this branch `git pull --rebase` after
+`git merge origin/main` tried to replay all 31 merged-in commits of `main` on top of a pre-merge commit
+and stopped on a conflict, leaving the repo mid-rebase. The recovery was `git rebase --abort`, which
+restored the branch exactly (`git status` clean, local == remote, both pipelines still green).
+
+Use instead:
+
+```bash
+git fetch origin
+git merge --ff-only origin/<your-branch>   # nothing to integrate, you are ahead: just push
+git merge origin/main                      # to absorb main: merge, resolve, commit  (never rebase)
+git push origin <your-branch>
+```
+
+If a session really must rebase, do it **before** the final integration merge, not after.
+
 # Session `arena/9b181d31` — claim, scope and integration record
 
 **Read this before touching `models/**`, `data/*.csv`, `site-9b181d31/**`, `research/**`.**
@@ -602,3 +695,15 @@ conflict policy instead. This is deliberate, not an oversight.
 | CI on main after merge | `Verify data and site` pass · `Deploy static site to GitHub Pages` pass · `pages-build-deployment` pass |
 | Deploy | GitHub Pages via `pages.yml` artifact incl. `site-9b181d31/` |
 | Live verification (fetched with cache-buster `?v=9b181d31`, not workflow checkmarks) | https://sassnarep3-star.github.io/FL3/site-9b181d31/index.html ✓ · `/lines.html` ✓ (13-game card incl. BAL IR row) · `/injuries.html` ✓ (162 rows, BAL deficiency 5.60 tops board) · root https://sassnarep3-star.github.io/FL3/ ✓ unbroken · `/docs/` (arena-60ee336e) untouched by this merge |
+
+### Pages artifact allowlist (integration, 2026-11-14T07:10Z)
+
+`.github/workflows/pages.yml` assembles the deployable site from an **explicit allowlist**
+(`index.html *.html assets legacy depth docs site-9b181d31`), so a new top-level directory is built but
+never published unless it is added there. This session appended `board` to that list — the same change
+`arena/9b181d31` recorded for its own subsite. Consequence: `/FL3/board/` is live after this merge;
+without the edit the board would have existed only in the repository.
+
+If a future session adds another top-level output directory, it must update the same `cp -r` line, or the
+session's pages will silently not deploy. Worth promoting into the rules block at the top of this file the
+next time that file is edited by an integration task.

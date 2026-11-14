@@ -1,0 +1,34 @@
+week,game_date,weekday_as_published,away,away_abbr,away_pts,home,home_abbr,home_pts,notes,source_id,accessed_utc
+1,2026-09-09,Wednesday,New England Patriots,NE,10,Seattle Seahawks,SEA,13,"Header on page reads ""Sunday Night Football, September 9th"" but the game line and card read Wednesday, September 9th - flagged FLG-011",SRC-006,2026-11-14T03:22Z
+1,2026-09-10,Thursday,San Francisco 49ers,SF,27,Los Angeles Rams,LA,7,"International game - East Melbourne (NFL.com lists ""International Game, September 10th"")",SRC-006,2026-11-14T03:22Z
+1,2026-09-13,Sunday,Chicago Bears,CHI,59,Carolina Panthers,CAR,37,,SRC-006,2026-11-14T03:22Z
+1,2026-09-13,Sunday,Tampa Bay Buccaneers,TB,27,Cincinnati Bengals,CIN,33,,SRC-006,2026-11-14T03:22Z
+1,2026-09-13,Sunday,New Orleans Saints,NO,30,Detroit Lions,DET,31,,SRC-006,2026-11-14T03:22Z
+1,2026-09-13,Sunday,Buffalo Bills,BUF,36,Houston Texans,HOU,31,,SRC-006,2026-11-14T03:22Z
+1,2026-09-13,Sunday,Baltimore Ravens,BAL,41,Indianapolis Colts,IND,23,,SRC-006,2026-11-14T03:22Z
+1,2026-09-13,Sunday,Cleveland Browns,CLE,10,Jacksonville Jaguars,JAX,34,,SRC-006,2026-11-14T03:22Z
+1,2026-09-13,Sunday,Atlanta Falcons,ATL,13,Pittsburgh Steelers,PIT,20,,SRC-006,2026-11-14T03:22Z
+1,2026-09-13,Sunday,New York Jets,NYJ,23,Tennessee Titans,TEN,10,,SRC-006,2026-11-14T03:22Z
+1,2026-09-13,Sunday,Arizona Cardinals,AZ,26,Los Angeles Chargers,LAC,14,,SRC-006,2026-11-14T03:22Z
+1,2026-09-13,Sunday,Miami Dolphins,MIA,13,Las Vegas Raiders,LV,27,,SRC-006,2026-11-14T03:22Z
+1,2026-09-13,Sunday,Green Bay Packers,GB,22,Minnesota Vikings,MIN,39,,SRC-006,2026-11-14T03:22Z
+1,2026-09-13,Sunday,Washington Commanders,WAS,22,Philadelphia Eagles,PHI,24,,SRC-006,2026-11-14T03:22Z
+1,2026-09-13,Sunday,Dallas Cowboys,DAL,20,New York Giants,NYG,28,Sunday Night Football,SRC-006,2026-11-14T03:22Z
+1,2026-09-14,Monday,Denver Broncos,DEN,10,Kansas City Chiefs,KC,31,Monday Night Football,SRC-006,2026-11-14T03:22Z
+2,2026-09-17,Thursday,Detroit Lions,DET,31,Buffalo Bills,BUF,41,Thursday Night Football,SRC-007,2026-11-14T03:22Z
+2,2026-09-20,Sunday,Carolina Panthers,CAR,34,Atlanta Falcons,ATL,3,,SRC-007,2026-11-14T03:22Z
+2,2026-09-20,Sunday,New Orleans Saints,NO,24,Baltimore Ravens,BAL,17,,SRC-007,2026-11-14T03:22Z
+2,2026-09-20,Sunday,Minnesota Vikings,MIN,9,Chicago Bears,CHI,3,,SRC-007,2026-11-14T03:22Z
+2,2026-09-20,Sunday,Cincinnati Bengals,CIN,20,Houston Texans,HOU,6,,SRC-007,2026-11-14T03:22Z
+2,2026-09-20,Sunday,Pittsburgh Steelers,PIT,3,New England Patriots,NE,20,,SRC-007,2026-11-14T03:22Z
+2,2026-09-20,Sunday,Green Bay Packers,GB,20,New York Jets,NYJ,17,,SRC-007,2026-11-14T03:22Z
+2,2026-09-20,Sunday,Cleveland Browns,CLE,23,Tampa Bay Buccaneers,TB,19,,SRC-007,2026-11-14T03:22Z
+2,2026-09-20,Sunday,Philadelphia Eagles,PHI,24,Tennessee Titans,TEN,20,,SRC-007,2026-11-14T03:22Z
+2,2026-09-20,Sunday,Jacksonville Jaguars,JAX,13,Denver Broncos,DEN,20,,SRC-007,2026-11-14T03:22Z
+2,2026-09-20,Sunday,Las Vegas Raiders,LV,26,Los Angeles Chargers,LAC,14,,SRC-007,2026-11-14T03:22Z
+2,2026-09-20,Sunday,Seattle Seahawks,SEA,31,Arizona Cardinals,AZ,7,,SRC-007,2026-11-14T03:22Z
+2,2026-09-20,Sunday,Washington Commanders,WAS,20,Dallas Cowboys,DAL,37,,SRC-007,2026-11-14T03:22Z
+2,2026-09-20,Sunday,Miami Dolphins,MIA,13,San Francisco 49ers,SF,35,,SRC-007,2026-11-14T03:22Z
+2,2026-09-20,Sunday,Indianapolis Colts,IND,30,Kansas City Chiefs,KC,33,Sunday Night Football,SRC-007,2026-11-14T03:22Z
+2,2026-09-21,Monday,New York Giants,NYG,6,Los Angeles Rams,LA,28,Monday Night Football,SRC-007,2026-11-14T03:22Z
+10,2026-11-12,Thursday,Washington Commanders,WAS,24,New York Giants,NYG,21,Thursday Night Football; only completed Week 10 game at read time,SRC-001,2026-11-14T03:08Z

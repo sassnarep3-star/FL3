@@ -134,6 +134,39 @@ files (CSV + JSON) alongside the dashboard datasets above:
   `docs/suggestions.md` (review-before-implement register), `docs/injury-depth-deficiency.md`,
   and `docs/strategy/` (line origination, signals & validation, leaderboard & governance).
 
+
+---
+
+## Second track: `board/` (session `S1-b37bd750`)
+
+A parallel implementation of the same brief lives in this repo side by side, on purpose. It is
+CSV-first instead of JSON-first, it publishes to **`board/`** (live at
+<https://sassnarep3-star.github.io/FL3/board/>), and it shares no output file with the pages above.
+
+| | the track above | the `board/` track |
+|---|---|---|
+| data store | `data/*.json` | `data/*.csv` (23 tables this track owns) |
+| generator | `scripts/build_site.py` | `scripts/build_board.py` |
+| verifier | `scripts/check_site.py` (1,124 assertions over its own pages) | `scripts/verify.py` (V-01…V-11 identities + I-01…I-07 integrity) |
+| unique inputs | 345 injury rows, Week-10 slate, Pythagorean luck split | identity-proven team-stat columns, per-club availability load, fitted calibration constants, closed-form decision math |
+| model | originated lines with uncertainty bands | same goal; constants (`beta`, `alpha`, `sigma_margin`, `gamma`, Pythagoras `k`) **fitted** on the verified games and published with their standard errors |
+
+Two things only the `board/` track does, and both are worth reading:
+
+1. **Column-label proof.** nfl.com renders team-stat tables with no header row, so a column is only
+   published when a league-wide identity proves the mapping (`attempts 9037 = 9037`, `sacks 643 = 643` …).
+   That proof is also what exposed **`FLG-025`: the league's own offense and defense tables disagree** —
+   414 TDs thrown vs 415 allowed, 202 INTs vs 200 forced — so those four columns are published as read and
+   marked pricing-ineligible.
+2. **A gate that refuses to guess.** `models/line_model.yaml` forbids a hand-filled parameter, so ten
+   parameters are `null` (lineups, IR, vig, schedule adjustment). `verify.py` check **I-07** fails the
+   build when any CSV row does not parse with exactly its header's field count — a bug it caught in
+   29 rows of this repo's own hand-written tables.
+
+Nothing in `board/` claims an edge. Its own leaderboard is empty by construction, its market columns are
+blank because no official source publishes odds, and its abstain rule currently says "no bet" for every
+game on the slate.
+
 ---
 
 ## Session `arena/9b181d31` subsite (`site-9b181d31/`) and data/model layer
