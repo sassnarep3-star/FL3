@@ -1,0 +1,11 @@
+metric_a,metric_b,pearson_r,n,basis,source_url,flag
+PF_pg,PA_pg,-0.2041,32,2026 NFL team-level aggregates (through TNF Wk10),https://www.nfl.com/standings/league/2026/REG,
+PF_pg,win_pct,0.6984,32,2026 NFL team-level aggregates (through TNF Wk10),https://www.nfl.com/standings/league/2026/REG,
+PA_pg,win_pct,-0.6636,32,2026 NFL team-level aggregates (through TNF Wk10),https://www.nfl.com/standings/league/2026/REG,
+net_pg,win_pct,0.8781,32,2026 NFL team-level aggregates (through TNF Wk10),https://www.nfl.com/standings/league/2026/REG,
+PF_pg,net_pg,0.8019,32,2026 NFL team-level aggregates (through TNF Wk10),https://www.nfl.com/standings/league/2026/REG,
+PA_pg,net_pg,-0.7485,32,2026 NFL team-level aggregates (through TNF Wk10),https://www.nfl.com/standings/league/2026/REG,
+pythagorean_exponent,win_pct fit,3.5,32,best-fit exponent minimizing MSE of PF^x/(PF^x+PA^x) vs win%%,https://www.nfl.com/standings/league/2026/REG,
+parlay_leg_outcomes_same_game,,,,requires game-level results,,UNVERIFIED — data not yet ingested (see requirements Q6)
+player_props_same_game,,,,requires player-level stats,,UNVERIFIED — data not yet ingested (see requirements Q7)
+injury_signal_vs_line_move,,,,requires market line history,,UNVERIFIED — line history feed not integrated (see requirements Q5)
