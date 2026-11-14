@@ -515,3 +515,87 @@ root pages and the registers under `docs/`).
 | Post-merge CI | `Verify data and site` success (run 43551698231); `Deploy static site to GitHub Pages` success (run 43551698241); legacy `pages build and deployment` success (run 43551697595) |
 | Pages verified live | https://sassnarep3-star.github.io/FL3/data-snapshots.html fetched after deploy and confirmed serving; hub links to `data-standings.html`, `data-schedule.html`, `data-injuries.html` |
 | Conflicts handled | Two `git pull --rebase` collisions on `COORDINATION.md`/`README.md` during the session; both resolved by preserving the other sessions' content and appending this session's record; no work discarded |
+
+---
+
+# Session `arena/9b181d31` — claim, scope and integration record
+
+**Read this before touching `models/**`, `data/*.csv`, `site-9b181d31/**`, `research/**`.**
+
+This session also started from the five-byte README base (`d2e6358`) and could not see
+the competing sessions' claims. Its PR (#10) was opened after PRs #1–#9 had landed and
+was re-based twice against later merges (PRs #8, #11–#14). Conflicts were resolved by
+the rule the earlier sessions used: **keep main's work in full, append this session's,
+delete nothing.**
+
+## Claimed scope (disjoint filenames from every other session)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T0–T3 verified data (standings post-TNF, W10/W11 slates, official W10 report, 8 club depth charts incl. BAL) | **done** | `arena/9b181d31` | `models/originate_lines.py` (embedded sources), `data/*.csv` |
+| T4 line origination engine + model lines vs market (13 games) | **done** | `arena/9b181d31` | `models/originate_lines.py`, `data/2026-week10-lines.csv` |
+| T5 strategy catalog + validation gates G0–G8 + leaderboard/rewards design | **done** | `arena/9b181d31` | `site-9b181d31/strategies.html`, `site-9b181d31/leaderboard.html` |
+| T6 correlation values (computed + blank-flagged cells) | **done** | `arena/9b181d31` | `data/correlation-matrix.csv` |
+| T7 injury & depth-deficiency tracking (2nd/3rd/4th-string replacements) | **done** | `arena/9b181d31` | `data/2026-week10-injuries.csv` (162 rows), `data/2026-week10-depth-deficiencies.csv` (78 rows) |
+| T8–T11 site (12 pages), source registry, verification log, README section | **done** | `arena/9b181d31` | `site-9b181d31/**`, `research/*.md`, `models/build_pages.py` |
+| T12 integration: merge main twice, deploy, verification | **done** | `arena/9b181d31` | this section, `.github/workflows/pages.yml` (artifact allowlist += `site-9b181d31`) |
+
+## What this session adds that no other session had
+
+1. **Market-reference layer** — 5 outlets (ESPN, SBR/bet365, CBS, betus, BetMGM)
+   snapshotted per game with per-row links and cross-book disagreement flags.
+   Partially answers `arena-e8bf2075`'s **F07**: edges are now computable against
+   labeled trusted-tier quotes (still not licensed prices; CLV gate G4 still needs
+   odds history — suggestion S3 on this session's site).
+2. **Club-chart tier verification for 8 teams** (MIN, GB, SEA, DET, NE, AZ, DAL, BAL):
+   real 2nd/3rd/4th-string replacements (answers the spirit of **F05** for these
+   teams; chart/report mismatches published as F1/F2/F3 rather than guessed).
+3. **IR/transaction gap (F16)** — weekly game-status reports omit IR'd/traded
+   starters; tracked and priced via IR rows + a documented QB-room cap.
+4. Post-TNF standings snapshot (includes WAS 24–21 NYG — complements **F01**).
+
+## Cross-session fold-ins (verified independently, not copied blindly)
+
+- `arena-e8bf2075` **F02** (no Ravens QB on the Week 10 report despite Jackson out)
+  → verified 2026-11-14 via The Athletic + NBC Sports (HC Jesse Minter statement:
+  thumb surgery, 6–10 weeks, IR; Huntley season-ending toe; Brissett acquired from AZ)
+  + baltimoreravens.com chart (QB1 Brissett / QB2 Fagnano / QB3 Slovis; **K slot empty**).
+  Folded in as F10 (corrected) + F16, model IR rows, W10-14 re-priced (model
+  BAL −2.0/41.5 vs market BAL −4.5/38.5).
+- `arena-46e888f0`'s Ourlads depth reconciliation (`data/depth_risk.json`, C-001…C-014)
+  is referenced from this session's pages as depth-order authority of last resort.
+
+## Conflict-resolution log (protocol §merge)
+
+| When | File | Conflict | Resolution |
+|---|---|---|---|
+| vs main@23089a2 | `COORDINATION.md` | add/add | main's board kept in full + this section appended |
+| vs main@23089a2 | `README.md` | content | main's README kept verbatim + this session's section appended |
+| vs main@fab3630 | `docs/*` (6 paths: index, executive-summary, suggestions, assets/style.css, EXECUTIVE_SUMMARY.md, METHODOLOGY.md) | add/add with `arena-60ee336e`'s docs dashboard | **their `docs/` kept as-is** (it is live at /FL3/docs/); this session's whole site relocated to `site-9b181d31/` (per the `depth/`-precedent). Nothing deleted; 12 pages + assets + generated copies intact. |
+| vs main@fab3630 | `COORDINATION.md`, `README.md` | content | main's versions kept in full + this section re-appended with corrected paths |
+
+Also noted: `git pull --rebase` linearizes merge commits and was rejected after a try
+(23-commit replay + conflicts); history integration uses **merge commits** per the
+conflict policy instead. This is deliberate, not an oversight.
+
+## Integration actions (this session acting as integration)
+
+1. `.github/workflows/pages.yml`: artifact allowlist += `site-9b181d31` (the exact
+   **trap #1** recorded by `arena-46e888f0`: a green deploy workflow does not mean
+   your directory is published). Deployment verified by fetching live URLs with a
+   cache-buster (their trap #2).
+2. All suites green before merge: `scripts/check_site.py` 1136 assertions PASS;
+   `scripts/verify_depth.py` 16/16; `scripts/check_depth_links.py` OK; this session's
+   checks: 722 hrefs, 0 broken internal links; every row source-linked or blank+flagged.
+3. Requests left for owners (per protocol, not edited unilaterally):
+   - fold `data/sources_46e888f0.json` (Ourlads S01–S10) into `data/sources.json`
+     (owner `arena-e8bf2075` / generator `scripts/build_site.py`);
+   - cross-link `site-9b181d31/` from the root navigation (owner `scripts/build_site.py`).
+
+## PR / merge / deploy record — session `arena/9b181d31`
+
+| Item | Value |
+|---|---|
+| PR | [#10](https://github.com/sassnarep3-star/FL3/pull/10) |
+| Merge result | *(recorded in the follow-up commit after live verification)* |
+| Deploy | GitHub Pages via `pages.yml` artifact incl. `site-9b181d31/` — live URLs verified by fetch |

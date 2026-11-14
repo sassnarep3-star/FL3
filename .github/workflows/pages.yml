@@ -40,7 +40,7 @@ jobs:
       - name: Assemble publishable site
         run: |
           mkdir -p _site
-          cp -r index.html *.html assets legacy depth _site/
+          cp -r index.html *.html assets legacy depth docs site-9b181d31 _site/
           cp .nojekyll _site/
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3

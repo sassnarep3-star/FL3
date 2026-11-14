@@ -133,3 +133,33 @@ files (CSV + JSON) alongside the dashboard datasets above:
 - Decision-support registers: `docs/executive_summary.md`, `docs/questions_and_gaps.md`,
   `docs/suggestions.md` (review-before-implement register), `docs/injury-depth-deficiency.md`,
   and `docs/strategy/` (line origination, signals & validation, leaderboard & governance).
+
+---
+
+## Session `arena/9b181d31` subsite (`site-9b181d31/`) and data/model layer
+
+A parallel session built a self-contained dashboard under `site-9b181d31/` plus a
+deterministic line-origination engine and CSV datasets (published at
+`/FL3/site-9b181d31/` on Pages). It coexists with the root site and the other
+subsites (`docs/`, `depth/`, `legacy/`).
+
+- `site-9b181d31/` — 12-page dashboard: landing, executive summary, requirements
+  register (Q1–Q14), suggestions board (S1–S8 with options + recommended path),
+  originated lines vs the market (Week 10), injuries & depth-deficiency tracker
+  (generated from the CSVs), strategy catalog behind validation gates G0–G8,
+  leaderboard design, methodology, data hub, source registry, flagged-for-review
+  (F1–F16).
+- `data/*.csv` — machine-readable datasets with per-row source links (162 tracked
+  injury rows = 160 official report + 2 IR rows; 78 deficiency rows; 32-team
+  standings; W10/W11 slates; originated lines; correlation matrix). Unverified
+  cells are **blank + flagged**, never inferred.
+- `models/originate_lines.py` — deterministic engine (stdlib only): net-points
+  ratings + HFA + transparent injury weights + QB-room cap. `models/build_pages.py`
+  renders the CSV-driven pages and syncs `site-9b181d31/data`, `.../models`, `.../research`.
+- `research/sources.md` (fetch log, 23 sources + cross-session fold-ins) and
+  `research/verification-log.md` (checks: sum PF = sum PA = 6,291 ✓; 274 team-games
+  even ✓; every row sourced ✓).
+
+Market references (ESPN, SBR/bet365, CBS, betus, BetMGM) are labeled **trusted
+market** — never "official" — and used only as the comparison column for our own
+originated lines. Model output is badged as model output everywhere.

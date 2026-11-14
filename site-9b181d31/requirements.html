@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Questions &amp; Requirements — FL3</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="brand"><h1>FL3 · NFL Decision Intelligence</h1><span class="tag">Questions, information &amp; answers required before decisions</span></div>
+  <nav class="site">
+    <a href="index.html">Dashboard</a><a href="executive-summary.html">Summary</a>
+    <a class="active" href="requirements.html">Requirements</a><a href="suggestions.html">Suggestions</a>
+    <a href="lines.html">Lines</a><a href="injuries.html">Injuries &amp; Depth</a>
+    <a href="strategies.html">Strategies</a><a href="leaderboard.html">Leaderboard</a>
+    <a href="methodology.html">Methodology</a><a href="data.html">Data</a>
+    <a href="sources.html">Sources</a><a href="flagged.html">Flagged</a>
+  </nav>
+</header>
+<main>
+
+<div class="section">
+  <h2>Requirements Register</h2>
+  <p class="lead">A decision is "reasonable" only when every question it depends on is answered from
+  verified information. This page separates what we <strong>have</strong>, what we <strong>don't have</strong>,
+  and the specific questions that must be answered — with a discovery route for every gap.
+  Status meanings: <span class="badge b-ver">answered</span> verified now ·
+  <span class="badge b-unv">partial</span> some data, not enough ·
+  <span class="badge b-flag">blocked</span> nothing verified yet.</p>
+
+  <h3>A · Information matrix</h3>
+  <div class="grid2">
+    <div>
+      <h3>What we already have (verified, source-linked)</h3>
+      <ul class="tight">
+        <li>2026 standings, all 32 teams, through TNF Week 10 — W-L-T, PF/PA, streaks (<a href="https://www.nfl.com/standings/league/2026/REG">NFL.com</a>)</li>
+        <li>Complete Week 10 &amp; Week 11 schedules incl. international games &amp; byes (<a href="https://www.nfl.com/schedules/2026/by-week/week-10">NFL.com</a>)</li>
+        <li>Official Week 10 game-status injury report — every OUT/DOUBTFUL/QUESTIONABLE row (160 rows)</li>
+        <li>Club depth charts with replacement tiers for 7 teams (MIN, GB, SEA, DET, NE, AZ, DAL)</li>
+        <li>Market spreads/totals for every Week 10 game from 5 outlets (trusted tier, linked)</li>
+        <li>Team-level correlations &amp; Pythagorean fit computed from the above</li>
+        <li>Explicit starter/backup news where sources state it (Beck starting, Watson starting, Cousins trade, Lock = QB2)</li>
+      </ul>
+    </div>
+    <div>
+      <h3>What we do NOT have (blank + flagged by policy)</h3>
+      <ul class="tight">
+        <li>Game-level scores/results for Weeks 1–9 (needed for SRS ratings &amp; outcome correlations)</li>
+        <li>Player-level stats (needed for every player-prop model)</li>
+        <li>Closing-line history / odds feeds (needed for the CLV gate and line-move signals)</li>
+        <li>Depth charts for 24 teams — incl. HOU (published as image) and SF (page HTTP 500)</li>
+        <li>IR / transaction feeds (weekly reports omit IR'd and traded-away starters — BAL QB case, F16)</li>
+        <li>Multi-week injury trends &amp; practice-participation history (only Wednesday snapshot + final statuses)</li>
+        <li>Weather, referee, and snap-count data</li>
+        <li>Owner parameters: bankroll, unit size, reward pool, jurisdiction/legal constraints</li>
+        <li>Any graded strategy results (season just mid-way; system launched this week)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>B · Question register</h3>
+  <p>Each question lists: what we know, what's missing, why it blocks a decision, and how to
+  discover the answer (suggestion ID on the <a href="suggestions.html">Suggestions Board</a>).</p>
+
+  <div class="qbox">
+    <h3>Q1 · What bankroll, unit size, and loss limits govern staking?</h3>
+    <div class="meta">Status: <span class="badge b-flag">blocked — owner input required</span> · Blocks: all position sizing, leaderboard staking rules</div>
+    <p><strong>Know:</strong> nothing — no parameters were provided. <strong>Missing:</strong> total bankroll, unit definition (%), max exposure per week, max parlay legs, stop-loss policy.
+    <strong>Why it blocks:</strong> without it, no bet sizing rule can be specified and the leaderboard cannot compare strategies fairly (a 100-unit strategy and a 1-unit strategy are not comparable).
+    <strong>Discover via:</strong> owner decision (S7 option A provides a conservative default framework to approve or edit).</p>
+  </div>
+
+  <div class="qbox">
+    <h3>Q2 · What rewards does the leaderboard pay, and from what budget?</h3>
+    <div class="meta">Status: <span class="badge b-flag">blocked — owner input required</span> · Blocks: rewards finalization, contest promotion</div>
+    <p><strong>Know:</strong> the brief requires "rewards for top performing strategies." <strong>Missing:</strong> cash vs recognition, prize pool, payout split, season vs weekly cadence.
+    <strong>Why it blocks:</strong> reward structure changes incentives (e.g., weekly prizes favor variance; season prizes favor skill) — the scoring formula must match.
+    <strong>Discover via:</strong> S7 (three reward models laid out for selection).</p>
+  </div>
+
+  <div class="qbox">
+    <h3>Q3 · Which source tiers count as "official/verified" for this project?</h3>
+    <div class="meta">Status: <span class="badge b-ver">answered provisionally</span> · Blocks: definition of verified across all tables</div>
+    <p><strong>Know:</strong> this build treats NFL.com and official club sites (vikings.com etc.) as official, and ESPN/CBS/SBR/betus/BetMGM as trusted market/media (always labeled + linked, never "official").
+    <strong>Missing:</strong> owner confirmation that this tiering is acceptable. <strong>Why it blocks:</strong> market lines can never come from NFL.com; if trusted-tier data is disallowed entirely, the lines page loses its comparison column.
+    <strong>Discover via:</strong> owner sign-off (documented on the <a href="sources.html">Sources</a> page).</p>
+  </div>
+
+  <div class="qbox">
+    <h3>Q4 · How should "starter vs 2nd/3rd/4th string" be defined when club charts disagree with reports?</h3>
+    <div class="meta">Status: <span class="badge b-unv">partial</span> · Blocks: deficiency scoring accuracy</div>
+    <p><strong>Know:</strong> two chart-vs-report mismatches this week (Parsons absent from GB chart, Kerby Joseph absent from DET chart); several charts self-label "unofficial" and one (MIN) lists a just-traded player 4th. <strong>Missing:</strong> a tie-break policy (e.g., report status wins; chart wins; coach statement wins).
+    <strong>Why it blocks:</strong> the deficiency score weights depend on the tier. <strong>Discover via:</strong> S4 (tie-break policy options).</p>
+  </div>
+
+  <div class="qbox">
+    <h3>Q5 · What is the closing line, and where does line history come from?</h3>
+    <div class="meta">Status: <span class="badge b-flag">blocked — data source needed</span> · Blocks: validation gate G4 (CLV), line-move signals</div>
+    <p><strong>Know:</strong> current-week snapshots from 5 outlets (they disagree by up to 3 points). <strong>Missing:</strong> time-stamped odds history and official closing lines. <strong>Why it blocks:</strong> CLV is the cleanest luck-free skill measure for betting strategies; without it gate G4 cannot run.
+    <strong>Discover via:</strong> S3 (odds-feed options).</p>
+  </div>
+
+  <div class="qbox">
+    <h3>Q6 · When will game-level results (Weeks 1–9) be ingested?</h3>
+    <div class="meta">Status: <span class="badge b-flag">blocked — data source needed</span> · Blocks: SRS ratings, parlay-leg correlation values, backtesting</div>
+    <p><strong>Know:</strong> aggregates only (PF/PA per team). <strong>Missing:</strong> every game score + line result. <strong>Why it blocks:</strong> outcome correlations (e.g., two favorites in one parlay) and any backtest require game rows; the correlation matrix currently has blank cells for these.
+    <strong>Discover via:</strong> S1 (game-data ingestion options — an open GitHub-hosted dataset (nflverse) is fetchable within this environment).</p>
+  </div>
+
+  <div class="qbox">
+    <h3>Q7 · What player-stat source will power prop strategies?</h3>
+    <div class="meta">Status: <span class="badge b-flag">blocked — data source needed</span> · Blocks: all player-prop combo models</div>
+    <p><strong>Know:</strong> injury/depth only. <strong>Missing:</strong> targets, snaps, air yards, usage rates. <strong>Why it blocks:</strong> prop lines cannot be originated without player baselines; the prop-correlation cells stay blank.
+    <strong>Discover via:</strong> S2.</p>
+  </div>
+
+  <div class="qbox">
+    <h3>Q8 · What counts as a "skill-based" pass — statistical threshold?</h3>
+    <div class="meta">Status: <span class="badge b-unv">partial — proposal exists</span> · Blocks: leaderboard ranking method</div>
+    <p><strong>Know:</strong> the proposed framework (binomial/Bootstrap test vs expected win rate at market price, FDR-corrected for multiple strategies, minimum CLV) is documented on the <a href="methodology.html">Methodology</a> page. <strong>Missing:</strong> owner approval of the thresholds (e.g., p&lt;0.05 after correction, min 50 graded bets).
+    <strong>Discover via:</strong> owner sign-off on S6.</p>
+  </div>
+
+  <div class="qbox">
+    <h3>Q9 · Which jurisdictions / legal constraints apply to the participants?</h3>
+    <div class="meta">Status: <span class="badge b-flag">blocked — owner input required</span> · Blocks: whether the contest may involve real stakes</div>
+    <p><strong>Know:</strong> nothing. <strong>Missing:</strong> participant locations, whether entries are paper-tracked or real-money. <strong>Why it blocks:</strong> determines if the leaderboard is a pure forecasting contest (safe default) or involves wagering.
+    <strong>Discover via:</strong> owner decision (S7 includes a "paper-only" default).</p>
+  </div>
+
+  <div class="qbox">
+    <h3>Q10 · Are the two anomalous market "opened" totals real moves or source errors?</h3>
+    <div class="meta">Status: <span class="badge b-flag">flagged — unverified</span> · Blocks: confidence in open-to-close move signals</div>
+    <p><strong>Know:</strong> ESPN shows MIA-IND total "opened 47.5" vs 38.5 now (9-pt move) and LAR-AZ "opened 47.5" vs 39.5. <strong>Missing:</strong> second-source confirmation of opening numbers. <strong>Why it blocks:</strong> open-to-close moves are a signal class; if the opens are typos the signal is noise. <strong>Discover via:</strong> S3 (multi-book history) — currently listed on <a href="flagged.html">Flagged</a> as F6.</p>
+  </div>
+
+  <div class="qbox">
+    <h3>Q11 · What replaces a chart-invisible player (HOU chart is an image; SF page errors)?</h3>
+    <div class="meta">Status: <span class="badge b-flag">blocked — source format problem</span> · Blocks: verified replacement tiers for HOU/SF deficiencies</div>
+    <p><strong>Know:</strong> the OUT lists (Hunter, Al-Shaair, Evans, etc. — official). <strong>Missing:</strong> the identity/tier of replacements. <strong>Why it blocks:</strong> the user requirement to know "which string replaces a starter" cannot be answered for these teams without inference, which policy forbids. <strong>Discover via:</strong> S2/S5 (alternative chart sources or transcription workflow).</p>
+  </div>
+
+  <div class="qbox">
+    <h3>Q12 · How are strategy entries submitted and time-stamped to prevent look-ahead cheating?</h3>
+    <div class="meta">Status: <span class="badge b-unv">partial — proposal exists</span> · Blocks: contest integrity</div>
+    <p><strong>Know:</strong> the proposed design (entries are git-committed before kickoff; results graded afterwards). <strong>Missing:</strong> owner approval of workflow. <strong>Discover via:</strong> S6.</p>
+  </div>
+
+  <div class="qbox">
+    <h3>Q13 · Should model v0.1's large edges (SEA-LV +9.5) be treated as signals or errors?</h3>
+    <div class="meta">Status: <span class="badge b-unv">partial</span> · Blocks: any use of v0.1 numbers operationally</div>
+    <p><strong>Know:</strong> v0.1 is aggregate-only with design-weight injuries — known to over-adjust vs market. <strong>Missing:</strong> validation history. <strong>Why it blocks:</strong> acting on a 9.5-pt edge from an unvalidated model is a luck-based decision. <strong>Discover via:</strong> gate G3 out-of-sample test once S1 data lands; until then edges are research-only (explicitly stated on <a href="lines.html">Lines</a>).</p>
+  </div>
+
+  <div class="qbox">
+    <h3>Q14 · What is the review cadence for the Suggestions Board?</h3>
+    <div class="meta">Status: <span class="badge b-flag">owner input required</span> · Blocks: suggestion implementation schedule</div>
+    <p><strong>Know:</strong> the board exists with options + recommended paths; nothing is implemented without a choice. <strong>Missing:</strong> who reviews, how choices are recorded. <strong>Discover via:</strong> S8.</p>
+  </div>
+
+  <h3>C · Answers needed before specific decisions</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Decision you may want to make</th><th>Requires answers to</th><th>Ready now?</th></tr></thead>
+    <tbody>
+      <tr><td>Originate/adjust our line for a specific Week 10 game</td><td>Q3, Q4, Q10, Q13</td><td><span class="badge b-unv">partial</span> — research output available on Lines page; not decision-grade</td></tr>
+      <tr><td>Place or grade a single bet under a strategy</td><td>Q1, Q8, Q9, Q12, Q13</td><td><span class="badge b-flag">no</span></td></tr>
+      <tr><td>Launch a parlay or prop-combo strategy</td><td>Q1, Q6, Q7, Q8</td><td><span class="badge b-flag">no</span> — correlation values not yet measurable</td></tr>
+      <tr><td>Start the leaderboard with rewards</td><td>Q1, Q2, Q8, Q9, Q12</td><td><span class="badge b-flag">no</span> — design ready, parameters missing</td></tr>
+      <tr><td>Trust a depth-deficiency grade for HOU/SF</td><td>Q11</td><td><span class="badge b-flag">no</span></td></tr>
+      <tr><td>Use team-level strength ratings (net/g, Pythagorean 3.5)</td><td>Q3</td><td><span class="badge b-ver">yes</span> — verified inputs, documented computation</td></tr>
+      <tr><td>Track injuries &amp; verified replacements (7 charted teams)</td><td>Q3, Q4</td><td><span class="badge b-ver">yes</span> — see Injuries &amp; Depth page</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+</main>
+<footer class="site">FL3 · every question here maps to a discovery route — see <a href="suggestions.html">Suggestions</a></footer>
+</body>
+</html>
