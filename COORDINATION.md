@@ -289,3 +289,31 @@ the copy list. Nothing else about the workflow changed, and Pages' own build ste
 The lesson worth recording for future sessions: **a green deploy workflow does not mean your directory is
 published.** This workflow only validates that it can copy *some* files; it will happily succeed while silently
 omitting new top-level directories. Verify by fetching the live URL, not by reading the checkmark.
+
+### Critical bug fixed: every "Src" badge was silently "unverified"
+
+After the Pages deploy was fixed, spot-checking the *live* page (not the workflow log) surfaced a defect that
+all three verifier suites had passed over:
+
+`scripts/build_depth_site.py` line 16 read
+
+```python
+SRC = {s["id"]: s for s in json.loads((DATA / "sources.json").read_text())["sources"]}
+```
+
+`data/sources.json` is **session `arena-e8bf2075`'s** registry and its ids are `SRC-STAND-DIV`,
+`SRC-INJ`, … This session's data references `S01`–`S10`. Every lookup missed, and `srclink()` fell through to
+its `unverified` fallback — so **every source cell on every depth page read "unverified"**, which directly
+violates the requirement that every table row links an official source. The pages looked plausible, which is
+exactly why it survived review.
+
+Fixed by pointing the builder at `data/sources_46e888f0.json`. Result: **393 working source badges, 0
+"unverified"**.
+
+**Regression guard added** (`verify_depth.py` checks 15 & 16) so this cannot recur silently: the verifier now
+asserts the rendered HTML contains **zero** `unverified` badges and a healthy badge count. I proved the guard
+works by deliberately reintroducing the bug — it failed with
+`depth pages render 393 'unverified' source badges` — then restored the fix and confirmed 16/16 pass.
+
+The generalisable lesson: **checks that only validate data files cannot catch a renderer reading the wrong
+file.** At least one assertion must inspect the produced HTML.

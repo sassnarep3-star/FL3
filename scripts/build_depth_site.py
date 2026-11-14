@@ -13,7 +13,7 @@ DATA = ROOT / "data"
 OUT = ROOT / "depth"
 
 AS_OF = "2026-11-14"
-SRC = {s["id"]: s for s in json.loads((DATA / "sources.json").read_text())["sources"]}
+SRC = {s["id"]: s for s in json.loads((DATA / "sources_46e888f0.json").read_text())["sources"]}
 
 
 # This build belongs to session arena/46e888f0 and reads ONLY that session's
