@@ -1,6 +1,6 @@
 # Signal catalogue
 
-Fifteen+ candidate signals, written as *falsifiable specifications* rather than opinions. Every signal
+Sixteen candidate signals, written as *falsifiable specifications* rather than opinions. Every signal
 carries: the hypothesis, the trigger that must fire from data the repo actually has, the market it
 points at, its sample status, its gate status, and - critically - **its correlation with the other
 signals and with the same game's other bets**.

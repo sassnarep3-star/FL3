@@ -24,11 +24,11 @@
 </nav>
 <main>
 <h1 id="line-origination-model">Line origination model</h1>
-<p>The brief: originate our own NFL lines, and know precisely which parts of the number are measured and which are not. This page is the architecture and the register; [Lines](lines.html) is today's output; [Validation gates](validation.html) is what the output has to clear before it is ever called an edge.</p>
+<p>The brief: originate our own NFL lines, and know precisely which parts of the number are measured and which are not. This page is the architecture and the register; <a href="lines.html">Lines</a> is today's output; <a href="validation.html">Validation gates</a> is what the output has to clear before it is ever called an edge.</p>
 <h2 id="pipeline">Pipeline</h2>
 <div class="tablewrap"><table><thead><tr><th>Stage</th><th>Script</th><th>Input</th><th>Output</th><th>Verification</th></tr></thead><tbody><tr><td>ingest</td><td><code>scripts/fetch_nfl_data.py</code></td><td>nfl.com pages (and, once licensed, an odds feed)</td><td><code>data/*.csv</code></td><td>records URL + UTC timestamp per row</td></tr><tr><td>verify</td><td><code>scripts/verify.py</code></td><td><code>data/*.csv</code></td><td><code>data/verification_report.csv</code></td><td>13 identity checks; a failure aborts the build</td></tr><tr><td>derive</td><td><code>scripts/model.py</code></td><td>verified rows</td><td><code>derived_*</code>, <code>model_calibration.csv</code></td><td>only arithmetic over verified values</td></tr><tr><td>rate</td><td><code>scripts/model.py</code></td><td>standings + games</td><td><code>power_ratings.csv</code></td><td>no schedule adjustment (Q-04) - stated, not hidden</td></tr><tr><td>price</td><td><code>scripts/model.py</code></td><td>ratings + calibration</td><td><code>lines_origination.csv</code></td><td>every constant tagged with <code>n</code> and <code>status</code></td></tr><tr><td>publish</td><td><code>scripts/build_board.py</code></td><td>everything</td><td><code>board/</code></td><td>link check + source-registry check</td></tr></tbody></table></div>
 <h2 id="step-1-team-strength">Step 1 - team strength</h2>
-<p>Today: <strong>unadjusted net points per game</strong> from the official standings (<code>net_ppg</code> on [Team stats](team-stats.html)), plus a <strong>Pythagorean expected-win</strong> rating whose exponent was fitted on this data rather than borrowed (k = 3.4, SSE = 29.95 wins² over 32 clubs).</p>
+<p>Today: <strong>unadjusted net points per game</strong> from the official standings (<code>net_ppg</code> on <a href="team-stats.html">Team stats</a>), plus a <strong>Pythagorean expected-win</strong> rating whose exponent was fitted on this data rather than borrowed (k = 3.4, SSE = 29.95 wins² over 32 clubs).</p>
 <p>Both are published side by side in <code>data/power_ratings.csv</code> <em>with the schedule adjustment left blank</em>: an opponent-strength correction needs game-level opponents for Weeks 3-9, which are not ingested. Leaving that column empty is the design decision - the alternative is a rating that looks opponent-adjusted and is not.</p>
 <p>Next (S-12): a second, independent rating from possession efficiency, and publish the <strong>disagreement</strong> between the two as the uncertainty measure.</p>
 <h2 id="step-2-the-conversion-constants-fitted-not-assumed">Step 2 - the conversion constants (fitted, not assumed)</h2>
@@ -38,7 +38,7 @@
 <ul>
 <li><code>beta = 1.140 ± 0.271</code>. Shrinking a rating gap should give <code>beta &lt; 1</code>. Getting <code>beta &gt; 1</code> in-sample on</li>
 </ul>
-<p>33 games is the fit telling us the sample is too small (and that ratings built from the whole season partially contain the games they are being fitted on). Flagged as [FLG-026](flagged.html), not smoothed over.</p>
+<p>33 games is the fit telling us the sample is too small (and that ratings built from the whole season partially contain the games they are being fitted on). Flagged as <a href="flagged.html">FLG-026</a>, not smoothed over.</p>
 <ul>
 <li><code>alpha = -0.82 ± 2.09</code> pts: home-field advantage in the ingested sample is **indistinguishable from</li>
 </ul>
@@ -72,11 +72,11 @@ bet only if |model - market| &gt; (vig + measured model error band)   # S-25 abs
 </code></pre>
 <p>Right now <code>market</code> does not exist in the repo, so <strong>the abstain rule always fires</strong>, and the honest output of the whole system is "no bet". That is the correct behaviour for a pipeline whose inputs are provisional, and it is the difference between this project and a chart of guesses.</p>
 <h2 id="parameter-register">Parameter register</h2>
-<p>The machine-readable contract is <a href="https://github.com/sassnarep3-star/FL3/blob/main/models/line_model.yaml" rel="noopener nofollow" target="_blank">models/line_model.yaml</a>, rendered as a table on the [Parameter register](parameters.html) page: each parameter carries <code>value</code>, <code>evidence</code>, <code>status</code>, and where it is blocked, <code>blocked_by</code>. A parameter may not hold a value unless its evidence points at a row that passed verification - so the <code>null</code> rows are not missing work, they are the model refusing to guess. Read that page before believing any single number on the site.</p>
+<p>The machine-readable contract is <a href="https://github.com/sassnarep3-star/FL3/blob/main/models/line_model.yaml" rel="noopener nofollow" target="_blank">models/line_model.yaml</a>, rendered as a table on the <a href="parameters.html">Parameter register</a> page: each parameter carries <code>value</code>, <code>evidence</code>, <code>status</code>, and where it is blocked, <code>blocked_by</code>. A parameter may not hold a value unless its evidence points at a row that passed verification - so the <code>null</code> rows are not missing work, they are the model refusing to guess. Read that page before believing any single number on the site.</p>
 <h2 id="what-is-deliberately-absent">What is deliberately absent</h2>
 <ul>
-<li><strong>No weather term</strong> - nothing read from an official source (SRC-015, [Q-12](questions.html)).</li>
-<li><strong>No referee/crew term</strong> - registered as [SIG-12](signals.html) with a "test once, then probably kill"</li>
+<li><strong>No weather term</strong> - nothing read from an official source (SRC-015, <a href="questions.html">Q-12</a>).</li>
+<li><strong>No referee/crew term</strong> - registered as <a href="signals.html">SIG-12</a> with a "test once, then probably kill"</li>
 </ul>
 <p>disposition.</p>
 <ul>
@@ -84,7 +84,7 @@ bet only if |model - market| &gt; (vig + measured model error band)   # S-25 abs
 </ul>
 <p>the repo has no verified source for it, and an unmeasurable input in a pricing chain is how a model quietly becomes a story.</p>
 <ul>
-<li><strong>No player-level prop rates</strong> ([Q-08](questions.html)).</li>
+<li><strong>No player-level prop rates</strong> (<a href="questions.html">Q-08</a>).</li>
 </ul>
 <footer>
   <p>Every table on this site is generated from <code>data/</code> by <code>scripts/build_site.py</code>;

@@ -41,7 +41,7 @@ weights:  w1 = 0.35, w2 = 0.35, w3 = 0.25, w4 = 0.05
 <ul>
 <li><strong>Prediction quality is scored on log-loss, not on win/loss.</strong> Log-loss punishes a 70% claim that</li>
 </ul>
-<p>loses and rewards a well-calibrated 55% claim; it is measurable on ~200 bets where ROI needs thousands (see the [decision math](data/decision_math.csv) sample-size rows).</p>
+<p>loses and rewards a well-calibrated 55% claim; it is measurable on ~200 bets where ROI needs thousands (see the <a href="data/decision_math.csv">decision math</a> sample-size rows).</p>
 <ul>
 <li>**Profit is <em>sample-weighted</em>, never displayed raw.** A strategy with 40 bets at +18% ROI ranks below</li>
 </ul>
@@ -52,9 +52,9 @@ weights:  w1 = 0.35, w2 = 0.35, w3 = 0.25, w4 = 0.05
 <p><strong>Reward design:</strong> the pool is paid 60% on the season's <code>skill_score</code>, 25% on the <strong>improvement</strong> in skill_score (so a new strategy can earn without an all-time record), and 15% to the best <em>documented negative result</em> - a prize for killing a popular signal with evidence. That last line is deliberate: a board that only pays winners produces a research culture that never publishes losses, which is exactly the failure mode the rest of this repo exists to prevent.</p>
 <h2 id="staking-rules-all-of-them-because-they-are-short">Staking rules (all of them, because they are short)</h2>
 <p>1. Break-even is <strong>52.38%</strong> at −110 and <strong>54.55%</strong> at −120 props; below that nothing compounds. 2. Fractional Kelly at 0.25 of the measured edge; never of the <em>assumed</em> edge. 3. Per-bet cap 2% of bankroll; per-slate cap 8%; per-causal-driver cap 3% (gate G-08's exposure rule). 4. Stand-down after two consecutive gate breaches, or any G-10 data failure. 5. A bet is void for scoring if it was placed after our published number was updated (timestamp check).</p>
-<p>These are parameter choices, not truths - and the caps themselves await [Q-17](questions.html): the owner has to state the bankroll and the acceptable drawdown. Until then the tiers are the policy, and the numbers inside them are placeholders by design.</p>
+<p>These are parameter choices, not truths - and the caps themselves await <a href="questions.html">Q-17</a>: the owner has to state the bankroll and the acceptable drawdown. Until then the tiers are the policy, and the numbers inside them are placeholders by design.</p>
 <h2 id="what-the-board-will-look-like-in-four-weeks-if-nothing-else-is-approved">What the board will look like in four weeks if nothing else is approved</h2>
-<p>Identical to the table above. Filling it requires [Q-01](questions.html) (prices) and [Q-04](questions.html) (games), and that is the honest dependency chain: <strong>no leaderboard can be built on a data layer that does not exist yet</strong> - which is the correct answer to "why is the board empty".</p>
+<p>Identical to the table above. Filling it requires <a href="questions.html">Q-01</a> (prices) and <a href="questions.html">Q-04</a> (games), and that is the honest dependency chain: <strong>no leaderboard can be built on a data layer that does not exist yet</strong> - which is the correct answer to "why is the board empty".</p>
 <footer>
   <p>Every table on this site is generated from <code>data/</code> by <code>scripts/build_site.py</code>;
   no value is typed into the HTML. Empty cells are deliberate: the value was not confirmable from an

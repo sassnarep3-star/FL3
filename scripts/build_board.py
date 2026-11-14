@@ -164,8 +164,16 @@ def inline(text):
     text = re.sub(r"`([^`]+)`", r"<code>\1</code>", text)
     text = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", text)
     text = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", r"<em>\1</em>", text)
-    text = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)",
-                  r'<a href="\2" rel="noopener nofollow" target="_blank">\1</a>', text)
+    # Links: the previous version only rewrote absolute http(s) targets, so every relative
+    # in-site link (`[Lines](lines.html)`) rendered as literal markdown text and the link checker
+    # never saw it, because it only inspects href attributes. Both cases are handled now.
+    def link(m):
+        label, target = m.group(1), m.group(2)
+        if target.startswith(("http://", "https://")):
+            return f'<a href="{target}" rel="noopener nofollow" target="_blank">{label}</a>'
+        return f'<a href="{target}">{label}</a>'
+
+    text = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)", link, text)
     return text
 
 
