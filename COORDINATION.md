@@ -19,4 +19,5 @@
 
 - Static GitHub Pages workflow: `.github/workflows/pages.yml`; publish source is GitHub Actions. The active branch remains `arena/39f57d31-fl3` per Arena's fixed-branch constraint.
 - The site is a research blueprint, not a betting service. Dynamic injury/lineup status and betting outcomes remain blank until a timestamped official feed, approved role evidence, historical odds, and backtest data are integrated.
-- Deployment, PR and merge details will be recorded here after integration checks complete.
+- PR #1: [Build sourced NFL lines research dashboard](https://github.com/sassnarep3-star/FL3/pull/1) — **merged** to `main` with merge commit `4bbc26c82e3b29ff28e3f3ee50d0dd6d10ad0a38` at 2026-11-14 03:01:06 UTC.
+- GitHub Pages: [https://sassnarep3-star.github.io/FL3/](https://sassnarep3-star.github.io/FL3/) — Pages API reports `built`, source `main:/`; deploy workflow run [43549389656](https://github.com/sassnarep3-star/FL3/actions/runs/43549389656) completed successfully. PR validation also passed (run [43549332412](https://github.com/sassnarep3-star/FL3/actions/runs/43549332412)).
