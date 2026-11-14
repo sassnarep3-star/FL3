@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suggestions · FL3 NFL Decision System</title>
+<meta name="description" content="Verified NFL data, originated lines, strategy gates and open decisions. Every value links to an official source.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="brand"><span class="mark">FL3</span><span class="sub">NFL Decision System</span></div>
+  <nav><a href="index.html">Dashboard</a><a href="standings.html">Standings</a><a href="lines.html">Our Lines</a><a href="injuries.html">Injuries</a><a href="data-snapshots.html">Data snapshots</a><a href="strategies.html">Strategies</a><a href="correlation.html">Correlation</a><a href="decisions.html">Decisions</a><a href="suggestions.html" class="on">Suggestions</a><a href="flagged.html">Flagged for Review</a><a href="sources.html">Sources</a><a href="methodology.html">Methodology</a></nav>
+</header>
+<main id="main">
+
+<h1>Suggestions</h1>
+<p class="lede">Each suggestion names a problem, offers 2–3 mutually exclusive paths, and states what
+decision it needs from you. Pick one path per suggestion. Nothing is implemented until you choose,
+except where the status says <span class="badge ok">implemented</span>.</p>
+
+<h2>If you only read one thing: priority order</h2>
+<div class="tablewrap"><table class=""><thead><tr><th>#</th><th>Suggestion</th><th>Why it is in this position</th></tr></thead><tbody><tr><td>1</td><td><a href='#SG-13'>SG-13</a></td><td>Nothing can be graded, calibrated, or backtested without game-level results.</td></tr><tr><td>2</td><td><a href='#SG-02'>SG-02</a></td><td>A grade is meaningless if the line can move after kickoff.</td></tr><tr><td>3</td><td><a href='#SG-06'>SG-06</a></td><td>Decides whether &#x27;edge&#x27; is ever in scope.</td></tr><tr><td>4</td><td><a href='#SG-10'>SG-10</a></td><td>Unblocks every prop and correlation-magnitude question.</td></tr><tr><td>5</td><td><a href='#SG-05'>SG-05</a></td><td>Turns the 2nd/3rd/4th-string request into something measurable.</td></tr><tr><td>6</td><td><a href='#SG-04'>SG-04</a></td><td>Settles what a blank game status means.</td></tr><tr><td>7</td><td><a href='#SG-07'>SG-07</a></td><td>Makes the uncertainty bands falsifiable.</td></tr><tr><td>8</td><td><a href='#SG-15'>SG-15</a></td><td>The Munich game is currently mispriced by a full home-field advantage.</td></tr><tr><td>9</td><td><a href='#SG-17'>SG-17</a></td><td>Answers whether a second, non-league depth source is even admissible under the source rule.</td></tr></tbody></table></div>
+
+<h2>All suggestions</h2>
+
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-01</span> Write a source contract for every official page we use</h3>
+            <span class="badge ok">implemented</span>
+          </header>
+          <p><b>Problem.</b> Right now each dataset was captured by hand once. There is no written agreement about which page owns which field, or what happens when a page changes shape.</p>
+          <p class="fine">Unblocks: Q01</p>
+          <p class="fine">data/sources.json now records publisher, fields used, verification state and a rejection list. The refresh job (SG-02) enforces it.</p>
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · Hand-curated registry <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: low · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Exact, reviewable, no scraping fragility beyond the four pages we already read.</div>
+                <div class="cons"><span class="minus">−</span> Breaks silently if NFL.com renames a column.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Scrape everything with selectors </div>
+                <div class="pathmeta">effort: high · cost: free</div>
+                <div class="pros"><span class="plus">+</span> More fields per page.</div>
+                <div class="cons"><span class="minus">−</span> Every selector is a liability; no SLA; likely violates nothing but is fragile.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path C</b> · Buy a data vendor </div>
+                <div class="pathmeta">effort: low · cost: recurring fee</div>
+                <div class="pros"><span class="plus">+</span> Stable schema.</div>
+                <div class="cons"><span class="minus">−</span> No longer an &#x27;official source&#x27; claim; costs money.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Accept that four hand-verified pages are the foundation, or approve a vendor budget.</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-02</span> Freeze the line at kickoff and never edit it</h3>
+            <span class="badge ok">implemented</span>
+          </header>
+          <p><b>Problem.</b> An originated line is worthless for grading if it can be quietly improved after the game.</p>
+          <p class="fine">Unblocks: Q02, Q08</p>
+          <p class="fine">Git history is the audit trail. .github/workflows/verify.yml re-derives every number from the committed data on each push and fails if the published pages drift from the committed JSON, so a line cannot be quietly improved after the fact.</p>
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · Weekly commit at first kickoff <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: low · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Simple, auditable, works with the CI already in place.</div>
+                <div class="cons"><span class="minus">−</span> Depends on the job running on time.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Signed tag per week </div>
+                <div class="pathmeta">effort: medium · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Cryptographic proof of when the line was fixed.</div>
+                <div class="cons"><span class="minus">−</span> Extra ceremony for a single-owner repo.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path C</b> · No freeze </div>
+                <div class="pathmeta">effort: none · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Frictionless.</div>
+                <div class="cons"><span class="minus">−</span> Destroys the credibility of every future grade. Not a real option.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Choose the freeze mechanism. Until then, treat all grades as provisional.</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-03</span> Capture the official injury-report policy text</h3>
+            <span class="badge bad">blocked</span>
+          </header>
+          <p><b>Problem.</b> The engine needs a defensible mapping from practice status to whether a player suits up. The policy page returned an empty body (flag F06).</p>
+          <p class="fine">Unblocks: Q03</p>
+          <p class="fine">Blocked by: operations.nfl.com returned empty on 2026-11-14</p>
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · Re-fetch with a rendering client and archive <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: low · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Gives us the league&#x27;s own wording.</div>
+                <div class="cons"><span class="minus">−</span> Still a manual archive; may drift.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Treat statuses as labels only, never as probabilities </div>
+                <div class="pathmeta">effort: low · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Zero risk of asserting a rule that does not exist.</div>
+                <div class="cons"><span class="minus">−</span> Kills the availability signal entirely.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path C</b> · Use community-reported availability rates </div>
+                <div class="pathmeta">effort: medium · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Empirical, not doctrinal.</div>
+                <div class="cons"><span class="minus">−</span> Not official, so it violates the project&#x27;s own source rule.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Give the green light to archive an official copy, or accept a label-only model.</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-04</span> Reconcile the Friday report against the 90-minute inactives</h3>
+            <span class="badge warn">proposed</span>
+          </header>
+          <p><b>Problem.</b> 185 of 345 Week 10 rows have a blank game status. We do not know whether blank means &#x27;playing&#x27;.</p>
+          <p class="fine">Unblocks: Q04, M05, M06</p>
+          
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · Collect the inactive list each week and measure <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: medium · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Turns a guess into a measured rate per status label.</div>
+                <div class="cons"><span class="minus">−</span> Needs 8-10 weeks before the rate is trustworthy.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Ignore blank-status rows entirely </div>
+                <div class="pathmeta">effort: none · cost: free</div>
+                <div class="pros"><span class="plus">+</span> No false precision. This is what v0 already does.</div>
+                <div class="cons"><span class="minus">−</span> Misses genuine late-week scratches.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Approve weekly inactive capture, or accept that blank stays blank.</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-05</span> Use snap counts as the depth-chart substitute</h3>
+            <span class="badge bad">blocked</span>
+          </header>
+          <p><b>Problem.</b> You asked to detect 2nd/3rd/4th string replacements. No official source publishes a depth ordinal (flag F05).</p>
+          <p class="fine">Unblocks: Q05, M04, M08</p>
+          <p class="fine">Blocked by: no official snap-count feed captured</p>
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · Official participation counts as ordinal proxy <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: medium · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Official, quantitative, and directly measures who actually played.</div>
+                <div class="cons"><span class="minus">−</span> Post-game, not predictive; needs the box score.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Rank players by official season stat volume </div>
+                <div class="pathmeta">effort: low · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Available from nfl.com player pages.</div>
+                <div class="cons"><span class="minus">−</span> Volume is not depth; a WR2 with more targets than a WR1 breaks it.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path C</b> · Say &#x27;starter vs backup&#x27; only </div>
+                <div class="pathmeta">effort: none · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Honest. No ordinal claimed.</div>
+                <div class="cons"><span class="minus">−</span> Loses the 2nd/3rd/4th string distinction you asked for.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Accept participation counts as the ordinal, or accept a starter/backup binary.</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-06</span> Decide the market-price question once, in writing</h3>
+            <span class="badge bad">blocked</span>
+          </header>
+          <p><b>Problem.</b> Every &#x27;value&#x27; claim in betting requires a price. We hold none (flag F07).</p>
+          <p class="fine">Unblocks: Q06, G6</p>
+          <p class="fine">Blocked by: no licensed odds feed</p>
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · License an odds feed <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: high · cost: paid</div>
+                <div class="pros"><span class="plus">+</span> Unlocks edge, CLV, and the Champion tier.</div>
+                <div class="cons"><span class="minus">−</span> Cost, contract, and jurisdiction rules.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Publish lines with no market comparison </div>
+                <div class="pathmeta">effort: none · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Fully honest; the site already does this.</div>
+                <div class="cons"><span class="minus">−</span> Cannot ever call a strategy &#x27;good&#x27; in market terms.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path C</b> · Compare to a public consensus number </div>
+                <div class="pathmeta">effort: medium · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Cheap proxy.</div>
+                <div class="cons"><span class="minus">−</span> Unverifiable provenance; breaks the official-source rule.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Fund a feed, or accept that &#x27;edge vs market&#x27; stays out of scope.</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-07</span> Backtest and calibrate sigma before trusting any band</h3>
+            <span class="badge bad">blocked</span>
+          </header>
+          <p><b>Problem.</b> The line bands are derived from declared constants, not from observed error.</p>
+          <p class="fine">Unblocks: Q07</p>
+          <p class="fine">Blocked by: no historical weekly snapshots</p>
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · Rebuild 2025 week-by-week and replay the engine <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: high · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Real calibration: how often does the 90% band contain the result?</div>
+                <div class="cons"><span class="minus">−</span> 18 weeks of manual capture.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Keep declared constants and label them </div>
+                <div class="pathmeta">effort: none · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Already done, already honest.</div>
+                <div class="cons"><span class="minus">−</span> Bands stay unfalsified.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Authorise a historical rebuild, or keep bands clearly marked as uncalibrated.</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-08</span> Dry-run the grading pipeline on Week 10</h3>
+            <span class="badge warn">proposed</span>
+          </header>
+          <p><b>Problem.</b> The leaderboard is empty because nothing has been graded. The pipeline itself is untested.</p>
+          <p class="fine">Unblocks: Q08</p>
+          
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · Grade Week 10 as soon as the last game ends <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: low · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Proves the pipeline end to end with 14 real games.</div>
+                <div class="cons"><span class="minus">−</span> n=14 is far below any threshold; results prove plumbing, not skill.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Wait for 30 games before grading anything </div>
+                <div class="pathmeta">effort: none · cost: free</div>
+                <div class="pros"><span class="plus">+</span> No misleading numbers.</div>
+                <div class="cons"><span class="minus">−</span> Bugs stay undiscovered for weeks.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Approve a clearly-labelled plumbing test, or hold until the sample is meaningful.</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-09</span> Settle whether luck-fading is real</h3>
+            <span class="badge bad">blocked</span>
+          </header>
+          <p><b>Problem.</b> The luck fade strategy (S04) is the counter-example the luck filter exists to catch. Nobody has tested whether fading lucky teams works.</p>
+          <p class="fine">Unblocks: Q09</p>
+          <p class="fine">Blocked by: needs multi-season game-level history with prices</p>
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · Test on 3 prior seasons <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: high · cost: paid data or manual capture</div>
+                <div class="pros"><span class="plus">+</span> Settles a decades-old market question with our own numbers.</div>
+                <div class="cons"><span class="minus">−</span> Large lift; needs prices, which we do not have.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Drop the luck-fade strategy </div>
+                <div class="pathmeta">effort: none · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Removes a claim we cannot support.</div>
+                <div class="cons"><span class="minus">−</span> Also removes a useful counter-example.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Fund the test, or keep S04 labelled as untested.</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-10</span> Capture official player-game statistics</h3>
+            <span class="badge bad">blocked</span>
+          </header>
+          <p><b>Problem.</b> Every prop correlation magnitude is unmeasured without per-game player stats.</p>
+          <p class="fine">Unblocks: Q10, M03, S06</p>
+          <p class="fine">Blocked by: player-level stats not captured</p>
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · Capture official box scores per game <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: medium · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Unlocks all prop work, plus snap-count cross-checks.</div>
+                <div class="cons"><span class="minus">−</span> 345-row pages already large; box scores are bigger.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Keep props blocked </div>
+                <div class="pathmeta">effort: none · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Zero risk of a wrong correlation claim.</div>
+                <div class="cons"><span class="minus">−</span> Player props were explicitly requested.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Approve box-score capture, or accept that props stay blocked.</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-11</span> Signed weekly snapshots</h3>
+            <span class="badge warn">proposed</span>
+          </header>
+          <p><b>Problem.</b> Git history is good; cryptographic proof is better.</p>
+          <p class="fine">Unblocks: Q11</p>
+          
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · Checksum each week&#x27;s JSON into a published index <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: low · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Anyone can verify a line was not changed after the fact.</div>
+                <div class="cons"><span class="minus">−</span> Marginally more machinery.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Rely on git history </div>
+                <div class="pathmeta">effort: none · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Already works.</div>
+                <div class="cons"><span class="minus">−</span> A force-push could rewrite it.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Pick checksum publication, or accept git as the only record.</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-12</span> Choose the reward weighting explicitly</h3>
+            <span class="badge warn">proposed</span>
+          </header>
+          <p><b>Problem.</b> sqrt(n) normalisation rewards precision over volume, which is a values choice, not a fact.</p>
+          <p class="fine">Unblocks: Q12</p>
+          
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · Precision-weighted (current) <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: none · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Punishes volume-chasing; rewards selectivity, which is what you asked for.</div>
+                <div class="cons"><span class="minus">−</span> Rewards abstention; a strategy that bets twice a year and wins both looks great.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Total-profit-weighted </div>
+                <div class="pathmeta">effort: none · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Intuitive.</div>
+                <div class="cons"><span class="minus">−</span> Rewards volume; a lucky high-volume strategy beats a skilled selective one.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path C</b> · Run both and publish a spread </div>
+                <div class="pathmeta">effort: low · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Shows how much the ranking depends on the choice.</div>
+                <div class="cons"><span class="minus">−</span> Two leaderboards to explain.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Confirm precision-weighting, or switch to profit-weighting.</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-13</span> Capture game-by-game results with margins</h3>
+            <span class="badge warn">proposed</span>
+          </header>
+          <p><b>Problem.</b> No backtest is possible from season aggregates alone.</p>
+          <p class="fine">Unblocks: M02, S07</p>
+          
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · Capture the scoreboard each week <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: medium · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Unlocks calibration, division tests, and real grading.</div>
+                <div class="cons"><span class="minus">−</span> Weekly manual step until the refresh job handles it.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Stay aggregate-only </div>
+                <div class="pathmeta">effort: none · cost: free</div>
+                <div class="pros"><span class="plus">+</span> No new work.</div>
+                <div class="cons"><span class="minus">−</span> Every backtest stays parked.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Approve weekly scoreboard capture.</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-14</span> Add turnover margin to the luck model</h3>
+            <span class="badge bad">blocked</span>
+          </header>
+          <p><b>Problem.</b> Pythagorean luck cannot separate takeaways from luck without turnover data.</p>
+          <p class="fine">Unblocks: M07</p>
+          <p class="fine">Blocked by: turnover margin not in the official standings table</p>
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · Derive from box scores <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: medium · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Completes the luck decomposition.</div>
+                <div class="cons"><span class="minus">−</span> Depends on SG-10/SG-13 landing first.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Accept an incomplete luck model </div>
+                <div class="pathmeta">effort: none · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Already caveated on the site.</div>
+                <div class="cons"><span class="minus">−</span> Some &#x27;luck&#x27; is really takeaways.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Sequence SG-14 after box-score capture, or accept the caveat.</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-15</span> Add venue and weather context</h3>
+            <span class="badge warn">proposed</span>
+          </header>
+          <p><b>Problem.</b> The Munich game is a neutral site, and outdoor totals depend on wind. Neither is in the model.</p>
+          <p class="fine">Unblocks: M09</p>
+          
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · Flag neutral-site games only <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: low · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Fixes the biggest error (HFA applied at a neutral site).</div>
+                <div class="cons"><span class="minus">−</span> Weather still absent.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Full weather integration </div>
+                <div class="pathmeta">effort: high · cost: needs a non-NFL weather source</div>
+                <div class="pros"><span class="plus">+</span> Best totals.</div>
+                <div class="cons"><span class="minus">−</span> Violates the official-source rule for one input.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Approve the neutral-site flag at minimum.</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-16</span> Flag short weeks and byes</h3>
+            <span class="badge warn">proposed</span>
+          </header>
+          <p><b>Problem.</b> Thursday games and post-bye teams are invisible to a model that only sees season aggregates.</p>
+          <p class="fine">Unblocks: M10</p>
+          
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · Tag rest days from the schedule <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: low · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Cheap, official, immediately usable.</div>
+                <div class="cons"><span class="minus">−</span> Small effect, needs measurement before weighting.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Ignore rest </div>
+                <div class="pathmeta">effort: none · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Simpler.</div>
+                <div class="cons"><span class="minus">−</span> Known bias left in.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Approve rest tagging.</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-17</span> Test whether club-published depth charts are usable at all</h3>
+            <span class="badge warn">proposed</span>
+          </header>
+          <p><b>Problem.</b> The league does not publish a machine-checkable depth ordinal, but individual clubs sometimes publish dated depth charts. Whether those are consistent, timely, or stable enough to use has never been tested.</p>
+          <p class="fine">Unblocks: Q05, M04</p>
+          
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · Sample 4 clubs for 3 weeks and measure agreement <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: medium · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Produces a real number: how often do club charts agree with who actually started?</div>
+                <div class="cons"><span class="minus">−</span> Club sites are not nfl.com, so any value derived this way may not meet the official-source rule.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Skip club charts; use participation counts only </div>
+                <div class="pathmeta">effort: none · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Keeps a single, official evidence standard.</div>
+                <div class="cons"><span class="minus">−</span> Leaves a possible source unexplored.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Say whether club-published charts count as evidence, even though they are not nfl.com.</p>
+        </article>
+
+<h2>How to respond</h2>
+<p>Reply with the suggestion IDs and the path letters you want, for example
+<code>SG-13:A, SG-02:A, SG-06:B</code>. Anything you skip stays <span class="badge warn">proposed</span>
+and keeps blocking the decisions listed above it.</p>
+
+</main>
+<footer>
+  <p><strong>Snapshot 2026-11-14.</strong> NFL data © the National Football League, quoted from nfl.com
+  with links on every row. This site publishes our own model output, not betting advice, and not a
+  sportsbook quote. Values that could not be confirmed against an official source are blank and
+  listed on <a href="flagged.html">Flagged for Review</a>.</p>
+</footer>
+</body>
+</html>

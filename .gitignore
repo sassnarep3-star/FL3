@@ -1,5 +1,6 @@
 # Python
 __pycache__/
+*.pyc
 *.py[cod]
 .venv/
 venv/
@@ -20,5 +21,6 @@ data/raw_evidence/*.sha256
 .idea/
 .vscode/
 
-# NOTE: docs/ is deliberately NOT ignored - GitHub Pages is deployed from the built artifact and the
-# CI job fails if docs/ does not match what data/ would generate.
+# NOTE: board/ and docs/ are deliberately NOT ignored. Pages builds the repo root as a legacy
+# branch deploy, so the generated artefacts are what publishes; .github/workflows/site.yml
+# fails if board/ does not match what data/ generates.

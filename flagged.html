@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flagged for Review · FL3 NFL Decision System</title>
+<meta name="description" content="Verified NFL data, originated lines, strategy gates and open decisions. Every value links to an official source.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="brand"><span class="mark">FL3</span><span class="sub">NFL Decision System</span></div>
+  <nav><a href="index.html">Dashboard</a><a href="standings.html">Standings</a><a href="lines.html">Our Lines</a><a href="injuries.html">Injuries</a><a href="data-snapshots.html">Data snapshots</a><a href="strategies.html">Strategies</a><a href="correlation.html">Correlation</a><a href="decisions.html">Decisions</a><a href="suggestions.html">Suggestions</a><a href="flagged.html" class="on">Flagged for Review</a><a href="sources.html">Sources</a><a href="methodology.html">Methodology</a></nav>
+</header>
+<main id="main">
+
+<h1>Flagged for Review</h1>
+<p class="lede">Every irregularity, open question and unverified item, with the link to check it.
+10 open. Nothing on this page blocks the site: it is the list you asked to review after
+publication.</p>
+
+<div class="note">
+  <strong>How these were found.</strong> Each item came from a direct contradiction between two
+  official pages, an empty official page, or a request (2nd/3rd/4th string, market edge) that no
+  official source can answer. None of them were filled in by inference.
+</div>
+
+        <article class="flag" id="F01">
+          <header>
+            <h3><span class="sid">F01</span> Standings page excludes a game the schedule page marks FINAL</h3>
+            <div><span class="badge warn">medium severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>nfl.com/schedules/2026/REG/ shows &#x27;Commanders 24, Giants 21, FINAL&#x27; for the Thursday Week 10 game. nfl.com/standings/division/2026/REG still lists WAS 3-5-1 and NYG 5-3-1, i.e. before that result.</dd>
+            <dt>Why it matters</dt><dd>A line originated from the standings page is one game stale for those two clubs. Every other club is unaffected.</dd>
+            <dt>Could not confirm</dt><dd>Whether the standings page updates on a delay or simply had not refreshed at capture time. No explicit &#x27;as of&#x27; timestamp is published on the page.</dd>
+            <dt>Effect on the lines</dt><dd>WAS@NYG has already been played, so the originated line for that game is not actionable and is shown for completeness only.</dd>
+            <dt>Action needed</dt><dd>Adopt the SG-02 freeze job so lines are originated from a kickoff-time snapshot, not a morning snapshot.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.nfl.com/schedules/2026/REG/" target="_blank" rel="noopener">Schedule (shows the final score)</a></li><li><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">Standings (does not reflect it)</a></li></ul>
+        </article>
+        <article class="flag" id="F02">
+          <header>
+            <h3><span class="sid">F02</span> A starting QB absence is missing from the official injury table</h3>
+            <div><span class="badge bad">high severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>The Week 10 injury page&#x27;s own news module carries &#x27;Ravens confirm Lamar Jackson expected to miss 6-10 weeks&#x27;. The Ravens table on the same page lists eight players and no quarterback.</dd>
+            <dt>Why it matters</dt><dd>An engine that reads only the injury table would conclude Baltimore has no QB availability problem. That is exactly the failure mode the availability signal is supposed to catch.</dd>
+            <dt>Could not confirm</dt><dd>Whether Jackson had been placed on injured reserve or otherwise removed from the report by the time the table was rendered. The table is the only official machine-readable list.</dd>
+            <dt>Effect on the lines</dt><dd>The LAC@BAL line is originated without a QB penalty for Baltimore. It should be read as too generous to BAL.</dd>
+            <dt>Action needed</dt><dd>Add a news-headline cross-check (S03 extension) or accept that the availability signal has known blind spots.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">Injury page with the news headline</a></li><li><a class="src" href="https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13" target="_blank" rel="noopener">News article</a></li></ul>
+        </article>
+        <article class="flag" id="F03">
+          <header>
+            <h3><span class="sid">F03</span> 2026 rosters differ from prior-season expectation — recorded as published</h3>
+            <div><span class="badge warn">medium severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>The official Week 10 tables list, among others, Kyler Murray under MIN, J.J. McCarthy under NYG, Micah Parsons under GB, Justin Fields and Patrick Mahomes both under KC, and Aaron Donald and Myles Garrett both under LA.</dd>
+            <dt>Why it matters</dt><dd>A reader&#x27;s memory of the 2024/2025 league will disagree with these rows. The risk is that a reviewer &#x27;corrects&#x27; a verified row to match memory.</dd>
+            <dt>Could not confirm</dt><dd>Nothing about the rostering itself — these are official rows. What cannot be confirmed is the trade/signing history that produced them, which was not fetched.</dd>
+            <dt>Effect on the lines</dt><dd>None. Rows were transcribed exactly as published and were not adjusted.</dd>
+            <dt>Action needed</dt><dd>Nothing to fix. Flagged so no future session &#x27;corrects&#x27; official data to match recollections.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">Official Week 10 injury report</a></li></ul>
+        </article>
+        <article class="flag" id="F04">
+          <header>
+            <h3><span class="sid">F04</span> 185 of 345 injury rows have a blank game status</h3>
+            <div><span class="badge warn">medium severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>Blank game status on 185 rows; 84 Questionable, 66 Out, 10 Doubtful.</dd>
+            <dt>Why it matters</dt><dd>Blank is ambiguous: &#x27;will play&#x27;, &#x27;not yet declared&#x27;, or &#x27;listed for practice only&#x27;. The engine treats blank as no contribution, which is the conservative reading.</dd>
+            <dt>Could not confirm</dt><dd>The official definition of a blank cell. The policy page that would define it returned empty (F06).</dd>
+            <dt>Effect on the lines</dt><dd>Available players with a minor listing contribute zero penalty. This understates availability risk, symmetrically for both clubs.</dd>
+            <dt>Action needed</dt><dd>SG-04 inactive reconciliation.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">Official Week 10 injury report</a></li></ul>
+        </article>
+        <article class="flag" id="F05">
+          <header>
+            <h3><span class="sid">F05</span> No official depth-chart ordinal exists, so &#x27;2nd/3rd/4th string&#x27; cannot be stated as fact</h3>
+            <div><span class="badge bad">high severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>nfl.com publishes player rows with position only. No rank, no starter flag, no snap count on the injury page.</dd>
+            <dt>Why it matters</dt><dd>The requested feature — know when backups are replacing starters — cannot be answered from official data at the depth requested. The engine instead applies a per-position penalty constant and caps it.</dd>
+            <dt>Could not confirm</dt><dd>Which specific player would replace an unavailable starter, and how much worse he is.</dd>
+            <dt>Effect on the lines</dt><dd>Availability adjustments are coarse. A backup QB and a starter QB cost the same 2.60 points, which is wrong in reality.</dd>
+            <dt>Action needed</dt><dd>SG-05 (participation counts as the ordinal proxy).</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">Official Week 10 injury report</a></li></ul>
+        </article>
+        <article class="flag" id="F06">
+          <header>
+            <h3><span class="sid">F06</span> The official injury-report policy page returned an empty body</h3>
+            <div><span class="badge warn">medium severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>https://operations.nfl.com/the-rules/nfl-injury-report-policy/ returned no text on 2026-11-14.</dd>
+            <dt>Why it matters</dt><dd>We cannot quote the league&#x27;s own rules for practice statuses or reporting deadlines. Anything we said about them would be recollection.</dd>
+            <dt>Could not confirm</dt><dd>The policy wording itself.</dd>
+            <dt>Effect on the lines</dt><dd>The practice-status weights are labelled as declared model constants everywhere they appear.</dd>
+            <dt>Action needed</dt><dd>SG-03.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://operations.nfl.com/the-rules/nfl-injury-report-policy/" target="_blank" rel="noopener">Policy page (empty on capture)</a></li></ul>
+        </article>
+        <article class="flag" id="F07">
+          <header>
+            <h3><span class="sid">F07</span> No licensed market price, so &#x27;edge&#x27; and &#x27;closing-line value&#x27; are out of scope</h3>
+            <div><span class="badge bad">high severity</span> <span class="badge auto">accepted-risk</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>No official NFL odds feed exists. Third-party price screens are not official and were not used.</dd>
+            <dt>Why it matters</dt><dd>Gate G6 (price beatable) can never pass. The Champion and Proven tiers are unreachable by construction.</dd>
+            <dt>Could not confirm</dt><dd>Whether our lines are any good relative to the market.</dd>
+            <dt>Effect on the lines</dt><dd>Lines are labelled &#x27;originated by this model&#x27; with no market comparison anywhere on the site.</dd>
+            <dt>Action needed</dt><dd>SG-06.</dd>
+          </dl>
+          <p class="fine">No public link — see the note.</p>
+        </article>
+        <article class="flag" id="F08">
+          <header>
+            <h3><span class="sid">F08</span> Local shell has no outbound network; refresh must run in CI</h3>
+            <div><span class="badge auto">low severity</span> <span class="badge auto">accepted-risk</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>Direct HTTP from the build shell to nfl.com returns 000. Only the agent&#x27;s fetch capability reaches the internet.</dd>
+            <dt>Why it matters</dt><dd>A human running scripts/fetch_official.py on this machine will get a network error, not fresh data.</dd>
+            <dt>Could not confirm</dt><dd>Whether GitHub Actions runners reach nfl.com — the workflow is written but has not been executed against the live network yet.</dd>
+            <dt>Effect on the lines</dt><dd>None. Committed data is the source of truth for the build; the fetch script is an optional refresher.</dd>
+            <dt>Action needed</dt><dd>First CI run will confirm or deny. If it fails, the build still succeeds because it reads committed JSON.</dd>
+          </dl>
+          <p class="fine">No public link — see the note.</p>
+        </article>
+        <article class="flag" id="F09">
+          <header>
+            <h3><span class="sid">F09</span> One Week 10 game is at a neutral site but the model applies home-field advantage</h3>
+            <div><span class="badge auto">low severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>NE @ DET is listed as an international game in Munich.</dd>
+            <dt>Why it matters</dt><dd>A full 1.9-point HFA is applied to Detroit in a game that is not at Ford Field.</dd>
+            <dt>Could not confirm</dt><dd>How much of a home-field effect a designated home team retains abroad. No official figure exists.</dd>
+            <dt>Effect on the lines</dt><dd>Detroit is probably over-rated by up to ~1.9 points in that game.</dd>
+            <dt>Action needed</dt><dd>SG-15.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.nfl.com/schedules/2026/REG/" target="_blank" rel="noopener">Schedule (Munich designation)</a></li></ul>
+        </article>
+        <article class="flag" id="F10">
+          <header>
+            <h3><span class="sid">F10</span> Bye clubs derived from the official Week 10 by-week schedule — confirmed</h3>
+            <div><span class="badge auto">low severity</span> <span class="badge ok">resolved</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>The by-week page was fetched on 2026-11-14 and lists the same 14 games. Four clubs (CHI, DEN, PHI, TB) appear in none of them.</dd>
+            <dt>Why it matters</dt><dd>This is a derived fact, not a quoted one. It is almost certainly right, but it is still an inference.</dd>
+            <dt>Could not confirm</dt><dd>An explicit sentence saying &#x27;these clubs are on bye&#x27;. The slate itself is now verified on two official URLs.</dd>
+            <dt>Effect on the lines</dt><dd>No line is originated for these clubs. Nothing downstream depends on the bye label.</dd>
+            <dt>Action needed</dt><dd>Closed. The bye list is consistent across two verified official pages.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.nfl.com/schedules/2026/REG/" target="_blank" rel="noopener">Schedule (main)</a></li><li><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">Schedule by week (verified)</a></li></ul>
+        </article>
+        <article class="flag" id="F11">
+          <header>
+            <h3><span class="sid">F11</span> Official injury URL returns a week-number mismatch (reported by a parallel session)</h3>
+            <div><span class="badge warn">medium severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>An earlier session recorded that the NFL injury route containing /2025/reg4 rendered a page title saying Week 10 of the 2025 season while the body showed &#x27;Injuries - WEEK 4&#x27;. That session did not import any value from the route.</dd>
+            <dt>Why it matters</dt><dd>If a historical week URL silently resolves to a different week, any backtest built on it would attribute the wrong week&#x27;s data. This is a real risk for SG-07 and SG-13.</dd>
+            <dt>Could not confirm</dt><dd>This session did not reproduce the mismatch; the route was not re-fetched here. Recorded as reported, not as confirmed.</dd>
+            <dt>Effect on the lines</dt><dd>None. This build uses only the current-week page (/injuries/), which rendered consistently and is cited on every injury row.</dd>
+            <dt>Action needed</dt><dd>Before any historical capture, verify the week selector manually and store a content hash with each snapshot.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.nfl.com/injuries/league/2025/reg4" target="_blank" rel="noopener">Route reported to mismatch</a></li><li><a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">Page actually used by this build</a></li></ul>
+        </article>
+        <article class="flag" id="F12">
+          <header>
+            <h3><span class="sid">F12</span> Reward and governance rules are undefined</h3>
+            <div><span class="badge warn">medium severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>No contest rules, eligibility, jurisdiction, privacy terms, appeal path or compliance owner exist for the leaderboard rewards.</dd>
+            <dt>Why it matters</dt><dd>Rewards are a core request. A scoring formula is not a reward policy, and publishing one without the other invites a dispute later.</dd>
+            <dt>Could not confirm</dt><dd>Any prize type or value. Nothing has been designed, deliberately.</dd>
+            <dt>Effect on the lines</dt><dd>None. The leaderboard awards ranking credit only; no prize, entry fee or staking feature exists.</dd>
+            <dt>Action needed</dt><dd>Decide reward type and governance before any tier-3 score is paid out. Keep the board reputation-only until then.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://media.nfl.com/lsb" target="_blank" rel="noopener">NFL gambling policy / integrity overview</a></li></ul>
+        </article>
+        <article class="flag" id="F13">
+          <header>
+            <h3><span class="sid">F13</span> This repo was worked by two parallel sessions at once — merge record</h3>
+            <div><span class="badge auto">low severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>A second session (arena/39f57d31-fl3) merged a data-free research blueprint to main via PRs #1 and #2 while this session was building the verified dataset. Both PRs touched COORDINATION.md, README.md, index.html, assets/site.css and scripts/check_site.py.</dd>
+            <dt>Why it matters</dt><dd>Exactly the collision the coordination protocol exists to prevent. Their pages are preserved rather than deleted: see /legacy/index.html.</dd>
+            <dt>Could not confirm</dt><dd>Whether the other session is still active.</dd>
+            <dt>Effect on the lines</dt><dd>None. The datasets are this session&#x27;s own capture and were never touched by the other branch.</dd>
+            <dt>Action needed</dt><dd>Log the collision in COORDINATION.md and keep /legacy/ until the owner confirms it can be removed.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://sassnarep3-star.github.io/FL3/legacy/index.html" target="_blank" rel="noopener">Archived blueprint</a></li></ul>
+        </article>
+
+</main>
+<footer>
+  <p><strong>Snapshot 2026-11-14.</strong> NFL data © the National Football League, quoted from nfl.com
+  with links on every row. This site publishes our own model output, not betting advice, and not a
+  sportsbook quote. Values that could not be confirmed against an official source are blank and
+  listed on <a href="flagged.html">Flagged for Review</a>.</p>
+</footer>
+</body>
+</html>

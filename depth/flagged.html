@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flagged for review · FL3 NFL Research</title>
+<meta name="description" content="NFL line origination research: verified 2026 season data, injury and depth analysis, strategy validation gates.">
+<style>
+:root{
+ --bg:#0b0f16; --panel:#121a26; --panel2:#0f1621; --line:#22303f;
+ --ink:#e8eef7; --dim:#93a4bb; --accent:#4da3ff; --good:#3ecf8e;
+ --warn:#f5b544; --bad:#ff6b6b; --chip:#1b2836;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+ font:15px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header.top{position:sticky;top:0;z-index:10;background:rgba(11,15,22,.94);
+ backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.brand{display:flex;align-items:center;gap:12px;padding:14px 0 6px}
+.brand b{font-size:17px;letter-spacing:.2px}
+.brand span.tag{color:var(--dim);font-size:12.5px}
+nav{display:flex;flex-wrap:wrap;gap:2px;padding-bottom:10px}
+nav a{padding:7px 12px;border-radius:8px;color:var(--dim);font-size:13.5px;font-weight:500}
+nav a:hover{background:var(--chip);color:var(--ink);text-decoration:none}
+nav a.on{background:#173252;color:#cfe6ff}
+main{padding:30px 0 70px}
+h1{font-size:30px;line-height:1.25;margin:6px 0 8px}
+h2{font-size:20px;margin:38px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+h3{font-size:16px;margin:24px 0 8px}
+p.lede{color:var(--dim);font-size:15.5px;max-width:74ch;margin:0 0 4px}
+.kicker{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:22px 0 6px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.card .n{font-size:28px;font-weight:700;letter-spacing:-.5px}
+.card .l{color:var(--dim);font-size:13px}
+.card a{font-size:12.5px}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:12px 0 6px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+th{text-align:left;padding:10px 12px;background:var(--panel2);color:var(--dim);
+ font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--line);
+ position:sticky;top:0;white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid #1a2532;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#151f2c}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.caption{display:block;padding:10px 12px 0;color:var(--dim);font-size:12px}
+.methodflag{display:block;margin:8px 12px 0;padding:5px 10px;border-radius:7px;font-size:11.5px;
+ font-weight:600;color:#c9b6ff;background:#241b3a;border:1px solid #3a2d5c}
+table.method td{color:#c8d2e0}
+.note{padding:8px 12px 12px;color:var(--dim);font-size:12.5px;margin:0}
+.badge{display:inline-block;padding:1px 7px;border-radius:6px;font-size:11px;
+ font-weight:600;background:var(--chip);color:var(--dim);border:1px solid var(--line)}
+.badge.src{color:#9fccff;border-color:#27415e}
+.badge.bad{color:var(--bad);border-color:#5a2b2b;background:#2a1618}
+.pill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:11.5px;font-weight:600;
+ background:var(--chip);color:var(--dim);white-space:nowrap}
+.pill.out{background:#3a1a1d;color:#ff9d9d}
+.pill.doubt{background:#3a2d18;color:#ffcb7a}
+.pill.q{background:#3a3518;color:#f2e07a}
+.pill.ok{background:#15321f;color:#7fe3ab}
+.pill.info{background:#152b3a;color:#96cfef}
+.pill.mute{background:#1b222c;color:#8b9aad}
+.blank{color:#5f7086}
+.callout{border-left:3px solid var(--accent);background:var(--panel);padding:14px 16px;
+ border-radius:0 10px 10px 0;margin:16px 0;color:var(--dim);font-size:13.5px}
+.callout.warn{border-left-color:var(--warn)}
+.callout.bad{border-left-color:var(--bad)}
+.callout b{color:var(--ink)}
+ul.tight{margin:8px 0 8px 18px;padding:0;color:var(--dim);font-size:13.5px}
+ul.tight li{margin:5px 0}
+ul.tight b{color:var(--ink)}
+.split{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.q{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+.q h3{margin:0 0 6px;font-size:15.5px}
+.q .meta{color:var(--dim);font-size:12.5px;margin-bottom:10px}
+.q dl{margin:0;display:grid;grid-template-columns:132px 1fr;gap:6px 12px;font-size:13px}
+.q dt{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
+.q dd{margin:0}
+footer{border-top:1px solid var(--line);color:var(--dim);font-size:12.5px;padding:24px 0 40px}
+footer p{margin:6px 0}
+@media(max-width:640px){h1{font-size:24px}.brand{flex-wrap:wrap}table{min-width:440px}}
+</style>
+</head><body>
+<header class="top"><div class="wrap">
+<div class="brand"><b>FL3 · NFL Research</b><span class="tag">2026 season · Week 10 snapshot · as of 2026-11-14</span></div>
+<nav><a href="../index.html">Research desk</a><a href="index.html">Depth dashboard</a><a href="league.html">League</a><a href="injuries.html">Injuries &amp; Lineups</a><a href="lines.html">Model Lines</a><a href="strategies.html">Strategies</a><a href="questions.html">Questions</a><a href="suggestions.html">Suggestions</a><a href="flagged.html" class="on">Flagged for Review</a><a href="sources.html">Sources</a></nav>
+</div></header>
+<main class="wrap">
+<div class="kicker">irregularities, blanks and limits</div>
+<h1>Flagged for review</h1>
+
+<p class="lede">Everything unresolved, unverified, blank, conflicting or scope-limited, in one place, with source
+links. <b>Nothing on this page blocks publication</b> — it exists so it can be reviewed after the site is live.</p>
+
+<div class="grid">
+<div class="card"><div class="n">30</div><div class="l">flagged items</div></div>
+<div class="card"><div class="n">14</div><div class="l">direct source conflicts</div></div>
+<div class="card"><div class="n">5</div><div class="l">need an input or decision</div></div>
+</div>
+
+<div class="callout warn"><b>Nothing here is hidden.</b> Where a value could not be confirmed it was left blank and
+listed here rather than filled in. The most consequential items are F-03 (no odds), F-04 (home-field advantage set to
+zero) and F-11 (empty leaderboard) — each of those is a real limit on what the site can conclude.</div>
+
+<h2>Register</h2>
+<div class="tw"><span class="methodflag">Methodology table — no external source exists for these rows</span><table class=" method"><thead><tr><th>ID</th><th>Category</th><th>What is irregular</th><th>Sources</th><th>Blocking</th></tr></thead><tbody><tr><td>F-CONF-001</td><td><span class="pill bad">Source conflict</span></td><td>D.J. Wonnum (DET, DE): the official NFL report and Ourlads disagree on availability.</td><td><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a></td><td>no</td></tr><tr><td>F-CONF-002</td><td><span class="pill bad">Source conflict</span></td><td>Mansoor Delane (KC, CB): the official NFL report and Ourlads disagree on availability.</td><td><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a></td><td>no</td></tr><tr><td>F-CONF-003</td><td><span class="pill bad">Source conflict</span></td><td>Travis Glover (GB, G): the official NFL report and Ourlads disagree on availability.</td><td><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a></td><td>no</td></tr><tr><td>F-CONF-004</td><td><span class="pill bad">Source conflict</span></td><td>Zaire Franklin (GB, LB): the official NFL report and Ourlads disagree on availability.</td><td><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a></td><td>no</td></tr><tr><td>F-CONF-005</td><td><span class="pill bad">Source conflict</span></td><td>Dion Dawkins (BUF, T): the official NFL report and Ourlads disagree on availability.</td><td><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a></td><td>no</td></tr><tr><td>F-CONF-006</td><td><span class="pill bad">Source conflict</span></td><td>Alec Anderson (BUF, G): the official NFL report and Ourlads disagree on availability.</td><td><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a></td><td>no</td></tr><tr><td>F-CONF-007</td><td><span class="pill bad">Source conflict</span></td><td>Chris Bell (MIA, WR): the official NFL report and Ourlads disagree on availability.</td><td><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a></td><td>no</td></tr><tr><td>F-CONF-008</td><td><span class="pill bad">Source conflict</span></td><td>Jaylen Wright (MIA, RB): the official NFL report and Ourlads disagree on availability.</td><td><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a></td><td>no</td></tr><tr><td>F-CONF-009</td><td><span class="pill bad">Source conflict</span></td><td>Reed Blankenship (HOU, S): the official NFL report and Ourlads disagree on availability.</td><td><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a></td><td>no</td></tr><tr><td>F-CONF-010</td><td><span class="pill bad">Source conflict</span></td><td>Brandon Pili (SEA, DT): the official NFL report and Ourlads disagree on availability.</td><td><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a></td><td>no</td></tr><tr><td>F-CONF-011</td><td><span class="pill bad">Source conflict</span></td><td>Rashid Shaheed (SEA, WR): the official NFL report and Ourlads disagree on availability.</td><td><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a></td><td>no</td></tr><tr><td>F-CONF-012</td><td><span class="pill bad">Source conflict</span></td><td>Uchenna Nwosu (SEA, LB): the official NFL report and Ourlads disagree on availability.</td><td><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a></td><td>no</td></tr><tr><td>F-CONF-013</td><td><span class="pill bad">Source conflict</span></td><td>Jaylinn Hawkins (BAL, S): the official NFL report and Ourlads disagree on availability.</td><td><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a></td><td>no</td></tr><tr><td>F-CONF-014</td><td><span class="pill bad">Source conflict</span></td><td>Nate Wiggins (BAL, CB): the official NFL report and Ourlads disagree on availability.</td><td><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a></td><td>no</td></tr><tr><td>F-01</td><td><span class="pill mute">Repo state</span></td><td>The repository contained no content to review before this session.</td><td><span class="blank">no source — structural</span></td><td>no</td></tr><tr><td>F-02</td><td><span class="pill mute">Data staleness</span></td><td>Every number on this site is a snapshot taken 2026-11-14 and is already ageing.</td><td><a class="badge src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener" title="NFL.com official league standings - 2026 regular season">S01</a> <a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.nfl.com/schedules/2026/REG/Week10/" target="_blank" rel="noopener" title="NFL.com official schedule - 2026 Week 10">S03</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a></td><td>no</td></tr><tr><td>F-03</td><td><span class="pill mute">Missing input</span></td><td>No market odds or closing lines exist anywhere in this repo.</td><td><span class="blank">no source — structural</span></td><td>yes</td></tr><tr><td>F-04</td><td><span class="pill mute">Modelling gap</span></td><td>Home-field advantage is set to 0.0 in the line model.</td><td><a class="badge src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener" title="NFL.com official league standings - 2026 regular season">S01</a></td><td>yes</td></tr><tr><td>F-05</td><td><span class="pill mute">Modelling gap</span></td><td>No injury adjustment is applied to the line model.</td><td><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a></td><td>no</td></tr><tr><td>F-06</td><td><span class="pill mute">Coverage gap</span></td><td>The Indianapolis Colts depth chart was not transcribed.</td><td><a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a></td><td>no</td></tr><tr><td>F-07</td><td><span class="pill mute">Coverage gap</span></td><td>The four Week 10 bye teams (CHI, DEN, PHI, TB) are excluded from exposure analysis.</td><td><a class="badge src" href="https://www.nfl.com/schedules/2026/REG/Week10/" target="_blank" rel="noopener" title="NFL.com official schedule - 2026 Week 10">S03</a></td><td>no</td></tr><tr><td>F-08</td><td><span class="pill mute">Unverified data</span></td><td>107 transcribed players carry no official game designation.</td><td><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a></td><td>no</td></tr><tr><td>F-09</td><td><span class="pill mute">Method</span></td><td>Replacement quality is proxied by draft pedigree and depth ordinal.</td><td><a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/key.aspx" target="_blank" rel="noopener" title="Ourlads depth chart key / legend">S05</a></td><td>no</td></tr><tr><td>F-10</td><td><span class="pill mute">Method</span></td><td>The shrinkage parameter k=4.0 is a modelling convention, not a sourced fact.</td><td><span class="blank">no source — structural</span></td><td>no</td></tr><tr><td>F-11</td><td><span class="pill mute">Empty by design</span></td><td>The strategy leaderboard is empty.</td><td><span class="blank">no source — structural</span></td><td>yes</td></tr><tr><td>F-12</td><td><span class="pill mute">Unverified analysis</span></td><td>No correlation coefficient on this site is empirically estimated.</td><td><span class="blank">no source — structural</span></td><td>yes</td></tr><tr><td>F-13</td><td><span class="pill mute">Legal</span></td><td>Publishing model lines may carry obligations that have not been reviewed.</td><td><span class="blank">no source — structural</span></td><td>no</td></tr><tr><td>F-14</td><td><span class="pill mute">Branch naming</span></td><td>Work was committed to arena/46e888f0-fl3 instead of the session-&lt;id&gt;/&lt;task&gt; convention.</td><td><span class="blank">no source — structural</span></td><td>no</td></tr><tr><td>F-15</td><td><span class="pill mute">Single source</span></td><td>The Week 10 schedule and standings rest on one publisher (nfl.com).</td><td><a class="badge src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener" title="NFL.com official league standings - 2026 regular season">S01</a> <a class="badge src" href="https://www.nfl.com/schedules/2026/REG/Week10/" target="_blank" rel="noopener" title="NFL.com official schedule - 2026 Week 10">S03</a> <a class="badge src" href="https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=20261112" target="_blank" rel="noopener" title="ESPN scoreboard API - 2026-11-12">S06</a> <a class="badge src" href="https://www.nfl.com/games/commanders-at-giants-2026-reg-10" target="_blank" rel="noopener" title="NFL.com game page - Commanders at Giants, 2026 Week 10">S07</a></td><td>no</td></tr><tr><td>F-16</td><td><span class="pill mute">Scope</span></td><td>Player prop modelling was scoped out of this build.</td><td><span class="blank">no source — structural</span></td><td>yes</td></tr></tbody></table><p class="note">Structural register: most items record the ABSENCE of a source, so the row itself cannot cite one. Where a source does exist (the 14 conflicts) it is linked. Full detail, handling and reviewer action for every item is below.</p></div>
+
+<h2>Detail</h2>
+
+<div class="q">
+<h3>F-CONF-001 · D.J. Wonnum (DET, DE): the official NFL report and Ourlads disagree on availability. <span class="pill bad">Source conflict</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>Official: game status &#x27;no designation&#x27;, practice &#x27;Full Participation in Practice&#x27;. Ourlads marker: O.</dd>
+<dt>Handling</dt><dd>Official NFL report (S02) governs availability; Ourlads marker (S04) recorded but not used.</dd>
+<dt>Your action</dt><dd>Confirm the official report should govern, or overrule.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-CONF-002 · Mansoor Delane (KC, CB): the official NFL report and Ourlads disagree on availability. <span class="pill bad">Source conflict</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>Official: game status &#x27;Questionable&#x27;, practice &#x27;Full Participation in Practice&#x27;. Ourlads marker: O.</dd>
+<dt>Handling</dt><dd>Official NFL report (S02) governs availability; Ourlads marker (S04) recorded but not used.</dd>
+<dt>Your action</dt><dd>Confirm the official report should govern, or overrule.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-CONF-003 · Travis Glover (GB, G): the official NFL report and Ourlads disagree on availability. <span class="pill bad">Source conflict</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>Official: game status &#x27;Questionable&#x27;, practice &#x27;Limited Participation in Practice&#x27;. Ourlads marker: O.</dd>
+<dt>Handling</dt><dd>Official NFL report (S02) governs availability; Ourlads marker (S04) recorded but not used.</dd>
+<dt>Your action</dt><dd>Confirm the official report should govern, or overrule.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-CONF-004 · Zaire Franklin (GB, LB): the official NFL report and Ourlads disagree on availability. <span class="pill bad">Source conflict</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>Official: game status &#x27;Doubtful&#x27;, practice &#x27;Did Not Participate In Practice&#x27;. Ourlads marker: O.</dd>
+<dt>Handling</dt><dd>Official NFL report (S02) governs availability; Ourlads marker (S04) recorded but not used.</dd>
+<dt>Your action</dt><dd>Confirm the official report should govern, or overrule.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-CONF-005 · Dion Dawkins (BUF, T): the official NFL report and Ourlads disagree on availability. <span class="pill bad">Source conflict</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>Official: game status &#x27;no designation&#x27;, practice &#x27;Full Participation in Practice&#x27;. Ourlads marker: O.</dd>
+<dt>Handling</dt><dd>Official NFL report (S02) governs availability; Ourlads marker (S04) recorded but not used.</dd>
+<dt>Your action</dt><dd>Confirm the official report should govern, or overrule.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-CONF-006 · Alec Anderson (BUF, G): the official NFL report and Ourlads disagree on availability. <span class="pill bad">Source conflict</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>Official: game status &#x27;no designation&#x27;, practice &#x27;Full Participation in Practice&#x27;. Ourlads marker: O.</dd>
+<dt>Handling</dt><dd>Official NFL report (S02) governs availability; Ourlads marker (S04) recorded but not used.</dd>
+<dt>Your action</dt><dd>Confirm the official report should govern, or overrule.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-CONF-007 · Chris Bell (MIA, WR): the official NFL report and Ourlads disagree on availability. <span class="pill bad">Source conflict</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>Official: game status &#x27;Doubtful&#x27;, practice &#x27;Did Not Participate In Practice&#x27;. Ourlads marker: O.</dd>
+<dt>Handling</dt><dd>Official NFL report (S02) governs availability; Ourlads marker (S04) recorded but not used.</dd>
+<dt>Your action</dt><dd>Confirm the official report should govern, or overrule.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-CONF-008 · Jaylen Wright (MIA, RB): the official NFL report and Ourlads disagree on availability. <span class="pill bad">Source conflict</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>Official: game status &#x27;no designation&#x27;, practice &#x27;Full Participation in Practice&#x27;. Ourlads marker: O.</dd>
+<dt>Handling</dt><dd>Official NFL report (S02) governs availability; Ourlads marker (S04) recorded but not used.</dd>
+<dt>Your action</dt><dd>Confirm the official report should govern, or overrule.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-CONF-009 · Reed Blankenship (HOU, S): the official NFL report and Ourlads disagree on availability. <span class="pill bad">Source conflict</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>Official: game status &#x27;no designation&#x27;, practice &#x27;Full Participation in Practice&#x27;. Ourlads marker: O.</dd>
+<dt>Handling</dt><dd>Official NFL report (S02) governs availability; Ourlads marker (S04) recorded but not used.</dd>
+<dt>Your action</dt><dd>Confirm the official report should govern, or overrule.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-CONF-010 · Brandon Pili (SEA, DT): the official NFL report and Ourlads disagree on availability. <span class="pill bad">Source conflict</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>Official: game status &#x27;no designation&#x27;, practice &#x27;Full Participation in Practice&#x27;. Ourlads marker: O.</dd>
+<dt>Handling</dt><dd>Official NFL report (S02) governs availability; Ourlads marker (S04) recorded but not used.</dd>
+<dt>Your action</dt><dd>Confirm the official report should govern, or overrule.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-CONF-011 · Rashid Shaheed (SEA, WR): the official NFL report and Ourlads disagree on availability. <span class="pill bad">Source conflict</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>Official: game status &#x27;no designation&#x27;, practice &#x27;Full Participation in Practice&#x27;. Ourlads marker: O.</dd>
+<dt>Handling</dt><dd>Official NFL report (S02) governs availability; Ourlads marker (S04) recorded but not used.</dd>
+<dt>Your action</dt><dd>Confirm the official report should govern, or overrule.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-CONF-012 · Uchenna Nwosu (SEA, LB): the official NFL report and Ourlads disagree on availability. <span class="pill bad">Source conflict</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>Official: game status &#x27;no designation&#x27;, practice &#x27;Full Participation in Practice&#x27;. Ourlads marker: O.</dd>
+<dt>Handling</dt><dd>Official NFL report (S02) governs availability; Ourlads marker (S04) recorded but not used.</dd>
+<dt>Your action</dt><dd>Confirm the official report should govern, or overrule.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-CONF-013 · Jaylinn Hawkins (BAL, S): the official NFL report and Ourlads disagree on availability. <span class="pill bad">Source conflict</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>Official: game status &#x27;no designation&#x27;, practice &#x27;Limited Participation in Practice&#x27;. Ourlads marker: O.</dd>
+<dt>Handling</dt><dd>Official NFL report (S02) governs availability; Ourlads marker (S04) recorded but not used.</dd>
+<dt>Your action</dt><dd>Confirm the official report should govern, or overrule.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-CONF-014 · Nate Wiggins (BAL, CB): the official NFL report and Ourlads disagree on availability. <span class="pill bad">Source conflict</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>Official: game status &#x27;no designation&#x27;, practice &#x27;Full Participation in Practice&#x27;. Ourlads marker: O.</dd>
+<dt>Handling</dt><dd>Official NFL report (S02) governs availability; Ourlads marker (S04) recorded but not used.</dd>
+<dt>Your action</dt><dd>Confirm the official report should govern, or overrule.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-01 · The repository contained no content to review before this session. <span class="pill mute">Repo state</span></h3>
+<div class="meta">no external source · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>README.md was 5 bytes and the history was a single commit (d2e6358). There was no data, no site, no CI and no .gitignore.</dd>
+<dt>Handling</dt><dd>All content in this repo was authored in this session and is verified against the sources listed on each row.</dd>
+<dt>Your action</dt><dd>Confirm nothing pre-existing was lost.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-02 · Every number on this site is a snapshot taken 2026-11-14 and is already ageing. <span class="pill mute">Data staleness</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener" title="NFL.com official league standings - 2026 regular season">S01</a> <a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.nfl.com/schedules/2026/REG/Week10/" target="_blank" rel="noopener" title="NFL.com official schedule - 2026 Week 10">S03</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>The 2026 season is in progress (Week 10). Injury designations change daily; depth charts change weekly.</dd>
+<dt>Handling</dt><dd>Every page prints its capture date. Nothing is presented as live.</dd>
+<dt>Your action</dt><dd>Trigger a refresh before acting on anything.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-03 · No market odds or closing lines exist anywhere in this repo. <span class="pill mute">Missing input</span></h3>
+<div class="meta">no external source · blocking: yes</div>
+<dl>
+<dt>Detail</dt><dd>This environment cannot reach a licensed odds feed. Therefore there is no closing-line value, no vig-adjusted EV, no market comparison and no &#x27;edge vs market&#x27; figure on any page.</dd>
+<dt>Handling</dt><dd>The line model is line ORIGINATION only. Gate G4 is unevaluable. Recorded as Q-04 / S-05.</dd>
+<dt>Your action</dt><dd>Supply a licensed odds source if market comparison is required.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-04 · Home-field advantage is set to 0.0 in the line model. <span class="pill mute">Modelling gap</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener" title="NFL.com official league standings - 2026 regular season">S01</a> · blocking: yes</div>
+<dl>
+<dt>Detail</dt><dd>The repo has no home/road point splits to calibrate HFA, and inventing a number from memory would violate the no-hallucination rule.</dd>
+<dt>Handling</dt><dd>Published as a parameter, with its value shown on the Lines page. Every modelled line is therefore compressed toward pick&#x27;em.</dd>
+<dt>Your action</dt><dd>Provide a home/away scoring split source, or accept the compression.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-05 · No injury adjustment is applied to the line model. <span class="pill mute">Modelling gap</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>The backup-deficiency index exists but has never been validated against outcomes, so applying it would be an unbacked assumption.</dd>
+<dt>Handling</dt><dd>The index is published as a descriptive exposure ranking only, clearly separated from the line.</dd>
+<dt>Your action</dt><dd>Choose whether exposure should enter the line, once it can be tested.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-06 · The Indianapolis Colts depth chart was not transcribed. <span class="pill mute">Coverage gap</span></h3>
+<div class="meta"><a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>27 of the 28 teams playing in Week 10 are covered. The Colts chart was not retrieved before the build.</dd>
+<dt>Handling</dt><dd>The Colts appear in the standings, schedule and injury tables but not in the backup-deficiency index.</dd>
+<dt>Your action</dt><dd>Fetch and add if Colts exposure matters.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-07 · The four Week 10 bye teams (CHI, DEN, PHI, TB) are excluded from exposure analysis. <span class="pill mute">Coverage gap</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/schedules/2026/REG/Week10/" target="_blank" rel="noopener" title="NFL.com official schedule - 2026 Week 10">S03</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>They do not play in Week 10, so a Week 10 exposure score is meaningless for them.</dd>
+<dt>Handling</dt><dd>They remain in the standings and are marked BYE on the schedule page.</dd>
+<dt>Your action</dt><dd>None needed unless a Week 11 view is wanted.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-08 · 107 transcribed players carry no official game designation. <span class="pill mute">Unverified data</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener" title="NFL.com official injury report - Week 10, 2026">S02</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>Absence from the official report is not evidence of health - it means no designation was published at capture time.</dd>
+<dt>Handling</dt><dd>Recorded as the distinct state &#x27;no-designation-published&#x27;. Never rendered as &#x27;healthy&#x27;.</dd>
+<dt>Your action</dt><dd>None; this is the honest representation.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-09 · Replacement quality is proxied by draft pedigree and depth ordinal. <span class="pill mute">Method</span></h3>
+<div class="meta"><a class="badge src" href="https://www.ourlads.com/nfldepthcharts/pfdepthchart/" target="_blank" rel="noopener" title="Ourlads NFL depth charts (printer-friendly, per team)">S04</a> <a class="badge src" href="https://www.ourlads.com/nfldepthcharts/key.aspx" target="_blank" rel="noopener" title="Ourlads depth chart key / legend">S05</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>No snap counts or player grades exist in the repo. A late-round starter who has played well is scored as a weak replacement.</dd>
+<dt>Handling</dt><dd>The weighting table is published in full so it can be challenged or replaced.</dd>
+<dt>Your action</dt><dd>Supply snap-share data to replace the proxy (S-06).</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-10 · The shrinkage parameter k=4.0 is a modelling convention, not a sourced fact. <span class="pill mute">Method</span></h3>
+<div class="meta">no external source · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>It controls how hard team scoring rates are pulled toward the league mean.</dd>
+<dt>Handling</dt><dd>Declared as a parameter and printed on the Lines page so it can be varied.</dd>
+<dt>Your action</dt><dd>Set k deliberately if a different prior is preferred.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-11 · The strategy leaderboard is empty. <span class="pill mute">Empty by design</span></h3>
+<div class="meta">no external source · blocking: yes</div>
+<dl>
+<dt>Detail</dt><dd>No bets have been settled, so no strategy has a record and gate G1 cannot pass.</dd>
+<dt>Handling</dt><dd>The gate machinery and reward design are published; the rows are not fabricated.</dd>
+<dt>Your action</dt><dd>Provide or authorise a settled-bet ledger (Q-02).</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-12 · No correlation coefficient on this site is empirically estimated. <span class="pill mute">Unverified analysis</span></h3>
+<div class="meta">no external source · blocking: yes</div>
+<dl>
+<dt>Detail</dt><dd>The engine can price a two-leg parlay with a copula, but every rho in the repo is flagged &#x27;unverified&#x27; or an explicit independence assumption.</dd>
+<dt>Handling</dt><dd>Parlays are left unpriced rather than mispriced.</dd>
+<dt>Your action</dt><dd>Supply per-player game logs to estimate rho (Q-07).</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-13 · Publishing model lines may carry obligations that have not been reviewed. <span class="pill mute">Legal</span></h3>
+<div class="meta">no external source · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>The site is public. No legal review has been performed, and no odds are published.</dd>
+<dt>Handling</dt><dd>A no-betting-advice disclaimer appears in the site footer.</dd>
+<dt>Your action</dt><dd>Legal review if this becomes more than a research dashboard (Q-13).</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-14 · Work was committed to arena/46e888f0-fl3 instead of the session-&lt;id&gt;/&lt;task&gt; convention. <span class="pill mute">Branch naming</span></h3>
+<div class="meta">no external source · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>The platform pins this session to that branch and forbids creating or pushing other branches.</dd>
+<dt>Handling</dt><dd>Recorded in COORDINATION.md. The pinned branch doubled as the integration branch.</dd>
+<dt>Your action</dt><dd>None; informational for later sessions.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-15 · The Week 10 schedule and standings rest on one publisher (nfl.com). <span class="pill mute">Single source</span></h3>
+<div class="meta"><a class="badge src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener" title="NFL.com official league standings - 2026 regular season">S01</a> <a class="badge src" href="https://www.nfl.com/schedules/2026/REG/Week10/" target="_blank" rel="noopener" title="NFL.com official schedule - 2026 Week 10">S03</a> <a class="badge src" href="https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=20261112" target="_blank" rel="noopener" title="ESPN scoreboard API - 2026-11-12">S06</a> <a class="badge src" href="https://www.nfl.com/games/commanders-at-giants-2026-reg-10" target="_blank" rel="noopener" title="NFL.com game page - Commanders at Giants, 2026 Week 10">S07</a> · blocking: no</div>
+<dl>
+<dt>Detail</dt><dd>Only the Thursday result was cross-checked against a second source (ESPN). The other 13 games and all 32 standings rows have a single official source.</dd>
+<dt>Handling</dt><dd>The Thursday WAS@NYG result matches on both nfl.com and the ESPN endpoint; the rest are single-sourced but official.</dd>
+<dt>Your action</dt><dd>Spot-check rows if desired.</dd>
+</dl>
+</div>
+<div class="q">
+<h3>F-16 · Player prop modelling was scoped out of this build. <span class="pill mute">Scope</span></h3>
+<div class="meta">no external source · blocking: yes</div>
+<dl>
+<dt>Detail</dt><dd>The brief asks for player prop bet combos. A league-wide player-stat endpoint was confirmed reachable but not ingested; no prop baselines or prop lines are published.</dd>
+<dt>Handling</dt><dd>Two prop strategies (STR-05, STR-07) are registered as &#x27;blocked-input&#x27; rather than silently omitted.</dd>
+<dt>Your action</dt><dd>Approve the player-stat ingest (Q-06) to unblock.</dd>
+</dl>
+</div>
+
+</main>
+<footer class="wrap">
+<p><b>Research dashboard, not betting advice.</b> No odds are published and no wager is recommended.
+This is an educational and analytical exercise about line origination and validation.</p>
+<p>Every figure links to the source that produced it. Values that could not be confirmed from an official
+source are left blank and listed on the <a href="flagged.html">Flagged for Review</a> page.
+Data captured 2026-11-14 and will age; check the as-of date before relying on anything here.</p>
+<p><a href="../index.html">← Back to the research desk</a> · built by session <code>arena-46e888f0</code> · sources: <a href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">NFL.com</a> ·
+<a href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">NFL.com injury report</a> ·
+<a href="https://www.ourlads.com/nfldepthcharts/" target="_blank" rel="noopener">Ourlads depth charts</a> ·
+<a href="sources.html">full registry</a></p>
+</footer></body></html>
