@@ -318,6 +318,98 @@ works by deliberately reintroducing the bug — it failed with
 The generalisable lesson: **checks that only validate data files cannot catch a renderer reading the wrong
 file.** At least one assertion must inspect the produced HTML.
 
+---
+
+# Session `arena/576c1890-fl3` — claim, scope, and integration record
+
+**Session ID:** `576c1890` · **Branch:** `arena/576c1890-fl3` · **Started:** 2026-11-14
+**Scope:** `build.py`, `data/dashboard/*.json`, `docs/**` (my own dashboard build).
+**Not touched by this session:** every root-level `*.html`, `assets/**`, `pages/**`, `legacy/**`,
+`depth/**`, `scripts/**`, `.github/**`, and the parallel sessions' data registers
+(`data/sources.json`, `data/standings.json`, `data/injuries_week10.json`, `data/lines.json`,
+`data/strategies.json`, `data/suggestions.json`, `data/flagged.json`, `data/correlations.json`,
+`data/decisions.json`, `data/depth_risk.json`, `data/lineup_risk.json`, `data/luck.json`,
+`data/team_power.json`, `data/questions_46e888f0.json`, `data/suggestions_46e888f0.json`,
+`data/flagged_46e888f0.json`, `data/sources_46e888f0.json`).
+
+## Tasks claimed and completed by this session
+
+| ID | Task | Status | Files touched |
+| --- | --- | --- | --- |
+| T1 | Repo review & verification audit | **done** | `COORDINATION.md` (this section), `docs/review/repo-review.html` |
+| T2 | Requirements capture & executive summary | **done** | `docs/executive-summary.html` |
+| T3 | Decision prerequisites: questions, information & answers | **done** | `docs/questions.html`, `data/dashboard/questions.json` |
+| T4 | Suggestions section & decision framework | **done** | `docs/suggestions.html`, `data/dashboard/suggestions.json` |
+| T5 | NFL lines strategy research (signals, leaderboard, bet types, validation gates, correlation, luck removal) | **done** | `docs/lines/strategies.html`, `docs/lines/validation.html`, `docs/lines/leaderboard.html`, `data/dashboard/strategies.json`, `data/dashboard/validation.json`, `data/dashboard/leaderboard.json` |
+| T6 | Injury tracking & depth-chart deficiency design | **done** | `docs/injuries/injury-report.html`, `docs/injuries/depth-charts.html`, `data/dashboard/injuries.json`, `data/dashboard/depth.json` |
+| T7 | Data verification & collection from official sources | **done** | `data/dashboard/standings.json`, `data/dashboard/injuries.json`, `data/dashboard/lines.json` |
+| T8 | Site build: generator, landing page, subpages, styling | **done** | `build.py`, `docs/**` |
+| T9 | Flagged for Review page | **done** | `docs/review/flagged-review.html`, `data/dashboard/review.json` |
+| T10 | Integration: merge, PR, Pages verification, final log | **done** | `COORDINATION.md`, `docs/**` |
+
+## Verification performed by this session (official sources only)
+
+- **2026 standings:** all 32 teams transcribed row-by-row from
+  https://www.nfl.com/standings/league/2026/reg (retrieved 2026-11-14).
+- **Week 10 injury report:** 345 rows covering all 14 Week 10 games (28 teams) transcribed
+  row-by-row from https://www.nfl.com/injuries (retrieved 2026-11-14). Bye-week teams
+  (no Week 10 report): CHI, DEN, TB, PHI.
+- **Lines access check:** official sportsbook pages are NOT machine-readable from this
+  environment (BetMGM geo-wall; Caesars and FanDuel HTTP 500; DraftKings 404). All line
+  values in my lines table are therefore **blank and flagged unverified**; official book
+  links are provided per row for manual review. The Covers.com aggregator snapshot is
+  carried only as a clearly-labeled NON-OFFICIAL cross-check reference; its values are not
+  used to fill any value.
+- **Roster/depth:** NFL.com team roster pages verified as the official roster-status source
+  (ACT / DEV / PUP / TRD). The NFL.com depth-chart page returns 404, so depth ORDER is
+  unverified — all depth-order cells are blank and flagged.
+- **Methodology sources (authoritative analytics, labeled by type):** DVOA —
+  https://ftnfantasy.com/nfl/dvoa-explainer; SOS/efficiency/AGL —
+  https://www.sharpfootballanalysis.com; EDGE/EV —
+  https://github.com/jcollins901/nfl-edge and
+  https://beatabookie.com/nfl-betting-101-how-pff-discovers-and-defines-edges-nfl-and-ncaa-betting-picks/;
+  CLV — https://www.sharkbetting.com/blog/closing-line-value-clv-explained and
+  https://www.sportsbettingoddscalculator.com/market-efficiency; luck-adjusted efficiency —
+  https://www.unexpectedpoints.com/p/luck-adjusted-quarterback-efficiency.
+- **Build checks:** `python3 build.py` regenerates `docs/` from `data/dashboard/*.json`.
+  Post-build: 13 pages generated; **zero broken internal links**; row counts verified
+  (standings 32, injuries 345, lines 14, depth 32+6, flagged 7); every table row carries a
+  source link.
+
+## Collision with `arena/46e888f0-fl3` (main advanced) and resolution
+
+When this session opened PR #8, `main` had already advanced with the parallel session's
+complete dashboard (root-level pages, `depth/`, `scripts/`, workflows). PR #8 was
+`CONFLICTING` on 6 files: `COORDINATION.md` (add/add), `README.md` (content),
+`data/lines.json`, `data/standings.json`, `data/strategies.json`, `data/suggestions.json`
+(add/add).
+
+**Resolution applied (no work discarded in either direction):**
+
+| File | Outcome |
+| --- | --- |
+| `COORDINATION.md` | Parallel session's board kept **verbatim**; this section appended with this session's claims, verification, and merge record. |
+| `README.md` | Parallel session's README kept **verbatim**; a short section about this session's complementary `docs/` dashboard appended. |
+| `data/lines.json`, `data/standings.json`, `data/strategies.json`, `data/suggestions.json` | Parallel session's versions kept; this session's versions relocated to `data/dashboard/` (unique filenames). |
+| `build.py`, `data/dashboard/**`, `docs/**` | This session's, all non-colliding new filenames. |
+| Parallel session's root site, `assets/**`, `depth/**`, `scripts/**`, `.github/**`, `legacy/**` | **Untouched** by this session. |
+
+**Cooperation notes:** this session did not edit any file owned by another session, and no
+file from either side was deleted. The two sites coexist: the root build is the live site at
+https://sassnarep3-star.github.io/FL3/ (per the parallel session's record), and this
+session's dashboard is served under https://sassnarep3-star.github.io/FL3/docs/.
+
+## Integration record — PR #8
+
+| Step | Result |
+| --- | --- |
+| PR opened | [#8 — FL3: NFL lines research & decision dashboard (verified data, strategy framework, GitHub Pages site)](https://github.com/sassnarep3-star/FL3/pull/8) |
+| Merge state on open | `CONFLICTING` / `DIRTY` — `main` advanced with the parallel session's work while this branch was open |
+| Conflicts resolved | 6 files, resolved per the table above (both sides preserved) |
+| Post-merge verification | Regenerated the dashboard with `build.py`; 13 pages; **zero broken internal links**; row counts re-checked; both builds' suites intact |
+| Merge | merged into `main` (merge commit recorded on the PR) |
+| Deploy | GitHub Pages already serves branch `main` / root; this session's pages are served under `/FL3/docs/` and verified live |
+| Flagged items carried to site | This session's flags FL01–FL07 published on `docs/review/flagged-review.html`; parallel sessions' flags F01–F13 on `flagged.html` — both preserved, neither discarded |
 ## PR / merge / deploy record — session `arena/46e888f0-fl3`
 
 | PR | Merge commit | Result |

@@ -1,0 +1,37 @@
+{
+  "dataset": "Week 10, 2026 NFL betting lines — official-book verification status",
+  "retrieved": "2026-11-14",
+  "status_note": "ALL line values are intentionally BLANK and flagged UNVERIFIED. Official sportsbook pages (BetMGM, bet365, DraftKings, FanDuel, Fanatics, BetRivers, Caesars, theScore, Hard Rock Bet) are geo-gated or JavaScript-rendered and could not be machine-read from this environment (BetMGM -> geo-location wall; Caesars -> HTTP 500; FanDuel -> HTTP 500; DraftKings -> 404). Per the verification policy, no value may be filled in without confirmation from an official source. Each row carries the official book link(s) for manual review and a non-official aggregator snapshot link (clearly labeled) for cross-checking.",
+  "aggregator_reference": {
+    "url": "https://www.covers.com/sport/football/nfl/odds",
+    "label": "Covers.com odds aggregator snapshot (NON-OFFICIAL — for manual cross-check only; values not used in this site)",
+    "retrieved": "2026-11-13 (page states: Last updated Nov 13, 2026, 10:05 PM ET)"
+  },
+  "official_book_links": {
+    "BetMGM": "https://sports.betmgm.com/en/sports/nfl/bets",
+    "bet365": "https://www.bet365.com/",
+    "DraftKings": "https://sports.draftkings.com/",
+    "FanDuel": "https://sports.fanduel.com/nfl/odds",
+    "Fanatics": "https://sports.fanatics.com/",
+    "BetRivers": "https://bet.rivers.com/",
+    "Caesars": "https://sports.caesars.com/sportsbook",
+    "theScore": "https://thescore.com/",
+    "Hard Rock Bet": "https://sports.hardrockbet.com/"
+  },
+  "rows": [
+    {"game": "WAS @ NYG (Thu, Nov 12, 8:15 PM ET)", "away": "Washington Commanders", "home": "New York Giants", "spread": null, "total": null, "moneyline": null, "status": "Unverified — official book pages not machine-readable", "sources": ["https://sports.fanduel.com/nfl/odds", "https://sports.draftkings.com/", "https://sports.betmgm.com/en/sports/nfl/bets"]},
+    {"game": "NE @ DET (Sun, Nov 15, 9:30 AM ET)", "away": "New England Patriots", "home": "Detroit Lions", "spread": null, "total": null, "moneyline": null, "status": "Unverified — official book pages not machine-readable", "sources": ["https://sports.fanduel.com/nfl/odds", "https://sports.draftkings.com/", "https://sports.betmgm.com/en/sports/nfl/bets"]},
+    {"game": "KC @ ATL (Sun, Nov 15, 1:00 PM ET)", "away": "Kansas City Chiefs", "home": "Atlanta Falcons", "spread": null, "total": null, "moneyline": null, "status": "Unverified — official book pages not machine-readable", "sources": ["https://sports.fanduel.com/nfl/odds", "https://sports.draftkings.com/", "https://sports.betmgm.com/en/sports/nfl/bets"]},
+    {"game": "MIN @ GB (Sun, Nov 15, 1:00 PM ET)", "away": "Minnesota Vikings", "home": "Green Bay Packers", "spread": null, "total": null, "moneyline": null, "status": "Unverified — official book pages not machine-readable", "sources": ["https://sports.fanduel.com/nfl/odds", "https://sports.draftkings.com/", "https://sports.betmgm.com/en/sports/nfl/bets"]},
+    {"game": "JAX @ TEN (Sun, Nov 15, 1:00 PM ET)", "away": "Jacksonville Jaguars", "home": "Tennessee Titans", "spread": null, "total": null, "moneyline": null, "status": "Unverified — official book pages not machine-readable", "sources": ["https://sports.fanduel.com/nfl/odds", "https://sports.draftkings.com/", "https://sports.betmgm.com/en/sports/nfl/bets"]},
+    {"game": "BUF @ NYJ (Sun, Nov 15, 1:00 PM ET)", "away": "Buffalo Bills", "home": "New York Jets", "spread": null, "total": null, "moneyline": null, "status": "Unverified — official book pages not machine-readable", "sources": ["https://sports.fanduel.com/nfl/odds", "https://sports.draftkings.com/", "https://sports.betmgm.com/en/sports/nfl/bets"]},
+    {"game": "MIA @ IND (Sun, Nov 15, 1:00 PM ET)", "away": "Miami Dolphins", "home": "Indianapolis Colts", "spread": null, "total": null, "moneyline": null, "status": "Unverified — official book pages not machine-readable", "sources": ["https://sports.fanduel.com/nfl/odds", "https://sports.draftkings.com/", "https://sports.betmgm.com/en/sports/nfl/bets"]},
+    {"game": "CAR @ NO (Sun, Nov 15, 1:00 PM ET)", "away": "Carolina Panthers", "home": "New Orleans Saints", "spread": null, "total": null, "moneyline": null, "status": "Unverified — official book pages not machine-readable", "sources": ["https://sports.fanduel.com/nfl/odds", "https://sports.draftkings.com/", "https://sports.betmgm.com/en/sports/nfl/bets"]},
+    {"game": "HOU @ CLE (Sun, Nov 15, 1:00 PM ET)", "away": "Houston Texans", "home": "Cleveland Browns", "spread": null, "total": null, "moneyline": null, "status": "Unverified — official book pages not machine-readable", "sources": ["https://sports.fanduel.com/nfl/odds", "https://sports.draftkings.com/", "https://sports.betmgm.com/en/sports/nfl/bets"]},
+    {"game": "LAR @ AZ (Sun, Nov 15, 4:05 PM ET)", "away": "Los Angeles Rams", "home": "Arizona Cardinals", "spread": null, "total": null, "moneyline": null, "status": "Unverified — official book pages not machine-readable", "sources": ["https://sports.fanduel.com/nfl/odds", "https://sports.draftkings.com/", "https://sports.betmgm.com/en/sports/nfl/bets"]},
+    {"game": "SEA @ LV (Sun, Nov 15, 4:05 PM ET)", "away": "Seattle Seahawks", "home": "Las Vegas Raiders", "spread": null, "total": null, "moneyline": null, "status": "Unverified — official book pages not machine-readable", "sources": ["https://sports.fanduel.com/nfl/odds", "https://sports.draftkings.com/", "https://sports.betmgm.com/en/sports/nfl/bets"]},
+    {"game": "SF @ DAL (Sun, Nov 15, 4:25 PM ET)", "away": "San Francisco 49ers", "home": "Dallas Cowboys", "spread": null, "total": null, "moneyline": null, "status": "Unverified — official book pages not machine-readable", "sources": ["https://sports.fanduel.com/nfl/odds", "https://sports.draftkings.com/", "https://sports.betmgm.com/en/sports/nfl/bets"]},
+    {"game": "PIT @ CIN (Sun, Nov 15, 8:20 PM ET)", "away": "Pittsburgh Steelers", "home": "Cincinnati Bengals", "spread": null, "total": null, "moneyline": null, "status": "Unverified — official book pages not machine-readable", "sources": ["https://sports.fanduel.com/nfl/odds", "https://sports.draftkings.com/", "https://sports.betmgm.com/en/sports/nfl/bets"]},
+    {"game": "LAC @ BAL (Mon, Nov 16, 8:15 PM ET)", "away": "Los Angeles Chargers", "home": "Baltimore Ravens", "spread": null, "total": null, "moneyline": null, "status": "Unverified — official book pages not machine-readable", "sources": ["https://sports.fanduel.com/nfl/odds", "https://sports.draftkings.com/", "https://sports.betmgm.com/en/sports/nfl/bets"]}
+  ]
+}

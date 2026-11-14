@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leaderboard — FL3</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><a href="../index.html">FL3</a><span class="brand-sub">NFL Lines &amp; Decision Dashboard</span></div>
+  <div class="topbar-note">Verified data only · blank &amp; flagged where unverified</div>
+</header>
+<div class="layout">
+  <nav class="sidebar">
+    <div class="nav-cat"><div class="nav-cat-title">Overview</div><a class="nav-item" href="../index.html">Dashboard</a><a class="nav-item" href="../executive-summary.html">Executive Summary</a></div><div class="nav-cat"><div class="nav-cat-title">Decisions</div><a class="nav-item" href="../questions.html">Questions &amp; Answers</a><a class="nav-item" href="../suggestions.html">Suggestions</a></div><div class="nav-cat"><div class="nav-cat-title">NFL Lines</div><a class="nav-item" href="strategies.html">Strategies &amp; Signals</a><a class="nav-item" href="validation.html">Validation Gates</a><a class="nav-item active" href="leaderboard.html">Leaderboard</a><a class="nav-item" href="market-data.html">Market Data (Lines)</a></div><div class="nav-cat"><div class="nav-cat-title">Injuries</div><a class="nav-item" href="../injuries/injury-report.html">Injury Report</a><a class="nav-item" href="../injuries/depth-charts.html">Depth Charts</a></div><div class="nav-cat"><div class="nav-cat-title">League Data</div><a class="nav-item" href="../standings.html">2026 Standings</a></div><div class="nav-cat"><div class="nav-cat-title">Review</div><a class="nav-item" href="../review/repo-review.html">Repo Review</a><a class="nav-item" href="../review/flagged-review.html">Flagged for Review</a></div>
+  </nav>
+  <main class="content">
+    <h1>Leaderboard</h1>
+    
+<div class="note">The leaderboard rewards top-performing strategies on luck-adjusted, risk-controlled metrics. Raw
+profit alone never earns rewards — this is how luck is kept out of the equation. Reward tiers are proposals pending
+the owner's decision (Questions Q07, Suggestions S07).</div>
+<h2>Scoring metrics</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>ID</th><th>Metric</th><th>Description</th><th>Sources</th><th>Flag</th></tr></thead>
+<tbody><tr class=""><td>LB01</td><td>CLV (closing line value)</td><td>Primary skill metric: difference between the price taken and the closing price, measured per bet. Rewards price-finding skill independent of outcome variance.</td><td><div class="src-links"><a href="https://www.sharkbetting.com/blog/closing-line-value-clv-explained" target="_blank" rel="noopener noreferrer">https://www.sharkbetting.com/blog/closing-line-value-clv-explained</a></div></td><td class="flag-col"></td></tr><tr class=""><td>LB02</td><td>Edge % (edge over break-even)</td><td>Hit probability minus break-even probability at the taken price; the expected edge per bet.</td><td><div class="src-links"><a href="https://github.com/jcollins901/nfl-edge" target="_blank" rel="noopener noreferrer">https://github.com/jcollins901/nfl-edge</a></div></td><td class="flag-col"></td></tr><tr class=""><td>LB03</td><td>Risk-adjusted return</td><td>Return measured against volatility and drawdown, so strategies are not rewarded for taking excessive risk.</td><td><div class="src-links"><a href="https://www.sharkbetting.com/blog/closing-line-value-clv-explained" target="_blank" rel="noopener noreferrer">https://www.sharkbetting.com/blog/closing-line-value-clv-explained</a></div></td><td class="flag-col"></td></tr><tr class=""><td>LB04</td><td>Luck-adjusted efficiency score</td><td>Signal quality measured with luck-adjusted efficiency inputs (INT/drop/fumble luck stripped), used for strategy-level ranking.</td><td><div class="src-links"><a href="https://www.unexpectedpoints.com/p/luck-adjusted-quarterback-efficiency" target="_blank" rel="noopener noreferrer">https://www.unexpectedpoints.com/p/luck-adjusted-quarterback-efficiency</a></div></td><td class="flag-col"></td></tr></tbody>
+</table>
+</div>
+<h2>Rules</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>ID</th><th>Rule</th><th>Description</th><th>Sources</th><th>Flag</th></tr></thead>
+<tbody><tr class=""><td>LR01</td><td>Gate-first eligibility</td><td>A strategy appears on the leaderboard only after passing all applicable validation gates (VG01-VG07). Gates are a prerequisite, not a ranking factor.</td><td><div class="src-links"><a href="https://sharppicks.ai/tools/edge-calculator" target="_blank" rel="noopener noreferrer">https://sharppicks.ai/tools/edge-calculator</a></div></td><td class="flag-col"></td></tr><tr class=""><td>LR02</td><td>Minimum bet requirement</td><td>Strategies must have a minimum number of scored bets in the period before ranking; strategies below the minimum are shown but not ranked or rewarded.</td><td><div class="src-links"><a href="https://www.sharkbetting.com/blog/closing-line-value-clv-explained" target="_blank" rel="noopener noreferrer">https://www.sharkbetting.com/blog/closing-line-value-clv-explained</a></div></td><td class="flag-col"></td></tr><tr class=""><td>LR03</td><td>Walk-forward periods</td><td>Rankings are computed over walk-forward periods using only data available at the time of each bet; no look-ahead.</td><td><div class="src-links"><a href="https://github.com/jcollins901/nfl-edge" target="_blank" rel="noopener noreferrer">https://github.com/jcollins901/nfl-edge</a></div></td><td class="flag-col"></td></tr><tr class=""><td>LR04</td><td>Demotion on gate failure</td><td>A strategy that fails a validation gate at any refresh point is demoted (suspended from rewards) until it passes a fresh walk-forward validation.</td><td><div class="src-links"><a href="https://sharppicks.ai/tools/edge-calculator" target="_blank" rel="noopener noreferrer">https://sharppicks.ai/tools/edge-calculator</a></div></td><td class="flag-col"></td></tr><tr class=""><td>LR05</td><td>No strategy changes mid-period</td><td>A strategy&#x27;s logic is frozen for the scoring period; any change resets its walk-forward clock and forfeits the current period&#x27;s rewards.</td><td><div class="src-links"><a href="https://github.com/jcollins901/nfl-edge" target="_blank" rel="noopener noreferrer">https://github.com/jcollins901/nfl-edge</a></div></td><td class="flag-col"></td></tr></tbody>
+</table>
+</div>
+<h2>Reward tiers (proposals)</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Tier</th><th>Description</th><th>Status</th><th>Flag</th></tr></thead>
+<tbody><tr class="row-flagged"><td>Tier 1 — Top strategy</td><td>Highest luck-adjusted composite score for the period (proposal: reward as determined by the owner).</td><td>Proposal — reward value pending decision (Q07)</td><td class="flag-col"><span class="badge badge-flag">Unverified / needs review</span></td></tr><tr class="row-flagged"><td>Tier 2 — Runner-up</td><td>Second-highest luck-adjusted composite score for the period (proposal: reward as determined by the owner).</td><td>Proposal — reward value pending decision (Q07)</td><td class="flag-col"><span class="badge badge-flag">Unverified / needs review</span></td></tr><tr class="row-flagged"><td>Tier 3 — Qualified performers</td><td>All strategies that pass gates and meet the minimum-bet requirement in the period, listed in ranked order (proposal: recognition, no monetary reward).</td><td>Proposal — reward value pending decision (Q07)</td><td class="flag-col"><span class="badge badge-flag">Unverified / needs review</span></td></tr></tbody>
+</table>
+</div>
+
+  </main>
+</div>
+<footer class="footer">
+  <p>FL3 — NFL lines research, injury tracking, and decision support. Every table row carries a source link. Values that cannot be confirmed from an official source are left blank and flagged as unverified.</p>
+</footer>
+</body>
+</html>
