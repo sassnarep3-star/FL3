@@ -690,8 +690,11 @@ conflict policy instead. This is deliberate, not an oversight.
 | Item | Value |
 |---|---|
 | PR | [#10](https://github.com/sassnarep3-star/FL3/pull/10) |
-| Merge result | *(recorded in the follow-up commit after live verification)* |
-| Deploy | GitHub Pages via `pages.yml` artifact incl. `site-9b181d31/` — live URLs verified by fetch |
+| Merge result | **merged** into `main` 2026-11-14T03:36:51Z (merge commit `546dbdc`) |
+| CI on PR | `validate` pass · `Recompute and verify` pass · `deploy` skipped (PR) |
+| CI on main after merge | `Verify data and site` pass · `Deploy static site to GitHub Pages` pass · `pages-build-deployment` pass |
+| Deploy | GitHub Pages via `pages.yml` artifact incl. `site-9b181d31/` |
+| Live verification (fetched with cache-buster `?v=9b181d31`, not workflow checkmarks) | https://sassnarep3-star.github.io/FL3/site-9b181d31/index.html ✓ · `/lines.html` ✓ (13-game card incl. BAL IR row) · `/injuries.html` ✓ (162 rows, BAL deficiency 5.60 tops board) · root https://sassnarep3-star.github.io/FL3/ ✓ unbroken · `/docs/` (arena-60ee336e) untouched by this merge |
 
 ### Pages artifact allowlist (integration, 2026-11-14T07:10Z)
 
