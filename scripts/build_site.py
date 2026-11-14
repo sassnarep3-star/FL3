@@ -65,7 +65,7 @@ BADGES = {
     "partial": ("warn", "coverage is incomplete"),
     "provisional": ("warn", "provisional - sample too small to decide anything"),
     "provisional-in-sample": ("warn", "in-sample fit: not yet walk-forward (gate G-02)"),
-    "provisional-fitted-not-bettable": ("bad", "fitted output, not a bettable price"),
+    "provisional-fitted-not-bettable": ("warn", "fitted output, explicitly not a bettable price"),
     "provisional-unadjusted": ("warn", "no schedule adjustment yet"),
     "measured-provisional": ("warn", "measured on the verified sample only"),
     "unverified-blank": ("bad", "no official source - deliberately blank"),
@@ -456,7 +456,7 @@ def meter(fname, status_col="status"):
             f'<span class="m-bad" style="width:{100*bad/n:.1f}%">{bad} blocked/blank</span></div>')
 
 
-def page_html(slug, title, body, generated):
+def page_html(slug, title, body):
     nav = {g: [] for _, _, _, g in PAGES}
     for s, t, label, group in PAGES:
         nav.setdefault(group, []).append((s, label))
@@ -480,7 +480,7 @@ def page_html(slug, title, body, generated):
 <body>
 <header class="top">
   <div class="brand"><a href="index.html"><strong>FL3</strong> <span>NFL line origination board</span></a></div>
-  <div class="stamp">data read 2026-11-14 UTC &middot; build {html.escape(generated)}</div>
+  <div class="stamp">official data read 2026-11-14 UTC</div>
 </header>
 <div class="wrap">
 <nav class="side">{navhtml}
@@ -517,33 +517,6 @@ def build(check_only: bool = False) -> int:
         if rc != 0:
             return rc
     load_sources()
-    # Deterministic stamp: the commit date, not the wall clock. A timestamp that moves on every
-    # build would make the CI staleness check ("docs/ must equal what data/ generates") fail
-    # forever, which would defeat the point of it.
-    generated = os.environ.get("FL3_BUILD_STAMP", "").strip()
-    if not generated:
-        try:
-            out = subprocess.run(["git", "-C", REPO, "log", "-1", "--format=%cI"],
-                                 capture_output=True, text=True, timeout=10).stdout.strip()
-            generated = out.replace("T", " ").split("+")[0].rstrip("Z") + " UTC" if out else "stamp unavailable"
-        except Exception:
-            generated = "stamp unavailable"
-    os.makedirs(DOCS, exist_ok=True)
-    os.makedirs(os.path.join(DOCS, "assets"), exist_ok=True)
-    os.makedirs(os.path.join(DOCS, "data"), exist_ok=True)
-
-    # assets + raw csv copies so every "complete table" link resolves
-    with open(os.path.join(SITE, "assets", "style.css"), encoding="utf-8") as fh:
-        css = fh.read()
-    with open(os.path.join(DOCS, "assets", "style.css"), "w", encoding="utf-8") as fh:
-        fh.write(css)
-    for f in sorted(os.listdir(os.path.join(REPO, "data"))):
-        if f.endswith(".csv"):
-            with open(os.path.join(REPO, "data", f), encoding="utf-8") as src:
-                data = src.read()
-            with open(os.path.join(DOCS, "data", f), "w", encoding="utf-8") as dst:
-                dst.write(data)
-
     built = {}
     for slug, title, label, group in PAGES:
         md_path = os.path.join(CONTENT, slug + ".md")
@@ -600,7 +573,7 @@ def build(check_only: bool = False) -> int:
         if slug == "league-facts":
             body += render_table("league_facts.csv",
                                  caption="Rules and cadence the model is allowed to depend on.")
-        html_out = page_html(slug, title, body, generated)
+        html_out = page_html(slug, title, body)
         with open(os.path.join(DOCS, slug + ".html"), "w", encoding="utf-8") as fh:
             fh.write(html_out)
         built[slug] = html_out
@@ -620,7 +593,8 @@ def build(check_only: bool = False) -> int:
         if rc != 0:
             return rc
     digest = hashlib.sha1("".join(built[k] for k in sorted(built)).encode()).hexdigest()[:12]
-    print(f"built {len(built)} pages -> docs/  (content sha1 {digest}, stamp {generated})")
+    print(f"built {len(built)} pages -> docs/  (content sha1 {digest}; output is deterministic - "
+          f"no build timestamp is embedded, so CI can compare docs/ against data/)")
     return 0
 
 
