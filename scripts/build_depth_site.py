@@ -764,8 +764,8 @@ automatically — which also means every transcription step is auditable.</div>
 <ul class="tight">{rules}</ul>
 
 <h2>Verification performed</h2>
-<p class="lede">An automated harness (<code>scripts/verify.py</code>) runs on every build and fails it if any of the
-following break. All 14 checks pass as of {AS_OF}:</p>
+<p class="lede">An automated harness (<code>scripts/verify_depth.py</code>) runs on every build and fails it if any of the
+following break. All 16 checks pass as of {AS_OF}:</p>
 <ul class="tight">
 <li><b>Balance identity</b> — sum of points-for equals sum of points-against across all 32 teams (6,291 each).</li>
 <li><b>Formula reproduction</b> — all 32 winning percentages recompute exactly from their own W-L-T record.</li>
