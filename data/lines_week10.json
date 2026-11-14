@@ -1,0 +1,984 @@
+{
+  "meta": {
+    "title": "Week 10, 2026 — originated lines (model v0)",
+    "model_run_date": "2026-11-14",
+    "model": {
+      "version": "v0.1.0",
+      "seed": 20261114,
+      "league_points_per_team": 22.0,
+      "hfa_points": 1.9,
+      "prior_games": 2.0,
+      "availability_penalty": {
+        "QB": 2.6,
+        "WR": 0.55,
+        "RB": 0.45,
+        "TE": 0.35,
+        "T": 0.45,
+        "G": 0.35,
+        "C": 0.4,
+        "DE": 0.45,
+        "DT": 0.4,
+        "LB": 0.4,
+        "CB": 0.5,
+        "S": 0.45,
+        "K": 0.8,
+        "P": 0.35,
+        "LS": 0.15,
+        "FB": 0.1
+      },
+      "off_positions": [
+        "QB",
+        "WR",
+        "RB",
+        "TE",
+        "T",
+        "G",
+        "C",
+        "FB"
+      ],
+      "def_positions": [
+        "DE",
+        "DT",
+        "LB",
+        "CB",
+        "S"
+      ],
+      "st_positions": [
+        "K",
+        "P",
+        "LS"
+      ],
+      "cap_off": 3.5,
+      "cap_def": 3.0,
+      "cap_st": 1.0,
+      "status_weight": {
+        "Out": 1.0,
+        "Doubtful": 0.6,
+        "Questionable": 0.25,
+        "": 0.0
+      },
+      "single_game_sigma": 8.5,
+      "sigma_k": 8.0,
+      "total_sigma": 11.5,
+      "one_score_margin": 8
+    },
+    "inputs": {
+      "standings": {
+        "src": "https://www.nfl.com/standings/division/2026/REG",
+        "captured": "2026-11-14"
+      },
+      "injuries": {
+        "src": "https://www.nfl.com/injuries/",
+        "captured": "2026-11-14"
+      },
+      "schedule": {
+        "src": "https://www.nfl.com/schedules/2026/REG/",
+        "captured": "2026-11-14"
+      }
+    },
+    "what_this_is": "Our own point estimates with explicit uncertainty. Not a sportsbook quote and not betting advice.",
+    "what_this_is_not": [
+      "not compared to a market price (no licensed feed)",
+      "not backtested yet (no historical week snapshots captured)",
+      "not adjusted for depth-chart ordinal (unverifiable officially)"
+    ]
+  },
+  "games": [
+    {
+      "game_id": "WAS-NYG-W10",
+      "away": "WAS",
+      "home": "NYG",
+      "kickoff": "FINAL — Commanders 24, Giants 21 (Thu Nov 12, 8:15 PM ET, Prime Video)",
+      "status": "LINE ORIGINATED",
+      "inputs": {
+        "away_rating": -2.53,
+        "home_rating": 0.56,
+        "away_gp": 9,
+        "home_gp": 9,
+        "hfa": 1.9,
+        "away_availability": {
+          "off": 0.75,
+          "def": 0.0,
+          "st": 0.0
+        },
+        "home_availability": {
+          "off": 0.0,
+          "def": 0.1,
+          "st": 0.0
+        },
+        "exp_away_points": 21.3,
+        "exp_home_points": 25.4,
+        "away_src": "https://www.nfl.com/standings/division/2026/REG",
+        "home_src": "https://www.nfl.com/standings/division/2026/REG",
+        "injury_src": "https://www.nfl.com/injuries/"
+      },
+      "line": {
+        "home_spread": -4.1,
+        "away_spread": 4.1,
+        "spread_point_estimate_home": 4.09,
+        "spread_sigma": 11.68,
+        "spread_band_50": [
+          -3.8,
+          12.0
+        ],
+        "spread_band_90": [
+          -15.1,
+          23.3
+        ],
+        "total_point_estimate": 46.8,
+        "total_sigma": 15.81,
+        "total_band_50": [
+          36.1,
+          57.4
+        ],
+        "total_band_90": [
+          20.8,
+          72.8
+        ],
+        "home_win_prob": 0.637,
+        "away_win_prob": 0.363,
+        "pick_confidence": 0.2741
+      },
+      "publication_state": {
+        "line_source": "originated by this model",
+        "market_comparison": "unavailable — no licensed official odds feed (flag F07)",
+        "bet_recommendation": "none — this is an input to the scoring gates, not a tip"
+      },
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "src_injuries": "https://www.nfl.com/injuries/",
+      "src_schedule": "https://www.nfl.com/schedules/2026/REG/"
+    },
+    {
+      "game_id": "NE-DET-W10",
+      "away": "NE",
+      "home": "DET",
+      "kickoff": "Sun Nov 15, 9:30 AM ET — Munich (international game), FOX",
+      "status": "LINE ORIGINATED",
+      "inputs": {
+        "away_rating": 0.29,
+        "home_rating": 3.22,
+        "away_gp": 9,
+        "home_gp": 8,
+        "hfa": 1.9,
+        "away_availability": {
+          "off": 1.41,
+          "def": 0.85,
+          "st": 0.0
+        },
+        "home_availability": {
+          "off": 0.65,
+          "def": 0.95,
+          "st": 0.0
+        },
+        "exp_away_points": 23.0,
+        "exp_home_points": 27.0,
+        "away_src": "https://www.nfl.com/standings/division/2026/REG",
+        "home_src": "https://www.nfl.com/standings/division/2026/REG",
+        "injury_src": "https://www.nfl.com/injuries/"
+      },
+      "line": {
+        "home_spread": -4.0,
+        "away_spread": 4.0,
+        "spread_point_estimate_home": 4.03,
+        "spread_sigma": 12.02,
+        "spread_band_50": [
+          -4.1,
+          12.1
+        ],
+        "spread_band_90": [
+          -15.7,
+          23.8
+        ],
+        "total_point_estimate": 50.0,
+        "total_sigma": 16.26,
+        "total_band_50": [
+          39.0,
+          60.9
+        ],
+        "total_band_90": [
+          23.2,
+          76.7
+        ],
+        "home_win_prob": 0.6313,
+        "away_win_prob": 0.3687,
+        "pick_confidence": 0.2626
+      },
+      "publication_state": {
+        "line_source": "originated by this model",
+        "market_comparison": "unavailable — no licensed official odds feed (flag F07)",
+        "bet_recommendation": "none — this is an input to the scoring gates, not a tip"
+      },
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "src_injuries": "https://www.nfl.com/injuries/",
+      "src_schedule": "https://www.nfl.com/schedules/2026/REG/"
+    },
+    {
+      "game_id": "KC-ATL-W10",
+      "away": "KC",
+      "home": "ATL",
+      "kickoff": "Sun Nov 15, 1:00 PM ET, CBS",
+      "status": "LINE ORIGINATED",
+      "inputs": {
+        "away_rating": 5.82,
+        "home_rating": -3.26,
+        "away_gp": 8,
+        "home_gp": 9,
+        "hfa": 1.9,
+        "away_availability": {
+          "off": 0.68,
+          "def": 0.93,
+          "st": 0.0
+        },
+        "home_availability": {
+          "off": 0.55,
+          "def": 0.55,
+          "st": 0.0
+        },
+        "exp_away_points": 24.5,
+        "exp_home_points": 22.4,
+        "away_src": "https://www.nfl.com/standings/division/2026/REG",
+        "home_src": "https://www.nfl.com/standings/division/2026/REG",
+        "injury_src": "https://www.nfl.com/injuries/"
+      },
+      "line": {
+        "home_spread": 2.1,
+        "away_spread": -2.1,
+        "spread_point_estimate_home": -2.13,
+        "spread_sigma": 12.02,
+        "spread_band_50": [
+          -10.2,
+          6.0
+        ],
+        "spread_band_90": [
+          -21.9,
+          17.6
+        ],
+        "total_point_estimate": 46.8,
+        "total_sigma": 16.26,
+        "total_band_50": [
+          35.9,
+          57.8
+        ],
+        "total_band_90": [
+          20.1,
+          73.6
+        ],
+        "home_win_prob": 0.4297,
+        "away_win_prob": 0.5703,
+        "pick_confidence": 0.1406
+      },
+      "publication_state": {
+        "line_source": "originated by this model",
+        "market_comparison": "unavailable — no licensed official odds feed (flag F07)",
+        "bet_recommendation": "none — this is an input to the scoring gates, not a tip"
+      },
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "src_injuries": "https://www.nfl.com/injuries/",
+      "src_schedule": "https://www.nfl.com/schedules/2026/REG/"
+    },
+    {
+      "game_id": "MIN-GB-W10",
+      "away": "MIN",
+      "home": "GB",
+      "kickoff": "Sun Nov 15, 1:00 PM ET, FOX",
+      "status": "LINE ORIGINATED",
+      "inputs": {
+        "away_rating": 2.92,
+        "home_rating": 2.2,
+        "away_gp": 8,
+        "home_gp": 9,
+        "hfa": 1.9,
+        "away_availability": {
+          "off": 3.5,
+          "def": 1.01,
+          "st": 0.0
+        },
+        "home_availability": {
+          "off": 1.62,
+          "def": 0.96,
+          "st": 0.0
+        },
+        "exp_away_points": 17.8,
+        "exp_home_points": 21.3,
+        "away_src": "https://www.nfl.com/standings/division/2026/REG",
+        "home_src": "https://www.nfl.com/standings/division/2026/REG",
+        "injury_src": "https://www.nfl.com/injuries/"
+      },
+      "line": {
+        "home_spread": -3.5,
+        "away_spread": 3.5,
+        "spread_point_estimate_home": 3.46,
+        "spread_sigma": 12.02,
+        "spread_band_50": [
+          -4.6,
+          11.6
+        ],
+        "spread_band_90": [
+          -16.3,
+          23.2
+        ],
+        "total_point_estimate": 39.1,
+        "total_sigma": 16.26,
+        "total_band_50": [
+          28.1,
+          50.1
+        ],
+        "total_band_90": [
+          12.4,
+          65.9
+        ],
+        "home_win_prob": 0.6134,
+        "away_win_prob": 0.3866,
+        "pick_confidence": 0.2268
+      },
+      "publication_state": {
+        "line_source": "originated by this model",
+        "market_comparison": "unavailable — no licensed official odds feed (flag F07)",
+        "bet_recommendation": "none — this is an input to the scoring gates, not a tip"
+      },
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "src_injuries": "https://www.nfl.com/injuries/",
+      "src_schedule": "https://www.nfl.com/schedules/2026/REG/"
+    },
+    {
+      "game_id": "JAX-TEN-W10",
+      "away": "JAX",
+      "home": "TEN",
+      "kickoff": "Sun Nov 15, 1:00 PM ET, FOX",
+      "status": "LINE ORIGINATED",
+      "inputs": {
+        "away_rating": 10.72,
+        "home_rating": -5.58,
+        "away_gp": 8,
+        "home_gp": 8,
+        "hfa": 1.9,
+        "away_availability": {
+          "off": 0.1,
+          "def": 1.3,
+          "st": 0.0
+        },
+        "home_availability": {
+          "off": 1.01,
+          "def": 0.8,
+          "st": 0.35
+        },
+        "exp_away_points": 26.7,
+        "exp_home_points": 19.9,
+        "away_src": "https://www.nfl.com/standings/division/2026/REG",
+        "home_src": "https://www.nfl.com/standings/division/2026/REG",
+        "injury_src": "https://www.nfl.com/injuries/"
+      },
+      "line": {
+        "home_spread": 6.8,
+        "away_spread": -6.8,
+        "spread_point_estimate_home": -6.84,
+        "spread_sigma": 12.02,
+        "spread_band_50": [
+          -14.9,
+          1.3
+        ],
+        "spread_band_90": [
+          -26.6,
+          12.9
+        ],
+        "total_point_estimate": 46.5,
+        "total_sigma": 16.26,
+        "total_band_50": [
+          35.6,
+          57.5
+        ],
+        "total_band_90": [
+          19.8,
+          73.3
+        ],
+        "home_win_prob": 0.2848,
+        "away_win_prob": 0.7152,
+        "pick_confidence": 0.4304
+      },
+      "publication_state": {
+        "line_source": "originated by this model",
+        "market_comparison": "unavailable — no licensed official odds feed (flag F07)",
+        "bet_recommendation": "none — this is an input to the scoring gates, not a tip"
+      },
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "src_injuries": "https://www.nfl.com/injuries/",
+      "src_schedule": "https://www.nfl.com/schedules/2026/REG/"
+    },
+    {
+      "game_id": "BUF-NYJ-W10",
+      "away": "BUF",
+      "home": "NYJ",
+      "kickoff": "Sun Nov 15, 1:00 PM ET, CBS",
+      "status": "LINE ORIGINATED",
+      "inputs": {
+        "away_rating": 6.82,
+        "home_rating": -3.8,
+        "away_gp": 8,
+        "home_gp": 9,
+        "hfa": 1.9,
+        "away_availability": {
+          "off": 0.41,
+          "def": 0.36,
+          "st": 0.0
+        },
+        "home_availability": {
+          "off": 0.41,
+          "def": 0.97,
+          "st": 0.0
+        },
+        "exp_away_points": 27.9,
+        "exp_home_points": 23.9,
+        "away_src": "https://www.nfl.com/standings/division/2026/REG",
+        "home_src": "https://www.nfl.com/standings/division/2026/REG",
+        "injury_src": "https://www.nfl.com/injuries/"
+      },
+      "line": {
+        "home_spread": 4.0,
+        "away_spread": -4.0,
+        "spread_point_estimate_home": -4.02,
+        "spread_sigma": 12.02,
+        "spread_band_50": [
+          -12.1,
+          4.1
+        ],
+        "spread_band_90": [
+          -23.8,
+          15.7
+        ],
+        "total_point_estimate": 51.7,
+        "total_sigma": 16.26,
+        "total_band_50": [
+          40.8,
+          62.7
+        ],
+        "total_band_90": [
+          25.0,
+          78.5
+        ],
+        "home_win_prob": 0.3689,
+        "away_win_prob": 0.6311,
+        "pick_confidence": 0.2623
+      },
+      "publication_state": {
+        "line_source": "originated by this model",
+        "market_comparison": "unavailable — no licensed official odds feed (flag F07)",
+        "bet_recommendation": "none — this is an input to the scoring gates, not a tip"
+      },
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "src_injuries": "https://www.nfl.com/injuries/",
+      "src_schedule": "https://www.nfl.com/schedules/2026/REG/"
+    },
+    {
+      "game_id": "MIA-IND-W10",
+      "away": "MIA",
+      "home": "IND",
+      "kickoff": "Sun Nov 15, 1:00 PM ET, CBS",
+      "status": "LINE ORIGINATED",
+      "inputs": {
+        "away_rating": -7.48,
+        "home_rating": -5.99,
+        "away_gp": 8,
+        "home_gp": 9,
+        "hfa": 1.9,
+        "away_availability": {
+          "off": 1.28,
+          "def": 0.12,
+          "st": 0.0
+        },
+        "home_availability": {
+          "off": 0.89,
+          "def": 1.31,
+          "st": 0.15
+        },
+        "exp_away_points": 22.0,
+        "exp_home_points": 23.8,
+        "away_src": "https://www.nfl.com/standings/division/2026/REG",
+        "home_src": "https://www.nfl.com/standings/division/2026/REG",
+        "injury_src": "https://www.nfl.com/injuries/"
+      },
+      "line": {
+        "home_spread": -1.8,
+        "away_spread": 1.8,
+        "spread_point_estimate_home": 1.77,
+        "spread_sigma": 12.02,
+        "spread_band_50": [
+          -6.3,
+          9.9
+        ],
+        "spread_band_90": [
+          -18.0,
+          21.5
+        ],
+        "total_point_estimate": 45.8,
+        "total_sigma": 16.26,
+        "total_band_50": [
+          34.9,
+          56.8
+        ],
+        "total_band_90": [
+          19.1,
+          72.6
+        ],
+        "home_win_prob": 0.5585,
+        "away_win_prob": 0.4415,
+        "pick_confidence": 0.1171
+      },
+      "publication_state": {
+        "line_source": "originated by this model",
+        "market_comparison": "unavailable — no licensed official odds feed (flag F07)",
+        "bet_recommendation": "none — this is an input to the scoring gates, not a tip"
+      },
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "src_injuries": "https://www.nfl.com/injuries/",
+      "src_schedule": "https://www.nfl.com/schedules/2026/REG/"
+    },
+    {
+      "game_id": "CAR-NO-W10",
+      "away": "CAR",
+      "home": "NO",
+      "kickoff": "Sun Nov 15, 1:00 PM ET, FOX",
+      "status": "LINE ORIGINATED",
+      "inputs": {
+        "away_rating": -2.08,
+        "home_rating": -3.18,
+        "away_gp": 8,
+        "home_gp": 8,
+        "hfa": 1.9,
+        "away_availability": {
+          "off": 0.5,
+          "def": 0.92,
+          "st": 0.0
+        },
+        "home_availability": {
+          "off": 1.41,
+          "def": 0.53,
+          "st": 0.0
+        },
+        "exp_away_points": 25.4,
+        "exp_home_points": 26.2,
+        "away_src": "https://www.nfl.com/standings/division/2026/REG",
+        "home_src": "https://www.nfl.com/standings/division/2026/REG",
+        "injury_src": "https://www.nfl.com/injuries/"
+      },
+      "line": {
+        "home_spread": -0.8,
+        "away_spread": 0.8,
+        "spread_point_estimate_home": 0.83,
+        "spread_sigma": 12.02,
+        "spread_band_50": [
+          -7.3,
+          8.9
+        ],
+        "spread_band_90": [
+          -18.9,
+          20.6
+        ],
+        "total_point_estimate": 51.6,
+        "total_sigma": 16.26,
+        "total_band_50": [
+          40.6,
+          62.5
+        ],
+        "total_band_90": [
+          24.8,
+          78.3
+        ],
+        "home_win_prob": 0.5275,
+        "away_win_prob": 0.4725,
+        "pick_confidence": 0.055
+      },
+      "publication_state": {
+        "line_source": "originated by this model",
+        "market_comparison": "unavailable — no licensed official odds feed (flag F07)",
+        "bet_recommendation": "none — this is an input to the scoring gates, not a tip"
+      },
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "src_injuries": "https://www.nfl.com/injuries/",
+      "src_schedule": "https://www.nfl.com/schedules/2026/REG/"
+    },
+    {
+      "game_id": "HOU-CLE-W10",
+      "away": "HOU",
+      "home": "CLE",
+      "kickoff": "Sun Nov 15, 1:00 PM ET, FOX",
+      "status": "LINE ORIGINATED",
+      "inputs": {
+        "away_rating": 1.62,
+        "home_rating": -3.26,
+        "away_gp": 8,
+        "home_gp": 9,
+        "hfa": 1.9,
+        "away_availability": {
+          "off": 1.56,
+          "def": 1.19,
+          "st": 0.0
+        },
+        "home_availability": {
+          "off": 0.24,
+          "def": 0.45,
+          "st": 0.0
+        },
+        "exp_away_points": 22.6,
+        "exp_home_points": 24.2,
+        "away_src": "https://www.nfl.com/standings/division/2026/REG",
+        "home_src": "https://www.nfl.com/standings/division/2026/REG",
+        "injury_src": "https://www.nfl.com/injuries/"
+      },
+      "line": {
+        "home_spread": -1.5,
+        "away_spread": 1.5,
+        "spread_point_estimate_home": 1.52,
+        "spread_sigma": 12.02,
+        "spread_band_50": [
+          -6.6,
+          9.6
+        ],
+        "spread_band_90": [
+          -18.3,
+          21.3
+        ],
+        "total_point_estimate": 46.8,
+        "total_sigma": 16.26,
+        "total_band_50": [
+          35.8,
+          57.8
+        ],
+        "total_band_90": [
+          20.0,
+          73.5
+        ],
+        "home_win_prob": 0.5501,
+        "away_win_prob": 0.4499,
+        "pick_confidence": 0.1003
+      },
+      "publication_state": {
+        "line_source": "originated by this model",
+        "market_comparison": "unavailable — no licensed official odds feed (flag F07)",
+        "bet_recommendation": "none — this is an input to the scoring gates, not a tip"
+      },
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "src_injuries": "https://www.nfl.com/injuries/",
+      "src_schedule": "https://www.nfl.com/schedules/2026/REG/"
+    },
+    {
+      "game_id": "LA-AZ-W10",
+      "away": "LA",
+      "home": "AZ",
+      "kickoff": "Sun Nov 15, 4:05 PM ET, CBS",
+      "status": "LINE ORIGINATED",
+      "inputs": {
+        "away_rating": 2.92,
+        "home_rating": -7.08,
+        "away_gp": 9,
+        "home_gp": 9,
+        "hfa": 1.9,
+        "away_availability": {
+          "off": 0.79,
+          "def": 0.34,
+          "st": 0.04
+        },
+        "home_availability": {
+          "off": 0.95,
+          "def": 0.84,
+          "st": 0.0
+        },
+        "exp_away_points": 25.5,
+        "exp_home_points": 21.8,
+        "away_src": "https://www.nfl.com/standings/division/2026/REG",
+        "home_src": "https://www.nfl.com/standings/division/2026/REG",
+        "injury_src": "https://www.nfl.com/injuries/"
+      },
+      "line": {
+        "home_spread": 3.7,
+        "away_spread": -3.7,
+        "spread_point_estimate_home": -3.74,
+        "spread_sigma": 11.68,
+        "spread_band_50": [
+          -11.6,
+          4.1
+        ],
+        "spread_band_90": [
+          -23.0,
+          15.5
+        ],
+        "total_point_estimate": 47.3,
+        "total_sigma": 15.81,
+        "total_band_50": [
+          36.6,
+          58.0
+        ],
+        "total_band_90": [
+          21.3,
+          73.3
+        ],
+        "home_win_prob": 0.3744,
+        "away_win_prob": 0.6256,
+        "pick_confidence": 0.2511
+      },
+      "publication_state": {
+        "line_source": "originated by this model",
+        "market_comparison": "unavailable — no licensed official odds feed (flag F07)",
+        "bet_recommendation": "none — this is an input to the scoring gates, not a tip"
+      },
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "src_injuries": "https://www.nfl.com/injuries/",
+      "src_schedule": "https://www.nfl.com/schedules/2026/REG/"
+    },
+    {
+      "game_id": "SEA-LV-W10",
+      "away": "SEA",
+      "home": "LV",
+      "kickoff": "Sun Nov 15, 4:05 PM ET, CBS",
+      "status": "LINE ORIGINATED",
+      "inputs": {
+        "away_rating": 3.56,
+        "home_rating": -2.8,
+        "away_gp": 9,
+        "home_gp": 9,
+        "hfa": 1.9,
+        "away_availability": {
+          "off": 3.4,
+          "def": 0.4,
+          "st": 0.0
+        },
+        "home_availability": {
+          "off": 0.14,
+          "def": 0.1,
+          "st": 0.0
+        },
+        "exp_away_points": 22.2,
+        "exp_home_points": 24.5,
+        "away_src": "https://www.nfl.com/standings/division/2026/REG",
+        "home_src": "https://www.nfl.com/standings/division/2026/REG",
+        "injury_src": "https://www.nfl.com/injuries/"
+      },
+      "line": {
+        "home_spread": -2.3,
+        "away_spread": 2.3,
+        "spread_point_estimate_home": 2.27,
+        "spread_sigma": 11.68,
+        "spread_band_50": [
+          -5.6,
+          10.2
+        ],
+        "spread_band_90": [
+          -16.9,
+          21.5
+        ],
+        "total_point_estimate": 46.8,
+        "total_sigma": 15.81,
+        "total_band_50": [
+          36.1,
+          57.4
+        ],
+        "total_band_90": [
+          20.8,
+          72.8
+        ],
+        "home_win_prob": 0.5772,
+        "away_win_prob": 0.4228,
+        "pick_confidence": 0.1544
+      },
+      "publication_state": {
+        "line_source": "originated by this model",
+        "market_comparison": "unavailable — no licensed official odds feed (flag F07)",
+        "bet_recommendation": "none — this is an input to the scoring gates, not a tip"
+      },
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "src_injuries": "https://www.nfl.com/injuries/",
+      "src_schedule": "https://www.nfl.com/schedules/2026/REG/"
+    },
+    {
+      "game_id": "SF-DAL-W10",
+      "away": "SF",
+      "home": "DAL",
+      "kickoff": "Sun Nov 15, 4:25 PM ET, FOX",
+      "status": "LINE ORIGINATED",
+      "inputs": {
+        "away_rating": 7.82,
+        "home_rating": 0.83,
+        "away_gp": 8,
+        "home_gp": 9,
+        "hfa": 1.9,
+        "away_availability": {
+          "off": 0.66,
+          "def": 0.7,
+          "st": 0.0
+        },
+        "home_availability": {
+          "off": 1.35,
+          "def": 1.71,
+          "st": 0.0
+        },
+        "exp_away_points": 27.9,
+        "exp_home_points": 24.6,
+        "away_src": "https://www.nfl.com/standings/division/2026/REG",
+        "home_src": "https://www.nfl.com/standings/division/2026/REG",
+        "injury_src": "https://www.nfl.com/injuries/"
+      },
+      "line": {
+        "home_spread": 3.3,
+        "away_spread": -3.3,
+        "spread_point_estimate_home": -3.3,
+        "spread_sigma": 12.02,
+        "spread_band_50": [
+          -11.4,
+          4.8
+        ],
+        "spread_band_90": [
+          -23.1,
+          16.5
+        ],
+        "total_point_estimate": 52.5,
+        "total_sigma": 16.26,
+        "total_band_50": [
+          41.6,
+          63.5
+        ],
+        "total_band_90": [
+          25.8,
+          79.3
+        ],
+        "home_win_prob": 0.392,
+        "away_win_prob": 0.608,
+        "pick_confidence": 0.216
+      },
+      "publication_state": {
+        "line_source": "originated by this model",
+        "market_comparison": "unavailable — no licensed official odds feed (flag F07)",
+        "bet_recommendation": "none — this is an input to the scoring gates, not a tip"
+      },
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "src_injuries": "https://www.nfl.com/injuries/",
+      "src_schedule": "https://www.nfl.com/schedules/2026/REG/"
+    },
+    {
+      "game_id": "PIT-CIN-W10",
+      "away": "PIT",
+      "home": "CIN",
+      "kickoff": "Sun Nov 15, 8:20 PM ET, NBC",
+      "status": "LINE ORIGINATED",
+      "inputs": {
+        "away_rating": 3.52,
+        "home_rating": 6.42,
+        "away_gp": 8,
+        "home_gp": 8,
+        "hfa": 1.9,
+        "away_availability": {
+          "off": 0.0,
+          "def": 0.1,
+          "st": 0.0
+        },
+        "home_availability": {
+          "off": 0.54,
+          "def": 0.75,
+          "st": 0.0
+        },
+        "exp_away_points": 23.1,
+        "exp_home_points": 25.2,
+        "away_src": "https://www.nfl.com/standings/division/2026/REG",
+        "home_src": "https://www.nfl.com/standings/division/2026/REG",
+        "injury_src": "https://www.nfl.com/injuries/"
+      },
+      "line": {
+        "home_spread": -2.2,
+        "away_spread": 2.2,
+        "spread_point_estimate_home": 2.16,
+        "spread_sigma": 12.02,
+        "spread_band_50": [
+          -5.9,
+          10.3
+        ],
+        "spread_band_90": [
+          -17.6,
+          21.9
+        ],
+        "total_point_estimate": 48.3,
+        "total_sigma": 16.26,
+        "total_band_50": [
+          37.4,
+          59.3
+        ],
+        "total_band_90": [
+          21.6,
+          75.1
+        ],
+        "home_win_prob": 0.5713,
+        "away_win_prob": 0.4287,
+        "pick_confidence": 0.1426
+      },
+      "publication_state": {
+        "line_source": "originated by this model",
+        "market_comparison": "unavailable — no licensed official odds feed (flag F07)",
+        "bet_recommendation": "none — this is an input to the scoring gates, not a tip"
+      },
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "src_injuries": "https://www.nfl.com/injuries/",
+      "src_schedule": "https://www.nfl.com/schedules/2026/REG/"
+    },
+    {
+      "game_id": "LAC-BAL-W10",
+      "away": "LAC",
+      "home": "BAL",
+      "kickoff": "Mon Nov 16, 8:15 PM ET, ESPN/ABC",
+      "status": "LINE ORIGINATED",
+      "inputs": {
+        "away_rating": -9.88,
+        "home_rating": -4.35,
+        "away_gp": 8,
+        "home_gp": 9,
+        "hfa": 1.9,
+        "away_availability": {
+          "off": 0.0,
+          "def": 0.0,
+          "st": 0.0
+        },
+        "home_availability": {
+          "off": 0.0,
+          "def": 0.0,
+          "st": 0.0
+        },
+        "exp_away_points": 21.2,
+        "exp_home_points": 25.8,
+        "away_src": "https://www.nfl.com/standings/division/2026/REG",
+        "home_src": "https://www.nfl.com/standings/division/2026/REG",
+        "injury_src": "https://www.nfl.com/injuries/"
+      },
+      "line": {
+        "home_spread": -4.7,
+        "away_spread": 4.7,
+        "spread_point_estimate_home": 4.66,
+        "spread_sigma": 12.02,
+        "spread_band_50": [
+          -3.4,
+          12.8
+        ],
+        "spread_band_90": [
+          -15.1,
+          24.4
+        ],
+        "total_point_estimate": 47.0,
+        "total_sigma": 16.26,
+        "total_band_50": [
+          36.0,
+          58.0
+        ],
+        "total_band_90": [
+          20.2,
+          73.7
+        ],
+        "home_win_prob": 0.651,
+        "away_win_prob": 0.349,
+        "pick_confidence": 0.302
+      },
+      "publication_state": {
+        "line_source": "originated by this model",
+        "market_comparison": "unavailable — no licensed official odds feed (flag F07)",
+        "bet_recommendation": "none — this is an input to the scoring gates, not a tip"
+      },
+      "src": "https://www.nfl.com/standings/division/2026/REG",
+      "src_injuries": "https://www.nfl.com/injuries/",
+      "src_schedule": "https://www.nfl.com/schedules/2026/REG/"
+    }
+  ]
+}

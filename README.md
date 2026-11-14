@@ -1,38 +1,95 @@
-# FL3 — NFL Lines Research Desk
+# FL3 — NFL Decision System
 
-A static, source-first research dashboard for NFL line modeling and decision review. It intentionally publishes **no picks, current player/injury claims, odds, backtest statistics, correlation values, or performance results**: this repository began with no underlying data, no odds history, and no model. Unknown values remain blank and are listed on **Flagged for Review**.
+A verified-data dashboard for originating NFL lines, grading strategies against validation gates, and
+tracking availability risk — with every league value linked to an official NFL.com source.
 
-## Site sections
+**Live site:** https://sassnarep3-star.github.io/FL3/
+**Snapshot:** 2026-11-14 · 2026 regular season, through Week 10
 
-- **Executive summary** — project state, what is known, and what blocks a decision.
-- **Strategy lab** — proposed single-game, player-prop, combo, parlay, and availability-signal research paths.
-- **Validation gates** — pre-registration, point-in-time integrity, chronological holdouts, calibration, dependence, and replication requirements.
-- **Availability & depth** — official-source injury / inactive workflow and limits around backup-string claims.
-- **Decision questions** — information to establish before choosing a product or model direction.
-- **Official sources** — verified NFL and NIST primary-source entry points.
-- **Flagged for Review** — source irregularities and missing evidence.
+---
 
-## Run locally
+## What this is
 
-Serve the repository root with any static web server, for example:
+| | |
+|---|---|
+| **Data** | 32 clubs' 2026 records, the full Week 10 slate, and 345 official injury-report rows — all read from NFL.com and reconciled |
+| **Lines** | 14 originated spreads and totals with explicit uncertainty bands. Not copied from a sportsbook |
+| **Strategies** | 8 specs, 8 validation gates, 5 reward tiers, and an honest empty leaderboard |
+| **Decisions** | 12 questions with what is known, what is not, and what unblocks each |
+| **Suggestions** | 17 suggestions, each with 2–3 selectable paths and a recommendation |
+| **Flags** | 13 irregularities on a dedicated review page, each with its evidence link |
 
-```sh
-python3 -m http.server 8000
+## What this is not
+
+Not betting advice. Not a sportsbook quote. Not a track record — **zero strategies have graded
+results**, and the site says so on every relevant page. Where a value could not be confirmed against
+an official source, the cell is blank and the gap is listed on the Flagged for Review page.
+
+---
+
+## Repository map
+
+```
+index.html … methodology.html     generated site (11 pages, no JS, no framework)
+assets/site.css                   the only stylesheet
+data/
+  standings.json                  32 clubs, official 2026 figures, each row sourced
+  injuries_week10.json            345 official injury rows across 14 games
+  lines_week10.json               originated lines + uncertainty
+  team_power.json                 the ratings behind the lines
+  luck.json                       Pythagorean luck decomposition
+  correlations.json               4 measured r values + 6 declared assumptions
+  strategies.json                 8 specs, 8 gates, 5 tiers
+  decisions.json                  12 questions, facts, and 10 information gaps
+  suggestions.json                16 suggestions with selectable paths
+  flagged.json                    10 review items with evidence
+  sources.json                    every source used, plus the ones rejected
+scripts/
+  compute_lines.py                ratings + originated lines (deterministic)
+  compute_luck.py                 Pythagorean luck
+  compute_correlation.py          measured correlations, drift-checked
+  build_site.py                   renders the 11 pages
+  check_site.py                   1124 assertions; exit 1 on any failure
+  fetch_official.py               optional refresh: reports changes, never auto-writes
+docs/
+  EXECUTIVE_SUMMARY.md            the summary
+  METHODOLOGY.md                  verification record, constant by constant
+legacy/                           archived data-free blueprint from a parallel session
+COORDINATION.md                   shared task board + merge/collision record
 ```
 
-Then open `http://localhost:8000`. The dashboard uses plain HTML, CSS, and a small search helper; there is no package install or runtime API.
+## Build and verify
 
-## GitHub Pages
+```bash
+python3 scripts/compute_lines.py
+python3 scripts/compute_luck.py
+python3 scripts/compute_correlation.py
+python3 scripts/build_site.py
+python3 scripts/check_site.py      # must print ALL CHECKS PASSED
+```
 
-The workflow in `.github/workflows/pages.yml` deploys the root of the repository to GitHub Pages on pushes to `main` and can be run manually. In repository settings, configure **Pages → Build and deployment → Source: GitHub Actions**. PRs can be previewed by serving the static files locally; no secrets are required.
+Deterministic: no randomness anywhere, so a re-run must produce identical files. CI enforces this
+and fails on any diff.
 
-## Evidence and limitations
+## Source policy
 
-- Every NFL data/method table row links to the relevant official NFL or NIST source. Links are for manual review and may be dynamic; source pages must be archived with a retrieval timestamp and query before using them in research.
-- The NFL injury-report route observed during this review had a path/title/body week mismatch. It is recorded as a flag and not used for any player-level value.
-- NFL official stats and injury pages are source entry points, not proof of historical completeness, public bulk access, or reuse rights. Confirm terms and coverage before ingestion.
-- Correlation is not inferred from narratives. Parlay legs require joint-outcome evidence and uncertainty analysis.
-- “Luck-free” performance cannot be promised. Validation can only evaluate repeatability with carefully controlled, out-of-sample evidence.
-- This prototype is not wagering, legal, or financial advice and does not offer prizes or betting recommendations.
+Only `nfl.com` and `operations.nfl.com` count as evidence. Third-party aggregators, DFS projections
+and public consensus lines are explicitly rejected in `data/sources.json` with the reason recorded.
+A model output is always labelled as model output and never phrased as a league fact.
 
-See [`COORDINATION.md`](COORDINATION.md) for the task claim, verification log, and integration status.
+## Known constraints
+
+- 8–9 games per club, so every rating is provisional and the bands are wide on purpose.
+- League aggregates only — no opponent adjustment.
+- One captured week — no calibration or backtest.
+- **No licensed market price**, so edge, closing-line value and the top two reward tiers are out of
+  scope until that is resolved (flag F07/suggestion SG-06).
+- No official depth-chart ordinal exists, so "2nd/3rd/4th string" is a model estimate, not a fact
+  (flag F05/suggestion SG-05).
+
+All of these are on the live Flagged for Review page with links.
+
+## Parallel sessions
+
+Read `COORDINATION.md` before editing anything. Claim a task, keep scopes non-overlapping, and never
+mark something verified without an official source link.

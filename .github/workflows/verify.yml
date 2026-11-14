@@ -1,0 +1,48 @@
+name: Verify data and site
+
+# GitHub Pages for this repo deploys from the `main` branch root using the
+# legacy builder (already configured). This workflow is the gate: it recomputes
+# every model, rebuilds the site, and fails on any broken link, missing source,
+# arithmetic error, or non-reproducible output.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Recompute and verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Recompute models from committed data
+        run: |
+          python3 scripts/compute_lines.py
+          python3 scripts/compute_luck.py
+          python3 scripts/compute_correlation.py
+
+      - name: Rebuild the site
+        run: python3 scripts/build_site.py
+
+      - name: Verify data, links and arithmetic
+        run: python3 scripts/check_site.py
+
+      - name: Confirm generated files are reproducible
+        run: |
+          if ! git diff --quiet; then
+            echo "::error::Generated files differ from the committed versions."
+            git diff --stat
+            exit 1
+          fi
+          echo "Generated files are reproducible."

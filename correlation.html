@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Correlation · FL3 NFL Decision System</title>
+<meta name="description" content="Verified NFL data, originated lines, strategy gates and open decisions. Every value links to an official source.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="brand"><span class="mark">FL3</span><span class="sub">NFL Decision System</span></div>
+  <nav><a href="index.html">Dashboard</a><a href="standings.html">Standings</a><a href="lines.html">Our Lines</a><a href="injuries.html">Injuries</a><a href="strategies.html">Strategies</a><a href="correlation.html" class="on">Correlation</a><a href="decisions.html">Decisions</a><a href="suggestions.html">Suggestions</a><a href="flagged.html">Flagged for Review</a><a href="sources.html">Sources</a><a href="methodology.html">Methodology</a></nav>
+</header>
+<main id="main">
+
+<h1>Correlation</h1>
+<p class="lede">Correlation decides whether a parlay is genuinely two bets or the same bet twice.
+The measured rows below are computed from the verified standings by
+<code>scripts/compute_correlation.py</code>; the assumed rows say plainly that the size is unknown.</p>
+
+<h2>Measured from verified data</h2>
+<div class="tablewrap"><table class=""><thead><tr><th>ID</th><th>Pair</th><th>n</th><th>r</th><th>r²</th><th>t</th><th>What it means</th><th>Source</th></tr></thead><tbody><tr><td><b>COR-01</b></td><td>Team win percentage vs point differential per game</td><td>32</td><td>+0.8781</td><td>0.7710</td><td>+10.05</td><td>Most of win percentage is explained by scoring margin. The remaining 22.9% of variance is where one-score luck lives — that is exactly what the LUCK-FILTER gate strips.</td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">nfl.com</a></td></tr><tr><td><b>COR-02</b></td><td>Team win percentage vs points scored per game</td><td>32</td><td>+0.6981</td><td>0.4874</td><td>+5.34</td><td>Offence alone explains under half of win percentage. Offence-only strategies must therefore carry a wider band.</td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">nfl.com</a></td></tr><tr><td><b>COR-03</b></td><td>Team win percentage vs points allowed per game</td><td>32</td><td>-0.6639</td><td>0.4407</td><td>-4.86</td><td>Defence explains slightly less of win percentage than offence, and it is not a mirror image of offence.</td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">nfl.com</a></td></tr><tr><td><b>COR-04</b></td><td>Points scored per game vs points allowed per game</td><td>32</td><td>-0.2041</td><td>0.0416</td><td>-1.14</td><td>Offence and defence are close to independent across clubs. This is the single most important correlation fact for parlay construction: a &#x27;good offence&#x27; leg and a &#x27;bad defence&#x27; leg on the SAME club are nearly independent, so stacking them does not multiply risk as violently as intuition suggests — but it also does not create free correlation the way a same-game script does.</td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">nfl.com</a></td></tr></tbody></table></div>
+
+<div class="note">
+  <strong>The single most useful number here is r = −0.204.</strong> Across 32 clubs, how much a team
+  scores and how much it allows are close to independent. That kills the intuition that "good offence
+  plus bad defence" is a natural hedge.
+</div>
+
+<h2>Declared assumptions (magnitude unverified)</h2>
+<p class="fine">Direction comes from mechanism and is not in doubt. Size is not measured, because
+player-level official statistics were not captured.</p>
+<div class="tablewrap"><table class=""><thead><tr><th>ID</th><th>Pair</th><th>r</th><th>Sign</th><th>Mechanism</th><th>How it must be sized</th></tr></thead><tbody><tr><td><b>COR-A1</b></td><td>Same-game: home spread and total</td><td><span class="unverified">unmeasured</span></td><td><span class="badge warn">near zero, direction unverified</span></td><td>A blowout can come from a fast start (raises total) or a shutdown (lowers it). Margin and total have no monotone link.</td><td>Treat as independent for now, but do not let one leg exceed 1/2 of the parlay weight.</td></tr><tr><td><b>COR-A2</b></td><td>Same-game: QB passing yards + team total points</td><td><span class="unverified">unmeasured</span></td><td><span class="badge warn">positive, magnitude unverified</span></td><td>Passing volume drives scoring, but a trailing team passes more while scoring is already set, and a leading team runs out the clock.</td><td>Positive correlation inflates the joint probability; any pricing that treats the legs independently will overstate the payout edge.</td></tr><tr><td><b>COR-A3</b></td><td>Same-game: RB rushing yards + team spread (team winning)</td><td><span class="unverified">unmeasured</span></td><td><span class="badge warn">positive, magnitude unverified</span></td><td>Leading teams run more; a run-heavy script is a consequence of leading, which is the same event as covering.</td><td>This is the strongest known correlation family in NFL props. Do not stack RB rushing overs with opponent-spread legs.</td></tr><tr><td><b>COR-A4</b></td><td>Same-game: WR receiving yards + QB passing yards</td><td><span class="unverified">unmeasured</span></td><td><span class="badge warn">strongly positive, magnitude unverified</span></td><td>Shared targets. If the WR hits, the QB very likely hit.</td><td>Stacking these two as independent legs is close to betting the same event twice. Gate PARLAY-IND requires an explicit shared-driver declaration.</td></tr><tr><td><b>COR-A5</b></td><td>Cross-game parlay legs (different games, different clubs)</td><td>+0.00</td><td><span class="badge ok">independent by construction</span></td><td>No shared players, no shared clock, no shared weather. The only shared term is league-wide scoring environment, which is a level, not an outcome.</td><td>Multipliers are still cut, because a shared league-wide shock (e.g. a scoring boom) hits every over simultaneously.</td></tr><tr><td><b>COR-A6</b></td><td>Availability-driven change in the same game (starter out -&gt; total and spread)</td><td><span class="unverified">unmeasured</span></td><td><span class="badge warn">directional, sign depends on side of the ball</span></td><td>A missing starter on offence lowers that club&#x27;s scoring; on defence it raises the opponent&#x27;s scoring. Both move the spread the same way; the total moves in OPPOSITE directions.</td><td>Do not treat &#x27;player out&#x27; as automatically &#x27;under&#x27;. This registry exists specifically to block that heuristic.</td></tr></tbody></table></div>
+
+<h2>Parlay rules</h2>
+<div class="tablewrap"><table class=""><thead><tr><th>Rule</th><th>What</th><th>Why</th></tr></thead><tbody><tr><td><b>PR-1</b></td><td>Never price a parlay by multiplying legs unless every shared driver is listed.</td><td>r(A4) between QB and WR yardage legs is close to 1 in mechanism, so naive multiplication exaggerates the payout.</td></tr><tr><td><b>PR-2</b></td><td>Cap same-game legs at 2 per ticket in v0.</td><td>Every additional same-game leg adds an unmeasured correlation term. Two legs is the most we can decompose with the evidence we hold.</td></tr><tr><td><b>PR-3</b></td><td>Apply a haircut equal to the largest unmeasured correlation term in the ticket.</td><td>Conservative pricing. The haircut is shown on the leaderboard so the cost of uncertainty is visible rather than hidden.</td></tr><tr><td><b>PR-4</b></td><td>Cross-game legs must come from games played on different days OR different clubs; same-club, different-game is impossible by definition.</td><td>Structural independence (COR-A5) only holds if no player or club is shared.</td></tr></tbody></table></div>
+
+<h2>What cannot be measured right now</h2>
+<ul><li><b>Any correlation involving a market price</b> — No licensed official odds feed (flag F07). Correlations between our line and the market&#x27;s line cannot be computed because we do not hold the market&#x27;s line.</li><li><b>Player-level prop correlations</b> — Official per-game player statistics were not captured in this build. COR-A2/A3/A4 remain assumptions with magnitude unverified.</li></ul>
+
+</main>
+<footer>
+  <p><strong>Snapshot 2026-11-14.</strong> NFL data © the National Football League, quoted from nfl.com
+  with links on every row. This site publishes our own model output, not betting advice, and not a
+  sportsbook quote. Values that could not be confirmed against an official source are blank and
+  listed on <a href="flagged.html">Flagged for Review</a>.</p>
+</footer>
+</body>
+</html>
