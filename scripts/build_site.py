@@ -185,7 +185,8 @@ def build_index(standings, lines, inj, luck, strat, dec, sug, flag):
      ["<a href='injuries.html'>Injuries</a>", "Official Week 10 report, with availability broken out by side of the ball", "No"],
      ["<a href='strategies.html'>Strategies</a>", "8 specs, 8 gates, 5 reward tiers, and an empty leaderboard that says why", "No"],
      ["<a href='correlation.html'>Correlation</a>", "4 measured correlations and 6 declared assumptions", "No"],
-     ["<a href='flagged.html'>Flagged for Review</a>", f"{len(flag['items'])} items, each with its evidence link", "Yes — review"]])}
+     ["<a href='flagged.html'>Flagged for Review</a>", f"{len(flag['items'])} items, each with its evidence link", "Yes — review"],
+     ["<a href='legacy/index.html'>Archived blueprint</a>", "An earlier session's data-free research plan, preserved unchanged", "Optional"]])}
 </section>
 """
     return page("Dashboard", body, "index.html")

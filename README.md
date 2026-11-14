@@ -16,8 +16,8 @@ tracking availability risk — with every league value linked to an official NFL
 | **Lines** | 14 originated spreads and totals with explicit uncertainty bands. Not copied from a sportsbook |
 | **Strategies** | 8 specs, 8 validation gates, 5 reward tiers, and an honest empty leaderboard |
 | **Decisions** | 12 questions with what is known, what is not, and what unblocks each |
-| **Suggestions** | 16 suggestions, each with 2–3 selectable paths and a recommendation |
-| **Flags** | 10 irregularities on a dedicated review page, each with its evidence link |
+| **Suggestions** | 17 suggestions, each with 2–3 selectable paths and a recommendation |
+| **Flags** | 13 irregularities on a dedicated review page, each with its evidence link |
 
 ## What this is not
 
@@ -54,7 +54,8 @@ scripts/
 docs/
   EXECUTIVE_SUMMARY.md            the summary
   METHODOLOGY.md                  verification record, constant by constant
-COORDINATION.md                   shared task board for parallel sessions
+legacy/                           archived data-free blueprint from a parallel session
+COORDINATION.md                   shared task board + merge/collision record
 ```
 
 ## Build and verify

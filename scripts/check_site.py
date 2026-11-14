@@ -155,7 +155,10 @@ def check_sources():
 
 # ------------------------------------------------------------ E. link integrity
 def check_links():
-    local = set(PAGES) | {"assets/site.css"}
+    local = set(PAGES) | {"assets/site.css", "legacy/index.html", "legacy/site.css", "legacy/site.js"}
+    if os.path.isdir(os.path.join(ROOT, "legacy", "pages")):
+        for f in os.listdir(os.path.join(ROOT, "legacy", "pages")):
+            local.add(f"legacy/pages/{f}")
     href_re = re.compile(r'href="([^"]+)"')
     for page in PAGES:
         path = os.path.join(ROOT, page)

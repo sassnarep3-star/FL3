@@ -19,8 +19,24 @@
 |---|---|---|---|
 | `arena-e8bf2075` | `arena/e8bf2075-fl3` | see claims below | 2026-11-14 |
 
-Other sessions: none detected at claim time (`git branch -r` returned only `origin/main`;
-`gh api .../branches` returned only `main`).
+Other sessions: **one competing session was discovered after this session's first push.**
+
+| Session | Branch | What it did | Collision |
+|---|---|---|---|
+| `arena/39f57d31-fl3` | `arena/39f57d31-fl3` | Data-free research blueprint merged to `main` via PR #1 and PR #2 at 03:01–03:05 UTC | Touched `COORDINATION.md`, `README.md`, `index.html`, `assets/site.css`, `scripts/check_site.py` — the same files as this session |
+
+Neither session saw the other's claim, because both started from a repo containing only `README.md`
+and both pushed before either claim was visible. This is the exact race the protocol warns about.
+
+**Resolution (no work discarded):**
+
+- This session's verified datasets and generated pages are the live site, because they are the only
+  tier that carries official sourced values.
+- The other session's pages are preserved byte-for-byte under `legacy/`, with a banner pointing to the
+  current dashboard, and their unique findings are folded in as flags **F11** (week-number mismatch on
+  a historical injury route), **F12** (reward/governance undefined) and **F13** (this collision),
+  plus suggestion **SG-17** (are club-published depth charts admissible?) and decision **Q13**.
+- No file from the other branch was deleted, and no value was taken from it without a link.
 
 ---
 
@@ -44,6 +60,9 @@ Other sessions: none detected at claim time (`git branch -r` returned only `orig
 | T14 | Automation (refresh + verify in CI) | **done** | `arena-e8bf2075` | `scripts/fetch_official.py`, `.github/workflows/pages.yml` |
 | T15 | Executive summary + methodology docs | **done** | `arena-e8bf2075` | `docs/EXECUTIVE_SUMMARY.md`, `docs/METHODOLOGY.md` |
 | T16 | Integration: merge, PR, deploy verification | **done** | `arena-e8bf2075` | this file |
+| T17 | Merge-conflict resolution vs `arena/39f57d31-fl3` | **done** | `arena-e8bf2075` | `COORDINATION.md`, `README.md`, `index.html`, `assets/site.css`, `scripts/check_site.py` |
+| T18 | Archive the competing blueprint without discarding it | **done** | `arena-e8bf2075` | `legacy/**` |
+| T19 | Fold the other session's findings into the registers | **done** | `arena-e8bf2075` | `data/flagged.json`, `data/decisions.json`, `data/suggestions.json` |
 
 **File ownership rule for future sessions:** `data/standings.json`, `data/sources.json`,
 `data/flagged.json` and every `*.html` at repo root are **shared outputs**. They are regenerated
@@ -106,4 +125,23 @@ All are listed with links on **`flagged.html`**. Summary:
 | Deploy | GitHub Pages, branch `main` / root, verified live after merge |
 | Flagged items carried to site | F01–F08 on `flagged.html` |
 
-<!-- INTEGRATION-RECORD -->
+
+
+---
+
+## Integration record — PR #3
+
+| Step | Result |
+|---|---|
+| PR opened | [#3 — NFL decision system: verified datasets, originated lines, strategy gates, and a dashboard](https://github.com/sassnarep3-star/FL3/pull/3) |
+| Merge state on open | `CONFLICTING` / `DIRTY` — because PRs #1 and #2 landed on `main` after this branch started |
+| Conflicts | 5 files: `COORDINATION.md` (add/add), `README.md` (content), `assets/site.css` (add/add), `index.html` (add/add), `scripts/check_site.py` (add/add) |
+| Conflict policy applied | Take this session's version for the 5 shared files (they are the superset: sourced data + generated pages + a 1136-assertion verifier), then **preserve** the other session's output under `legacy/` and merge its unique findings into the data registers. Nothing deleted. |
+| `legacy/` link check | 0 broken links across 7 archived HTML pages |
+| Verifier after merge | **1136 assertions, ALL CHECKS PASSED**, zero warnings |
+| Note on the other workflow | `.github/workflows/pages.yml` (theirs) is kept and left unmodified; `.github/workflows/verify.yml` (this session's) is the data gate. GitHub Pages itself uses the legacy `main:/` builder, so both coexist. |
+
+### Files whose ownership now needs re-checking by any future session
+
+`COORDINATION.md`, `README.md`, `index.html`, `assets/site.css`, `scripts/check_site.py`.
+A future session must read this section before touching any of them.

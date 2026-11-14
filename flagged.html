@@ -17,7 +17,7 @@
 
 <h1>Flagged for Review</h1>
 <p class="lede">Every irregularity, open question and unverified item, with the link to check it.
-7 open. Nothing on this page blocks the site: it is the list you asked to review after
+10 open. Nothing on this page blocks the site: it is the list you asked to review after
 publication.</p>
 
 <div class="note">
@@ -165,6 +165,48 @@ publication.</p>
             <dt>Action needed</dt><dd>Closed. The bye list is consistent across two verified official pages.</dd>
           </dl>
           <ul class="evid"><li><a class="src" href="https://www.nfl.com/schedules/2026/REG/" target="_blank" rel="noopener">Schedule (main)</a></li><li><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">Schedule by week (verified)</a></li></ul>
+        </article>
+        <article class="flag" id="F11">
+          <header>
+            <h3><span class="sid">F11</span> Official injury URL returns a week-number mismatch (reported by a parallel session)</h3>
+            <div><span class="badge warn">medium severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>An earlier session recorded that the NFL injury route containing /2025/reg4 rendered a page title saying Week 10 of the 2025 season while the body showed &#x27;Injuries - WEEK 4&#x27;. That session did not import any value from the route.</dd>
+            <dt>Why it matters</dt><dd>If a historical week URL silently resolves to a different week, any backtest built on it would attribute the wrong week&#x27;s data. This is a real risk for SG-07 and SG-13.</dd>
+            <dt>Could not confirm</dt><dd>This session did not reproduce the mismatch; the route was not re-fetched here. Recorded as reported, not as confirmed.</dd>
+            <dt>Effect on the lines</dt><dd>None. This build uses only the current-week page (/injuries/), which rendered consistently and is cited on every injury row.</dd>
+            <dt>Action needed</dt><dd>Before any historical capture, verify the week selector manually and store a content hash with each snapshot.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.nfl.com/injuries/league/2025/reg4" target="_blank" rel="noopener">Route reported to mismatch</a></li><li><a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">Page actually used by this build</a></li></ul>
+        </article>
+        <article class="flag" id="F12">
+          <header>
+            <h3><span class="sid">F12</span> Reward and governance rules are undefined</h3>
+            <div><span class="badge warn">medium severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>No contest rules, eligibility, jurisdiction, privacy terms, appeal path or compliance owner exist for the leaderboard rewards.</dd>
+            <dt>Why it matters</dt><dd>Rewards are a core request. A scoring formula is not a reward policy, and publishing one without the other invites a dispute later.</dd>
+            <dt>Could not confirm</dt><dd>Any prize type or value. Nothing has been designed, deliberately.</dd>
+            <dt>Effect on the lines</dt><dd>None. The leaderboard awards ranking credit only; no prize, entry fee or staking feature exists.</dd>
+            <dt>Action needed</dt><dd>Decide reward type and governance before any tier-3 score is paid out. Keep the board reputation-only until then.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://media.nfl.com/lsb" target="_blank" rel="noopener">NFL gambling policy / integrity overview</a></li></ul>
+        </article>
+        <article class="flag" id="F13">
+          <header>
+            <h3><span class="sid">F13</span> This repo was worked by two parallel sessions at once — merge record</h3>
+            <div><span class="badge auto">low severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>A second session (arena/39f57d31-fl3) merged a data-free research blueprint to main via PRs #1 and #2 while this session was building the verified dataset. Both PRs touched COORDINATION.md, README.md, index.html, assets/site.css and scripts/check_site.py.</dd>
+            <dt>Why it matters</dt><dd>Exactly the collision the coordination protocol exists to prevent. Their pages are preserved rather than deleted: see /legacy/index.html.</dd>
+            <dt>Could not confirm</dt><dd>Whether the other session is still active.</dd>
+            <dt>Effect on the lines</dt><dd>None. The datasets are this session&#x27;s own capture and were never touched by the other branch.</dd>
+            <dt>Action needed</dt><dd>Log the collision in COORDINATION.md and keep /legacy/ until the owner confirms it can be removed.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://sassnarep3-star.github.io/FL3/legacy/index.html" target="_blank" rel="noopener">Archived blueprint</a></li></ul>
         </article>
 
 </main>

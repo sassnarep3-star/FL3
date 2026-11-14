@@ -182,6 +182,61 @@
       ],
       "action_needed": "Closed. The bye list is consistent across two verified official pages.",
       "resolved_note": "Two independent official pages agree on the slate; bye clubs are the complement and are labelled 'derived' in the build."
+    },
+    {
+      "id": "F11",
+      "status": "open",
+      "severity": "medium",
+      "title": "Official injury URL returns a week-number mismatch (reported by a parallel session)",
+      "observed": "An earlier session recorded that the NFL injury route containing /2025/reg4 rendered a page title saying Week 10 of the 2025 season while the body showed 'Injuries - WEEK 4'. That session did not import any value from the route.",
+      "why_it_matters": "If a historical week URL silently resolves to a different week, any backtest built on it would attribute the wrong week's data. This is a real risk for SG-07 and SG-13.",
+      "cannot_confirm": "This session did not reproduce the mismatch; the route was not re-fetched here. Recorded as reported, not as confirmed.",
+      "impact_on_lines": "None. This build uses only the current-week page (/injuries/), which rendered consistently and is cited on every injury row.",
+      "evidence": [
+        {
+          "label": "Route reported to mismatch",
+          "url": "https://www.nfl.com/injuries/league/2025/reg4"
+        },
+        {
+          "label": "Page actually used by this build",
+          "url": "https://www.nfl.com/injuries/"
+        }
+      ],
+      "action_needed": "Before any historical capture, verify the week selector manually and store a content hash with each snapshot."
+    },
+    {
+      "id": "F12",
+      "status": "open",
+      "severity": "medium",
+      "title": "Reward and governance rules are undefined",
+      "observed": "No contest rules, eligibility, jurisdiction, privacy terms, appeal path or compliance owner exist for the leaderboard rewards.",
+      "why_it_matters": "Rewards are a core request. A scoring formula is not a reward policy, and publishing one without the other invites a dispute later.",
+      "cannot_confirm": "Any prize type or value. Nothing has been designed, deliberately.",
+      "impact_on_lines": "None. The leaderboard awards ranking credit only; no prize, entry fee or staking feature exists.",
+      "evidence": [
+        {
+          "label": "NFL gambling policy / integrity overview",
+          "url": "https://media.nfl.com/lsb"
+        }
+      ],
+      "action_needed": "Decide reward type and governance before any tier-3 score is paid out. Keep the board reputation-only until then."
+    },
+    {
+      "id": "F13",
+      "status": "open",
+      "severity": "low",
+      "title": "This repo was worked by two parallel sessions at once — merge record",
+      "observed": "A second session (arena/39f57d31-fl3) merged a data-free research blueprint to main via PRs #1 and #2 while this session was building the verified dataset. Both PRs touched COORDINATION.md, README.md, index.html, assets/site.css and scripts/check_site.py.",
+      "why_it_matters": "Exactly the collision the coordination protocol exists to prevent. Their pages are preserved rather than deleted: see /legacy/index.html.",
+      "cannot_confirm": "Whether the other session is still active.",
+      "impact_on_lines": "None. The datasets are this session's own capture and were never touched by the other branch.",
+      "evidence": [
+        {
+          "label": "Archived blueprint",
+          "url": "https://sassnarep3-star.github.io/FL3/legacy/index.html"
+        }
+      ],
+      "action_needed": "Log the collision in COORDINATION.md and keep /legacy/ until the owner confirms it can be removed."
     }
   ]
 }

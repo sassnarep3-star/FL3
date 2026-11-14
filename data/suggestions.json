@@ -562,6 +562,37 @@
         }
       ],
       "decision_needed_from_owner": "Approve rest tagging."
+    },
+    {
+      "id": "SG-17",
+      "title": "Test whether club-published depth charts are usable at all",
+      "problem": "The league does not publish a machine-checkable depth ordinal, but individual clubs sometimes publish dated depth charts. Whether those are consistent, timely, or stable enough to use has never been tested.",
+      "unblocks": [
+        "Q05",
+        "M04"
+      ],
+      "status": "proposed",
+      "paths": [
+        {
+          "id": "A",
+          "name": "Sample 4 clubs for 3 weeks and measure agreement",
+          "effort": "medium",
+          "cost": "free",
+          "pros": "Produces a real number: how often do club charts agree with who actually started?",
+          "cons": "Club sites are not nfl.com, so any value derived this way may not meet the official-source rule.",
+          "recommended": true
+        },
+        {
+          "id": "B",
+          "name": "Skip club charts; use participation counts only",
+          "effort": "none",
+          "cost": "free",
+          "pros": "Keeps a single, official evidence standard.",
+          "cons": "Leaves a possible source unexplored.",
+          "recommended": false
+        }
+      ],
+      "decision_needed_from_owner": "Say whether club-published charts count as evidence, even though they are not nfl.com."
     }
   ],
   "priority_order": [
@@ -604,6 +635,11 @@
       "rank": 8,
       "id": "SG-15",
       "why": "The Munich game is currently mispriced by a full home-field advantage."
+    },
+    {
+      "rank": 9,
+      "id": "SG-17",
+      "why": "Answers whether a second, non-league depth source is even admissible under the source rule."
     }
   ]
 }
