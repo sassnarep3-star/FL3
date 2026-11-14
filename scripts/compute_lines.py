@@ -355,7 +355,10 @@ def build_lines(standings: dict, injuries: dict, power: dict) -> dict:
     return {
         "meta": {
             "title": "Week 10, 2026 — originated lines (model v0)",
-            "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            # Deterministic on purpose: a wall-clock timestamp here would make the
+            # output non-reproducible and break the CI drift check. The capture
+            # date lives in the inputs block and in the source registry instead.
+            "model_run_date": "2026-11-14",
             "model": MODEL,
             "inputs": {
                 "standings": {"src": SRC_STAND, "captured": standings["meta"]["captured_utc"]},
