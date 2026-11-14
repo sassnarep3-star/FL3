@@ -145,3 +145,25 @@ All are listed with links on **`flagged.html`**. Summary:
 
 `COORDINATION.md`, `README.md`, `index.html`, `assets/site.css`, `scripts/check_site.py`.
 A future session must read this section before touching any of them.
+
+---
+
+## FINAL — merge and deploy confirmation
+
+| Item | Value | Checked |
+|---|---|---|
+| PR | [#3](https://github.com/sassnarep3-star/FL3/pull/3) | — |
+| Merge commit | `198ae23d9a4e1d8e2ea40ff34e1c43134de6882d` | — |
+| Merged at | 2026-11-14T03:09:33Z | `gh pr view 3` |
+| Merge result | **MERGED** | `gh pr view 3 --json state` |
+| PR checks at merge | `Recompute and verify` **pass**, `validate` **pass** | `gh pr checks 3` |
+| Main-branch run (verify) | [43550145068](https://github.com/sassnarep3-star/FL3/actions/runs/43550145068) **success** | `gh run list` |
+| Main-branch run (Pages deploy) | [43550145219](https://github.com/sassnarep3-star/FL3/actions/runs/43550145219) **success** | `gh run list` |
+| Pages build | `pages-build-deployment` [43550144305](https://github.com/sassnarep3-star/FL3/actions/runs/43550144305) **success** | `gh run list` |
+| Pages API | status `built`, source `main:/`, build `198ae23` | `gh api .../pages/builds` |
+| Live site | https://sassnarep3-star.github.io/FL3/ | fetched and rendered |
+| Live verification | Dashboard shows 32 clubs / 14 games / 345 rows / 17 suggestions / 13 flags; `flagged.html` shows all items with evidence links | fetch of `/index.html` and `/flagged.html` |
+| Caching note | The bare `/FL3/` URL served a stale edge copy for ~60s after the merge; `index.html` with a cache-busting query returned the correct build. Not a deploy failure. | — |
+
+**No broken site was merged.** Both the PR gate and the post-merge `main` run passed before and after
+the deploy, and the live pages were fetched and read after the deploy completed.
