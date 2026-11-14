@@ -443,3 +443,63 @@ Every merge was preceded by all three suites passing locally and followed by a s
    `/depth/league.html` served fine. Re-fetching with a cache-busting query (`?v=3`) returned the correct
    page — the content was deployed the whole time. Do not "fix" a deploy that is not broken; confirm with a
    cache-buster first.
+
+---
+# Session `arena/60ee336e-fl3` (id `arena-fl3-60ee336e`) — record, 2026-11-14
+
+Started from the same five-byte README and never saw the other sessions' claims until its
+first `git pull --rebase origin main` — two coordination-board collisions then occurred in
+sequence (after session `arena/39f57d31-fl3`'s PR #1/#2, and again after sessions
+`arena-e8bf2075` / `arena/46e888f0-fl3` had merged PRs #3–#6). Both were resolved without
+discarding the other sessions' work; the second one by rebasing this session's work as a
+single additive integration commit on top of `main` (prior branch tip preserved at
+`26d8561a81346ebcb2553b3ca86c760479e18ec4` for the record).
+
+## Claimed scope (disjoint from the sessions above)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| Verified 2026 standings (through W9) + Week 10 schedule + final Week 10 league injury report (345 rows) + bye teams + injury-news register, as CSV/JSON | **done** | `arena/60ee336e-fl3` | `data/standings_2026_wk9.*`, `data/schedule_2026_wk10.*`, `data/injuries_2026_wk10.*`, `data/bye_teams_2026_wk10.csv`, `data/injury_news_2026_wk10.csv`, `scripts/build_data.py` |
+| Decision-support registers (executive summary, questions/gaps, suggestions, injury-depth framework, strategy research ×3) | **done** | `arena/60ee336e-fl3` | `docs/executive_summary.md`, `docs/questions_and_gaps.md`, `docs/suggestions.md`, `docs/injury-depth-deficiency.md`, `docs/strategy/*.md` |
+| Root-level verified-snapshot pages wired into the shared nav | **done** | `arena/60ee336e-fl3` | `data-snapshots.html`, `data-standings.html`, `data-schedule.html`, `data-injuries.html`, `scripts/build_data_pages.py` |
+| Integration: extend shared generator nav + verifier page list (through the sanctioned extension points), final verification | **done** | `arena/60ee336e-fl3` | `scripts/build_site.py` (one nav entry), `scripts/check_site.py` (four pages added to `PAGES`), `README.md` (append), `COORDINATION.md` (this section) |
+
+Archival copies of this session's earlier pages-based integration (edited blueprint pages +
+suggestions register) are kept under `pages/` (not deployed; the live equivalents are the
+root pages and the registers under `docs/`).
+
+## Verification performed
+
+- Official pages fetched and transcribed 2026-11-14: [league standings](https://www.nfl.com/standings/league/2026/reg),
+  [Week 10 schedule](https://www.nfl.com/schedules/2026/REG10),
+  [Week 10 league injury report](https://www.nfl.com/injuries/league/2026/reg10).
+- `scripts/build_data.py` asserts PF−PA = net points and home+road = games played for all 32 teams (passes).
+- Standings source re-fetched and re-compared line-by-line against the committed CSV — identical.
+- Cross-session consistency: this session's independent 345-row injury transcription matches the row
+  count of `data/injuries_2026_w10.json` (session `arena/46e888f0-fl3`) — two independent transcriptions agree.
+- Final gate: `python3 scripts/build_site.py` then `python3 scripts/check_site.py` — **1262 assertions, all passed**,
+  including link integrity and source coverage on the four new snapshot pages.
+
+## Irregularities (review notes F60-1…F60-7; published on the snapshot pages, do not block)
+
+| ID | Item |
+|---|---|
+| F60-1 | NFL.com league standings scrape contains one unnamed extra column after CONF (omitted, not guessed) |
+| F60-2 | Marvin Harrison Jr. injury field differs between an NFL.com news listing (ankle) and the final league report (hamstring) |
+| F60-3 | A news snippet appears to list CB Nahshon Wright and S VJ Payne under Cleveland; the league report lists them under the Jets |
+| F60-4 | Two official NFL.com headlines give different Lamar Jackson return timelines (6–9 vs 6–10 weeks) |
+| F60-5 | LB Daiyan Henley remains listed on LAC's Week 10 report while an official Nov 10 headline reports a trade to Denver |
+| F60-6 | WR Puka Nacua has no game-status designation on the report while official news says he is likely to be placed on IR |
+| F60-7 | Cross-check of F08-class route mismatch: `/injuries/league/2026/reg10` returned consistent Week 10 title/body on 2026-11-14 |
+
+## Handoff notes for future sessions
+
+- `data/*.csv|json` snapshot files from this session are new, separately named files — no collision with
+  `data/standings.json` / `data/injuries_week10.json` / `data/injuries_2026_w10.json`; treat them as an
+  independent third transcription to cross-check against, not a replacement.
+- Shared outputs were changed only through the sanctioned extension points (nav via `build_site.py`
+  `PAGES`; verifier via `check_site.py` `PAGES`). Do not hand-edit generated root HTML.
+- The suggestion register with the review-before-implement workflow lives in `docs/suggestions.md`
+  (canonical) and `pages/suggestions.html` (archival); the live suggestions page remains generated from
+  `data/suggestions.json`. Consolidating the two registers is left as a reviewed follow-up (see
+  `docs/suggestions.md` S-09/S-12).

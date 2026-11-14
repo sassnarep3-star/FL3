@@ -112,3 +112,24 @@ that cannot be confirmed from an official source are left blank and flagged unve
 
 It coexists with the root-level build (the live site); neither replaced the other, and no
 file from either build was deleted during integration.
+
+---
+## Verified data snapshots (session `arena/60ee336e-fl3`, Nov 14, 2026)
+
+Independent point-in-time transcriptions of official NFL.com pages, kept as separately named
+files (CSV + JSON) alongside the dashboard datasets above:
+
+| Dataset | File(s) | Official source |
+|---|---|---|
+| Standings through Week 9 (32 teams) | `data/standings_2026_wk9.csv` / `.json` | [NFL.com league standings](https://www.nfl.com/standings/league/2026/reg) |
+| Week 10 schedule (14 games + 4 byes) | `data/schedule_2026_wk10.csv` / `.json`, `data/bye_teams_2026_wk10.csv` | [NFL.com Week 10 schedule](https://www.nfl.com/schedules/2026/REG10) |
+| Week 10 league injury report (345 rows, 28 teams) | `data/injuries_2026_wk10.csv` / `.json` | [NFL.com league injury report](https://www.nfl.com/injuries/league/2026/reg10) |
+| Injury news register (12 official headlines) | `data/injury_news_2026_wk10.csv` | same page, news section |
+
+- `scripts/build_data.py` re-asserts internal consistency (PF−PA = net points; home+road =
+  games played) on every run; the standings source was re-fetched and re-compared line by line.
+- Rendered at root as `data-snapshots.html`, `data-standings.html`, `data-schedule.html`,
+  `data-injuries.html` (linked from the shared nav; validated by `scripts/check_site.py`).
+- Decision-support registers: `docs/executive_summary.md`, `docs/questions_and_gaps.md`,
+  `docs/suggestions.md` (review-before-implement register), `docs/injury-depth-deficiency.md`,
+  and `docs/strategy/` (line origination, signals & validation, leaderboard & governance).

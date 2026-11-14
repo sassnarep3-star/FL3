@@ -28,6 +28,7 @@ PAGES = {
     "standings.html": "Standings",
     "lines.html": "Our Lines",
     "injuries.html": "Injuries",
+    "data-snapshots.html": "Data snapshots",
     "strategies.html": "Strategies",
     "correlation.html": "Correlation",
     "decisions.html": "Decisions",
