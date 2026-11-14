@@ -1,0 +1,130 @@
+# Strategy registry - every candidate strategy, entered before it is run
+#
+# Sealing rule (gate G-12): a strategy's `config_hash` is recorded when it enters a tier. Changing
+# its inputs, thresholds or staking mid-season creates a NEW id and forfeits the old standing.
+# data/signals.csv holds the human-readable spec; this file holds the machine contract, and
+# scripts/make_leaderboard.py builds the board from it.
+
+meta:
+  version: "0.1"
+  updated_utc: "2026-11-14T06:00:00Z"
+  gates_spec: models/gates.yaml
+  signals_spec: data/signals.csv
+  tiers: [spec, paper, capped-live, funded, retired]
+
+defaults:
+  tier: spec
+  stake:
+    paper: 1.0 units              # simulated
+    capped-live: 0.25 units       # fixed, no Kelly before G-03 passes
+    funded: "0.25 * kelly(edge measured on >= n_min bets)"
+  slate_exposure_cap: 0.08
+  per_bet_cap: 0.02
+  causal_driver_exposure_cap: 0.03
+  evaluation:
+    primary: [log_loss_vs_market, mean_clv_points]
+    secondary: [luck_adjusted_roi, max_drawdown]
+    forbidden_as_entry_criterion: [raw_roi, record, "weeks since last loss"]
+  n_min_floor: 400
+
+strategies:
+  - id: ST-01
+    signal: SIG-01
+    name: starting-quarterback replacement
+    family: single
+    config_hash: null              # set when it enters `paper`
+    required_data: [lineups, ir_transactions]
+    blocked_by: [Q-02, Q-03]
+    same_driver: [ST-04, ST-05, ST-06, ST-08, ST-11]
+    notes: "all six of these fire on one injury report row - exposure is capped as a single position"
+  - id: ST-02
+    signal: SIG-02
+    name: practice-trajectory reversion
+    family: single
+    required_data: [three_filing_week_reports]
+    blocked_by: [Q-04]
+    notes: "Sunday games only: the 3-filing cadence exists for Sunday, Mon/Tue/Wed for Thursday,
+      Thu/Fri/Sat for Monday (SRC-011) - the feature set differs by game day, so the strategy must be
+      specified per game day"
+  - id: ST-03
+    signal: SIG-03
+    name: rest and travel
+    family: single
+    required_data: [game_dates, venue]
+    blocked_by: []
+    notes: "computable today from official dates; the two 2026 international fixtures (Munich W10,
+      East Melbourne W1) are not a 'short rest' case, they are their own thing - n=2, so it can only be
+      a hypothesis"
+  - id: ST-04
+    signal: SIG-04
+    name: pass-volume prop on a replacement QB
+    family: prop-combo
+    required_data: [player_rates, targets]
+    blocked_by: [Q-08]
+  - id: ST-05
+    signal: SIG-05
+    name: back-in-workload rush prop
+    family: prop-combo
+    blocked_by: [Q-02, Q-08]
+  - id: ST-06
+    signal: SIG-06
+    name: secondary-depletion coverage prop
+    family: prop-combo
+    blocked_by: [Q-02, Q-08]
+  - id: ST-07
+    signal: SIG-07
+    name: tush-pie totals
+    family: single
+    blocked_by: [Q-04]
+  - id: ST-08
+    signal: SIG-08
+    name: line-driven pass-block prop
+    family: prop-combo
+    blocked_by: [Q-08]
+  - id: ST-09
+    signal: SIG-09
+    name: steam / reverse line move
+    family: single
+    required_data: [opening_and_closing_prices]
+    blocked_by: [Q-01]
+  - id: ST-10
+    signal: SIG-10
+    name: derivative consistency (spread/total -> team total)
+    family: single
+    blocked_by: [Q-01]
+  - id: ST-11
+    signal: SIG-11
+    name: tie-risk pricing on close spreads
+    family: single
+    blocked_by: [Q-01, Q-09]
+    measured_input: "1 tie in 137 games = 0.7% (F-12) - small but real, and it is a cost, not a bonus"
+  - id: ST-12
+    signal: SIG-12
+    name: officiating-crew tendency
+    family: unrated
+    disposition: "test once on full seasons; retire unless FDR survives (S-14)"
+  - id: ST-13
+    signal: SIG-13
+    name: correlated same-game parlay
+    family: parlay
+    correlation_required: true
+    blocked_by: [Q-01, Q-04, Q-07]
+    notes: "the leg joint probability must come from the game simulation; product-of-marginals is a G-07
+      failure by definition"
+  - id: ST-14
+    signal: SIG-14
+    name: teaser on key numbers
+    family: parlay
+    blocked_by: [Q-01]
+  - id: ST-15
+    signal: SIG-15
+    name: cross-game correlated parlays
+    family: parlay
+    blocked_by: [Q-01]
+  - id: ST-16
+    signal: SIG-16
+    name: model-vs-market residual at the close
+    family: single
+    role: scoring-function
+    blocked_by: [Q-01]
+    notes: "the only strategy whose metric defines whether the others are real"

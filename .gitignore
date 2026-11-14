@@ -1,4 +1,26 @@
+# Python
 __pycache__/
 *.pyc
-.DS_Store
+*.py[cod]
 .venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# local scratch, never published
+*.tmp
+*.bak
+*.proposed.csv
+data/raw_evidence/*.html
+data/raw_evidence/*.sha256
+!data/raw_evidence/.gitkeep
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# NOTE: board/ and docs/ are deliberately NOT ignored. Pages builds the repo root as a legacy
+# branch deploy, so the generated artefacts are what publishes; .github/workflows/site.yml
+# fails if board/ does not match what data/ generates.
