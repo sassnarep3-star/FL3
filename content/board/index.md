@@ -26,7 +26,7 @@ the [Suggestion register](suggestions.html).
   including the backup-vs-starter damage per position group.
 - **A priced Week 10 slate** with fitted constants - see [Lines](lines.html). The market columns are
   blank on purpose: **no official source publishes odds**, so nothing was filled in by hand.
-- **15 signals, 13 validation gates, 20 open questions, 25 suggestions** - each with a stated
+- **16 signals and 16 strategies, 13 validation gates, 20 open questions, 25 suggestions** - each with a stated
   dependency, so you can see what has to be bought or read before a decision is defensible.
 
 ## The one-line status

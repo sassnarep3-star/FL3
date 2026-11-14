@@ -35,15 +35,15 @@
 <ul>
 <li><strong>Q-02 lineups.</strong> "Which backup is playing" is the heart of your brief. The league publishes a</li>
 </ul>
-<p><em>designation</em>, not a <em>lineup</em> ([FLG-017](flagged.html)), so every starter-quality adjustment in [models/line_model.yaml](model.html) is deliberately <code>value: null</code>.</p>
+<p><em>designation</em>, not a <em>lineup</em> (<a href="flagged.html">FLG-017</a>), so every starter-quality adjustment in <a href="model.html">models/line_model.yaml</a> is deliberately <code>value: null</code>.</p>
 <ul>
 <li><strong>Q-03 IR / transactions.</strong> A club can be missing its best player and show a nearly empty report</li>
 </ul>
-<p>(Baltimore, Week 10 - [FLG-005](flagged.html)). Any deficiency count that reads only the report is systematically wrong in the direction of "everyone is healthy".</p>
+<p>(Baltimore, Week 10 - <a href="flagged.html">FLG-005</a>). Any deficiency count that reads only the report is systematically wrong in the direction of "everyone is healthy".</p>
 <ul>
 <li><strong>Q-04 game-level history.</strong> 33 of 137 verified 2026 games are in the repo, and no prior season</li>
 </ul>
-<p>is. Every distribution (margin SD, home advantage, push rate, correlation) is therefore labelled provisional - see the fitted <code>beta = 1.14</code> anomaly in [FLG-026](flagged.html), which is what a too-small sample looks like when you refuse to hide it.</p>
+<p>is. Every distribution (margin SD, home advantage, push rate, correlation) is therefore labelled provisional - see the fitted <code>beta = 1.14</code> anomaly in <a href="flagged.html">FLG-026</a>, which is what a too-small sample looks like when you refuse to hide it.</p>
 <ul>
 <li><strong>Q-05/Q-06 calibration.</strong> The two constants that turn a rating gap into a spread, plus home-field</li>
 </ul>
@@ -51,14 +51,14 @@
 <ul>
 <li><strong>Q-07 correlation inputs.</strong> Every parlay and prop-combo price depends on a joint distribution, and</li>
 </ul>
-<p>the only correlation we can currently measure with an interval is same-game home-vs-away points at r = 0.12 (CI −0.23 to +0.44) — i.e. uninformative. Until this is settled, gate G-07 cannot be evaluated and no multi-leg strategy can be promoted ([Correlation](correlation.html)).</p>
+<p>the only correlation we can currently measure with an interval is same-game home-vs-away points at r = 0.12 (CI −0.23 to +0.44) — i.e. uninformative. Until this is settled, gate G-07 cannot be evaluated and no multi-leg strategy can be promoted (<a href="correlation.html">Correlation</a>).</p>
 <h2 id="questions-we-should-not-ask-yet">Questions we should not ask yet</h2>
 <p>These look like questions but are actually <em>consequences</em> of the above, and asking them now invites a made-up answer:</p>
 <ul>
 <li>"Which signal is best?" - no signal has a settled sample (G-01).</li>
 <li>"Is our model sharper than the market?" - undefined until Q-01.</li>
 <li>"How much should we bet?" - Kelly on an unmeasured edge is just a faster way to be wrong (Q-17).</li>
-<li>"Are parlays +EV here?" - needs the correlation measurements in [Correlation](correlation.html),</li>
+<li>"Are parlays +EV here?" - needs the correlation measurements in <a href="correlation.html">Correlation</a>,</li>
 </ul>
 <p>which need Q-04 and Q-07.</p>
 <h2 id="suggested-way-to-answer-them-without-me">Suggested way to answer them without me</h2>
