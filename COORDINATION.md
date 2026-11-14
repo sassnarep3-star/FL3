@@ -591,3 +591,22 @@ fetch tool (the sandbox has no route to nfl.com — probe table at the top of th
 - If the owner flips Pages to "GitHub Actions", add `upload-pages-artifact` + `deploy-pages` to
   `.github/workflows/site.yml` (the exact block is documented in that file's header) — note it changes
   the *sibling* track's deploy too, so coordinate before doing it.
+
+### Protocol hazard found during this merge (for every session, including the rules at the top)
+
+Rule 4 says "`git pull --rebase` before every push". That is correct while a branch is linear, and
+**destructive once a branch contains a merge commit**: on this branch `git pull --rebase` after
+`git merge origin/main` tried to replay all 31 merged-in commits of `main` on top of a pre-merge commit
+and stopped on a conflict, leaving the repo mid-rebase. The recovery was `git rebase --abort`, which
+restored the branch exactly (`git status` clean, local == remote, both pipelines still green).
+
+Use instead:
+
+```bash
+git fetch origin
+git merge --ff-only origin/<your-branch>   # nothing to integrate, you are ahead: just push
+git merge origin/main                      # to absorb main: merge, resolve, commit  (never rebase)
+git push origin <your-branch>
+```
+
+If a session really must rebase, do it **before** the final integration merge, not after.
