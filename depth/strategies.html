@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Strategy lab: gates first, leaderboard later · FL3 NFL Research</title>
+<meta name="description" content="NFL line origination research: verified 2026 season data, injury and depth analysis, strategy validation gates.">
+<style>
+:root{
+ --bg:#0b0f16; --panel:#121a26; --panel2:#0f1621; --line:#22303f;
+ --ink:#e8eef7; --dim:#93a4bb; --accent:#4da3ff; --good:#3ecf8e;
+ --warn:#f5b544; --bad:#ff6b6b; --chip:#1b2836;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+ font:15px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header.top{position:sticky;top:0;z-index:10;background:rgba(11,15,22,.94);
+ backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.brand{display:flex;align-items:center;gap:12px;padding:14px 0 6px}
+.brand b{font-size:17px;letter-spacing:.2px}
+.brand span.tag{color:var(--dim);font-size:12.5px}
+nav{display:flex;flex-wrap:wrap;gap:2px;padding-bottom:10px}
+nav a{padding:7px 12px;border-radius:8px;color:var(--dim);font-size:13.5px;font-weight:500}
+nav a:hover{background:var(--chip);color:var(--ink);text-decoration:none}
+nav a.on{background:#173252;color:#cfe6ff}
+main{padding:30px 0 70px}
+h1{font-size:30px;line-height:1.25;margin:6px 0 8px}
+h2{font-size:20px;margin:38px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+h3{font-size:16px;margin:24px 0 8px}
+p.lede{color:var(--dim);font-size:15.5px;max-width:74ch;margin:0 0 4px}
+.kicker{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:22px 0 6px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.card .n{font-size:28px;font-weight:700;letter-spacing:-.5px}
+.card .l{color:var(--dim);font-size:13px}
+.card a{font-size:12.5px}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:12px 0 6px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+th{text-align:left;padding:10px 12px;background:var(--panel2);color:var(--dim);
+ font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--line);
+ position:sticky;top:0;white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid #1a2532;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#151f2c}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.caption{display:block;padding:10px 12px 0;color:var(--dim);font-size:12px}
+.methodflag{display:block;margin:8px 12px 0;padding:5px 10px;border-radius:7px;font-size:11.5px;
+ font-weight:600;color:#c9b6ff;background:#241b3a;border:1px solid #3a2d5c}
+table.method td{color:#c8d2e0}
+.note{padding:8px 12px 12px;color:var(--dim);font-size:12.5px;margin:0}
+.badge{display:inline-block;padding:1px 7px;border-radius:6px;font-size:11px;
+ font-weight:600;background:var(--chip);color:var(--dim);border:1px solid var(--line)}
+.badge.src{color:#9fccff;border-color:#27415e}
+.badge.bad{color:var(--bad);border-color:#5a2b2b;background:#2a1618}
+.pill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:11.5px;font-weight:600;
+ background:var(--chip);color:var(--dim);white-space:nowrap}
+.pill.out{background:#3a1a1d;color:#ff9d9d}
+.pill.doubt{background:#3a2d18;color:#ffcb7a}
+.pill.q{background:#3a3518;color:#f2e07a}
+.pill.ok{background:#15321f;color:#7fe3ab}
+.pill.info{background:#152b3a;color:#96cfef}
+.pill.mute{background:#1b222c;color:#8b9aad}
+.blank{color:#5f7086}
+.callout{border-left:3px solid var(--accent);background:var(--panel);padding:14px 16px;
+ border-radius:0 10px 10px 0;margin:16px 0;color:var(--dim);font-size:13.5px}
+.callout.warn{border-left-color:var(--warn)}
+.callout.bad{border-left-color:var(--bad)}
+.callout b{color:var(--ink)}
+ul.tight{margin:8px 0 8px 18px;padding:0;color:var(--dim);font-size:13.5px}
+ul.tight li{margin:5px 0}
+ul.tight b{color:var(--ink)}
+.split{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.q{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+.q h3{margin:0 0 6px;font-size:15.5px}
+.q .meta{color:var(--dim);font-size:12.5px;margin-bottom:10px}
+.q dl{margin:0;display:grid;grid-template-columns:132px 1fr;gap:6px 12px;font-size:13px}
+.q dt{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
+.q dd{margin:0}
+footer{border-top:1px solid var(--line);color:var(--dim);font-size:12.5px;padding:24px 0 40px}
+footer p{margin:6px 0}
+@media(max-width:640px){h1{font-size:24px}.brand{flex-wrap:wrap}table{min-width:440px}}
+</style>
+</head><body>
+<header class="top"><div class="wrap">
+<div class="brand"><b>FL3 · NFL Research</b><span class="tag">2026 season · Week 10 snapshot · as of 2026-11-14</span></div>
+<nav><a href="../index.html">Research desk</a><a href="index.html">Depth dashboard</a><a href="league.html">League</a><a href="injuries.html">Injuries &amp; Lineups</a><a href="lines.html">Model Lines</a><a href="strategies.html" class="on">Strategies</a><a href="questions.html">Questions</a><a href="suggestions.html">Suggestions</a><a href="flagged.html">Flagged for Review</a><a href="sources.html">Sources</a></nav>
+</div></header>
+<main class="wrap">
+<div class="kicker">validation, correlation, luck removal</div>
+<h1>Strategy lab: gates first, leaderboard later</h1>
+
+<p class="lede">A leaderboard is only worth looking at if a strategy has to earn its place. This page defines the
+test first and the ranking second — eight gates, a correlation-aware pricing method, and a luck-removal protocol.
+<b>No strategy has passed anything yet, because no bet has been settled.</b></p>
+
+<div class="callout bad"><b>The leaderboard is empty on purpose.</b> A leaderboard row requires settled, graded bets. Zero bets have been settled in this repo, so no strategy has a record.</div>
+
+<h2>The eight validation gates</h2>
+<div class="tw"><span class="methodflag">Methodology table — no external source exists for these rows</span><table class=" method"><thead><tr><th>ID</th><th>Gate</th><th>Rule</th><th>Why it exists</th></tr></thead><tbody><tr><td>G1</td><td><b>Sample size</b></td><td>&gt;= 200 settled bets before a strategy may appear on the leaderboard.</td><td>Below ~200 bets a 55% hit rate and a 50% hit rate are statistically indistinguishable at 95% confidence.</td></tr><tr><td>G2</td><td><b>Holdout discipline</b></td><td>Parameters fixed on seasons 1..n-1, scored on an untouched season n. The holdout is used once.</td><td>Prevents the backtest from being the model.</td></tr><tr><td>G3</td><td><b>Noise floor</b></td><td>Beats a permutation/null distribution at p &lt; 0.05 over 10,000 shuffles.</td><td>Separates signal from a lucky ordering of the same outcomes.</td></tr><tr><td>G4</td><td><b>Closing-line value</b></td><td>Positive closing-line value over the sample.</td><td>CLV is the least noisy evidence of genuine edge.</td></tr><tr><td>G5</td><td><b>Vig survivorship</b></td><td>Positive return at -110 pricing; break-even is 52.38%.</td><td>A strategy that only works at 0 vig does not work.</td></tr><tr><td>G6</td><td><b>Stability</b></td><td>Does not depend on one season, one team or one week (leave-one-out changes ROI by &lt; 5 pts).</td><td>A single outlier cluster is not an edge.</td></tr><tr><td>G7</td><td><b>Correlation control</b></td><td>Correlated legs are priced with a correlation-adjusted joint probability, not the product of marginals.</td><td>Parlays that multiply marginals systematically overstate the true chance.</td></tr><tr><td>G8</td><td><b>Luck removal</b></td><td>Reported skill is computed after removing one-score games, garbage time and turnover-luck residuals.</td><td>The brief asks for selectively skill-based strategies, not winning streaks.</td></tr></tbody></table><p class="note">A strategy must pass every gate before a leaderboard row is shown. Gates are pre-registered so the thresholds cannot be chosen after seeing results.</p></div>
+
+<h2>Registered strategies</h2>
+<div class="tw"><span class="methodflag">Methodology table — no external source exists for these rows</span><table class=" method"><thead><tr><th>ID</th><th>Strategy</th><th>Family</th><th>Market</th><th>Status</th><th>Gates passed</th><th>Notes</th></tr></thead><tbody><tr><td>STR-01</td><td><b>Shrunk offense-vs-defense line</b></td><td><span class="pill info">single-bet</span></td><td>spread</td><td><span class="pill q">untested</span></td><td>0/8</td><td>The line model this repo ships (data/lines.json). No graded results exist, so every gate is not-run.</td></tr><tr><td>STR-02</td><td><b>Rest/bye differential</b></td><td><span class="pill info">single-bet</span></td><td>spread</td><td><span class="pill mute">blocked-input</span></td><td>0/8</td><td>Blocked: the repo has the Week 10 bye list but no historical rest-vs-performance data.</td></tr><tr><td>STR-03</td><td><b>Backup-exposure fade</b></td><td><span class="pill info">single-bet</span></td><td>spread</td><td><span class="pill q">untested</span></td><td>0/8</td><td>This is the brief&#x27;s injury requirement turned into a testable hypothesis. 43 confirmed starter losses were logged this week; none are graded yet.</td></tr><tr><td>STR-04</td><td><b>Offensive-line continuity</b></td><td><span class="pill info">single-bet</span></td><td>total</td><td><span class="pill q">untested</span></td><td>0/8</td><td>Week 10 has usable cases (TEN Skoronski, NO Fuaga + McCoy, BUF Brown, HOU Rutledge). Not graded.</td></tr><tr><td>STR-05</td><td><b>Two-leg correlated parlay: same-game QB/WR</b></td><td><span class="pill info">parlay</span></td><td>player props</td><td><span class="pill mute">blocked-input</span></td><td>0/8</td><td>Blocked: no per-player game logs are in the repo, so rho cannot be estimated - only assumed. A parlay built on an assumed rho is not validated.</td></tr><tr><td>STR-06</td><td><b>Three-leg team-total parlay</b></td><td><span class="pill info">parlay</span></td><td>team totals</td><td><span class="pill q">untested</span></td><td>0/8</td><td>Needs a same-game correlation estimate, which needs play-by-play. Not collected.</td></tr><tr><td>STR-07</td><td><b>Player prop: RB volume vs. opponent run-defense</b></td><td><span class="pill info">player-prop</span></td><td>rushing yards</td><td><span class="pill mute">blocked-input</span></td><td>0/8</td><td>Blocked on per-player logs and defensive snap data.</td></tr><tr><td>STR-08</td><td><b>Injury-report timing drift</b></td><td><span class="pill info">single-bet</span></td><td>spread</td><td><span class="pill mute">blocked-input</span></td><td>0/8</td><td>Blocked: it needs historical odds, which this environment cannot access. This is the single most valuable unblocked dependency (see Q-04).</td></tr></tbody></table><p class="note">'blocked-input' means the strategy is well-posed but the data it needs is not in the repo. It is registered rather than hidden, so the gap is visible.</p></div>
+
+<h2>Correlation — the parlay problem</h2>
+<p class="lede">Multiplying leg probabilities assumes independence. For same-game legs that assumption is wrong, and
+it is wrong in the direction that makes a parlay look better than it is. The engine prices two-leg parlays with a
+Gaussian copula and <b>refuses to price at all</b> when the correlation has not been estimated.</p>
+<div class="tw"><span class="methodflag">Methodology table — no external source exists for these rows</span><table class=" method"><thead><tr><th>Pair</th><th>ρ</th><th>Basis</th><th>Status</th></tr></thead><tbody><tr><td>QB passing yards over  &lt;-&gt;  his WR1 receiving yards over</td><td><span class="blank">not estimated</span></td><td>not estimated - requires per-player game logs (not in repo)</td><td><span class="pill q">unverified</span></td></tr><tr><td>Team total over  &lt;-&gt;  opponent team total under (same game)</td><td><span class="blank">not estimated</span></td><td>not estimated - requires play-by-play</td><td><span class="pill q">unverified</span></td></tr><tr><td>Spread cover  &lt;-&gt;  game total over (same game)</td><td><span class="blank">not estimated</span></td><td>not estimated - requires play-by-play</td><td><span class="pill q">unverified</span></td></tr><tr><td>RB rushing yards over  &lt;-&gt;  team total over</td><td><span class="blank">not estimated</span></td><td>not estimated - requires per-player logs</td><td><span class="pill q">unverified</span></td></tr><tr><td>Two different games, same week</td><td><span class="num">0.00</span></td><td>independence is the defensible default when no shared mechanism is identified</td><td><span class="pill ok">assumption</span></td></tr></tbody></table><p class="note">No correlation on this site is empirical. Nothing has been estimated from data because no per-player game logs or play-by-play exist in the repo.</p></div>
+
+<h3>Why it matters, arithmetically</h3>
+<div class="tw"><span class="methodflag">Methodology table — no external source exists for these rows</span><table class=" method"><thead><tr><th>ρ</th><th>Naive product</th><th>Copula joint</th><th>Δ (pts)</th><th>Fair odds (naive)</th><th>Fair odds (copula)</th></tr></thead><tbody><tr><td>0.0</td><td><span class="num">0.3025</span></td><td><span class="num">0.3022</span></td><td><span class="num">-0.03</span></td><td><span class="num">3.31</span></td><td><span class="num">3.31</span></td></tr><tr><td>0.2</td><td><span class="num">0.3025</span></td><td><span class="num">0.3338</span></td><td><span class="num">+3.13</span></td><td><span class="num">3.31</span></td><td><span class="num">3.00</span></td></tr><tr><td>0.4</td><td><span class="num">0.3025</span></td><td><span class="num">0.3669</span></td><td><span class="num">+6.44</span></td><td><span class="num">3.31</span></td><td><span class="num">2.73</span></td></tr><tr><td>0.6</td><td><span class="num">0.3025</span></td><td><span class="num">0.4035</span></td><td><span class="num">+10.10</span></td><td><span class="num">3.31</span></td><td><span class="num">2.48</span></td></tr></tbody></table><p class="note">Two legs at 55% each. At ρ = 0.6 the true joint probability is 40.4%, not 30.3% — a parlay that looks like a 3.3x payout is really worth about 2.5x. This is exactly the error gate G7 exists to prevent.</p></div>
+
+<h2>Removing luck from the equation</h2>
+<div class="tw"><span class="methodflag">Methodology table — no external source exists for these rows</span><table class=" method"><thead><tr><th>ID</th><th>Procedure</th><th>Method</th><th>Status</th><th>Blocker</th></tr></thead><tbody><tr><td>L1</td><td><b>One-score-game exclusion</b></td><td>Recompute ROI excluding games decided by &lt;= 8 points, then require the sign to hold.</td><td><span class="pill q">not-run</span></td><td>needs settled bet records (none exist)</td></tr><tr><td>L2</td><td><b>Garbage-time strip</b></td><td>Recompute excluding plays in the final 5 minutes with a &gt;= 17 point margin.</td><td><span class="pill q">not-run</span></td><td>needs play-by-play (not collected)</td></tr><tr><td>L3</td><td><b>Turnover-luck regression</b></td><td>Model turnovers as a mean-reverting series and subtract the non-persistent component from team efficiency.</td><td><span class="pill q">not-run</span></td><td>needs play-by-play</td></tr><tr><td>L4</td><td><b>Permutation null</b></td><td>Shuffle outcomes 10,000 times within strata; keep the strategy only if it clears the 95th percentile.</td><td><span class="pill q">not-run</span></td><td>needs settled bet records</td></tr><tr><td>L5</td><td><b>Deflated Sharpe</b></td><td>Deflate the observed Sharpe ratio for the number of strategies tried (multiple-comparisons correction).</td><td><span class="pill q">not-run</span></td><td>needs settled bet records</td></tr><tr><td>L6</td><td><b>Bootstrap CI</b></td><td>10,000-sample bootstrap of ROI; report the 5th-95th percentile band, not the point estimate.</td><td><span class="pill q">not-run</span></td><td>needs settled bet records</td></tr></tbody></table><p class="note">Eight strategies are registered here. Testing all eight and reporting the best one inflates the apparent edge; L5 exists specifically to deflate for that.</p></div>
+
+<h2>Leaderboard and reward design</h2>
+<div class="tw"><span class="methodflag">Methodology table — no external source exists for these rows</span><table class=" method"><thead><tr><th>Tier</th><th>Requirement</th><th>Reward</th></tr></thead><tbody><tr><td>Provisional</td><td>G1..G3 pass</td><td>listed, no capital</td></tr><tr><td>Validated</td><td>G1..G6 pass</td><td>eligible for the smallest unit stake</td></tr><tr><td>Promoted</td><td>G1..G8 pass on an out-of-sample season</td><td>scaled stake, reviewed monthly</td></tr></tbody></table><p class="note">Design only. The scheme allocates no money and has no verified historical returns behind it.</p></div>
+<p class="lede" style="margin-top:12px">Ranking metric: <b>risk-adjusted: ROI / stdev of ROI, then deflated by the number of strategies tried (L5). Raw ROI is explicitly not the ranking metric.</b>. Raw ROI is
+deliberately <em>not</em> the ranking metric, because it rewards the luckiest high-variance strategy.</p>
+
+<h2>What would fill the leaderboard</h2>
+<ul class="tight">
+<li>A settled-bet log with strategy id, market, price taken, closing price, stake and result.</li><li>At least 200 settled bets per strategy before a row is displayed (gate G1).</li><li>All eight gates recorded pass/fail with linked evidence.</li>
+</ul>
+
+</main>
+<footer class="wrap">
+<p><b>Research dashboard, not betting advice.</b> No odds are published and no wager is recommended.
+This is an educational and analytical exercise about line origination and validation.</p>
+<p>Every figure links to the source that produced it. Values that could not be confirmed from an official
+source are left blank and listed on the <a href="flagged.html">Flagged for Review</a> page.
+Data captured 2026-11-14 and will age; check the as-of date before relying on anything here.</p>
+<p><a href="../index.html">← Back to the research desk</a> · built by session <code>arena-46e888f0</code> · sources: <a href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">NFL.com</a> ·
+<a href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">NFL.com injury report</a> ·
+<a href="https://www.ourlads.com/nfldepthcharts/" target="_blank" rel="noopener">Ourlads depth charts</a> ·
+<a href="sources.html">full registry</a></p>
+</footer></body></html>

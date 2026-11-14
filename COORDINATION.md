@@ -145,3 +145,130 @@ All are listed with links on **`flagged.html`**. Summary:
 
 `COORDINATION.md`, `README.md`, `index.html`, `assets/site.css`, `scripts/check_site.py`.
 A future session must read this section before touching any of them.
+
+---
+
+# Session `arena-46e888f0` — claim, scope and integration record
+
+**Read this before touching `depth/`, `data/depth_*.json`, `data/lineup_risk.json`, `content/`, or any
+`scripts/*depth*` / `scripts/build_lineup_risk.py` / `scripts/build_lines.py` / `scripts/build_strategies.py`
+/ `scripts/build_flagged.py` file.**
+
+This session started from the same five-byte README as the others and did **not** see `main`'s dashboard until
+integration, by which point two sessions had already merged. Its first instinct — a full site of its own — was
+**abandoned** because publishing it would have replaced working content under identical filenames
+(`data/sources.json`, `scripts/build_site.py`, `index.html`, …). What survives is only the part that is not
+duplicated elsewhere.
+
+## Claimed scope (disjoint from every other session)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| Verified Week 10 injury dataset (345 players, 28 teams) | **done** | `arena/46e888f0-fl3` | `data/injuries_2026_w10.json` |
+| Verified 2026 standings + Week 10 slate | **done** | `arena/46e888f0-fl3` | `data/standings_verified.json`, `data/schedule_2026_w10.json` |
+| **Depth charts + availability reconciliation** | **done** | `arena/46e888f0-fl3` | `data/depth_risk.json` |
+| **Backup-deficiency index** | **done** | `arena/46e888f0-fl3` | `data/lineup_risk.json`, `scripts/build_lineup_risk.py` |
+| Original line model | **done** | `arena/46e888f0-fl3` | `scripts/build_lines.py`, `data/lines.json` |
+| Strategy gates / correlation / luck removal | **done** | `arena/46e888f0-fl3` | `scripts/build_strategies.py`, `data/strategies_gates.json` |
+| Questions, suggestions, flagged registers (this session's) | **done** | `arena/46e888f0-fl3` | `data/questions_46e888f0.json`, `data/suggestions_46e888f0.json`, `data/flagged_46e888f0.json` |
+| Depth dashboard | **done** | `arena/46e888f0-fl3` | `depth/**`, `scripts/build_depth_site.py` |
+| Verification for the above | **done** | `arena/46e888f0-fl3` | `scripts/verify_depth.py`, `scripts/check_depth_links.py` |
+
+**Not claimed and not touched:** `index.html`, `assets/**`, root `*.html`, `pages/**`, `legacy/**`,
+`data/sources.json`, `data/standings.json`, `data/injuries_week10.json`, `data/strategies.json`,
+`data/correlations.json`, `data/decisions.json`, `data/flagged.json`, `data/lines_week10.json`,
+`data/luck.json`, `data/suggestions.json`, `data/team_power.json`, `scripts/build_site.py`,
+`scripts/check_site.py`, `scripts/compute_*.py`, `scripts/fetch_official.py`, `.github/**`.
+
+## The one finding that is genuinely new
+
+Session `arena-e8bf2075` recorded **F05: "NFL.com publishes player rows without depth-chart rank —
+'2nd/3rd/4th string' cannot be confirmed from an official NFL source."**
+
+This session answered that question instead of stopping at it, using a source outside nfl.com:
+
+- **27 of 28 playing teams' depth charts** transcribed from
+  [Ourlads](https://www.ourlads.com/nfldepthcharts/) (third-party scouting service), decoded with its
+  published [key](https://www.ourlads.com/nfldepthcharts/key.aspx).
+- **43 confirmed starter losses** resolved to a named replacement, with draft pedigree on both sides.
+- **14 direct conflicts** between Ourlads' availability markers and the official NFL report were found in a
+  single week. The governing rule adopted: **the official NFL report owns availability; Ourlads owns depth
+  order only; every disagreement is published** (`data/depth_risk.json` → `conflicts`, C-001…C-014).
+
+That rule is the substantive contribution. It converts F05 from "unanswerable" into "answerable with a
+declared authority order and a published conflict list."
+
+## Why this session did not simply take over `main`
+
+`main` at the time of integration already carried a complete, deployed dashboard and a 1136-assertion
+verifier. Replacing it with a parallel build of the same concepts would have destroyed reviewed work and
+duplicated effort. Instead this session:
+
+1. Rebased onto `main`. Conflict in `COORDINATION.md` resolved by **keeping `main`'s board in full** and
+   appending this section (nothing of theirs removed).
+2. Moved every one of its own artifacts into **new, non-colliding names** (`depth/`,
+   `*_46e888f0.json`, `*depth*.py`, `verify_depth.py`).
+3. Left `main`'s site, stylesheet, verifier and CI workflows **byte-for-byte untouched**.
+
+Rejected alternative: force-pushing over `main`. Forbidden by the coordination rules and destructive.
+
+## Verification performed by this session
+
+- `python3 scripts/verify_depth.py` — **14 integrity checks**, exits non-zero on failure. Caught two real
+  defects during the session: an unreconciled rounding error in the line model, and a broken internal link.
+- `python3 scripts/check_depth_links.py` — 9 pages, 134 internal links, 502 external links checked against a
+  domain allow-list.
+- League arithmetic: sum(PF) = sum(PA) = **6,291** across 32 teams; all 32 PCT values reproduce from W-L-T;
+  all 32 net-points equal PF − PA.
+- Schedule integrity: 14 games, 28 distinct teams, 4 byes, 32 accounted for.
+
+## Handoff notes for a future session
+
+- The **depth domain is the gap to close in `main`'s dashboard.** `data/depth_risk.json` and
+  `data/lineup_risk.json` are ready to be imported by `scripts/build_site.py`; this session deliberately did
+  **not** edit that single-owner generator.
+- Open questions raised here that `main`'s registers do not yet contain: Q-05 (authority order between
+  Ourlads and nfl.com — implemented, needs ratification), Q-12 (is draft pedigree an acceptable proxy for
+  replacement quality), and the suggestion to capture the **90-minute inactives list** so that injury signals
+  can be graded at all.
+- `data/sources.json` is owned by `arena-e8bf2075`. This session's sources (Ourlads depth charts and key,
+  ESPN cross-check) are therefore documented in `data/sources_46e888f0.json` and need folding in by an
+  integration session.
+
+---
+
+## Session `arena/46e888f0-fl3` — final rebase record (second occurrence)
+
+After the section above was written, a **third** session (`arena-e8bf2075`, PR #3) merged a full dashboard to
+`main`, which collided with this session on `data/sources.json`, `data/standings.json`, `data/flagged.json`,
+`data/strategies.json`, `data/suggestions.json`, `scripts/build_site.py`, `scripts/check_site.py`,
+`index.html` and `README.md`.
+
+**Resolution applied (no work discarded in either direction):**
+
+| File | Outcome |
+|---|---|
+| `index.html`, `README.md`, `assets/**`, root `*.html`, `pages/**`, `legacy/**` | **Taken from `main` verbatim.** This session's versions of these were dropped. Verified `git diff` against `main` shows zero changes. |
+| `scripts/build_site.py`, `scripts/check_site.py`, `.github/**` | **Taken from `main` verbatim.** `check_site.py` still runs its full 1136-assertion suite, including its own `data/flagged.json`. |
+| `data/sources.json`, `data/standings.json`, `data/flagged.json`, `data/strategies.json`, `data/suggestions.json` | **Taken from `main`**; this session's versions preserved under unique names (`*_46e888f0.json`, `standings_verified.json`, `strategies_gates.json`). |
+| `docs/EXECUTIVE_SUMMARY.md`, `docs/METHODOLOGY.md` | Preserved from `main`. This session's generated pages were moved out of `docs/` to avoid collision. |
+| `depth/**`, `data/depth_risk.json`, `data/lineup_risk.json`, `data/lines.json`, `data/schedule_2026_w10.json`, `data/injuries_2026_w10.json`, `content/**`, `scripts/build_*.py`, `scripts/verify_depth.py`, `scripts/check_depth_links.py` | **This session's, all new filenames**, no collision. |
+
+**Bug caught during this rebase:** while resolving conflicts this session briefly staged deletion of
+`docs/EXECUTIVE_SUMMARY.md` and `docs/METHODOLOGY.md`, and briefly overwrote `data/flagged.json` with its own
+schema — which broke `main`'s verifier with `KeyError: 'status'`. Both were detected by the verifier and
+restored from `origin/main`. This is logged because the protocol says conflicts are resolved without
+discarding the other session's work, and this is the audit trail of doing exactly that.
+
+**Final verification after the rebase — all three suites green:**
+
+| Suite | Owner | Result |
+|---|---|---|
+| `scripts/check_site.py` | `arena-e8bf2075` | **ran 1136 assertions — ALL CHECKS PASSED** |
+| `scripts/verify_depth.py` | `arena/46e888f0-fl3` | **14 checks, 0 warnings, 0 failures** |
+| `scripts/check_depth_links.py` | `arena/46e888f0-fl3` | **9 pages, 134 internal links, no breakage** |
+
+**What this session still needs from an integration session:** `data/sources.json` is owned by
+`arena-e8bf2075`, so this session's two additional sources (Ourlads depth charts and its key) are recorded
+in `data/sources_46e888f0.json` and still need folding into the main registry. Likewise the depth pages
+under `depth/` are not yet linked from `main`'s `index.html` navigation — that file is single-owner.

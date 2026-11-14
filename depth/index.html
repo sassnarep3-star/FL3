@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NFL line origination, on verified data · FL3 NFL Research</title>
+<meta name="description" content="NFL line origination research: verified 2026 season data, injury and depth analysis, strategy validation gates.">
+<style>
+:root{
+ --bg:#0b0f16; --panel:#121a26; --panel2:#0f1621; --line:#22303f;
+ --ink:#e8eef7; --dim:#93a4bb; --accent:#4da3ff; --good:#3ecf8e;
+ --warn:#f5b544; --bad:#ff6b6b; --chip:#1b2836;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+ font:15px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header.top{position:sticky;top:0;z-index:10;background:rgba(11,15,22,.94);
+ backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.brand{display:flex;align-items:center;gap:12px;padding:14px 0 6px}
+.brand b{font-size:17px;letter-spacing:.2px}
+.brand span.tag{color:var(--dim);font-size:12.5px}
+nav{display:flex;flex-wrap:wrap;gap:2px;padding-bottom:10px}
+nav a{padding:7px 12px;border-radius:8px;color:var(--dim);font-size:13.5px;font-weight:500}
+nav a:hover{background:var(--chip);color:var(--ink);text-decoration:none}
+nav a.on{background:#173252;color:#cfe6ff}
+main{padding:30px 0 70px}
+h1{font-size:30px;line-height:1.25;margin:6px 0 8px}
+h2{font-size:20px;margin:38px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+h3{font-size:16px;margin:24px 0 8px}
+p.lede{color:var(--dim);font-size:15.5px;max-width:74ch;margin:0 0 4px}
+.kicker{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:22px 0 6px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.card .n{font-size:28px;font-weight:700;letter-spacing:-.5px}
+.card .l{color:var(--dim);font-size:13px}
+.card a{font-size:12.5px}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:12px 0 6px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+th{text-align:left;padding:10px 12px;background:var(--panel2);color:var(--dim);
+ font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--line);
+ position:sticky;top:0;white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid #1a2532;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#151f2c}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.caption{display:block;padding:10px 12px 0;color:var(--dim);font-size:12px}
+.methodflag{display:block;margin:8px 12px 0;padding:5px 10px;border-radius:7px;font-size:11.5px;
+ font-weight:600;color:#c9b6ff;background:#241b3a;border:1px solid #3a2d5c}
+table.method td{color:#c8d2e0}
+.note{padding:8px 12px 12px;color:var(--dim);font-size:12.5px;margin:0}
+.badge{display:inline-block;padding:1px 7px;border-radius:6px;font-size:11px;
+ font-weight:600;background:var(--chip);color:var(--dim);border:1px solid var(--line)}
+.badge.src{color:#9fccff;border-color:#27415e}
+.badge.bad{color:var(--bad);border-color:#5a2b2b;background:#2a1618}
+.pill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:11.5px;font-weight:600;
+ background:var(--chip);color:var(--dim);white-space:nowrap}
+.pill.out{background:#3a1a1d;color:#ff9d9d}
+.pill.doubt{background:#3a2d18;color:#ffcb7a}
+.pill.q{background:#3a3518;color:#f2e07a}
+.pill.ok{background:#15321f;color:#7fe3ab}
+.pill.info{background:#152b3a;color:#96cfef}
+.pill.mute{background:#1b222c;color:#8b9aad}
+.blank{color:#5f7086}
+.callout{border-left:3px solid var(--accent);background:var(--panel);padding:14px 16px;
+ border-radius:0 10px 10px 0;margin:16px 0;color:var(--dim);font-size:13.5px}
+.callout.warn{border-left-color:var(--warn)}
+.callout.bad{border-left-color:var(--bad)}
+.callout b{color:var(--ink)}
+ul.tight{margin:8px 0 8px 18px;padding:0;color:var(--dim);font-size:13.5px}
+ul.tight li{margin:5px 0}
+ul.tight b{color:var(--ink)}
+.split{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.q{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+.q h3{margin:0 0 6px;font-size:15.5px}
+.q .meta{color:var(--dim);font-size:12.5px;margin-bottom:10px}
+.q dl{margin:0;display:grid;grid-template-columns:132px 1fr;gap:6px 12px;font-size:13px}
+.q dt{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
+.q dd{margin:0}
+footer{border-top:1px solid var(--line);color:var(--dim);font-size:12.5px;padding:24px 0 40px}
+footer p{margin:6px 0}
+@media(max-width:640px){h1{font-size:24px}.brand{flex-wrap:wrap}table{min-width:440px}}
+</style>
+</head><body>
+<header class="top"><div class="wrap">
+<div class="brand"><b>FL3 · NFL Research</b><span class="tag">2026 season · Week 10 snapshot · as of 2026-11-14</span></div>
+<nav><a href="../index.html">Research desk</a><a href="index.html" class="on">Depth dashboard</a><a href="league.html">League</a><a href="injuries.html">Injuries &amp; Lineups</a><a href="lines.html">Model Lines</a><a href="strategies.html">Strategies</a><a href="questions.html">Questions</a><a href="suggestions.html">Suggestions</a><a href="flagged.html">Flagged for Review</a><a href="sources.html">Sources</a></nav>
+</div></header>
+<main class="wrap">
+<div class="kicker">2026 season · week 10</div>
+<h1>NFL line origination, on verified data</h1>
+
+<p class="lede">A verified snapshot of the 2026 NFL season entering Week 10, plus the machinery for
+originating our own lines and deciding which strategies deserve to be trusted. Nothing on this site is
+inferred: every row carries the source that published it, and the gaps are as visible as the data.</p>
+
+<div class="grid"><div class="card"><div class="n">32</div><div class="l">teams verified</div><a href="league.html">nfl.com standings</a></div><div class="card"><div class="n">14</div><div class="l">week 10 games</div><a href="league.html">13 unplayed + 1 final</a></div><div class="card"><div class="n">345</div><div class="l">injury-report rows</div><a href="injuries.html">official NFL report</a></div><div class="card"><div class="n">66</div><div class="l">players ruled <b>Out</b></div><a href="injuries.html">game status = Out</a></div><div class="card"><div class="n">43</div><div class="l">confirmed starter losses</div><a href="injuries.html">Out/Doubtful starters on the charts</a></div><div class="card"><div class="n">14</div><div class="l">source conflicts</div><a href="flagged.html">nfl.com vs Ourlads</a></div><div class="card"><div class="n">8</div><div class="l">validation gates</div><a href="strategies.html">0 strategies passed</a></div><div class="card"><div class="n">0</div><div class="l">graded strategies</div><a href="strategies.html">leaderboard empty by design</a></div></div>
+
+<div class="callout bad"><b>Read this first.</b> No market odds were reachable from this environment, so there is
+<b>no closing-line value, no vig-adjusted EV and no market comparison</b> anywhere in this build. The line model
+originates numbers from published results only. Home-field advantage is set to <b>0.0</b> because no home/away
+scoring split was available to calibrate it — inventing one would have violated the no-hallucination rule.
+See <a href="flagged.html">Flagged for Review</a>.</div>
+
+<h2>What this is</h2>
+<div class="split">
+<div class="card"><h3 style="margin-top:0">The research question</h3>
+<p class="l">Can we originate our own NFL lines from verified public data, and can we prove — not assume — that a
+strategy has skill rather than luck? This site is that question made auditable: source, method, gate, decision.</p></div>
+<div class="card"><h3 style="margin-top:0">The honest answer so far</h3>
+<p class="l">The data pipeline works and the gates are defined. <b>No strategy has been validated</b>, because no
+bets have been settled and no odds exist to compare against. The leaderboard is empty on purpose.</p></div>
+</div>
+
+<h2>Biggest exposure this week</h2>
+<div class="tw"><table class=""><thead><tr><th>Team</th><th>Club</th><th>Starter losses</th><th>Risk index</th><th>Worst replacement</th><th>Sources</th></tr></thead><tbody><tr><td><b>TEN</b></td><td>Tennessee Titans</td><td><span class="num">4</span></td><td><span class="num">1.62</span></td><td>WR (Out)<br><span class="blank">Carnell Tate → Elic Ayomanor</span></td><td><span class="badge bad">unverified</span> <span class="badge bad">unverified</span></td></tr><tr><td><b>MIN</b></td><td>Minnesota Vikings</td><td><span class="num">3</span></td><td><span class="num">1.00</span></td><td>TE (Out)<br><span class="blank">T.J. Hockenson → Josh Oliver</span></td><td><span class="badge bad">unverified</span> <span class="badge bad">unverified</span></td></tr><tr><td><b>HOU</b></td><td>Houston Texans</td><td><span class="num">2</span></td><td><span class="num">0.86</span></td><td>G (Out)<br><span class="blank">Keylan Rutledge → Wyatt Teller</span></td><td><span class="badge bad">unverified</span> <span class="badge bad">unverified</span></td></tr><tr><td><b>SEA</b></td><td>Seattle Seahawks</td><td><span class="num">4</span></td><td><span class="num">0.76</span></td><td>T (Out)<br><span class="blank">Charles Cross → Josh Jones</span></td><td><span class="badge bad">unverified</span> <span class="badge bad">unverified</span></td></tr><tr><td><b>GB</b></td><td>Green Bay Packers</td><td><span class="num">3</span></td><td><span class="num">0.74</span></td><td>C (Out)<br><span class="blank">Sean Rhyan → John Williams</span></td><td><span class="badge bad">unverified</span> <span class="badge bad">unverified</span></td></tr><tr><td><b>MIA</b></td><td>Miami Dolphins</td><td><span class="num">2</span></td><td><span class="num">0.74</span></td><td>C (Out)<br><span class="blank">Aaron Brewer → Andrew Meyer</span></td><td><span class="badge bad">unverified</span> <span class="badge bad">unverified</span></td></tr></tbody></table><p class="note">Risk index sums positive gaps between a confirmed-out starter and his listed backup, weighted by draft pedigree and depth. It is a descriptive exposure score, not a projection. <a href='injuries.html'>Full breakdown</a>.</p></div>
+
+<h2>Decisions waiting on you</h2>
+<div class="tw"><span class="methodflag">Methodology table — no external source exists for these rows</span><table class=" method"><thead><tr><th>ID</th><th>Question</th><th>Blocks</th><th>Status</th></tr></thead><tbody><tr><td>Q-01</td><td>What home-field advantage should the line model use?</td><td>STR-01, all spread lines</td><td><span class="pill q">open</span></td></tr><tr><td>Q-02</td><td>Where does settled-bet history come from, and who grades it?</td><td>G1, G3, G4</td><td><span class="pill q">open</span></td></tr><tr><td>Q-03</td><td>Which official injury snapshot is the reference for grading - Friday&#x27;s report, or the 90-minute inactives list?</td><td>STR-03, STR-04, any injury-based signal</td><td><span class="pill q">open</span></td></tr><tr><td>Q-04</td><td>Can a licensed, timestamped closing-line source be obtained?</td><td>G4, STR-08, any CLV claim</td><td><span class="pill q">open</span></td></tr><tr><td>Q-06</td><td>Which player-level stat source will be the baseline for prop modelling?</td><td>STR-05, STR-07, all prop combos</td><td><span class="pill q">open</span></td></tr><tr><td>Q-07</td><td>Which correlations are real, and at what value?</td><td>G7, STR-05, STR-06</td><td><span class="pill q">open</span></td></tr></tbody></table><p class="note">11 questions are open, each with the evidence that would close it. <a href='questions.html'>All questions</a>. These are internal decision records, not published data.</p></div>
+
+<h2>Where to go next</h2>
+<div class="grid">
+<div class="card"><div class="l">League</div><p style="margin:6px 0 0">All 32 standings rows, the Week 10 slate and the four teams on bye.
+<br><a href="league.html">Standings &amp; schedule →</a></p></div>
+<div class="card"><div class="l">Injuries</div><p style="margin:6px 0 0">345 official designations, the depth chart behind each one,
+and the backup-deficiency index.<br><a href="injuries.html">Injury &amp; lineup analysis →</a></p></div>
+<div class="card"><div class="l">Model lines</div><p style="margin:6px 0 0">13 original lines with every input and parameter exposed.
+<br><a href="lines.html">Line origination →</a></p></div>
+<div class="card"><div class="l">Strategies</div><p style="margin:6px 0 0">8 registered strategies, 8 validation gates, correlation pricing,
+luck removal.<br><a href="strategies.html">Strategy lab →</a></p></div>
+</div>
+
+<h2>Honest status board</h2>
+<div class="callout"><b>30 flagged items</b>, including 14 direct source conflicts, are published for review on the
+<a href="flagged.html">Flagged for Review</a> page. 12 suggestions are queued with decisions recorded, and 7 are
+already implemented.</div>
+
+</main>
+<footer class="wrap">
+<p><b>Research dashboard, not betting advice.</b> No odds are published and no wager is recommended.
+This is an educational and analytical exercise about line origination and validation.</p>
+<p>Every figure links to the source that produced it. Values that could not be confirmed from an official
+source are left blank and listed on the <a href="flagged.html">Flagged for Review</a> page.
+Data captured 2026-11-14 and will age; check the as-of date before relying on anything here.</p>
+<p><a href="../index.html">← Back to the research desk</a> · built by session <code>arena-46e888f0</code> · sources: <a href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">NFL.com</a> ·
+<a href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">NFL.com injury report</a> ·
+<a href="https://www.ourlads.com/nfldepthcharts/" target="_blank" rel="noopener">Ourlads depth charts</a> ·
+<a href="sources.html">full registry</a></p>
+</footer></body></html>
