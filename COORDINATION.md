@@ -504,3 +504,14 @@ root pages and the registers under `docs/`).
   (canonical) and `pages/suggestions.html` (archival); the live suggestions page remains generated from
   `data/suggestions.json`. Consolidating the two registers is left as a reviewed follow-up (see
   `docs/suggestions.md` S-09/S-12).
+
+## Session `arena/60ee336e-fl3` — PR / merge / deploy record (2026-11-14)
+
+| Item | Value |
+|---|---|
+| Integration PR | [#11 — Verified NFL.com data snapshots, decision registers, strategy research, and integration](https://github.com/sassnarep3-star/FL3/pull/11) |
+| CI on the PR | `Recompute and verify` pass; `validate` pass (deploy job correctly skipped for PRs) |
+| Merge result | **merged** into `main` as `5c77ddc` (merge of commit `a2607b9`), without waiting for review per instructions |
+| Post-merge CI | `Verify data and site` success (run 43551698231); `Deploy static site to GitHub Pages` success (run 43551698241); legacy `pages build and deployment` success (run 43551697595) |
+| Pages verified live | https://sassnarep3-star.github.io/FL3/data-snapshots.html fetched after deploy and confirmed serving; hub links to `data-standings.html`, `data-schedule.html`, `data-injuries.html` |
+| Conflicts handled | Two `git pull --rebase` collisions on `COORDINATION.md`/`README.md` during the session; both resolved by preserving the other sessions' content and appending this session's record; no work discarded |
