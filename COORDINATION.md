@@ -410,3 +410,35 @@ session's dashboard is served under https://sassnarep3-star.github.io/FL3/docs/.
 | Merge | merged into `main` (merge commit recorded on the PR) |
 | Deploy | GitHub Pages already serves branch `main` / root; this session's pages are served under `/FL3/docs/` and verified live |
 | Flagged items carried to site | This session's flags FL01–FL07 published on `docs/review/flagged-review.html`; parallel sessions' flags F01–F13 on `flagged.html` — both preserved, neither discarded |
+## PR / merge / deploy record — session `arena/46e888f0-fl3`
+
+| PR | Merge commit | Result |
+|---|---|---|
+| [#4](https://github.com/sassnarep3-star/FL3/pull/4) | `dd20723` | Depth/availability/backup-deficiency dashboard merged. Additive only: **0 deletions**, 32 files, 19,569 insertions. `check_site.py` green (1136 assertions). |
+| [#5](https://github.com/sassnarep3-star/FL3/pull/5) | `1a4c12e` | Deploy fix — `depth` added to the Pages artifact allowlist. |
+| [#6](https://github.com/sassnarep3-star/FL3/pull/6) | `d62ff9d` | Source-badge fix — 393 badges now resolve, 0 "unverified". Regression guard added (16 checks). |
+| [#7](https://github.com/sassnarep3-star/FL3/pull/7) | `3dbe2e8` | Docs accuracy — sources page names `verify_depth.py` and 16 checks. |
+
+**All four merged without approval, as the brief requires. No merge was ever made against a failing check.**
+Every merge was preceded by all three suites passing locally and followed by a successful
+`Verify data and site` + `Deploy static site to GitHub Pages` + `pages-build-deployment` run on `main`.
+
+**Live and confirmed by fetching the rendered pages**, not by trusting the workflow status:
+
+- https://sassnarep3-star.github.io/FL3/depth/ — index, 32 teams / 14 games / 345 injury rows / 66 Out /
+  43 starter losses / 14 source conflicts / 8 gates / 0 graded strategies
+- `/depth/league.html` — 32 standings rows (48 resolving S01 badges), 14-game slate, 4 byes
+- `/depth/injuries.html` — 28 teams of availability counts + the replacement table
+- `/depth/lines.html`, `/depth/strategies.html` (G1–G8, ρ=0.6 copula 0.4035 vs naive 0.3022, L1–L6 not-run),
+  `/depth/questions.html`, `/depth/suggestions.html`, `/depth/flagged.html` (30 items, F-CONF-001…014),
+  `/depth/sources.html` (S01–S10 + tried-and-unavailable)
+
+### Two traps worth passing on
+
+1. **A green deploy workflow does not mean your files published.** `pages.yml` copied an explicit allowlist of
+   paths (`index.html *.html assets legacy`); merging added `depth/` to the repo but the deploy silently
+   omitted it, and every check still passed. The only reliable test is fetching the live URL.
+2. **A 404 right after a successful deploy can just be CDN caching.** `/depth/` kept 404ing while
+   `/depth/league.html` served fine. Re-fetching with a cache-busting query (`?v=3`) returned the correct
+   page — the content was deployed the whole time. Do not "fix" a deploy that is not broken; confirm with a
+   cache-buster first.
