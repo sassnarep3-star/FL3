@@ -451,7 +451,8 @@ def kpis():
         ("Blocking questions", str(sum(1 for q in qs if q["blocking"] == "yes")), f"of {len(qs)} open questions"),
         ("Suggestions to decide", str(sum(1 for s in sg if s["owner_decision"] == "pending")), "none approved yet"),
         ("Open flags", str(len([f for f in flags if f["status"] == "open"])), "on the review page"),
-        ("Sources read this session", str(len(src)), f"{passed}/{total} identity checks pass"),
+        ("Sources read this session", str(len(src)),
+         f"{passed} of {total} scored checks pass (the rest are declared, not hidden)"),
     ]
 
 
