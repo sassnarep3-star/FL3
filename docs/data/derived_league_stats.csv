@@ -1,0 +1,10 @@
+metric,value,unit,basis,status,note
+games_ingested,33,games,data/games_2026.csv (Weeks 1-2 + one Week 10 result),partial,137 games are verified at league level; only these are row-verified (FLG-016)
+mean_home_margin,0.09,points,n=33,derived-provisional,sample estimate of home-field advantage in points; CI ~ +/-1.96*SD/sqrt(n)
+sd_home_margin,14.71,points,n=33,derived-provisional,first input to the spread-width problem; needs the full season (Q-05)
+mean_game_total,44.94,points,n=33,derived-provisional,"compare with the standings-derived 45.92 (F-13), which covers all 137 games"
+sd_game_total,16.57,points,n=33,derived-provisional,
+home_win_rate,0.515,share,n=33,derived-provisional,excludes ties; ties reported separately
+tie_rate,0.000,share,n=33,derived-provisional,"under the post-2025 OT rule a tie is still possible (Q-09); the standings show 1 tie league-wide through Week 9, i.e. 1/137 = 0.007"
+pyth_exponent_fitted,3.4,exponent,"fitted on 2026 standings (n=32 clubs), SSE=29.95",derived,"fitted here, not borrowed: chosen to reproduce official W-L records"
+league_points_per_club_per_game,22.96,points,sum(PF)/sum(team-games) over the official standings,derived-verified,covers all 137 verified games (F-13)

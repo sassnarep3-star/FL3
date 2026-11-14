@@ -1,0 +1,49 @@
+# Validation gates - machine-readable definitions
+# Authority for data/gates.csv (that CSV is the published view; this file is the spec the
+# scripts implement). A gate may not be passed by argument, only by its test.
+
+meta:
+  version: "0.1"
+  updated_utc: "2026-11-14T06:00:00Z"
+  decision_math: data/decision_math.csv      # where the numeric thresholds come from
+  implemented_now: [G-10]
+  blocked_by_data: [G-01, G-02, G-03, G-04, G-05, G-06, G-07, G-08, G-09, G-11, G-12, G-13]
+
+thresholds:
+  n_min_bets:
+    rule: "ceil of the sample size that can *show* the claimed edge at 95% confidence, 80% power"
+    formula: "((z_a*sqrt(p0*q0) + z_b*sqrt(p1*q1)) / (p1-p0))^2"
+    values:                      # computed, see scripts/stats_tables.py
+      edge_1pt_hitrate: 19564
+      edge_2pt_hitrate: 4886
+      edge_3pt_hitrate: 2169
+      edge_5pt_hitrate: 778
+    floor: 400                   # absolute minimum for any live consideration
+    rationale: "a strategy is not 'promising at 40 bets'; it is unmeasured at 40 bets"
+  fdr:
+    method: benjamini-hochberg
+    q: 0.10
+    over: "every strategy in models/strategy_registry.yaml, including the ones that failed"
+  deflated_sharpe:
+    reason: "with N candidate strategies, the maximum Sharpe is inflated by N; the statistic is deflated
+      by the expected maximum of N draws from the null (Bailey & Lopez de Prado form)"
+  clv:
+    metric: "mean (our_close_implied_prob - market_close_implied_prob), and % of bets beating the close"
+    window: "close = final price at kickoff, timestamped"
+  stability:
+    rolling: "20-bet rolling windows"
+    test: "no window with n>=20 may carry more than 60% of the total measured edge"
+  correlation:
+    rule: "joint probability from game simulation, never the product of marginals"
+    dedupe_key: "(game_id, causal_driver_id)"
+    same_driver_max_exposure: 0.03
+  fill:
+    require: ["slippage in cents", "limit hit rate", "max accepted stake", "restriction flag"]
+  luck_adjusted:
+    report: "realised units AND expected units under our own probabilities, weekly, with the gap shown"
+
+escalation:
+  on_gate_breach: [freeze promotion, demote one tier, publish the breach on the review page]
+  on_g10_failure: [abort build, void the week's recorded predictions for scoring purposes]
+  on_parameter_change: "results since the previous sealed config are void (G-12)"
+  appeal: "a gate may be revised only by editing this file in a PR that cites a data row"

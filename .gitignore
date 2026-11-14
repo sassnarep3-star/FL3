@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# local scratch, never published
+*.tmp
+*.bak
+*.proposed.csv
+data/raw_evidence/*.html
+data/raw_evidence/*.sha256
+!data/raw_evidence/.gitkeep
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# NOTE: docs/ is deliberately NOT ignored - GitHub Pages is deployed from the built artifact and the
+# CI job fails if docs/ does not match what data/ would generate.

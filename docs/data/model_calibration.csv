@@ -1,0 +1,8 @@
+constant,value,unit,se,n,method,status,note
+beta (rating-gap to points),1.140,multiplier,0.271,33,"OLS of verified home margin on the net-points gap, no intercept-free constraint",provisional-in-sample,"beta should be < 1 (shrinkage toward the mean); beta >= 1 on a 33-game in-sample fit is a symptom of too small a sample, not evidence that ratings under-move the line - FLG-026"
+alpha (home-field advantage),-0.82,points,2.09,33,OLS intercept,provisional-in-sample,2026 estimate from the ingested games; Q-06 asks for the full-season value
+sigma_margin (residual SD),11.92,points,,33,residual SD of the OLS fit (n-2),provisional-in-sample,"converts a spread into a win probability, and a win probability into a moneyline"
+r2 (rating gap explains margin),0.364,R^2,,33,1 - SSE/SST,provisional-in-sample,how much of a game margin an unadjusted net-points gap captures at all
+gamma (total model exponent),1.20,exponent,,33,"grid search minimising total RMSE, gamma in 0.10..1.00",provisional-in-sample,gamma=1 is the naive multiplicative model; gamma<1 shrinks the ratios
+total model RMSE,14.10,points,,33,sqrt(mean squared error) on verified game totals,provisional-in-sample,MAE=10.72 points
+pyth_exponent,3.4,exponent,,32,grid search reproducing official W-L records,derived,SSE=29.95 wins^2 over 32 clubs

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verification methodology</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><a href="index.html"><strong>FL3</strong> <span>NFL line origination board</span></a></div>
+  <div class="stamp">data read 2026-11-14 UTC &middot; build 2026-11-14 02:54:58 UTC</div>
+</header>
+<div class="wrap">
+<nav class="side"><div class="navgroup"><span>Read first</span><a href="executive-summary.html">Executive summary</a><a href="questions.html">Questions & gaps</a><a href="suggestions.html">Suggestions</a></div><div class="navgroup"><span>Verified data</span><a href="standings.html">Standings</a><a href="games.html">Game results</a><a href="team-stats.html">Team stats</a><a href="injuries.html">Injuries & availability</a><a href="league-facts.html">League facts</a></div><div class="navgroup"><span>Model & signals</span><a href="model.html">Model</a><a href="parameters.html">Parameter register</a><a href="lines.html">Lines</a><a href="signals.html">Signals</a><a href="correlation.html">Correlation</a><a href="validation.html">Validation gates</a><a href="leaderboard.html">Leaderboard</a></div><div class="navgroup"><span>Verification & ops</span><a href="methodology.html" class=on>Methodology</a><a href="verification.html">Verification log</a><a href="sources.html">Sources</a><a href="flagged.html">Flagged for review</a></div>
+  <div class="navgroup"><span>Repo</span>
+    <a href="https://github.com/sassnarep3-star/FL3" rel="noopener nofollow" target="_blank">GitHub</a>
+    <a href="https://github.com/sassnarep3-star/FL3/blob/main/COORDINATION.md" rel="noopener nofollow" target="_blank">Coordination board</a>
+  </div>
+</nav>
+<main>
+<h1 id="verification-methodology">Verification methodology</h1>
+<p>How a number gets to be on this site - stated so it can be argued with, and short enough to be read.</p>
+<h2 id="the-rule">The rule</h2>
+<blockquote>Every table row carries a source. A value that cannot be confirmed from an official source is left</blockquote>
+<blockquote>blank and flagged. Nothing is inferred to fill a gap.</blockquote>
+<p>Three classes, and only three:</p>
+<div class="tablewrap"><table><thead><tr><th>Class</th><th>Meaning</th><th>Who may use it</th></tr></thead><tbody><tr><td><code>verified</code></td><td>read directly from a source in the [registry](sources.html), with a UTC read timestamp</td><td>anything, including prices</td></tr><tr><td><code>derived</code> / <code>derived-verified</code></td><td>computed from verified rows by a script in this repo</td><td>anything; the computation is published with it</td></tr><tr><td><code>blank</code> + flag</td><td>the source does not exist, is not licensed, or contradicts itself</td><td>nothing - a row that would consume it is marked not-actionable</td></tr></tbody></table></div>
+<p>A fourth state exists in practice and is always labelled: <code>provisional</code> - a real value computed on a real but too-small sample (the 33-game table). Provisional values may set a <em>direction of travel</em> in a document; they may not set a stake.</p>
+<h2 id="what-official-means-here">What "official" means here</h2>
+<p><code>nfl.com</code> (league office pages: standings, schedule, scores, injury report, team stats, news), <code>operations.nfl.com</code> (rulebook, including the 2026 PDF), and government sources for anything external (e.g. NOAA/NWS for weather). Club-owned pages count as official for their own roster/depth facts. Media, aggregators and other betting sites are recorded as <code>secondary</code> or <code>commercial-market</code> and <strong>never</strong> used as the basis of a published value - they can justify a <em>question</em>, not a number.</p>
+<h2 id="the-identity-checks-run-at-build-time-scripts-verify-py">The identity checks (run at build time, <code>scripts/verify.py</code>)</h2>
+<div class="tablewrap"><table><thead><tr><th>Check</th><th>What it proves</th></tr></thead><tbody><tr><td>V-01 / V-02</td><td>standings rows are internally consistent, including <code>PCT = (W+0.5T)/(W+L+T)</code></td></tr><tr><td>V-03</td><td>league-wide <code>sum(PF) = sum(PA)</code> and <code>sum(W) = sum(L)</code> - a transcription error in any of 32 rows breaks it</td></tr><tr><td>V-04</td><td>team-games is even, and ties come in pairs</td></tr><tr><td>V-05</td><td>every game row names two of the 32 clubs</td></tr><tr><td>V-06/07/08</td><td>each published rate (cmp%, yds/att, 1st%) equals the recomputed rate</td></tr><tr><td>V-09a</td><td>offense totals = defense totals league-wide, which is what <em>proves</em> the column mapping on pages that publish no labels</td></tr><tr><td>V-09b</td><td>scoring/turnover totals must match too - <strong>they currently do not</strong> ([FLG-025](flagged.html)), so those columns are pricing-ineligible</td></tr><tr><td>V-10</td><td>injury rows use only legal designations and known clubs</td></tr><tr><td>V-11</td><td>rounding-boundary warnings are surfaced rather than silently tolerated</td></tr></tbody></table></div>
+<p>Plus a build-time check that <strong>no row cites an unregistered <code>source_id</code></strong>, and a link check (<code>scripts/check_links.py</code>) that fails the deploy on a broken internal link.</p>
+<h2 id="worked-example-of-the-discipline-paying-for-itself">Worked example of the discipline paying for itself</h2>
+<p>The team-stat pages publish 39 numeric columns with no header row. Rather than guess from magnitudes - the normal way a scraper "just knows" that column 6 is touchdowns - the mapping was accepted only where an identity pins it, and then confirmed by a <em>league-wide</em> identity that only a correct mapping can satisfy:</p>
+<pre><code>
+sum over 32 offenses of pass attempts  =  9037  =  sum over 32 defenses of opponent pass attempts
+</code></pre>
+<p>Five such identities hold exactly. Two do not (TD 414 vs 415; INT 202 vs 200) and eleven columns are withheld. That single page of the site now knows which of its numbers are load-bearing, which is more than most dashboards of this kind can say.</p>
+<h2 id="reproducing-everything">Reproducing everything</h2>
+<pre><code>
+python3 scripts/verify.py        # identity checks; exit 1 blocks the publish (gate G-10)
+python3 scripts/model.py         # derived metrics, calibration, ratings, priced slate
+python3 scripts/stats_tables.py  # closed-form thresholds (break-even, N_min, parlay EV)
+python3 scripts/make_leaderboard.py
+python3 scripts/build_site.py    # renders docs/ from data/ + content/
+python3 scripts/check_links.py   # internal links + registry integrity
+</code></pre>
+<p>No third-party packages: standard library only, so the same build runs in GitHub Actions and on a laptop. <code>docs/</code> is generated - edit <code>data/</code> or <code>content/</code>, never the HTML.</p>
+<h2 id="what-is-not-verified-listed-rather-than-hidden">What is <em>not</em> verified, listed rather than hidden</h2>
+<ul>
+<li>The fetchers have never been executed here: this sandbox blocks nfl.com and GitHub release assets, so</li>
+</ul>
+<p><code>scripts/fetch_nfl_data.py</code> ships as <strong>untested code, labelled as such</strong> ([FLG-024](flagged.html)) - it is not cited as a verification step anywhere.</p>
+<ul>
+<li>104 of 137 verified 2026 games are not in the repo ([FLG-016](flagged.html)).</li>
+<li>Odds, lineups, snap counts, weather, player-level rates, prior seasons: absent by design until sourced</li>
+</ul>
+<p>([questions](questions.html)).</p>
+<ul>
+<li>Headline context (Jackson/Darnold/Willis/Nacua/Jacobs) is read from link text on the official page, not</li>
+</ul>
+<p>from the article bodies ([FLG-022](flagged.html)).</p>
+<footer>
+  <p>Every table on this site is generated from <code>data/</code> by <code>scripts/build_site.py</code>;
+  no value is typed into the HTML. Empty cells are deliberate: the value was not confirmable from an
+  official source, so it is left blank and listed on the
+  <a href="flagged.html">Flagged for review</a> page. Nothing here is betting advice.</p>
+</footer>
+</main>
+</div>
+</body></html>

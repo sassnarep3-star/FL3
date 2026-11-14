@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FL3 - NFL line origination and signal board</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><a href="index.html"><strong>FL3</strong> <span>NFL line origination board</span></a></div>
+  <div class="stamp">data read 2026-11-14 UTC &middot; build 2026-11-14 02:54:58 UTC</div>
+</header>
+<div class="wrap">
+<nav class="side"><div class="navgroup"><span>Read first</span><a href="executive-summary.html">Executive summary</a><a href="questions.html">Questions & gaps</a><a href="suggestions.html">Suggestions</a></div><div class="navgroup"><span>Verified data</span><a href="standings.html">Standings</a><a href="games.html">Game results</a><a href="team-stats.html">Team stats</a><a href="injuries.html">Injuries & availability</a><a href="league-facts.html">League facts</a></div><div class="navgroup"><span>Model & signals</span><a href="model.html">Model</a><a href="parameters.html">Parameter register</a><a href="lines.html">Lines</a><a href="signals.html">Signals</a><a href="correlation.html">Correlation</a><a href="validation.html">Validation gates</a><a href="leaderboard.html">Leaderboard</a></div><div class="navgroup"><span>Verification & ops</span><a href="methodology.html">Methodology</a><a href="verification.html">Verification log</a><a href="sources.html">Sources</a><a href="flagged.html">Flagged for review</a></div>
+  <div class="navgroup"><span>Repo</span>
+    <a href="https://github.com/sassnarep3-star/FL3" rel="noopener nofollow" target="_blank">GitHub</a>
+    <a href="https://github.com/sassnarep3-star/FL3/blob/main/COORDINATION.md" rel="noopener nofollow" target="_blank">Coordination board</a>
+  </div>
+</nav>
+<main>
+<section class="kpis"><div class="kpi"><span class="kv">32/32</span><span class="kl">Clubs in the dataset</span><span class="kn">official standings, all 32 read</span></div><div class="kpi"><span class="kv">33</span><span class="kl">Verified game rows</span><span class="kn">33 of 137 games through Week 9</span></div><div class="kpi"><span class="kv">160</span><span class="kl">Availability rows</span><span class="kn">Week 10 report, clubs with a game status</span></div><div class="kpi"><span class="kv">16</span><span class="kl">Signals specified</span><span class="kn">single / parlay / prop-combo families</span></div><div class="kpi"><span class="kv">7</span><span class="kl">Blocking questions</span><span class="kn">of 20 open questions</span></div><div class="kpi"><span class="kv">25</span><span class="kl">Suggestions to decide</span><span class="kn">none approved yet</span></div><div class="kpi"><span class="kv">26</span><span class="kl">Open flags</span><span class="kn">on the review page</span></div><div class="kpi"><span class="kv">12</span><span class="kl">Sources read this session</span><span class="kn">14/16 identity checks pass</span></div></section><h1 id="fl3-nfl-line-origination-and-signal-board">FL3 - NFL line origination and signal board</h1>
+<p>A working system for <strong>originating NFL lines</strong>, turning them into <strong>betting signals</strong>, and <strong>grading the strategies that produce them</strong> - built only from data that can be traced to an official source, with every unconfirmable value left blank and listed on the [Flagged for review](flagged.html) page.</p>
+<p>The site is generated. Every table you see is rendered from <code>data/*.csv</code> by <code>scripts/build_site.py</code>; if a value is not in the CSV it does not exist on the site, and if a CSV row fails an identity check the build stops. Start with the [Executive summary](executive-summary.html), then decide the items in the [Suggestion register](suggestions.html).</p>
+<h2 id="what-is-real-right-now">What is real right now</h2>
+<ul>
+<li><strong>32 of 32 clubs</strong> loaded from the official [standings](standings.html) page, identity-checked</li>
+</ul>
+<p>(<code>sum(PF) = sum(PA) = 6,291</code>, <code>sum(W) = sum(L) = 136</code>).</p>
+<ul>
+<li><strong>33 row-verified games</strong> of the 137 games the league has actually played through Week 9</li>
+</ul>
+<p>([game results](games.html)) - the rest is a <em>coverage gap we declare</em>, not a gap we paper over.</p>
+<ul>
+<li><strong>160 availability rows</strong> for the Week 10 slate, read off the [official injury report](injuries.html),</li>
+</ul>
+<p>including the backup-vs-starter damage per position group.</p>
+<ul>
+<li><strong>A priced Week 10 slate</strong> with fitted constants - see [Lines](lines.html). The market columns are</li>
+</ul>
+<p>blank on purpose: <strong>no official source publishes odds</strong>, so nothing was filled in by hand.</p>
+<ul>
+<li><strong>15 signals, 13 validation gates, 20 open questions, 25 suggestions</strong> - each with a stated</li>
+</ul>
+<p>dependency, so you can see what has to be bought or read before a decision is defensible.</p>
+<h2 id="the-one-line-status">The one-line status</h2>
+<p>The <strong>architecture, the data discipline and the evaluation machinery are done and reproducible.</strong> The <strong>pricing itself is not trustworthy yet</strong>, and it is not presented as such: the four numbers that make a spread into a price (home-field value, residual SD, shrinkage, vig) are fitted on 33 games and are labelled <code>provisional-in-sample</code> everywhere they appear.</p>
+<h2 id="blocking-list">Blocking list</h2>
+<div class="tablewrap"><table><thead><tr><th>#</th><th>Blocker</th><th>Why it is blocking</th><th>Fix</th></tr></thead><tbody><tr><td>1</td><td>No market prices</td><td>Without opening/closing lines there is no CLV, no gate G-03, no leaderboard scoring</td><td>licence a vendor - [Q-01](questions.html)</td></tr><tr><td>2</td><td>No lineups / depth charts</td><td>"Which backup is in" cannot be computed from the weekly report</td><td>club charts + inactive lists - [Q-02](questions.html)</td></tr><tr><td>3</td><td>IR is invisible in the report</td><td>Baltimore's Week 10 report looks healthy while its franchise QB is out 6-10 weeks</td><td>merge transactions - [Q-03](questions.html)</td></tr><tr><td>4</td><td>Only 33 of 137 games ingested</td><td>Every distribution is provisional</td><td>run <code>scripts/fetch_nfl_data.py</code> on a networked host - [Q-04](questions.html)</td></tr><tr><td>5</td><td>No owner mandate</td><td>Stake sizes, kill switch and rewards need an owner, not an agent</td><td>[Q-17](questions.html), [S-19](suggestions.html)</td></tr></tbody></table></div>
+<h2 id="read-it-in-this-order">Read it in this order</h2>
+<p>1. [Executive summary](executive-summary.html) - findings, not features. 2. [Questions &amp; gaps](questions.html) - what must be answered before any decision. 3. [Suggestions](suggestions.html) - the paths, with impact/effort/risk; approve the ones you want. 4. [Model](model.html) → [Lines](lines.html) → [Signals](signals.html) → [Correlation](correlation.html) → [Validation gates](validation.html) → [Leaderboard &amp; rewards](leaderboard.html). 5. [Methodology](methodology.html) and [Verification log](verification.html) to audit the numbers, and [Sources](sources.html) to click through to the official page behind any cell.</p>
+<blockquote>Nothing on this site is betting advice, and nothing here says a strategy is profitable. The best</blockquote>
+<blockquote>claim the current data supports is: *this pipeline would detect it, and this is the evidence it</blockquote>
+<blockquote>still needs.*</blockquote>
+<footer>
+  <p>Every table on this site is generated from <code>data/</code> by <code>scripts/build_site.py</code>;
+  no value is typed into the HTML. Empty cells are deliberate: the value was not confirmable from an
+  official source, so it is left blank and listed on the
+  <a href="flagged.html">Flagged for review</a> page. Nothing here is betting advice.</p>
+</footer>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Executive summary</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><a href="index.html"><strong>FL3</strong> <span>NFL line origination board</span></a></div>
+  <div class="stamp">data read 2026-11-14 UTC &middot; build 2026-11-14 02:54:58 UTC</div>
+</header>
+<div class="wrap">
+<nav class="side"><div class="navgroup"><span>Read first</span><a href="executive-summary.html" class=on>Executive summary</a><a href="questions.html">Questions & gaps</a><a href="suggestions.html">Suggestions</a></div><div class="navgroup"><span>Verified data</span><a href="standings.html">Standings</a><a href="games.html">Game results</a><a href="team-stats.html">Team stats</a><a href="injuries.html">Injuries & availability</a><a href="league-facts.html">League facts</a></div><div class="navgroup"><span>Model & signals</span><a href="model.html">Model</a><a href="parameters.html">Parameter register</a><a href="lines.html">Lines</a><a href="signals.html">Signals</a><a href="correlation.html">Correlation</a><a href="validation.html">Validation gates</a><a href="leaderboard.html">Leaderboard</a></div><div class="navgroup"><span>Verification & ops</span><a href="methodology.html">Methodology</a><a href="verification.html">Verification log</a><a href="sources.html">Sources</a><a href="flagged.html">Flagged for review</a></div>
+  <div class="navgroup"><span>Repo</span>
+    <a href="https://github.com/sassnarep3-star/FL3" rel="noopener nofollow" target="_blank">GitHub</a>
+    <a href="https://github.com/sassnarep3-star/FL3/blob/main/COORDINATION.md" rel="noopener nofollow" target="_blank">Coordination board</a>
+  </div>
+</nav>
+<main>
+<h1 id="executive-summary">Executive summary</h1>
+<p><strong>Read:</strong> 2026-11-14. <strong>Season state:</strong> Week 10, Thursday game played, 13 Sunday games and one Monday game still to come. <strong>Repo state at start:</strong> one 5-byte <code>README.md</code>, one commit, no code, no data ([FLG-001](flagged.html)).</p>
+<h2 id="1-what-this-project-now-is">1. What this project now is</h2>
+<p>A data-to-price pipeline with a review discipline attached:</p>
+<p><code>ingest → verify → derive → rate → price → signal → gate → board</code>, where <em>nothing</em> enters the site that does not carry a source id, and <em>nothing</em> is priced off an unverified input.</p>
+<ul>
+<li><strong>19 sources registered</strong> in [sources.csv](sources.html); 9 read this session from the league's own</li>
+</ul>
+<p>pages (standings, injury report, three team-stat pages, two schedule pages, scores page, the 2026 rulebook page).</p>
+<ul>
+<li><strong>13 automated identity checks</strong> in [verification log](verification.html); the build fails on a</li>
+</ul>
+<p>transcription error and passes with warnings on source-level noise.</p>
+<ul>
+<li><strong>9 data tables</strong>, 4 model/spec files, 4 scripts, GitHub Pages deploy - all reproducible with one</li>
+</ul>
+<p>command (<code>python3 scripts/build_site.py</code>).</p>
+<h2 id="2-what-the-verified-data-already-tells-us">2. What the verified data already tells us</h2>
+<div class="tablewrap"><table><thead><tr><th>Finding</th><th>Number</th><th>Where</th><th>So what</th></tr></thead><tbody><tr><td>League scoring through Week 9</td><td>22.96 pts per club per game (45.92 combined)</td><td>[league facts](league-facts.html) F-13</td><td>the total-anchoring constant, from 137 games, official</td></tr><tr><td>Games played</td><td>137, of which 1 tie</td><td>F-11, F-12</td><td>a <strong>0.7% tie rate</strong> is a real pricing term for spreads and moneylines, not a rounding error</td></tr><tr><td>Home margin, ingested sample (n=33)</td><td><strong>+0.09 pts</strong>, SD 14.71</td><td>[derived league stats](model.html)</td><td>home-field advantage is currently indistinguishable from zero on our sample - a 2-point "standard" HFA would be a fabricated input</td></tr><tr><td>Spread vs total volatility</td><td>margin SD 14.71 vs total SD 16.32</td><td>derived</td><td>the two markets need different widths; one "sigma" for everything is wrong</td></tr><tr><td>Pass yards/game vs net points</td><td>r = 0.46 (95% CI 0.14 to 0.70)</td><td>[correlation](correlation.html)</td><td>passing volume separates good teams from bad ones - usable</td></tr><tr><td>Rush yards/game vs net points</td><td>r = 0.17 (CI -0.19 to 0.49)</td><td>correlation</td><td>rushing offence is <em>not</em> separating teams this year; that kills a family of "run game" signals</td></tr><tr><td>Same-game home pts vs away pts</td><td>r = 0.12 (CI -0.23 to 0.44)</td><td>correlation</td><td>the correlation that parlay prices depend on is <strong>not yet measured</strong> - sample too small</td></tr><tr><td>Availability load, Week 10</td><td>160 designated players; 2 clubs with a QB "Out"; 5 with 2+ OL out</td><td>[injuries](injuries.html)</td><td>the slate's biggest pricing events are visible 1 day out - which is exactly the window a model can exploit</td></tr></tbody></table></div>
+<h2 id="3-the-uncomfortable-findings-these-are-the-useful-ones">3. The uncomfortable findings (these are the useful ones)</h2>
+<p>1. <strong>The injury report alone cannot do the job you asked for.</strong> It lists designations, not lineups. It omits players on IR entirely: the Week 10 Baltimore report contains 8 rows and no game status, while the league's own news feed on the same page says the franchise QB is out 6-10 weeks ([FLG-005](flagged.html)). Any "defence is down to its 4th-string CB" logic must merge the report with transactions, inactive lists and club depth charts - and no league-wide depth chart exists ([FLG-017](flagged.html)). 2. <strong>Stat pages on nfl.com publish numbers with no machine-readable column labels.</strong> We could only publish 28 of 39 columns; the rest stayed blank because a magnitude is not a label ([FLG-014](flagged.html)). The columns we did publish are pinned by identities (league pass attempts on offense = league pass attempts on defense = 9,037, etc.), which is why the mapping is provable rather than plausible. 3. <strong>The two official tables disagree with each other</strong> about scoring events: <code>offense pass TD = 414</code> vs <code>defense TD allowed = 415</code>, <code>INT thrown = 202</code> vs <code>INT forced = 200</code> ([FLG-025](flagged.html)). Those four columns are published but marked <em>pricing-ineligible</em>. A model that silently used them would inherit a bug it could never see. 4. <strong>There is no official source for odds.</strong> No NFL-controlled page publishes a spread, total, moneyline or prop price ([FLG-010](flagged.html)). So every "market" column on this site is blank. Originating lines is now possible; <em>scoring</em> them against the market is a purchase decision. 5. <strong>The first model we built is a good example of a bad line.</strong> Unshrunk net-points ratings produce things like "JAX -24 at TEN", which is nonsense. Fitting the conversion on our 33 verified games even returns <code>beta = 1.14</code> - i.e. <em>anti</em>-shrinkage, and a total-model exponent pinned on the edge of its search grid ([FLG-026](flagged.html)). Those two facts are the clearest available evidence that the sample is too small to calibrate anything, which is exactly what the gates are for. 6. <strong>A handful of Week 10 rows list players on clubs they have not been associated with before 2026</strong> (Garrett on LA, Evans on SF, Marvin Harrison Jr. on HOU, Nelson on SEA, McCarthy on NYG…). Each is either a real 2026 transaction or a feed error; we did not assume either way and put them all in a queue for an affiliation audit ([FLG-006](flagged.html)).</p>
+<h2 id="4-what-has-to-be-answered-before-a-decision">4. What has to be answered before a decision</h2>
+<p>20 questions in [Questions &amp; gaps](questions.html); <strong>7 are blocking</strong>: market prices (Q-01), lineups (Q-02), IR/transactions (Q-03), game-level history (Q-04), the calibration constants (Q-05/Q-06) and the correlation inputs (Q-07). Each one names what we have, what we lack, exactly how to obtain it, and which decision it unblocks.</p>
+<h2 id="5-recommended-path-nothing-is-implemented-without-your-approval">5. Recommended path (nothing is implemented without your approval)</h2>
+<div class="tablewrap"><table><thead><tr><th>Step</th><th>Do this</th><th>Cost / risk</th><th>Buys</th></tr></thead><tbody><tr><td>1</td><td>Approve <strong>S-11 + S-08 + S-09</strong>: game-level history, availability merge, affiliation audit</td><td>engineering only</td><td>turns every provisional constant into a real one</td></tr><tr><td>2</td><td>Approve <strong>S-01/S-02/S-06</strong> (site discipline already in v1)</td><td>done</td><td>auditability</td></tr><tr><td>3</td><td>Buy one odds feed (<strong>Q-01/SRC-016</strong>)</td><td>money; the only real spend</td><td>CLV, gate G-03, and therefore an honest leaderboard</td></tr><tr><td>4</td><td>Run the <strong>paper tier</strong> for 4-6 weeks under gates G-01…G-13, with <strong>S-15/S-16/S-17/S-24</strong> (prediction-quality scoring, sealed parameters, FDR control, anti-gaming rewards)</td><td>a season of patience</td><td>the only version of this where "skill" means something</td></tr><tr><td>5</td><td>Only then decide the bankroll (<strong>Q-17, S-19, S-20</strong>)</td><td>exposure</td><td>-</td></tr></tbody></table></div>
+<p><strong>Do not</strong> start by picking a signal. On this data set, no signal has yet passed a single gate, and the first thing the pipeline is good for is killing the ideas that look best.</p>
+<h2 id="6-what-is-deliberately-not-here">6. What is deliberately <em>not</em> here</h2>
+<p>No bet results, no ROI, no "record" of any strategy, no odds values, no weather numbers, no snap counts, no player-level prop rates. Each of those absences is a row on [Flagged for review](flagged.html) or a question in [Questions &amp; gaps](questions.html), because inventing them is the failure mode this whole repo is organised to prevent.</p>
+<footer>
+  <p>Every table on this site is generated from <code>data/</code> by <code>scripts/build_site.py</code>;
+  no value is typed into the HTML. Empty cells are deliberate: the value was not confirmable from an
+  official source, so it is left blank and listed on the
+  <a href="flagged.html">Flagged for review</a> page. Nothing here is betting advice.</p>
+</footer>
+</main>
+</div>
+</body></html>
