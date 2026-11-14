@@ -29,7 +29,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
 PAGES = ["index.html", "standings.html", "lines.html", "injuries.html", "strategies.html",
          "correlation.html", "decisions.html", "suggestions.html", "flagged.html",
-         "sources.html", "methodology.html"]
+         "sources.html", "methodology.html",
+         # verified-snapshot pages (session arena-fl3-60ee336e, integration 2026-11-14):
+         "data-snapshots.html", "data-standings.html", "data-schedule.html", "data-injuries.html"]
 
 errors: list[str] = []
 warnings: list[str] = []
