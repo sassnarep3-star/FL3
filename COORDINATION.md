@@ -272,3 +272,20 @@ discarding the other session's work, and this is the audit trail of doing exactl
 `arena-e8bf2075`, so this session's two additional sources (Ourlads depth charts and its key) are recorded
 in `data/sources_46e888f0.json` and still need folding into the main registry. Likewise the depth pages
 under `depth/` are not yet linked from `main`'s `index.html` navigation — that file is single-owner.
+
+### Deploy gap found and fixed (PR #4 follow-up)
+
+The merge of PR #4 succeeded and all three workflows went green, but `https://sassnarep3-star.github.io/FL3/depth/`
+returned **404**. Root cause: `.github/workflows/pages.yml` does not publish the whole repository — it builds the
+artifact from an explicit allowlist:
+
+```
+cp -r index.html *.html assets legacy _site/
+```
+
+`depth/` was never in that list, so the files reached `main` but never reached Pages. Fixed by adding `depth` to
+the copy list. Nothing else about the workflow changed, and Pages' own build step is untouched.
+
+The lesson worth recording for future sessions: **a green deploy workflow does not mean your directory is
+published.** This workflow only validates that it can copy *some* files; it will happily succeed while silently
+omitting new top-level directories. Verify by fetching the live URL, not by reading the checkmark.
