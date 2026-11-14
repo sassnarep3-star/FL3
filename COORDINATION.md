@@ -345,7 +345,7 @@ file.** At least one assertion must inspect the produced HTML.
 | T7 | Data verification & collection from official sources | **done** | `data/dashboard/standings.json`, `data/dashboard/injuries.json`, `data/dashboard/lines.json` |
 | T8 | Site build: generator, landing page, subpages, styling | **done** | `build.py`, `docs/**` |
 | T9 | Flagged for Review page | **done** | `docs/review/flagged-review.html`, `data/dashboard/review.json` |
-| T10 | Integration: merge, PR, Pages verification, final log | **done** | `COORDINATION.md`, `docs/**` |
+| T10 | Integration: merge, PR, Pages verification, final log | **done** | `COORDINATION.md` (PR #8 merged, commit `d7805d6`; Pages live at `/FL3/` and `/FL3/docs/`), `docs/**` |
 
 ## Verification performed by this session (official sources only)
 
@@ -407,9 +407,10 @@ session's dashboard is served under https://sassnarep3-star.github.io/FL3/docs/.
 | Merge state on open | `CONFLICTING` / `DIRTY` — `main` advanced with the parallel session's work while this branch was open |
 | Conflicts resolved | 6 files, resolved per the table above (both sides preserved) |
 | Post-merge verification | Regenerated the dashboard with `build.py`; 13 pages; **zero broken internal links**; row counts re-checked; both builds' suites intact |
-| Merge | merged into `main` (merge commit recorded on the PR) |
-| Deploy | GitHub Pages already serves branch `main` / root; this session's pages are served under `/FL3/docs/` and verified live |
+| Merge | **MERGED** — merge commit `d7805d6a616ef95167783c04590eabae8641d244`, merged 2026-11-14T03:22:19Z by `sassnarep3-star` |
+| Deploy | GitHub Pages rebuilt after merge and is live. Root build: https://sassnarep3-star.github.io/FL3/ (verified). This session's dashboard: https://sassnarep3-star.github.io/FL3/docs/ (verified live — landing page, category nav, and the Flagged for Review page all serve correctly) |
 | Flagged items carried to site | This session's flags FL01–FL07 published on `docs/review/flagged-review.html`; parallel sessions' flags F01–F13 on `flagged.html` — both preserved, neither discarded |
+| Post-merge re-verification | Parallel session's `scripts/check_site.py`: **1136 assertions, ALL CHECKS PASSED** after the merge. This session's `build.py` regenerated cleanly: 13 pages, **zero broken internal links**, row counts re-checked (standings 32, injuries 345, lines 14, depth 32+6, flagged 7) |
 ## PR / merge / deploy record — session `arena/46e888f0-fl3`
 
 | PR | Merge commit | Result |
