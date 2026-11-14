@@ -8,9 +8,9 @@ in a specific cell, which is the thing that actually has to be protected.
 update `data/`, (b) approve the value as-is and record the exception in `COORDINATION.md`, or (c) mark it
 `resolved: <what changed>` in `data/flags.csv` and rebuild.
 
-:::table flags.csv | 27 open items: 7 high, 12 medium, 8 low and info | id,severity,page,item,finding,action_required,source_url,status
+:::table flags.csv | 28 open items: 7 high, 13 medium, 8 low and info | id,severity,page,item,finding,action_required,source_url,status
 
-## The six that matter most
+## The seven that matter most
 
 | Flag | One-line summary | Cost of ignoring it |
 |---|---|---|
@@ -19,6 +19,7 @@ update `data/`, (b) approve the value as-is and record the exception in `COORDIN
 | **FLG-010** | no official source publishes odds | no CLV, no market gate, no leaderboard, no edge measurement |
 | **FLG-016** | 33 of 137 games ingested | every distribution and every calibrated constant is provisional |
 | **FLG-017** | no depth chart or snap-count feed exists league-wide | "4th-string backup" cannot be computed, only assumed |
+| **FLG-028** | Monday-night pair (BAL, LAC) publish no game status at all | a zero availability count reads as "healthy" for the very game where it is unmeasurable |
 | **FLG-025** | the league's own offense and defense tables disagree on TDs (414/415) and INTs (202/200) | a model silently built on mutually inconsistent scoring data |
 
 ## Two that are worth reading because they are *uncomfortable*, not because they are big

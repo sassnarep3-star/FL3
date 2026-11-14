@@ -23,7 +23,9 @@ the [Suggestion register](suggestions.html).
 - **33 row-verified games** of the 137 games the league has actually played through Week 9
   ([game results](games.html)) - the rest is a *coverage gap we declare*, not a gap we paper over.
 - **160 availability rows** for the Week 10 slate, read off the [official injury report](injuries.html),
-  including the backup-vs-starter damage per position group.
+  including the backup-vs-starter damage per position group — from **26 of the 28 clubs on the slate**,
+  because Baltimore and the Chargers publish no game status for the Monday fixture
+  ([FLG-028](flagged.html)).
 - **A priced Week 10 slate** with fitted constants - see [Lines](lines.html). The market columns are
   blank on purpose: **no official source publishes odds**, so nothing was filled in by hand.
 - **16 signals and 16 strategies, 13 validation gates, 20 open questions, 25 suggestions** - each with a stated
