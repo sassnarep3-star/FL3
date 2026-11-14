@@ -224,6 +224,29 @@ for x in fl:
         bad("flagged item %s sources must be a list" % x["id"])
 ok("flagged: %d items, all with category, resolution and a source list" % len(fl))
 
+# ---- 10. source badges actually resolve
+# A silent regression once shipped: the page builder read the WRONG source registry
+# (another session's data/sources.json, whose ids are SRC-*, not our S01-S10), so every
+# single Src cell rendered an "unverified" badge while every other check still passed.
+# Assert the rendered pages carry real links and no unverified badges.
+ROOT = DATA.parent
+unverified_total = 0
+badge_total = 0
+for page in sorted((ROOT / "depth").glob("*.html")):
+    html_text = page.read_text(encoding="utf-8")
+    unverified_total += html_text.count('class="badge bad">unverified')
+    badge_total += html_text.count('class="badge src"')
+if unverified_total:
+    bad("depth pages render %d 'unverified' source badges - the builder is probably "
+        "reading the wrong source registry" % unverified_total)
+else:
+    ok("source badges resolve on every depth page: 0 'unverified' badges")
+if badge_total < 100:
+    bad("only %d source badges rendered across depth pages; expected many more" % badge_total)
+else:
+    ok("source badges rendered: %d across 9 depth pages, all resolving to a registered url"
+       % badge_total)
+
 # ---- report
 print("\n=== VERIFY ===")
 for status, msg in checks:
