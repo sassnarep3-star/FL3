@@ -1,0 +1,81 @@
+{
+ "season": 2026,
+ "snapshot": "2026-11-14",
+ "gate_results": [
+  {
+   "gate": "G1 data provenance",
+   "status": "PASS",
+   "detail": "Every game/standings row carries an official nfl.com or ESPN game link; build_datasets.py self-check passes (32/32 records, PF/PA)."
+  },
+  {
+   "gate": "G2 sample sufficiency",
+   "status": "PASS",
+   "detail": "137 games fitted; 32 teams rated; rolling validation on 73 games."
+  },
+  {
+   "gate": "G3 out-of-sample accuracy vs naive baseline",
+   "status": "PASS",
+   "detail": "model MAE 9.94 pts vs naive MAE 10.88 pts on 73 games (weeks 5-10, nested-tuned shrinkage)."
+  },
+  {
+   "gate": "G4 honest labeling",
+   "status": "PASS",
+   "detail": "Model outputs labeled as model outputs; unverifiable correlation values left blank and flagged."
+  },
+  {
+   "gate": "G5 no fabricated results",
+   "status": "PASS",
+   "detail": "No backtest ROI/CLV/ATS numbers claimed anywhere; historical closing lines unavailable."
+  }
+ ],
+ "metrics": {
+  "rolling_mae_pts": 9.94,
+  "naive_mae_pts": 10.88,
+  "insample_r2": 0.377,
+  "games_validated": 73,
+  "weekly": [
+   {
+    "week": 5,
+    "games": 15,
+    "lam": 10.0,
+    "model_mae": 10.78,
+    "naive_mae": 10.9
+   },
+   {
+    "week": 6,
+    "games": 14,
+    "lam": 25.0,
+    "model_mae": 6.58,
+    "naive_mae": 6.6
+   },
+   {
+    "week": 7,
+    "games": 14,
+    "lam": 10.0,
+    "model_mae": 10.92,
+    "naive_mae": 11.15
+   },
+   {
+    "week": 8,
+    "games": 14,
+    "lam": 10.0,
+    "model_mae": 12.36,
+    "naive_mae": 13.31
+   },
+   {
+    "week": 9,
+    "games": 15,
+    "lam": 5.0,
+    "model_mae": 9.41,
+    "naive_mae": 12.88
+   },
+   {
+    "week": 10,
+    "games": 1,
+    "lam": 2.5,
+    "model_mae": 4.94,
+    "naive_mae": 2.55
+   }
+  ]
+ }
+}

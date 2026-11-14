@@ -1,0 +1,44 @@
+{
+ "season": 2026,
+ "snapshot": "2026-11-14",
+ "method": "Pearson correlation computed on the 137 verified 2026 games / 32-team season table (data/scores_2026.json). Values are real computed statistics; unavailable rows are blank + flagged.",
+ "values": [
+  {
+   "pair": "point_differential vs win_pct (32 teams)",
+   "r": 0.872,
+   "verified": true,
+   "source": "data/standings_2026.json",
+   "use": "validates point-differential ratings as a skill measure (removes luck component)"
+  },
+  {
+   "pair": "home_margin vs game_total (137 games)",
+   "r": -0.161,
+   "verified": true,
+   "source": "data/scores_2026.json",
+   "use": "same-game spread/total parlay leg correlation input"
+  },
+  {
+   "pair": "home_win vs over_league_avg_total (137 games)",
+   "r": -0.074,
+   "verified": true,
+   "source": "data/scores_2026.json",
+   "use": "moneyline/total parlay leg correlation input"
+  },
+  {
+   "pair": "favorite_covers_spread vs under (market-based)",
+   "r": null,
+   "verified": false,
+   "source": "UNVERIFIED \u2014 needs historical closing spreads",
+   "use": "parlay leg correlation for spread/total combos",
+   "flag": "Left blank per policy (no fabrication). Discovery: archive closing lines (e.g., nightly ESPN odds blocks) and compute on shared game set."
+  },
+  {
+   "pair": "player-prop legs (same-game prop combos)",
+   "r": null,
+   "verified": false,
+   "source": "UNVERIFIED \u2014 needs play-by-play level data",
+   "use": "player-prop combo correlation",
+   "flag": "Left blank per policy. Discovery: import official play-by-play (nflfastR or NFL API) and estimate pairwise prop correlation with shrinkage."
+  }
+ ]
+}

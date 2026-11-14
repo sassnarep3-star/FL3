@@ -1,0 +1,445 @@
+{
+ "season": 2026,
+ "week": 10,
+ "snapshot": "2026-11-14",
+ "source": "https://www.nfl.com/injuries/ (Official NFL Injury Report, Week 10 of the 2026 season)",
+ "schema": "rows: [player, pos, injury, practice, game] — game ∈ Out|Doubtful|Questionable|'' ; practice ∈ DNP|Limited|Full",
+ "capture_note": "Every row transcribed from the official NFL.com injury report page. Players listed on the report with Full participation and no designation are marked game=''. Rows with game='' and no injury are still included where captured (expected to play).",
+ "games": [
+  {"game": "WAS @ NYG (TNF, played 2026-11-12)", "teams": {
+   "WAS": [
+    ["John Bates","TE","","Full",""],
+    ["Treylon Burks","WR","","DNP",""],
+    ["Jayden Daniels","QB","","Full",""],
+    ["Matt Gulbin","C","","Full",""],
+    ["Chig Okonkwo","TE","","Full",""],
+    ["Lucas Patrick","C","Concussion","DNP","Out"],
+    ["Amik Robertson","CB","","Limited",""],
+    ["Shy Tuttle","DT","","Full",""],
+    ["Colson Yankoff","TE","Knee","DNP","Out"]
+   ],
+   "NYG": [
+    ["Abdul Carter","LB","","Full",""],
+    ["Jermaine Eluemunor","T","","Full",""],
+    ["Malik Harrison","LB","Groin","Limited","Questionable"],
+    ["Colton Hood","CB","","Full",""],
+    ["Theo Johnson","TE","","Full",""],
+    ["Charlie Jones","WR","","Full",""],
+    ["J.J. McCarthy","QB","","Full",""],
+    ["Darnell Mooney","WR","","Full",""],
+    ["Malik Nabers","WR","","Full",""],
+    ["Cam Skattebo","RB","","Full",""],
+    ["Andrew Thomas","T","","Full",""]
+   ]
+  }},
+  {"game": "NE @ DET (Sun 2026-11-15 9:30 ET, FOX)", "teams": {
+   "NE": [
+    ["Ben Brown","C","Knee","DNP","Out"],
+    ["A.J. Brown","WR","Ankle, Knee","Limited","Questionable"],
+    ["Kevin Byard","S","Chest","Full","Questionable"],
+    ["Carlton Davis III","CB","Knee","DNP","Out"],
+    ["Reggie Gilliam","FB","Knee","Limited","Questionable"],
+    ["TreVeyon Henderson","RB","Illness","DNP","Out"],
+    ["Hunter Henry","TE","","Limited",""],
+    ["Cameron Latu","TE","Back","Limited","Questionable"],
+    ["Drake Maye","QB","","Full",""],
+    ["Morgan Moses","T","","Full",""],
+    ["Walter Rouse","T","Concussion","Limited","Questionable"],
+    ["Brenden Schooler","S","Hamstring","Limited","Questionable"],
+    ["Rhamondre Stevenson","RB","Knee","Limited","Questionable"],
+    ["Greg Van Roten","G","Hamstring","Full","Questionable"],
+    ["Charles Woods","CB","Hamstring","Full","Questionable"]
+   ],
+   "DET": [
+    ["Brian Branch","S","","Full",""],
+    ["Jared Goff","QB","","Full",""],
+    ["Kerby Joseph","S","Knee","DNP","Out"],
+    ["Cade Mays","C","Ankle","DNP","Out"],
+    ["D.J. Reed","CB","Hip","DNP","Out"],
+    ["Jacob Saylors","RB","","Full",""],
+    ["Amon-Ra St. Brown","WR","Rib","Limited","Questionable"],
+    ["Sione Vaki","RB","Ankle","Limited","Questionable"],
+    ["DJ Wonnum","DE","","Full",""]
+   ]
+  }},
+  {"game": "BUF @ NYJ (Sun 2026-11-15 13:00 ET, CBS)", "teams": {
+   "BUF": [
+    ["Alec Anderson","G","","Full",""],
+    ["Christian Benford","CB","Wrist","Full","Questionable"],
+    ["Terrel Bernard","LB","","DNP",""],
+    ["Spencer Brown","T","Ankle","DNP","Doubtful"],
+    ["Dion Dawkins","T","","Full",""],
+    ["Sam Franklin Jr.","S","Shoulder","Limited","Questionable"],
+    ["Greg Gaines","DT","","Full",""],
+    ["Jordan Hancock","CB","Hamstring","Full","Questionable"],
+    ["Dalton Kincaid","TE","","Full",""],
+    ["Connor McGovern","C","","Full",""],
+    ["Ed Oliver","DE","","DNP",""],
+    ["Ar'maj Reed-Adams","G","","Full",""],
+    ["T.J. Sanders","DE","","Full",""],
+    ["Tyrell Shavers","WR","Knee","Full","Questionable"]
+   ],
+   "NYJ": [
+    ["Jarvis Brownlee Jr.","CB","Illness","Limited","Questionable"],
+    ["Omar Cooper Jr.","WR","Ankle","Full","Questionable"],
+    ["Adonai Mitchell","WR","Knee","Full","Questionable"],
+    ["Joseph Ossai","DE","Ankle","Full","Questionable"],
+    ["VJ Payne","S","Knee","Full","Questionable"],
+    ["Harrison Phillips","DT","Ankle","Full","Questionable"],
+    ["Trevin Wallace","LB","Groin","DNP","Out"],
+    ["Garrett Wilson","WR","Concussion","Full","Questionable"],
+    ["Nahshon Wright","CB","Back","Full","Questionable"]
+   ]
+  }},
+  {"game": "CAR @ NO (Sun 2026-11-15 13:00 ET, FOX)", "teams": {
+   "CAR": [
+    ["Jonathon Brooks","RB","Groin","Limited","Doubtful"],
+    ["Brady Christensen","G","Hamstring","Full","Questionable"],
+    ["Trevor Etienne","RB","","Full",""],
+    ["Chuba Hubbard","RB","","Full",""],
+    ["Lee Hunter","DT","","Full",""],
+    ["Mike Jackson","CB","Groin","Limited","Doubtful"],
+    ["Will Lee III","CB","Hamstring","Limited","Questionable"],
+    ["Xavier Legette","WR","Knee","Full","Questionable"],
+    ["Damien Lewis","G","","Full",""],
+    ["Bobby Okereke","LB","Foot","DNP","Out"],
+    ["Jaelan Phillips","LB","Hamstring","Full","Questionable"],
+    ["Torricelli Simpkins III","G","","Full",""]
+   ],
+   "NO": [
+    ["Kelvin Banks Jr.","T","","Full",""],
+    ["CJ Donaldson","RB","Shoulder","DNP","Out"],
+    ["David Edwards","G","","Full",""],
+    ["Martin Emerson","CB","Shin","Limited","Questionable"],
+    ["Travis Etienne","RB","Hamstring","Full","Questionable"],
+    ["Noah Fant","TE","","Full",""],
+    ["Taliese Fuaga","T","Knee","DNP","Out"],
+    ["Alvin Kamara","RB","","Full",""],
+    ["Erik McCoy","C","Biceps","DNP","Out"],
+    ["Christen Miller","DT","Knee","DNP","Out"],
+    ["Asim Richards","T","","Full",""],
+    ["Quincy Riley","CB","","Full",""]
+   ]
+  }},
+  {"game": "HOU @ CLE (Sun 2026-11-15 13:00 ET, FOX)", "teams": {
+   "HOU": [
+    ["Azeez Al-Shaair","LB","Groin, Not injury related - personal matter","DNP","Out"],
+    ["Will Anderson Jr.","DE","Ankle","DNP","Questionable"],
+    ["Reed Blankenship","S","","Full",""],
+    ["Trent Brown","T","Wrist, Illness","DNP","Questionable"],
+    ["Tank Dell","WR","","Full",""],
+    ["Blake Fisher","T","","Full",""],
+    ["Marvin Harrison Jr.","WR","Hamstring","DNP","Out"],
+    ["Jacob Hummel","LB","Groin","Full","Questionable"],
+    ["Danielle Hunter","DE","Hamstring","DNP","Out"],
+    ["Brevin Jordan","TE","Finger, Foot","DNP","Out"],
+    ["Woody Marks","RB","","Full",""],
+    ["David Montgomery","RB","Groin","Full","Questionable"],
+    ["Keylan Rutledge","G","Neck, Shoulder","DNP","Out"],
+    ["Jaylin Smith","CB","Hamstring","Full","Questionable"],
+    ["Wyatt Teller","G","Illness, Back","Limited","Questionable"],
+    ["Tommy Togiai","DT","","Full",""]
+   ],
+   "CLE": [
+    ["Austin Barber","T","","Full",""],
+    ["Denzel Boston","WR","Toe","Limited","Questionable"],
+    ["Michael Burton","FB","Calf","DNP","Out"],
+    ["Maliek Collins","DT","","Full",""],
+    ["Harold Fannin Jr.","TE","","Full",""],
+    ["Ronnie Hickman Jr.","S","Concussion","DNP","Out"],
+    ["Tytus Howard","T","","Full",""],
+    ["Elgton Jenkins","C","","Full",""],
+    ["Donovan McMillon","S","","Limited",""],
+    ["Carson Schwesinger","LB","","Full",""],
+    ["Denzel Ward","CB","","Limited",""],
+    ["Quincy Williams","LB","","Full",""]
+   ]
+  }},
+  {"game": "JAX @ TEN (Sun 2026-11-15 13:00 ET, FOX)", "teams": {
+   "JAX": [
+    ["Jessie Bates","S","Not injury related - resting player","Limited","Out"],
+    ["Ezra Cleveland","G","","Full",""],
+    ["Branson Combs","LB","","Full",""],
+    ["Jordan Davis","DT","Not injury related - resting player","Limited","Out"],
+    ["BJ Green II","DE","Forearm","Full","Out"],
+    ["Robert Hainsey","C","Concussion","Limited","Questionable"],
+    ["Antonio Johnson","S","","Limited",""],
+    ["Jakobi Meyers","WR","","Limited",""],
+    ["Chris Rodriguez Jr.","RB","","Limited",""],
+    ["Bhayshul Tuten","RB","","Limited",""],
+    ["Travon Walker","DE","","Limited",""]
+   ],
+   "TEN": [
+    ["Cody Barton","LB","Concussion","DNP","Out"],
+    ["John Franklin-Myers","DE","","Full",""],
+    ["Marcus Harris","CB","","Full",""],
+    ["Anthony Hill Jr.","LB","Neck","DNP","Out"],
+    ["Jaylon Jones","CB","","Full",""],
+    ["JC Latham","T","","Full",""],
+    ["Tony Pollard","RB","","Full",""],
+    ["Peter Skoronski","G","Hamstring","DNP","Out"],
+    ["Tyjae Spears","RB","Knee","Full","Questionable"],
+    ["Carnell Tate","WR","Shoulder","DNP","Out"],
+    ["Tommy Townsend","P","Knee, Achilles","DNP","Out"],
+    ["Kevin Winston Jr.","S","","Full",""]
+   ]
+  }},
+  {"game": "KC @ ATL (Sun 2026-11-15 13:00 ET, CBS)", "teams": {
+   "KC": [
+    ["Jeffrey Bassa","LB","","Full",""],
+    ["Mansoor Delane","CB","Shoulder","Full","Questionable"],
+    ["Justin Fields","QB","","Full",""],
+    ["Jaden Hicks","S","","Full",""],
+    ["Travis Kelce","TE","","Full",""],
+    ["Patrick Mahomes","QB","","Full",""],
+    ["Jaylon Moore","T","Ankle","DNP","Out"],
+    ["Omarr Norman-Lott","DT","Knee","Limited","Out"],
+    ["Jaydn Ott","RB","Hamstring","Limited","Questionable"],
+    ["Rashee Rice","WR","","Full",""],
+    ["Kenneth Walker III","RB","Groin","DNP","Questionable"],
+    ["Peter Woods","DT","Neck","DNP","Out"],
+    ["Xavier Worthy","WR","","Full",""]
+   ],
+   "ATL": [
+    ["Zachariah Branch","WR","Hamstring","DNP","Out"],
+    ["Kendal Daniels","LB","","Full",""],
+    ["Divine Deablo","LB","Forearm","DNP","Doubtful"],
+    ["Gervon Dexter Sr.","DT","Illness","Limited","Questionable"],
+    ["Jake Matthews","T","","Limited",""],
+    ["Liam McCullough","LS","","DNP",""],
+    ["James Pearce Jr.","DE","Back","Limited","Questionable"],
+    ["Za'Darius Smith","DE","","Full",""],
+    ["Jawaan Taylor","T","","Limited",""],
+    ["Cameron Thomas","DE","","Full",""],
+    ["Josh Woods","LB","Ankle","Full","Questionable"]
+   ]
+  }},
+  {"game": "MIA @ IND (Sun 2026-11-15 13:00 ET, CBS)", "teams": {
+   "MIA": [
+    ["Tucker Addington","LS","","Limited",""],
+    ["Kaytron Allen","RB","","Full",""],
+    ["Darrell Baker Jr.","CB","Knee","Full","Questionable"],
+    ["Chris Bell","WR","Knee","DNP","Doubtful"],
+    ["Aaron Brewer","C","Concussion","DNP","Out"],
+    ["Malik Herring","DE","","Full",""],
+    ["Will Kacmarek","TE","","Full",""],
+    ["Michael Taaffe","S","","Full",""],
+    ["Dante Trader Jr.","S","","Full",""],
+    ["Jared Wayne","WR","Quadricep","DNP","Out"],
+    ["Jaylen Wright","RB","","Full",""]
+   ],
+   "IND": [
+    ["Mo Alie-Cox","TE","Groin","DNP","Out"],
+    ["CJ Allen","LB","","Full",""],
+    ["Jaylon Carlies","LB","Neck","DNP","Out"],
+    ["Akeem Davis-Gaither","LB","Knee","DNP","Out"],
+    ["A.J. Haulcy","S","","Full",""],
+    ["Arden Key","DE","Hamstring","Full","Questionable"],
+    ["Will Mallory","TE","Hamstring","Limited","Questionable"],
+    ["Luke Rhodes","LS","Hamstring","DNP","Out"],
+    ["Grover Stewart","DT","","Full",""],
+    ["Jonathan Taylor","RB","","Full",""],
+    ["Jerry Tillery","DT","Calf","DNP","Out"],
+    ["Jalen Travis","T","Knee","DNP","Out"],
+    ["Justin Walley","CB","","Full",""],
+    ["Charvarius Ward","CB","","Full",""]
+   ]
+  }},
+  {"game": "MIN @ GB (Sun 2026-11-15 13:00 ET, FOX)", "teams": {
+   "MIN": [
+    ["Jordan Addison","WR","Thumb","Limited","Questionable"],
+    ["Blake Cashman","LB","Concussion","Limited","Out"],
+    ["Christian Darrisaw","T","","DNP",""],
+    ["T.J. Hockenson","TE","Wrist, Chest","DNP","Out"],
+    ["Tyrion Ingram-Dawkins","DT","Ankle","DNP","Out"],
+    ["Theo Jackson","S","","Full",""],
+    ["Jauan Jennings","WR","Calf","DNP","Out"],
+    ["Josh Metellus","S","Shoulder","Limited","Questionable"],
+    ["Kyler Murray","QB","Hamstring","DNP","Out"],
+    ["Harrison Smith","S","","Limited",""],
+    ["Kyle Van Noy","LB","Calf","Limited","Questionable"],
+    ["Jay Ward","S","","Full",""],
+    ["Carson Wentz","QB","","Full",""]
+   ],
+   "GB": [
+    ["Aaron Banks","G","","Limited",""],
+    ["Chris Brooks","RB","Ankle","Limited","Questionable"],
+    ["Javon Bullard","S","Ankle, Knee","Limited","Questionable"],
+    ["Zaire Franklin","LB","Shin","DNP","Doubtful"],
+    ["Travis Glover","G","Knee","Limited","Questionable"],
+    ["Ty'Ron Hopper","LB","","Full",""],
+    ["Josh Jacobs","RB","Finger","DNP","Out"],
+    ["Xavier McKinney","S","Foot","Limited","Questionable"],
+    ["Bo Melton","WR","","Full",""],
+    ["Skyy Moore","WR","Ankle","Limited","Questionable"],
+    ["Micah Parsons","LB","Knee, Illness","Limited","Out"],
+    ["Sean Rhyan","C","Ankle","DNP","Out"],
+    ["Trey Smack","K","","Full",""],
+    ["Lukas Van Ness","LB","Back","Limited","Questionable"],
+    ["Josh Whyle","TE","Concussion","DNP","Out"],
+    ["Savion Williams","WR","","Limited",""],
+    ["Kevin Zeitler","G","Ankle, Triceps","DNP","Questionable"]
+   ]
+  }},
+  {"game": "LAR @ ARI (Sun 2026-11-15 16:05 ET, CBS)", "teams": {
+   "LAR": [
+    ["Davis Allen","TE","Oblique","Limited","Questionable"],
+    ["Steve Avila","G","Hamstring","DNP","Out"],
+    ["Joe Cardona","LS","Ankle","Limited","Questionable"],
+    ["Kam Curl","S","Toe","Limited","Questionable"],
+    ["Aaron Donald","DT","","DNP",""],
+    ["Terrance Ferguson","TE","Ankle, Hamstring","DNP","Out"],
+    ["Braden Fiske","DT","","DNP",""],
+    ["Myles Garrett","LB","Knee, Not injury related - resting player","DNP","Questionable"],
+    ["Tyler Higbee","TE","","Limited",""],
+    ["Trent McDuffie","CB","Back","Limited","Questionable"],
+    ["Puka Nacua","WR","","DNP",""],
+    ["Colby Parkinson","TE","","Full",""],
+    ["Matthew Stafford","QB","","Full",""],
+    ["Byron Young","LB","","DNP",""]
+   ],
+   "ARI": [
+    ["Budda Baker","S","","Full",""],
+    ["Zachary Carter","DT","Knee","Limited","Out"],
+    ["Hjalte Froholdt","C","Concussion","DNP","Out"],
+    ["Jon Gaines II","G","Ankle","DNP","Out"],
+    ["Bam Knight","RB","","Full",""],
+    ["Hunter Long","TE","Knee","Limited","Questionable"],
+    ["Roy Lopez","DT","Toe, Ankle","Limited","Questionable"],
+    ["Max Melton","CB","Knee, Hand","Limited","Questionable"],
+    ["Darius Robinson","DT","Wrist","Limited","Questionable"],
+    ["Isaac Seumalo","G","","Full",""],
+    ["Dante Stills","DT","","Full",""],
+    ["Josh Sweat","LB","","Full",""],
+    ["Jayden Williams","T","Knee","Limited","Questionable"],
+    ["Mack Wilson","LB","","Full",""],
+    ["Andrew Wingard","S","Groin","DNP","Questionable"]
+   ]
+  }},
+  {"game": "SEA @ LV (Sun 2026-11-15 16:05 ET, CBS)", "teams": {
+   "SEA": [
+    ["AJ Barner","TE","","Full",""],
+    ["Anthony Bradford","G","","Full",""],
+    ["Charles Cross","T","Ankle","DNP","Out"],
+    ["Sam Darnold","QB","Ribs, Quadricep","DNP","Out"],
+    ["Derick Hall","LB","","DNP",""],
+    ["Drew Lock","QB","","Limited",""],
+    ["Quenton Nelson","G","Knee","DNP","Out"],
+    ["Uchenna Nwosu","LB","","Full",""],
+    ["Patrick O'Connell","LB","","Full",""],
+    ["Connor O'Toole","LB","","Full",""],
+    ["Brandon Pili","DT","","Full",""],
+    ["Jarran Reed","DT","","Full",""],
+    ["Rashid Shaheed","WR","","Full",""],
+    ["Jaxon Smith-Njigba","WR","","Full",""],
+    ["Leonard Williams","DT","Stinger","DNP","Out"]
+   ],
+   "LV": [
+    ["Thomas Booker","DT","Ankle","Full","Questionable"],
+    ["Foley Fatukasi","DT","","Full",""],
+    ["Ian Thomas","TE","","Full",""],
+    ["Dont'e Thornton Jr.","WR","Back","DNP","Questionable"],
+    ["Trey Zuhn III","C","","Full",""]
+   ]
+  }},
+  {"game": "SF @ DAL (Sun 2026-11-15 16:25 ET, FOX)", "teams": {
+   "SF": [
+    ["Mike Evans","WR","Achilles","DNP","Out"],
+    ["Renardo Green","CB","Back","Limited","Questionable"],
+    ["Dre Greenlaw","LB","Knee","Limited","Questionable"],
+    ["Nate Hobbs","CB","Groin","Full","Questionable"],
+    ["Deommodore Lenoir","CB","Foot","Limited","Questionable"],
+    ["Christian McCaffrey","RB","","Full",""],
+    ["Siran Neal","S","","Full",""],
+    ["Demarcus Robinson","WR","","Full",""],
+    ["Deebo Samuel Sr.","WR","","Full",""],
+    ["Upton Stout","CB","Shoulder, Neck","Limited","Questionable"],
+    ["C.J. West","DT","Knee","Full","Questionable"],
+    ["Trent Williams","T","Shoulder","DNP","Questionable"]
+   ],
+   "DAL": [
+    ["DaRon Bland","CB","Ankle","Limited","Questionable"],
+    ["Jonathan Bullard","DT","Calf","Full","Questionable"],
+    ["Alijah Clark","S","Illness","DNP","Questionable"],
+    ["Donovan Ezeiruaku","LB","Ankle","DNP","Out"],
+    ["Jake Ferguson","TE","Knee, Ankle","DNP","Out"],
+    ["Tyler Goodson","RB","Ankle, Knee","DNP","Out"],
+    ["Malik Hooker","S","","DNP",""],
+    ["Marist Liufau","LB","","Full",""],
+    ["P.J. Locke","S","Concussion","DNP","Out"],
+    ["Von Miller","LB","","DNP",""],
+    ["Jonathan Mingo","WR","Ankle","DNP","Out"],
+    ["Devin Moore","CB","Hip","Full","Questionable"],
+    ["DeMarvion Overshown","LB","","Full",""],
+    ["George Pickens","WR","","Full",""],
+    ["Joey Porter Jr.","CB","Ankle, Foot","Limited","Questionable"],
+    ["Luke Schoonmaker","TE","","Full",""],
+    ["Brevyn Spann-Ford","TE","","Full",""],
+    ["Juanyeh Thomas","S","Hamstring","DNP","Doubtful"],
+    ["KaVontae Turpin","WR","","Full",""]
+   ]
+  }},
+  {"game": "PIT @ CIN (SNF 2026-11-15 20:20 ET, NBC)", "teams": {
+   "PIT": [
+    ["Brandin Echols","CB","","Full",""],
+    ["DeShon Elliott","S","","Full",""],
+    ["Derrick Harmon","DT","Foot","Full","Questionable"],
+    ["Cameron Heyward","DT","","Full",""],
+    ["Ben Skowronek","WR","","Full",""],
+    ["Doneiko Slaughter","CB","","Full",""],
+    ["Darnell Washington","TE","","Full",""],
+    ["T.J. Watt","LB","","Full",""]
+   ],
+   "CIN": [
+    ["Jonathan Allen","DT","","Limited",""],
+    ["Jalen Davis","CB","Hamstring","Full","Doubtful"],
+    ["Kyle Dugger","S","Quadricep","DNP","Out"],
+    ["Dylan Fairchild","G","","Full",""],
+    ["B.J. Hill","DT","","DNP",""],
+    ["Andrei Iosivas","WR","Thumb","Full","Doubtful"],
+    ["Dexter Lawrence","DT","","DNP",""],
+    ["Brian Parker II","G","Knee","Full","Doubtful"],
+    ["DJ Turner II","CB","","Full",""]
+   ]
+  }},
+  {"game": "LAC @ BAL (MNF 2026-11-16 20:15 ET, ESPN/ABC)", "teams": {
+   "LAC": [
+    ["Kayode Awosika","G","","Limited",""],
+    ["Bud Dupree","DE","","DNP",""],
+    ["Justin Eboigbe","DE","","Limited",""],
+    ["Alex Harkey","G","","Full",""],
+    ["Tre Harris","WR","","Full",""],
+    ["Cam Hart","CB","","Full",""],
+    ["Daiyan Henley","LB","","Full",""],
+    ["Deane Leonard","CB","","Full",""],
+    ["Khalil Mack","LB","","Full",""],
+    ["Ladd McConkey","WR","","DNP",""],
+    ["Keaton Mitchell","RB","","Limited",""],
+    ["David Njoku","TE","","Limited",""],
+    ["Denzel Perryman","LB","","Full",""],
+    ["Trey Pipkins","T","","DNP",""],
+    ["Rodney Shelley","CB","","Limited",""],
+    ["Branson Taylor","G","","DNP",""],
+    ["Brenen Thompson","WR","","DNP",""],
+    ["Isas Waxter","CB","","DNP",""],
+    ["Kendall Williamson","S","","DNP",""]
+   ],
+   "BAL": [
+    ["Rasheen Ali","RB","","Full",""],
+    ["Rashod Bateman","WR","","Full",""],
+    ["Kyle Hamilton","S","","Full",""],
+    ["Jaylinn Hawkins","S","","Limited",""],
+    ["Matthew Hibner","TE","","Full",""],
+    ["Olaivavega Ioane","G","","Full",""],
+    ["Adam Randall","RB","","Full",""],
+    ["Nate Wiggins","CB","","Full",""]
+   ]
+  }}
+ ],
+ "ir_and_roster_news_source": "https://www.nfl.com/injuries/ (news module) — see data/news_items.json for linked official items",
+ "flags": [
+  "LAC lists LB Daiyan Henley as Full participation, but NFL.com news (2026-11-10) reports the Broncos traded for Henley — roster location conflict, flagged.",
+  "LAR lists WR Puka Nacua DNP with no designation while NFL.com news (2026-11-09/10) reports likely IR placement — status pending, flagged.",
+  "MIA passing-leader data anomaly (punter listed as passing leader on ESPN API) explained by QB Malik Willis IR + QB situation; see news_items.json."
+ ]
+}

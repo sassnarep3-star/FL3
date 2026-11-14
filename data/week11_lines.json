@@ -1,0 +1,201 @@
+{
+ "season": 2026,
+ "week": 11,
+ "snapshot": "2026-11-14",
+ "schedule_source": "https://www.nfl.com/schedules/2026/by-week/week-11",
+ "market_sources": {
+  "dk_via_espn_api": {
+   "id": "dk_api",
+   "label": "DraftKings (via ESPN scoreboard API)",
+   "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=20261122",
+   "as_of": "2026-11-14",
+   "verified": true,
+   "notes": "Live odds block per event (provider=DraftKings). Spot-verified BUF -16.5 / O/U 46.5 for MIA@BUF matches the ESPN schedule page line exactly."
+  },
+  "dk_via_espn_schedule": {
+   "id": "dk_sched",
+   "label": "DraftKings (via ESPN schedule page)",
+   "url": "https://www.espn.com/nfl/schedule/_/week/11",
+   "as_of": "2026-11-11 to 2026-11-13",
+   "verified": true,
+   "notes": "Lines column labeled 'Odds by draft kings' on ESPN Week 11 schedule."
+  },
+  "yahoo_lookahead": {
+   "id": "yahoo",
+   "label": "Yahoo Sports look-ahead (schedule-release day)",
+   "url": "https://sports.yahoo.com/nfl/betting/article/2026-nfl-betting-lines-odds-for-every-game-this-season-164646933.html",
+   "as_of": "2026-05-26",
+   "verified": false,
+   "notes": "Season-opening look-ahead numbers posted with the 2026 schedule release. Useful as opening reference ONLY — 6 months stale. Snapshot taken via search-result extract; direct page fetch pending manual review."
+  },
+  "betus": {
+   "id": "betus",
+   "label": "BetUS",
+   "url": "https://www.betus.com.pa/sportsbook/nfl/nfl-odds-week-11/",
+   "as_of": "2026-11-12 (approx)",
+   "verified": false,
+   "notes": "Snapshot taken via search-result extract. Numbers conflict sharply with DraftKings on multiple games and the page claims 16 games for a 13-game slate. FLAGGED — do not use for decisions until re-verified directly."
+  },
+  "covers": {
+   "id": "covers",
+   "label": "Covers",
+   "url": "https://www.covers.com/nfl/week-11-odds-opening-lines-2026",
+   "as_of": "2026-11-11",
+   "verified": false,
+   "notes": "Showed spreads as OTB (off the board) with odd percentage renderings at capture time. FLAGGED as rendering anomaly."
+  },
+  "sbr": {
+   "id": "sbr",
+   "label": "SportsbookReview",
+   "url": "https://www.sportsbookreview.com/picks/nfl/week-11-odds/",
+   "as_of": "unknown",
+   "verified": false,
+   "notes": "Page surfaced in search for Week 11 2026 but lists a DIFFERENT slate (Jaguars-Lions, Ravens-Steelers, etc.) not matching the official 2026 Week 11 schedule. FLAGGED — likely stale/mislabeled page. Excluded from line table."
+  }
+ },
+ "games": [
+  {
+   "id": "2026-reg-11-ind-hou", "kickoff": "2026-11-19T20:15ET", "tv": "Prime Video",
+   "away": "IND", "home": "HOU", "venue": "NRG Stadium, Houston, TX",
+   "game_page": "https://www.nfl.com/games/colts-at-texans-2026-reg-11",
+   "lines": {
+    "dk_api": {"spread_home": -10.0, "total": 44.5, "as_of": "2026-11-13", "source": "https://www.espn.com/nfl/schedule/_/week/11"},
+    "yahoo": {"spread_home": -5.5, "total": 45.5, "as_of": "2026-05-26"},
+    "betus": {"spread_home": -3.0, "total": 44.5, "as_of": "2026-11-12", "verified": false}
+   },
+   "conflict_flag": "HOU spread across sources: -10 (DK) vs -5.5 (Yahoo look-ahead) vs -3 (BetUS). Spread range 7 points — CONFLICT, flagged."
+  },
+  {
+   "id": "2026-reg-11-mia-buf", "kickoff": "2026-11-22T13:00ET", "tv": "CBS",
+   "away": "MIA", "home": "BUF", "venue": "Highmark Stadium, Orchard Park, NY",
+   "game_page": "https://www.nfl.com/games/dolphins-at-bills-2026-reg-11",
+   "lines": {
+    "dk_api": {"spread_home": -16.5, "total": 46.5, "as_of": "2026-11-14", "source": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates=20261122"},
+    "yahoo": {"spread_home": -11.5, "total": 47.5, "as_of": "2026-05-26"},
+    "betus": {"spread_home": -2.0, "total": 49.5, "as_of": "2026-11-12", "verified": false}
+   },
+   "conflict_flag": "BUF spread: -16.5 (DK, API-verified) vs -11.5 (Yahoo look-ahead) vs -2 (BetUS — appears erroneous). CONFLICT, flagged."
+  },
+  {
+   "id": "2026-reg-11-bal-car", "kickoff": "2026-11-22T13:00ET", "tv": "FOX",
+   "away": "BAL", "home": "CAR", "venue": "Bank of America Stadium, Charlotte, NC",
+   "game_page": "https://www.nfl.com/games/ravens-at-panthers-2026-reg-11",
+   "lines": {
+    "dk_api": {"spread_home": -1.5, "total": 44.5, "as_of": "2026-11-11", "source": "https://www.espn.com/nfl/schedule/_/week/11"},
+    "yahoo": {"spread_home": 4.5, "total": 46.5, "as_of": "2026-05-26"}
+   },
+   "conflict_flag": "Favorite FLIPPED: CAR -1.5 (DK now) vs BAL -4.5 (Yahoo look-ahead). Driven by Lamar Jackson IR (see injuries). Flagged for review."
+  },
+  {
+   "id": "2026-reg-11-no-chi", "kickoff": "2026-11-22T13:00ET", "tv": "FOX",
+   "away": "NO", "home": "CHI", "venue": "Soldier Field, Chicago, IL",
+   "game_page": "https://www.nfl.com/games/saints-at-bears-2026-reg-11",
+   "lines": {
+    "dk_api": {"spread_home": -9.5, "total": 48.5, "as_of": "2026-11-11", "source": "https://www.espn.com/nfl/schedule/_/week/11"},
+    "yahoo": {"spread_home": -6.5, "total": 46.5, "as_of": "2026-05-26"},
+    "betus": {"spread_home": -5.0, "total": 43.5, "as_of": "2026-11-12", "verified": false}
+   },
+   "conflict_flag": "CHI spread: -9.5 (DK) vs -6.5 (Yahoo) vs -5 (BetUS). CONFLICT, flagged."
+  },
+  {
+   "id": "2026-reg-11-ten-dal", "kickoff": "2026-11-22T13:00ET", "tv": "FOX",
+   "away": "TEN", "home": "DAL", "venue": "AT&T Stadium, Arlington, TX",
+   "game_page": "https://www.nfl.com/games/titans-at-cowboys-2026-reg-11",
+   "lines": {
+    "dk_api": {"spread_home": -7.5, "total": 51.5, "as_of": "2026-11-11", "source": "https://www.espn.com/nfl/schedule/_/week/11"},
+    "yahoo": {"spread_home": -6.5, "total": 48.5, "as_of": "2026-05-26"}
+   },
+   "conflict_flag": ""
+  },
+  {
+   "id": "2026-reg-11-tb-det", "kickoff": "2026-11-22T13:00ET", "tv": "FOX",
+   "away": "TB", "home": "DET", "venue": "Ford Field, Detroit, MI",
+   "game_page": "https://www.nfl.com/games/buccaneers-at-lions-2026-reg-11",
+   "lines": {
+    "dk_api": {"spread_home": -3.5, "total": 47.5, "as_of": "2026-11-11", "source": "https://www.espn.com/nfl/schedule/_/week/11"},
+    "yahoo": {"spread_home": -4.5, "total": 49.5, "as_of": "2026-05-26"}
+   },
+   "conflict_flag": ""
+  },
+  {
+   "id": "2026-reg-11-ari-kc", "kickoff": "2026-11-22T13:00ET", "tv": "CBS",
+   "away": "ARI", "home": "KC", "venue": "GEHA Field at Arrowhead Stadium, Kansas City, MO",
+   "game_page": "https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11",
+   "lines": {
+    "dk_api": {"spread_home": -14.0, "total": 42.5, "as_of": "2026-11-11", "source": "https://www.espn.com/nfl/schedule/_/week/11"},
+    "yahoo": {"spread_home": -11.5, "total": 44.5, "as_of": "2026-05-26"}
+   },
+   "conflict_flag": ""
+  },
+  {
+   "id": "2026-reg-11-pit-phi", "kickoff": "2026-11-22T13:00ET", "tv": "CBS",
+   "away": "PIT", "home": "PHI", "venue": "Lincoln Financial Field, Philadelphia, PA",
+   "game_page": "https://www.nfl.com/games/steelers-at-eagles-2026-reg-11",
+   "lines": {
+    "dk_api": {"spread_home": 4.5, "total": 38.5, "as_of": "2026-11-11", "source": "https://www.espn.com/nfl/schedule/_/week/11"},
+    "yahoo": {"spread_home": -5.5, "total": 42.5, "as_of": "2026-05-26"},
+    "betus": {"spread_home": 5.5, "total": null, "as_of": "2026-11-12", "verified": false}
+   },
+   "conflict_flag": "Favorite FLIPPED: PIT -4.5 (DK now) vs PHI -5.5 (Yahoo look-ahead). BetUS shows Eagles +5.5 (i.e., PIT -5.5). Flagged."
+  },
+  {
+   "id": "2026-reg-11-nyj-lac", "kickoff": "2026-11-22T16:05ET", "tv": "FOX",
+   "away": "NYJ", "home": "LAC", "venue": "SoFi Stadium, Inglewood, CA",
+   "game_page": "https://www.nfl.com/games/jets-at-chargers-2026-reg-11",
+   "lines": {
+    "dk_api": {"spread_home": -1.5, "total": 42.5, "as_of": "2026-11-11", "source": "https://www.espn.com/nfl/schedule/_/week/11"},
+    "yahoo": {"spread_home": -9.5, "total": 41.5, "as_of": "2026-05-26"}
+   },
+   "conflict_flag": "LAC (0-8) still favored by DK (-1.5) but only -1.5 vs -9.5 look-ahead. Large move; flagged as notable market signal."
+  },
+  {
+   "id": "2026-reg-11-jax-nyg", "kickoff": "2026-11-22T16:25ET", "tv": "CBS",
+   "away": "JAX", "home": "NYG", "venue": "MetLife Stadium, East Rutherford, NJ",
+   "game_page": "https://www.nfl.com/games/jaguars-at-giants-2026-reg-11",
+   "lines": {
+    "dk_api": {"spread_home": 6.0, "total": 44.5, "as_of": "2026-11-11", "source": "https://www.espn.com/nfl/schedule/_/week/11"},
+    "yahoo": {"spread_home": 1.5, "total": 46.5, "as_of": "2026-05-26"}
+   },
+   "conflict_flag": "JAX road favorite: -6 (DK) vs -1.5 (Yahoo). Both agree JAX favored; magnitude conflict only."
+  },
+  {
+   "id": "2026-reg-11-lv-den", "kickoff": "2026-11-22T16:25ET", "tv": "CBS",
+   "away": "LV", "home": "DEN", "venue": "Empower Field at Mile High, Denver, CO",
+   "game_page": "https://www.nfl.com/games/raiders-at-broncos-2026-reg-11",
+   "lines": {
+    "dk_api": {"spread_home": -8.5, "total": 41.5, "as_of": "2026-11-11", "source": "https://www.espn.com/nfl/schedule/_/week/11"},
+    "yahoo": {"spread_home": -8.5, "total": 41.5, "as_of": "2026-05-26"}
+   },
+   "conflict_flag": ""
+  },
+  {
+   "id": "2026-reg-11-min-sf", "kickoff": "2026-11-22T20:20ET", "tv": "NBC",
+   "away": "MIN", "home": "SF", "venue": "Estadio Azteca, Mexico City (international)",
+   "game_page": "https://www.nfl.com/games/vikings-at-49ers-2026-reg-11",
+   "lines": {
+    "dk_api": {"spread_home": -3.5, "total": 45.5, "as_of": "2026-11-11", "source": "https://www.espn.com/nfl/schedule/_/week/11"},
+    "yahoo": {"spread_home": -3.5, "total": 46.5, "as_of": "2026-05-26"},
+    "betus": {"spread_home": -3.5, "total": null, "as_of": "2026-11-12", "verified": false}
+   },
+   "conflict_flag": "",
+   "note": "Neutral-site game in Mexico City (NFL.com lists venue as international game). Home/away designation per official schedule (SF listed as home)."
+  },
+  {
+   "id": "2026-reg-11-cin-was", "kickoff": "2026-11-23T20:15ET", "tv": "ESPN",
+   "away": "CIN", "home": "WAS", "venue": "Northwest Stadium, Landover, MD",
+   "game_page": "https://www.nfl.com/games/bengals-at-commanders-2026-reg-11",
+   "lines": {
+    "dk_api": {"spread_home": 3.5, "total": 51.5, "as_of": "2026-11-11", "source": "https://www.espn.com/nfl/schedule/_/week/11"},
+    "yahoo": {"spread_home": 1.5, "total": 52.5, "as_of": "2026-05-26"},
+    "betus": {"spread_home": 1.5, "total": null, "as_of": "2026-11-12", "verified": false}
+   },
+   "conflict_flag": "CIN spread: -3.5 (DK) vs -1.5 (Yahoo/BetUS). Magnitude conflict."
+  }
+ ],
+ "byes_week_11": ["NE", "SEA", "GB", "CLE", "ATL", "LAR"],
+ "notes": [
+  "13 games confirmed on official NFL.com Week 11 schedule. BetUS page claims 16 games — flagged.",
+  "All 'dk_api' rows carry the ESPN schedule-page link; MIA@BUF also spot-verified against the ESPN scoreboard API odds block.",
+  "Spread sign convention: negative = home favorite; positive = home underdog (i.e., away favorite by that number)."
+ ]
+}
