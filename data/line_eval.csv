@@ -1,0 +1,11 @@
+evaluation,n,metric,estimate,ci95_low,ci95_high,baseline
+committed_w10,11,spread_rmse,14.8902,9.7605,18.9554,pick'em
+committed_w10,11,total_rmse,13.2987,,,trailing league mean
+committed_w10,11,brier_skill_vs_coin,0.1940,-0.0241,0.3817,coin flip
+committed_w10,11,spread_directional_accuracy,0.7273,,,0.5
+walkforward,100,spread_rmse,12.5835,-0.0199,0.1302,pick'em
+walkforward,100,spread_rmse_gain_vs_pickem,0.0546,-0.0199,0.1302,0
+walkforward,100,total_rmse,13.9199,,,trailing league mean
+walkforward,100,total_rmse_gain_vs_mean,-0.0324,-0.1035,0.0382,0
+walkforward,100,brier_skill_vs_coin,0.0688,-0.0860,0.2293,coin flip
+walkforward,100,directional_accuracy,0.6500,0.5600,0.7400,0.5

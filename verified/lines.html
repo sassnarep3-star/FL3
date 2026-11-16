@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our lines · FL3 NFL decision system</title>
+<meta name="description" content="Verified NFL 2026 data, originated lines and honest out-of-sample scoring. Every value links to an official source or is marked unverified.">
+<link rel="stylesheet" href="assets/verified.css">
+</head>
+<body>
+<a class="skip" href="#main" style="position:absolute;left:-9999px">Skip to content</a>
+<header class="top"><div class="wrap">
+<div class="brand"><b>FL3</b><span>NFL decision system · 2026 regular season</span>
+<span style="margin-left:auto;font-size:11.5px;color:#8b949e">read 2026-11-16 01:42 UTC</span></div>
+<nav class="cats"><a href="index.html">Overview</a><a href="results.html">Results</a><a href="lines.html" class="on">Our lines</a><a href="injuries.html">Availability</a><a href="strategies.html">Strategies</a><a href="verification.html">Verification</a><a href="review.html">Flagged for review</a><a href="method.html">Method &amp; sources</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+
+<h1>Our originated lines</h1>
+<p class="lede">Lines produced by a model in this repository, not copied from a sportsbook. Each carries
+its inputs and an uncertainty band. The market column is deliberately empty: no licensed price exists in
+this repo, so an edge cannot be claimed and is never displayed as if it could.</p>
+
+<div class="note warn"><b>These are not picks.</b> No strategy on this site risks money, and the model
+holding them does not beat a pick'em line at 95% confidence (see <a href="index.html">Overview</a>).
+They are published because a forecast that is not recorded before kickoff cannot be scored, and an
+unscored forecast is not evidence.</div>
+
+<h2>Week 10 — originated, with the official result beside it</h2>
+<div class="tbl"><table>
+<thead><tr><th>Game</th><th class="num">Model spread</th><th class="num">Market spread</th>
+<th class="num">Model total</th><th class="num">Market total</th><th class="num">Official score</th>
+<th class="num">Spread error</th><th class="num">Total error</th><th>Status</th><th>Source</th></tr></thead><tbody>
+<tr><td>WAS @ NYG</td>
+<td class="num">-4.1</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">46.8</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">24–21</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><span class="b warn">excluded — pre-kickoff leakage</span></td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">sched</a> <a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">inj</a></td></tr><tr><td>NE @ DET</td>
+<td class="num">-4.0</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">50.0</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">10–35</td><td class="num"><span class="neg">-21.0</span></td><td class="num"><span class="pos">+5.0</span></td>
+<td><span class="b ok">scored</span></td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">sched</a> <a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">inj</a></td></tr><tr><td>KC @ ATL</td>
+<td class="num">+2.1</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">46.8</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">35–13</td><td class="num"><span class="neg">+19.9</span></td><td class="num"><span class="pos">-1.2</span></td>
+<td><span class="b ok">scored</span></td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">sched</a> <a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">inj</a></td></tr><tr><td>MIN @ GB</td>
+<td class="num">-3.5</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">39.1</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">30–10</td><td class="num"><span class="neg">+23.5</span></td><td class="num"><span class="pos">-0.9</span></td>
+<td><span class="b ok">scored</span></td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">sched</a> <a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">inj</a></td></tr><tr><td>JAX @ TEN</td>
+<td class="num">+6.8</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">46.5</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">40–23</td><td class="num"><span class="neg">+10.2</span></td><td class="num"><span class="neg">-16.5</span></td>
+<td><span class="b ok">scored</span></td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">sched</a> <a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">inj</a></td></tr><tr><td>BUF @ NYJ</td>
+<td class="num">+4.0</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">51.7</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">31–12</td><td class="num"><span class="neg">+15.0</span></td><td class="num"><span class="neg">+8.7</span></td>
+<td><span class="b ok">scored</span></td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">sched</a> <a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">inj</a></td></tr><tr><td>MIA @ IND</td>
+<td class="num">-1.8</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">45.8</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">22–24</td><td class="num"><span class="pos">-0.2</span></td><td class="num"><span class="pos">-0.2</span></td>
+<td><span class="b ok">scored</span></td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">sched</a> <a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">inj</a></td></tr><tr><td>CAR @ NO</td>
+<td class="num">-0.8</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">51.6</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">20–17</td><td class="num"><span class="pos">+3.8</span></td><td class="num"><span class="neg">+14.6</span></td>
+<td><span class="b ok">scored</span></td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">sched</a> <a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">inj</a></td></tr><tr><td>HOU @ CLE</td>
+<td class="num">-1.5</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">46.8</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">24–27</td><td class="num"><span class="pos">-1.5</span></td><td class="num"><span class="pos">-4.2</span></td>
+<td><span class="b ok">scored</span></td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">sched</a> <a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">inj</a></td></tr><tr><td>LA @ AZ</td>
+<td class="num">+3.7</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">47.3</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">34–6</td><td class="num"><span class="neg">+24.3</span></td><td class="num"><span class="neg">+7.3</span></td>
+<td><span class="b ok">scored</span></td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">sched</a> <a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">inj</a></td></tr><tr><td>SEA @ LV</td>
+<td class="num">-2.3</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">46.8</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">21–13</td><td class="num"><span class="neg">+10.3</span></td><td class="num"><span class="neg">+12.8</span></td>
+<td><span class="b ok">scored</span></td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">sched</a> <a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">inj</a></td></tr><tr><td>SF @ DAL</td>
+<td class="num">+3.3</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">52.5</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">46–40</td><td class="num"><span class="pos">+2.7</span></td><td class="num"><span class="neg">-33.5</span></td>
+<td><span class="b ok">scored</span></td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">sched</a> <a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">inj</a></td></tr><tr><td>PIT @ CIN</td>
+<td class="num">-2.2</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">48.3</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><span class="b none">no result yet</span></td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">sched</a> <a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">inj</a></td></tr><tr><td>LAC @ BAL</td>
+<td class="num">-4.7</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num">47.0</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><span class="b none">no result yet</span></td><td><a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">sched</a> <a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">inj</a></td></tr></tbody></table></div>
+<p class="cls">Market columns are empty because no official or licensed price is held in this repository
+(<a href="review.html">LV-10</a>). An empty market column is a statement about the data, not about the model.</p>
+
+<h2>What the model is</h2>
+<div class="tbl"><table>
+<thead><tr><th>Component</th><th>Value</th><th class="num">Source</th></tr></thead><tbody>
+<tr><td>League points per club per game</td><td class="num">22.0</td><td>declared constant</td></tr>
+<tr><td>Home-field advantage</td><td class="num">1.9 pts</td><td>declared constant</td></tr>
+<tr><td>Shrinkage prior</td><td class="num">2.0 games</td><td>declared constant</td></tr>
+<tr><td>Single-game margin σ</td><td class="num">8.5</td><td>declared constant</td></tr>
+<tr><td>Availability penalty</td><td>position weight × game status</td><td>model parameter, <b>not verified data</b></td></tr>
+</tbody></table></div>
+<p class="cls">Constants are declared, not fitted. Fitting them in-sample and then scoring on the same
+games would flatter the model; the cost of declaring them is paid openly in the scoreboard.</p>
+
+<h2>Why there is no "edge" column</h2>
+<p>An edge is model price minus market price. This repository holds no market price. Every previous build
+that displayed market columns either left them blank or filled them from an operator's public page, which is
+not an official league source and is not licensed for redistribution. The honest presentation is a blank
+market column and a stated reason — which is what is here.</p>
+
+</div></main>
+<footer><div class="wrap">
+<p><b>What this is.</b> A verified-data dashboard. Official league values carry a source link.
+Model output is labelled model output. No licensed betting price exists in this repository, so
+closing-line value and realised return are <b>not computed and not implied</b> anywhere.</p>
+<p>Every page here is generated from the committed data files by <code>scripts/build_verified_site.py</code>
+and re-checked by <code>scripts/check_verified_site.py</code>. Other dashboards in this repository
+(<a href="../">root</a>, <a href="../board/index.html">board</a>, <a href="../docs/index.html">docs</a>,
+<a href="../depth/index.html">depth</a>, <a href="../site-9b181d31/index.html">site-9b181d31</a>) are separate builds and
+are not superseded by this one.</p>
+</div></footer>
+</body></html>

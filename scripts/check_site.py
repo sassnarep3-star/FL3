@@ -32,7 +32,9 @@ PAGES = ["index.html", "standings.html", "lines.html", "injuries.html", "strateg
          "correlation.html", "decisions.html", "suggestions.html", "flagged.html",
          "sources.html", "methodology.html",
          # verified-snapshot pages (session arena-fl3-60ee336e, integration 2026-11-14):
-         "data-snapshots.html", "data-standings.html", "data-schedule.html", "data-injuries.html"]
+         "data-snapshots.html", "data-standings.html", "data-schedule.html", "data-injuries.html",
+         # canonical verified dashboard (session arena/03e651e0, 2026-11-16):
+         "verified/index.html"]
 
 errors: list[str] = []
 warnings: list[str] = []
@@ -162,9 +164,18 @@ def check_links():
     board_root = os.path.join(ROOT, "board")
     if os.path.isdir(board_root):
         local.update(f"board/{name}" for name in os.listdir(board_root) if name.endswith(".html"))
-    verify_root = os.path.join(ROOT, "verify")
-    if os.path.isdir(verify_root):
-        local.update(f"verify/{name}" for name in os.listdir(verify_root) if name.endswith(".html"))
+    # other published subsites: every .html they contain is a legal link target
+    for _d in ("verified", "verify", "docs", "depth", "site-9b181d31"):
+        _p = os.path.join(ROOT, _d)
+        if os.path.isdir(_p):
+            for _root, _dirs, _files in os.walk(_p):
+                for _f in _files:
+                    if _f.endswith(".html"):
+                        local.add(os.path.relpath(os.path.join(_root, _f), ROOT).replace(os.sep, "/"))
+    # stylesheet and asset files referenced by the subsites
+    for _a in ("verified/assets/verified.css", "assets/site.css", "assets/site.js"):
+        if os.path.exists(os.path.join(ROOT, _a)):
+            local.add(_a)
     if os.path.isdir(os.path.join(ROOT, "legacy", "pages")):
         for f in os.listdir(os.path.join(ROOT, "legacy", "pages")):
             local.add(f"legacy/pages/{f}")
@@ -182,7 +193,15 @@ def check_links():
                 continue
             if href.startswith("mailto:"):
                 continue
-            target = href.split("#")[0]
+            # resolve the href relative to the page that contains it, so a page in a
+            # subdirectory can link to a sibling directory. Previously the raw href
+            # string was compared, which made every ../ link from a subsite a false
+            # failure. Normalised against ROOT, then to a repo-relative path.
+            raw = href.split("#")[0]
+            if raw.endswith("/"):
+                raw = raw + "index.html"
+            resolved = os.path.normpath(os.path.join(os.path.dirname(page), raw))
+            target = resolved.replace(os.sep, "/")
             check(target in local, f"E: {page} links to missing local target '{href}'")
             if target not in local:
                 continue

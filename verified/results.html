@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Results · FL3 NFL decision system</title>
+<meta name="description" content="Verified NFL 2026 data, originated lines and honest out-of-sample scoring. Every value links to an official source or is marked unverified.">
+<link rel="stylesheet" href="assets/verified.css">
+</head>
+<body>
+<a class="skip" href="#main" style="position:absolute;left:-9999px">Skip to content</a>
+<header class="top"><div class="wrap">
+<div class="brand"><b>FL3</b><span>NFL decision system · 2026 regular season</span>
+<span style="margin-left:auto;font-size:11.5px;color:#8b949e">read 2026-11-16 01:42 UTC</span></div>
+<nav class="cats"><a href="index.html">Overview</a><a href="results.html" class="on">Results</a><a href="lines.html">Our lines</a><a href="injuries.html">Availability</a><a href="strategies.html">Strategies</a><a href="verification.html">Verification</a><a href="review.html">Flagged for review</a><a href="method.html">Method &amp; sources</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+
+<h1>Results — 148 verified games</h1>
+<p class="lede">Every row is transcribed from an official NFL.com weekly schedule page that renders the
+game as FINAL. A game that was in progress or not yet played is not a result and is not in this file.
+The whole corpus is checked against the league standings before publication.</p>
+
+<div class="note"><b>Why this file exists.</b> No previous build in this repository had enough verified
+results to compute a proper score. One held 33 rows against a 137-game season; the rest held none. Without
+results, a leaderboard is decoration. <b>The check that makes it trustworthy:</b> for all 32 clubs, wins,
+losses, ties, points-for and points-against summed from these 148 rows reproduce the
+official standings page exactly — 160 figures, no tolerance, no fudge factor. A single transposed score
+would fail it. Re-runnable with <code>python3 scripts/build_week_results.py --check</code>.</p>
+<p class="cls">Corpus SHA-256 <span class="mono">fb1fee7ae25a409ae6d896340457a666268608becbd9d9b6760cc8b4239bdb8a</span><br>
+Source: <a href="https://www.nfl.com/schedules/2026/by-week/week-N" target="_blank" rel="noopener">nfl.com/schedules/2026/by-week/week-N</a>
+· reconciled against <a href="https://www.nfl.com/standings/league/2026/reg" target="_blank" rel="noopener">nfl.com/standings/league/2026/reg</a>
+· read 2026-11-16T01:36Z</p></div>
+
+<h2>By week</h2>
+<div class="tbl"><table>
+<thead><tr><th class="num">Week</th><th class="num">Games</th><th class="num">Scored</th>
+<th class="num">Spread RMSE</th><th class="num">Total RMSE</th><th class="num">Direction</th>
+<th>Source</th></tr></thead><tbody>
+<tr><td class="num">1</td><td class="num">16</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">week 1</a></td></tr><tr><td class="num">2</td><td class="num">16</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">week 2</a></td></tr><tr><td class="num">3</td><td class="num">16</td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">week 3</a></td></tr><tr><td class="num">4</td><td class="num">16</td><td class="num">16</td>
+<td class="num">9.35</td>
+<td class="num">11.86</td>
+<td class="num">62%</td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">week 4</a></td></tr><tr><td class="num">5</td><td class="num">15</td><td class="num">15</td>
+<td class="num">15.61</td>
+<td class="num">11.58</td>
+<td class="num">73%</td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">week 5</a></td></tr><tr><td class="num">6</td><td class="num">14</td><td class="num">14</td>
+<td class="num">8.22</td>
+<td class="num">14.44</td>
+<td class="num">50%</td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">week 6</a></td></tr><tr><td class="num">7</td><td class="num">14</td><td class="num">14</td>
+<td class="num">15.56</td>
+<td class="num">13.48</td>
+<td class="num">50%</td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">week 7</a></td></tr><tr><td class="num">8</td><td class="num">14</td><td class="num">14</td>
+<td class="num">13.35</td>
+<td class="num">16.31</td>
+<td class="num">64%</td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">week 8</a></td></tr><tr><td class="num">9</td><td class="num">15</td><td class="num">15</td>
+<td class="num">11.65</td>
+<td class="num">15.78</td>
+<td class="num">87%</td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">week 9</a></td></tr><tr><td class="num">10</td><td class="num">12</td><td class="num">12</td>
+<td class="num">12.63</td>
+<td class="num">13.49</td>
+<td class="num">67%</td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">week 10</a></td></tr>
+</tbody></table></div>
+<p class="cls">RMSE and direction are model output against these results, not league figures.
+Weeks 1–3 are unscored because there is no prior season in the corpus to fit on.</p>
+
+<h2>Every game</h2>
+<p class="lede">Official score on the left; the model's walk-forward forecast underneath it, where one exists.
+The model column shows what the registered rule would have said <i>before</i> kickoff given only earlier games.</p>
+<div class="tbl"><table>
+<thead><tr><th class="num">Wk</th><th>Date</th><th>Away</th><th class="num">Score</th><th>Home</th>
+<th class="num">Total</th><th class="num">Model line</th><th class="num">Model total</th>
+<th class="num">Margin err</th><th class="num">Total err</th><th>Source</th></tr></thead><tbody>
+<tr><td class="num">1</td><td class="mono">2026-09-09</td>
+<td>NE</td><td class="num"><b>10</b>–<b>13</b>  <span class="b info" title="Section header reads &#x27;Sunday Night Football, September 9th&#x27;; the game line reads Wednesday, September 9th">note</span></td><td>SEA</td>
+<td class="num">23</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">week 1</a></td></tr><tr><td class="num">1</td><td class="mono">2026-09-10</td>
+<td>SF</td><td class="num"><b>27</b>–<b>7</b>  <span class="b info" title="International Game, East Melbourne">note</span></td><td>LA</td>
+<td class="num">34</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">week 1</a></td></tr><tr><td class="num">1</td><td class="mono">2026-09-13</td>
+<td>CHI</td><td class="num"><b>59</b>–<b>37</b> </td><td>CAR</td>
+<td class="num">96</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">week 1</a></td></tr><tr><td class="num">1</td><td class="mono">2026-09-13</td>
+<td>TB</td><td class="num"><b>27</b>–<b>33</b> </td><td>CIN</td>
+<td class="num">60</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">week 1</a></td></tr><tr><td class="num">1</td><td class="mono">2026-09-13</td>
+<td>NO</td><td class="num"><b>30</b>–<b>31</b> </td><td>DET</td>
+<td class="num">61</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">week 1</a></td></tr><tr><td class="num">1</td><td class="mono">2026-09-13</td>
+<td>BUF</td><td class="num"><b>36</b>–<b>31</b> </td><td>HOU</td>
+<td class="num">67</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">week 1</a></td></tr><tr><td class="num">1</td><td class="mono">2026-09-13</td>
+<td>BAL</td><td class="num"><b>41</b>–<b>23</b> </td><td>IND</td>
+<td class="num">64</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">week 1</a></td></tr><tr><td class="num">1</td><td class="mono">2026-09-13</td>
+<td>CLE</td><td class="num"><b>10</b>–<b>34</b> </td><td>JAX</td>
+<td class="num">44</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">week 1</a></td></tr><tr><td class="num">1</td><td class="mono">2026-09-13</td>
+<td>ATL</td><td class="num"><b>13</b>–<b>20</b> </td><td>PIT</td>
+<td class="num">33</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">week 1</a></td></tr><tr><td class="num">1</td><td class="mono">2026-09-13</td>
+<td>NYJ</td><td class="num"><b>23</b>–<b>10</b> </td><td>TEN</td>
+<td class="num">33</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">week 1</a></td></tr><tr><td class="num">1</td><td class="mono">2026-09-13</td>
+<td>AZ</td><td class="num"><b>26</b>–<b>14</b> </td><td>LAC</td>
+<td class="num">40</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">week 1</a></td></tr><tr><td class="num">1</td><td class="mono">2026-09-13</td>
+<td>MIA</td><td class="num"><b>13</b>–<b>27</b> </td><td>LV</td>
+<td class="num">40</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">week 1</a></td></tr><tr><td class="num">1</td><td class="mono">2026-09-13</td>
+<td>GB</td><td class="num"><b>22</b>–<b>39</b> </td><td>MIN</td>
+<td class="num">61</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">week 1</a></td></tr><tr><td class="num">1</td><td class="mono">2026-09-13</td>
+<td>WAS</td><td class="num"><b>22</b>–<b>24</b> </td><td>PHI</td>
+<td class="num">46</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">week 1</a></td></tr><tr><td class="num">1</td><td class="mono">2026-09-13</td>
+<td>DAL</td><td class="num"><b>20</b>–<b>28</b>  <span class="b info" title="Sunday Night Football">note</span></td><td>NYG</td>
+<td class="num">48</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">week 1</a></td></tr><tr><td class="num">1</td><td class="mono">2026-09-14</td>
+<td>DEN</td><td class="num"><b>10</b>–<b>31</b>  <span class="b info" title="Monday Night Football">note</span></td><td>KC</td>
+<td class="num">41</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">week 1</a></td></tr><tr><td class="num">2</td><td class="mono">2026-09-17</td>
+<td>DET</td><td class="num"><b>31</b>–<b>41</b>  <span class="b info" title="Thursday Night Football">note</span></td><td>BUF</td>
+<td class="num">72</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">week 2</a></td></tr><tr><td class="num">2</td><td class="mono">2026-09-20</td>
+<td>CAR</td><td class="num"><b>34</b>–<b>3</b> </td><td>ATL</td>
+<td class="num">37</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">week 2</a></td></tr><tr><td class="num">2</td><td class="mono">2026-09-20</td>
+<td>NO</td><td class="num"><b>24</b>–<b>17</b> </td><td>BAL</td>
+<td class="num">41</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">week 2</a></td></tr><tr><td class="num">2</td><td class="mono">2026-09-20</td>
+<td>MIN</td><td class="num"><b>9</b>–<b>3</b> </td><td>CHI</td>
+<td class="num">12</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">week 2</a></td></tr><tr><td class="num">2</td><td class="mono">2026-09-20</td>
+<td>CIN</td><td class="num"><b>20</b>–<b>6</b> </td><td>HOU</td>
+<td class="num">26</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">week 2</a></td></tr><tr><td class="num">2</td><td class="mono">2026-09-20</td>
+<td>PIT</td><td class="num"><b>3</b>–<b>20</b> </td><td>NE</td>
+<td class="num">23</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">week 2</a></td></tr><tr><td class="num">2</td><td class="mono">2026-09-20</td>
+<td>GB</td><td class="num"><b>20</b>–<b>17</b> </td><td>NYJ</td>
+<td class="num">37</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">week 2</a></td></tr><tr><td class="num">2</td><td class="mono">2026-09-20</td>
+<td>CLE</td><td class="num"><b>23</b>–<b>19</b> </td><td>TB</td>
+<td class="num">42</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">week 2</a></td></tr><tr><td class="num">2</td><td class="mono">2026-09-20</td>
+<td>PHI</td><td class="num"><b>24</b>–<b>20</b> </td><td>TEN</td>
+<td class="num">44</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">week 2</a></td></tr><tr><td class="num">2</td><td class="mono">2026-09-20</td>
+<td>JAX</td><td class="num"><b>13</b>–<b>20</b> </td><td>DEN</td>
+<td class="num">33</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">week 2</a></td></tr><tr><td class="num">2</td><td class="mono">2026-09-20</td>
+<td>LV</td><td class="num"><b>26</b>–<b>14</b> </td><td>LAC</td>
+<td class="num">40</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">week 2</a></td></tr><tr><td class="num">2</td><td class="mono">2026-09-20</td>
+<td>SEA</td><td class="num"><b>31</b>–<b>7</b> </td><td>AZ</td>
+<td class="num">38</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">week 2</a></td></tr><tr><td class="num">2</td><td class="mono">2026-09-20</td>
+<td>WAS</td><td class="num"><b>20</b>–<b>37</b> </td><td>DAL</td>
+<td class="num">57</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">week 2</a></td></tr><tr><td class="num">2</td><td class="mono">2026-09-20</td>
+<td>MIA</td><td class="num"><b>13</b>–<b>35</b> </td><td>SF</td>
+<td class="num">48</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">week 2</a></td></tr><tr><td class="num">2</td><td class="mono">2026-09-20</td>
+<td>IND</td><td class="num"><b>30</b>–<b>33</b>  <span class="b info" title="Sunday Night Football">note</span></td><td>KC</td>
+<td class="num">63</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">week 2</a></td></tr><tr><td class="num">2</td><td class="mono">2026-09-21</td>
+<td>NYG</td><td class="num"><b>6</b>–<b>28</b>  <span class="b info" title="Monday Night Football">note</span></td><td>LA</td>
+<td class="num">34</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">week 2</a></td></tr><tr><td class="num">3</td><td class="mono">2026-09-24</td>
+<td>ATL</td><td class="num"><b>35</b>–<b>14</b>  <span class="b info" title="Thursday Night Football">note</span></td><td>GB</td>
+<td class="num">49</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">week 3</a></td></tr><tr><td class="num">3</td><td class="mono">2026-09-27</td>
+<td>LAC</td><td class="num"><b>16</b>–<b>24</b> </td><td>BUF</td>
+<td class="num">40</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">week 3</a></td></tr><tr><td class="num">3</td><td class="mono">2026-09-27</td>
+<td>CAR</td><td class="num"><b>18</b>–<b>21</b> </td><td>CLE</td>
+<td class="num">39</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">week 3</a></td></tr><tr><td class="num">3</td><td class="mono">2026-09-27</td>
+<td>NYJ</td><td class="num"><b>24</b>–<b>31</b> </td><td>DET</td>
+<td class="num">55</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">week 3</a></td></tr><tr><td class="num">3</td><td class="mono">2026-09-27</td>
+<td>HOU</td><td class="num"><b>17</b>–<b>19</b> </td><td>IND</td>
+<td class="num">36</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">week 3</a></td></tr><tr><td class="num">3</td><td class="mono">2026-09-27</td>
+<td>NE</td><td class="num"><b>6</b>–<b>35</b> </td><td>JAX</td>
+<td class="num">41</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">week 3</a></td></tr><tr><td class="num">3</td><td class="mono">2026-09-27</td>
+<td>KC</td><td class="num"><b>24</b>–<b>10</b> </td><td>MIA</td>
+<td class="num">34</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">week 3</a></td></tr><tr><td class="num">3</td><td class="mono">2026-09-27</td>
+<td>TEN</td><td class="num"><b>7</b>–<b>12</b> </td><td>NYG</td>
+<td class="num">19</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">week 3</a></td></tr><tr><td class="num">3</td><td class="mono">2026-09-27</td>
+<td>CIN</td><td class="num"><b>27</b>–<b>30</b> </td><td>PIT</td>
+<td class="num">57</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">week 3</a></td></tr><tr><td class="num">3</td><td class="mono">2026-09-27</td>
+<td>SEA</td><td class="num"><b>31</b>–<b>33</b> </td><td>WAS</td>
+<td class="num">64</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">week 3</a></td></tr><tr><td class="num">3</td><td class="mono">2026-09-27</td>
+<td>AZ</td><td class="num"><b>30</b>–<b>36</b> </td><td>SF</td>
+<td class="num">66</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">week 3</a></td></tr><tr><td class="num">3</td><td class="mono">2026-09-27</td>
+<td>MIN</td><td class="num"><b>23</b>–<b>16</b> </td><td>TB</td>
+<td class="num">39</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">week 3</a></td></tr><tr><td class="num">3</td><td class="mono">2026-09-27</td>
+<td>LV</td><td class="num"><b>35</b>–<b>27</b> </td><td>NO</td>
+<td class="num">62</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">week 3</a></td></tr><tr><td class="num">3</td><td class="mono">2026-09-27</td>
+<td>BAL</td><td class="num"><b>34</b>–<b>31</b>  <span class="b info" title="International Game, Rio de Janeiro">note</span></td><td>DAL</td>
+<td class="num">65</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">week 3</a></td></tr><tr><td class="num">3</td><td class="mono">2026-09-27</td>
+<td>LA</td><td class="num"><b>26</b>–<b>30</b>  <span class="b info" title="Sunday Night Football">note</span></td><td>DEN</td>
+<td class="num">56</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">week 3</a></td></tr><tr><td class="num">3</td><td class="mono">2026-09-28</td>
+<td>PHI</td><td class="num"><b>7</b>–<b>27</b>  <span class="b info" title="Monday Night Football">note</span></td><td>CHI</td>
+<td class="num">34</td><td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td class="num"><span class="dash" title="no verified value">—</span></td><td class="num"><span class="dash" title="no verified value">—</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">week 3</a></td></tr><tr><td class="num">4</td><td class="mono">2026-10-01</td>
+<td>PIT</td><td class="num"><b>24</b>–<b>27</b>  <span class="b info" title="Thursday Night Football">note</span></td><td>CLE</td>
+<td class="num">51</td><td class="num"><span class="neg">+0.5</span></td><td class="num">42.2</td>
+<td class="num"><span class="pos">-2.5</span></td><td class="num"><span class="neg">-8.8</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">week 4</a></td></tr><tr><td class="num">4</td><td class="mono">2026-10-04</td>
+<td>IND</td><td class="num"><b>30</b>–<b>13</b>  <span class="b info" title="International Game, London">note</span></td><td>WAS</td>
+<td class="num">43</td><td class="num"><span class="pos">+2.2</span></td><td class="num">55.3</td>
+<td class="num"><span class="neg">+19.2</span></td><td class="num"><span class="neg">+12.3</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">week 4</a></td></tr><tr><td class="num">4</td><td class="mono">2026-10-04</td>
+<td>TEN</td><td class="num"><b>18</b>–<b>24</b> </td><td>BAL</td>
+<td class="num">42</td><td class="num"><span class="pos">+7.0</span></td><td class="num">46.2</td>
+<td class="num"><span class="pos">+1.0</span></td><td class="num"><span class="pos">+4.2</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">week 4</a></td></tr><tr><td class="num">4</td><td class="mono">2026-10-04</td>
+<td>NE</td><td class="num"><b>29</b>–<b>26</b> </td><td>BUF</td>
+<td class="num">55</td><td class="num"><span class="pos">+7.3</span></td><td class="num">46.2</td>
+<td class="num"><span class="neg">+10.3</span></td><td class="num"><span class="neg">-8.8</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">week 4</a></td></tr><tr><td class="num">4</td><td class="mono">2026-10-04</td>
+<td>NYJ</td><td class="num"><b>12</b>–<b>23</b> </td><td>CHI</td>
+<td class="num">35</td><td class="num"><span class="neg">+6.6</span></td><td class="num">46.3</td>
+<td class="num"><span class="pos">-4.4</span></td><td class="num"><span class="neg">+11.3</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">week 4</a></td></tr><tr><td class="num">4</td><td class="mono">2026-10-04</td>
+<td>JAX</td><td class="num"><b>22</b>–<b>17</b> </td><td>CIN</td>
+<td class="num">39</td><td class="num"><span class="pos">-2.2</span></td><td class="num">45.5</td>
+<td class="num"><span class="pos">+2.8</span></td><td class="num"><span class="pos">+6.5</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">week 4</a></td></tr><tr><td class="num">4</td><td class="mono">2026-10-04</td>
+<td>DAL</td><td class="num"><b>34</b>–<b>30</b> </td><td>HOU</td>
+<td class="num">64</td><td class="num"><span class="pos">-2.0</span></td><td class="num">50.9</td>
+<td class="num"><span class="pos">+2.0</span></td><td class="num"><span class="neg">-13.1</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">week 4</a></td></tr><tr><td class="num">4</td><td class="mono">2026-10-04</td>
+<td>AZ</td><td class="num"><b>24</b>–<b>36</b> </td><td>NYG</td>
+<td class="num">60</td><td class="num"><span class="neg">+3.2</span></td><td class="num">43.2</td>
+<td class="num"><span class="neg">-8.8</span></td><td class="num"><span class="neg">-16.8</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">week 4</a></td></tr><tr><td class="num">4</td><td class="mono">2026-10-04</td>
+<td>LA</td><td class="num"><b>24</b>–<b>20</b> </td><td>PHI</td>
+<td class="num">44</td><td class="num"><span class="pos">+0.2</span></td><td class="num">43.6</td>
+<td class="num"><span class="pos">+4.2</span></td><td class="num"><span class="pos">-0.4</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">week 4</a></td></tr><tr><td class="num">4</td><td class="mono">2026-10-04</td>
+<td>GB</td><td class="num"><b>17</b>–<b>14</b> </td><td>TB</td>
+<td class="num">31</td><td class="num"><span class="pos">+4.5</span></td><td class="num">49.3</td>
+<td class="num"><span class="neg">+7.5</span></td><td class="num"><span class="neg">+18.3</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">week 4</a></td></tr><tr><td class="num">4</td><td class="mono">2026-10-04</td>
+<td>MIA</td><td class="num"><b>10</b>–<b>15</b> </td><td>MIN</td>
+<td class="num">25</td><td class="num"><span class="pos">+13.3</span></td><td class="num">41.6</td>
+<td class="num"><span class="neg">+8.3</span></td><td class="num"><span class="neg">+16.6</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">week 4</a></td></tr><tr><td class="num">4</td><td class="mono">2026-10-04</td>
+<td>KC</td><td class="num"><b>30</b>–<b>27</b> </td><td>LV</td>
+<td class="num">57</td><td class="num"><span class="pos">+1.3</span></td><td class="num">48.2</td>
+<td class="num"><span class="pos">+4.3</span></td><td class="num"><span class="neg">-8.8</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">week 4</a></td></tr><tr><td class="num">4</td><td class="mono">2026-10-04</td>
+<td>LAC</td><td class="num"><b>23</b>–<b>30</b> </td><td>SEA</td>
+<td class="num">53</td><td class="num"><span class="pos">+10.0</span></td><td class="num">43.2</td>
+<td class="num"><span class="pos">+3.0</span></td><td class="num"><span class="neg">-9.8</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">week 4</a></td></tr><tr><td class="num">4</td><td class="mono">2026-10-04</td>
+<td>DEN</td><td class="num"><b>14</b>–<b>24</b> </td><td>SF</td>
+<td class="num">38</td><td class="num"><span class="pos">+10.2</span></td><td class="num">47.9</td>
+<td class="num"><span class="pos">+0.2</span></td><td class="num"><span class="neg">+9.9</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">week 4</a></td></tr><tr><td class="num">4</td><td class="mono">2026-10-04</td>
+<td>DET</td><td class="num"><b>26</b>–<b>32</b>  <span class="b info" title="Sunday Night Football">note</span></td><td>CAR</td>
+<td class="num">58</td><td class="num"><span class="neg">+3.0</span></td><td class="num">59.6</td>
+<td class="num"><span class="pos">-3.0</span></td><td class="num"><span class="pos">+1.6</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">week 4</a></td></tr><tr><td class="num">4</td><td class="mono">2026-10-05</td>
+<td>ATL</td><td class="num"><b>45</b>–<b>24</b>  <span class="b info" title="Monday Night Football">note</span></td><td>NO</td>
+<td class="num">69</td><td class="num"><span class="pos">+4.0</span></td><td class="num">48.6</td>
+<td class="num"><span class="neg">+25.0</span></td><td class="num"><span class="neg">-20.4</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">week 4</a></td></tr><tr><td class="num">5</td><td class="mono">2026-10-08</td>
+<td>TB</td><td class="num"><b>24</b>–<b>16</b>  <span class="b info" title="Thursday Night Football">note</span></td><td>DAL</td>
+<td class="num">40</td><td class="num"><span class="pos">+5.6</span></td><td class="num">52.6</td>
+<td class="num"><span class="neg">+13.6</span></td><td class="num"><span class="neg">+12.6</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">week 5</a></td></tr><tr><td class="num">5</td><td class="mono">2026-10-11</td>
+<td>PHI</td><td class="num"><b>17</b>–<b>19</b>  <span class="b info" title="International Game, London">note</span></td><td>JAX</td>
+<td class="num">36</td><td class="num"><span class="pos">+10.5</span></td><td class="num">42.5</td>
+<td class="num"><span class="neg">+8.5</span></td><td class="num"><span class="pos">+6.5</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">week 5</a></td></tr><tr><td class="num">5</td><td class="mono">2026-10-11</td>
+<td>CIN</td><td class="num"><b>31</b>–<b>24</b> </td><td>MIA</td>
+<td class="num">55</td><td class="num"><span class="pos">-6.5</span></td><td class="num">43.0</td>
+<td class="num"><span class="pos">+0.5</span></td><td class="num"><span class="neg">-12.0</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">week 5</a></td></tr><tr><td class="num">5</td><td class="mono">2026-10-11</td>
+<td>LV</td><td class="num"><b>17</b>–<b>45</b> </td><td>NE</td>
+<td class="num">62</td><td class="num"><span class="neg">-3.5</span></td><td class="num">44.5</td>
+<td class="num"><span class="neg">-31.5</span></td><td class="num"><span class="neg">-17.5</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">week 5</a></td></tr><tr><td class="num">5</td><td class="mono">2026-10-11</td>
+<td>MIN</td><td class="num"><b>23</b>–<b>13</b> </td><td>NO</td>
+<td class="num">36</td><td class="num"><span class="pos">-5.4</span></td><td class="num">48.1</td>
+<td class="num"><span class="pos">+4.6</span></td><td class="num"><span class="neg">+12.1</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">week 5</a></td></tr><tr><td class="num">5</td><td class="mono">2026-10-11</td>
+<td>CLE</td><td class="num"><b>12</b>–<b>17</b> </td><td>NYJ</td>
+<td class="num">29</td><td class="num"><span class="neg">+2.6</span></td><td class="num">43.9</td>
+<td class="num"><span class="pos">-2.4</span></td><td class="num"><span class="neg">+14.9</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">week 5</a></td></tr><tr><td class="num">5</td><td class="mono">2026-10-11</td>
+<td>IND</td><td class="num"><b>22</b>–<b>34</b> </td><td>PIT</td>
+<td class="num">56</td><td class="num"><span class="neg">+0.9</span></td><td class="num">48.1</td>
+<td class="num"><span class="neg">-11.1</span></td><td class="num"><span class="neg">-7.9</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">week 5</a></td></tr><tr><td class="num">5</td><td class="mono">2026-10-11</td>
+<td>HOU</td><td class="num"><b>26</b>–<b>3</b> </td><td>TEN</td>
+<td class="num">29</td><td class="num"><span class="pos">+1.5</span></td><td class="num">43.3</td>
+<td class="num"><span class="neg">+24.5</span></td><td class="num"><span class="neg">+14.3</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">week 5</a></td></tr><tr><td class="num">5</td><td class="mono">2026-10-11</td>
+<td>NYG</td><td class="num"><b>27</b>–<b>27</b>  <span class="b info" title="TIE">note</span></td><td>WAS</td>
+<td class="num">54</td><td class="num"><span class="neg">-2.7</span></td><td class="num">48.3</td>
+<td class="num"><span class="pos">-2.7</span></td><td class="num"><span class="pos">-5.7</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">week 5</a></td></tr><tr><td class="num">5</td><td class="mono">2026-10-11</td>
+<td>CHI</td><td class="num"><b>7</b>–<b>31</b> </td><td>GB</td>
+<td class="num">38</td><td class="num"><span class="neg">-8.0</span></td><td class="num">46.3</td>
+<td class="num"><span class="neg">-32.0</span></td><td class="num"><span class="neg">+8.3</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">week 5</a></td></tr><tr><td class="num">5</td><td class="mono">2026-10-11</td>
+<td>DEN</td><td class="num"><b>23</b>–<b>17</b> </td><td>LAC</td>
+<td class="num">40</td><td class="num"><span class="pos">-0.5</span></td><td class="num">44.5</td>
+<td class="num"><span class="pos">+5.5</span></td><td class="num"><span class="pos">+4.5</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">week 5</a></td></tr><tr><td class="num">5</td><td class="mono">2026-10-11</td>
+<td>DET</td><td class="num"><b>45</b>–<b>21</b> </td><td>AZ</td>
+<td class="num">66</td><td class="num"><span class="pos">-0.9</span></td><td class="num">58.1</td>
+<td class="num"><span class="neg">+23.1</span></td><td class="num"><span class="neg">-7.9</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">week 5</a></td></tr><tr><td class="num">5</td><td class="mono">2026-10-11</td>
+<td>SF</td><td class="num"><b>32</b>–<b>29</b> </td><td>SEA</td>
+<td class="num">61</td><td class="num"><span class="pos">-1.4</span></td><td class="num">47.4</td>
+<td class="num"><span class="pos">+1.6</span></td><td class="num"><span class="neg">-13.6</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">week 5</a></td></tr><tr><td class="num">5</td><td class="mono">2026-10-11</td>
+<td>BAL</td><td class="num"><b>30</b>–<b>23</b>  <span class="b info" title="Sunday Night Football">note</span></td><td>ATL</td>
+<td class="num">53</td><td class="num"><span class="pos">-0.1</span></td><td class="num">51.9</td>
+<td class="num"><span class="pos">+6.9</span></td><td class="num"><span class="pos">-1.1</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">week 5</a></td></tr><tr><td class="num">5</td><td class="mono">2026-10-12</td>
+<td>BUF</td><td class="num"><b>37</b>–<b>34</b>  <span class="b info" title="Monday Night Football">note</span></td><td>LA</td>
+<td class="num">71</td><td class="num"><span class="pos">-0.4</span></td><td class="num">52.1</td>
+<td class="num"><span class="pos">+2.6</span></td><td class="num"><span class="neg">-18.9</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">week 5</a></td></tr><tr><td class="num">6</td><td class="mono">2026-10-15</td>
+<td>SEA</td><td class="num"><b>14</b>–<b>17</b>  <span class="b info" title="Thursday Night Football">note</span></td><td>DEN</td>
+<td class="num">31</td><td class="num"><span class="neg">-2.9</span></td><td class="num">46.7</td>
+<td class="num"><span class="pos">-5.9</span></td><td class="num"><span class="neg">+15.7</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">week 6</a></td></tr><tr><td class="num">6</td><td class="mono">2026-10-18</td>
+<td>HOU</td><td class="num"><b>34</b>–<b>31</b>  <span class="b info" title="International Game, London">note</span></td><td>JAX</td>
+<td class="num">65</td><td class="num"><span class="pos">+8.0</span></td><td class="num">43.1</td>
+<td class="num"><span class="neg">+11.0</span></td><td class="num"><span class="neg">-21.9</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">week 6</a></td></tr><tr><td class="num">6</td><td class="mono">2026-10-18</td>
+<td>CHI</td><td class="num"><b>31</b>–<b>23</b> </td><td>ATL</td>
+<td class="num">54</td><td class="num"><span class="pos">-1.0</span></td><td class="num">47.7</td>
+<td class="num"><span class="neg">+7.0</span></td><td class="num"><span class="pos">-6.3</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">week 6</a></td></tr><tr><td class="num">6</td><td class="mono">2026-10-18</td>
+<td>BAL</td><td class="num"><b>10</b>–<b>13</b> </td><td>CLE</td>
+<td class="num">23</td><td class="num"><span class="neg">-3.2</span></td><td class="num">49.2</td>
+<td class="num"><span class="pos">-6.2</span></td><td class="num"><span class="neg">+26.2</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">week 6</a></td></tr><tr><td class="num">6</td><td class="mono">2026-10-18</td>
+<td>TEN</td><td class="num"><b>26</b>–<b>20</b> </td><td>IND</td>
+<td class="num">46</td><td class="num"><span class="pos">+6.0</span></td><td class="num">44.7</td>
+<td class="num"><span class="neg">+12.0</span></td><td class="num"><span class="pos">-1.3</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">week 6</a></td></tr><tr><td class="num">6</td><td class="mono">2026-10-18</td>
+<td>NYJ</td><td class="num"><b>19</b>–<b>26</b> </td><td>NE</td>
+<td class="num">45</td><td class="num"><span class="neg">+4.0</span></td><td class="num">40.7</td>
+<td class="num"><span class="pos">-3.0</span></td><td class="num"><span class="pos">-4.3</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">week 6</a></td></tr><tr><td class="num">6</td><td class="mono">2026-10-18</td>
+<td>NO</td><td class="num"><b>34</b>–<b>27</b> </td><td>NYG</td>
+<td class="num">61</td><td class="num"><span class="pos">+5.9</span></td><td class="num">50.8</td>
+<td class="num"><span class="neg">+12.9</span></td><td class="num"><span class="neg">-10.2</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">week 6</a></td></tr><tr><td class="num">6</td><td class="mono">2026-10-18</td>
+<td>CAR</td><td class="num"><b>25</b>–<b>14</b> </td><td>PHI</td>
+<td class="num">39</td><td class="num"><span class="pos">-1.8</span></td><td class="num">50.9</td>
+<td class="num"><span class="neg">+9.2</span></td><td class="num"><span class="neg">+11.9</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">week 6</a></td></tr><tr><td class="num">6</td><td class="mono">2026-10-18</td>
+<td>PIT</td><td class="num"><b>26</b>–<b>19</b> </td><td>TB</td>
+<td class="num">45</td><td class="num"><span class="pos">+0.3</span></td><td class="num">45.0</td>
+<td class="num"><span class="neg">+7.3</span></td><td class="num"><span class="pos">+0.0</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">week 6</a></td></tr><tr><td class="num">6</td><td class="mono">2026-10-18</td>
+<td>AZ</td><td class="num"><b>18</b>–<b>16</b> </td><td>LA</td>
+<td class="num">34</td><td class="num"><span class="pos">+7.8</span></td><td class="num">53.6</td>
+<td class="num"><span class="neg">+9.8</span></td><td class="num"><span class="neg">+19.6</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">week 6</a></td></tr><tr><td class="num">6</td><td class="mono">2026-10-18</td>
+<td>LAC</td><td class="num"><b>6</b>–<b>22</b> </td><td>KC</td>
+<td class="num">28</td><td class="num"><span class="neg">+12.0</span></td><td class="num">47.5</td>
+<td class="num"><span class="pos">-4.0</span></td><td class="num"><span class="neg">+19.5</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">week 6</a></td></tr><tr><td class="num">6</td><td class="mono">2026-10-18</td>
+<td>BUF</td><td class="num"><b>33</b>–<b>30</b> </td><td>LV</td>
+<td class="num">63</td><td class="num"><span class="pos">-0.3</span></td><td class="num">59.9</td>
+<td class="num"><span class="pos">+2.7</span></td><td class="num"><span class="pos">-3.1</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">week 6</a></td></tr><tr><td class="num">6</td><td class="mono">2026-10-18</td>
+<td>DAL</td><td class="num"><b>13</b>–<b>23</b>  <span class="b info" title="Sunday Night Football">note</span></td><td>GB</td>
+<td class="num">36</td><td class="num"><span class="neg">+0.8</span></td><td class="num">51.5</td>
+<td class="num"><span class="neg">-9.2</span></td><td class="num"><span class="neg">+15.5</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">week 6</a></td></tr><tr><td class="num">6</td><td class="mono">2026-10-19</td>
+<td>WAS</td><td class="num"><b>17</b>–<b>23</b>  <span class="b info" title="Monday Night Football">note</span></td><td>SF</td>
+<td class="num">40</td><td class="num"><span class="pos">+12.5</span></td><td class="num">53.8</td>
+<td class="num"><span class="pos">+6.5</span></td><td class="num"><span class="neg">+13.8</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">week 6</a></td></tr><tr><td class="num">7</td><td class="mono">2026-10-22</td>
+<td>NE</td><td class="num"><b>24</b>–<b>30</b>  <span class="b info" title="Thursday Night Football">note</span></td><td>CHI</td>
+<td class="num">54</td><td class="num"><span class="neg">+2.7</span></td><td class="num">44.9</td>
+<td class="num"><span class="pos">-3.3</span></td><td class="num"><span class="neg">-9.1</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">week 7</a></td></tr><tr><td class="num">7</td><td class="mono">2026-10-25</td>
+<td>PIT</td><td class="num"><b>16</b>–<b>10</b>  <span class="b info" title="International Game, Saint-Denis">note</span></td><td>NO</td>
+<td class="num">26</td><td class="num"><span class="pos">-1.6</span></td><td class="num">52.6</td>
+<td class="num"><span class="pos">+4.4</span></td><td class="num"><span class="neg">+26.6</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">week 7</a></td></tr><tr><td class="num">7</td><td class="mono">2026-10-25</td>
+<td>SF</td><td class="num"><b>20</b>–<b>29</b> </td><td>ATL</td>
+<td class="num">49</td><td class="num"><span class="neg">-5.9</span></td><td class="num">51.3</td>
+<td class="num"><span class="neg">-14.9</span></td><td class="num"><span class="pos">+2.3</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">week 7</a></td></tr><tr><td class="num">7</td><td class="mono">2026-10-25</td>
+<td>CIN</td><td class="num"><b>35</b>–<b>13</b> </td><td>BAL</td>
+<td class="num">48</td><td class="num"><span class="pos">+2.2</span></td><td class="num">50.2</td>
+<td class="num"><span class="neg">+24.2</span></td><td class="num"><span class="pos">+2.2</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">week 7</a></td></tr><tr><td class="num">7</td><td class="mono">2026-10-25</td>
+<td>TB</td><td class="num"><b>43</b>–<b>13</b> </td><td>CAR</td>
+<td class="num">56</td><td class="num"><span class="pos">+6.4</span></td><td class="num">50.6</td>
+<td class="num"><span class="neg">+36.4</span></td><td class="num"><span class="pos">-5.4</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">week 7</a></td></tr><tr><td class="num">7</td><td class="mono">2026-10-25</td>
+<td>NYG</td><td class="num"><b>27</b>–<b>21</b> </td><td>HOU</td>
+<td class="num">48</td><td class="num"><span class="pos">+2.4</span></td><td class="num">49.4</td>
+<td class="num"><span class="neg">+8.4</span></td><td class="num"><span class="pos">+1.4</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">week 7</a></td></tr><tr><td class="num">7</td><td class="mono">2026-10-25</td>
+<td>IND</td><td class="num"><b>10</b>–<b>16</b> </td><td>MIN</td>
+<td class="num">26</td><td class="num"><span class="pos">+8.9</span></td><td class="num">45.1</td>
+<td class="num"><span class="pos">+2.9</span></td><td class="num"><span class="neg">+19.1</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">week 7</a></td></tr><tr><td class="num">7</td><td class="mono">2026-10-25</td>
+<td>MIA</td><td class="num"><b>28</b>–<b>25</b> </td><td>NYJ</td>
+<td class="num">53</td><td class="num"><span class="pos">+7.8</span></td><td class="num">40.9</td>
+<td class="num"><span class="neg">+10.8</span></td><td class="num"><span class="neg">-12.1</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">week 7</a></td></tr><tr><td class="num">7</td><td class="mono">2026-10-25</td>
+<td>CLE</td><td class="num"><b>27</b>–<b>24</b> </td><td>TEN</td>
+<td class="num">51</td><td class="num"><span class="pos">-1.0</span></td><td class="num">37.2</td>
+<td class="num"><span class="pos">+2.0</span></td><td class="num"><span class="neg">-13.8</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">week 7</a></td></tr><tr><td class="num">7</td><td class="mono">2026-10-25</td>
+<td>DEN</td><td class="num"><b>30</b>–<b>16</b> </td><td>AZ</td>
+<td class="num">46</td><td class="num"><span class="pos">-2.2</span></td><td class="num">47.4</td>
+<td class="num"><span class="neg">+11.8</span></td><td class="num"><span class="pos">+1.4</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">week 7</a></td></tr><tr><td class="num">7</td><td class="mono">2026-10-25</td>
+<td>GB</td><td class="num"><b>17</b>–<b>20</b> </td><td>DET</td>
+<td class="num">37</td><td class="num"><span class="pos">+3.5</span></td><td class="num">54.9</td>
+<td class="num"><span class="pos">+0.5</span></td><td class="num"><span class="neg">+17.9</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">week 7</a></td></tr><tr><td class="num">7</td><td class="mono">2026-10-25</td>
+<td>LA</td><td class="num"><b>35</b>–<b>21</b> </td><td>LV</td>
+<td class="num">56</td><td class="num"><span class="pos">+2.2</span></td><td class="num">52.8</td>
+<td class="num"><span class="neg">+16.2</span></td><td class="num"><span class="pos">-3.2</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">week 7</a></td></tr><tr><td class="num">7</td><td class="mono">2026-10-25</td>
+<td>KC</td><td class="num"><b>3</b>–<b>20</b>  <span class="b info" title="Sunday Night Football">note</span></td><td>SEA</td>
+<td class="num">23</td><td class="num"><span class="neg">-1.8</span></td><td class="num">46.8</td>
+<td class="num"><span class="neg">-18.8</span></td><td class="num"><span class="neg">+23.8</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">week 7</a></td></tr><tr><td class="num">7</td><td class="mono">2026-10-26</td>
+<td>DAL</td><td class="num"><b>38</b>–<b>21</b>  <span class="b info" title="Monday Night Football">note</span></td><td>PHI</td>
+<td class="num">59</td><td class="num"><span class="pos">-0.4</span></td><td class="num">48.4</td>
+<td class="num"><span class="neg">+16.6</span></td><td class="num"><span class="neg">-10.6</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">week 7</a></td></tr><tr><td class="num">8</td><td class="mono">2026-10-29</td>
+<td>CAR</td><td class="num"><b>19</b>–<b>27</b>  <span class="b info" title="Thursday Night Football">note</span></td><td>GB</td>
+<td class="num">46</td><td class="num"><span class="neg">+2.5</span></td><td class="num">50.3</td>
+<td class="num"><span class="pos">-5.5</span></td><td class="num"><span class="pos">+4.3</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">week 8</a></td></tr><tr><td class="num">8</td><td class="mono">2026-11-01</td>
+<td>BAL</td><td class="num"><b>10</b>–<b>36</b> </td><td>BUF</td>
+<td class="num">46</td><td class="num"><span class="neg">+4.3</span></td><td class="num">58.8</td>
+<td class="num"><span class="neg">-21.7</span></td><td class="num"><span class="neg">+12.8</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">week 8</a></td></tr><tr><td class="num">8</td><td class="mono">2026-11-01</td>
+<td>TEN</td><td class="num"><b>36</b>–<b>43</b> </td><td>CIN</td>
+<td class="num">79</td><td class="num"><span class="pos">+10.4</span></td><td class="num">44.0</td>
+<td class="num"><span class="pos">+3.4</span></td><td class="num"><span class="neg">-35.0</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">week 8</a></td></tr><tr><td class="num">8</td><td class="mono">2026-11-01</td>
+<td>AZ</td><td class="num"><b>33</b>–<b>30</b> </td><td>DAL</td>
+<td class="num">63</td><td class="num"><span class="pos">+8.7</span></td><td class="num">55.3</td>
+<td class="num"><span class="neg">+11.7</span></td><td class="num"><span class="neg">-7.7</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">week 8</a></td></tr><tr><td class="num">8</td><td class="mono">2026-11-01</td>
+<td>MIN</td><td class="num"><b>15</b>–<b>19</b> </td><td>DET</td>
+<td class="num">34</td><td class="num"><span class="neg">-1.3</span></td><td class="num">47.9</td>
+<td class="num"><span class="pos">-5.3</span></td><td class="num"><span class="neg">+13.9</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">week 8</a></td></tr><tr><td class="num">8</td><td class="mono">2026-11-01</td>
+<td>IND</td><td class="num"><b>7</b>–<b>42</b> </td><td>JAX</td>
+<td class="num">49</td><td class="num"><span class="neg">+9.3</span></td><td class="num">47.7</td>
+<td class="num"><span class="neg">-25.7</span></td><td class="num"><span class="pos">-1.3</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">week 8</a></td></tr><tr><td class="num">8</td><td class="mono">2026-11-01</td>
+<td>LV</td><td class="num"><b>38</b>–<b>33</b> </td><td>NYJ</td>
+<td class="num">71</td><td class="num"><span class="pos">+2.0</span></td><td class="num">50.5</td>
+<td class="num"><span class="pos">+7.0</span></td><td class="num"><span class="neg">-20.5</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">week 8</a></td></tr><tr><td class="num">8</td><td class="mono">2026-11-01</td>
+<td>CLE</td><td class="num"><b>6</b>–<b>27</b> </td><td>PIT</td>
+<td class="num">33</td><td class="num"><span class="neg">+4.4</span></td><td class="num">41.7</td>
+<td class="num"><span class="neg">-16.6</span></td><td class="num"><span class="neg">+8.7</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">week 8</a></td></tr><tr><td class="num">8</td><td class="mono">2026-11-01</td>
+<td>ATL</td><td class="num"><b>0</b>–<b>16</b> </td><td>TB</td>
+<td class="num">16</td><td class="num"><span class="neg">+3.1</span></td><td class="num">49.6</td>
+<td class="num"><span class="neg">-12.9</span></td><td class="num"><span class="neg">+33.6</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">week 8</a></td></tr><tr><td class="num">8</td><td class="mono">2026-11-01</td>
+<td>LAC</td><td class="num"><b>9</b>–<b>24</b> </td><td>LA</td>
+<td class="num">33</td><td class="num"><span class="neg">+9.0</span></td><td class="num">45.5</td>
+<td class="num"><span class="pos">-6.0</span></td><td class="num"><span class="neg">+12.5</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">week 8</a></td></tr><tr><td class="num">8</td><td class="mono">2026-11-01</td>
+<td>KC</td><td class="num"><b>24</b>–<b>28</b> </td><td>DEN</td>
+<td class="num">52</td><td class="num"><span class="neg">-1.8</span></td><td class="num">42.0</td>
+<td class="num"><span class="pos">-5.8</span></td><td class="num"><span class="neg">-10.0</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">week 8</a></td></tr><tr><td class="num">8</td><td class="mono">2026-11-01</td>
+<td>NE</td><td class="num"><b>24</b>–<b>19</b> </td><td>MIA</td>
+<td class="num">43</td><td class="num"><span class="neg">-5.5</span></td><td class="num">44.5</td>
+<td class="num"><span class="pos">-0.5</span></td><td class="num"><span class="pos">+1.5</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">week 8</a></td></tr><tr><td class="num">8</td><td class="mono">2026-11-01</td>
+<td>PHI</td><td class="num"><b>10</b>–<b>27</b>  <span class="b info" title="Sunday Night Football">note</span></td><td>WAS</td>
+<td class="num">37</td><td class="num"><span class="neg">+2.3</span></td><td class="num">49.4</td>
+<td class="num"><span class="neg">-14.7</span></td><td class="num"><span class="neg">+12.4</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">week 8</a></td></tr><tr><td class="num">8</td><td class="mono">2026-11-02</td>
+<td>CHI</td><td class="num"><b>34</b>–<b>17</b>  <span class="b info" title="Monday Night Football">note</span></td><td>SEA</td>
+<td class="num">51</td><td class="num"><span class="pos">+2.4</span></td><td class="num">45.9</td>
+<td class="num"><span class="neg">+19.4</span></td><td class="num"><span class="pos">-5.1</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">week 8</a></td></tr><tr><td class="num">9</td><td class="mono">2026-11-05</td>
+<td>JAX</td><td class="num"><b>33</b>–<b>10</b>  <span class="b info" title="Thursday Night Football">note</span></td><td>BAL</td>
+<td class="num">43</td><td class="num"><span class="pos">-7.8</span></td><td class="num">48.3</td>
+<td class="num"><span class="neg">+15.2</span></td><td class="num"><span class="pos">+5.3</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">week 9</a></td></tr><tr><td class="num">9</td><td class="mono">2026-11-08</td>
+<td>CIN</td><td class="num"><b>34</b>–<b>17</b>  <span class="b info" title="International Game, Madrid">note</span></td><td>ATL</td>
+<td class="num">51</td><td class="num"><span class="pos">-4.0</span></td><td class="num">51.7</td>
+<td class="num"><span class="neg">+13.0</span></td><td class="num"><span class="pos">+0.7</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">week 9</a></td></tr><tr><td class="num">9</td><td class="mono">2026-11-08</td>
+<td>DEN</td><td class="num"><b>26</b>–<b>21</b> </td><td>CAR</td>
+<td class="num">47</td><td class="num"><span class="pos">-0.0</span></td><td class="num">50.4</td>
+<td class="num"><span class="pos">+5.0</span></td><td class="num"><span class="pos">+3.4</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">week 9</a></td></tr><tr><td class="num">9</td><td class="mono">2026-11-08</td>
+<td>DAL</td><td class="num"><b>27</b>–<b>23</b> </td><td>IND</td>
+<td class="num">50</td><td class="num"><span class="pos">-3.7</span></td><td class="num">55.2</td>
+<td class="num"><span class="pos">+0.3</span></td><td class="num"><span class="pos">+5.2</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">week 9</a></td></tr><tr><td class="num">9</td><td class="mono">2026-11-08</td>
+<td>NYJ</td><td class="num"><b>12</b>–<b>35</b> </td><td>KC</td>
+<td class="num">47</td><td class="num"><span class="neg">+6.7</span></td><td class="num">45.5</td>
+<td class="num"><span class="neg">-16.3</span></td><td class="num"><span class="pos">-1.5</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">week 9</a></td></tr><tr><td class="num">9</td><td class="mono">2026-11-08</td>
+<td>DET</td><td class="num"><b>19</b>–<b>9</b> </td><td>MIA</td>
+<td class="num">28</td><td class="num"><span class="pos">-6.0</span></td><td class="num">51.8</td>
+<td class="num"><span class="pos">+4.0</span></td><td class="num"><span class="neg">+23.8</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">week 9</a></td></tr><tr><td class="num">9</td><td class="mono">2026-11-08</td>
+<td>CLE</td><td class="num"><b>22</b>–<b>23</b> </td><td>NO</td>
+<td class="num">45</td><td class="num"><span class="pos">+1.8</span></td><td class="num">46.9</td>
+<td class="num"><span class="pos">+0.8</span></td><td class="num"><span class="pos">+1.9</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">week 9</a></td></tr><tr><td class="num">9</td><td class="mono">2026-11-08</td>
+<td>NYG</td><td class="num"><b>19</b>–<b>11</b> </td><td>PHI</td>
+<td class="num">30</td><td class="num"><span class="pos">-3.7</span></td><td class="num">46.3</td>
+<td class="num"><span class="pos">+4.3</span></td><td class="num"><span class="neg">+16.3</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">week 9</a></td></tr><tr><td class="num">9</td><td class="mono">2026-11-08</td>
+<td>LA</td><td class="num"><b>20</b>–<b>13</b> </td><td>WAS</td>
+<td class="num">33</td><td class="num"><span class="pos">-2.4</span></td><td class="num">49.7</td>
+<td class="num"><span class="pos">+4.6</span></td><td class="num"><span class="neg">+16.7</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">week 9</a></td></tr><tr><td class="num">9</td><td class="mono">2026-11-08</td>
+<td>HOU</td><td class="num"><b>44</b>–<b>22</b> </td><td>LAC</td>
+<td class="num">66</td><td class="num"><span class="pos">-4.6</span></td><td class="num">45.3</td>
+<td class="num"><span class="neg">+17.4</span></td><td class="num"><span class="neg">-20.7</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">week 9</a></td></tr><tr><td class="num">9</td><td class="mono">2026-11-08</td>
+<td>LV</td><td class="num"><b>17</b>–<b>38</b> </td><td>SF</td>
+<td class="num">55</td><td class="num"><span class="neg">+7.9</span></td><td class="num">56.7</td>
+<td class="num"><span class="neg">-13.1</span></td><td class="num"><span class="pos">+1.7</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">week 9</a></td></tr><tr><td class="num">9</td><td class="mono">2026-11-08</td>
+<td>GB</td><td class="num"><b>45</b>–<b>27</b> </td><td>NE</td>
+<td class="num">72</td><td class="num"><span class="pos">+3.1</span></td><td class="num">44.0</td>
+<td class="num"><span class="neg">+21.1</span></td><td class="num"><span class="neg">-28.0</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">week 9</a></td></tr><tr><td class="num">9</td><td class="mono">2026-11-08</td>
+<td>AZ</td><td class="num"><b>3</b>–<b>17</b> </td><td>SEA</td>
+<td class="num">20</td><td class="num"><span class="neg">+9.3</span></td><td class="num">50.3</td>
+<td class="num"><span class="pos">-4.7</span></td><td class="num"><span class="neg">+30.3</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">week 9</a></td></tr><tr><td class="num">9</td><td class="mono">2026-11-08</td>
+<td>TB</td><td class="num"><b>24</b>–<b>27</b>  <span class="b info" title="Sunday Night Football">note</span></td><td>CHI</td>
+<td class="num">51</td><td class="num"><span class="pos">+4.1</span></td><td class="num">45.8</td>
+<td class="num"><span class="pos">+1.1</span></td><td class="num"><span class="pos">-5.2</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">week 9</a></td></tr><tr><td class="num">9</td><td class="mono">2026-11-09</td>
+<td>BUF</td><td class="num"><b>23</b>–<b>6</b>  <span class="b info" title="Monday Night Football">note</span></td><td>MIN</td>
+<td class="num">29</td><td class="num"><span class="pos">+1.4</span></td><td class="num">48.7</td>
+<td class="num"><span class="neg">+18.4</span></td><td class="num"><span class="neg">+19.7</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">week 9</a></td></tr><tr><td class="num">10</td><td class="mono">2026-11-12</td>
+<td>WAS</td><td class="num"><b>24</b>–<b>21</b>  <span class="b info" title="Thursday Night Football">note</span></td><td>NYG</td>
+<td class="num">45</td><td class="num"><span class="pos">+5.2</span></td><td class="num">47.9</td>
+<td class="num"><span class="neg">+8.2</span></td><td class="num"><span class="pos">+2.9</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">week 10</a></td></tr><tr><td class="num">10</td><td class="mono">2026-11-15</td>
+<td>NE</td><td class="num"><b>10</b>–<b>35</b>  <span class="b info" title="International Game, Munich">note</span></td><td>DET</td>
+<td class="num">45</td><td class="num"><span class="neg">+4.3</span></td><td class="num">52.5</td>
+<td class="num"><span class="neg">-20.7</span></td><td class="num"><span class="neg">+7.5</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">week 10</a></td></tr><tr><td class="num">10</td><td class="mono">2026-11-15</td>
+<td>KC</td><td class="num"><b>35</b>–<b>13</b> </td><td>ATL</td>
+<td class="num">48</td><td class="num"><span class="pos">-5.7</span></td><td class="num">46.5</td>
+<td class="num"><span class="neg">+16.3</span></td><td class="num"><span class="pos">-1.5</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">week 10</a></td></tr><tr><td class="num">10</td><td class="mono">2026-11-15</td>
+<td>HOU</td><td class="num"><b>24</b>–<b>27</b> </td><td>CLE</td>
+<td class="num">51</td><td class="num"><span class="neg">-2.2</span></td><td class="num">47.0</td>
+<td class="num"><span class="pos">-5.2</span></td><td class="num"><span class="pos">-4.0</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">week 10</a></td></tr><tr><td class="num">10</td><td class="mono">2026-11-15</td>
+<td>MIN</td><td class="num"><b>30</b>–<b>10</b> </td><td>GB</td>
+<td class="num">40</td><td class="num"><span class="pos">+1.3</span></td><td class="num">39.2</td>
+<td class="num"><span class="neg">+21.3</span></td><td class="num"><span class="pos">-0.8</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">week 10</a></td></tr><tr><td class="num">10</td><td class="mono">2026-11-15</td>
+<td>MIA</td><td class="num"><b>22</b>–<b>24</b> </td><td>IND</td>
+<td class="num">46</td><td class="num"><span class="pos">+3.1</span></td><td class="num">46.6</td>
+<td class="num"><span class="pos">+1.1</span></td><td class="num"><span class="pos">+0.6</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">week 10</a></td></tr><tr><td class="num">10</td><td class="mono">2026-11-15</td>
+<td>CAR</td><td class="num"><b>20</b>–<b>17</b> </td><td>NO</td>
+<td class="num">37</td><td class="num"><span class="pos">+1.0</span></td><td class="num">55.5</td>
+<td class="num"><span class="pos">+4.0</span></td><td class="num"><span class="neg">+18.5</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">week 10</a></td></tr><tr><td class="num">10</td><td class="mono">2026-11-15</td>
+<td>BUF</td><td class="num"><b>31</b>–<b>12</b> </td><td>NYJ</td>
+<td class="num">43</td><td class="num"><span class="pos">-7.0</span></td><td class="num">54.2</td>
+<td class="num"><span class="neg">+12.0</span></td><td class="num"><span class="neg">+11.2</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">week 10</a></td></tr><tr><td class="num">10</td><td class="mono">2026-11-15</td>
+<td>JAX</td><td class="num"><b>40</b>–<b>23</b> </td><td>TEN</td>
+<td class="num">63</td><td class="num"><span class="pos">-11.7</span></td><td class="num">45.0</td>
+<td class="num"><span class="pos">+5.3</span></td><td class="num"><span class="neg">-18.0</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">week 10</a></td></tr><tr><td class="num">10</td><td class="mono">2026-11-15</td>
+<td>LA</td><td class="num"><b>34</b>–<b>6</b> </td><td>AZ</td>
+<td class="num">40</td><td class="num"><span class="pos">-6.6</span></td><td class="num">48.7</td>
+<td class="num"><span class="neg">+21.4</span></td><td class="num"><span class="neg">+8.7</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">week 10</a></td></tr><tr><td class="num">10</td><td class="mono">2026-11-15</td>
+<td>SEA</td><td class="num"><b>21</b>–<b>13</b> </td><td>LV</td>
+<td class="num">34</td><td class="num"><span class="pos">-3.5</span></td><td class="num">51.9</td>
+<td class="num"><span class="pos">+4.5</span></td><td class="num"><span class="neg">+17.9</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">week 10</a></td></tr><tr><td class="num">10</td><td class="mono">2026-11-15</td>
+<td>SF</td><td class="num"><b>46</b>–<b>40</b> </td><td>DAL</td>
+<td class="num">86</td><td class="num"><span class="pos">-3.9</span></td><td class="num">55.8</td>
+<td class="num"><span class="pos">+2.1</span></td><td class="num"><span class="neg">-30.2</span></td>
+<td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">week 10</a></td></tr>
+</tbody></table></div>
+<p class="cls">Model line is home margin (positive = home favoured). Error is model minus actual, so a
+positive margin error means the model over-rated the home side.</p>
+
+</div></main>
+<footer><div class="wrap">
+<p><b>What this is.</b> A verified-data dashboard. Official league values carry a source link.
+Model output is labelled model output. No licensed betting price exists in this repository, so
+closing-line value and realised return are <b>not computed and not implied</b> anywhere.</p>
+<p>Every page here is generated from the committed data files by <code>scripts/build_verified_site.py</code>
+and re-checked by <code>scripts/check_verified_site.py</code>. Other dashboards in this repository
+(<a href="../">root</a>, <a href="../board/index.html">board</a>, <a href="../docs/index.html">docs</a>,
+<a href="../depth/index.html">depth</a>, <a href="../site-9b181d31/index.html">site-9b181d31</a>) are separate builds and
+are not superseded by this one.</p>
+</div></footer>
+</body></html>
