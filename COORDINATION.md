@@ -783,9 +783,9 @@ HTML generation, source links and internal links were verified locally and by CI
 
 ---
 
-# Session `arena/a8c1189d` (branch `arena/a8c1189d-fl3`)> **ID collision note (added at merge time).** This session first numbered its tasks T22–T26. Session `arena/00a6b558` had already used T22 for its live Week 10 re-check (merged via PR #22/#24). This session's tasks are therefore renumbered **T27–T31**. Nothing was edited in the other session's work; its flags (FLG-029/030, `data/flags.csv`), its `data/recapture_2026-11-16/` files and its readiness rows (R061, R062, R068, R069) are consistent with this session's findings and are kept as-is.
+# Session `arena/a8c1189d` (branch `arena/a8c1189d-fl3`) — claim, scope and record (2026-11-16 UTC)
 
- — claim, scope and record (2026-11-16 UTC)
+> **ID collision note (added at merge time).** This session first numbered its tasks T22–T26. Session `arena/00a6b558` had already used T22 for its live Week 10 re-check (merged via PR #22/#24). This session's tasks are therefore renumbered **T27–T31**. Nothing was edited in the other session's work; its flags (FLG-029/030, `data/flags.csv`), its `data/recapture_2026-11-16/` files and its readiness rows (R061, R062, R068, R069) are consistent with this session's findings and are kept as-is.
 
 Single-session run on this branch. Branch-naming note: the session brief asks for `session-<id>/<task>`
 branches and a separate integration session. This session runs on the one branch Arena assigns it
