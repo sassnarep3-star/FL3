@@ -780,3 +780,15 @@ the full details at `/board/readiness.html`. No table values will be duplicated 
 The deploy workflow and Pages build record confirm publication. This session's network policy did not
 permit fetching `github.io` directly, so URL content was not independently fetched after deployment;
 HTML generation, source links and internal links were verified locally and by CI.
+
+---
+
+# Session `arena/00a6b558-fl3` — claim (2026-11-16 UTC)
+
+Branch `arena/00a6b558-fl3` (base `main@5b66952`). This session is the only one working on this branch.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T22 — Live re-check of the Week 10 official injury report (Lions game status, Seattle/Cincinnati sections, row counts) and a reconciled readiness register with new rows for the requirements not yet listed (season-long ROI rejection, depth slots as groups) | **in progress** | `arena/00a6b558-fl3` | `data/recapture_2026-11-16/**`, `data/requirements_readiness.csv`, `scripts/build_readiness.py`, `data/flags.csv`, generated `board/**` and root site pages from the existing generators |
+
+Not claimed and not touched: `data/injuries_2026_wk10.csv` and `data/injuries_2026_w10.json` (owned by earlier sessions; preserved as-is and reconciled by a separate manifest), `depth/**`, `docs/**`, `site-9b181d31/**`, `legacy/**`, `.github/**`.
