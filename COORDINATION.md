@@ -780,3 +780,88 @@ the full details at `/board/readiness.html`. No table values will be duplicated 
 The deploy workflow and Pages build record confirm publication. This session's network policy did not
 permit fetching `github.io` directly, so URL content was not independently fetched after deployment;
 HTML generation, source links and internal links were verified locally and by CI.
+
+---
+
+# Session `arena/00a6b558-fl3` — claim (2026-11-16 UTC)
+
+Branch `arena/00a6b558-fl3` (base `main@5b66952`). This session is the only one working on this branch.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T22 — Live re-check of the Week 10 official injury report (Lions game status, Seattle/Cincinnati sections, row counts) and a reconciled readiness register with new rows for the requirements not yet listed (season-long ROI rejection, depth slots as groups) | **done** | `arena/00a6b558-fl3` | `data/recapture_2026-11-16/**`, `data/requirements_readiness.csv`, `scripts/build_readiness.py`, `data/flags.csv`, generated `board/**` and root site pages from the existing generators |
+
+Not claimed and not touched: `data/injuries_2026_wk10.csv` and `data/injuries_2026_w10.json` (owned by earlier sessions; preserved as-is and reconciled by a separate manifest), `depth/**`, `docs/**`, `site-9b181d31/**`, `legacy/**`, `.github/**`.
+
+## T22 — completion record (2026-11-16 UTC)
+
+**Sources (fetched 2026-11-16):** [NFL.com Week 10 injury report](https://www.nfl.com/injuries/league/2026/reg10) (8 chunks, read in full); [NFL.com news items linked from that page, including the Ravens IR roundup](https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13).
+
+**Verified**
+- 28 club tables with player rows on the live page; **347 player rows** in total.
+- 27 of 28 club row counts match the repo's 2026-11-14 capture exactly.
+- Lions: Kerby Joseph, Cade Mays and D.J. Reed are all listed Out (field-level match). The "blank game status" claim is not reproduced: the repo already has Out for all three.
+- Seattle (15 rows) and Cincinnati (9 rows) match the repo.
+
+**Not verified / irregularities (published as FLG-029 and FLG-030 and in `data/recapture_2026-11-16/`)**
+- **D01/D02:** the repo omits two Ravens rows, Calais Campbell and Ronnie Stanley (both blank game status). The repo is 345 rows against 347 live. Not corrected in this session: changing the published total would break the verifier's count, and the repair needs a separate versioned re-transcription.
+- **D03:** the brief's counts (254 rows, 4 no-injury sections, Cincinnati listing 4) are **not reproduced**; they are not published as facts.
+- No raw HTML bytes were retained, so there is **no raw hash** for this capture. The next capture must store the raw bytes and a SHA-256.
+- Cell-level re-transcription of all 347 rows is **still open**; only the Lions rows were checked field by field.
+
+**Readiness register:** R061 and R062 updated; R062 is now VERIFIED for its three rows. Added R068 (season-long ROI ranking rejected) and R069 (depth slots as groups, not verified). The register now has **69** rows.
+
+**Verification run:** `build_readiness.py --check` OK (69); `build_board.py` built 21 pages; `build_site.py` built 11 pages; `check_site.py` **1603 assertions, ALL CHECKS PASSED**; `check_links.py` PASS; `verify.py` G-10 PASS with the pre-existing non-blocking V-09b warning (FLG-025).
+
+**Scope note for the board:** most of the requirement list was already in the register as R001–R067 (state and gate per row). Not done in this session, and recorded as open: the point-in-time snapshot store, a 32-club depth capture, the snap-count and inactive-list capture, the forecast/probability store, the leaderboard divisions, the parlay joint-evidence gate, and the matrix view.
+
+## T22 — PR / merge / deploy record
+
+| Item | Value |
+|---|---|
+| Pull request | [#22 — T22: live Week 10 injury re-check and readiness register update](https://github.com/sassnarep3-star/FL3/pull/22) |
+| PR checks | `Recompute and verify` pass; `validate` pass; `verify-and-build` pass; deploy skipped (PR) |
+| Merge | **merged** into `main` as `695e895` (no approval waited for, per brief) |
+| Post-merge CI | `Verify data and site` success; `site` success; `Deploy static site to GitHub Pages` success; `pages-build-deployment` success |
+| Live check | https://sassnarep3-star.github.io/FL3/board/readiness.html?v=22 served the updated register (69 rows) |
+
+# Session `arena/ab62a598-fl3` — claim, scope and integration record (2026-11-16 UTC)
+
+Branch `arena/ab62a598-fl3` (base `main@5b66952`, merged with `origin/main@5ec1551`). This session is the only one working on this branch. The claim below was written after most of the capture work (not before); it is recorded here so the scope is visible to other sessions.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| Official Week 10 injury capture (14 sections, 347 rows, 28 clubs), reconciliation, copy audit, board page, Week 10 flags and readiness corrections | **done with open items** | `arena/ab62a598-fl3` | `data/official_capture/**`, `data/official_injury_*_wk10_2026.csv`, `data/sources.csv`, `data/flags.csv`, `data/requirements_readiness.csv`, `scripts/build_readiness.py`, `scripts/reconcile_injury_capture.py`, `scripts/build_board.py`, `content/board/{official-capture,injuries,readiness,executive-summary}.md`, generated `board/**`, `index.html` |
+
+Not claimed and not touched: `data/injuries_2026_wk10.csv` and `.json` (primary table, deferred — see open items), `data/injuries_2026_w10.csv` and `board/data/injuries_2026_w10.csv` (160-row file read by the model), `data/recapture_2026-11-16/**` (owned by `arena/00a6b558-fl3`), `depth/**`, `docs/**`, `site-9b181d31/**`, `legacy/**`, `.github/**`.
+
+## Verified in this session (official link: [NFL.com Week 10 injury report](https://www.nfl.com/injuries/league/2026/reg10), fetched 2026-11-16)
+
+- The 14-section, 347-row, 28-club count (the reference transcription `data/official_capture/nfl-injury-report-2026-reg10.psv`, sha256 `175aa2c9…d578a`).
+- Chargers (19 rows) and Ravens (10 rows) sections, field for field, against the live page: the canonical capture matches the page. The Ravens section has no quarterbacks. Campbell and Stanley have a blank game status.
+- Lions: Kerby Joseph, Cade Mays and D.J. Reed are Out on the page and in the primary table (R062 VERIFIED).
+- Baltimore and the Chargers do publish game statuses, so FLG-028 is superseded.
+
+## Irregularities (published on the Flagged page; not blocking)
+
+- **FLG-042** (high): the 160-row board input omits BAL and LAC. The model, verifier and board read it.
+- **FLG-043** (high): the primary 345-row table has blank or wrong cells for 13 Chargers and 2 Ravens players.
+- **FLG-044** (medium): the Arden Key (IND) row carries Will Mallory's Colts entry.
+- **FLG-045** (low): Jacob/Jake Hummel name mismatch (HOU).
+- **FLG-046** (high): four Week 10 copies and no canonical declaration; hard-coded 345 in three build scripts.
+- **FLG-047** to **FLG-052**: headline-only items (Henley, Jackson IR, Willis IR and McCord, Darnold/Lock, in-game QB injuries). Article bodies not opened.
+- Main's **FLG-029** (Ravens rows missing from the repo capture) and **FLG-030** (254/279 counts not reproduced) are kept as merged from `main`.
+
+## Open items (recorded, not silently fixed)
+
+1. The primary table (`injuries_2026_wk10.csv`), the 160-row file and the consumers (`model.py`, `verify.py`, `build_board.py`, `build_site.py`, `build_data_pages.py`, `build.py`, depth scripts) still use the old data. Changing them moves published lines and strategies, so it needs a versioned change. FLG-042, FLG-043 and FLG-046 describe the exact correction.
+2. The other 12 sections of the capture are not re-checked at cell level in this session.
+3. Packers jersey prefixes, Texans image depth, Seattle shared slots, Washington empty slot, Colts starter changes, Brissett, and the Arden Key row are not verified in this session.
+
+## Verification run (on the merged tree)
+
+`build_readiness.py --check` OK (69 requirements, 48 with official links, 21 explicit source-gap); `reconcile_injury_capture.py` STRUCTURE PASS (347 rows, 14 sections, 28 clubs); `build_board.py` 22 pages, check_links PASS; `build_site.py` 11 pages; `check_site.py` 1605 assertions ALL CHECKS PASSED; `verify.py` G-10 PASS with the non-blocking V-09b warning (FLG-025).
+
+## PR / merge / deploy record
+
+Filled in after the merge — see the entry below.
