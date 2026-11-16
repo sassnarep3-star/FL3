@@ -69,6 +69,41 @@ def norm_injury(s):
     return ", ".join(p.strip() for p in str(s or "").replace(";", ",").split(",") if p.strip())
 
 
+def corroborate():
+    """Third-party check: session ab62a598's independent 347-row capture vs this session's 347.
+
+    Two sessions transcribed the same page separately on the same day. If they agree field for
+    field the transcription is corroborated; if they disagree, at least one is wrong and the
+    disagreement localises the error. This is the strongest verification available without raw
+    bytes, and it is cheap.
+    """
+    other_path = os.path.join(DATA, "official_injury_capture_wk10_2026.csv")
+    if not os.path.exists(other_path):
+        return None
+    other = read(other_path)
+    mine = read(os.path.join(CAP, "week10_injuries_2026-11-16.csv"))
+    O = {(r["team"], r["player"]): (r["position"], norm_injury(r["injuries"]),
+                                   r["practice_status"], r["game_status"]) for r in other}
+    M = {(r["club"], r["player"]): (r["position"], norm_injury(r["injury"]),
+                                   r["practice_status"], r["game_status"]) for r in mine}
+    # normalise the Rams abbreviation before comparing
+    O = {(CLUB_ALIAS.get(k[0], k[0]), k[1]): v for k, v in O.items()}
+    diffs = [k for k in set(M) & set(O) if M[k] != O[k]]
+    return {
+        "other_file": "data/official_injury_capture_wk10_2026.csv",
+        "other_session": "arena/ab62a598-fl3 (merged to main as PR #27)",
+        "rows_other": len(other), "rows_mine": len(mine),
+        "keys_other": len(O), "keys_mine": len(M),
+        "only_in_mine": len(set(M) - set(O)), "only_in_other": len(set(O) - set(M)),
+        "field_diffs": len(diffs),
+        "example_diffs": [{"club": k[0], "player": k[1], "mine": M[k], "other": O[k]}
+                          for k in sorted(diffs)[:10]],
+        "verdict": ("CORROBORATED: two independent transcriptions of the same page agree on "
+                    "every field for every shared player" if not diffs else
+                    "DISCREPANCY: see example_diffs"),
+    }
+
+
 def main() -> None:
     mine = read(os.path.join(CAP, "week10_injuries_2026-11-16.csv"))
     theirs = read(os.path.join(DATA, "injuries_2026_wk10.csv"))
@@ -156,8 +191,17 @@ def main() -> None:
         for k, (a, b) in cosmetic:
             w.writerow(["field_diff", k[0], k[1], "injury", a, b, "punctuation-only", SOURCE])
 
+    corr = corroborate()
+    print()
+    if corr:
+        print(f"corroboration vs {corr['other_file']} ({corr['other_session']}):")
+        print(f"  rows {corr['rows_mine']} vs {corr['rows_other']}; keys {corr['keys_mine']} vs "
+              f"{corr['keys_other']}; field differences {corr['field_diffs']}")
+        print(f"  {corr['verdict']}")
+
     summary = {
         "generated_utc": "2026-11-16T01:33Z",
+        "corroboration": corr,
         "a": {"file": "data/captures/week10_injuries_2026-11-16.csv", "rows": len(mine),
               "read_utc": "2026-11-16T01:31Z"},
         "b": {"file": "data/injuries_2026_wk10.csv", "rows": len(theirs),
@@ -184,6 +228,12 @@ def main() -> None:
             "capture use LA. A join on abbreviation drops every Rams availability row."
         ),
         "action_taken": "Published as a delta + flag. Neither transcription was rewritten.",
+        "comparison_is_a_clock": (
+            "The A-vs-B differences above are the SAME URL read 48 hours apart, so they are a time "
+            "delta. The A-vs-other comparison is the SAME page read on the SAME day by two sessions, "
+            "so it is a transcription-accuracy check. They answer different questions and must not "
+            "be conflated."
+        ),
     }
     with open(os.path.join(DATA, "injury_crosscheck.json"), "w", encoding="utf-8") as fh:
         json.dump(summary, fh, indent=1)

@@ -156,3 +156,12 @@ queue that only ever confirms is not a review queue.
 (V-09b: pass TD 414 vs 415 allowed — see FLG-042); `scripts/check_site.py` passes 1,668 assertions;
 `scripts/check_links.py` passes 26 pages with no orphans. All five new dataset generators are
 deterministic and re-runnable.
+
+---
+
+## Update 2026-11-16 - official injury capture
+
+- The official Week 10 injury page was re-captured on 2026-11-16: **347 listed rows, 14 game sections, 28 clubs** ([Official Week 10 capture](official-capture.html), SRC-018).
+- The repo holds **four different Week 10 row counts** (345, 162, 160) and no declared canonical table. The 160-row copy that the board model reads has **no Baltimore or Chargers rows** ([FLG-042](flagged.html)).
+- Three claims were checked and **not reproduced**: the 254/279 row counts, the blank Lions status cells, and 'no game status for Baltimore or the Chargers' ([FLG-030](flagged.html), the Lions cells in R062, and [FLG-028](flagged.html) superseded).
+- Requirement readiness is unchanged in outcome: no model output, backtest or strategy is validated by this update. Blockers remain the price-data policy, the depth-source route, and the missing dated snapshot series.

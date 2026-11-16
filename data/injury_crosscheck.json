@@ -1,5 +1,18 @@
 {
  "generated_utc": "2026-11-16T01:33Z",
+ "corroboration": {
+  "other_file": "data/official_injury_capture_wk10_2026.csv",
+  "other_session": "arena/ab62a598-fl3 (merged to main as PR #27)",
+  "rows_other": 347,
+  "rows_mine": 347,
+  "keys_other": 347,
+  "keys_mine": 347,
+  "only_in_mine": 0,
+  "only_in_other": 0,
+  "field_diffs": 0,
+  "example_diffs": [],
+  "verdict": "CORROBORATED: two independent transcriptions of the same page agree on every field for every shared player"
+ },
  "a": {
   "file": "data/captures/week10_injuries_2026-11-16.csv",
   "rows": 347,
@@ -43,5 +56,6 @@
   "data/captures/week10_injuries_2026-11-16.csv": "LA"
  },
  "rams_abbreviation_consequence": "data/injuries_2026_wk10.csv uses LAR; data/lines_week10.json and the 2026-11-16 capture use LA. A join on abbreviation drops every Rams availability row.",
- "action_taken": "Published as a delta + flag. Neither transcription was rewritten."
+ "action_taken": "Published as a delta + flag. Neither transcription was rewritten.",
+ "comparison_is_a_clock": "The A-vs-B differences above are the SAME URL read 48 hours apart, so they are a time delta. The A-vs-other comparison is the SAME page read on the SAME day by two sessions, so it is a transcription-accuracy check. They answer different questions and must not be conflated."
 }
