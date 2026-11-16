@@ -50,7 +50,7 @@ BOARD_DATA = [
     "captures_week10_results.csv", "scoring_week10.csv", "luck_panel.csv",
     "line_provenance_reconciliation.csv", "line_provenance_verdict.csv",
     "snapshot_delta.csv", "injury_crosscheck.csv", "depth_blocks.csv",
-    "depth_grammar_findings.csv", "depth_starter_out.csv",
+    "depth_grammar_findings.csv", "depth_starter_out.csv", "decisions_queue.csv",
 ]
 
 # slug -> (title, nav label, group)
@@ -58,6 +58,7 @@ PAGES = [
     ("index", "FL3 - NFL line origination and signal board", "Dashboard", "home"),
     ("executive-summary", "Executive summary", "Executive summary", "read"),
     ("readiness", "Requirement readiness register", "Requirement readiness", "read"),
+    ("decision-queue", "Decision queue - 73 requirements, 7 decisions", "Decision queue", "read"),
     ("questions", "Open questions and information gaps", "Questions & gaps", "read"),
     ("suggestions", "Suggestion register", "Suggestions", "read"),
     ("standings", "2026 standings (official)", "Standings", "data"),
