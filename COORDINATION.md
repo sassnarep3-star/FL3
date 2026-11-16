@@ -1187,3 +1187,30 @@ python3 scripts/check_links.py    # 28 pages, 0 broken internal links, 0 orphans
 Two defects introduced by the merge were caught by these gates and fixed, not silenced:
 a duplicate `R068`/`R069` (main and this session both used those numbers) and a second
 `SRC-019` clash that only surfaced because `verify.py` I-05 fails on an unregistered source id.
+
+---
+
+---
+
+---
+
+---
+
+# Session `arena/74d15bb3` — claim and acceptance-audit scope (2026-11-16 UTC)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T22 — Add row-level official-source links and explicit source-gap notes to the Questions & Gaps register; enforce provenance | **in progress** | `arena/74d15bb3` | `COORDINATION.md`, `data/questions.csv`, `content/board/questions.md`, `scripts/build_board.py`, generated `board/questions.html`, `board/data/questions.csv` |
+
+The baseline acceptance checks passed before this claim: readiness register (67 unique requirements),
+root-site verifier (1,597 assertions), board link checker (21 pages, no broken internal links), and
+`verify.py` with the already-recorded non-blocking source disagreement `FLG-025`. Review found that
+`board/questions.html` rendered the 20 open decision questions without a per-row source or explicit
+source-gap column, despite the rest of the board's provenance policy. This task is limited to that
+questions register; links will point only to official source IDs already in `data/sources.csv`, and
+source reads that do not answer a question will remain explicitly flagged as gaps. No external facts
+or new data values are being added.
+
+### Rebase conflict resolution (2026-11-16 UTC)
+
+`git pull --rebase origin main` fetched `cda4072` after PR #27 and its deploy record had landed. The only conflict was this shared coordination log: the main-side records for sessions `arena/9d05cb63-fl3`, `arena/00a6b558-fl3`, and `arena/ab62a598-fl3` were preserved in full, and this session's claim was appended. No files or findings from the other sessions were discarded; no other path conflicted.
