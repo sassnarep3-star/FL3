@@ -48,6 +48,11 @@ jobs:
       - name: Verify the canonical verified dashboard
         run: python3 scripts/check_verified_site.py
 
+      - name: Build and verify the official-source verification subsite
+        run: |
+          python3 scripts/build_verify.py
+          python3 scripts/check_verify.py
+
       - name: Confirm generated files are reproducible
         run: |
           if ! git diff --quiet; then

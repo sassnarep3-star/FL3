@@ -165,7 +165,7 @@ def check_links():
     if os.path.isdir(board_root):
         local.update(f"board/{name}" for name in os.listdir(board_root) if name.endswith(".html"))
     # other published subsites: every .html they contain is a legal link target
-    for _d in ("verified", "docs", "depth", "site-9b181d31"):
+    for _d in ("verified", "verify", "docs", "depth", "site-9b181d31"):
         _p = os.path.join(ROOT, _d)
         if os.path.isdir(_p):
             for _root, _dirs, _files in os.walk(_p):

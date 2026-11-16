@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verification - FL3 verification</title>
+<style>
+:root { --ink:#11161c; --mut:#5b6572; --line:#dfe3e8; --bg:#f6f7f9; --card:#fff;
+        --acc:#0b5fff; --ok:#0a7d3c; --warn:#8a5a00; --bad:#b3261e; --chip:#eef1f5; }
+* { box-sizing: border-box; }
+body { margin:0; font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       color:var(--ink); background:var(--bg); }
+header { background:#0b1220; color:#fff; padding:18px 28px; }
+header h1 { margin:0; font-size:20px; letter-spacing:.2px; }
+header p { margin:4px 0 0; color:#aab4c2; font-size:13px; }
+nav { background:#111a2b; padding:0 28px; }
+nav a { display:inline-block; color:#cfd8e6; text-decoration:none; padding:11px 14px; font-size:14px; }
+nav a:hover { color:#fff; background:#1b2740; }
+nav a.active { color:#fff; border-bottom:3px solid var(--acc); }
+main { max-width:1080px; margin:0 auto; padding:26px 22px 60px; }
+h2 { font-size:20px; margin:26px 0 10px; }
+h3 { font-size:16px; margin:18px 0 8px; }
+p.lede { color:var(--mut); max-width:780px; }
+table { width:100%; border-collapse:collapse; background:var(--card); margin:12px 0;
+        border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+th, td { text-align:left; padding:9px 11px; border-bottom:1px solid var(--line); font-size:14px; vertical-align:top; }
+th { background:#f0f2f6; font-weight:600; }
+tr:last-child td { border-bottom:none; }
+a { color:var(--acc); text-decoration:none; word-break:break-all; }
+a:hover { text-decoration:underline; }
+.chip { display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:600; background:var(--chip); }
+.chip.CONFIRMED { background:#e3f5ea; color:var(--ok); }
+.chip.PARTIALLY_CONFIRMED { background:#fdf1dc; color:var(--warn); }
+.chip.REFUTED { background:#fbe3e1; color:var(--bad); }
+.chip.RECONCILED { background:#e6effd; color:var(--acc); }
+.chip.NOT_VERIFIED { background:#eceff3; color:var(--mut); }
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px; margin:14px 0; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px 16px; }
+.card .n { font-size:24px; font-weight:700; }
+.card .l { color:var(--mut); font-size:13px; }
+.fine { color:var(--mut); font-size:13px; }
+code { background:#eef1f5; padding:1px 5px; border-radius:4px; font-size:13px; }
+</style></head>
+<body>
+<header><h1>FL3 &mdash; Independent Official-Source Verification</h1>
+<p>Every claim re-checked against live NFL.com / NFL Media pages on 2026-11-16. Values not confirmed are left blank and flagged.</p></header>
+<nav><a href="index.html" class="active">Verification</a><a href="verification.html" class="">Claims log</a><a href="venues.html" class="">Venues</a><a href="gamebooks.html" class="">Game Books</a><a href="sources.html" class="">Sources</a></nav>
+<main>
+<h2>What this is</h2>
+<p class="lede">A line-by-line re-verification of the specific claims raised in the project brief against
+official NFL sources. Each claim carries the exact official page it was checked against. Where an official
+source does not state a fact, the value is left blank and the claim is marked <b>NOT VERIFIED</b> &mdash;
+never inferred. This is a verification record, not a model output or a bet.</p>
+<div class="cards"><div class="card"><div class="n">12</div><div class="l">claims re-checked</div></div><div class="card"><div class="n">7</div><div class="l">confirmed</div></div><div class="card"><div class="n">0</div><div class="l">partially confirmed</div></div><div class="card"><div class="n">2</div><div class="l">reconciled</div></div><div class="card"><div class="n">0</div><div class="l">not verified</div></div><div class="card"><div class="n">14</div><div class="l">fixtures venue-verified</div></div><div class="card"><div class="n">12</div><div class="l">final games with Game Book</div></div></div>
+<h2>How to read it</h2>
+<p class="lede">Open the <a href="verification.html">Claims log</a> for the claim-by-claim findings and sources,
+the <a href="venues.html">Venues</a> page for the transcribed fixture venues, the
+<a href="gamebooks.html">Game Books</a> page for the official Game Book PDF route, and the
+<a href="sources.html">Sources</a> page for the full registry.</p>
+<h2>Method</h2>
+<p class="lede">Each claim the user raised was re-checked against the live official NFL.com page (injury report, game centres, NFL.com news) by direct fetch on 2026-11-16. Only values read from those pages are recorded. Where a value could not be confirmed, it is left blank and the claim is marked NOT VERIFIED rather than inferred.</p>
+<p class="fine">Session <code>arena/7e2496c2-fl3</code> &middot; captured 2026-11-16 UTC.</p>
+</main>
+</body></html>
