@@ -464,8 +464,8 @@ RESULTS = [
  ("W10-10","LA","AZ",34,6,"FINAL, Sunday, November 15th","4:05 PM"),
  ("W10-11","SEA","LV",21,13,"FINAL, Sunday, November 15th","4:05 PM"),
  ("W10-12","SF","DAL",46,40,"FINAL, Sunday, November 15th","4:25 PM"),
- ("W10-13","PIT","CIN",None,None,"KICKOFF 8:20 PM ET Nov 15 — not final at capture","SNF"),
- ("W10-14","LAC","BAL",None,None,"KICKOFF 8:15 PM ET Nov 16 — not played at capture","MNF"),
+ ("W10-13","PIT","CIN",None,None,"KICKOFF 8:20 PM ET 2026-11-15 = 2026-11-16T01:20Z; in progress at capture, no final score","SNF"),
+ ("W10-14","LAC","BAL",None,None,"KICKOFF 8:15 PM ET 2026-11-16 = 2026-11-17T01:15Z; not yet played at capture","MNF"),
 ]
 
 

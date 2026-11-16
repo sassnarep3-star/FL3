@@ -20,8 +20,8 @@ They are not estimated, and they are not marked as anything they are not.
 
 | Game | Kickoff (ET) | State at 2026-11-16T01:30Z | What this means |
 |---|---|---|---|
-| PIT at CIN | Nov 15, 8:20 PM | not final | Sunday Night Football; kicked off ~50 minutes after this capture |
-| LAC at BAL | Nov 16, 8:15 PM | not played | Monday Night Football; the only Week 10 game with no result at all |
+| PIT at CIN | Nov 15, 8:20 PM ET (2026-11-16T01:20Z) | not final | Sunday Night Football; in progress at capture, ~10 minutes after kickoff |
+| LAC at BAL | Nov 16, 8:15 PM ET (2026-11-17T01:15Z) | not played | Monday Night Football; the only Week 10 game with no result at all |
 
 Both remain blank in every table on this site. `data/captures/week10_results_2026-11-16.csv`
 carries an empty `away_pts`/`home_pts` and the literal string *KICKOFF … not played at capture*
