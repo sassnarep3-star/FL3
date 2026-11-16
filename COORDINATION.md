@@ -780,3 +780,25 @@ the full details at `/board/readiness.html`. No table values will be duplicated 
 The deploy workflow and Pages build record confirm publication. This session's network policy did not
 permit fetching `github.io` directly, so URL content was not independently fetched after deployment;
 HTML generation, source links and internal links were verified locally and by CI.
+
+---
+
+# Session `arena/a8c1189d` (branch `arena/a8c1189d-fl3`) — claim, scope and record (2026-11-16 UTC)
+
+Single-session run on this branch. Branch-naming note: the session brief asks for `session-<id>/<task>`
+branches and a separate integration session. This session runs on the one branch Arena assigns it
+(`arena/a8c1189d-fl3`), so the integration step is performed by this same session and recorded below.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T22 — Official Week 10 injury-report capture (all 14 games, 28 clubs, 347 rows) and row-by-row reconciliation against each published copy | in progress | `arena/a8c1189d` | `data/official/2026-w10-injury-report.csv`, `data/official/2026-w10-reconciliation.csv`, `scripts/reconcile_official_w10.py` |
+| T23 — Public page for the official capture and reconciliation, linked from the root site | in progress | `arena/a8c1189d` | `scripts/build_official_capture.py`, `official/**`, `.github/workflows/pages.yml` |
+| T24 — Scheduled, immutable, hashed availability-report snapshots with a loud drift alarm | in progress | `arena/a8c1189d` | `scripts/capture_official_snapshot.py`, `.github/workflows/snapshot.yml`, `data/snapshots/**` |
+| T25 — New irregularities onto Flagged for Review | in progress | `arena/a8c1189d` | `data/flagged.json`, `scripts/build_site.py` (flag rendering only) |
+| T26 — Coordination record, verification log, PR and merge record | in progress | `arena/a8c1189d` | `COORDINATION.md` |
+
+**Not claimed this session (blocked or out of reach from this sandbox — see the record for reasons):**
+depth-chart register and starter/backup model, NFL Game Books, snap counts, licensed odds and price
+history, Texans depth image, roster-transaction log, model-line changes. Models and originated lines
+are **not** re-run on new inputs in this session; the official capture is published as evidence, and
+the model inputs stay on the existing copy until a reviewed change.
