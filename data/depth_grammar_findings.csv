@@ -1,0 +1,17 @@
+club,kind,row,detail,url
+GB,continuation_row,11,blank position cell carries 26 Kaleb Johnson,https://www.packers.com/team/depth-chart
+GB,empty_rank1,26,ST/PR: the rank-1 cell is blank,https://www.packers.com/team/depth-chart
+GB,duplicate_rank1,,"Daniel Whelan is rank 1 at ST/P, ST/H",https://www.packers.com/team/depth-chart
+GB,duplicate_rank2,,"Kitan Oladapo is rank 2 at DEF/S, DEF/S",https://www.packers.com/team/depth-chart
+SEA,shared_slot,0,"OFF/WR rank 1 publishes 2 players in one cell: Cooper Kupp, Rashid Shaheed",https://www.seahawks.com/team/depth-chart/
+SEA,duplicate_rank1,,"Michael Dickson is rank 1 at ST/P, ST/H",https://www.seahawks.com/team/depth-chart/
+SEA,duplicate_rank1,,"Rashid Shaheed is rank 1 at ST/PR, ST/KR",https://www.seahawks.com/team/depth-chart/
+SEA,duplicate_rank2,,"Josh Jones is rank 2 at OFF/LT, OFF/RT",https://www.seahawks.com/team/depth-chart/
+SEA,duplicate_rank2,,"Anthony Bradford is rank 2 at OFF/LG, OFF/RG",https://www.seahawks.com/team/depth-chart/
+SEA,duplicate_rank2,,"Tory Horton is rank 2 at OFF/WR, ST/PR",https://www.seahawks.com/team/depth-chart/
+BAL,empty_rank1,24,ST/K: the rank-1 cell is blank,https://www.baltimoreravens.com/team/depth-chart/
+BAL,duplicate_rank1,,"Ryan Eckley is rank 1 at ST/P, ST/H",https://www.baltimoreravens.com/team/depth-chart/
+BAL,duplicate_rank1,,"LaJohntay Wester is rank 1 at ST/KOR, ST/PR",https://www.baltimoreravens.com/team/depth-chart/
+BAL,duplicate_rank2,,"Carson Vinson is rank 2 at OFF/LT, OFF/RT",https://www.baltimoreravens.com/team/depth-chart/
+BAL,duplicate_rank2,,"Ryan Neuzil is rank 2 at OFF/LG, OFF/C",https://www.baltimoreravens.com/team/depth-chart/
+HOU,image_only,,"The depth chart is a single raster image inside the page. No player name, position or rank exists in the HTML. Recovering it would require reading text out of a picture, which is transcription by eye, not an official machine-readable feed.",https://www.houstontexans.com/team/depth-chart/
