@@ -1217,10 +1217,11 @@ was added.
   NFL, official team-directory, or U.S. National Weather Service inputs; nine rows have no applicable
   official source and explicitly say why. Every open question has a visible `UNVERIFIED / SOURCE GAP`
   note. Links are input references, not claims that a field was captured or an answer is known.
-- Reconciled question wording to checked-in evidence: game results, in-sample calibration and the
-  provisional correlation corpus are described with their actual sample sizes; unverified injury/news,
-  depth, weather, travel, operator and legal assertions are marked as gaps rather than presented as
-  confirmed outcomes.
+- Reconciled question wording to checked-in evidence: the board's 33 game rows are distinguished from
+  the separate 148-game official-source corpus and its 100-game walk-forward evaluation; the board's
+  provisional correlations are explicitly marked as not recomputed from that corpus. Unverified
+  injury/transaction, depth, weather, travel, operator and legal assertions remain flagged rather than
+  presented as confirmed outcomes.
 - Added build-time checks that reject missing source-gap notes, unregistered or non-official question
   sources, and generated question rows that omit their official source URL or gap note. Negative
   checks confirmed the guard rejects a missing gap, a commercial-market source ID, and a dropped link.
@@ -1234,32 +1235,40 @@ was added.
 
 ### Rebase conflict resolution (2026-11-16 UTC)
 
-The first `git pull --rebase origin main` fetched `cda4072` after PR #27 and its deploy record landed.
-Conflicts occurred in `COORDINATION.md` and generated board/verification files because main had
-incorporated the 347-row official injury recapture and readiness rows R068/R069. Resolution policy:
-preserve main's source captures, flags, requirement rows, and closeout records; retain this session's
-question provenance changes; regenerate derived board/report outputs from the merged inputs. A second
-pull --rebase fetched `2952f25` after PR #29 added the independent `verify/` subsite. Its `COORDINATION.md`
-conflict was resolved by preserving PR #29's close-out and both sessions' records. No canonical data or
-findings from either side were discarded; generated pages and reports were regenerated and checked
-against the merged inputs.
+The first `git pull --rebase origin main` fetched `cda4072` after PR #27; conflicts in `COORDINATION.md`
+and generated board/verification outputs were resolved by retaining main's injury capture, readiness rows
+R068/R069 and close-outs, then regenerating outputs. A second pull fetched `2952f25` after PR #29 added the
+independent `verify/` subsite; its coordination conflict was resolved by preserving PR #29's close-out and
+both sessions' records. A third pull fetched `7c8ce4e` after PR #30 added the separately verified 148-game
+results corpus, walk-forward evaluation and `verified/` dashboard. The replay stopped only on the shared
+`COORDINATION.md` claim section; the resolution retained PR #30's record and all its files, plus T22's
+claim. T22 now explicitly distinguishes the board's 33-row model input from the separate 148-game corpus,
+updates the calibration/correlation caveats for the 100-game walk-forward evaluation, and does not merge
+that new data into existing model inputs. No canonical data or findings from either side were discarded.
 
 ### Post-rebase verification (2026-11-16 UTC)
 
+- `python3 scripts/build_week_results.py`: PASS; 148 games / 296 team-games across Weeks 1-10, with
+  W/L/T/PF/PA exactly matching the official standings for all 32 clubs (160 figures). The 100-game
+  walk-forward evaluation reports spread RMSE 12.58 vs 13.31 pick'em (gain +0.055, 95% CI [-0.020,
+  +0.130]) and Brier skill +0.069 vs coin (95% CI [-0.086, +0.229]); both intervals include zero,
+  so no skill advantage is demonstrated. `verify_live.py` checked 15 claims (4 confirmed, 2 not
+  reproducible, 2 partly stale, 2 stale, 5 unverifiable).
 - `python3 scripts/reconcile_injury_capture.py`: structural PASS, 14 game sections, 28 clubs, 347
   listed rows; generated reconciliation has 36 row/field differences against the older 345-row table.
   Those discrepancies remain published for review; the capture was not substituted into model inputs.
 - `python3 scripts/build_board.py` and `--check`: PASS; 22 pages and 27 data tables. Readiness register:
-  69 unique requirements, 48 with official source links, 21 explicitly flagged source gaps.
-- `python3 scripts/check_links.py`: PASS; 22 board pages and 33 external links. `python3 scripts/build_verify.py`
-  regenerated five verification pages; `python3 scripts/check_verify.py`: PASS, 197 assertions. `python3 scripts/build_site.py`
-  and `python3 scripts/check_site.py`: PASS; 1,616 assertions.
-- Recomputed model outputs with `compute_lines.py`, `compute_luck.py`, `compute_correlation.py`,
-  `model.py`, `stats_tables.py`, and `make_leaderboard.py`; completed successfully. Leaderboard remains
-  an empty schema (zero settled bets), and market fields remain deliberately blank.
+  69 unique requirements, 48 with official source links, 21 explicitly flagged source gaps. `check_links.py`
+  PASS; 22 board pages and 33 external links.
+- The integrated suites pass: `check_site.py` 1,675 assertions; `check_verified_site.py` 605 assertions;
+  `check_verify.py` 197 assertions. `build_site.py`, `build_verified_site.py`, and `build_verify.py`
+  regenerated their pages successfully.
+- Recomputed board model outputs with `compute_lines.py`, `compute_luck.py`, `compute_correlation.py`,
+  `model.py`, `stats_tables.py`, and `make_leaderboard.py`; completed successfully. The board
+  leaderboard remains an empty schema (zero settled bets), and market fields remain deliberately blank.
 - `python3 scripts/verify.py`: G-10 PASS with the already-published non-blocking V-09b / FLG-025
   source discrepancy (pass TD delta -1; interceptions delta +2). `build_readiness.py --check` PASS.
   Depth checks also pass: `verify_depth.py` 16 checks/0 failures; `check_depth_links.py` 9 pages,
   134 internal and 502 allowlisted external links.
-- `git diff --check`: PASS. All open data-quality issues remain flagged; this verification does not
-  establish strategy profitability, complete capture coverage, or operational readiness.
+- `git diff --check`: PASS. All open data-quality issues remain flagged; these results do not establish
+  profitability, complete historical capture, or operational readiness.
