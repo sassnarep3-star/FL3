@@ -1,0 +1,62 @@
+name: Official injury-report snapshot
+
+# Captures the official NFL.com injury report (Wednesday to Monday, twice a day, UTC) and commits
+# one immutable, hashed file per capture under snapshots/. The store lives outside data/ and
+# docs/ so that the site-verification job (which diffs data/ and docs/) is not triggered by it.
+#
+# Drift alarm: scripts/capture_official_snapshot.py exits 2 when the page does not look like the
+# report we parse (HTTP status, size, required headings, player links). That fails this workflow,
+# and GitHub notifies the repository owner of the failed run. Nothing is committed on failure.
+#
+# Week: the scheduled runs use REPORT_WEEK below. Update it when the season moves to a new week
+# (the workflow_dispatch input overrides it for a single run).
+
+on:
+  schedule:
+    - cron: "17 13 * * 3,4,5,6,0,1"
+    - cron: "17 23 * * 3,4,5,6,0,1"
+  workflow_dispatch:
+    inputs:
+      week:
+        description: "NFL week number to capture"
+        required: false
+        default: "11"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: official-snapshot
+  cancel-in-progress: false
+
+env:
+  REPORT_WEEK: "11"
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Capture the report (fails loudly on drift)
+        run: |
+          WEEK="${{ inputs.week }}"
+          if [ -z "$WEEK" ]; then WEEK="$REPORT_WEEK"; fi
+          python3 scripts/capture_official_snapshot.py --week "$WEEK"
+
+      - name: Commit the new capture
+        run: |
+          git config user.name "fl3-snapshot-bot"
+          git config user.email "fl3-snapshot-bot@users.noreply.github.com"
+          git add snapshots/
+          if git diff --cached --quiet; then
+            echo "nothing new to commit"
+            exit 0
+          fi
+          git commit -m "snapshot: official injury report ($(date -u +%Y-%m-%dT%H:%MZ))"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
