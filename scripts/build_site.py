@@ -38,6 +38,7 @@ PAGES = {
     "sources.html": "Sources",
     "methodology.html": "Methodology",
     "board/readiness.html": "Requirement readiness",
+    "verified/index.html": "Verified results & scoring",
 }
 
 CAPTURED = "2026-11-14"

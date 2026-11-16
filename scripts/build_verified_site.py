@@ -156,8 +156,8 @@ Model output is labelled model output. No licensed betting price exists in this 
 closing-line value and realised return are <b>not computed and not implied</b> anywhere.</p>
 <p>Every page here is generated from the committed data files by <code>scripts/build_verified_site.py</code>
 and re-checked by <code>scripts/check_verified_site.py</code>. Other dashboards in this repository
-(<a href="../">root</a>, <a href="../board/">board</a>, <a href="../docs/">docs</a>,
-<a href="../depth/">depth</a>, <a href="../site-9b181d31/">site-9b181d31</a>) are separate builds and
+(<a href="../">root</a>, <a href="../board/index.html">board</a>, <a href="../docs/index.html">docs</a>,
+<a href="../depth/index.html">depth</a>, <a href="../site-9b181d31/index.html">site-9b181d31</a>) are separate builds and
 are not superseded by this one.</p>
 </div></footer>
 </body></html>"""
@@ -311,13 +311,13 @@ arithmetic. Nothing was deleted; the comparisons that matter are on
 <td class="num">148 games, identity-checked</td><td><span class="b ok">current</span></td></tr>
 <tr><td><a href="../">/</a></td><td>root dashboard, 13 pages, 1,262 assertions</td>
 <td class="num">none (Week 10 only)</td><td><span class="b info">superseded for scoring</span></td></tr>
-<tr><td><a href="../board/">/board/</a></td><td>CSV-first board with fitted constants</td>
+<tr><td><a href="../board/index.html">/board/</a></td><td>CSV-first board with fitted constants</td>
 <td class="num">33 of 148</td><td><span class="b warn">partial corpus</span></td></tr>
-<tr><td><a href="../depth/">/depth/</a></td><td>depth charts and availability reconciliation</td>
+<tr><td><a href="../depth/index.html">/depth/</a></td><td>depth charts and availability reconciliation</td>
 <td class="num">standings only</td><td><span class="b info">specialist</span></td></tr>
-<tr><td><a href="../docs/">/docs/</a></td><td>requirements and decision registers</td>
+<tr><td><a href="../docs/index.html">/docs/</a></td><td>requirements and decision registers</td>
 <td class="num">standings only</td><td><span class="b info">registers</span></td></tr>
-<tr><td><a href="../site-9b181d31/">/site-9b181d31/</a></td><td>12-page dashboard with club depth charts</td>
+<tr><td><a href="../site-9b181d31/index.html">/site-9b181d31/</a></td><td>12-page dashboard with club depth charts</td>
 <td class="num">standings only</td><td><span class="b info">specialist</span></td></tr>
 </tbody></table></div>
 """
@@ -514,7 +514,7 @@ quarterback. That is documented here rather than smoothed over.</p>
 designation. It is not a subset by accident: every one of its 160 rows has a status and none is blank, while
 the official page leaves {345-160} rows undesignated. Any feature built on it inherits that selection bias,
 and it cannot represent "on the report, no designation". It is the input to the model behind
-<a href="../board/">/board/</a>. <b>It omits Sam Darnold (QB, ribs/quadricep, Out)</b> — a starting
+<a href="../board/index.html">/board/</a>. <b>It omits Sam Darnold (QB, ribs/quadricep, Out)</b> — a starting
 quarterback — so a model fed this file prices Seattle as if he were available. The owner of that track
 should switch to the complete capture or label every output as built on designated players only. This
 session did not edit their file.</div>
@@ -912,8 +912,14 @@ def main() -> int:
     ap.add_argument("--check", action="store_true")
     a = ap.parse_args()
 
+    # Deterministic: the "read" clock shown on every page is the newest capture
+    # timestamp in the data, not the wall clock. Two runs must produce identical
+    # bytes or CI's "the build is reproducible" check fails for no good reason.
+    _caps = [r["accessed_utc"] for r in csv_rows("week_results_2026.csv")]
+    _caps += [r["accessed_utc"] for r in csv_rows("week11_slate_2026.csv")]
+    _newest = max(_caps)
     ctx = dict(
-        generated=datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+        generated=_newest.replace("T", " ").replace("Z", " UTC"),
         results=load("week_results_2026.json"),
         result_rows=csv_rows("week_results_2026.csv"),
         eval=load("line_eval.json"),

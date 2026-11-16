@@ -153,7 +153,10 @@ add(
          "carried as a constant becomes a false statement the moment the season advances - so the corpus "
          "figure must be derived from data/week_results_2026.csv at render time, never typed into prose. "
          "The real defect is not the number, it is that board/data/games_2026.csv still holds 33 rows against "
-         "a 148-game corpus, so no ROI can be computed anywhere in that track.",
+         "a 148-game corpus, so no ROI can be computed anywhere in that track. Note also that the requirement "
+         "register on the root landing page still predeclares '136 eligible game records' as its clearance "
+         "metric (data/requirements_readiness.csv, R002/R053). That metric must be restated against the "
+         "verified 148 before it can be used to clear anything.",
 )
 
 add(

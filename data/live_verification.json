@@ -10,7 +10,7 @@
    "STALE": 2,
    "UNVERIFIABLE": 5
   },
-  "csv_sha256": "0fa505274e8e1126dc2e0bd4be4ea4e947228381f1f47681e7ff2ee8397d415e",
+  "csv_sha256": "1b10a12f23a8f84cf44e1a838dd4c3dcedd21aee662cb9389f22e8dd4e8d5864",
   "official_sources": [
    "https://www.nfl.com/standings/league/2026/reg",
    "https://www.nfl.com/injuries/league/2026/reg10",
@@ -89,7 +89,7 @@
    "live_source": "https://www.nfl.com/schedules/2026/by-week/week-10",
    "source_gap": "",
    "method": "Counted FINAL results on each official weekly schedule page for weeks 1-10 and cross-checked the total against the standings page (LV-07). Then re-derived the snapshot-time figure from the same corpus by filtering on game date.",
-   "note": "The number was right when it was written and is wrong now, which is a different problem from being wrong. 136 is exactly the count of games dated before 2026-11-12, i.e. week 10 had not started; 137 adds the Thursday game. Today 148 games are FINAL. A figure that is correct at capture time but carried as a constant becomes a false statement the moment the season advances - so the corpus figure must be derived from data/week_results_2026.csv at render time, never typed into prose. The real defect is not the number, it is that board/data/games_2026.csv still holds 33 rows against a 148-game corpus, so no ROI can be computed anywhere in that track."
+   "note": "The number was right when it was written and is wrong now, which is a different problem from being wrong. 136 is exactly the count of games dated before 2026-11-12, i.e. week 10 had not started; 137 adds the Thursday game. Today 148 games are FINAL. A figure that is correct at capture time but carried as a constant becomes a false statement the moment the season advances - so the corpus figure must be derived from data/week_results_2026.csv at render time, never typed into prose. The real defect is not the number, it is that board/data/games_2026.csv still holds 33 rows against a 148-game corpus, so no ROI can be computed anywhere in that track. Note also that the requirement register on the root landing page still predeclares '136 eligible game records' as its clearance metric (data/requirements_readiness.csv, R002/R053). That metric must be restated against the verified 148 before it can be used to clear anything."
   },
   {
    "claim_id": "LV-07",
