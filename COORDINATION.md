@@ -783,7 +783,9 @@ HTML generation, source links and internal links were verified locally and by CI
 
 ---
 
-# Session `arena/a8c1189d` (branch `arena/a8c1189d-fl3`) — claim, scope and record (2026-11-16 UTC)
+# Session `arena/a8c1189d` (branch `arena/a8c1189d-fl3`)> **ID collision note (added at merge time).** This session first numbered its tasks T22–T26. Session `arena/00a6b558` had already used T22 for its live Week 10 re-check (merged via PR #22/#24). This session's tasks are therefore renumbered **T27–T31**. Nothing was edited in the other session's work; its flags (FLG-029/030, `data/flags.csv`), its `data/recapture_2026-11-16/` files and its readiness rows (R061, R062, R068, R069) are consistent with this session's findings and are kept as-is.
+
+ — claim, scope and record (2026-11-16 UTC)
 
 Single-session run on this branch. Branch-naming note: the session brief asks for `session-<id>/<task>`
 branches and a separate integration session. This session runs on the one branch Arena assigns it
@@ -791,11 +793,11 @@ branches and a separate integration session. This session runs on the one branch
 
 | Task | Status | Owner | Files |
 |---|---|---|---|
-| T22 — Official Week 10 injury-report capture (all 14 games, 28 clubs, 347 rows) and row-by-row reconciliation against each published copy | **done** (single transcription pass; cross-checked against 3 published copies, see record) | `arena/a8c1189d` | `data/official/2026-w10-injury-report.csv`, `data/official/2026-w10-reconciliation.csv`, `scripts/reconcile_official_w10.py` |
-| T23 — Public page for the official capture and reconciliation, linked from the root site | **done** | `arena/a8c1189d` | `scripts/build_official_capture.py`, `official/**`, `.github/workflows/pages.yml` |
-| T24 — Scheduled, immutable, hashed availability-report snapshots with a loud drift alarm | **needs review** (workflow written and YAML-checked; logic tested offline; first live run not yet observed — see record) | `arena/a8c1189d` | `scripts/capture_official_snapshot.py`, `.github/workflows/snapshot.yml`, `data/snapshots/**` |
-| T25 — New irregularities onto Flagged for Review | **done** (F14–F19; F18 resolved) | `arena/a8c1189d` | `data/flagged.json`, `scripts/build_site.py` (flag rendering only) |
-| T26 — Coordination record, verification log, PR and merge record | in progress | `arena/a8c1189d` | `COORDINATION.md` |
+| T27 — Official Week 10 injury-report capture (all 14 games, 28 clubs, 347 rows) and row-by-row reconciliation against each published copy | **done** (single transcription pass; cross-checked against 3 published copies, see record) | `arena/a8c1189d` | `data/official/2026-w10-injury-report.csv`, `data/official/2026-w10-reconciliation.csv`, `scripts/reconcile_official_w10.py` |
+| T28 — Public page for the official capture and reconciliation, linked from the root site | **done** | `arena/a8c1189d` | `scripts/build_official_capture.py`, `official/**`, `.github/workflows/pages.yml` |
+| T29 — Scheduled, immutable, hashed availability-report snapshots with a loud drift alarm | **needs review** (workflow written and YAML-checked; logic tested offline; first live run not yet observed — see record) | `arena/a8c1189d` | `scripts/capture_official_snapshot.py`, `.github/workflows/snapshot.yml`, `data/snapshots/**` |
+| T30 — New irregularities onto Flagged for Review | **done** (F14–F19; F18 resolved) | `arena/a8c1189d` | `data/flagged.json`, `scripts/build_site.py` (flag rendering only) |
+| T31 — Coordination record, verification log, PR and merge record | in progress | `arena/a8c1189d` | `COORDINATION.md` |
 
 **Not claimed this session (blocked or out of reach from this sandbox — see the record for reasons):**
 depth-chart register and starter/backup model, NFL Game Books, snap counts, licensed odds and price
@@ -869,3 +871,45 @@ the model inputs stay on the existing copy until a reviewed change.
 | Head / base | `arena/a8c1189d-fl3` → `main` |
 | Merge | Requested at the end of this session with `gh pr merge 26 --merge`; the result is confirmed by the PR's state on GitHub, not recorded here beforehand |
 | Pages | `pages.yml` deploys `*.html` from `main`; `official-capture.html` is a root page |
+
+# Session `arena/00a6b558-fl3` — claim (2026-11-16 UTC)
+
+Branch `arena/00a6b558-fl3` (base `main@5b66952`). This session is the only one working on this branch.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T27 — Live re-check of the Week 10 official injury report (Lions game status, Seattle/Cincinnati sections, row counts) and a reconciled readiness register with new rows for the requirements not yet listed (season-long ROI rejection, depth slots as groups) | **done** | `arena/00a6b558-fl3` | `data/recapture_2026-11-16/**`, `data/requirements_readiness.csv`, `scripts/build_readiness.py`, `data/flags.csv`, generated `board/**` and root site pages from the existing generators |
+
+Not claimed and not touched: `data/injuries_2026_wk10.csv` and `data/injuries_2026_w10.json` (owned by earlier sessions; preserved as-is and reconciled by a separate manifest), `depth/**`, `docs/**`, `site-9b181d31/**`, `legacy/**`, `.github/**`.
+
+## T27 — completion record (2026-11-16 UTC)
+
+**Sources (fetched 2026-11-16):** [NFL.com Week 10 injury report](https://www.nfl.com/injuries/league/2026/reg10) (8 chunks, read in full); [NFL.com news items linked from that page, including the Ravens IR roundup](https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13).
+
+**Verified**
+- 28 club tables with player rows on the live page; **347 player rows** in total.
+- 27 of 28 club row counts match the repo's 2026-11-14 capture exactly.
+- Lions: Kerby Joseph, Cade Mays and D.J. Reed are all listed Out (field-level match). The "blank game status" claim is not reproduced: the repo already has Out for all three.
+- Seattle (15 rows) and Cincinnati (9 rows) match the repo.
+
+**Not verified / irregularities (published as FLG-029 and FLG-030 and in `data/recapture_2026-11-16/`)**
+- **D01/D02:** the repo omits two Ravens rows, Calais Campbell and Ronnie Stanley (both blank game status). The repo is 345 rows against 347 live. Not corrected in this session: changing the published total would break the verifier's count, and the repair needs a separate versioned re-transcription.
+- **D03:** the brief's counts (254 rows, 4 no-injury sections, Cincinnati listing 4) are **not reproduced**; they are not published as facts.
+- No raw HTML bytes were retained, so there is **no raw hash** for this capture. The next capture must store the raw bytes and a SHA-256.
+- Cell-level re-transcription of all 347 rows is **still open**; only the Lions rows were checked field by field.
+
+**Readiness register:** R061 and R062 updated; R062 is now VERIFIED for its three rows. Added R068 (season-long ROI ranking rejected) and R069 (depth slots as groups, not verified). The register now has **69** rows.
+
+**Verification run:** `build_readiness.py --check` OK (69); `build_board.py` built 21 pages; `build_site.py` built 11 pages; `check_site.py` **1603 assertions, ALL CHECKS PASSED**; `check_links.py` PASS; `verify.py` G-10 PASS with the pre-existing non-blocking V-09b warning (FLG-025).
+
+**Scope note for the board:** most of the requirement list was already in the register as R001–R067 (state and gate per row). Not done in this session, and recorded as open: the point-in-time snapshot store, a 32-club depth capture, the snap-count and inactive-list capture, the forecast/probability store, the leaderboard divisions, the parlay joint-evidence gate, and the matrix view.
+
+## T27 — PR / merge / deploy record
+
+| Item | Value |
+|---|---|
+| Pull request | [#22 — T27: live Week 10 injury re-check and readiness register update](https://github.com/sassnarep3-star/FL3/pull/22) |
+| PR checks | `Recompute and verify` pass; `validate` pass; `verify-and-build` pass; deploy skipped (PR) |
+| Merge | **merged** into `main` as `695e895` (no approval waited for, per brief) |
+| Post-merge CI | `Verify data and site` success; `site` success; `Deploy static site to GitHub Pages` success; `pages-build-deployment` success |
+| Live check | https://sassnarep3-star.github.io/FL3/board/readiness.html?v=22 served the updated register (69 rows) |
