@@ -1,0 +1,15 @@
+metric,value,note
+settled_games,12,of 14; SNF and MNF had not finished at capture
+mae_A,11.625,data/lines_week10.json - what the live root site renders
+mae_B,8.017,data/lines_origination.csv - what board/lines renders
+mae_C,11.591,data/2026-week10-lines.csv - no generator writes this file
+n_A,12,settled games with a value
+n_B,12,settled games with a value
+n_C,11,settled games with a value
+bias_A,7.842,positive = model too home
+bias_B,0.3,positive = model too home
+bias_C,7.409,positive = model too home
+naive_home_zero_mae,13.0,benchmark: always forecast a pick em
+A_vs_B_mean_abs_disagreement,6.721,"two of our own files, same fixtures"
+convention,All values are signed home margin: positive = home team wins by that many points. A is published in the repository as home_spread (negative = home favoured) and is inverted here to compare on one axis.,
+caveat,"n=12 settled games. This is a provenance check, not a model evaluation: with 12 observations nothing here supports a claim that any series has skill.",

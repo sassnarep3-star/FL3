@@ -1,0 +1,37 @@
+kind,club,player,field,value_A_2026_11_16,value_B_2026_11_14,severity,source_url
+row_only_in_A,BAL,Calais Campbell,row,DT/-/blank,(absent),substantive,https://www.nfl.com/injuries/league/2026/reg10
+row_only_in_A,BAL,Ronnie Stanley,row,T/-/blank,(absent),substantive,https://www.nfl.com/injuries/league/2026/reg10
+row_only_in_A,HOU,Jacob Hummel,row,LB/Groin/Questionable,(absent),substantive,https://www.nfl.com/injuries/league/2026/reg10
+row_only_in_B,HOU,Jake Hummel,row,(absent),LB/Groin/Questionable,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,BAL,Adam Randall,injury,"Neck, Hamstring",,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,BAL,Adam Randall,game_status,Questionable,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,BAL,Jaylinn Hawkins,injury,Knee,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,BAL,Jaylinn Hawkins,game_status,Out,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,IND,Arden Key,injury,,Hamstring,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,IND,Arden Key,game_status,,Questionable,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Branson Taylor,injury,Ankle,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Branson Taylor,game_status,Out,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Brenen Thompson,injury,Hamstring,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Brenen Thompson,game_status,Doubtful,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Bud Dupree,practice,Full Participation in Practice,Did Not Participate In Practice,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,David Njoku,injury,Fibula,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,David Njoku,practice,Full Participation in Practice,Limited Participation in Practice,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,David Njoku,game_status,Questionable,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Denzel Perryman,injury,Pectoral,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Denzel Perryman,game_status,Questionable,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Isas Waxter,injury,Ankle,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Isas Waxter,game_status,Out,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Justin Eboigbe,injury,Ankle,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Justin Eboigbe,game_status,Questionable,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Kayode Awosika,injury,Fibula,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Kayode Awosika,practice,Full Participation in Practice,Limited Participation in Practice,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Kayode Awosika,game_status,Questionable,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Keaton Mitchell,practice,Full Participation in Practice,Limited Participation in Practice,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Kendall Williamson,injury,Calf,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Kendall Williamson,game_status,Out,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Ladd McConkey,injury,Back,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Ladd McConkey,game_status,Questionable,,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Rodney Shelley,practice,Full Participation in Practice,Limited Participation in Practice,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Trey Pipkins,injury,"Not injury related - personal matter, Knee",,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Trey Pipkins,practice,Limited Participation in Practice,Did Not Participate In Practice,substantive,https://www.nfl.com/injuries/league/2026/reg10
+field_diff,LAC,Trey Pipkins,game_status,Questionable,,substantive,https://www.nfl.com/injuries/league/2026/reg10
