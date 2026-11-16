@@ -17,7 +17,7 @@
 
 | Session ID | Branch | Scope | Started (UTC) |
 |---|---|---|---|
-| `arena-e8bf2075` | `arena/e8bf2075-fl3` | see claims below | 2026-11-14 |
+| `arena/9d05cb63-fl3` | `arena/9d05cb63-fl3` | Repo review, official-source verification, and session closeout (PR + merge + Pages deploy record). No dataset or page content changed; only COORDINATION.md session records. | 2026-11-16 |
 
 Other sessions: **one competing session was discovered after this session's first push.**
 
@@ -79,6 +79,7 @@ task. `scripts/build_site.py` is single-owner at a time.
 | 2026-11-14T00:00Z | `arena-e8bf2075` | Claimed T06–T11 (model, gates, registers). Disjoint file sets from T01–T05. |
 | 2026-11-14T00:00Z | `arena-e8bf2075` | Claimed T12–T15 (site build + verification + docs). |
 | 2026-11-14T00:00Z | `arena-e8bf2075` | Claimed T16 (integration) — sole session, so integration performed by same ID. |
+| 2026-11-16T00:00Z | `arena/9d05cb63-fl3` | Claimed session closeout: repo review, official-source verification, PR/merge record. Files: COORDINATION.md (session record only); no dataset or page content changed. | 
 
 ---
 
@@ -780,3 +781,31 @@ the full details at `/board/readiness.html`. No table values will be duplicated 
 The deploy workflow and Pages build record confirm publication. This session's network policy did not
 permit fetching `github.io` directly, so URL content was not independently fetched after deployment;
 HTML generation, source links and internal links were verified locally and by CI.
+
+
+# Session `arena/9d05cb63-fl3` — claim, scope, verification and closeout record
+
+**Session ID:** `arena/9d05cb63-fl3` · **Branch:** `arena/9d05cb63-fl3` · **Started:** 2026-11-16
+**Base commit:** `5b66952` of `main` (== branch tip at session start; no prior unmerged work).
+
+## Claimed scope
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| Repo review (line-by-line read of registers, pages, generators, verifiers) | **done** | `arena/9d05cb63-fl3` | `README.md`, `COORDINATION.md`, `scripts/*.py`, `data/*.json`, root `*.html` |
+| Official-source verification of the checked-in snapshot (spot checks vs nfl.com) | **in progress** | `arena/9d05cb63-fl3` | none (read-only against nfl.com; findings recorded here) |
+| Site build + verifier re-run | **done** | `arena/9d05cb63-fl3` | `scripts/build_site.py`, `scripts/check_site.py` → 1,597 assertions, all passed |
+| Live-site confirmation on GitHub Pages | **pending** | `arena/9d05cb63-fl3` | https://sassnarep3-star.github.io/FL3/ |
+| PR from `arena/9d05cb63-fl3` to `main`, merge, deploy confirmation, COORDINATION.md record | **pending** | `arena/9d05cb63-fl3` | `COORDINATION.md` (this section) |
+
+## Verification performed
+
+None yet — official-source spot checks are the next step. The checked-in snapshot is dated 2026-11-14; today is 2026-11-16, so any difference found against live nfl.com pages is treated as **expected snapshot staleness**, not corrected silently (the snapshot is a point-in-time capture; changing it would break the recomputation checks and the dated-record contract).
+
+## Irregularities found this session
+
+None yet.
+
+## PR / merge / deploy record
+
+Pending — see "Claimed scope" above.
