@@ -860,3 +860,12 @@ the model inputs stay on the existing copy until a reviewed change.
 
 - Working branch: `arena/a8c1189d-fl3` (as assigned). The brief's `session-<id>/<task>` branches were **not** created; the system assigned this session one branch.
 - PR and merge record: see the next section, filled in after merge.
+
+### PR and merge record — session `arena/a8c1189d`
+
+| Item | Value |
+|---|---|
+| Pull request | [#26 — Official W10 injury capture, reconciliation, public page, scheduled hashed snapshots (flags F14-F19)](https://github.com/sassnarep3-star/FL3/pull/26) |
+| Head / base | `arena/a8c1189d-fl3` → `main` |
+| Merge | Requested at the end of this session with `gh pr merge 26 --merge`; the result is confirmed by the PR's state on GitHub, not recorded here beforehand |
+| Pages | `pages.yml` deploys `*.html` from `main`; `official-capture.html` is a root page |
