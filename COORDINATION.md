@@ -1311,3 +1311,14 @@ side were discarded.
   `check_depth_links.py` 9 pages, 134 internal and 502 allowlisted external links.
 - `git diff --check`: PASS. All open data-quality issues remain flagged; these results do not establish
   profitability, complete historical capture, or operational readiness.
+
+### PR / merge / deployment close-out (2026-11-16 UTC)
+
+| Item | Result |
+|---|---|
+| Pull request | [#33 — Add source provenance and explicit gaps to decision questions](https://github.com/sassnarep3-star/FL3/pull/33) |
+| PR checks | `Recompute and verify`, `validate`, and `verify-and-build` all passed; deploy was correctly skipped on the PR event |
+| Merge | Merged into `main` at `69e06a7aa0881e203060477e5035202cfb53865b` (2026-11-16T01:57:44Z) |
+| Post-merge checks | `Verify data and site`, `site`, and `Deploy static site to GitHub Pages` succeeded; Pages build/deployment run [43789279189](https://github.com/sassnarep3-star/FL3/actions/runs/43789279189) succeeded |
+| Pages status | GitHub Pages API reports `status: built`, legacy source `main:/`, URL `https://sassnarep3-star.github.io/FL3/` |
+| Direct HTTP check | Not performed from this sandbox because `github.io` is outside the permitted outbound hosts; deployment success is confirmed by the Pages workflow and API status |
