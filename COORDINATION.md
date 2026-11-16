@@ -765,3 +765,18 @@ the full details at `/board/readiness.html`. No table values will be duplicated 
 - The numerical clearance criteria are proposals for future gates, not observed results, source facts,
   profitability claims, or permission to stake. Backtest/leaderboard readiness remains blocked where
   its evidence requirements are unmet.
+
+## T20–T21 PR, merge and Pages deployment record
+
+| Item | Result |
+|---|---|
+| Pull request | [#20](https://github.com/sassnarep3-star/FL3/pull/20) |
+| Merge | **Merged** to `main` at 2026-11-16T01:24:01Z; merge commit `77659de37e0c91d7e43cde993306416491024cf8` |
+| PR checks | `Recompute and verify` pass; `validate` pass; `verify-and-build` pass |
+| Main push workflows | `Verify data and site` success; `site` success; `Deploy static site to GitHub Pages` success |
+| Pages deployment | `pages-build-deployment` success; GitHub Pages build API returned `status: built`, commit `77659de37e0c91d7e43cde993306416491024cf8` |
+| Published URLs | Root dashboard: https://sassnarep3-star.github.io/FL3/ · requirements page: https://sassnarep3-star.github.io/FL3/board/readiness.html |
+
+The deploy workflow and Pages build record confirm publication. This session's network policy did not
+permit fetching `github.io` directly, so URL content was not independently fetched after deployment;
+HTML generation, source links and internal links were verified locally and by CI.
