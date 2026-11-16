@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our line - three files, three answers</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><a href="index.html"><strong>FL3</strong> <span>NFL line origination board</span></a></div>
+  <div class="stamp">official data read 2026-11-14 UTC</div>
+</header>
+<div class="wrap">
+<nav class="side"><div class="navgroup"><span>Read first</span><a href="executive-summary.html">Executive summary</a><a href="readiness.html">Requirement readiness</a><a href="questions.html">Questions & gaps</a><a href="suggestions.html">Suggestions</a></div><div class="navgroup"><span>Verified data</span><a href="standings.html">Standings</a><a href="games.html">Game results</a><a href="team-stats.html">Team stats</a><a href="injuries.html">Injuries & availability</a><a href="league-facts.html">League facts</a><a href="results.html">Results feed</a><a href="depth-evidence.html">Depth evidence</a></div><div class="navgroup"><span>Model & signals</span><a href="model.html">Model</a><a href="parameters.html">Parameter register</a><a href="lines.html">Lines</a><a href="luck.html">Removal of luck</a><a href="line-provenance.html" class=on>Line provenance</a><a href="signals.html">Signals</a><a href="correlation.html">Correlation</a><a href="validation.html">Validation gates</a><a href="leaderboard.html">Leaderboard</a></div><div class="navgroup"><span>Verification & ops</span><a href="data-freshness.html">Data freshness</a><a href="methodology.html">Methodology</a><a href="verification.html">Verification log</a><a href="sources.html">Sources</a><a href="flagged.html">Flagged for review</a></div>
+  <div class="navgroup"><span>This repo has two published tracks</span>
+    <a href="../index.html" title="the sibling dashboard built from data/*.json by scripts/build_site.py">Sibling dashboard (root)</a>
+    <a href="../docs/index.html" title="the sibling track's documentation section">Sibling docs</a>
+    <a href="../COORDINATION.md" title="shared task board - claims, scopes, source log">Task board</a>
+  </div>
+  <div class="navgroup"><span>Repo</span>
+    <a href="https://github.com/sassnarep3-star/FL3" rel="noopener nofollow" target="_blank">GitHub</a>
+    <a href="https://github.com/sassnarep3-star/FL3/blob/main/COORDINATION.md" rel="noopener nofollow" target="_blank">Coordination board</a>
+  </div>
+</nav>
+<main>
+<h1 id="our-line-three-files-three-answers">Our line — three files, three answers</h1>
+<p><strong>Read this before trusting any number on the <a href="lines.html">lines page</a>.</strong></p>
+<p>The repository publishes "our line" for the same Week 10 fixtures from <strong>three different files</strong>, and they do not agree. This is not a rounding dispute. On the same game they can be seven points apart, on opposite sides of the number, and both are presented to a reader as our own forecast.</p>
+<div class="tablewrap"><table><thead><tr><th>File</th><th>Written by</th><th>Rendered where</th><th>Keyed by</th></tr></thead><tbody><tr><td><code>data/lines_week10.json</code></td><td><code>scripts/compute_lines.py</code></td><td>the <strong>root site</strong> (<code>lines.html</code>, live on GitHub Pages)</td><td><code>WAS-NYG-W10</code></td></tr><tr><td><code>data/lines_origination.csv</code></td><td><code>scripts/model.py</code></td><td>the <strong>board site</strong> (<code>board/lines.html</code>)</td><td>full club names</td></tr><tr><td><code>data/2026-week10-lines.csv</code></td><td><em>nothing</em> — committed by hand, no generator writes it</td><td>nowhere, but it is the only file with market quotes</td><td><code>W10-01</code></td></tr></tbody></table></div>
+<p>Three files, three key formats, no generator overlap. That is why this went unnoticed: no single script ever loaded two of them at once.</p>
+<h2 id="the-convention-trap">The convention trap</h2>
+<p><code>scripts/compute_lines.py</code> emits <code>home_spread = round(-margin, 1)</code>. <code>scripts/model.py</code> emits <code>expected_home_margin</code> with the opposite sign convention. So the two files are on <strong>inverted axes</strong> <em>and</em> <strong>different levels</strong>. Anyone comparing them naively, or joining them by club name, gets a number that is wrong twice over.</p>
+<p>Every value on this page is converted to <strong>one axis: signed home margin, positive = home wins by that many points.</strong></p>
+<h2 id="the-same-fixtures-side-by-side">The same fixtures, side by side</h2>
+<div class="tablewrap"><table><caption>All 14 Week 10 fixtures on one axis. A = root site, B = board site, C = the unowned CSV. Blank C cells are games it does not price.</caption><thead><tr><th>game id</th><th>Away</th><th>Home</th><th>A home margin</th><th>B home margin</th><th>C home margin</th><th>actual home margin</th><th>settled</th></tr></thead><tbody><tr><td>W10-01</td><td>WAS</td><td>NYG</td><td>4.1</td><td>3.5</td><td><span class="none" title="not published - no official source">blank</span></td><td>-3</td><td>yes</td></tr><tr><td>W10-02</td><td>NE</td><td>DET</td><td>4.0</td><td>3.4</td><td>3.0</td><td>25</td><td>yes</td></tr><tr><td>W10-03</td><td>KC</td><td>ATL</td><td>-2.1</td><td>-13.7</td><td>-2.5</td><td>-22</td><td>yes</td></tr><tr><td>W10-04</td><td>HOU</td><td>CLE</td><td>1.5</td><td>-7.7</td><td>2.0</td><td>3</td><td>yes</td></tr><tr><td>W10-05</td><td>MIN</td><td>GB</td><td>3.5</td><td>-1.9</td><td>4.0</td><td>-20</td><td>yes</td></tr><tr><td>W10-06</td><td>MIA</td><td>IND</td><td>1.8</td><td>1.5</td><td>2.0</td><td>2</td><td>yes</td></tr><tr><td>W10-07</td><td>CAR</td><td>NO</td><td>0.8</td><td>-2.4</td><td>0.5</td><td>-3</td><td>yes</td></tr><tr><td>W10-08</td><td>BUF</td><td>NYJ</td><td>-4.0</td><td>-15.8</td><td>-6.0</td><td>-19</td><td>yes</td></tr><tr><td>W10-09</td><td>JAX</td><td>TEN</td><td>-6.8</td><td>-24.0</td><td>-9.0</td><td>-17</td><td>yes</td></tr><tr><td>W10-10</td><td>LA</td><td>AZ</td><td>-3.7</td><td>-14.8</td><td>-4.5</td><td>-28</td><td>yes</td></tr><tr><td>W10-11</td><td>SEA</td><td>LV</td><td>2.3</td><td>-9.7</td><td>3.0</td><td>-8</td><td>yes</td></tr><tr><td>W10-12</td><td>SF</td><td>DAL</td><td>-3.3</td><td>-10.8</td><td>-4.0</td><td>-6</td><td>yes</td></tr><tr><td>W10-13</td><td>PIT</td><td>CIN</td><td>2.2</td><td>3.3</td><td>2.5</td><td><span class="none" title="not published - no official source">blank</span></td><td>no</td></tr><tr><td>W10-14</td><td>LAC</td><td>BAL</td><td>4.7</td><td>7.2</td><td>2.0</td><td><span class="none" title="not published - no official source">blank</span></td><td>no</td></tr></tbody></table></div>
+<p>Work through W10-01. The game finished <strong>WAS 24, NYG 21</strong> — the away side by 3.</p>
+<ul>
+<li><strong>A</strong> says home <strong>+4.1</strong> → about 7 points on the wrong side of the result</li>
+<li><strong>B</strong> says home <strong>+3.5</strong> → about 6.5 points on the wrong side, in the <em>other direction</em></li>
+<li><strong>C</strong> does not price the game at all</li>
+</ul>
+<p>A and B are <strong>7.6 points apart from each other</strong> on a game that was decided by 3.</p>
+<h2 id="aggregate-on-the-twelve-settled-games">Aggregate, on the twelve settled games</h2>
+<div class="tablewrap"><table><caption>How each series did against the settled results. n is stated because it is small.</caption><thead><tr><th>Metric</th><th>Value</th><th>Note</th></tr></thead><tbody><tr><td>settled_games</td><td>12</td><td class='wide'>of 14; SNF and MNF had not finished at capture</td></tr><tr><td>mae_A</td><td>11.625</td><td class='wide'>data/lines_week10.json - what the live root site renders</td></tr><tr><td>mae_B</td><td>8.017</td><td class='wide'>data/lines_origination.csv - what board/lines renders</td></tr><tr><td>mae_C</td><td>11.591</td><td class='wide'>data/2026-week10-lines.csv - no generator writes this file</td></tr><tr><td>n_A</td><td>12</td><td class='wide'>settled games with a value</td></tr><tr><td>n_B</td><td>12</td><td class='wide'>settled games with a value</td></tr><tr><td>n_C</td><td>11</td><td class='wide'>settled games with a value</td></tr><tr><td>bias_A</td><td>7.842</td><td class='wide'>positive = model too home</td></tr><tr><td>bias_B</td><td>0.3</td><td class='wide'>positive = model too home</td></tr><tr><td>bias_C</td><td>7.409</td><td class='wide'>positive = model too home</td></tr><tr><td>naive_home_zero_mae</td><td>13.0</td><td class='wide'>benchmark: always forecast a pick em</td></tr><tr><td>A_vs_B_mean_abs_disagreement</td><td>6.721</td><td class='wide'>two of our own files, same fixtures</td></tr><tr><td>convention</td><td>All values are signed home margin: positive = home team wins by that many points. A is published in the repository as home_spread (negative = home favoured) and is inverted here to compare on one axis.</td><td class='wide'></td></tr><tr><td>caveat</td><td>n=12 settled games. This is a provenance check, not a model evaluation: with 12 observations nothing here supports a claim that any series has skill.</td><td class='wide'></td></tr></tbody></table></div>
+<p>Three things to take from this table, and one thing not to.</p>
+<p><strong>What it shows:</strong></p>
+<p>1. <strong>A and B disagree with each other by more than either disagrees with reality.</strong> Mean absolute disagreement between our own two files is <strong>6.72 points</strong>. A model whose internal disagreement exceeds its external error is not one model with two outputs — it is two models. 2. <strong>The live root site renders the worst of the three.</strong> A's MAE is 11.62 against B's 8.02. The file a public reader actually sees is the one that leans hardest toward home teams, with a bias of <strong>+7.84 points</strong>. 3. <strong>None of them beats a naive pick-em by much.</strong> Always forecasting a zero home margin scores 13.00 MAE. B scores 8.02, which is better; A scores 11.62, which is close enough to the do-nothing benchmark that its apparent sophistication is not buying much.</p>
+<p><strong>What it does not show — and this is important:</strong></p>
+<p>n = 12. That is a provenance audit, not a model evaluation. Ranking A against B at n=12 is not statistically meaningful and this page does not do it. B being closer on twelve games is a reason to investigate B's convention, not a reason to promote B. Any promotion has to go through the gates in <code>data/strategies.json</code>, and one 12-game sample clears none of them.</p>
+<h2 id="why-this-is-the-most-serious-finding-in-the-repository">Why this is the most serious finding in the repository</h2>
+<p>Every other defect found this session is a gap — missing data, missing pages, missing timestamps. A gap is honest: the cell is blank and the reader knows. This one is different. <strong>Two files with cannot-both-be-true values are both published, both labelled as ours, on two different pages of the same site, with no reconciliation anywhere.</strong> A reader who visits the root dashboard and then the board gets two different answers to "what did we think the line was", and nothing tells them that.</p>
+<h2 id="what-is-being-done-about-it-and-what-is-not">What is being done about it, and what is not</h2>
+<p><strong>Done this session:</strong> the three files are reconciled on one axis, the disagreement is published here and as <code>data/line_provenance_reconciliation.csv</code>, and the convention difference is documented in code.</p>
+<p><strong>Not done, deliberately:</strong> no file was rewritten, no model was promoted, and the root site was not switched to B. Choosing a canonical series is a modelling decision with gate consequences. It gets a register row and an owner decision, not a silent swap by a session that also wrote the comparison.</p>
+<h2 id="the-decision-that-has-to-be-made">The decision that has to be made</h2>
+<div class="tablewrap"><table><thead><tr><th>Question</th><th>Options</th><th>Why it is blocked</th></tr></thead><tbody><tr><td>Which series is "our line"?</td><td>A, B, or a new engine</td><td>Choosing requires a walk-forward comparison, and B's own documentation calls itself <code>provisional-fitted-not-bettable</code></td></tr><tr><td>Can the third file stay?</td><td>delete, or give it an owner</td><td>It is the only source of market quotes in the repo, but no generator writes it and it is not licensed</td></tr><tr><td>Should the root site render A at all?</td><td>yes with a caveat, or no</td><td>A is the worst performer on the only settled sample, but n=12</td></tr></tbody></table></div>
+<h2 id="sources">Sources</h2>
+<ul>
+<li>Results and per-game links: <a href="results.html">verified results feed</a> ·</li>
+</ul>
+<p>&lt;https://www.nfl.com/schedules/2026/by-week/week-10&gt;</p>
+<ul>
+<li>The three line files are in <code>data/</code> and are linked from their generator scripts.</li>
+<li>Working: <code>python3 scripts/reconcile_lines.py</code></li>
+</ul>
+<footer>
+  <p>Every table on this site is generated from <code>data/</code> by <code>scripts/build_site.py</code>;
+  no value is typed into the HTML. Empty cells are deliberate: the value was not confirmable from an
+  official source, so it is left blank and listed on the
+  <a href="flagged.html">Flagged for review</a> page. Nothing here is betting advice.</p>
+</footer>
+</main>
+</div>
+</body></html>

@@ -282,8 +282,36 @@ def main() -> None:
         json.dump(panel, fh, indent=1)
         fh.write("\n")
 
+    # flat CSV mirror so the site's table renderer can consume it without a JSON parser
+    flat = [["section", "metric", "value", "note"]]
+    def add(sec, met, val, note=""):
+        flat.append([sec, met, val, note])
+    add("probability", "brier_model", round(b_model, 4), "lower is better")
+    add("probability", "brier_coin", round(b_coin, 4), "coin-flip benchmark")
+    add("probability", "brier_base_rate", round(b_base, 4), "honest benchmark")
+    add("probability", "bss_vs_coin", round(bss(b_coin), 4), "positive = beats a coin")
+    add("probability", "bss_vs_coin_ci95_low", round(lo, 4), "game-cluster bootstrap")
+    add("probability", "bss_vs_coin_ci95_high", round(hi, 4), "interval includes zero")
+    add("probability", "bss_vs_base_rate", round(bss(b_base), 4), "negative = worse than base rate")
+    add("probability", "logloss_model", round(ll_model, 4), "")
+    add("probability", "logloss_coin", round(ll_coin, 4), "")
+    add("probability", "logloss_base_rate", round(ll_base, 4), "")
+    add("probability", "headline_sample_n", n, "Thursday game excluded: final before the forecast")
+    for k, v_ in (("bias_pts", bias), ("mae_pts", mae), ("rmse_pts", rmse),
+                  ("sd_model_margins", sd_model), ("sd_actual_margins", sd_actual),
+                  ("dispersion_ratio", dispersion_ratio)):
+        add("pricing", k, round(v_, 4), "")
+    add("luck", "picks_won", actual_wins, "")
+    add("luck", "expected_wins_by_own_probabilities", round(expected_wins, 2), "")
+    add("luck", "luck_gap_wins", round(actual_wins - expected_wins, 2), "variance, not skill")
+    for c in calib:
+        add("calibration", c[0], f"n={c[1]} stated={c[2]} observed={c[3]}", "")
+    add("verdict", "verdict", "", panel["verdict"])
+    with open(os.path.join(DATA, "luck_panel.csv"), "w", encoding="utf-8", newline="") as fh:
+        csv.writer(fh).writerows(flat)
+
     print()
-    print("wrote data/scoring_week10.csv, data/luck_panel.json")
+    print("wrote data/scoring_week10.csv, data/luck_panel.json, data/luck_panel.csv")
 
 
 if __name__ == "__main__":

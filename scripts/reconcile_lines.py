@@ -206,6 +206,27 @@ def main():
         json.dump(verdict, fh, indent=1)
         fh.write("\n")
 
+    flat = [["metric", "value", "note"]]
+    flat.append(["settled_games", verdict["settled_games"],
+                 "of 14; SNF and MNF had not finished at capture"])
+    for k, note in (("A", "data/lines_week10.json - what the live root site renders"),
+                    ("B", "data/lines_origination.csv - what board/lines renders"),
+                    ("C", "data/2026-week10-lines.csv - no generator writes this file")):
+        flat.append([f"mae_{k}", verdict["mae"][k], note])
+    for k in ("A", "B", "C"):
+        flat.append([f"n_{k}", verdict["n_by_series"][k], "settled games with a value"])
+    for k in ("A", "B", "C"):
+        flat.append([f"bias_{k}", verdict["bias"][k], "positive = model too home"])
+    flat.append(["naive_home_zero_mae", verdict["naive_home_zero_mae"],
+                 "benchmark: always forecast a pick em"])
+    flat.append(["A_vs_B_mean_abs_disagreement", verdict["ab_disagreement_mean_abs"],
+                 "two of our own files, same fixtures"])
+    flat.append(["convention", verdict["convention_note"], ""])
+    flat.append(["caveat", verdict["caveat"], ""])
+    with open(os.path.join(DATA, "line_provenance_verdict.csv"), "w", encoding="utf-8",
+              newline="") as fh:
+        csv.writer(fh).writerows(flat)
+
 
 if __name__ == "__main__":
     main()

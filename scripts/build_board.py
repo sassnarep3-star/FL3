@@ -47,6 +47,10 @@ BOARD_DATA = [
     "flags.csv", "derived_team_metrics.csv", "derived_league_stats.csv", "derived_correlations.csv",
     "power_ratings.csv", "lines_origination.csv", "model_calibration.csv", "decision_math.csv",
     "leaderboard.csv", "verification_report.csv", "requirements_readiness.csv",
+    "captures_week10_results.csv", "scoring_week10.csv", "luck_panel.csv",
+    "line_provenance_reconciliation.csv", "line_provenance_verdict.csv",
+    "snapshot_delta.csv", "injury_crosscheck.csv", "depth_blocks.csv",
+    "depth_grammar_findings.csv", "depth_starter_out.csv",
 ]
 
 # slug -> (title, nav label, group)
@@ -64,6 +68,11 @@ PAGES = [
     ("model", "Line origination model", "Model", "model"),
     ("parameters", "Model parameter register", "Parameter register", "model"),
     ("lines", "Origination output - Week 10 slate", "Lines", "model"),
+    ("results", "Verified results feed - Week 10", "Results feed", "data"),
+    ("luck", "Removal of luck - prospective scoring", "Removal of luck", "model"),
+    ("line-provenance", "Our line - three files, three answers", "Line provenance", "model"),
+    ("depth-evidence", "Depth and replacement evidence", "Depth evidence", "data"),
+    ("data-freshness", "Data freshness and snapshot staleness", "Data freshness", "ops"),
     ("signals", "Signal catalogue", "Signals", "model"),
     ("correlation", "Correlation measurements and policy", "Correlation", "model"),
     ("validation", "Validation gates", "Validation gates", "model"),

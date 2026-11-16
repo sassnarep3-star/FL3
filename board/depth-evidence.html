@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Depth and replacement evidence</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><a href="index.html"><strong>FL3</strong> <span>NFL line origination board</span></a></div>
+  <div class="stamp">official data read 2026-11-14 UTC</div>
+</header>
+<div class="wrap">
+<nav class="side"><div class="navgroup"><span>Read first</span><a href="executive-summary.html">Executive summary</a><a href="readiness.html">Requirement readiness</a><a href="questions.html">Questions & gaps</a><a href="suggestions.html">Suggestions</a></div><div class="navgroup"><span>Verified data</span><a href="standings.html">Standings</a><a href="games.html">Game results</a><a href="team-stats.html">Team stats</a><a href="injuries.html">Injuries & availability</a><a href="league-facts.html">League facts</a><a href="results.html">Results feed</a><a href="depth-evidence.html" class=on>Depth evidence</a></div><div class="navgroup"><span>Model & signals</span><a href="model.html">Model</a><a href="parameters.html">Parameter register</a><a href="lines.html">Lines</a><a href="luck.html">Removal of luck</a><a href="line-provenance.html">Line provenance</a><a href="signals.html">Signals</a><a href="correlation.html">Correlation</a><a href="validation.html">Validation gates</a><a href="leaderboard.html">Leaderboard</a></div><div class="navgroup"><span>Verification & ops</span><a href="data-freshness.html">Data freshness</a><a href="methodology.html">Methodology</a><a href="verification.html">Verification log</a><a href="sources.html">Sources</a><a href="flagged.html">Flagged for review</a></div>
+  <div class="navgroup"><span>This repo has two published tracks</span>
+    <a href="../index.html" title="the sibling dashboard built from data/*.json by scripts/build_site.py">Sibling dashboard (root)</a>
+    <a href="../docs/index.html" title="the sibling track's documentation section">Sibling docs</a>
+    <a href="../COORDINATION.md" title="shared task board - claims, scopes, source log">Task board</a>
+  </div>
+  <div class="navgroup"><span>Repo</span>
+    <a href="https://github.com/sassnarep3-star/FL3" rel="noopener nofollow" target="_blank">GitHub</a>
+    <a href="https://github.com/sassnarep3-star/FL3/blob/main/COORDINATION.md" rel="noopener nofollow" target="_blank">Coordination board</a>
+  </div>
+</nav>
+<main>
+<h1 id="depth-and-replacement-evidence-what-the-club-pages-actually-publish">Depth and replacement evidence — what the club pages actually publish</h1>
+<p>The brief asks the system to track "2nd, 3rd or 4th string backups having to replace starters." This page records what could be verified about that <strong>from the clubs' own pages on 2026-11-16</strong>, and — just as importantly — what those pages cannot be made to say.</p>
+<p>Every claim below was checked against the live page. Where the brief's description did not match what the page publishes, the page wins and the discrepancy is recorded.</p>
+<h2 id="the-five-formatting-failures-confirmed-or-refuted">The five formatting failures, confirmed or refuted</h2>
+<div class="tablewrap"><table><thead><tr><th>#</th><th>Claim in the brief</th><th>Verdict</th><th>What the page actually shows</th></tr></thead><tbody><tr><td>1</td><td>Texans publish depth as an image</td><td><strong>CONFIRMED</strong></td><td>The heading is the literal string <em>"Unofficial Depth Chart"</em> and the body is one raster image. No player name exists in the HTML.</td></tr><tr><td>2</td><td>Packers prepend jersey numbers to names</td><td><strong>CONFIRMED</strong></td><td>Every cell reads <code>"9 Christian Watson"</code> — integer, space, name, no separator. Recoverable: split the leading integer, store jersey and name separately. Both are kept in <code>data/depth_blocks.csv</code>.</td></tr><tr><td>3</td><td>Baltimore still lists Lamar Jackson and Tyler Huntley at QB</td><td><strong>REFUTED</strong></td><td>The page reads <strong>QB1 Jacoby Brissett, QB2 Joe Fagnano, QB3 Kedon Slovis</strong>. Neither Jackson nor Huntley appears. The staleness story is real, but not this one.</td></tr><tr><td>4</td><td>Seattle puts two players in one slot</td><td><strong>CONFIRMED</strong></td><td>One WR cell contains <strong>two</strong> players: Cooper Kupp and Rashid Shaheed. The club named no starter.</td></tr><tr><td>5</td><td>Washington leaves a slot empty</td><td><strong>NOT CHECKED</strong></td><td>Not read this session. The Ravens <em>do</em> leave rank 1 empty (kicker), so the phenomenon is real; the Washington instance is unverified and is left blank rather than asserted.</td></tr></tbody></table></div>
+<h2 id="the-grammar-a-depth-chart-uses-and-why-column-1-the-starter-is-false">The grammar a depth chart uses — and why "column 1 = the starter" is false</h2>
+<div class="tablewrap"><table><caption>Every structural irregularity found in the three transcribed charts, with the page it came from.</caption><thead><tr><th>club</th><th>kind</th><th>row</th><th>Detail</th><th>Url</th></tr></thead><tbody><tr><td>GB</td><td>continuation_row</td><td>11</td><td class='wide'>blank position cell carries 26 Kaleb Johnson</td><td>https://www.packers.com/team/depth-chart</td></tr><tr><td>GB</td><td>empty_rank1</td><td>26</td><td class='wide'>ST/PR: the rank-1 cell is blank</td><td>https://www.packers.com/team/depth-chart</td></tr><tr><td>GB</td><td>duplicate_rank1</td><td><span class="none" title="not published - no official source">blank</span></td><td class='wide'>Daniel Whelan is rank 1 at ST/P, ST/H</td><td>https://www.packers.com/team/depth-chart</td></tr><tr><td>GB</td><td>duplicate_rank2</td><td><span class="none" title="not published - no official source">blank</span></td><td class='wide'>Kitan Oladapo is rank 2 at DEF/S, DEF/S</td><td>https://www.packers.com/team/depth-chart</td></tr><tr><td>SEA</td><td>shared_slot</td><td>0</td><td class='wide'>OFF/WR rank 1 publishes 2 players in one cell: Cooper Kupp, Rashid Shaheed</td><td>https://www.seahawks.com/team/depth-chart/</td></tr><tr><td>SEA</td><td>duplicate_rank1</td><td><span class="none" title="not published - no official source">blank</span></td><td class='wide'>Michael Dickson is rank 1 at ST/P, ST/H</td><td>https://www.seahawks.com/team/depth-chart/</td></tr><tr><td>SEA</td><td>duplicate_rank1</td><td><span class="none" title="not published - no official source">blank</span></td><td class='wide'>Rashid Shaheed is rank 1 at ST/PR, ST/KR</td><td>https://www.seahawks.com/team/depth-chart/</td></tr><tr><td>SEA</td><td>duplicate_rank2</td><td><span class="none" title="not published - no official source">blank</span></td><td class='wide'>Josh Jones is rank 2 at OFF/LT, OFF/RT</td><td>https://www.seahawks.com/team/depth-chart/</td></tr><tr><td>SEA</td><td>duplicate_rank2</td><td><span class="none" title="not published - no official source">blank</span></td><td class='wide'>Anthony Bradford is rank 2 at OFF/LG, OFF/RG</td><td>https://www.seahawks.com/team/depth-chart/</td></tr><tr><td>SEA</td><td>duplicate_rank2</td><td><span class="none" title="not published - no official source">blank</span></td><td class='wide'>Tory Horton is rank 2 at OFF/WR, ST/PR</td><td>https://www.seahawks.com/team/depth-chart/</td></tr><tr><td>BAL</td><td>empty_rank1</td><td>24</td><td class='wide'>ST/K: the rank-1 cell is blank</td><td>https://www.baltimoreravens.com/team/depth-chart/</td></tr><tr><td>BAL</td><td>duplicate_rank1</td><td><span class="none" title="not published - no official source">blank</span></td><td class='wide'>Ryan Eckley is rank 1 at ST/P, ST/H</td><td>https://www.baltimoreravens.com/team/depth-chart/</td></tr><tr><td>BAL</td><td>duplicate_rank1</td><td><span class="none" title="not published - no official source">blank</span></td><td class='wide'>LaJohntay Wester is rank 1 at ST/KOR, ST/PR</td><td>https://www.baltimoreravens.com/team/depth-chart/</td></tr><tr><td>BAL</td><td>duplicate_rank2</td><td><span class="none" title="not published - no official source">blank</span></td><td class='wide'>Carson Vinson is rank 2 at OFF/LT, OFF/RT</td><td>https://www.baltimoreravens.com/team/depth-chart/</td></tr><tr><td>BAL</td><td>duplicate_rank2</td><td><span class="none" title="not published - no official source">blank</span></td><td class='wide'>Ryan Neuzil is rank 2 at OFF/LG, OFF/C</td><td>https://www.baltimoreravens.com/team/depth-chart/</td></tr><tr><td>HOU</td><td>image_only</td><td><span class="none" title="not published - no official source">blank</span></td><td class='wide'>The depth chart is a single raster image inside the page. No player name, position or rank exists in the HTML. Recovering it would require reading text out of a picture, which is transcription by eye, not an official machine-readable feed.</td><td>https://www.houstontexans.com/team/depth-chart/</td></tr></tbody></table></div>
+<p>Six distinct structures break a naive parse, and all six are present in just three clubs:</p>
+<ul>
+<li><strong>shared_slot</strong> — two players in one cell. Seattle WR. Whoever reads column 1 as "the WR1"</li>
+</ul>
+<p>invents a starter the club did not name.</p>
+<ul>
+<li><strong>duplicate_rank1</strong> — one player at rank 1 of two positions. Green Bay publishes **Kitan</li>
+</ul>
+<p>Oladapo** at rank 1 of <em>both</em> safety spots. That is one player covering two slots, not two starters. Reading it as two starters would double-count him in any availability calculation.</p>
+<ul>
+<li><strong>duplicate_rank2</strong> — one backup, two roles. Baltimore's <strong>Ryan Neuzil</strong> is rank 2 at both LG</li>
+</ul>
+<p>and C; <strong>Carson Vinson</strong> is rank 2 at both LT and RT. Losing one starter promotes the same man.</p>
+<ul>
+<li><strong>empty_rank1</strong> — Baltimore publishes <strong>no kicker at all</strong> at rank 1.</li>
+<li><strong>continuation_row</strong> — Green Bay's RB4 <strong>Kaleb Johnson</strong> sits under a <em>blank position cell</em>,</li>
+</ul>
+<p>continuing the row above. A parser keyed on the position column silently drops him.</p>
+<ul>
+<li><strong>image_only</strong> — Houston. The data is not in the document at all.</li>
+</ul>
+<h2 id="staleness-is-published-or-it-is-not">Staleness is published, or it is not</h2>
+<div class="tablewrap"><table><thead><tr><th>Club</th><th>Effective date the page publishes</th><th>Age on 2026-11-16</th></tr></thead><tbody><tr><td>Green Bay</td><td><strong>"Unofficial, Nov. 10, 2026"</strong></td><td><strong>6 days</strong></td></tr><tr><td>Seattle</td><td><em>none</em></td><td>unknown</td></tr><tr><td>Baltimore</td><td><em>none</em></td><td>unknown</td></tr></tbody></table></div>
+<p>Two of three charts carry <strong>no date whatsoever</strong>. A chart with no date cannot be versioned, cannot be proved pre-kickoff, and cannot enter a backtest without lookahead risk. This is the concrete reason the brief's "official depth-chart register with date and source per row" requirement cannot be met from club pages alone: <strong>the clubs do not publish the date.</strong></p>
+<h2 id="what-the-depth-data-does-unlock-confirmed-replacements">What the depth data <em>does</em> unlock: confirmed replacements</h2>
+<p>Joining each chart's rank-1 player to the official Week 10 injury report produces the starter-replacement list the brief asks for — with the named backup and <strong>that backup's own designation</strong>, so the depth of the replacement is tracked, not just the fact of it.</p>
+<div class="tablewrap"><table><caption>Rank-1 players who are also Out or Doubtful on the official Week 10 report, with the club&#x27;s own named replacement.</caption><thead><tr><th>club</th><th>position</th><th>starter</th><th>designation</th><th>named backup</th><th>backup designation</th><th>chart date</th><th>source depth</th><th>source injury</th></tr></thead><tbody><tr><td>GB</td><td>C</td><td>Sean Rhyan</td><td>Out</td><td>Jager Burton</td><td>(not on report)</td><td>Unofficial, Nov. 10, 2026</td><td>https://www.packers.com/team/depth-chart</td><td>https://www.nfl.com/injuries/league/2026/reg10</td></tr><tr><td>GB</td><td>RB</td><td>Josh Jacobs</td><td>Out</td><td>MarShawn Lloyd</td><td>(not on report)</td><td>Unofficial, Nov. 10, 2026</td><td>https://www.packers.com/team/depth-chart</td><td>https://www.nfl.com/injuries/league/2026/reg10</td></tr><tr><td>GB</td><td>LB</td><td>Zaire Franklin</td><td>Doubtful</td><td>Ty&#x27;Ron Hopper</td><td><span class="none" title="not published - no official source">blank</span></td><td>Unofficial, Nov. 10, 2026</td><td>https://www.packers.com/team/depth-chart</td><td>https://www.nfl.com/injuries/league/2026/reg10</td></tr><tr><td>SEA</td><td>LT</td><td>Charles Cross</td><td>Out</td><td>Josh Jones</td><td>(not on report)</td><td>(none published)</td><td>https://www.seahawks.com/team/depth-chart/</td><td>https://www.nfl.com/injuries/league/2026/reg10</td></tr><tr><td>SEA</td><td>LG</td><td>Quenton Nelson</td><td>Out</td><td>Anthony Bradford</td><td><span class="none" title="not published - no official source">blank</span></td><td>(none published)</td><td>https://www.seahawks.com/team/depth-chart/</td><td>https://www.nfl.com/injuries/league/2026/reg10</td></tr><tr><td>SEA</td><td>QB</td><td>Sam Darnold</td><td>Out</td><td>Drew Lock</td><td><span class="none" title="not published - no official source">blank</span></td><td>(none published)</td><td>https://www.seahawks.com/team/depth-chart/</td><td>https://www.nfl.com/injuries/league/2026/reg10</td></tr><tr><td>SEA</td><td>DT</td><td>Leonard Williams</td><td>Out</td><td>Rylie Mills</td><td>(not on report)</td><td>(none published)</td><td>https://www.seahawks.com/team/depth-chart/</td><td>https://www.nfl.com/injuries/league/2026/reg10</td></tr><tr><td>BAL</td><td>SS</td><td>Jaylinn Hawkins</td><td>Out</td><td>Keondre Jackson</td><td>(not on report)</td><td>(none published)</td><td>https://www.baltimoreravens.com/team/depth-chart/</td><td>https://www.nfl.com/injuries/league/2026/reg10</td></tr></tbody></table></div>
+<p>This is a real, sourced, reproducible feature — and it is the one place this repository can honestly say it detects "a backup replacing a starter" rather than inferring it.</p>
+<h2 id="and-here-is-what-it-does-not-unlock">And here is what it does not unlock</h2>
+<p><strong>Depth rank is not talent.</strong> The chart tells us <em>who</em> is next. It says nothing about <em>how much worse</em> next is. Every availability constant in this repository (<code>QB 2.6</code>, <code>WR 0.55</code>, <code>CB 0.5</code>, …, in <code>data/lines_week10.json</code>) is an assumption dressed as a parameter. The brief's own requirement is the correct one: replace those constants with an <strong>ablation</strong> — run the identical model with and without the availability features and report the difference with uncertainty. That cannot be done until there are enough settled games to measure it, and there is exactly one week.</p>
+<h2 id="one-cautionary-observation-offered-as-an-observation">One cautionary observation, offered as an observation</h2>
+<p>In the two games where these charts can be checked against a result:</p>
+<ul>
+<li><strong>Seattle</strong> had its <strong>starting quarterback, left tackle, left guard and top defensive tackle</strong></li>
+</ul>
+<p>all Out — and won 21-13.</p>
+<ul>
+<li><strong>Green Bay</strong> had its <strong>starting running back, centre and a starting linebacker</strong> Out — and lost</li>
+</ul>
+<p>30-10.</p>
+<p>That is one favourable and one unfavourable case, which is another way of saying it is evidence of nothing. It is recorded here because it is a useful antidote to the intuition that a long injury list must move a line, and because a future ablation will need exactly this kind of pairing.</p>
+<h2 id="reproduce">Reproduce</h2>
+<pre><code>
+python3 scripts/build_depth_blocks.py    # transcriptions + grammar findings + starter-out join
+</code></pre>
+<p>Sources: the three club depth-chart pages and the official injury report, each linked per row. Houston's chart is linked too, with the reason it cannot be transcribed.</p>
+<footer>
+  <p>Every table on this site is generated from <code>data/</code> by <code>scripts/build_site.py</code>;
+  no value is typed into the HTML. Empty cells are deliberate: the value was not confirmable from an
+  official source, so it is left blank and listed on the
+  <a href="flagged.html">Flagged for review</a> page. Nothing here is betting advice.</p>
+</footer>
+</main>
+</div>
+</body></html>
