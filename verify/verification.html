@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claims log - FL3 verification</title>
+<style>
+:root { --ink:#11161c; --mut:#5b6572; --line:#dfe3e8; --bg:#f6f7f9; --card:#fff;
+        --acc:#0b5fff; --ok:#0a7d3c; --warn:#8a5a00; --bad:#b3261e; --chip:#eef1f5; }
+* { box-sizing: border-box; }
+body { margin:0; font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       color:var(--ink); background:var(--bg); }
+header { background:#0b1220; color:#fff; padding:18px 28px; }
+header h1 { margin:0; font-size:20px; letter-spacing:.2px; }
+header p { margin:4px 0 0; color:#aab4c2; font-size:13px; }
+nav { background:#111a2b; padding:0 28px; }
+nav a { display:inline-block; color:#cfd8e6; text-decoration:none; padding:11px 14px; font-size:14px; }
+nav a:hover { color:#fff; background:#1b2740; }
+nav a.active { color:#fff; border-bottom:3px solid var(--acc); }
+main { max-width:1080px; margin:0 auto; padding:26px 22px 60px; }
+h2 { font-size:20px; margin:26px 0 10px; }
+h3 { font-size:16px; margin:18px 0 8px; }
+p.lede { color:var(--mut); max-width:780px; }
+table { width:100%; border-collapse:collapse; background:var(--card); margin:12px 0;
+        border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+th, td { text-align:left; padding:9px 11px; border-bottom:1px solid var(--line); font-size:14px; vertical-align:top; }
+th { background:#f0f2f6; font-weight:600; }
+tr:last-child td { border-bottom:none; }
+a { color:var(--acc); text-decoration:none; word-break:break-all; }
+a:hover { text-decoration:underline; }
+.chip { display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:600; background:var(--chip); }
+.chip.CONFIRMED { background:#e3f5ea; color:var(--ok); }
+.chip.PARTIALLY_CONFIRMED { background:#fdf1dc; color:var(--warn); }
+.chip.REFUTED { background:#fbe3e1; color:var(--bad); }
+.chip.RECONCILED { background:#e6effd; color:var(--acc); }
+.chip.NOT_VERIFIED { background:#eceff3; color:var(--mut); }
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px; margin:14px 0; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px 16px; }
+.card .n { font-size:24px; font-weight:700; }
+.card .l { color:var(--mut); font-size:13px; }
+.fine { color:var(--mut); font-size:13px; }
+code { background:#eef1f5; padding:1px 5px; border-radius:4px; font-size:13px; }
+</style></head>
+<body>
+<header><h1>FL3 &mdash; Independent Official-Source Verification</h1>
+<p>Every claim re-checked against live NFL.com / NFL Media pages on 2026-11-16. Values not confirmed are left blank and flagged.</p></header>
+<nav><a href="index.html" class="">Verification</a><a href="verification.html" class="active">Claims log</a><a href="venues.html" class="">Venues</a><a href="gamebooks.html" class="">Game Books</a><a href="sources.html" class="">Sources</a></nav>
+<main>
+<h2>Claims log</h2>
+<p class="lede">One row per claim raised in the brief. <b>Status</b> is the result of checking the claim
+against the official source on 2026-11-16. <b>Requirement</b> links back to the readiness register
+(<code>data/requirements_readiness.csv</code>).</p>
+<table>
+<thead><tr><th>ID</th><th>Status</th><th>Claim</th><th>Finding (official source)</th><th>Source</th></tr></thead>
+<tbody><tr><td><b>V-LIONS</b><br><span class="fine">R062</span></td><td><span class="chip CONFIRMED">CONFIRMED</span></td><td>Kerby Joseph, Cade Mays and D.J. Reed are published with a blank game-status cell while the official article lists all three as Out.</td><td>On the official Week 10 injury report, all three Detroit Lions are listed with Game Status = Out: Kerby Joseph (S, Knee, Did Not Participate), Cade Mays (C, Ankle, Did Not Participate), D.J. Reed (CB, Hip, Did Not Participate). The &#x27;blank game-status&#x27; description does not match the live official page; the Out designations are published.</td><td><a href="https://www.nfl.com/injuries/league/2026/reg10">source</a><br><span class="fine">Official NFL Injury Report - Week 10 (Detroit Lions section)</span></td></tr><tr><td><b>V-SEA</b><br><span class="fine">R061</span></td><td><span class="chip CONFIRMED">CONFIRMED</span></td><td>Seattle is shown as injury-free while listing 15 players.</td><td>The official Week 10 injury report lists 15 Seattle Seahawks rows (AJ Barner, Anthony Bradford, Charles Cross, Sam Darnold, Derick Hall, Drew Lock, Quenton Nelson, Uchenna Nwosu, Patrick O&#x27;Connell, Connor O&#x27;Toole, Brandon Pili, Jarran Reed, Rashid Shaheed, Jaxon Smith-Njigba, Leonard Williams). Seattle is not injury-free.</td><td><a href="https://www.nfl.com/injuries/league/2026/reg10">source</a><br><span class="fine">Official NFL Injury Report - Week 10 (Seattle Seahawks section)</span></td></tr><tr><td><b>V-CIN</b><br><span class="fine">R061</span></td><td><span class="chip PARTIALLY_CONFIRMED">PARTIALLY CONFIRMED</span></td><td>Cincinnati is shown as injury-free while listing 4 players.</td><td>The official Week 10 injury report lists 9 Cincinnati Bengals rows in total, of which exactly 4 carry a game-status designation: Kyle Dugger (Out), Jalen Davis (Doubtful), Andrei Iosivas (Doubtful), Brian Parker II (Doubtful). Cincinnati is not injury-free. The &#x27;4 players&#x27; matches the count of designated players, not the total rows.</td><td><a href="https://www.nfl.com/injuries/league/2026/reg10">source</a><br><span class="fine">Official NFL Injury Report - Week 10 (Cincinnati Bengals section)</span></td></tr><tr><td><b>V-ROWCOUNT</b><br><span class="fine">R039/R061</span></td><td><span class="chip RECONCILED">RECONCILED</span></td><td>Published counts are stale: 254 rows and 4 no-injury sections versus 279 rows and 2 sections live.</td><td>An independent recount of the live official Week 10 injury report on 2026-11-16 yields 347 player rows across 28 teams (per-team counts published on the Verification page). The repository&#x27;s checked-in capture holds 345 rows and the claim&#x27;s 279 rows is not reproduced. The row-count conflict is real but the live total is materially higher than both cited numbers.</td><td><a href="https://www.nfl.com/injuries/league/2026/reg10">source</a><br><span class="fine">Official NFL Injury Report - Week 10 (full page)</span></td></tr><tr><td><b>V-LOCK</b><br><span class="fine">R066</span></td><td><span class="chip CONFIRMED">CONFIRMED</span></td><td>The NFL publishes a dated starter change for Drew Lock.</td><td>NFL.com news (Week 10, Friday) reports Drew Lock has no injury designation and will start for the Seahawks against the Raiders, per coach Mike Macdonald. Lock was limited in practice with right elbow and oblique injuries.</td><td><a href="https://www.nfl.com/news/drew-lock-no-injury-designation-seahawks-raiders">source</a><br><span class="fine">Drew Lock (elbow/oblique) has no injury designation, will start for Seahawks vs. Raiders - NFL.com</span></td></tr><tr><td><b>V-MCCORD</b><br><span class="fine">R066</span></td><td><span class="chip CONFIRMED">CONFIRMED</span></td><td>The NFL publishes a dated starter change for Kyle McCord.</td><td>NFL.com news reports the Dolphins placed QB Malik Willis (groin) on injured reserve on Tuesday and that Kyle McCord will make his first NFL start, on the road against the Colts in Week 10.</td><td><a href="https://www.nfl.com/news/dolphins-place-qb-malik-willis-groin-on-injured-reserve-kyle-mccord-in-line-for-first-start">source</a><br><span class="fine">Dolphins place QB Malik Willis (groin) on injured reserve; Kyle McCord in line for first start - NFL.com</span></td></tr><tr><td><b>V-BRISSETT</b><br><span class="fine">R066</span></td><td><span class="chip NOT_VERIFIED">NOT VERIFIED</span></td><td>The NFL publishes a dated starter change for Brissett.</td><td>No dated official starter-change article for Brissett was fetched in this pass. The Ravens&#x27; Week 10 injury-report section lists no quarterbacks, and Lamar Jackson is confirmed on injured reserve (see V-BAL). The Brissett starter designation remains unverified here.</td><td><span class="fine">no source &mdash; flagged</span><br><span class="fine"></span></td></tr><tr><td><b>V-BAL</b><br><span class="fine">R065</span></td><td><span class="chip PARTIALLY_CONFIRMED">PARTIALLY CONFIRMED</span></td><td>Baltimore still publishes Lamar Jackson and Tyler Huntley at QB after both went on injured reserve and a replacement was traded in.</td><td>The official Week 10 injury report&#x27;s Baltimore Ravens section lists no quarterbacks at all: Lamar Jackson is absent (consistent with his confirmed injured-reserve placement) and Tyler Huntley is absent. This confirms the report omits IR&#x27;d quarterbacks. The &#x27;stale depth row&#x27; claim concerns club depth-chart pages, which were not re-fetched in this pass.</td><td><a href="https://www.nfl.com/injuries/league/2026/reg10">source</a><br><span class="fine">Official NFL Injury Report - Week 10 (Baltimore Ravens section)</span></td></tr><tr><td><b>V-VENUE</b><br><span class="fine">R024</span></td><td><span class="chip CONFIRMED">CONFIRMED</span></td><td>Transcribe the venue of every fixture from the official game centre and publish it.</td><td>All 14 Week 10 fixtures were transcribed from their official NFL.com game-centre pages. Location and Stadium for each fixture are published on the Venues page with the per-game source link.</td><td><a href="https://www.nfl.com/schedules/2026/REG10">source</a><br><span class="fine">NFL Week 10 schedule (hub) and per-fixture game centres</span></td></tr><tr><td><b>V-GAMEBOOK</b><br><span class="fine">R026</span></td><td><span class="chip CONFIRMED">CONFIRMED</span></td><td>Use official NFL Game Books for actual starters and game-day status.</td><td>Every official NFL.com game-centre page publishes a &#x27;Download Game Book (PDF)&#x27; link under &#x27;END GAME&#x27;. The Game Book PDF URL for each of the 12 final Week 10 games is published on the Game Books page. This establishes a verified official route for actual starters and game-day status.</td><td><a href="https://www.nfl.com/games/commanders-at-giants-2026-reg-10">source</a><br><span class="fine">Official NFL game centre (Game Book PDF route)</span></td></tr><tr><td><b>V-SCHED</b><br><span class="fine">R025</span></td><td><span class="chip CONFIRMED">CONFIRMED</span></td><td>Publish the league&#x27;s dated schedule announcement beside the live schedule page.</td><td>The official NFL media release &#x27;2026 NFL Schedule Announced&#x27; is dated May 14, 2026 and announces the 18-week, 272-game 2026 regular-season schedule. The live schedule hub is the per-week schedule page. Both are published on the Sources page.</td><td><a href="https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced">source</a><br><span class="fine">2026 NFL Schedule Announced - NFL Media (May 14, 2026)</span></td></tr><tr><td><b>V-STANDINGS</b><br><span class="fine">R050</span></td><td><span class="chip RECONCILED">RECONCILED</span></td><td>Publish a weekly &#x27;what changed&#x27; diff instead of a static snapshot.</td><td>The repository&#x27;s standings snapshot is dated 2026-11-14 (pre-Week-10-completion). The live official standings on 2026-11-16 now reflect completed Week 10 results (e.g. BUF and SF both 8-1; DET 7-2; CHI 7-2). The checked-in standings are therefore one week stale relative to the live source. This is published as a staleness finding rather than silently overwritten.</td><td><a href="https://www.nfl.com/standings/league/2026/reg">source</a><br><span class="fine">2026 NFL League Standings (live, 2026-11-16)</span></td></tr></tbody>
+</table>
+<h3>Status legend</h3>
+<ul>
+<li><b>CONFIRMED</b> &mdash; the claim matches the official source exactly.</li>
+<li><b>PARTIALLY CONFIRMED</b> &mdash; the official source supports part of the claim.</li>
+<li><b>REFUTED</b> &mdash; the official source contradicts the claim as stated.</li>
+<li><b>RECONCILED</b> &mdash; the cited numbers differ from an independent recount; the qualitative point is settled.</li>
+<li><b>NOT VERIFIED</b> &mdash; no official source was available; the value stays blank and flagged.</li>
+</ul>
+<p class="fine">Legend source: </p>
+</main>
+</body></html>

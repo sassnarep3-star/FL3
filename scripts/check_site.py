@@ -162,6 +162,9 @@ def check_links():
     board_root = os.path.join(ROOT, "board")
     if os.path.isdir(board_root):
         local.update(f"board/{name}" for name in os.listdir(board_root) if name.endswith(".html"))
+    verify_root = os.path.join(ROOT, "verify")
+    if os.path.isdir(verify_root):
+        local.update(f"verify/{name}" for name in os.listdir(verify_root) if name.endswith(".html"))
     if os.path.isdir(os.path.join(ROOT, "legacy", "pages")):
         for f in os.listdir(os.path.join(ROOT, "legacy", "pages")):
             local.add(f"legacy/pages/{f}")
