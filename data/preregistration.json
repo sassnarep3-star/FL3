@@ -1,0 +1,177 @@
+{
+ "model_id": "FL3-SHADOW-1",
+ "registration": "verified/PREREGISTRATION.md",
+ "constants": {
+  "k": 4.0,
+  "league_points": 22.0,
+  "hfa": 1.9,
+  "sigma": 8.5,
+  "logistic_scale": 0.55
+ },
+ "deadline": null,
+ "games_used": 148,
+ "clubs": 32,
+ "ratings": {
+  "ATL": {
+   "games": 10,
+   "off": 20.642857,
+   "defense": 24.714286
+  },
+  "AZ": {
+   "games": 10,
+   "off": 19.428571,
+   "defense": 26.928571
+  },
+  "BAL": {
+   "games": 9,
+   "off": 21.307692,
+   "defense": 24.923077
+  },
+  "BUF": {
+   "games": 9,
+   "off": 28.846154,
+   "defense": 22.076923
+  },
+  "CAR": {
+   "games": 9,
+   "off": 23.615385,
+   "defense": 24.923077
+  },
+  "CHI": {
+   "games": 9,
+   "off": 25.307692,
+   "defense": 20.923077
+  },
+  "CIN": {
+   "games": 8,
+   "off": 27.333333,
+   "defense": 21.916667
+  },
+  "CLE": {
+   "games": 10,
+   "off": 19.714286,
+   "defense": 22.0
+  },
+  "DAL": {
+   "games": 10,
+   "off": 26.714286,
+   "defense": 26.428571
+  },
+  "DEN": {
+   "games": 9,
+   "off": 22.0,
+   "defense": 21.076923
+  },
+  "DET": {
+   "games": 9,
+   "off": 26.538462,
+   "defense": 22.076923
+  },
+  "GB": {
+   "games": 10,
+   "off": 22.428571,
+   "defense": 22.071429
+  },
+  "HOU": {
+   "games": 9,
+   "off": 24.692308,
+   "defense": 23.615385
+  },
+  "IND": {
+   "games": 10,
+   "off": 21.142857,
+   "defense": 25.642857
+  },
+  "JAX": {
+   "games": 9,
+   "off": 27.461538,
+   "defense": 17.846154
+  },
+  "KC": {
+   "games": 9,
+   "off": 25.0,
+   "defense": 18.769231
+  },
+  "LA": {
+   "games": 10,
+   "off": 24.0,
+   "defense": 19.642857
+  },
+  "LAC": {
+   "games": 8,
+   "off": 17.416667,
+   "defense": 25.583333
+  },
+  "LV": {
+   "games": 10,
+   "off": 24.214286,
+   "defense": 26.928571
+  },
+  "MIA": {
+   "games": 9,
+   "off": 18.153846,
+   "defense": 24.0
+  },
+  "MIN": {
+   "games": 9,
+   "off": 20.307692,
+   "defense": 16.461538
+  },
+  "NE": {
+   "games": 10,
+   "off": 22.071429,
+   "defense": 23.571429
+  },
+  "NO": {
+   "games": 9,
+   "off": 22.307692,
+   "defense": 24.923077
+  },
+  "NYG": {
+   "games": 9,
+   "off": 22.384615,
+   "defense": 21.846154
+  },
+  "NYJ": {
+   "games": 10,
+   "off": 20.142857,
+   "defense": 24.428571
+  },
+  "PHI": {
+   "games": 9,
+   "off": 18.153846,
+   "defense": 23.769231
+  },
+  "PIT": {
+   "games": 8,
+   "off": 22.333333,
+   "defense": 19.333333
+  },
+  "SEA": {
+   "games": 10,
+   "off": 22.214286,
+   "defense": 18.785714
+  },
+  "SF": {
+   "games": 9,
+   "off": 28.384615,
+   "defense": 21.846154
+  },
+  "TB": {
+   "games": 9,
+   "off": 22.307692,
+   "defense": 20.461538
+  },
+  "TEN": {
+   "games": 9,
+   "off": 19.615385,
+   "defense": 25.153846
+  },
+  "WAS": {
+   "games": 9,
+   "off": 21.846154,
+   "defense": 23.923077
+  }
+ },
+ "sha256": "f38a3f5c73659686dc8bd478ad441c5734f10bd1da2c367885501337c196a1b9"
+}
