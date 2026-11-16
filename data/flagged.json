@@ -253,12 +253,12 @@
           "url": "https://www.nfl.com/injuries/league/2026/reg10"
         },
         {
-          "label": "Reconciliation against every published copy",
-          "url": "https://github.com/sassnarep3-star/FL3/blob/main/data/official/2026-w10-reconciliation.csv"
+          "label": "Reconciliation against every published copy (PR #27 capture)",
+          "url": "https://github.com/sassnarep3-star/FL3/blob/main/data/official_injury_reconciliation_wk10_2026.csv"
         },
         {
-          "label": "Capture page",
-          "url": "https://sassnarep3-star.github.io/FL3/official-capture.html"
+          "label": "Official capture page (board)",
+          "url": "https://sassnarep3-star.github.io/FL3/board/official-capture.html"
         }
       ],
       "action_needed": "Owner decision: replace the board copy with the official capture and re-run model.py, then re-check the board output."
@@ -278,8 +278,8 @@
           "url": "https://www.nfl.com/injuries/league/2026/reg10"
         },
         {
-          "label": "Reconciliation rows",
-          "url": "https://github.com/sassnarep3-star/FL3/blob/main/data/official/2026-w10-reconciliation.csv"
+          "label": "Reconciliation against every published copy (PR #27 capture)",
+          "url": "https://github.com/sassnarep3-star/FL3/blob/main/data/official_injury_reconciliation_wk10_2026.csv"
         }
       ],
       "action_needed": "Owner decision: adopt the official values (already in the capture) and record the change in the register."
@@ -299,8 +299,8 @@
           "url": "https://www.nfl.com/injuries/league/2026/reg10"
         },
         {
-          "label": "Reconciliation rows",
-          "url": "https://github.com/sassnarep3-star/FL3/blob/main/data/official/2026-w10-reconciliation.csv"
+          "label": "Reconciliation against every published copy (PR #27 capture)",
+          "url": "https://github.com/sassnarep3-star/FL3/blob/main/data/official_injury_reconciliation_wk10_2026.csv"
         }
       ],
       "action_needed": "Owner decision: normalise LA to LAR and re-run the line model; then confirm the Rams totals."
@@ -320,8 +320,8 @@
           "url": "https://www.nfl.com/injuries/league/2026/reg10"
         },
         {
-          "label": "Capture page",
-          "url": "https://sassnarep3-star.github.io/FL3/official-capture.html"
+          "label": "Official capture page (board)",
+          "url": "https://sassnarep3-star.github.io/FL3/board/official-capture.html"
         }
       ],
       "action_needed": "Use 347 for the page as captured. Re-capture if the official page changes."

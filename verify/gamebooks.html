@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Game Books - FL3 verification</title>
+<style>
+:root { --ink:#11161c; --mut:#5b6572; --line:#dfe3e8; --bg:#f6f7f9; --card:#fff;
+        --acc:#0b5fff; --ok:#0a7d3c; --warn:#8a5a00; --bad:#b3261e; --chip:#eef1f5; }
+* { box-sizing: border-box; }
+body { margin:0; font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       color:var(--ink); background:var(--bg); }
+header { background:#0b1220; color:#fff; padding:18px 28px; }
+header h1 { margin:0; font-size:20px; letter-spacing:.2px; }
+header p { margin:4px 0 0; color:#aab4c2; font-size:13px; }
+nav { background:#111a2b; padding:0 28px; }
+nav a { display:inline-block; color:#cfd8e6; text-decoration:none; padding:11px 14px; font-size:14px; }
+nav a:hover { color:#fff; background:#1b2740; }
+nav a.active { color:#fff; border-bottom:3px solid var(--acc); }
+main { max-width:1080px; margin:0 auto; padding:26px 22px 60px; }
+h2 { font-size:20px; margin:26px 0 10px; }
+h3 { font-size:16px; margin:18px 0 8px; }
+p.lede { color:var(--mut); max-width:780px; }
+table { width:100%; border-collapse:collapse; background:var(--card); margin:12px 0;
+        border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+th, td { text-align:left; padding:9px 11px; border-bottom:1px solid var(--line); font-size:14px; vertical-align:top; }
+th { background:#f0f2f6; font-weight:600; }
+tr:last-child td { border-bottom:none; }
+a { color:var(--acc); text-decoration:none; word-break:break-all; }
+a:hover { text-decoration:underline; }
+.chip { display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:600; background:var(--chip); }
+.chip.CONFIRMED { background:#e3f5ea; color:var(--ok); }
+.chip.PARTIALLY_CONFIRMED { background:#fdf1dc; color:var(--warn); }
+.chip.REFUTED { background:#fbe3e1; color:var(--bad); }
+.chip.RECONCILED { background:#e6effd; color:var(--acc); }
+.chip.NOT_VERIFIED { background:#eceff3; color:var(--mut); }
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px; margin:14px 0; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px 16px; }
+.card .n { font-size:24px; font-weight:700; }
+.card .l { color:var(--mut); font-size:13px; }
+.fine { color:var(--mut); font-size:13px; }
+code { background:#eef1f5; padding:1px 5px; border-radius:4px; font-size:13px; }
+</style></head>
+<body>
+<header><h1>FL3 &mdash; Independent Official-Source Verification</h1>
+<p>Every claim re-checked against live NFL.com / NFL Media pages on 2026-11-16. Values not confirmed are left blank and flagged.</p></header>
+<nav><a href="index.html" class="">Verification</a><a href="verification.html" class="">Claims log</a><a href="venues.html" class="">Venues</a><a href="gamebooks.html" class="active">Game Books</a><a href="sources.html" class="">Sources</a></nav>
+<main>
+<h2>Official Game Book register</h2>
+<p class="lede">The official NFL.com game-centre page publishes a <b>Download Game Book (PDF)</b> link for each
+completed fixture. This is the verified official route for actual starters and game-day status (requirement R026).
+The PDF contents are not yet parsed here &mdash; only the route and the per-game link are verified.</p>
+<table>
+<thead><tr><th>Game</th><th>Matchup</th><th>Status</th><th>Game Book PDF</th><th>Game centre</th></tr></thead>
+<tbody><tr><td><b>REG10-WAS-NYG</b></td><td>WAS @ NYG</td><td><span class="chip FINAL">FINAL</span></td><td><a href="https://static.www.nfl.com/image/upload/v1794570519/gamecenter/ab5828d9-4feb-11f1-abca-2c54536568a9.pdf">Download Game Book (PDF)</a></td><td><a href="https://www.nfl.com/games/commanders-at-giants-2026-reg-10">game centre</a></td></tr><tr><td><b>REG10-NE-DET</b></td><td>NE @ DET</td><td><span class="chip FINAL">FINAL</span></td><td><a href="https://static.www.nfl.com/image/upload/v1794764592/gamecenter/ab582c2f-4feb-11f1-abca-2c54536568a9.pdf">Download Game Book (PDF)</a></td><td><a href="https://www.nfl.com/games/patriots-at-lions-2026-reg-10">game centre</a></td></tr><tr><td><b>REG10-KC-ATL</b></td><td>KC @ ATL</td><td><span class="chip FINAL">FINAL</span></td><td><a href="https://static.www.nfl.com/image/upload/v1794777676/gamecenter/ab582f5b-4feb-11f1-abca-2c54536568a9.pdf">Download Game Book (PDF)</a></td><td><a href="https://www.nfl.com/games/chiefs-at-falcons-2026-reg-10">game centre</a></td></tr><tr><td><b>REG10-HOU-CLE</b></td><td>HOU @ CLE</td><td><span class="chip FINAL">FINAL</span></td><td><a href="https://static.www.nfl.com/image/upload/v1794777616/gamecenter/ab583279-4feb-11f1-abca-2c54536568a9.pdf">Download Game Book (PDF)</a></td><td><a href="https://www.nfl.com/games/texans-at-browns-2026-reg-10">game centre</a></td></tr><tr><td><b>REG10-MIN-GB</b></td><td>MIN @ GB</td><td><span class="chip FINAL">FINAL</span></td><td><a href="https://static.www.nfl.com/image/upload/v1794776656/gamecenter/ab788967-4feb-11f1-abca-2c54536568a9.pdf">Download Game Book (PDF)</a></td><td><a href="https://www.nfl.com/games/vikings-at-packers-2026-reg-10">game centre</a></td></tr><tr><td><b>REG10-MIA-IND</b></td><td>MIA @ IND</td><td><span class="chip FINAL">FINAL</span></td><td><a href="https://static.www.nfl.com/image/upload/v1794777736/gamecenter/ab789365-4feb-11f1-abca-2c54536568a9.pdf">Download Game Book (PDF)</a></td><td><a href="https://www.nfl.com/games/dolphins-at-colts-2026-reg-10">game centre</a></td></tr><tr><td><b>REG10-CAR-NO</b></td><td>CAR @ NO</td><td><span class="chip FINAL">FINAL</span></td><td><a href="https://static.www.nfl.com/image/upload/v1794777436/gamecenter/ab789769-4feb-11f1-abca-2c54536568a9.pdf">Download Game Book (PDF)</a></td><td><a href="https://www.nfl.com/games/panthers-at-saints-2026-reg-10">game centre</a></td></tr><tr><td><b>REG10-BUF-NYJ</b></td><td>BUF @ NYJ</td><td><span class="chip FINAL">FINAL</span></td><td><a href="https://static.www.nfl.com/image/upload/v1794777196/gamecenter/ab789ac9-4feb-11f1-abca-2c54536568a9.pdf">Download Game Book (PDF)</a></td><td><a href="https://www.nfl.com/games/bills-at-jets-2026-reg-10">game centre</a></td></tr><tr><td><b>REG10-JAX-TEN</b></td><td>JAX @ TEN</td><td><span class="chip FINAL">FINAL</span></td><td><a href="https://static.www.nfl.com/image/upload/v1794777496/gamecenter/ab789e15-4feb-11f1-abca-2c54536568a9.pdf">Download Game Book (PDF)</a></td><td><a href="https://www.nfl.com/games/jaguars-at-titans-2026-reg-10">game centre</a></td></tr><tr><td><b>REG10-LAR-AZ</b></td><td>LAR @ AZ</td><td><span class="chip FINAL">FINAL</span></td><td><a href="https://static.www.nfl.com/image/upload/v1794786979/gamecenter/ab78a133-4feb-11f1-abca-2c54536568a9.pdf">Download Game Book (PDF)</a></td><td><a href="https://www.nfl.com/games/rams-at-cardinals-2026-reg-10">game centre</a></td></tr><tr><td><b>REG10-SEA-LV</b></td><td>SEA @ LV</td><td><span class="chip FINAL">FINAL</span></td><td><a href="https://static.www.nfl.com/image/upload/v1794787399/gamecenter/ab78a43c-4feb-11f1-abca-2c54536568a9.pdf">Download Game Book (PDF)</a></td><td><a href="https://www.nfl.com/games/seahawks-at-raiders-2026-reg-10">game centre</a></td></tr><tr><td><b>REG10-SF-DAL</b></td><td>SF @ DAL</td><td><span class="chip FINAL">FINAL</span></td><td><a href="https://static.www.nfl.com/image/upload/v1794790580/gamecenter/ab78a748-4feb-11f1-abca-2c54536568a9.pdf">Download Game Book (PDF)</a></td><td><a href="https://www.nfl.com/games/49ers-at-cowboys-2026-reg-10">game centre</a></td></tr><tr><td><b>REG10-PIT-CIN</b></td><td>PIT @ CIN</td><td><span class="chip UPCOMING">UPCOMING</span></td><td><span class="fine">not yet published &mdash; flagged</span></td><td><a href="https://www.nfl.com/games/steelers-at-bengals-2026-reg-10">game centre</a></td></tr><tr><td><b>REG10-LAC-BAL</b></td><td>LAC @ BAL</td><td><span class="chip UPCOMING">UPCOMING</span></td><td><span class="fine">not yet published &mdash; flagged</span></td><td><a href="https://www.nfl.com/games/chargers-at-ravens-2026-reg-10">game centre</a></td></tr></tbody>
+</table>
+<p class="fine">Games not yet final at capture have no Game Book published; those cells are blank and flagged.</p>
+</main>
+</body></html>

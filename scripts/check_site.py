@@ -32,8 +32,7 @@ PAGES = ["index.html", "standings.html", "lines.html", "injuries.html", "strateg
          "correlation.html", "decisions.html", "suggestions.html", "flagged.html",
          "sources.html", "methodology.html",
          # verified-snapshot pages (session arena-fl3-60ee336e, integration 2026-11-14):
-         "data-snapshots.html", "data-standings.html", "data-schedule.html", "data-injuries.html",
-         "official-capture.html"]
+         "data-snapshots.html", "data-standings.html", "data-schedule.html", "data-injuries.html"]
 
 errors: list[str] = []
 warnings: list[str] = []
@@ -163,6 +162,9 @@ def check_links():
     board_root = os.path.join(ROOT, "board")
     if os.path.isdir(board_root):
         local.update(f"board/{name}" for name in os.listdir(board_root) if name.endswith(".html"))
+    verify_root = os.path.join(ROOT, "verify")
+    if os.path.isdir(verify_root):
+        local.update(f"verify/{name}" for name in os.listdir(verify_root) if name.endswith(".html"))
     if os.path.isdir(os.path.join(ROOT, "legacy", "pages")):
         for f in os.listdir(os.path.join(ROOT, "legacy", "pages")):
             local.add(f"legacy/pages/{f}")
