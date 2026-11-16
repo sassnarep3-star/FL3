@@ -991,5 +991,12 @@ These are published on the Claims log with their source links and do not block t
 
 | Pull request | [#29 — FL3: independent official-source verification subsite (verify/)](https://github.com/sassnarep3-star/FL3/pull/29) |
 | PR checks | `Recompute and verify` pass (incl. new `check_verify.py`); `validate` pass; `site` pass |
-| Merge | **merged** into `main` (no `--auto`; no review waited for, per brief) |
+| Merge | **merged** into `main` as `2952f25` (no `--auto`; no review waited for, per brief) |
 | Deploy | GitHub Pages via `pages.yml` (allowlist now includes `verify`); live at `/FL3/verify/` |
+
+**Follow-up fix (PR [#32](https://github.com/sassnarep3-star/FL3/pull/32), merged `bea6d4c`):** the index
+summary cards looked up status counts with underscore keys while `verify_log.json` stores spaces, so
+"partially confirmed" and "not verified" rendered as 0. Fixed the lookups in `scripts/build_verify.py`
+and added `check_verify.py` regression assertions (each counter matches the data; the four status counts
+sum to the claim total). Counters now read 7 confirmed / 2 partially confirmed / 2 reconciled / 1 not
+verified = 12, confirmed live at `/FL3/verify/index.html?v=32`.
