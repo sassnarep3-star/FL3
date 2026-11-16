@@ -1,0 +1,233 @@
+{
+  "source_url": "https://www.nfl.com/injuries/league/2026/reg10",
+  "source_id": "SRC-018",
+  "capture_date_utc": "2026-11-16",
+  "capture_method": "manual line-by-line transcription of the fetch-tool read (8 chunks); raw HTML was not retained, so no byte-level page hash exists",
+  "transcription_file": "data/official_capture/nfl-injury-report-2026-reg10.psv",
+  "transcription_sha256": "175aa2c97206c4f17e2b4e948a1dc96f19285dc034a9dfd33133524ac48d578a",
+  "game_sections": 14,
+  "clubs": 28,
+  "listed_rows": 347,
+  "rows_with_injury_entry": 171,
+  "rows_with_game_status": 171,
+  "reconciled_against": "data/injuries_2026_wk10.csv",
+  "repo_table_rows": 345,
+  "field_differences_vs_repo": 36,
+  "copy_audit": [
+    {
+      "file": "data/injuries_2026_wk10.csv",
+      "data_rows": 345,
+      "clubs_present": 28,
+      "clubs_missing_vs_official": []
+    },
+    {
+      "file": "data/injuries_2026_w10.csv",
+      "data_rows": 160,
+      "clubs_present": 26,
+      "clubs_missing_vs_official": [
+        "BAL",
+        "LAC"
+      ]
+    },
+    {
+      "file": "board/data/injuries_2026_w10.csv",
+      "data_rows": 160,
+      "clubs_present": 26,
+      "clubs_missing_vs_official": [
+        "BAL",
+        "LAC"
+      ]
+    },
+    {
+      "file": "data/2026-week10-injuries.csv",
+      "data_rows": 162,
+      "clubs_present": 27,
+      "clubs_missing_vs_official": [
+        "LAC"
+      ]
+    },
+    {
+      "file": "data/injuries_2026_wk10.json",
+      "data_rows": 345,
+      "clubs_present": "see file",
+      "clubs_missing_vs_official": "not computed"
+    },
+    {
+      "file": "data/injuries_2026_w10.json",
+      "data_rows": 345,
+      "clubs_present": "see file",
+      "clubs_missing_vs_official": "not computed"
+    }
+  ],
+  "per_club": {
+    "ATL": {
+      "listed_players": 11,
+      "with_injury_entry": 5,
+      "with_game_status": 5,
+      "out": 1
+    },
+    "AZ": {
+      "listed_players": 15,
+      "with_injury_entry": 9,
+      "with_game_status": 9,
+      "out": 3
+    },
+    "BAL": {
+      "listed_players": 10,
+      "with_injury_entry": 2,
+      "with_game_status": 2,
+      "out": 1
+    },
+    "BUF": {
+      "listed_players": 14,
+      "with_injury_entry": 5,
+      "with_game_status": 5,
+      "out": 0
+    },
+    "CAR": {
+      "listed_players": 12,
+      "with_injury_entry": 7,
+      "with_game_status": 7,
+      "out": 1
+    },
+    "CIN": {
+      "listed_players": 9,
+      "with_injury_entry": 4,
+      "with_game_status": 4,
+      "out": 1
+    },
+    "CLE": {
+      "listed_players": 12,
+      "with_injury_entry": 3,
+      "with_game_status": 3,
+      "out": 2
+    },
+    "DAL": {
+      "listed_players": 19,
+      "with_injury_entry": 11,
+      "with_game_status": 11,
+      "out": 5
+    },
+    "DET": {
+      "listed_players": 9,
+      "with_injury_entry": 5,
+      "with_game_status": 5,
+      "out": 3
+    },
+    "GB": {
+      "listed_players": 17,
+      "with_injury_entry": 12,
+      "with_game_status": 12,
+      "out": 4
+    },
+    "HOU": {
+      "listed_players": 16,
+      "with_injury_entry": 11,
+      "with_game_status": 11,
+      "out": 5
+    },
+    "IND": {
+      "listed_players": 14,
+      "with_injury_entry": 7,
+      "with_game_status": 7,
+      "out": 6
+    },
+    "JAX": {
+      "listed_players": 11,
+      "with_injury_entry": 4,
+      "with_game_status": 4,
+      "out": 3
+    },
+    "KC": {
+      "listed_players": 13,
+      "with_injury_entry": 6,
+      "with_game_status": 6,
+      "out": 3
+    },
+    "LAC": {
+      "listed_players": 19,
+      "with_injury_entry": 10,
+      "with_game_status": 10,
+      "out": 3
+    },
+    "LAR": {
+      "listed_players": 14,
+      "with_injury_entry": 7,
+      "with_game_status": 7,
+      "out": 2
+    },
+    "LV": {
+      "listed_players": 5,
+      "with_injury_entry": 2,
+      "with_game_status": 2,
+      "out": 0
+    },
+    "MIA": {
+      "listed_players": 11,
+      "with_injury_entry": 4,
+      "with_game_status": 4,
+      "out": 2
+    },
+    "MIN": {
+      "listed_players": 13,
+      "with_injury_entry": 8,
+      "with_game_status": 8,
+      "out": 5
+    },
+    "NE": {
+      "listed_players": 15,
+      "with_injury_entry": 12,
+      "with_game_status": 12,
+      "out": 3
+    },
+    "NO": {
+      "listed_players": 12,
+      "with_injury_entry": 6,
+      "with_game_status": 6,
+      "out": 4
+    },
+    "NYG": {
+      "listed_players": 11,
+      "with_injury_entry": 1,
+      "with_game_status": 1,
+      "out": 0
+    },
+    "NYJ": {
+      "listed_players": 9,
+      "with_injury_entry": 9,
+      "with_game_status": 9,
+      "out": 1
+    },
+    "PIT": {
+      "listed_players": 8,
+      "with_injury_entry": 1,
+      "with_game_status": 1,
+      "out": 0
+    },
+    "SEA": {
+      "listed_players": 15,
+      "with_injury_entry": 4,
+      "with_game_status": 4,
+      "out": 4
+    },
+    "SF": {
+      "listed_players": 12,
+      "with_injury_entry": 8,
+      "with_game_status": 8,
+      "out": 1
+    },
+    "TEN": {
+      "listed_players": 12,
+      "with_injury_entry": 6,
+      "with_game_status": 6,
+      "out": 5
+    },
+    "WAS": {
+      "listed_players": 9,
+      "with_injury_entry": 2,
+      "with_game_status": 2,
+      "out": 2
+    }
+  },
+  "structural_failures": []
+}

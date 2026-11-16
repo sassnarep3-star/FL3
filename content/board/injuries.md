@@ -8,6 +8,8 @@ the Chargers' section contributes none — and those two clubs play each other o
 `availability_flags` on [Lines](lines.html) are blank *because nothing was published*, not because anyone
 is healthy ([FLG-028](flagged.html)). The Monday and Thursday slates are included.
 
+> **Correction, 2026-11-16 - the paragraph above is superseded.** The re-capture of the official page lists game-status entries for Baltimore (2) and the Chargers (10), so neither club is missing a game status ([FLG-028](flagged.html), now superseded by [FLG-042](flagged.html), [FLG-043](flagged.html)). This table also covers **26 of 28 clubs**: Baltimore and the Chargers have no rows here. The complete official table is on [Official Week 10 capture](official-capture.html).
+
 ## What the table below is
 
 Every player on the Week 10 report who carries a **game status** (Out / Doubtful / Questionable), with
