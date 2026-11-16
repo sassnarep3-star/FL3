@@ -1187,3 +1187,91 @@ python3 scripts/check_links.py    # 28 pages, 0 broken internal links, 0 orphans
 Two defects introduced by the merge were caught by these gates and fixed, not silenced:
 a duplicate `R068`/`R069` (main and this session both used those numbers) and a second
 `SRC-019` clash that only surfaced because `verify.py` I-05 fails on an unregistered source id.
+
+---
+
+---
+
+---
+
+---
+
+# Session `arena/74d15bb3` — claim and acceptance-audit scope (2026-11-16 UTC)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T22 — Add row-level official-source links and explicit source-gap notes to the Questions & Gaps register; enforce provenance | **done** | `arena/74d15bb3` | `COORDINATION.md`, `data/questions.csv`, `content/board/questions.md`, `scripts/build_board.py`, generated `board/questions.html`, `board/data/questions.csv`, generated verification-report pages |
+
+The baseline acceptance checks passed before this claim: readiness register (67 unique requirements),
+root-site verifier (1,597 assertions), board link checker (21 pages, no broken internal links), and
+`verify.py` with the already-recorded non-blocking source disagreement `FLG-025`. Review found that
+`board/questions.html` rendered the 20 open decision questions without a per-row source or explicit
+source-gap column, despite the rest of the board's provenance policy. This task is limited to that
+questions register; links point only to official source IDs already in `data/sources.csv`, and
+source reads that do not answer a question remain explicitly flagged as gaps. No outside factual data
+was added.
+
+### T22 implementation and verification (2026-11-16 UTC)
+
+- Added `source_id` and `source_gap` to all 20 question rows. Eleven rows link to registered official
+  NFL, official team-directory, or U.S. National Weather Service inputs; nine rows have no applicable
+  official source and explicitly say why. Every open question has a visible `UNVERIFIED / SOURCE GAP`
+  note. Links are input references, not claims that a field was captured or an answer is known.
+- Reconciled question wording to checked-in evidence: the board's 33 game rows are distinguished from
+  the separate 148-game official-source corpus and its 100-game walk-forward evaluation; the board's
+  provisional correlations are explicitly marked as not recomputed from that corpus. Unverified
+  injury/transaction, depth, weather, travel, operator and legal assertions remain flagged rather than
+  presented as confirmed outcomes.
+- Added build-time checks that reject missing source-gap notes, unregistered or non-official question
+  sources, and generated question rows that omit their official source URL or gap note. Negative
+  checks confirmed the guard rejects a missing gap, a commercial-market source ID, and a dropped link.
+- Official input references used from the existing registry: `SRC-001` through `SRC-010` as applicable,
+  `SRC-013`, `SRC-015`, `SRC-017`, `SRC-018` (Week 10 injury re-capture), and `SRC-021` (Week 10
+  results schedule capture). The question rows state that these registered URLs do not establish
+  unregistered Week 3-9 results or a complete historical corpus. Registry capture dates/statuses are
+  not promoted by linking; unread or incomplete inputs remain explicitly noted.
+- Remaining published irregularity: `V-09b / FLG-025` (official offense/defense pass-TD totals differ by 1
+  and interceptions by 2), retained as a non-blocking build warning but a pricing-trust blocker. Injury
+  report reconciliation and depth-source coverage remain flagged; they were not silently changed in this task.
+
+### Rebase conflict resolution (2026-11-16 UTC)
+
+The first rebase onto `cda4072` (after PR #27) conflicted in `COORDINATION.md` and generated board/report
+outputs; main's injury capture, R068/R069, and close-outs were preserved and derived outputs regenerated.
+The second rebase onto `2952f25` (PR #29) retained its `verify/` close-out and coordination record. The
+third rebase onto `7c8ce4e` (PR #30) retained the separate 148-game results corpus, walk-forward evaluation
+and `verified/` dashboard; its only conflict was the shared coordination claim. The fourth rebase onto
+`2155ed5` (PRs #31 and #32) encountered a coordination conflict plus generated board/report conflicts
+while replaying the integration record. Resolution retained the newer main-side data, source registry,
+board pages and task close-outs; conflicted generated board/report pages were restored from main and then
+regenerated with the merged builder. The T22 question register now distinguishes the board's 33-row model
+input from the separate 148-game corpus, includes the registered Week 10 source `SRC-021`, and describes
+the 100-game walk-forward uncertainty without claiming skill. No canonical data or findings from either
+side were discarded.
+
+### Post-rebase verification (2026-11-16 UTC)
+
+- `python3 scripts/build_week_results.py`: PASS; 148 games / 296 team-games across Weeks 1-10, with
+  W/L/T/PF/PA exactly matching the official standings for all 32 clubs (160 figures). The 100-game
+  walk-forward evaluation reports spread RMSE 12.58 vs 13.31 pick'em (gain +0.055, 95% CI [-0.020,
+  +0.130]) and Brier skill +0.069 vs coin (95% CI [-0.086, +0.229]); both intervals include zero,
+  so no skill advantage is demonstrated. `verify_live.py` checked 15 claims (4 confirmed, 2 not
+  reproducible, 2 partly stale, 2 stale, 5 unverifiable).
+- `python3 scripts/reconcile_injury_capture.py`: structural PASS, 14 game sections, 28 clubs, 347
+  listed rows; generated reconciliation has 36 row/field differences against the older 345-row table.
+  Those discrepancies remain published for review; the capture was not substituted into model inputs.
+- `python3 scripts/build_board.py` and `--check`: PASS; 28 pages and 38 data tables. Readiness register:
+  75 unique requirements, 53 with official source links, 22 explicitly flagged source gaps. `check_links.py`
+  PASS; 28 board pages and 39 external links.
+- The integrated suites pass: `check_site.py` 1,746 assertions; `check_verified_site.py` 605 assertions;
+  `check_verify.py` 203 assertions. `build_site.py`, `build_verified_site.py`, and `build_verify.py`
+  regenerated their pages successfully.
+- Recomputed board model outputs with `compute_lines.py`, `compute_luck.py`, `compute_correlation.py`,
+  `model.py`, `stats_tables.py`, and `make_leaderboard.py`; completed successfully. The board
+  leaderboard remains an empty schema (zero settled bets), and market fields remain deliberately blank.
+- `python3 scripts/verify.py`: G-10 PASS; I-05 confirms all 18 distinct source IDs resolve. The already-
+  published non-blocking V-09b / FLG-025 remains (pass TD delta -1; interceptions delta +2).
+  `build_readiness.py --check` PASS. Depth checks also pass: `verify_depth.py` 16 checks/0 failures;
+  `check_depth_links.py` 9 pages, 134 internal and 502 allowlisted external links.
+- `git diff --check`: PASS. All open data-quality issues remain flagged; these results do not establish
+  profitability, complete historical capture, or operational readiness.

@@ -7,17 +7,19 @@ touch the root-level pages or `docs/`, which another session generates from its 
 two build systems, one repo, no shared output files.
 
 
-Design rules that the whole repo depends on:
+Evidence and publishing rules:
 
-  * Every table row links to a source in data/sources.csv (its source_id), so a
-    reader can always open the official page the value came from.
+  * Evidence-bearing rows link to a registered official source when one applies.
+    Open questions also carry an explicit source_gap so a link is never mistaken for
+    an answer; source links are input references, not proof of capture.
   * A cell that is empty stays empty and renders as "not published", never as 0.
   * Rows whose status/verification column says unverified/partial/blocked get a
     visible badge, and the page shows a verification meter.
-  * The build fails (exit 1) if a link is broken, if verify.py fails, or if a
-    table has a source_id that is not in the registry - "do not merge a broken site".
+  * The build fails (exit 1) if verify.py fails, a question lacks provenance metadata,
+    a question cites a non-official/unregistered source, or its rendered row omits the
+    registered source link or source-gap note.
 
-Usage:  python3 scripts/build_site.py [--check]
+Usage:  python3 scripts/build_board.py [--check]
 """
 
 from __future__ import annotations
@@ -294,6 +296,54 @@ def load_sources():
     SOURCES = {r["source_id"]: r for r in read_rows("sources.csv")}
 
 
+def validate_question_provenance(rows=None):
+    """Require each open question to show official input links or a visible source gap."""
+    rows = read_rows("questions.csv") if rows is None else rows
+    official_classes = {"official-league", "official-government", "official-club"}
+    errors = []
+    if not rows:
+        return ["questions.csv is empty"]
+    for row in rows:
+        qid = row.get("id", "(missing id)")
+        gap = (row.get("source_gap") or "").strip()
+        source_ids = [sid.strip() for sid in (row.get("source_id") or "").split(";") if sid.strip()]
+        if not gap:
+            errors.append(f"{qid}: open question has no explicit source-gap/review note")
+        for sid in source_ids:
+            source = SOURCES.get(sid)
+            if not source:
+                errors.append(f"{qid}: source {sid} is not registered")
+                continue
+            if source.get("class") not in official_classes:
+                errors.append(f"{qid}: {sid} is not an official league, club, or government source")
+            if not (source.get("url") or "").startswith("https://"):
+                errors.append(f"{qid}: {sid} does not have an HTTPS URL")
+    return errors
+
+
+def validate_rendered_question_rows(rows, page):
+    """Catch stale templates that silently drop a question's source or gap from HTML."""
+    errors = []
+    for question in rows:
+        qid = html.escape(question.get("id", ""))
+        marker = f"<td>{qid}</td>"
+        marker_at = page.find(marker)
+        if marker_at < 0:
+            errors.append(f"{qid}: question row is missing from board/questions.html")
+            continue
+        row_start = page.rfind("<tr>", 0, marker_at)
+        row_end = page.find("</tr>", marker_at)
+        row_html = page[row_start:row_end] if row_start >= 0 and row_end >= 0 else ""
+        for sid in [s.strip() for s in (question.get("source_id") or "").split(";") if s.strip()]:
+            source = SOURCES.get(sid)
+            if source and html.escape(source["url"]) not in row_html:
+                errors.append(f"{qid}: rendered row does not link registered source {sid}")
+        gap = html.escape((question.get("source_gap") or "").strip())
+        if not gap or gap not in row_html:
+            errors.append(f"{qid}: rendered row does not display its source-gap note")
+    return errors
+
+
 def header_label(col):
     """Column heading: use the curated label verbatim, else de-snake_case the key."""
     if col in COL_LABELS:
@@ -353,11 +403,17 @@ def render_table(fname, columns=None, caption="", link_col=None, max_rows=None, 
                        "blocking", "severity", "practice_status", "game_status", "flag"):
                 cell = badge_for(val) if val else EMPTY_DASH
                 tds.append("<td>" + cell + "</td>")
+            elif c == "source_gap":
+                if val:
+                    tds.append(f"<td class='wide'><span class=\"badge warn\">UNVERIFIED / SOURCE GAP</span> "
+                               f"{html.escape(val)}</td>")
+                else:
+                    tds.append('<td><span class="none">-</span></td>')
             elif c in ("note", "notes", "detail", "finding", "proposal", "hypothesis", "question",
                        "definition", "pass_criteria", "why_this_removes_luck", "interpretation",
                        "trigger_rule", "action_required", "what_we_have", "what_we_need",
                        "requirement", "evidence_in_repo", "missing_information", "blocking_gate",
-                       "clearance_metric", "recommended_next_step", "source_gap"):
+                       "clearance_metric", "recommended_next_step"):
                 tds.append(f"<td class='wide'>{html.escape(val)}</td>")
             elif val == "":
                 tds.append('<td><span class="none" title="not published - no official source">blank</span></td>')
@@ -568,6 +624,12 @@ def build(check_only: bool = False) -> int:
         if rc != 0:
             return rc
     load_sources()
+    provenance_errors = validate_question_provenance()
+    if provenance_errors:
+        print("BUILD FAIL - question provenance validation failed:")
+        for error in provenance_errors:
+            print(f"  - {error}")
+        return 1
 
     # board/ is a build artefact: recreate it from the sources each time, and copy in exactly the
     # tables this track owns, so the published CSVs and the published pages cannot drift apart.
@@ -702,6 +764,14 @@ def build(check_only: bool = False) -> int:
         with open(os.path.join(BOARD, slug + ".html"), "w", encoding="utf-8") as fh:
             fh.write(html_out)
         built[slug] = html_out
+
+    rendered_question_errors = validate_rendered_question_rows(
+        read_rows("questions.csv"), built["questions"])
+    if rendered_question_errors:
+        print("BUILD FAIL - rendered Questions & Gaps page lost provenance metadata:")
+        for error in rendered_question_errors:
+            print(f"  - {error}")
+        return 1
 
     with open(os.path.join(BOARD, "index.html"), "w", encoding="utf-8") as fh:
         fh.write(built["index"])
