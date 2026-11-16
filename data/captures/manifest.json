@@ -1,0 +1,23 @@
+{
+ "generated_by": "scripts/capture_official.py",
+ "provenance_note": "Hash is SHA-256 of the normalised transcription produced by this script, NOT of NFL.com's raw HTTP bytes. See module docstring.",
+ "captures": [
+  {
+   "file": "data/captures/week10_injuries_2026-11-16.csv",
+   "url": "https://www.nfl.com/injuries/league/2026/reg10",
+   "captured_utc": "2026-11-16T01:31Z",
+   "rows": 347,
+   "clubs": 28,
+   "with_game_designation": 171,
+   "sha256_normalised": "e542ce62d0500f951c0bd225084c81c672a85b46ca7831ae07dc4cc2cf1a8e17"
+  },
+  {
+   "file": "data/captures/week10_results_2026-11-16.csv",
+   "url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+   "captured_utc": "2026-11-16T01:30Z",
+   "rows": 14,
+   "final": 12,
+   "sha256_normalised": "294d4f0e86bc5fae498025ec9a1b944ae8f552de7b18a4e8bcf744eddd2e1315"
+  }
+ ]
+}

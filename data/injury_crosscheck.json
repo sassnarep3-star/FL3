@@ -1,0 +1,47 @@
+{
+ "generated_utc": "2026-11-16T01:33Z",
+ "a": {
+  "file": "data/captures/week10_injuries_2026-11-16.csv",
+  "rows": 347,
+  "read_utc": "2026-11-16T01:31Z"
+ },
+ "b": {
+  "file": "data/injuries_2026_wk10.csv",
+  "rows": 345,
+  "read_utc": "2026-11-14"
+ },
+ "rows_only_in_a": [
+  {
+   "club": "BAL",
+   "player": "Calais Campbell"
+  },
+  {
+   "club": "BAL",
+   "player": "Ronnie Stanley"
+  },
+  {
+   "club": "HOU",
+   "player": "Jacob Hummel"
+  }
+ ],
+ "rows_only_in_b": [
+  {
+   "club": "HOU",
+   "player": "Jake Hummel"
+  }
+ ],
+ "substantive_field_diffs": 16,
+ "punctuation_only_diffs": 0,
+ "localisation": "The delta is a clock, not a transcription error. LAC carries game status on 0 of 19 rows in B (the 2026-11-14 read) and on 9 of 19 rows in A (the 2026-11-16 read); BAL gains 2 rows and 2 statuses; IND Arden Key drops off the report. Both affected clubs play Monday 2026-11-16, so the earlier read is correct-for-its-moment and the later read is correct-for-its-moment, and only the later one describes the game as it will be played.",
+ "practice_progression": {
+  "LAC": "Awosika, Njoku, Mitchell, Shelley: Limited -> Full; Pipkins: Limited -> DNP",
+  "reading": "ordinary week-long progression, not noise"
+ },
+ "rams_abbreviation": {
+  "data/injuries_2026_wk10.csv": "LAR",
+  "data/injuries_2026_w10.csv": "LA",
+  "data/captures/week10_injuries_2026-11-16.csv": "LA"
+ },
+ "rams_abbreviation_consequence": "data/injuries_2026_wk10.csv uses LAR; data/lines_week10.json and the 2026-11-16 capture use LA. A join on abbreviation drops every Rams availability row.",
+ "action_taken": "Published as a delta + flag. Neither transcription was rewritten."
+}
