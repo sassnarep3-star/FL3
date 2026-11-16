@@ -707,3 +707,18 @@ without the edit the board would have existed only in the repository.
 If a future session adds another top-level output directory, it must update the same `cp -r` line, or the
 session's pages will silently not deploy. Worth promoting into the rules block at the top of this file the
 next time that file is edited by an integration task.
+
+# Session `arena/b791a027` — claim, scope and integration record
+
+## Claim (2026-11-16 UTC)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T20 — Publish a unified, evidence-bounded requirement readiness register and connect it to the dashboard | **in progress** | `arena/b791a027` | `data/requirements_readiness.csv`, `scripts/build_readiness.py`, `board/readiness.html`, `board/index.html`, `COORDINATION.md` |
+
+This is the current Arena branch and is the sole scope for this session. Existing shared tracks are
+not being rewritten. Baseline audit before edits: `scripts/verify.py` completed with the known V-09b
+source discrepancy (`FLG-025`); `scripts/check_links.py` passed (20 board pages); `scripts/check_site.py`
+passed (1,262 assertions). The readiness register will describe evidence and blockers as they exist in
+the checked-out snapshot, not imply that a feature or live feed is operational. Official source links
+are limited to NFL/club-operated properties already registered or referenced in the repository.
