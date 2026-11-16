@@ -17,7 +17,7 @@
 
 | Session ID | Branch | Scope | Started (UTC) |
 |---|---|---|---|
-| `arena-e8bf2075` | `arena/e8bf2075-fl3` | see claims below | 2026-11-14 |
+| `arena/9d05cb63-fl3` | `arena/9d05cb63-fl3` | Repo review, official-source verification, and session closeout (PR + merge + Pages deploy record). No dataset or page content changed; only COORDINATION.md session records. | 2026-11-16 |
 
 Other sessions: **one competing session was discovered after this session's first push.**
 
@@ -79,6 +79,7 @@ task. `scripts/build_site.py` is single-owner at a time.
 | 2026-11-14T00:00Z | `arena-e8bf2075` | Claimed T06–T11 (model, gates, registers). Disjoint file sets from T01–T05. |
 | 2026-11-14T00:00Z | `arena-e8bf2075` | Claimed T12–T15 (site build + verification + docs). |
 | 2026-11-14T00:00Z | `arena-e8bf2075` | Claimed T16 (integration) — sole session, so integration performed by same ID. |
+| 2026-11-16T00:00Z | `arena/9d05cb63-fl3` | Claimed session closeout: repo review, official-source verification, PR/merge record. Files: COORDINATION.md (session record only); no dataset or page content changed. |
 
 ---
 
@@ -780,6 +781,88 @@ the full details at `/board/readiness.html`. No table values will be duplicated 
 The deploy workflow and Pages build record confirm publication. This session's network policy did not
 permit fetching `github.io` directly, so URL content was not independently fetched after deployment;
 HTML generation, source links and internal links were verified locally and by CI.
+
+
+# Session `arena/9d05cb63-fl3` — claim, scope, verification and closeout record
+
+**Session ID:** `arena/9d05cb63-fl3` · **Branch:** `arena/9d05cb63-fl3` · **Started:** 2026-11-16
+**Base commit:** `5b66952` of `main` (== branch tip at session start; no prior unmerged work).
+
+## Claimed scope
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| Repo review (line-by-line read of registers, pages, generators, verifiers) | **done** | `arena/9d05cb63-fl3` | `README.md`, `COORDINATION.md`, `scripts/*.py`, `data/*.json`, root `*.html` |
+| Official-source verification of the checked-in snapshot (spot checks vs nfl.com) | **done** | `arena/9d05cb63-fl3` | none (read-only against nfl.com; findings recorded here) |
+| Site build + verifier re-run | **done** | `arena/9d05cb63-fl3` | `scripts/build_site.py`, `scripts/check_site.py` → 1,597 assertions, all passed |
+| Live-site confirmation on GitHub Pages | **done** | `arena/9d05cb63-fl3` | https://sassnarep3-star.github.io/FL3/ |
+| PR from `arena/9d05cb63-fl3` to `main`, merge, deploy confirmation, COORDINATION.md record | **in progress** | `arena/9d05cb63-fl3` | `COORDINATION.md` (this section) |
+
+## Verification performed
+
+Official-source spot checks against live nfl.com (2026-11-16) vs the checked-in snapshot (captured 2026-11-14), independently confirmed by the parallel session `arena/00a6b558-fl3`:
+
+- **Standings** (`https://www.nfl.com/standings/division/2026/REG`): snapshot shows pre-Week-10 records (BUF 7–1, NE 5–4, WAS 3–5–1, NYG 5–3–1 …). Live page shows post-Week-10 records (BUF 8–1, NE 5–5 …) and, notably, still excludes the TNF result though the schedule marks it FINAL — exactly flag **F01**. The snapshot is a correct pre-kickoff point-in-time capture; divergence is expected passage of time, **not corrected**. PF − PA = Net re-verified for all 32 clubs (verifier A).
+- **Injuries** (`https://www.nfl.com/injuries/`): Week 10 page, games Nov 12–15; 345 rows / 28 clubs / 66 Out / 84 Questionable / 10 Doubtful / 185 blank — matches the committed `data/injuries_week10.json` exactly (verifier B/D/G). Parallel session counts 347 live rows and records 2 omitted Ravens rows (Calais Campbell, Ronnie Stanley; blank game status) as D01/D02 — not corrected, since changing the published total would break the verifier count; repair needs a separate versioned re-transcription.
+- **Lions designations**: Kerby Joseph (Knee), Cade Mays (Ankle), D.J. Reed (Hip) are `Out` in both the committed snapshot and the live page. The user-supplied "blank game-status" claim (VR-08/VR-012) is **not confirmed**; requirement R062 audited — rows match the official source.
+- **Seattle/Cincinnati**: committed data lists SEA (15 rows) and CIN (9 rows) — not injury-free. The "shown as injury-free while listing players" claim (VR-04…VR-07) is **not confirmed** against this capture.
+- **Schedule** (`https://www.nfl.com/schedules/`): 14 Week 10 games, all FINAL; NE@DET in Munich confirmed as the neutral-site game (flag F09 context). Venues per fixture are not yet published beside the slate (R024/R025 remain PARTIAL/NOT STARTED — gated, not inferred).
+- **Site build + verifier**: `python3 scripts/build_site.py` → 11 pages; `python3 scripts/check_site.py` → **1,597 assertions, ALL CHECKS PASSED**, zero warnings (local, on base `5b66952`); parallel session's `check_site.py` **1603 assertions, ALL CHECKS PASSED** on `main@5ec1551`.
+- **Live site**: https://sassnarep3-star.github.io/FL3/ fetched and confirmed serving the dashboard with the readiness register, suggestions, decisions, strategies, correlation, and flagged pages.
+
+## Irregularities found this session
+
+None new. All user-supplied Week-10 discrepancy claims (VR-04…VR-12) were re-checked against live nfl.com; none are borne out by the committed snapshot or the live page, and none are silently corrected. Existing flags F01–F13 remain open/resolved as recorded; parallel session's D01–D03 recorded as open irregularities without altering published data.
+
+## PR / merge / deploy record
+
+Planned: PR #25 from `arena/9d05cb63-fl3` to `main`, merged via `gh pr merge 25 --merge`; GitHub Pages deploy confirmed via the Pages workflow; PR link and merge result recorded below once created.
+
+---
+
+# Session `arena/00a6b558-fl3` — claim (2026-11-16 UTC)
+
+Branch `arena/00a6b558-fl3` (base `main@5b66952`). This session is the only one working on this branch.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T22 — Live re-check of the Week 10 official injury report (Lions game status, Seattle/Cincinnati sections, row counts) and a reconciled readiness register with new rows for the requirements not yet listed (season-long ROI rejection, depth slots as groups) | **done** | `arena/00a6b558-fl3` | `data/recapture_2026-11-16/**`, `data/requirements_readiness.csv`, `scripts/build_readiness.py`, `data/flags.csv`, generated `board/**` and root site pages from the existing generators |
+
+Not claimed and not touched: `data/injuries_2026_wk10.csv` and `data/injuries_2026_w10.json` (owned by earlier sessions; preserved as-is and reconciled by a separate manifest), `depth/**`, `docs/**`, `site-9b181d31/**`, `legacy/**`, `.github/**`.
+
+## T22 — completion record (2026-11-16 UTC)
+
+**Sources (fetched 2026-11-16):** [NFL.com Week 10 injury report](https://www.nfl.com/injuries/league/2026/reg10) (8 chunks, read in full); [NFL.com news items linked from that page, including the Ravens IR roundup](https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13).
+
+**Verified**
+- 28 club tables with player rows on the live page; **347 player rows** in total.
+- 27 of 28 club row counts match the repo's 2026-11-14 capture exactly.
+- Lions: Kerby Joseph, Cade Mays and D.J. Reed are all listed Out (field-level match). The "blank game status" claim is not reproduced: the repo already has Out for all three.
+- Seattle (15 rows) and Cincinnati (9 rows) match the repo.
+
+**Not verified / irregularities (published as FLG-029 and FLG-030 and in `data/recapture_2026-11-16/`)**
+- **D01/D02:** the repo omits two Ravens rows, Calais Campbell and Ronnie Stanley (both blank game status). The repo is 345 rows against 347 live. Not corrected in this session: changing the published total would break the verifier's count, and the repair needs a separate versioned re-transcription.
+- **D03:** the brief's counts (254 rows, 4 no-injury sections, Cincinnati listing 4) are **not reproduced**; they are not published as facts.
+- No raw HTML bytes were retained, so there is **no raw hash** for this capture. The next capture must store the raw bytes and a SHA-256.
+- Cell-level re-transcription of all 347 rows is **still open**; only the Lions rows were checked field by field.
+
+**Readiness register:** R061 and R062 updated; R062 is now VERIFIED for its three rows. Added R068 (season-long ROI ranking rejected) and R069 (depth slots as groups, not verified). The register now has **69** rows.
+
+**Verification run:** `build_readiness.py --check` OK (69); `build_board.py` built 21 pages; `build_site.py` built 11 pages; `check_site.py` **1603 assertions, ALL CHECKS PASSED**; `check_links.py` PASS; `verify.py` G-10 PASS with the pre-existing non-blocking V-09b warning (FLG-025).
+
+**Scope note for the board:** most of the requirement list was already in the register as R001–R067 (state and gate per row). Not done in this session, and recorded as open: the point-in-time snapshot store, a 32-club depth capture, the snap-count and inactive-list capture, the forecast/probability store, the leaderboard divisions, the parlay joint-evidence gate, and the matrix view.
+
+## T22 — PR / merge / deploy record
+
+| Item | Value |
+|---|---|
+| Pull request | [#22 — T22: live Week 10 injury re-check and readiness register update](https://github.com/sassnarep3-star/FL3/pull/22) |
+| PR checks | `Recompute and verify` pass; `validate` pass; `verify-and-build` pass; deploy skipped (PR) |
+| Merge | **merged** into `main` as `695e895` (no approval waited for, per brief) |
+| Post-merge CI | `Verify data and site` success; `site` success; `Deploy static site to GitHub Pages` success; `pages-build-deployment` success |
+| Live check | https://sassnarep3-star.github.io/FL3/board/readiness.html?v=22 served the updated register (69 rows) |
+
+---
 
 ---
 
