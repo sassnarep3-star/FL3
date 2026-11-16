@@ -800,12 +800,20 @@ HTML generation, source links and internal links were verified locally and by CI
 
 ## Verification performed
 
-None yet — official-source spot checks are the next step. The checked-in snapshot is dated 2026-11-14; today is 2026-11-16, so any difference found against live nfl.com pages is treated as **expected snapshot staleness**, not corrected silently (the snapshot is a point-in-time capture; changing it would break the recomputation checks and the dated-record contract).
+Official-source spot checks against live nfl.com (2026-11-16) vs the checked-in snapshot (captured 2026-11-14):
+
+- **Standings** (`https://www.nfl.com/standings/division/2026/REG`): snapshot shows pre-Week-10 records (BUF 7–1, NE 5–4, WAS 3–5–1, NYG 5–3–1 …). Live page shows post-Week-10 records (BUF 8–1, NE 5–5 …) and, notably, still excludes the TNF result though the schedule marks it FINAL — exactly flag **F01**. The snapshot is a correct pre-kickoff point-in-time capture; divergence is expected passage of time, **not corrected**. PF − PA = Net re-verified for all 32 clubs (verifier A).
+- **Injuries** (`https://www.nfl.com/injuries/`): Week 10 page, games Nov 12–15; 345 rows / 28 clubs / 66 Out / 84 Questionable / 10 Doubtful / 185 blank — matches the committed `data/injuries_week10.json` exactly (verifier B/D/G).
+- **Lions designations**: Kerby Joseph (Knee), Cade Mays (Ankle), D.J. Reed (Hip) are `Out` in both the committed snapshot and the live page. The user-supplied "blank game-status" claim (VR-08/VR-012) is **not confirmed**; requirement R062 audited — rows match the official source.
+- **Seattle/Cincinnati**: committed data lists SEA (15 rows) and CIN (9 rows) — not injury-free. The "shown as injury-free while listing players" claim (VR-04…VR-07) is **not confirmed** against this capture.
+- **Schedule** (`https://www.nfl.com/schedules/`): 14 Week 10 games, all FINAL; NE@DET in Munich confirmed as the neutral-site game (flag F09 context). Venues per fixture are not yet published beside the slate (R024/R025 remain PARTIAL/NOT STARTED — gated, not inferred).
+- **Site build + verifier**: `python3 scripts/build_site.py` → 11 pages; `python3 scripts/check_site.py` → **1,597 assertions, ALL CHECKS PASSED**, zero warnings.
+- **Live site**: https://sassnarep3-star.github.io/FL3/ fetched and confirmed serving the dashboard with the readiness register, suggestions, decisions, strategies, correlation, and flagged pages.
 
 ## Irregularities found this session
 
-None yet.
+None new. All user-supplied Week-10 discrepancy claims (VR-04…VR-12) were re-checked against live nfl.com; none are borne out by the committed snapshot or the live page, and none are silently corrected. Existing flags F01–F13 remain open/resolved as recorded.
 
 ## PR / merge / deploy record
 
-Pending — see "Claimed scope" above.
+Planned: PR from `arena/9d05cb63-fl3` to `main`, merged via `gh pr merge <N> --merge`; GitHub Pages deploy confirmed via the Pages workflow; PR link and merge result recorded below once created.
