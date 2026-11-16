@@ -17,7 +17,11 @@
 
 <h1>Flagged for Review</h1>
 <p class="lede">Every irregularity, open question and unverified item, with the link to check it.
+<<<<<<< HEAD
 15 open. Nothing on this page blocks the site: it is the list you asked to review after
+=======
+19 open. Nothing on this page blocks the site: it is the list you asked to review after
+>>>>>>> origin/main
 publication.</p>
 
 <div class="note">
@@ -210,6 +214,7 @@ publication.</p>
         </article>
         <article class="flag" id="F14">
           <header>
+<<<<<<< HEAD
             <h3><span class="sid">F14</span> Board and model-input Week 10 injury copy holds 160 of 347 official rows</h3>
             <div><span class="badge bad">high severity</span> <span class="badge warn">open</span></div>
           </header>
@@ -291,6 +296,159 @@ publication.</p>
             <dt>Action needed</dt><dd>Owner decision: point each row to the week-specific page and its capture date.</dd>
           </dl>
           <ul class="evid"><li><a class="src" href="https://www.nfl.com/injuries/league/2026/reg10" target="_blank" rel="noopener">Official Week 10 injury report</a></li></ul>
+=======
+            <h3><span class="sid">F14</span> Three files publish &#x27;our&#x27; Week 10 line, on two sign conventions, and disagree by 6.72 pts</h3>
+            <div><span class="badge bad">high severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>data/lines_week10.json (root site), data/lines_origination.csv (board site) and data/2026-week10-lines.csv (no generator) all publish a Week 10 line. compute_lines.py emits home_spread=-margin; model.py emits expected_home_margin with the opposite sign. On one axis they differ by 6.72 pts mean absolute across 14 fixtures. WAS-NYG finished 24-21 away: A said home +4.1, B said home +3.5.</dd>
+            <dt>Why it matters</dt><dd>Two different answers to &#x27;what did we think the line was&#x27; are published on two pages of one site, with nothing reconciling them.</dd>
+            <dt>Could not confirm</dt><dd>Which series the owner intends to be canonical - that is a decision, not a fact discoverable in the repo.</dd>
+            <dt>Effect on the lines</dt><dd>Two different answers to &#x27;what did we think the line was&#x27; are published on two pages of one site, with nothing reconciling them.</dd>
+            <dt>Action needed</dt><dd>See the linked page for the evidence and the decision required.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">results used for the comparison</a></li></ul>
+        </article>
+        <article class="flag" id="F15">
+          <header>
+            <h3><span class="sid">F15</span> The site snapshot predates the results of the games it prices</h3>
+            <div><span class="badge bad">high severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>Pages stamped 2026-11-14. Week 10 Sunday slate played 2026-11-15. Re-capture 2026-11-16: 22 of 32 clubs changed; injury report 160 rows/26 clubs -&gt; 347 rows/28 clubs.</dd>
+            <dt>Why it matters</dt><dd>A reader is shown prices for settled games with no result beside them, and availability that changed after kickoff.</dd>
+            <dt>Could not confirm</dt><dd>Nothing - the dates are on the pages themselves.</dd>
+            <dt>Effect on the lines</dt><dd>A reader is shown prices for settled games with no result beside them, and availability that changed after kickoff.</dd>
+            <dt>Action needed</dt><dd>See the linked page for the evidence and the decision required.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.nfl.com/injuries/league/2026/reg10" target="_blank" rel="noopener">injury report, both reads</a></li><li><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">settled results</a></li></ul>
+        </article>
+        <article class="flag" id="F16">
+          <header>
+            <h3><span class="sid">F16</span> The same official injury URL, read 48 hours apart, gives materially different availability for unplayed games</h3>
+            <div><span class="badge bad">high severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>LAC: 0 of 19 game designations on 2026-11-14 -&gt; 9 of 19 on 2026-11-16. BAL: +2 rows, +2 designations. IND Arden Key drops off the report. Practice grades progress normally.</dd>
+            <dt>Why it matters</dt><dd>A single capture is a snapshot of a clock, not of the truth. Pricing from a frozen read uses less information than was available.</dd>
+            <dt>Could not confirm</dt><dd>Whether the league intends a stable final report - NFL did not publish a retention guarantee in any page read this session.</dd>
+            <dt>Effect on the lines</dt><dd>A single capture is a snapshot of a clock, not of the truth. Pricing from a frozen read uses less information than was available.</dd>
+            <dt>Action needed</dt><dd>See the linked page for the evidence and the decision required.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.nfl.com/injuries/league/2026/reg10" target="_blank" rel="noopener">both reads</a></li></ul>
+        </article>
+        <article class="flag" id="F17">
+          <header>
+            <h3><span class="sid">F17</span> Rams abbreviation differs between files; a join silently drops 14 rows</h3>
+            <div><span class="badge warn">medium severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>data/injuries_2026_wk10.csv uses LAR; data/injuries_2026_w10.csv, data/captures/week10_injuries_2026-11-16.csv and data/lines_week10.json use LA.</dd>
+            <dt>Why it matters</dt><dd>Any cross-file availability join loses the Rams entirely with no error.</dd>
+            <dt>Could not confirm</dt><dd>Which abbreviation NFL.com treats as canonical; the site uses both in different contexts.</dd>
+            <dt>Effect on the lines</dt><dd>Any cross-file availability join loses the Rams entirely with no error.</dd>
+            <dt>Action needed</dt><dd>See the linked page for the evidence and the decision required.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.nfl.com/injuries/league/2026/reg10" target="_blank" rel="noopener">club logo code LA</a></li></ul>
+        </article>
+        <article class="flag" id="F18">
+          <header>
+            <h3><span class="sid">F18</span> Club depth charts publish no effective date (2 of 3 sampled), so they cannot be proved pre-kickoff</h3>
+            <div><span class="badge warn">medium severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>Green Bay: &#x27;Unofficial, Nov. 10, 2026&#x27; (6 days old). Seattle: none. Baltimore: none.</dd>
+            <dt>Why it matters</dt><dd>An undated chart cannot be versioned against a kickoff time and so cannot enter a backtest without lookahead risk.</dd>
+            <dt>Could not confirm</dt><dd>Whether a dated archive exists elsewhere on the club sites - not searched exhaustively.</dd>
+            <dt>Effect on the lines</dt><dd>An undated chart cannot be versioned against a kickoff time and so cannot enter a backtest without lookahead risk.</dd>
+            <dt>Action needed</dt><dd>See the linked page for the evidence and the decision required.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.packers.com/team/depth-chart" target="_blank" rel="noopener">dated</a></li><li><a class="src" href="https://www.seahawks.com/team/depth-chart/" target="_blank" rel="noopener">undated</a></li><li><a class="src" href="https://www.baltimoreravens.com/team/depth-chart/" target="_blank" rel="noopener">undated</a></li></ul>
+        </article>
+        <article class="flag" id="F19">
+          <header>
+            <h3><span class="sid">F19</span> Depth charts break a &#x27;column 1 = starter&#x27; parse in six distinct ways</h3>
+            <div><span class="badge warn">medium severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>1 shared slot, 5 duplicate rank-1, 6 duplicate rank-2, 2 empty rank-1, 1 continuation row, 1 image-only chart across 3 transcribed clubs.</dd>
+            <dt>Why it matters</dt><dd>Reading column 1 as &#x27;the starter&#x27; fabricates a starter the club never named and double-counts players holding two slots.</dd>
+            <dt>Could not confirm</dt><dd>How the clubs intend shared slots to be read - they publish no explanation.</dd>
+            <dt>Effect on the lines</dt><dd>Reading column 1 as &#x27;the starter&#x27; fabricates a starter the club never named and double-counts players holding two slots.</dd>
+            <dt>Action needed</dt><dd>See the linked page for the evidence and the decision required.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.seahawks.com/team/depth-chart/" target="_blank" rel="noopener">shared slot</a></li></ul>
+        </article>
+        <article class="flag" id="F20">
+          <header>
+            <h3><span class="sid">F20</span> Texans depth chart is image-only - confirmed, and it is not fixable by parsing</h3>
+            <div><span class="badge auto">info severity</span> <span class="badge ok">resolved</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>Heading &#x27;Unofficial Depth Chart&#x27;, body is one raster image. No player text in the HTML.</dd>
+            <dt>Why it matters</dt><dd>1 of 32 clubs cannot supply depth from its own page.</dd>
+            <dt>Could not confirm</dt><dd>Whether an authorised structured feed exists for Houston depth.</dd>
+            <dt>Effect on the lines</dt><dd>1 of 32 clubs cannot supply depth from its own page.</dd>
+            <dt>Action needed</dt><dd>See the linked page for the evidence and the decision required.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.houstontexans.com/team/depth-chart/" target="_blank" rel="noopener">image body</a></li></ul>
+        </article>
+        <article class="flag" id="F21">
+          <header>
+            <h3><span class="sid">F21</span> Packers jersey-number prefix is confirmed and recoverable</h3>
+            <div><span class="badge auto">info severity</span> <span class="badge ok">resolved</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>Every cell is &#x27;&lt;jersey&gt; &lt;name&gt;&#x27;, e.g. &#x27;9 Christian Watson&#x27;. Jersey and name are now stored separately plus the raw string.</dd>
+            <dt>Why it matters</dt><dd>Recorded because the brief named it; it is a solved parse, not a blocker.</dd>
+            <dt>Could not confirm</dt><dd>Nothing.</dd>
+            <dt>Effect on the lines</dt><dd>Recorded because the brief named it; it is a solved parse, not a blocker.</dd>
+            <dt>Action needed</dt><dd>See the linked page for the evidence and the decision required.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.packers.com/team/depth-chart" target="_blank" rel="noopener">jersey prefix</a></li></ul>
+        </article>
+        <article class="flag" id="F22">
+          <header>
+            <h3><span class="sid">F22</span> Two claims in the brief do not match the live official pages</h3>
+            <div><span class="badge auto">info severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>(a) &#x27;Seattle and Cincinnati shown injury-free&#x27;: SEA carries 15 rows and CIN 9 on 2026-11-16, and neither file shows them injury-free. (b) &#x27;Three Lions game statuses are blank&#x27;: Kerby Joseph, Cade Mays and D.J. Reed all read &#x27;Out&#x27; in the checked-in file and on the live page. (c) &#x27;Ravens still list Lamar Jackson and Tyler Huntley&#x27;: the chart reads Brissett / Fagnano / Slovis.</dd>
+            <dt>Why it matters</dt><dd>A correction based on any of these would have introduced an error into data that was already right.</dd>
+            <dt>Could not confirm</dt><dd>Which version of the pages the brief&#x27;s author saw - the page could have changed, or the claim could have come from a different rendering.</dd>
+            <dt>Effect on the lines</dt><dd>A correction based on any of these would have introduced an error into data that was already right.</dd>
+            <dt>Action needed</dt><dd>See the linked page for the evidence and the decision required.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.nfl.com/injuries/league/2026/reg10" target="_blank" rel="noopener">injury report</a></li><li><a class="src" href="https://www.baltimoreravens.com/team/depth-chart/" target="_blank" rel="noopener">QB order</a></li></ul>
+        </article>
+        <article class="flag" id="F23">
+          <header>
+            <h3><span class="sid">F23</span> The only scored sample is 11 games, skewed, and says more about variance than about skill</h3>
+            <div><span class="badge warn">medium severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>Brier skill vs coin +0.194, 95% CI [-0.018,+0.385]. vs base rate -0.016. Dispersion ratio 0.24. Luck gap +1.39 wins.</dd>
+            <dt>Why it matters</dt><dd>Any promotion, demotion or reward decision taken on this sample would be a decision taken on noise.</dd>
+            <dt>Could not confirm</dt><dd>Whether the model has skill. The sample cannot answer it either way.</dd>
+            <dt>Effect on the lines</dt><dd>Any promotion, demotion or reward decision taken on this sample would be a decision taken on noise.</dd>
+            <dt>Action needed</dt><dd>See the linked page for the evidence and the decision required.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">settled results</a></li></ul>
+        </article>
+        <article class="flag" id="F24">
+          <header>
+            <h3><span class="sid">F24</span> Model spread opinions are ~4x narrower than realised margins</h3>
+            <div><span class="badge bad">high severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>sd(model margins)=3.41 vs sd(actual)=14.39 over 11 pre-kickoff forecasts. Bias +7.91 pts, 28% of MSE.</dd>
+            <dt>Why it matters</dt><dd>A near-constant forecast cannot produce a line-test edge regardless of its mean accuracy.</dd>
+            <dt>Could not confirm</dt><dd>The cause - under-dispersion can come from over-regularised ratings, a small weight on availability, or simply too few inputs.</dd>
+            <dt>Effect on the lines</dt><dd>A near-constant forecast cannot produce a line-test edge regardless of its mean accuracy.</dd>
+            <dt>Action needed</dt><dd>See the linked page for the evidence and the decision required.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">settled results</a></li></ul>
+>>>>>>> origin/main
         </article>
 
 </main>

@@ -1,0 +1,27 @@
+section,metric,value,note
+probability,brier_model,0.2015,lower is better
+probability,brier_coin,0.25,coin-flip benchmark
+probability,brier_base_rate,0.1983,honest benchmark
+probability,bss_vs_coin,0.194,positive = beats a coin
+probability,bss_vs_coin_ci95_low,-0.0181,game-cluster bootstrap
+probability,bss_vs_coin_ci95_high,0.3848,interval includes zero
+probability,bss_vs_base_rate,-0.016,negative = worse than base rate
+probability,logloss_model,0.5932,
+probability,logloss_coin,0.6931,
+probability,logloss_base_rate,0.586,
+probability,headline_sample_n,11,Thursday game excluded: final before the forecast
+pricing,bias_pts,7.9091,
+pricing,mae_pts,12.0364,
+pricing,rmse_pts,14.8902,
+pricing,sd_model_margins,3.4062,
+pricing,sd_actual_margins,14.393,
+pricing,dispersion_ratio,0.2367,
+luck,picks_won,8,
+luck,expected_wins_by_own_probabilities,6.61,
+luck,luck_gap_wins,1.39,"variance, not skill"
+calibration,0.00-0.40,n=4 stated=0.355 observed=0.000,
+calibration,0.40-0.50,n=1 stated=0.430 observed=0.000,
+calibration,0.50-0.60,n=4 stated=0.553 observed=0.500,
+calibration,0.60-0.70,n=2 stated=0.622 observed=0.500,
+calibration,0.70-1.01,n=0 stated= observed=,
+verdict,verdict,,"One 11-game sample cannot establish skill. On this sample the model beats a coin flip on Brier but is WORSE than quoting the sample base rate, its spread opinions are under-dispersed by a factor of about four relative to realised margins, and its picks benefited from luck. Nothing here clears a validation gate."

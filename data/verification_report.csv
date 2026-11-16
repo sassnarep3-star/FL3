@@ -13,7 +13,7 @@ V-11,published rates that sit on the 1-decimal rounding boundary,WARN,"passes on
 V-10,injury rows use only legal designations and known clubs,PASS,160 rows with a game-status designation,,yes,identity satisfied
 I-01,games verified through Week 9 (league),DERIVED,games=137; tied=1; points/game=45.92 per club,32,,
 I-02,game-level coverage of the season,PARTIAL,data/games_2026.csv holds 33 rows vs 137 verified games (24.1% coverage) - see FLG-016,33,,
-I-05,every cited source id is registered in data/sources.csv,PASS,all 15 distinct source ids resolve,,yes,identity satisfied
+I-05,every cited source id is registered in data/sources.csv,PASS,all 17 distinct source ids resolve,,yes,identity satisfied
 I-06,"model output completeness (ours filled, market's deliberately blank)",PASS,"14/14 rows carry our number; 0/14 carry a market number - the gap is Q-01, not an omission",,yes,identity satisfied
 I-06b,no market value was invented anywhere,PASS,market_spread/market_total/market_source must stay blank while SRC-016 is not acquired,,no,identity satisfied
 I-07,every data/*.csv row parses with exactly its header's field count,PASS,"23 files, all rows well-formed",,yes,identity satisfied

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Removal of luck - prospective scoring</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><a href="index.html"><strong>FL3</strong> <span>NFL line origination board</span></a></div>
+  <div class="stamp">official data read 2026-11-14 UTC</div>
+</header>
+<div class="wrap">
+<nav class="side"><div class="navgroup"><span>Read first</span><a href="executive-summary.html">Executive summary</a><a href="readiness.html">Requirement readiness</a><a href="decision-queue.html">Decision queue</a><a href="questions.html">Questions & gaps</a><a href="suggestions.html">Suggestions</a></div><div class="navgroup"><span>Verified data</span><a href="standings.html">Standings</a><a href="games.html">Game results</a><a href="team-stats.html">Team stats</a><a href="injuries.html">Injuries & availability</a><a href="official-capture.html">Injury capture</a><a href="league-facts.html">League facts</a><a href="results.html">Results feed</a><a href="depth-evidence.html">Depth evidence</a></div><div class="navgroup"><span>Model & signals</span><a href="model.html">Model</a><a href="parameters.html">Parameter register</a><a href="lines.html">Lines</a><a href="luck.html" class=on>Removal of luck</a><a href="line-provenance.html">Line provenance</a><a href="signals.html">Signals</a><a href="correlation.html">Correlation</a><a href="validation.html">Validation gates</a><a href="leaderboard.html">Leaderboard</a></div><div class="navgroup"><span>Verification & ops</span><a href="data-freshness.html">Data freshness</a><a href="methodology.html">Methodology</a><a href="verification.html">Verification log</a><a href="sources.html">Sources</a><a href="flagged.html">Flagged for review</a></div>
+  <div class="navgroup"><span>This repo has two published tracks</span>
+    <a href="../index.html" title="the sibling dashboard built from data/*.json by scripts/build_site.py">Sibling dashboard (root)</a>
+    <a href="../docs/index.html" title="the sibling track's documentation section">Sibling docs</a>
+    <a href="../COORDINATION.md" title="shared task board - claims, scopes, source log">Task board</a>
+  </div>
+  <div class="navgroup"><span>Repo</span>
+    <a href="https://github.com/sassnarep3-star/FL3" rel="noopener nofollow" target="_blank">GitHub</a>
+    <a href="https://github.com/sassnarep3-star/FL3/blob/main/COORDINATION.md" rel="noopener nofollow" target="_blank">Coordination board</a>
+  </div>
+</nav>
+<main>
+<h1 id="removal-of-luck-the-first-prospective-grade">Removal of luck — the first prospective grade</h1>
+<p>This page answers one question, for the first time with evidence rather than assertion:</p>
+<blockquote><strong>Did the numbers on this site beat a coin flip, or did they get lucky?</strong></blockquote>
+<p>Short answer: <strong>a bit of both, and the sample is far too small to say which.</strong> Read the rest of this page before quoting that sentence without it.</p>
+<h2 id="method-and-why-each-choice-was-made">Method, and why each choice was made</h2>
+<ul>
+<li><strong>The forecast was frozen before kickoff.</strong> <code>data/lines_week10.json</code> carries</li>
+</ul>
+<p><code>meta.model_run_date = 2026-11-14</code>. It was written before the Sunday 2026-11-15 slate.</p>
+<ul>
+<li><strong>The Thursday game is excluded.</strong> WAS-NYG (24-21) was already final when the forecast file was</li>
+</ul>
+<p>written, so scoring it would be scoring a post-hoc number. It appears in the results table and not in the headline sample. <strong>Headline n = 11.</strong></p>
+<ul>
+<li><strong>Every game counts once.</strong> The Brier interval is a game-level bootstrap (20,000 resamples,</li>
+</ul>
+<p>seed 20261116), not a per-observation interval, because games are the unit that was forecast.</p>
+<ul>
+<li><strong>Two benchmarks, both reported.</strong> A coin flip is a weak benchmark; anyone can beat a coin.</li>
+</ul>
+<p>The sample's own base rate is the honest one, and it is the one that hurts.</p>
+<ul>
+<li><strong>No p-value, no ROI, no CLV.</strong> n=11 cannot support a p-value; there is no licensed price to</li>
+</ul>
+<p>compute ROI or closing-line value against (Q-01 / FLG-010). Both are listed as missing rather than estimated.</p>
+<h2 id="what-the-numbers-say">What the numbers say</h2>
+<div class="tablewrap"><table><thead><tr><th>Test</th><th>Model</th><th>Benchmark</th><th>Result</th><th>Reading</th></tr></thead><tbody><tr><td>Brier score (lower is better)</td><td>0.2015</td><td>coin 0.2500</td><td><strong>beat by 0.048</strong></td><td>better than a coin</td></tr><tr><td>Brier score</td><td>0.2015</td><td>base rate 0.1983</td><td><strong>lost by 0.003</strong></td><td>worse than always quoting "27% home"</td></tr><tr><td>Brier skill vs coin</td><td>—</td><td>—</td><td><strong>+0.194</strong>, 95% CI <strong>[-0.018, +0.385]</strong></td><td>the interval includes zero</td></tr><tr><td>Log loss</td><td>0.5932</td><td>coin 0.6931</td><td>beat</td><td>consistent with Brier</td></tr><tr><td>Log loss</td><td>0.5932</td><td>base rate 0.5860</td><td>lost</td><td>consistent with Brier</td></tr></tbody></table></div>
+<p>Two things follow, and they are the whole point of this page:</p>
+<p>1. <strong>The coin-flip win is not established.</strong> The bootstrap interval on the skill score runs from slightly negative to strongly positive. On 11 games that is what "we cannot tell yet" looks like when you write it down honestly instead of rounding it to a win. 2. <strong>The right benchmark beats the model.</strong> Home teams won only 3 of 11 games in this sample. A model that never deviates from "27% home" would have scored slightly better. This is a property of a small, skewed sample more than a verdict on the model — which is exactly why the model cannot be declared good or bad from it.</p>
+<h2 id="pricing-error-decomposed">Pricing error, decomposed</h2>
+<p>A single error number hides two different diseases. Bias is a constant offset and is cheap to fix. Dispersion is how spread out the model's opinions are compared with reality, and it is not cheap.</p>
+<div class="tablewrap"><table><thead><tr><th>Quantity</th><th>Value</th><th>Why it matters</th></tr></thead><tbody><tr><td>Mean signed error (bias)</td><td><strong>+7.91 pts</strong></td><td>the model is systematically ~8 points too "home"</td></tr><tr><td>Mean absolute error</td><td>12.04 pts</td><td>per-game accuracy</td></tr><tr><td>RMSE</td><td>14.89 pts</td><td>punishing large misses, as it should</td></tr><tr><td>MSE decomposition</td><td>221.7 = bias² 62.6 + error variance 159.2</td><td>~28% of the error is a fixable constant</td></tr><tr><td>sd of model margins</td><td>3.41 pts</td><td></td></tr><tr><td>sd of actual margins</td><td>14.39 pts</td><td></td></tr><tr><td><strong>Dispersion ratio</strong></td><td><strong>0.24</strong></td><td>the model's opinions are ~4× too timid</td></tr></tbody></table></div>
+<p><strong>This is the most actionable finding in the repository.</strong> The model varies its forecast spread across games by about 3.4 points. Reality varied by about 14.4. A forecast that is nearly constant cannot pass a line test however good its average is, and the repository's own availability adjustments are applied at a scale far smaller than the noise they are meant to explain. Fixing bias does not fix this; the opinion distribution itself has to widen, and widening it requires knowing <em>which</em> games are genuinely more uncertain — which needs the inputs this repo does not yet capture.</p>
+<h2 id="result-luck">Result luck</h2>
+<div class="tablewrap"><table><thead><tr><th>Quantity</th><th>Value</th></tr></thead><tbody><tr><td>Picks won</td><td>8 of 11</td></tr><tr><td>Expected wins, from the model's own probabilities</td><td>6.61 of 11</td></tr><tr><td><strong>Luck gap</strong></td><td><strong>+1.39 wins</strong></td></tr></tbody></table></div>
+<p>The model won <strong>1.4 more games than it predicted it would</strong>. Those 1.4 wins belong to variance, not to the model, and a leaderboard that ranked on win rate would have paid for them. This is the concrete reason the brief asks for signal and staking to be separated: at n=11 the gap between "What happened" and "What was expected" is larger than most models' entire edge.</p>
+<h2 id="calibration">Calibration</h2>
+<div class="tablewrap"><table><thead><tr><th>Stated home-win probability</th><th>n</th><th>Mean stated</th><th>Observed home wins</th></tr></thead><tbody><tr><td>0.00 – 0.40</td><td>4</td><td>0.355</td><td><strong>0 of 4</strong></td></tr><tr><td>0.40 – 0.50</td><td>1</td><td>0.430</td><td>0 of 1</td></tr><tr><td>0.50 – 0.60</td><td>4</td><td>0.553</td><td>2 of 4</td></tr><tr><td>0.60 – 0.70</td><td>2</td><td>0.622</td><td>1 of 2</td></tr><tr><td>0.70 – 1.00</td><td>0</td><td>—</td><td>—</td></tr></tbody></table></div>
+<p>The lowest-confidence bucket went 0 for 4. With four games that is noise, and it is reported as noise. But it is directionally the same skew as the +7.91-point bias: in this sample the model was too confident about home teams that lost.</p>
+<h2 id="what-would-change-our-mind">What would change our mind</h2>
+<p>Per the rule that every strategy entry carries a two-sided reversal condition, so does this page:</p>
+<ul>
+<li><strong>Evidence the model has skill:</strong> a walk-forward sample of 200+ games, a Brier skill interval</li>
+</ul>
+<p>against the base-rate benchmark whose lower bound clears zero after a multiplicity adjustment for the number of strategies tried, and a dispersion ratio that rises above ~0.7.</p>
+<ul>
+<li><strong>Evidence the model has none:</strong> the same test run on 200+ games where the base-rate benchmark</li>
+</ul>
+<p>still wins. That outcome would retire the model rather than tune it.</p>
+<p>Neither test can be run today: the repository has one scored week and 33 verified game rows.</p>
+<h2 id="reproduce">Reproduce</h2>
+<pre><code>
+python3 scripts/capture_official.py     # official captures, dated and hashed
+python3 scripts/score_week10.py         # this page&#x27;s numbers, printed and written
+</code></pre>
+<p>Machine-readable output: <code>data/luck_panel.json</code>, <code>data/scoring_week10.csv</code>.</p>
+<h2 id="sources">Sources</h2>
+<ul>
+<li>Week 10 final scores: &lt;https://www.nfl.com/schedules/2026/by-week/week-10&gt;</li>
+<li>Frozen forecast: <code>data/lines_week10.json</code> (<code>meta.model_run_date = 2026-11-14</code>)</li>
+<li>Per-game result rows with their own game-page links: <a href="results.html">Results feed</a></li>
+</ul>
+<footer>
+  <p>Every table on this site is generated from <code>data/</code> by <code>scripts/build_site.py</code>;
+  no value is typed into the HTML. Empty cells are deliberate: the value was not confirmable from an
+  official source, so it is left blank and listed on the
+  <a href="flagged.html">Flagged for review</a> page. Nothing here is betting advice.</p>
+</footer>
+</main>
+</div>
+</body></html>

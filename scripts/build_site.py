@@ -43,6 +43,7 @@ PAGES = {
 }
 
 CAPTURED = "2026-11-14"
+RECAPTURED = "2026-11-16"
 
 
 # ---------------------------------------------------------------------------
@@ -265,6 +266,39 @@ def build_index(standings, lines, inj, luck, strat, dec, sug, flag, readiness, s
   </div>
 </section>
 
+<section class="alert">
+  <h2>Read this before using any number on this site</h2>
+  <p><strong>The snapshot is {CAPTURED}. Today is {RECAPTURED}.</strong> Week 10's Sunday slate was
+  played on 2026-11-15. On re-capture, <strong>22 of 32 clubs</strong> had changed and the injury
+  report had grown from <strong>160 rows / 26 clubs to 347 rows / 28 clubs</strong>. Every table on
+  this site still renders the older read.</p>
+  <p>What changed on 2026-11-16, all of it verified against the official pages and published:</p>
+  <ul>
+    <li><strong>A verified results feed now exists.</strong> 12 of 14 Week 10 games are settled, each
+    row linking its own nfl.com game page. Without it this site could not be scored at all.
+    <a href="board/results.html">Results</a></li>
+    <li><strong>The first prospective grade has been computed.</strong> Brier skill vs a coin is
+    <strong>+0.194</strong> with a 95% interval of <strong>[-0.018, +0.385]</strong>, which includes
+    zero. Against the sample's own base rate the model is <strong>worse</strong> by 0.016. Its picks
+    won 8 of 11 where its own probabilities expected 6.61, so part of that record is luck.
+    <a href="board/luck.html">Removal of luck</a></li>
+    <li><strong>The model's opinions are ~4x too narrow.</strong> Predicted margins vary by 3.41
+    points across games; realised margins vary by 14.39. A near-constant forecast cannot beat a line
+    test however good its average is. <a href="board/luck.html">Detail</a></li>
+    <li><strong>Three files publish a different "our line".</strong> They use two opposite sign
+    conventions and disagree by 6.72 points on average on the same fixtures. Reconciled and published,
+    no file rewritten. <a href="board/line-provenance.html">Line provenance</a></li>
+    <li><strong>Club depth charts cannot be read as "column 1 = the starter".</strong> In three
+    sampled clubs: 1 shared slot, 5 duplicate rank-1 slots, 6 duplicate rank-2 slots, 2 empty rank-1
+    cells, 1 continuation row and 1 image-only chart. 8 rank-1 players were also Out or Doubtful on
+    the official report, with their named replacement. <a href="board/depth-evidence.html">Depth evidence</a></li>
+  </ul>
+  <p>Three claims in the project brief were checked against the live pages and <strong>do not
+  hold</strong>: the three Lions statuses are not blank (they read Out), Seattle and Cincinnati are
+  not shown injury-free, and Baltimore no longer lists Lamar Jackson at QB (the chart reads Brissett,
+  Fagnano, Slovis). Details on <a href="flagged.html">Flagged for Review</a> as F22.</p>
+</section>
+
 <section>
   <h2>Where to go next</h2>
   {table(["Page", "What is on it", "Decide first?"],
@@ -274,6 +308,12 @@ def build_index(standings, lines, inj, luck, strat, dec, sug, flag, readiness, s
      ["<a href='injuries.html'>Injuries</a>", "Official Week 10 report, with availability broken out by side of the ball", "No"],
      ["<a href='strategies.html'>Strategies</a>", "8 specs, 8 gates, 5 reward tiers, and an empty leaderboard that says why", "No"],
      ["<a href='correlation.html'>Correlation</a>", "4 measured correlations and 6 declared assumptions", "No"],
+     ["<a href='board/results.html'>Results feed</a>", "Settled Week 10 scores, one row per fixture, each linked to its game page", "No"],
+     ["<a href='board/luck.html'>Removal of luck</a>", "The first prospective grade: proper scores, dispersion, and the luck gap", "Yes — read"],
+     ["<a href='board/line-provenance.html'>Line provenance</a>", "Three 'our line' files, reconciled on one axis", "Yes — decide"],
+     ["<a href='board/data-freshness.html'>Data freshness</a>", "How stale the snapshot is, measured per club and per player", "Yes — read"],
+     ["<a href='board/depth-evidence.html'>Depth evidence</a>", "What club depth charts publish, and the six ways a naive parse fails", "No"],
+     ["<a href='board/decision-queue.html'>Decision queue</a>", "Every requirement collapsed into the owner decision that releases it, ordered by rows released", "Yes — start here"],
      ["<a href='flagged.html'>Flagged for Review</a>", f"{len(flag['items'])} items, each with its evidence link", "Yes — review"],
      ["<a href='legacy/index.html'>Archived blueprint</a>", "An earlier session's data-free research plan, preserved unchanged", "Optional"]])}
 </section>
