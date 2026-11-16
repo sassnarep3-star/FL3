@@ -203,4 +203,4 @@ originated lines. Model output is badged as model output everywhere.
 
 - **Official capture and reconciliation:** see `board/official-capture.html` and `data/official_injury_*_wk10_2026.csv` (PR #27). This session cross-checked that capture against an independent transcription of the same page: 347 rows, 0 differences on club, player, position, injury, practice status and game status.
 - **Scheduled snapshots:** `.github/workflows/snapshot.yml` (Wednesday to Monday, 13:17 and 23:17 UTC) stores one gzip-compressed copy of the official injury page per run under `snapshots/raw/`, with SHA-256 and a line in `snapshots/index.csv`. It refuses to store on drift and fails loudly. Not yet observed live.
-- **Open items:** the published injury copies that feed the model still differ from the official page (flags F14–F19 on the Flagged for Review page).
+- **Open items:** the published injury copies that feed the model still differ from the official page (flags F25–F30 on the Flagged for Review page).

@@ -836,12 +836,12 @@ covers the same ground as this session's T27/T28. **This session withdrew its du
 | T27 — Official Week 10 capture and reconciliation | **withdrawn as duplicate** — cross-checked against PR #27's capture (see record); canonical files are `data/official_injury_*_wk10_2026.csv` | `arena/a8c1189d` | none kept |
 | T28 — Public capture page | **withdrawn as duplicate** of `board/official-capture.html` (PR #27) | `arena/a8c1189d` | none kept |
 | T29 — Scheduled, immutable, hashed availability-report snapshots with a drift alarm | **needs review** — workflow written and YAML-checked; logic tested offline; first live run not yet observed | `arena/a8c1189d` | `scripts/capture_official_snapshot.py`, `.github/workflows/snapshot.yml`, `snapshots/` (created by the workflow) |
-| T30 — New irregularities onto Flagged for Review | **done** — F14–F19 in `data/flagged.json` (F18 resolved); links point at PR #27's canonical files | `arena/a8c1189d` | `data/flagged.json` |
+| T30 — New irregularities onto Flagged for Review | **done** — F25–F30 in `data/flagged.json` (F29 resolved); links point at PR #27's canonical files | `arena/a8c1189d` | `data/flagged.json` |
 | T31 — Coordination record, verification log, PR and merge record | in progress until merge | `arena/a8c1189d` | `COORDINATION.md`, `README.md` |
 
 **Not claimed this session (blocked or out of reach from this sandbox):** depth-chart register and starter model,
 NFL Game Books, snap counts, licensed odds and price history, roster transactions, Texans depth image, model
-inputs (lines are not re-run on new injury inputs; see flag F14).
+inputs (lines are not re-run on new injury inputs; see flag F25).
 
 ### What this session verified
 
@@ -860,14 +860,14 @@ inputs (lines are not re-run on new injury inputs; see flag F14).
    `verify.py` G-10 (PASS, FLG-025 unchanged), `build_board.py` (OK), `build_verify.py` + `check_verify.py` (OK),
    `model.py`, `stats_tables.py`, `make_leaderboard.py` (no output change).
 
-### Irregularities (flags F14–F19 on Flagged for Review)
+### Irregularities (flags F25–F30 on Flagged for Review)
 
-- **F14 (high):** the board / model-input copy holds 160 of 347 official rows (Seattle 4, Cincinnati 4 vs 15 and 9).
-- **F15 (medium):** the main 345-row table has 20 differences from the page (3 missing, one name spelled "Jake Hummel", 16 status values).
-- **F16 (medium):** `data/injuries_week10.json` uses club code `LA` for the Rams; 14 rows off-code, 2 BAL rows missing.
-- **F17 (medium):** the brief's figures (279 rows, 2 no-injury sections, Seattle and Cincinnati injury-free) are not reproduced by the page read on 2026-11-16.
-- **F18 (resolved):** the Lions game-status cells are present and read Out; not reproduced.
-- **F19 (low):** `injuries.html` links every row to the generic injury page, not the Week 10 page.
+- **F25 (high):** the board / model-input copy holds 160 of 347 official rows (Seattle 4, Cincinnati 4 vs 15 and 9).
+- **F26 (medium):** the main 345-row table has 20 differences from the page (3 missing, one name spelled "Jake Hummel", 16 status values).
+- **F27 (medium):** `data/injuries_week10.json` uses club code `LA` for the Rams; 14 rows off-code, 2 BAL rows missing.
+- **F28 (medium):** the brief's figures (279 rows, 2 no-injury sections, Seattle and Cincinnati injury-free) are not reproduced by the page read on 2026-11-16.
+- **F29 (resolved):** the Lions game-status cells are present and read Out; not reproduced.
+- **F30 (low):** `injuries.html` links every row to the generic injury page, not the Week 10 page.
 
 ### Snapshot store (T29) — how it runs
 
@@ -888,7 +888,7 @@ inputs (lines are not re-run on new injury inputs; see flag F14).
 
 | Item | Value |
 |---|---|
-| Pull request | [#26 — Official W10 injury capture, reconciliation, public page, scheduled hashed snapshots (flags F14-F19)](https://github.com/sassnarep3-star/FL3/pull/26) (title and body describe the pre-merge scope; the duplicate capture was withdrawn in this branch) |
+| Pull request | [#26 — Official W10 injury capture, reconciliation, public page, scheduled hashed snapshots (flags F25-F30)](https://github.com/sassnarep3-star/FL3/pull/26) (title and body describe the pre-merge scope; the duplicate capture was withdrawn in this branch) |
 | Head / base | `arena/a8c1189d-fl3` → `main` |
 | Merge | See the result line below. |
 

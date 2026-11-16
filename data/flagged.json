@@ -1,52 +1,37 @@
 {
- "meta": {
-  "title": "Flagged for review",
-  "captured_utc": "2026-11-16",
-  "rule": "Nothing in this file is fixed by guessing. Each item states what was observed, what could not be confirmed, and the exact page where a human can check it. Items here do NOT block the build or the merge.",
-  "status_legend": {
-   "open": "awaiting the owner's decision",
-   "accepted-risk": "documented and deliberately left as-is for now",
-   "resolved": "confirmed against an official source and closed"
-  }
- },
- "items": [
-  {
-   "id": "F01",
-   "status": "open",
-   "severity": "medium",
-   "title": "Standings page excludes a game the schedule page marks FINAL",
-   "observed": "nfl.com/schedules/2026/REG/ shows 'Commanders 24, Giants 21, FINAL' for the Thursday Week 10 game. nfl.com/standings/division/2026/REG still lists WAS 3-5-1 and NYG 5-3-1, i.e. before that result.",
-   "why_it_matters": "A line originated from the standings page is one game stale for those two clubs. Every other club is unaffected.",
-   "cannot_confirm": "Whether the standings page updates on a delay or simply had not refreshed at capture time. No explicit 'as of' timestamp is published on the page.",
-   "impact_on_lines": "WAS@NYG has already been played, so the originated line for that game is not actionable and is shown for completeness only.",
-   "evidence": [
-    {
-     "label": "Schedule (shows the final score)",
-     "url": "https://www.nfl.com/schedules/2026/REG/"
-    },
-    {
-     "label": "Standings (does not reflect it)",
-     "url": "https://www.nfl.com/standings/division/2026/REG"
+  "meta": {
+    "title": "Flagged for review",
+    "captured_utc": "2026-11-16",
+    "rule": "Nothing in this file is fixed by guessing. Each item states what was observed, what could not be confirmed, and the exact page where a human can check it. Items here do NOT block the build or the merge.",
+    "status_legend": {
+      "open": "awaiting the owner's decision",
+      "accepted-risk": "documented and deliberately left as-is for now",
+      "resolved": "confirmed against an official source and closed"
     }
-   ],
-   "action_needed": "Adopt the SG-02 freeze job so lines are originated from a kickoff-time snapshot, not a morning snapshot."
   },
-  {
-   "id": "F02",
-   "status": "open",
-   "severity": "high",
-   "title": "A starting QB absence is missing from the official injury table",
-   "observed": "The Week 10 injury page's own news module carries 'Ravens confirm Lamar Jackson expected to miss 6-10 weeks'. The Ravens table on the same page lists eight players and no quarterback.",
-   "why_it_matters": "An engine that reads only the injury table would conclude Baltimore has no QB availability problem. That is exactly the failure mode the availability signal is supposed to catch.",
-   "cannot_confirm": "Whether Jackson had been placed on injured reserve or otherwise removed from the report by the time the table was rendered. The table is the only official machine-readable list.",
-   "impact_on_lines": "The LAC@BAL line is originated without a QB penalty for Baltimore. It should be read as too generous to BAL.",
-   "evidence": [
+  "items": [
     {
-     "label": "Injury page with the news headline",
-     "url": "https://www.nfl.com/injuries/"
+      "id": "F01",
+      "status": "open",
+      "severity": "medium",
+      "title": "Standings page excludes a game the schedule page marks FINAL",
+      "observed": "nfl.com/schedules/2026/REG/ shows 'Commanders 24, Giants 21, FINAL' for the Thursday Week 10 game. nfl.com/standings/division/2026/REG still lists WAS 3-5-1 and NYG 5-3-1, i.e. before that result.",
+      "why_it_matters": "A line originated from the standings page is one game stale for those two clubs. Every other club is unaffected.",
+      "cannot_confirm": "Whether the standings page updates on a delay or simply had not refreshed at capture time. No explicit 'as of' timestamp is published on the page.",
+      "impact_on_lines": "WAS@NYG has already been played, so the originated line for that game is not actionable and is shown for completeness only.",
+      "evidence": [
+        {
+          "label": "Schedule (shows the final score)",
+          "url": "https://www.nfl.com/schedules/2026/REG/"
+        },
+        {
+          "label": "Standings (does not reflect it)",
+          "url": "https://www.nfl.com/standings/division/2026/REG"
+        }
+      ],
+      "action_needed": "Adopt the SG-02 freeze job so lines are originated from a kickoff-time snapshot, not a morning snapshot."
     },
     {
-<<<<<<< HEAD
       "id": "F02",
       "status": "open",
       "severity": "high",
@@ -257,6 +242,209 @@
       "id": "F14",
       "status": "open",
       "severity": "high",
+      "title": "Three files publish 'our' Week 10 line, on two sign conventions, and disagree by 6.72 pts",
+      "observed": "data/lines_week10.json (root site), data/lines_origination.csv (board site) and data/2026-week10-lines.csv (no generator) all publish a Week 10 line. compute_lines.py emits home_spread=-margin; model.py emits expected_home_margin with the opposite sign. On one axis they differ by 6.72 pts mean absolute across 14 fixtures. WAS-NYG finished 24-21 away: A said home +4.1, B said home +3.5.",
+      "why_it_matters": "Two different answers to 'what did we think the line was' are published on two pages of one site, with nothing reconciling them.",
+      "cannot_confirm": "Which series the owner intends to be canonical - that is a decision, not a fact discoverable in the repo.",
+      "evidence": [
+        {
+          "label": "results used for the comparison",
+          "url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+        }
+      ],
+      "impact_on_lines": "Two different answers to 'what did we think the line was' are published on two pages of one site, with nothing reconciling them.",
+      "action_needed": "See the linked page for the evidence and the decision required."
+    },
+    {
+      "id": "F15",
+      "status": "open",
+      "severity": "high",
+      "title": "The site snapshot predates the results of the games it prices",
+      "observed": "Pages stamped 2026-11-14. Week 10 Sunday slate played 2026-11-15. Re-capture 2026-11-16: 22 of 32 clubs changed; injury report 160 rows/26 clubs -> 347 rows/28 clubs.",
+      "why_it_matters": "A reader is shown prices for settled games with no result beside them, and availability that changed after kickoff.",
+      "cannot_confirm": "Nothing - the dates are on the pages themselves.",
+      "evidence": [
+        {
+          "label": "injury report, both reads",
+          "url": "https://www.nfl.com/injuries/league/2026/reg10"
+        },
+        {
+          "label": "settled results",
+          "url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+        }
+      ],
+      "impact_on_lines": "A reader is shown prices for settled games with no result beside them, and availability that changed after kickoff.",
+      "action_needed": "See the linked page for the evidence and the decision required."
+    },
+    {
+      "id": "F16",
+      "status": "open",
+      "severity": "high",
+      "title": "The same official injury URL, read 48 hours apart, gives materially different availability for unplayed games",
+      "observed": "LAC: 0 of 19 game designations on 2026-11-14 -> 9 of 19 on 2026-11-16. BAL: +2 rows, +2 designations. IND Arden Key drops off the report. Practice grades progress normally.",
+      "why_it_matters": "A single capture is a snapshot of a clock, not of the truth. Pricing from a frozen read uses less information than was available.",
+      "cannot_confirm": "Whether the league intends a stable final report - NFL did not publish a retention guarantee in any page read this session.",
+      "evidence": [
+        {
+          "label": "both reads",
+          "url": "https://www.nfl.com/injuries/league/2026/reg10"
+        }
+      ],
+      "impact_on_lines": "A single capture is a snapshot of a clock, not of the truth. Pricing from a frozen read uses less information than was available.",
+      "action_needed": "See the linked page for the evidence and the decision required."
+    },
+    {
+      "id": "F17",
+      "status": "open",
+      "severity": "medium",
+      "title": "Rams abbreviation differs between files; a join silently drops 14 rows",
+      "observed": "data/injuries_2026_wk10.csv uses LAR; data/injuries_2026_w10.csv, data/captures/week10_injuries_2026-11-16.csv and data/lines_week10.json use LA.",
+      "why_it_matters": "Any cross-file availability join loses the Rams entirely with no error.",
+      "cannot_confirm": "Which abbreviation NFL.com treats as canonical; the site uses both in different contexts.",
+      "evidence": [
+        {
+          "label": "club logo code LA",
+          "url": "https://www.nfl.com/injuries/league/2026/reg10"
+        }
+      ],
+      "impact_on_lines": "Any cross-file availability join loses the Rams entirely with no error.",
+      "action_needed": "See the linked page for the evidence and the decision required."
+    },
+    {
+      "id": "F18",
+      "status": "open",
+      "severity": "medium",
+      "title": "Club depth charts publish no effective date (2 of 3 sampled), so they cannot be proved pre-kickoff",
+      "observed": "Green Bay: 'Unofficial, Nov. 10, 2026' (6 days old). Seattle: none. Baltimore: none.",
+      "why_it_matters": "An undated chart cannot be versioned against a kickoff time and so cannot enter a backtest without lookahead risk.",
+      "cannot_confirm": "Whether a dated archive exists elsewhere on the club sites - not searched exhaustively.",
+      "evidence": [
+        {
+          "label": "dated",
+          "url": "https://www.packers.com/team/depth-chart"
+        },
+        {
+          "label": "undated",
+          "url": "https://www.seahawks.com/team/depth-chart/"
+        },
+        {
+          "label": "undated",
+          "url": "https://www.baltimoreravens.com/team/depth-chart/"
+        }
+      ],
+      "impact_on_lines": "An undated chart cannot be versioned against a kickoff time and so cannot enter a backtest without lookahead risk.",
+      "action_needed": "See the linked page for the evidence and the decision required."
+    },
+    {
+      "id": "F19",
+      "status": "open",
+      "severity": "medium",
+      "title": "Depth charts break a 'column 1 = starter' parse in six distinct ways",
+      "observed": "1 shared slot, 5 duplicate rank-1, 6 duplicate rank-2, 2 empty rank-1, 1 continuation row, 1 image-only chart across 3 transcribed clubs.",
+      "why_it_matters": "Reading column 1 as 'the starter' fabricates a starter the club never named and double-counts players holding two slots.",
+      "cannot_confirm": "How the clubs intend shared slots to be read - they publish no explanation.",
+      "evidence": [
+        {
+          "label": "shared slot",
+          "url": "https://www.seahawks.com/team/depth-chart/"
+        }
+      ],
+      "impact_on_lines": "Reading column 1 as 'the starter' fabricates a starter the club never named and double-counts players holding two slots.",
+      "action_needed": "See the linked page for the evidence and the decision required."
+    },
+    {
+      "id": "F20",
+      "status": "resolved",
+      "severity": "info",
+      "title": "Texans depth chart is image-only - confirmed, and it is not fixable by parsing",
+      "observed": "Heading 'Unofficial Depth Chart', body is one raster image. No player text in the HTML.",
+      "why_it_matters": "1 of 32 clubs cannot supply depth from its own page.",
+      "cannot_confirm": "Whether an authorised structured feed exists for Houston depth.",
+      "evidence": [
+        {
+          "label": "image body",
+          "url": "https://www.houstontexans.com/team/depth-chart/"
+        }
+      ],
+      "impact_on_lines": "1 of 32 clubs cannot supply depth from its own page.",
+      "action_needed": "See the linked page for the evidence and the decision required."
+    },
+    {
+      "id": "F21",
+      "status": "resolved",
+      "severity": "info",
+      "title": "Packers jersey-number prefix is confirmed and recoverable",
+      "observed": "Every cell is '<jersey> <name>', e.g. '9 Christian Watson'. Jersey and name are now stored separately plus the raw string.",
+      "why_it_matters": "Recorded because the brief named it; it is a solved parse, not a blocker.",
+      "cannot_confirm": "Nothing.",
+      "evidence": [
+        {
+          "label": "jersey prefix",
+          "url": "https://www.packers.com/team/depth-chart"
+        }
+      ],
+      "impact_on_lines": "Recorded because the brief named it; it is a solved parse, not a blocker.",
+      "action_needed": "See the linked page for the evidence and the decision required."
+    },
+    {
+      "id": "F22",
+      "status": "open",
+      "severity": "info",
+      "title": "Two claims in the brief do not match the live official pages",
+      "observed": "(a) 'Seattle and Cincinnati shown injury-free': SEA carries 15 rows and CIN 9 on 2026-11-16, and neither file shows them injury-free. (b) 'Three Lions game statuses are blank': Kerby Joseph, Cade Mays and D.J. Reed all read 'Out' in the checked-in file and on the live page. (c) 'Ravens still list Lamar Jackson and Tyler Huntley': the chart reads Brissett / Fagnano / Slovis.",
+      "why_it_matters": "A correction based on any of these would have introduced an error into data that was already right.",
+      "cannot_confirm": "Which version of the pages the brief's author saw - the page could have changed, or the claim could have come from a different rendering.",
+      "evidence": [
+        {
+          "label": "injury report",
+          "url": "https://www.nfl.com/injuries/league/2026/reg10"
+        },
+        {
+          "label": "QB order",
+          "url": "https://www.baltimoreravens.com/team/depth-chart/"
+        }
+      ],
+      "impact_on_lines": "A correction based on any of these would have introduced an error into data that was already right.",
+      "action_needed": "See the linked page for the evidence and the decision required."
+    },
+    {
+      "id": "F23",
+      "status": "open",
+      "severity": "medium",
+      "title": "The only scored sample is 11 games, skewed, and says more about variance than about skill",
+      "observed": "Brier skill vs coin +0.194, 95% CI [-0.018,+0.385]. vs base rate -0.016. Dispersion ratio 0.24. Luck gap +1.39 wins.",
+      "why_it_matters": "Any promotion, demotion or reward decision taken on this sample would be a decision taken on noise.",
+      "cannot_confirm": "Whether the model has skill. The sample cannot answer it either way.",
+      "evidence": [
+        {
+          "label": "settled results",
+          "url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+        }
+      ],
+      "impact_on_lines": "Any promotion, demotion or reward decision taken on this sample would be a decision taken on noise.",
+      "action_needed": "See the linked page for the evidence and the decision required."
+    },
+    {
+      "id": "F24",
+      "status": "open",
+      "severity": "high",
+      "title": "Model spread opinions are ~4x narrower than realised margins",
+      "observed": "sd(model margins)=3.41 vs sd(actual)=14.39 over 11 pre-kickoff forecasts. Bias +7.91 pts, 28% of MSE.",
+      "why_it_matters": "A near-constant forecast cannot produce a line-test edge regardless of its mean accuracy.",
+      "cannot_confirm": "The cause - under-dispersion can come from over-regularised ratings, a small weight on availability, or simply too few inputs.",
+      "evidence": [
+        {
+          "label": "settled results",
+          "url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+        }
+      ],
+      "impact_on_lines": "A near-constant forecast cannot produce a line-test edge regardless of its mean accuracy.",
+      "action_needed": "See the linked page for the evidence and the decision required."
+    },
+    {
+      "id": "F25",
+      "status": "open",
+      "severity": "high",
       "title": "Board and model-input Week 10 injury copy holds 160 of 347 official rows",
       "observed": "board/data/injuries_2026_w10.csv (identical to data/injuries_2026_w10.csv) has 160 rows across 26 clubs. Seattle and Cincinnati have 4 rows each; the official page lists 15 and 9. 195 official player rows are absent from it, and 8 of its rows do not appear on the official page. model.py reads this file.",
       "why_it_matters": "Any board output that reads this copy treats two clubs as nearly injury-free and 195 official rows are missing. Its availability inputs are incomplete.",
@@ -279,7 +467,7 @@
       "action_needed": "Owner decision: replace the board copy with the official capture and re-run model.py, then re-check the board output."
     },
     {
-      "id": "F15",
+      "id": "F26",
       "status": "open",
       "severity": "medium",
       "title": "Main Week 10 injury table (345 rows) differs from the official page on 20 rows",
@@ -300,7 +488,7 @@
       "action_needed": "Owner decision: adopt the official values (already in the capture) and record the change in the register."
     },
     {
-      "id": "F16",
+      "id": "F27",
       "status": "open",
       "severity": "medium",
       "title": "Injury JSON copy uses club code LA for the Rams",
@@ -321,7 +509,7 @@
       "action_needed": "Owner decision: normalise LA to LAR and re-run the line model; then confirm the Rams totals."
     },
     {
-      "id": "F17",
+      "id": "F28",
       "status": "open",
       "severity": "medium",
       "title": "Brief figures for Week 10 not reproduced by the current official page",
@@ -342,7 +530,7 @@
       "action_needed": "Use 347 for the page as captured. Re-capture if the official page changes."
     },
     {
-      "id": "F18",
+      "id": "F29",
       "status": "resolved",
       "severity": "low",
       "title": "Lions game-status cells reported blank — not reproduced",
@@ -359,7 +547,7 @@
       "action_needed": "None; keep the check in the reconciliation."
     },
     {
-      "id": "F19",
+      "id": "F30",
       "status": "open",
       "severity": "low",
       "title": "Root injury page links every row to the generic injury page, not the Week 10 report",
@@ -374,402 +562,6 @@
         }
       ],
       "action_needed": "Owner decision: point each row to the week-specific page and its capture date."
-=======
-     "label": "News article",
-     "url": "https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-friday-nov-13"
->>>>>>> origin/main
     }
-   ],
-   "action_needed": "Add a news-headline cross-check (S03 extension) or accept that the availability signal has known blind spots."
-  },
-  {
-   "id": "F03",
-   "status": "open",
-   "severity": "medium",
-   "title": "2026 rosters differ from prior-season expectation \u2014 recorded as published",
-   "observed": "The official Week 10 tables list, among others, Kyler Murray under MIN, J.J. McCarthy under NYG, Micah Parsons under GB, Justin Fields and Patrick Mahomes both under KC, and Aaron Donald and Myles Garrett both under LA.",
-   "why_it_matters": "A reader's memory of the 2024/2025 league will disagree with these rows. The risk is that a reviewer 'corrects' a verified row to match memory.",
-   "cannot_confirm": "Nothing about the rostering itself \u2014 these are official rows. What cannot be confirmed is the trade/signing history that produced them, which was not fetched.",
-   "impact_on_lines": "None. Rows were transcribed exactly as published and were not adjusted.",
-   "evidence": [
-    {
-     "label": "Official Week 10 injury report",
-     "url": "https://www.nfl.com/injuries/"
-    }
-   ],
-   "action_needed": "Nothing to fix. Flagged so no future session 'corrects' official data to match recollections."
-  },
-  {
-   "id": "F04",
-   "status": "open",
-   "severity": "medium",
-   "title": "185 of 345 injury rows have a blank game status",
-   "observed": "Blank game status on 185 rows; 84 Questionable, 66 Out, 10 Doubtful.",
-   "why_it_matters": "Blank is ambiguous: 'will play', 'not yet declared', or 'listed for practice only'. The engine treats blank as no contribution, which is the conservative reading.",
-   "cannot_confirm": "The official definition of a blank cell. The policy page that would define it returned empty (F06).",
-   "impact_on_lines": "Available players with a minor listing contribute zero penalty. This understates availability risk, symmetrically for both clubs.",
-   "evidence": [
-    {
-     "label": "Official Week 10 injury report",
-     "url": "https://www.nfl.com/injuries/"
-    }
-   ],
-   "action_needed": "SG-04 inactive reconciliation."
-  },
-  {
-   "id": "F05",
-   "status": "open",
-   "severity": "high",
-   "title": "No official depth-chart ordinal exists, so '2nd/3rd/4th string' cannot be stated as fact",
-   "observed": "nfl.com publishes player rows with position only. No rank, no starter flag, no snap count on the injury page.",
-   "why_it_matters": "The requested feature \u2014 know when backups are replacing starters \u2014 cannot be answered from official data at the depth requested. The engine instead applies a per-position penalty constant and caps it.",
-   "cannot_confirm": "Which specific player would replace an unavailable starter, and how much worse he is.",
-   "impact_on_lines": "Availability adjustments are coarse. A backup QB and a starter QB cost the same 2.60 points, which is wrong in reality.",
-   "evidence": [
-    {
-     "label": "Official Week 10 injury report",
-     "url": "https://www.nfl.com/injuries/"
-    }
-   ],
-   "action_needed": "SG-05 (participation counts as the ordinal proxy)."
-  },
-  {
-   "id": "F06",
-   "status": "open",
-   "severity": "medium",
-   "title": "The official injury-report policy page returned an empty body",
-   "observed": "https://operations.nfl.com/the-rules/nfl-injury-report-policy/ returned no text on 2026-11-14.",
-   "why_it_matters": "We cannot quote the league's own rules for practice statuses or reporting deadlines. Anything we said about them would be recollection.",
-   "cannot_confirm": "The policy wording itself.",
-   "impact_on_lines": "The practice-status weights are labelled as declared model constants everywhere they appear.",
-   "evidence": [
-    {
-     "label": "Policy page (empty on capture)",
-     "url": "https://operations.nfl.com/the-rules/nfl-injury-report-policy/"
-    }
-   ],
-   "action_needed": "SG-03."
-  },
-  {
-   "id": "F07",
-   "status": "accepted-risk",
-   "severity": "high",
-   "title": "No licensed market price, so 'edge' and 'closing-line value' are out of scope",
-   "observed": "No official NFL odds feed exists. Third-party price screens are not official and were not used.",
-   "why_it_matters": "Gate G6 (price beatable) can never pass. The Champion and Proven tiers are unreachable by construction.",
-   "cannot_confirm": "Whether our lines are any good relative to the market.",
-   "impact_on_lines": "Lines are labelled 'originated by this model' with no market comparison anywhere on the site.",
-   "evidence": [],
-   "action_needed": "SG-06."
-  },
-  {
-   "id": "F08",
-   "status": "accepted-risk",
-   "severity": "low",
-   "title": "Local shell has no outbound network; refresh must run in CI",
-   "observed": "Direct HTTP from the build shell to nfl.com returns 000. Only the agent's fetch capability reaches the internet.",
-   "why_it_matters": "A human running scripts/fetch_official.py on this machine will get a network error, not fresh data.",
-   "cannot_confirm": "Whether GitHub Actions runners reach nfl.com \u2014 the workflow is written but has not been executed against the live network yet.",
-   "impact_on_lines": "None. Committed data is the source of truth for the build; the fetch script is an optional refresher.",
-   "evidence": [],
-   "action_needed": "First CI run will confirm or deny. If it fails, the build still succeeds because it reads committed JSON."
-  },
-  {
-   "id": "F09",
-   "status": "open",
-   "severity": "low",
-   "title": "One Week 10 game is at a neutral site but the model applies home-field advantage",
-   "observed": "NE @ DET is listed as an international game in Munich.",
-   "why_it_matters": "A full 1.9-point HFA is applied to Detroit in a game that is not at Ford Field.",
-   "cannot_confirm": "How much of a home-field effect a designated home team retains abroad. No official figure exists.",
-   "impact_on_lines": "Detroit is probably over-rated by up to ~1.9 points in that game.",
-   "evidence": [
-    {
-     "label": "Schedule (Munich designation)",
-     "url": "https://www.nfl.com/schedules/2026/REG/"
-    }
-   ],
-   "action_needed": "SG-15."
-  },
-  {
-   "id": "F10",
-   "status": "resolved",
-   "severity": "low",
-   "title": "Bye clubs derived from the official Week 10 by-week schedule \u2014 confirmed",
-   "observed": "The by-week page was fetched on 2026-11-14 and lists the same 14 games. Four clubs (CHI, DEN, PHI, TB) appear in none of them.",
-   "why_it_matters": "This is a derived fact, not a quoted one. It is almost certainly right, but it is still an inference.",
-   "cannot_confirm": "An explicit sentence saying 'these clubs are on bye'. The slate itself is now verified on two official URLs.",
-   "impact_on_lines": "No line is originated for these clubs. Nothing downstream depends on the bye label.",
-   "evidence": [
-    {
-     "label": "Schedule (main)",
-     "url": "https://www.nfl.com/schedules/2026/REG/"
-    },
-    {
-     "label": "Schedule by week (verified)",
-     "url": "https://www.nfl.com/schedules/2026/by-week/week-10"
-    }
-   ],
-   "action_needed": "Closed. The bye list is consistent across two verified official pages.",
-   "resolved_note": "Two independent official pages agree on the slate; bye clubs are the complement and are labelled 'derived' in the build."
-  },
-  {
-   "id": "F11",
-   "status": "open",
-   "severity": "medium",
-   "title": "Official injury URL returns a week-number mismatch (reported by a parallel session)",
-   "observed": "An earlier session recorded that the NFL injury route containing /2025/reg4 rendered a page title saying Week 10 of the 2025 season while the body showed 'Injuries - WEEK 4'. That session did not import any value from the route.",
-   "why_it_matters": "If a historical week URL silently resolves to a different week, any backtest built on it would attribute the wrong week's data. This is a real risk for SG-07 and SG-13.",
-   "cannot_confirm": "This session did not reproduce the mismatch; the route was not re-fetched here. Recorded as reported, not as confirmed.",
-   "impact_on_lines": "None. This build uses only the current-week page (/injuries/), which rendered consistently and is cited on every injury row.",
-   "evidence": [
-    {
-     "label": "Route reported to mismatch",
-     "url": "https://www.nfl.com/injuries/league/2025/reg4"
-    },
-    {
-     "label": "Page actually used by this build",
-     "url": "https://www.nfl.com/injuries/"
-    }
-   ],
-   "action_needed": "Before any historical capture, verify the week selector manually and store a content hash with each snapshot."
-  },
-  {
-   "id": "F12",
-   "status": "open",
-   "severity": "medium",
-   "title": "Reward and governance rules are undefined",
-   "observed": "No contest rules, eligibility, jurisdiction, privacy terms, appeal path or compliance owner exist for the leaderboard rewards.",
-   "why_it_matters": "Rewards are a core request. A scoring formula is not a reward policy, and publishing one without the other invites a dispute later.",
-   "cannot_confirm": "Any prize type or value. Nothing has been designed, deliberately.",
-   "impact_on_lines": "None. The leaderboard awards ranking credit only; no prize, entry fee or staking feature exists.",
-   "evidence": [
-    {
-     "label": "NFL gambling policy / integrity overview",
-     "url": "https://media.nfl.com/lsb"
-    }
-   ],
-   "action_needed": "Decide reward type and governance before any tier-3 score is paid out. Keep the board reputation-only until then."
-  },
-  {
-   "id": "F13",
-   "status": "open",
-   "severity": "low",
-   "title": "This repo was worked by two parallel sessions at once \u2014 merge record",
-   "observed": "A second session (arena/39f57d31-fl3) merged a data-free research blueprint to main via PRs #1 and #2 while this session was building the verified dataset. Both PRs touched COORDINATION.md, README.md, index.html, assets/site.css and scripts/check_site.py.",
-   "why_it_matters": "Exactly the collision the coordination protocol exists to prevent. Their pages are preserved rather than deleted: see /legacy/index.html.",
-   "cannot_confirm": "Whether the other session is still active.",
-   "impact_on_lines": "None. The datasets are this session's own capture and were never touched by the other branch.",
-   "evidence": [
-    {
-     "label": "Archived blueprint",
-     "url": "https://sassnarep3-star.github.io/FL3/legacy/index.html"
-    }
-   ],
-   "action_needed": "Log the collision in COORDINATION.md and keep /legacy/ until the owner confirms it can be removed."
-  },
-  {
-   "id": "F14",
-   "status": "open",
-   "severity": "high",
-   "title": "Three files publish 'our' Week 10 line, on two sign conventions, and disagree by 6.72 pts",
-   "observed": "data/lines_week10.json (root site), data/lines_origination.csv (board site) and data/2026-week10-lines.csv (no generator) all publish a Week 10 line. compute_lines.py emits home_spread=-margin; model.py emits expected_home_margin with the opposite sign. On one axis they differ by 6.72 pts mean absolute across 14 fixtures. WAS-NYG finished 24-21 away: A said home +4.1, B said home +3.5.",
-   "why_it_matters": "Two different answers to 'what did we think the line was' are published on two pages of one site, with nothing reconciling them.",
-   "cannot_confirm": "Which series the owner intends to be canonical - that is a decision, not a fact discoverable in the repo.",
-   "evidence": [
-    {
-     "label": "results used for the comparison",
-     "url": "https://www.nfl.com/schedules/2026/by-week/week-10"
-    }
-   ],
-   "impact_on_lines": "Two different answers to 'what did we think the line was' are published on two pages of one site, with nothing reconciling them.",
-   "action_needed": "See the linked page for the evidence and the decision required."
-  },
-  {
-   "id": "F15",
-   "status": "open",
-   "severity": "high",
-   "title": "The site snapshot predates the results of the games it prices",
-   "observed": "Pages stamped 2026-11-14. Week 10 Sunday slate played 2026-11-15. Re-capture 2026-11-16: 22 of 32 clubs changed; injury report 160 rows/26 clubs -> 347 rows/28 clubs.",
-   "why_it_matters": "A reader is shown prices for settled games with no result beside them, and availability that changed after kickoff.",
-   "cannot_confirm": "Nothing - the dates are on the pages themselves.",
-   "evidence": [
-    {
-     "label": "injury report, both reads",
-     "url": "https://www.nfl.com/injuries/league/2026/reg10"
-    },
-    {
-     "label": "settled results",
-     "url": "https://www.nfl.com/schedules/2026/by-week/week-10"
-    }
-   ],
-   "impact_on_lines": "A reader is shown prices for settled games with no result beside them, and availability that changed after kickoff.",
-   "action_needed": "See the linked page for the evidence and the decision required."
-  },
-  {
-   "id": "F16",
-   "status": "open",
-   "severity": "high",
-   "title": "The same official injury URL, read 48 hours apart, gives materially different availability for unplayed games",
-   "observed": "LAC: 0 of 19 game designations on 2026-11-14 -> 9 of 19 on 2026-11-16. BAL: +2 rows, +2 designations. IND Arden Key drops off the report. Practice grades progress normally.",
-   "why_it_matters": "A single capture is a snapshot of a clock, not of the truth. Pricing from a frozen read uses less information than was available.",
-   "cannot_confirm": "Whether the league intends a stable final report - NFL did not publish a retention guarantee in any page read this session.",
-   "evidence": [
-    {
-     "label": "both reads",
-     "url": "https://www.nfl.com/injuries/league/2026/reg10"
-    }
-   ],
-   "impact_on_lines": "A single capture is a snapshot of a clock, not of the truth. Pricing from a frozen read uses less information than was available.",
-   "action_needed": "See the linked page for the evidence and the decision required."
-  },
-  {
-   "id": "F17",
-   "status": "open",
-   "severity": "medium",
-   "title": "Rams abbreviation differs between files; a join silently drops 14 rows",
-   "observed": "data/injuries_2026_wk10.csv uses LAR; data/injuries_2026_w10.csv, data/captures/week10_injuries_2026-11-16.csv and data/lines_week10.json use LA.",
-   "why_it_matters": "Any cross-file availability join loses the Rams entirely with no error.",
-   "cannot_confirm": "Which abbreviation NFL.com treats as canonical; the site uses both in different contexts.",
-   "evidence": [
-    {
-     "label": "club logo code LA",
-     "url": "https://www.nfl.com/injuries/league/2026/reg10"
-    }
-   ],
-   "impact_on_lines": "Any cross-file availability join loses the Rams entirely with no error.",
-   "action_needed": "See the linked page for the evidence and the decision required."
-  },
-  {
-   "id": "F18",
-   "status": "open",
-   "severity": "medium",
-   "title": "Club depth charts publish no effective date (2 of 3 sampled), so they cannot be proved pre-kickoff",
-   "observed": "Green Bay: 'Unofficial, Nov. 10, 2026' (6 days old). Seattle: none. Baltimore: none.",
-   "why_it_matters": "An undated chart cannot be versioned against a kickoff time and so cannot enter a backtest without lookahead risk.",
-   "cannot_confirm": "Whether a dated archive exists elsewhere on the club sites - not searched exhaustively.",
-   "evidence": [
-    {
-     "label": "dated",
-     "url": "https://www.packers.com/team/depth-chart"
-    },
-    {
-     "label": "undated",
-     "url": "https://www.seahawks.com/team/depth-chart/"
-    },
-    {
-     "label": "undated",
-     "url": "https://www.baltimoreravens.com/team/depth-chart/"
-    }
-   ],
-   "impact_on_lines": "An undated chart cannot be versioned against a kickoff time and so cannot enter a backtest without lookahead risk.",
-   "action_needed": "See the linked page for the evidence and the decision required."
-  },
-  {
-   "id": "F19",
-   "status": "open",
-   "severity": "medium",
-   "title": "Depth charts break a 'column 1 = starter' parse in six distinct ways",
-   "observed": "1 shared slot, 5 duplicate rank-1, 6 duplicate rank-2, 2 empty rank-1, 1 continuation row, 1 image-only chart across 3 transcribed clubs.",
-   "why_it_matters": "Reading column 1 as 'the starter' fabricates a starter the club never named and double-counts players holding two slots.",
-   "cannot_confirm": "How the clubs intend shared slots to be read - they publish no explanation.",
-   "evidence": [
-    {
-     "label": "shared slot",
-     "url": "https://www.seahawks.com/team/depth-chart/"
-    }
-   ],
-   "impact_on_lines": "Reading column 1 as 'the starter' fabricates a starter the club never named and double-counts players holding two slots.",
-   "action_needed": "See the linked page for the evidence and the decision required."
-  },
-  {
-   "id": "F20",
-   "status": "resolved",
-   "severity": "info",
-   "title": "Texans depth chart is image-only - confirmed, and it is not fixable by parsing",
-   "observed": "Heading 'Unofficial Depth Chart', body is one raster image. No player text in the HTML.",
-   "why_it_matters": "1 of 32 clubs cannot supply depth from its own page.",
-   "cannot_confirm": "Whether an authorised structured feed exists for Houston depth.",
-   "evidence": [
-    {
-     "label": "image body",
-     "url": "https://www.houstontexans.com/team/depth-chart/"
-    }
-   ],
-   "impact_on_lines": "1 of 32 clubs cannot supply depth from its own page.",
-   "action_needed": "See the linked page for the evidence and the decision required."
-  },
-  {
-   "id": "F21",
-   "status": "resolved",
-   "severity": "info",
-   "title": "Packers jersey-number prefix is confirmed and recoverable",
-   "observed": "Every cell is '<jersey> <name>', e.g. '9 Christian Watson'. Jersey and name are now stored separately plus the raw string.",
-   "why_it_matters": "Recorded because the brief named it; it is a solved parse, not a blocker.",
-   "cannot_confirm": "Nothing.",
-   "evidence": [
-    {
-     "label": "jersey prefix",
-     "url": "https://www.packers.com/team/depth-chart"
-    }
-   ],
-   "impact_on_lines": "Recorded because the brief named it; it is a solved parse, not a blocker.",
-   "action_needed": "See the linked page for the evidence and the decision required."
-  },
-  {
-   "id": "F22",
-   "status": "open",
-   "severity": "info",
-   "title": "Two claims in the brief do not match the live official pages",
-   "observed": "(a) 'Seattle and Cincinnati shown injury-free': SEA carries 15 rows and CIN 9 on 2026-11-16, and neither file shows them injury-free. (b) 'Three Lions game statuses are blank': Kerby Joseph, Cade Mays and D.J. Reed all read 'Out' in the checked-in file and on the live page. (c) 'Ravens still list Lamar Jackson and Tyler Huntley': the chart reads Brissett / Fagnano / Slovis.",
-   "why_it_matters": "A correction based on any of these would have introduced an error into data that was already right.",
-   "cannot_confirm": "Which version of the pages the brief's author saw - the page could have changed, or the claim could have come from a different rendering.",
-   "evidence": [
-    {
-     "label": "injury report",
-     "url": "https://www.nfl.com/injuries/league/2026/reg10"
-    },
-    {
-     "label": "QB order",
-     "url": "https://www.baltimoreravens.com/team/depth-chart/"
-    }
-   ],
-   "impact_on_lines": "A correction based on any of these would have introduced an error into data that was already right.",
-   "action_needed": "See the linked page for the evidence and the decision required."
-  },
-  {
-   "id": "F23",
-   "status": "open",
-   "severity": "medium",
-   "title": "The only scored sample is 11 games, skewed, and says more about variance than about skill",
-   "observed": "Brier skill vs coin +0.194, 95% CI [-0.018,+0.385]. vs base rate -0.016. Dispersion ratio 0.24. Luck gap +1.39 wins.",
-   "why_it_matters": "Any promotion, demotion or reward decision taken on this sample would be a decision taken on noise.",
-   "cannot_confirm": "Whether the model has skill. The sample cannot answer it either way.",
-   "evidence": [
-    {
-     "label": "settled results",
-     "url": "https://www.nfl.com/schedules/2026/by-week/week-10"
-    }
-   ],
-   "impact_on_lines": "Any promotion, demotion or reward decision taken on this sample would be a decision taken on noise.",
-   "action_needed": "See the linked page for the evidence and the decision required."
-  },
-  {
-   "id": "F24",
-   "status": "open",
-   "severity": "high",
-   "title": "Model spread opinions are ~4x narrower than realised margins",
-   "observed": "sd(model margins)=3.41 vs sd(actual)=14.39 over 11 pre-kickoff forecasts. Bias +7.91 pts, 28% of MSE.",
-   "why_it_matters": "A near-constant forecast cannot produce a line-test edge regardless of its mean accuracy.",
-   "cannot_confirm": "The cause - under-dispersion can come from over-regularised ratings, a small weight on availability, or simply too few inputs.",
-   "evidence": [
-    {
-     "label": "settled results",
-     "url": "https://www.nfl.com/schedules/2026/by-week/week-10"
-    }
-   ],
-   "impact_on_lines": "A near-constant forecast cannot produce a line-test edge regardless of its mean accuracy.",
-   "action_needed": "See the linked page for the evidence and the decision required."
-  }
- ]
+  ]
 }
