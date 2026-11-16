@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decision queue - requirements collapsed into owner decisions</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><a href="index.html"><strong>FL3</strong> <span>NFL line origination board</span></a></div>
+  <div class="stamp">official data read 2026-11-14 UTC</div>
+</header>
+<div class="wrap">
+<nav class="side"><div class="navgroup"><span>Read first</span><a href="executive-summary.html">Executive summary</a><a href="readiness.html">Requirement readiness</a><a href="decision-queue.html" class=on>Decision queue</a><a href="questions.html">Questions & gaps</a><a href="suggestions.html">Suggestions</a></div><div class="navgroup"><span>Verified data</span><a href="standings.html">Standings</a><a href="games.html">Game results</a><a href="team-stats.html">Team stats</a><a href="injuries.html">Injuries & availability</a><a href="official-capture.html">Injury capture</a><a href="league-facts.html">League facts</a><a href="results.html">Results feed</a><a href="depth-evidence.html">Depth evidence</a></div><div class="navgroup"><span>Model & signals</span><a href="model.html">Model</a><a href="parameters.html">Parameter register</a><a href="lines.html">Lines</a><a href="luck.html">Removal of luck</a><a href="line-provenance.html">Line provenance</a><a href="signals.html">Signals</a><a href="correlation.html">Correlation</a><a href="validation.html">Validation gates</a><a href="leaderboard.html">Leaderboard</a></div><div class="navgroup"><span>Verification & ops</span><a href="data-freshness.html">Data freshness</a><a href="methodology.html">Methodology</a><a href="verification.html">Verification log</a><a href="sources.html">Sources</a><a href="flagged.html">Flagged for review</a></div>
+  <div class="navgroup"><span>This repo has two published tracks</span>
+    <a href="../index.html" title="the sibling dashboard built from data/*.json by scripts/build_site.py">Sibling dashboard (root)</a>
+    <a href="../docs/index.html" title="the sibling track's documentation section">Sibling docs</a>
+    <a href="../COORDINATION.md" title="shared task board - claims, scopes, source log">Task board</a>
+  </div>
+  <div class="navgroup"><span>Repo</span>
+    <a href="https://github.com/sassnarep3-star/FL3" rel="noopener nofollow" target="_blank">GitHub</a>
+    <a href="https://github.com/sassnarep3-star/FL3/blob/main/COORDINATION.md" rel="noopener nofollow" target="_blank">Coordination board</a>
+  </div>
+</nav>
+<main>
+<h1 id="decision-queue-73-requirements-7-decisions">Decision queue — 73 requirements, 7 decisions</h1>
+<p>The <a href="readiness.html">requirement register</a> lists 73 requirements, each with the gate that blocks it and the number that would clear it. It is complete and it is not actionable: nobody reviews 73 rows and makes a call.</p>
+<p>This page collapses it. Every requirement names a blocking gate; every gate is released by one owner decision. <strong>Grouping by gate produces seven decisions, and one of them releases a third of the register.</strong></p>
+<h2 id="the-queue-sorted-by-what-it-releases">The queue, sorted by what it releases</h2>
+<div class="tablewrap"><table><caption>Each gate, the number of requirements behind it, whether those rows have an official source, and the single owner decision that releases them.</caption><thead><tr><th>Gate</th><th>rows released</th><th>rows without official source</th><th>blocker type</th><th>decision</th><th>requirement ids</th></tr></thead><tbody><tr><td>Q-02</td><td>24</td><td>0</td><td>PROCUREMENT</td><td>Decide the depth/availability source route: club pages (verified per club), an authorised feed, or publish the field as unknown.</td><td>R006;R011;R012;R013;R014;R022;R071;R072;R026;R032;R033;R034;R036;R037;R040;R041;R042;R044;R045;R053;R063;R064;R065;R066</td></tr><tr><td>G-10</td><td>15</td><td>0</td><td>ENGINEERING</td><td>Stand up scheduled capture with a clock time and an immutable store.</td><td>R002;R015;R068;R073;R024;R025;R030;R038;R039;R047;R050;R052;R061;R062;R067</td></tr><tr><td>G-02</td><td>13</td><td>4</td><td>PROTOCOL</td><td>Freeze the evaluation protocol - sample window, fold dates, multiplicity rule - before any comparison is run.</td><td>R003;R009;R018;R020;R070;R028;R029;R038;R051;R055;R056;R057;R067</td></tr><tr><td>G-04</td><td>8</td><td>3</td><td>PROTOCOL</td><td>Freeze the evaluation protocol - sample window, fold dates, multiplicity rule - before any comparison is run.</td><td>R069;R028;R035;R043;R046;R051;R059;R060</td></tr><tr><td>Q-01</td><td>6</td><td>6</td><td>PROCUREMENT</td><td>License a market-price source, or accept in writing that no ROI, CLV or edge figure will ever be published.</td><td>R001;R004;R019;R021;R031;R049</td></tr><tr><td>G-01</td><td>5</td><td>4</td><td>PROTOCOL</td><td>Freeze the evaluation protocol - sample window, fold dates, multiplicity rule - before any comparison is run.</td><td>R005;R017;R069;R048;R059</td></tr><tr><td>G-03</td><td>4</td><td>4</td><td>PROCUREMENT</td><td>License a market-price source, or accept in writing that no ROI, CLV or edge figure will ever be published.</td><td>R001;R005;R019;R048</td></tr><tr><td>G-12</td><td>4</td><td>2</td><td>PROTOCOL</td><td>Freeze the evaluation protocol - sample window, fold dates, multiplicity rule - before any comparison is run.</td><td>R009;R010;R016;R057</td></tr><tr><td>Q-04</td><td>3</td><td>0</td><td>PROTOCOL</td><td>Commit to a minimum results coverage before any rating is trusted, and accept that ratings stay opponent-unaware until it is met.</td><td>R020;R027;R054</td></tr><tr><td>G-07</td><td>2</td><td>1</td><td>PROTOCOL</td><td>Decide whether correlation may be measured on a priced market or only on realised outcomes.</td><td>R007;R058</td></tr><tr><td>(none stated)</td><td>1</td><td>1</td><td>UNCLASSIFIED</td><td>No single owner decision identified - inspect the rows.</td><td>R023</td></tr><tr><td>G-11</td><td>1</td><td>1</td><td>GOVERNANCE</td><td>Define the demotion state machine and who may reverse a transition.</td><td>R008</td></tr></tbody></table></div>
+<h2 id="what-that-table-is-telling-you">What that table is telling you</h2>
+<p><strong>Q-02 releases 24 of 73 requirements and is a procurement decision, not a code decision.</strong> Every one of those 24 rows already has an official source registered. The blocker is not that we cannot find the data — it is that nobody has decided which of the available routes is authoritative: club pages verified club by club, an authorised structured feed, or publishing the field as unknown. That is one conversation.</p>
+<p><strong>Q-01 and G-03 release 10 rows between them and all 10 have no official source.</strong> They are the same decision counted twice: license a market price, or write down that no ROI, CLV or edge figure will be published. Both answers are defensible. What is not defensible is publishing a comparison against a price nobody licensed — which is why those columns are blank on every table on this site.</p>
+<p><strong>G-10 releases 15 rows and is the only purely engineering item.</strong> Scheduled capture with a clock time and an immutable store. This session proved the need for it rather than asserting it: the same official injury URL, read 48 hours apart, gave LAC a game status on 0 of 19 rows and then 9 of 19 (<a href="data-freshness.html">data freshness</a>).</p>
+<p><strong>35 rows sit behind protocol decisions that cost nothing but resolve arguments.</strong> Sample window, fold dates, multiplicity rule, whether correlation may be measured on a priced market. These need no procurement and no code; they need someone to write them down and commit the text.</p>
+<p><strong>Q-04 (3 rows) and one row with no stated gate were not classified by this script.</strong> Their blocking gate is a coverage threshold rather than a single owner decision, so the queue says <code>UNCLASSIFIED</code> and lists the requirement IDs rather than inventing a decision for them.</p>
+<h2 id="what-is-already-done-so-it-does-not-get-re-decided">What is already done, so it does not get re-decided</h2>
+<p>Not every row in the register is open. This session moved six rows forward and wrote down exactly how:</p>
+<div class="tablewrap"><table><thead><tr><th>Row</th><th>Was</th><th>Now</th><th>What changed</th></tr></thead><tbody><tr><td>R002 Results feed</td><td>PARTIAL</td><td>PARTIAL (<strong>first working feed</strong>)</td><td>12 of 14 Week 10 games verified, one row per fixture, game-page link per row</td></tr><tr><td>R069 Luck panel</td><td>—</td><td>PARTIAL</td><td>First prospective grade computed; interval published including its lower bound below zero</td></tr><tr><td>R070 Canonical line</td><td>—</td><td>NOT STARTED (<strong>defect now measured</strong>)</td><td>Three series reconciled; 6.72-pt disagreement published</td></tr><tr><td>R071 Depth as grid</td><td>—</td><td>PARTIAL</td><td>3 clubs transcribed with cell structure; 6 failure modes documented</td></tr><tr><td>R072 Parse failures</td><td>—</td><td>PARTIAL</td><td>Packers solved; Texans confirmed impossible from the source</td></tr><tr><td>R073 Staleness</td><td>—</td><td>PARTIAL</td><td>Measured: 22/32 clubs, 160→347 injury rows</td></tr></tbody></table></div>
+<h2 id="read-the-top-of-the-queue-in-one-minute">Read the top of the queue in one minute</h2>
+<p>1. <strong>Decide the availability/depth source route</strong> (Q-02, 24 rows). Highest leverage, no cost. 2. <strong>Freeze the evaluation protocol</strong> (G-02/G-04/G-12/G-01/G-07, 35 rows). No cost, ends the "is this in-sample?" argument permanently. 3. <strong>Set the price-data policy</strong> (Q-01/G-03, 10 rows). Either license or accept the restriction in writing. 4. <strong>Stand up scheduled capture</strong> (G-10, 15 rows). The only item that needs engineering time. 5. <strong>Define the demotion state machine</strong> (G-11, 1 row). Small, but it is what makes a live strategy revertible.</p>
+<h2 id="reproduce">Reproduce</h2>
+<pre><code>
+python3 scripts/build_decisions_queue.py
+</code></pre>
+<p>It reads <code>data/requirements_readiness.csv</code> and changes nothing in it. Rows can sit behind more than one gate, so per-gate counts sum above 73 — that is stated in the output rather than adjusted away.</p>
+<footer>
+  <p>Every table on this site is generated from <code>data/</code> by <code>scripts/build_site.py</code>;
+  no value is typed into the HTML. Empty cells are deliberate: the value was not confirmable from an
+  official source, so it is left blank and listed on the
+  <a href="flagged.html">Flagged for review</a> page. Nothing here is betting advice.</p>
+</footer>
+</main>
+</div>
+</body></html>

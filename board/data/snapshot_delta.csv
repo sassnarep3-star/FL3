@@ -1,0 +1,41 @@
+section,key,label,n_changes,detail,source_old,source_new
+standings,ATL,Atlanta Falcons,5,l 6->7 (+1); pf 188->201 (+13); pa 223->258 (+35); net_pts -35->-57 (-22); games 9->10 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,AZ,Arizona Cardinals,5,l 6->7 (+1); pf 178->184 (+6); pa 255->289 (+34); net_pts -77->-105 (-28); games 9->10 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,BAL,Baltimore Ravens,0,no change,https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,BUF,Buffalo Bills,5,w 7->8 (+1); pf 256->287 (+31); pa 187->199 (+12); net_pts 69->88 (+19); games 8->9 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,CAR,Carolina Panthers,5,w 3->4 (+1); pf 199->219 (+20); pa 219->236 (+17); net_pts -20->-17 (+3); games 8->9 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,CHI,Chicago Bears,0,no change,https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,CIN,Cincinnati Bengals,0,no change,https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,CLE,Cleveland Browns,5,w 5->6 (+1); pf 161->188 (+27); pa 196->220 (+24); net_pts -35->-32 (+3); games 9->10 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,DAL,Dallas Cowboys,5,l 5->6 (+1); pf 246->286 (+40); pa 236->282 (+46); net_pts 10->4 (-6); games 9->10 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,DEN,Denver Broncos,0,no change,https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,DET,Detroit Lions,5,w 6->7 (+1); pf 222->257 (+35); pa 189->199 (+10); net_pts 33->58 (+25); games 8->9 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,GB,Green Bay Packers,5,l 3->4 (+1); pf 216->226 (+10); pa 191->221 (+30); net_pts 25->5 (-20); games 9->10 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,HOU,Houston Texans,5,l 5->6 (+1); pf 209->233 (+24); pa 192->219 (+27); net_pts 17->14 (-3); games 8->9 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,IND,Indianapolis Colts,5,w 2->3 (+1); pf 184->208 (+24); pa 249->271 (+22); net_pts -65->-63 (+2); games 9->10 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,JAX,Jacksonville Jaguars,5,w 6->7 (+1); pf 229->269 (+40); pa 121->144 (+23); net_pts 108->125 (+17); games 8->9 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,KC,Kansas City Chiefs,5,w 6->7 (+1); pf 202->237 (+35); pa 143->156 (+13); net_pts 59->81 (+22); games 8->9 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,LAC,Los Angeles Chargers,0,no change,https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,LAR,Los Angeles Rams,5,w 5->6 (+1); pf 214->248 (+34); pa 181->187 (+6); net_pts 33->61 (+28); games 9->10 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,LV,Las Vegas Raiders,5,l 5->6 (+1); pf 238->251 (+13); pa 268->289 (+21); net_pts -30->-38 (-8); games 9->10 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,MIA,Miami Dolphins,5,l 7->8 (+1); pf 126->148 (+22); pa 200->224 (+24); net_pts -74->-76 (-2); games 8->9 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,MIN,Minnesota Vikings,5,w 6->7 (+1); pf 146->176 (+30); pa 116->126 (+10); net_pts 30->50 (+20); games 8->9 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,NE,New England Patriots,5,l 4->5 (+1); pf 211->221 (+10); pa 207->242 (+35); net_pts 4->-21 (-25); games 9->10 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,NO,New Orleans Saints,5,l 5->6 (+1); pf 185->202 (+17); pa 216->236 (+20); net_pts -31->-34 (-3); games 8->9 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,NYG,New York Giants,0,no change,https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,NYJ,New York Jets,5,l 7->8 (+1); pf 182->194 (+12); pa 223->254 (+31); net_pts -41->-60 (-19); games 9->10 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,PHI,Philadelphia Eagles,0,no change,https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,PIT,Pittsburgh Steelers,0,no change,https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,SEA,Seattle Seahawks,5,w 5->6 (+1); pf 202->223 (+21); pa 162->175 (+13); net_pts 40->48 (+8); games 9->10 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,SF,San Francisco 49ers,5,w 7->8 (+1); pf 235->281 (+46); pa 156->196 (+40); net_pts 79->85 (+6); games 8->9 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,TB,Tampa Bay Buccaneers,0,no change,https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,TEN,Tennessee Titans,5,l 7->8 (+1); pf 144->167 (+23); pa 199->239 (+40); net_pts -55->-72 (-17); games 8->9 (+1),https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+standings,WAS,Washington Commanders,0,no change,https://www.nfl.com/standings/ (read 2026-11-14),https://www.nfl.com/standings/league/2026/REG (read 2026-11-16)
+injuries_summary,rows,player rows,187,160 -> 347,https://www.nfl.com/injuries/league/2026/reg10 (read 2026-11-14),https://www.nfl.com/injuries/league/2026/reg10 (read 2026-11-16)
+injuries_summary,clubs,clubs covered,2,26 -> 28,,
+injuries_summary,rows_added,player rows only in live capture,189,,,
+injuries_summary,rows_removed,player rows only in checked-in file,2,,,
+injuries_summary,designation_changed,"same player, changed designation",2,,,
+lions_check,DET:Kerby Joseph,Kerby Joseph,0,checked-in=Out live=Out,data/injuries_2026_w10.csv,https://www.nfl.com/injuries/league/2026/reg10
+lions_check,DET:Cade Mays,Cade Mays,0,checked-in=Out live=Out,data/injuries_2026_w10.csv,https://www.nfl.com/injuries/league/2026/reg10
+lions_check,DET:D.J. Reed,D.J. Reed,0,checked-in=Out live=Out,data/injuries_2026_w10.csv,https://www.nfl.com/injuries/league/2026/reg10
