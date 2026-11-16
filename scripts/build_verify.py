@@ -102,9 +102,9 @@ def build_index(log, venues):
         for n, l in [
             (len(claims), "claims re-checked"),
             (by_status.get("CONFIRMED", 0), "confirmed"),
-            (by_status.get("PARTIALLY_CONFIRMED", 0), "partially confirmed"),
+            (by_status.get("PARTIALLY CONFIRMED", 0), "partially confirmed"),
             (by_status.get("RECONCILED", 0), "reconciled"),
-            (by_status.get("NOT_VERIFIED", 0), "not verified"),
+            (by_status.get("NOT VERIFIED", 0), "not verified"),
             (len(games), "fixtures venue-verified"),
             (finals, "final games with Game Book"),
         ]

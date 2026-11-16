@@ -103,6 +103,24 @@ def main():
         check(html.escape(g["stadium"]) in vbody2,
               f"V: venues.html does not render stadium {g['stadium']}")
 
+    # index stat cards must reflect the real status counts (and sum to the claim total)
+    from collections import Counter
+    by_status = Counter(c["status"] for c in claims)
+    ibody = open(os.path.join(OUT, "index.html"), encoding="utf-8").read()
+    for status, label in [("CONFIRMED", "confirmed"),
+                          ("PARTIALLY CONFIRMED", "partially confirmed"),
+                          ("RECONCILED", "reconciled"),
+                          ("NOT VERIFIED", "not verified")]:
+        expected = by_status.get(status, 0)
+        check(f'<div class="n">{expected}</div><div class="l">{label}</div>' in ibody,
+              f"V: index.html counter for '{label}' is {expected} (status '{status}')")
+    status_sum = sum(by_status.get(s, 0) for s in
+                     ("CONFIRMED", "PARTIALLY CONFIRMED", "RECONCILED", "NOT VERIFIED"))
+    check(status_sum == len(claims),
+          f"V: status counters sum to {status_sum} but there are {len(claims)} claims")
+    check(f'<div class="n">{len(claims)}</div><div class="l">claims re-checked</div>' in ibody,
+          "V: index.html total-claims counter does not match the data")
+
     print(f"ran {checks} assertions")
     if errors:
         for e in errors:
