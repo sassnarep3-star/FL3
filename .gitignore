@@ -24,3 +24,7 @@ data/raw_evidence/*.sha256
 # NOTE: board/ and docs/ are deliberately NOT ignored. Pages builds the repo root as a legacy
 # branch deploy, so the generated artefacts are what publishes; .github/workflows/site.yml
 # fails if board/ does not match what data/ generates.
+
+# session arena/03e651e0 — raw HTML captures are kept as hashed evidence files,
+# not as rendered pages. See data/live_snapshots/MANIFEST.json
+__pycache__/

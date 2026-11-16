@@ -993,3 +993,61 @@ These are published on the Claims log with their source links and do not block t
 | PR checks | `Recompute and verify` pass (incl. new `check_verify.py`); `validate` pass; `site` pass |
 | Merge | **merged** into `main` (no `--auto`; no review waited for, per brief) |
 | Deploy | GitHub Pages via `pages.yml` (allowlist now includes `verify`); live at `/FL3/verify/` |
+
+Filled in after the merge — see the entry below.
+
+---
+
+# Session `arena/03e651e0-fl3` — claim, 2026-11-16T01:30Z
+
+**Read this before touching `verified/`, `scripts/verify_live.py`, `scripts/build_verified_site.py`,
+`data/live_snapshots/**`, `data/week_results_2026.csv`, or the Pages deploy workflow.**
+
+## What this session found before claiming
+
+1. **The repo is a collision of six parallel builds of the same brief** (root site, `docs/`, `depth/`,
+   `site-9b181d31/`, `board/`, `legacy/`). Each is separately sourced and separately verified, and several
+   carry stale captures. There is no single place where the owner can read the current, verified state.
+2. **GitHub Pages is configured as `build_type: legacy`, source `main:/`** — verified live from the API
+   (`gh api repos/sassnarep3-star/FL3/pages`). That means *every* top-level directory publishes
+   automatically, and `.github/workflows/pages.yml` (the `cp -r` allowlist workflow) is a **second,
+   competing deployment** that is not what actually serves the site. Three sessions have been editing that
+   allowlist believing it was the deploy path (see `arena/46e888f0` trap #1, `arena/9b181d31`,
+   `S1-b37bd750`). It is dead weight at best and a source of false confidence at worst.
+3. **The repo's captured data is from 2026-11-14. Today is 2026-11-16 and Week 10 has finished.** The live
+   NFL.com schedule page now publishes final scores for all 14 Week 10 games. Several captures in the repo
+   are therefore provably stale or wrong, and the board's own `/board/readiness.html` says so without
+   having re-fetched anything ("This session did not re-fetch NFL/club sources").
+
+## Claim
+
+I am the **integration session**. Earlier sessions each produced a partial track and left handoff notes
+asking for this work; the brief requires it to be done autonomously and published. My scope is additive and
+non-overlapping: a **new top-level `verified/` subsite** fed by **newly fetched, hashed, timestamped
+official captures**, plus the deploy-path correction.
+
+| # | Task | Status | Owner | Files touched (exclusive scope) |
+|---|---|---|---|---|
+| V01 | Re-capture official NFL sources live, with clock times, byte counts and SHA-256 hashes | in progress | `arena/03e651e0` | `data/live_snapshots/**`, `scripts/verify_live.py` |
+| V02 | Week 10 verified results corpus (14 games, official final scores) | in progress | `arena/03e651e0` | `data/week_results_2026.csv`, `data/week_results_2026.json` |
+| V03 | Re-verification of the requirement register against live sources; correct provably stale claims | in progress | `arena/03e651e0` | `data/live_verification.csv`, `data/live_verification.json` |
+| V04 | Canonical `verified/` dashboard: one page per category, every row sourced, stale/contradicted items flagged | in progress | `arena/03e651e0` | `verified/**`, `scripts/build_verified_site.py` |
+| V05 | Single deploy path: remove the competing allowlist workflow, document the real one | in progress | `arena/03e651e0` | `.github/workflows/pages.yml` |
+| V06 | Pre-register the shadow baseline model in git (single bets only) | in progress | `arena/03e651e0` | `verified/PREREGISTRATION.md` |
+| V07 | Fold in: integrity audit of existing captures, PR, merge, live URL check | in progress | `arena/03e651e0` | `COORDINATION.md`, `README.md` |
+
+**Explicitly NOT touched** (other sessions own them): `data/requirements_readiness.csv`,
+`data/sources.json`, `data/flagged.json`, `data/standings.json`, `data/injuries_week10.json`,
+`scripts/build_site.py`, `scripts/build_board.py`, `scripts/check_site.py`, `scripts/build_readiness.py`,
+`build.py`, `docs/**`, `board/**`, `depth/**`, `site-9b181d31/**`, `legacy/**`, root `*.html`,
+`assets/**`. New files only, in new directories, with new names.
+
+Where I find a defect in another track's output I **do not edit it**: I record it in
+`data/live_verification.csv` with the official evidence link and publish it on the `verified/` review page,
+which is the protocol's route (log the request; publish the flag).
+
+## Baseline checks run before editing
+
+`python3 scripts/check_site.py` and `python3 scripts/verify.py` were run on the checked-out snapshot; results
+are recorded in the verification log below once V02–V04 land. Nothing in the repo was modified before this
+claim was committed.

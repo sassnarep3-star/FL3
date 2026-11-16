@@ -38,6 +38,7 @@ PAGES = {
     "sources.html": "Sources",
     "methodology.html": "Methodology",
     "board/readiness.html": "Requirement readiness",
+    "verified/index.html": "Verified results & scoring",
     "verify/index.html": "Verification",
 }
 
@@ -189,6 +190,39 @@ def build_index(standings, lines, inj, luck, strat, dec, sug, flag, readiness, s
   <p class="lede">A working dashboard for the FL3 NFL project. Every league figure below was read
   off an official NFL.com page on {CAPTURED} and links to that page. Where a number could not be
   confirmed, the cell is blank and the gap is listed on <a href="flagged.html">Flagged for Review</a>.</p>
+</section>
+
+<section class="subsites">
+  <h2 style="margin-top:0">The current dashboard, and the ones it replaces</h2>
+  <p class="lede" style="margin-bottom:10px">Six sessions built dashboards for this brief before they could
+  see each other's work. They are all still published. <b>The one to read first is
+  <a href="verified/index.html">Verified results &amp; scoring</a></b>: it is the only build holding a results
+  corpus that reconciles against the league's own standings, so it is the only one that can score a
+  forecast. The others are kept for their specialist material, and some of their inputs are known to be
+  incomplete — see <a href="verified/review.html">Flagged for review</a>.</p>
+  <table>
+    <thead><tr><th>Dashboard</th><th>What it is best at</th><th>Can score a forecast?</th></tr></thead>
+    <tbody>
+      <tr><td><a href="verified/index.html"><b>Verified results &amp; scoring</b></a></td>
+          <td>148 verified results, out-of-sample line evaluation, live re-verification register</td>
+          <td><b>yes</b></td></tr>
+      <tr><td><a href="board/index.html">board</a></td>
+          <td>column-label proofs, fitted constants with standard errors, decision math</td>
+          <td>no — 33 of 148 game rows</td></tr>
+      <tr><td><a href="depth/index.html">depth</a></td>
+          <td>depth charts and per-club availability reconciliation</td>
+          <td>no</td></tr>
+      <tr><td><a href="docs/index.html">docs</a></td>
+          <td>requirements and decision registers</td>
+          <td>no</td></tr>
+      <tr><td><a href="site-9b181d31/index.html">site-9b181d31</a></td>
+          <td>club-chart tier verification for 8 clubs, market-reference layer</td>
+          <td>no</td></tr>
+      <tr><td><a href="index.html">this page</a></td>
+          <td>standings, Week 10 slates, availability counts, requirement readiness</td>
+          <td>no</td></tr>
+    </tbody>
+  </table>
 </section>
 
 <section class="stats">

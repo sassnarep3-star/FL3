@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overview · FL3 NFL decision system</title>
+<meta name="description" content="Verified NFL 2026 data, originated lines and honest out-of-sample scoring. Every value links to an official source or is marked unverified.">
+<link rel="stylesheet" href="assets/verified.css">
+</head>
+<body>
+<a class="skip" href="#main" style="position:absolute;left:-9999px">Skip to content</a>
+<header class="top"><div class="wrap">
+<div class="brand"><b>FL3</b><span>NFL decision system · 2026 regular season</span>
+<span style="margin-left:auto;font-size:11.5px;color:#8b949e">read 2026-11-16 01:42 UTC</span></div>
+<nav class="cats"><a href="index.html" class="on">Overview</a><a href="results.html">Results</a><a href="lines.html">Our lines</a><a href="injuries.html">Availability</a><a href="strategies.html">Strategies</a><a href="verification.html">Verification</a><a href="review.html">Flagged for review</a><a href="method.html">Method &amp; sources</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+
+<h1>NFL 2026 — verified data, originated lines, honest scoring</h1>
+<p class="lede">Eleven weeks into the 2026 season. The schedule pages now publish final scores for
+<b>148</b> games, and those rows reconcile exactly against the league's own standings.
+That is enough to score this project's own predictions out of sample — which is done below, including
+where the answer is "no demonstrated skill".</p>
+
+<div class="cards">
+<div class="card"><span class="n">148</span><span class="l">verified game results</span>
+<span class="s">weeks 1–10 · 160 club figures reconciled</span></div>
+<div class="card"><span class="n">100</span><span class="l">out-of-sample forecasts</span>
+<span class="s">walk-forward, weeks 4–10</span></div>
+<div class="card"><span class="n">4/15</span>
+<span class="l">repo claims confirmed live</span>
+<span class="s">2 stale · 5 unverifiable</span></div>
+<div class="card"><span class="n">0</span><span class="l">licensed market prices held</span>
+<span class="s">so CLV and ROI are not computable</span></div>
+</div>
+
+<div class="note warn"><b>The single most important line on this site.</b>
+The registered baseline does <b>not</b> beat a pick'em line at a 95% confidence level over 100
+out-of-sample games, and its win probabilities are <b>not</b> distinguishable from a coin flip.
+Detailed numbers are below and nothing on this page is phrased as if that were not the case.
+What <i>is</i> established is the measurement apparatus: a result corpus that reconciles to the league's
+own arithmetic, a frozen pre-registration, and a scoring path that would detect skill if it appeared.</div>
+
+<h2>Out-of-sample scoreboard <span class="b model">model output</span></h2>
+<p class="lede">Rule: fit on every game before week <i>k</i>, forecast week <i>k</i>, never look forward.
+Intervals are 95% percentile intervals from 4,000 bootstrap resamples taken <b>by game</b>.</p>
+<div class="tbl"><table>
+<thead><tr><th>Measure</th><th class="num">Model</th><th class="num">Baseline</th>
+<th class="num">Gain</th><th class="num">95% interval</th><th>Reads as</th></tr></thead>
+<tbody>
+<tr><td>Spread error, RMSE (points)</td>
+<td class="num">12.58</td>
+<td class="num">13.31 <span class="cls">pick'em</span></td>
+<td class="num">+0.055</td>
+<td class="num">[-0.020, +0.130]</td>
+<td><span class="b warn">not distinguishable</span></td></tr>
+<tr><td>Total error, RMSE (points)</td>
+<td class="num">13.92</td>
+<td class="num">13.48 <span class="cls">league mean</span></td>
+<td class="num">-0.032</td>
+<td class="num">[-0.103, +0.038]</td>
+<td><span class="b warn">no gain</span></td></tr>
+<tr><td>Brier skill vs coin flip</td>
+<td class="num">+0.069</td>
+<td class="num">0.000</td>
+<td class="num">+0.069</td>
+<td class="num">[-0.086, +0.229]</td>
+<td><span class="b warn">not distinguishable</span></td></tr>
+<tr><td>Pick direction correct</td>
+<td class="num">65.0%</td>
+<td class="num">50.0% <span class="cls">coin</span></td>
+<td class="num">+15.0%</td>
+<td class="num">[56.0%, 74.0%]</td>
+<td><span class="b ok">excludes 50%</span></td></tr>
+</tbody></table></div>
+<p class="cls">n = 100 games. Full per-game rows: <a href="results.html">Results</a>.
+Method and constants: <a href="method.html">Method</a>.</p>
+
+<h2>The committed Week 10 forecasts <span class="b model">model output</span></h2>
+<p class="lede">These 14 lines were committed to the repository on 2026-11-14, before most of the games
+were played. The commit is the pre-registration: the numbers could not be chosen after seeing the results.
+One game is excluded because it was already final when the file was committed.</p>
+<div class="tbl"><table>
+<thead><tr><th>Forecast set</th><th class="num">n scored</th><th class="num">Spread RMSE</th>
+<th class="num">Total RMSE</th><th class="num">Brier skill</th><th class="num">95% interval</th></tr></thead>
+<tbody><tr>
+<td>Week 10 originated lines, as committed</td>
+<td class="num">11</td>
+<td class="num">14.89 pts</td>
+<td class="num">13.30 pts</td>
+<td class="num">+0.194</td>
+<td class="num">[-0.024, +0.382]</td>
+</tr></tbody></table></div>
+<div class="note"><b>Excluded, with reason.</b>
+<code>WAS-NYG-W10</code> — already FINAL when the model file was committed — lookahead leakage, excluded<br><code>PIT-CIN-W10</code> — not FINAL on the official schedule page at read time<br><code>LAC-BAL-W10</code> — not FINAL on the official schedule page at read time<br>
+<b>n = 11 is too small to rank anything.</b> On 11 games the standard error of directional accuracy is
+about 0.15, so almost any result here is consistent with a coin. It is shown for auditability, not as
+evidence.</div>
+
+<h2>What is verified, and what is not</h2>
+<div class="grid2">
+<div>
+<div class="tbl"><table>
+<thead><tr><th>Claim</th><th>Status</th></tr></thead><tbody>
+<tr><td><a href="verification.html">LV-01</a> The Week 10 injury report capture holds 345 rows across 28 clubs.</td><td><span class="b ok">confirmed</span></td></tr><tr><td><a href="verification.html">LV-02</a> Detroit players Kerby Joseph, Cade Mays and D.J. Reed are published with…</td><td><span class="b warn">not reproducible</span></td></tr><tr><td><a href="verification.html">LV-03</a> Published Week 10 injury counts are stale: 254 rows and 4 no-injury sect…</td><td><span class="b warn">not reproducible</span></td></tr><tr><td><a href="verification.html">LV-04</a> Seattle and Cincinnati are shown as injury-free while listing 15 and 4 p…</td><td><span class="b warn">partly stale</span></td></tr><tr><td><a href="verification.html">LV-05</a> Two of the repo&#x27;s injury captures disagree with each other, so at least …</td><td><span class="b bad">stale</span></td></tr><tr><td><a href="verification.html">LV-06</a> The 2026 regular season through Week 10 is a 136-game corpus.</td><td><span class="b bad">stale</span></td></tr><tr><td><a href="verification.html">LV-07</a> A 148-row results corpus transcribed from the weekly schedule pages reco…</td><td><span class="b ok">confirmed</span></td></tr><tr><td><a href="verification.html">LV-08</a> The committed Week 10 model lines were published before the games were p…</td><td><span class="b warn">partly stale</span></td></tr>
+</tbody></table></div>
+<p class="cls"><a href="verification.html">All 15 re-verified claims →</a></p>
+</div>
+<div>
+<h3>Blocked, and why</h3>
+<ul>
+<li><b>No licensed price.</b> No NFL page publishes a spread, total or prop price. Closing-line value and
+realised return cannot be computed for any strategy here. This is a fact about the sources, not a gap in
+the work.</li>
+<li><b>No official depth ordinal.</b> The league publishes rosters and injury reports, not depth ranks.
+Backup depth is a model estimate on third-party chart data and is labelled as such everywhere.</li>
+<li><b>No snap counts or inactive lists.</b> A backup replacing a starter can be identified, but that the
+backup played the starter's snaps cannot be evidenced from an official league page.</li>
+<li><b>No dated injury archive.</b> The official page overwrites each day's designations, so a practice
+trend cannot be reconstructed after the fact — only captured prospectively.</li>
+</ul>
+</div></div>
+
+<h2>This repository contains six parallel builds</h2>
+<p class="lede">Six sessions built dashboards for the same brief without seeing each other's work. This page
+is the current one because it is the only one whose result corpus reconciles against the league's own
+arithmetic. Nothing was deleted; the comparisons that matter are on
+<a href="verification.html">Verification</a>, and each subsite remains online.</p>
+<div class="tbl"><table>
+<thead><tr><th>Path</th><th>What it is</th><th>Result corpus</th><th>Standing</th></tr></thead>
+<tbody>
+<tr><td><a href="index.html">/verified/</a></td><td>this dashboard</td>
+<td class="num">148 games, identity-checked</td><td><span class="b ok">current</span></td></tr>
+<tr><td><a href="../">/</a></td><td>root dashboard, 13 pages, 1,262 assertions</td>
+<td class="num">none (Week 10 only)</td><td><span class="b info">superseded for scoring</span></td></tr>
+<tr><td><a href="../board/index.html">/board/</a></td><td>CSV-first board with fitted constants</td>
+<td class="num">33 of 148</td><td><span class="b warn">partial corpus</span></td></tr>
+<tr><td><a href="../depth/index.html">/depth/</a></td><td>depth charts and availability reconciliation</td>
+<td class="num">standings only</td><td><span class="b info">specialist</span></td></tr>
+<tr><td><a href="../docs/index.html">/docs/</a></td><td>requirements and decision registers</td>
+<td class="num">standings only</td><td><span class="b info">registers</span></td></tr>
+<tr><td><a href="../site-9b181d31/index.html">/site-9b181d31/</a></td><td>12-page dashboard with club depth charts</td>
+<td class="num">standings only</td><td><span class="b info">specialist</span></td></tr>
+</tbody></table></div>
+
+</div></main>
+<footer><div class="wrap">
+<p><b>What this is.</b> A verified-data dashboard. Official league values carry a source link.
+Model output is labelled model output. No licensed betting price exists in this repository, so
+closing-line value and realised return are <b>not computed and not implied</b> anywhere.</p>
+<p>Every page here is generated from the committed data files by <code>scripts/build_verified_site.py</code>
+and re-checked by <code>scripts/check_verified_site.py</code>. Other dashboards in this repository
+(<a href="../">root</a>, <a href="../board/index.html">board</a>, <a href="../docs/index.html">docs</a>,
+<a href="../depth/index.html">depth</a>, <a href="../site-9b181d31/index.html">site-9b181d31</a>) are separate builds and
+are not superseded by this one.</p>
+</div></footer>
+</body></html>

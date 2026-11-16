@@ -32,11 +32,21 @@ jobs:
           python3 scripts/compute_luck.py
           python3 scripts/compute_correlation.py
 
+      - name: Rebuild the verified corpus, evaluation and register
+        run: |
+          python3 scripts/build_week_results.py
+          python3 scripts/score_lines.py
+          python3 scripts/verify_live.py
+          python3 scripts/build_verified_site.py
+
       - name: Rebuild the site
         run: python3 scripts/build_site.py
 
-      - name: Verify data, links and arithmetic
+      - name: Verify data, links and arithmetic (root site)
         run: python3 scripts/check_site.py
+
+      - name: Verify the canonical verified dashboard
+        run: python3 scripts/check_verified_site.py
 
       - name: Build and verify the official-source verification subsite
         run: |
