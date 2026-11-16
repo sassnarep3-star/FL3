@@ -91,6 +91,9 @@ def main() -> int:
     ap.add_argument("--deadline", default=None,
                     help="use only games dated strictly before this ISO date (default: all committed results)")
     ap.add_argument("--format", default="text", choices=["text", "json"])
+    ap.add_argument("--fixtures", default=None,
+                    help="emit registered forecasts for an unplayed fixture list (JSON array of "
+                         "[away, home] pairs) - these are the first live forecasts of FL3-SHADOW-1")
     a = ap.parse_args()
 
     rows = load_results()
@@ -120,6 +123,19 @@ def main() -> int:
             for h in teams[i + 1:]:
                 fc[f"{aw}@{h}"] = forecast(ratings, aw, h)
         payload["example_forecasts"] = fc
+
+    if a.fixtures:
+        pairs = json.load(open(a.fixtures, encoding="utf-8"))
+        team_ok = all(aw in ratings and h in ratings for aw, h in pairs)
+        if not team_ok:
+            print("FATAL: a fixture names a club with no rating", file=sys.stderr)
+            return 1
+        payload["fixtures"] = [
+            dict(away=aw, home=h, **forecast(ratings, aw, h)) for aw, h in pairs
+        ]
+        payload["fixture_count"] = len(pairs)
+        payload["note"] = ("Registered forecasts for unplayed fixtures. They are model output, not picks, "
+                           "and they are not staked. Kickoff times come from the official schedule page.")
 
     if a.format == "json":
         print(json.dumps(payload, indent=1, sort_keys=True))

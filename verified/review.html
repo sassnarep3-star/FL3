@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flagged for review · FL3 NFL decision system</title>
+<meta name="description" content="Verified NFL 2026 data, originated lines and honest out-of-sample scoring. Every value links to an official source or is marked unverified.">
+<link rel="stylesheet" href="assets/verified.css">
+</head>
+<body>
+<a class="skip" href="#main" style="position:absolute;left:-9999px">Skip to content</a>
+<header class="top"><div class="wrap">
+<div class="brand"><b>FL3</b><span>NFL decision system · 2026 regular season</span>
+<span style="margin-left:auto;font-size:11.5px;color:#8b949e">read 2026-11-16 01:39 UTC</span></div>
+<nav class="cats"><a href="index.html">Overview</a><a href="results.html">Results</a><a href="lines.html">Our lines</a><a href="injuries.html">Availability</a><a href="strategies.html">Strategies</a><a href="verification.html">Verification</a><a href="review.html" class="on">Flagged for review</a><a href="method.html">Method &amp; sources</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+
+<h1>Flagged for review</h1>
+<p class="lede">Everything below is a defect this session found and did <b>not</b> silently repair. Two are
+material to the numbers, three are structural facts about what official sources can support, two are
+governance, and one is a claim that did not reproduce and was therefore not acted on. None of them blocks
+publication; all of them change how the numbers should be read.</p>
+
+<div class="note warn"><b>Read this before trusting any number elsewhere in the repository.</b>
+R-01 and R-03 mean that at least one other dashboard's inputs are incomplete. This page states which and
+why; the fix belongs to the session that owns those files.</div>
+
+<div class="tbl"><table>
+<thead><tr><th>ID</th><th>Item</th><th>Severity</th><th>What is wrong</th><th>Recommended action</th>
+<th>Evidence</th></tr></thead><tbody>
+<tr><td class="mono">R-01</td><td><b>Partial injury capture omits a starting quarterback</b></td>
+<td><span class="b bad">material</span></td>
+<td>data/injuries_2026_w10.csv holds 160 rows, all of which carry a game designation, against 345 on the live official page. Seattle shows 4 rows instead of 15; Sam Darnold (QB, Out) is absent. It is the input to the board/ model.</td><td>Switch that track to data/injuries_2026_wk10.csv, or label every output as built on designated players only.</td>
+<td><a class='src' href='verification.html'>LV-05</a></td></tr><tr><td class="mono">R-02</td><td><b>Two injury captures of the same report disagree</b></td>
+<td><span class="b bad">material</span></td>
+<td>345 rows vs 160 rows, 28 clubs vs 26, and different club-name conventions. Both are committed and both are cited by different pages.</td><td>Retire one, or document which page uses which and why.</td>
+<td><a class='src' href='verification.html'>LV-05</a></td></tr><tr><td class="mono">R-03</td><td><b>The &#x27;136-game corpus&#x27; figure is stale, and the board holds 33 rows</b></td>
+<td><span class="b bad">material</span></td>
+<td>136 was the correct count of games before 2026-11-12. Today 148 games are final. The board&#x27;s own game file holds 33 rows, so no ROI can be computed anywhere in that track.</td><td>Derive the corpus size at render time from the results file; do not type it into prose.</td>
+<td><a class='src' href='verification.html'>LV-06</a></td></tr><tr><td class="mono">R-04</td><td><b>No licensed price anywhere, so CLV and ROI are not computable</b></td>
+<td><span class="b warn">structural</span></td>
+<td>No NFL-operated page publishes a spread, total, moneyline or prop price. Operator pages are not official and are geo-gated.</td><td>Decide the price policy before publishing any backtest. Until then publish proper-score skill only.</td>
+<td><a class='src' href='verification.html'>LV-10</a></td></tr><tr><td class="mono">R-05</td><td><b>No official depth ordinal, so backup depth is a model estimate</b></td>
+<td><span class="b warn">structural</span></td>
+<td>The league publishes rosters and injury reports, not depth ranks. Club charts carry no effective date.</td><td>Keep the existing authority rule and label every depth-derived number as a model estimate.</td>
+<td><a class='src' href='verification.html'>LV-09</a></td></tr><tr><td class="mono">R-06</td><td><b>No snap counts or inactive lists, so replacement is suspected not confirmed</b></td>
+<td><span class="b warn">structural</span></td>
+<td>The official report has five columns: player, position, injury, practice status, game status. No snap or inactive data.</td><td>Publish the requirement as open; do not infer participation from depth order.</td>
+<td><a class='src' href='verification.html'>LV-11</a></td></tr><tr><td class="mono">R-07</td><td><b>The injury report cannot be reconstructed as a daily series</b></td>
+<td><span class="b warn">structural</span></td>
+<td>The official page overwrites each day&#x27;s designations and offers no dated archive URL, so the Wed→Fri practice progression for Week 10 is unrecoverable.</td><td>Capture prospectively on a schedule with retained hashes, from now on.</td>
+<td><a class='src' href='verification.html'>LV-12</a></td></tr><tr><td class="mono">R-08</td><td><b>Six dashboards for one brief, five of them with no results corpus</b></td>
+<td><span class="b warn">governance</span></td>
+<td>Root, board, docs, depth, site-9b181d31 and verified all publish. Only this one can score a forecast. Several carry the same conceptual pages with different numbers.</td><td>Decide which is canonical and either retire the others or state their relationship on each.</td>
+<td><span class='unv'>no source</span></td></tr><tr><td class="mono">R-09</td><td><b>A competing Pages deploy workflow was never the deploy path</b></td>
+<td><span class="b warn">governance</span></td>
+<td>Pages is configured as a legacy root build, verified through the API. The cp-allowlist workflow was a second deployment that caused two silent-404 incidents before this session replaced it with a gate.</td><td>Do not reintroduce an artifact allowlist. Check the Pages API before editing deploy config.</td>
+<td><span class='unv'>no source</span></td></tr><tr><td class="mono">R-10</td><td><b>A claim raised against this repo does not reproduce</b></td>
+<td><span class="b none">unproven</span></td>
+<td>Three Detroit players are alleged to have blank game statuses. All three carry &#x27;Out&#x27; in this snapshot, matching the live page. Either the claim described an earlier commit or a different artefact.</td><td>No change made. Published so it can be traced if a reviewer has the specific page in front of them.</td>
+<td><a class='src' href='verification.html'>LV-02</a></td></tr>
+</tbody></table></div>
+
+<h2>What is explicitly <i>not</i> flagged</h2>
+<ul>
+<li><b>Detroit's three statuses.</b> They are populated and correct. A defect that does not exist should not
+be fixed, and "fixed" data is harder to audit than untouched data.</li>
+<li><b>Model output that scored badly.</b> A baseline that does not beat a pick'em is a result, not a bug.
+It is published on the Overview page without hedging.</li>
+<li><b>The empty market columns.</b> They are empty for a stated reason, and filling them from a
+non-official source would be a defect rather than a fix.</li>
+</ul>
+
+</div></main>
+<footer><div class="wrap">
+<p><b>What this is.</b> A verified-data dashboard. Official league values carry a source link.
+Model output is labelled model output. No licensed betting price exists in this repository, so
+closing-line value and realised return are <b>not computed and not implied</b> anywhere.</p>
+<p>Every page here is generated from the committed data files by <code>scripts/build_verified_site.py</code>
+and re-checked by <code>scripts/check_verified_site.py</code>. Other dashboards in this repository
+(<a href="../">root</a>, <a href="../board/">board</a>, <a href="../docs/">docs</a>,
+<a href="../depth/">depth</a>, <a href="../site-9b181d31/">site-9b181d31</a>) are separate builds and
+are not superseded by this one.</p>
+</div></footer>
+</body></html>
