@@ -1225,8 +1225,9 @@ was added.
   sources, and generated question rows that omit their official source URL or gap note. Negative
   checks confirmed the guard rejects a missing gap, a commercial-market source ID, and a dropped link.
 - Official input references used from the existing registry: `SRC-001` through `SRC-010` as applicable,
-  `SRC-013`, `SRC-015`, and `SRC-017`. Registry capture dates/statuses are not promoted by linking;
-  unread or incomplete inputs remain explicitly noted.
+  `SRC-013`, `SRC-015`, `SRC-017`, and (after integration) `SRC-018` for the official Week 10 re-capture.
+  Registry capture dates/statuses are not promoted by linking; unread or incomplete inputs remain
+  explicitly noted.
 - Remaining published irregularity: `V-09b / FLG-025` (official offense/defense pass-TD totals differ by 1
   and interceptions by 2), retained as a non-blocking build warning but a pricing-trust blocker. Injury
   report reconciliation and depth-source coverage remain flagged; they were not silently changed in this task.
@@ -1237,5 +1238,25 @@ was added.
 occurred in `COORDINATION.md` and generated board/verification files because main had incorporated the
 347-row official injury recapture and readiness rows R068/R069. Resolution policy: preserve main's
 source captures, flags, requirement rows, and closeout records; retain this session's question
-provenance changes; regenerate derived board/report outputs from the merged inputs. No data or findings
-from either side were discarded. The final verification result is recorded below after regeneration.
+provenance changes; regenerate derived board/report outputs from the merged inputs. No canonical data
+or findings from either side were discarded; derived pages and reports were regenerated from the
+resolved inputs.
+
+### Post-rebase verification (2026-11-16 UTC)
+
+- `python3 scripts/reconcile_injury_capture.py`: structural PASS, 14 game sections, 28 clubs, 347
+  listed rows; generated reconciliation has 36 row/field differences against the older 345-row table.
+  Those discrepancies remain published for review; the capture was not substituted into model inputs.
+- `python3 scripts/build_board.py` and `--check`: PASS; 22 pages and 27 data tables. Readiness register:
+  69 unique requirements, 48 with official source links, 21 explicitly flagged source gaps.
+- `python3 scripts/check_links.py`: PASS; 22 board pages and 33 external links. `python3 scripts/build_site.py`
+  and `python3 scripts/check_site.py`: PASS; 1,605 assertions.
+- Recomputed model outputs with `compute_lines.py`, `compute_luck.py`, `compute_correlation.py`,
+  `model.py`, `stats_tables.py`, and `make_leaderboard.py`; completed successfully. Leaderboard remains
+  an empty schema (zero settled bets), and market fields remain deliberately blank.
+- `python3 scripts/verify.py`: G-10 PASS with the already-published non-blocking V-09b / FLG-025
+  source discrepancy (pass TD delta -1; interceptions delta +2). `build_readiness.py --check` PASS.
+  Depth checks also pass: `verify_depth.py` 16 checks/0 failures; `check_depth_links.py` 9 pages,
+  134 internal and 502 allowlisted external links.
+- `git diff --check`: PASS. All open data-quality issues remain flagged; this verification does not
+  establish strategy profitability, complete capture coverage, or operational readiness.
