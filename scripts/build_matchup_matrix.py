@@ -436,7 +436,7 @@ def main():
     A = body.append
     A('<h1>Matchup deficiency matrix — Week 10</h1>')
     A(f'<p class="lede">One screen for every Week 10 fixture: for six declared units, the '
-      f'offence\'s 1st–4nd strings against the defence\'s, with the replacement <b>depth</b> '
+      f'offence\'s 1st–4th strings against the defence\'s, with the replacement <b>depth</b> '
       f'counted where the official report rules a first-string player Out. Rows without '
       f'evidence on either side are <b>n/a with the missing group named</b> — never a guess.</p>')
 
