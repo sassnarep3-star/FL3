@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strategies · FL3 NFL decision system</title>
+<meta name="description" content="Verified NFL 2026 data, originated lines and honest out-of-sample scoring. Every value links to an official source or is marked unverified.">
+<link rel="stylesheet" href="assets/verified.css">
+</head>
+<body>
+<a class="skip" href="#main" style="position:absolute;left:-9999px">Skip to content</a>
+<header class="top"><div class="wrap">
+<div class="brand"><b>FL3</b><span>NFL decision system · 2026 regular season</span>
+<span style="margin-left:auto;font-size:11.5px;color:#8b949e">read 2026-11-16 01:42 UTC</span></div>
+<nav class="cats"><a href="index.html">Overview</a><a href="results.html">Results</a><a href="lines.html">Our lines</a><a href="injuries.html">Availability</a><a href="strategies.html" class="on">Strategies</a><a href="verification.html">Verification</a><a href="review.html">Flagged for review</a><a href="method.html">Method &amp; sources</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+
+<h1>Strategies, gates, and the scoreboard that cannot be gamed</h1>
+<p class="lede">A strategy earns a place on the leaderboard by passing pre-registered gates in order. It
+does not earn one by winning bets, and in this repository no bets exist: there is no licensed price, no
+stake, and no return. Everything here is a forecast-quality test.</p>
+
+<h2>Leaderboard</h2>
+<div class="tbl"><table>
+<thead><tr><th>#</th><th>Strategy</th><th>Structure</th><th class="num">Scored</th>
+<th class="num">Brier skill</th><th class="num">95% interval</th><th>Registration</th><th>Standing</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><code>FL3-SHADOW-1</code> — two-way team-strength rating</td><td>singles</td>
+<td class="num">100</td><td class="num">+0.069</td><td class="num">[−0.086, +0.229]</td>
+<td><span class="b ok">frozen</span></td><td><span class="b warn">qualified as a baseline; no demonstrated skill</span></td></tr>
+<tr><td>2</td><td><code>FL3-SHADOW-1-A</code> — adds availability features</td><td>singles</td>
+<td class="num">0</td><td class="num">—</td><td class="num">—</td>
+<td><span class="b ok">frozen</span></td><td><span class="b none">not started</span></td></tr>
+<tr><td>3</td><td><code>FL3-SHADOW-1-B</code> — adds rest-days differential</td><td>singles</td>
+<td class="num">0</td><td class="num">—</td><td class="num">—</td>
+<td><span class="b ok">frozen</span></td><td><span class="b none">not started</span></td></tr>
+<tr><td>—</td><td>any parlay, same-game parlay or prop combo</td><td>combo</td>
+<td class="num">0</td><td class="num">—</td><td class="num">—</td>
+<td><span class="b bad">ineligible</span></td><td><span class="b bad">cannot be ranked</span></td></tr>
+</tbody></table></div>
+<p class="cls">The 100 scored rows are the walk-forward forecasts, which are the registered rule applied
+retrospectively to games that had not yet been played. They are a <b>backtest of a frozen rule</b>, and
+backtest numbers never appear as a live record. The live record for <code>FL3-SHADOW-1</code> starts at
+Week 11 and currently has <b>0</b> forecasts.</p>
+
+<h2>Why combos are excluded outright</h2>
+<p>Multiplying marginal probabilities is invalid when the legs are dependent, and it always overstates a
+combo's chance. Two conditions would have to hold before a combination could be ranked at all:</p>
+<ol>
+<li>a <i>directly validated joint</i> probability for the exact combination, not a product of marginals; and</li>
+<li>the operator's void, push and withdrawal rules, obtained in writing.</li>
+</ol>
+<p>Neither holds here. There is no licensed operator, so condition 2 cannot be met at all. The correlation
+work published elsewhere in this repo states its measured <i>r</i> values and states plainly that they are
+not a joint model — which is correct, and is why no combo appears on this leaderboard.</p>
+
+<h2>Why ROI is not the ranking metric</h2>
+<p>Over a season, realised return is dominated by variance. A strategy that wins 7 of 11 is 11 coin flips;
+its ROI is a number with a confidence interval wider than the number. Ranking by it selects for luck.
+And in this repository it is not even computable, because no price was ever held. The replacement is
+proper-score skill with a game-cluster interval and a multiplicity adjustment — which measures whether the
+probabilities are good, which is the thing that would eventually produce a return.</p>
+
+<h2>Registered forecasts for Week 11 <span class="b model">model output</span></h2>
+<p class="lede">These are the first live forecasts of <code>FL3-SHADOW-1</code>: 13 unplayed fixtures, each
+registered before kickoff with the constants frozen in the pre-registration. They are not picks, nothing is
+staked, and they will be scored against the official final scores exactly once. A forecast that is not
+committed before kickoff is rejected rather than back-filled.</p>
+<div class="tbl"><table>
+<thead><tr><th>Game</th><th>Kickoff ET</th><th>Network</th><th class="num">Model spread (home)</th>
+<th class="num">Model total</th><th class="num">P(home win)</th><th>Source</th></tr></thead><tbody>
+<tr><td>IND @ HOU</td><td>8:15 PM</td><td>PRIME</td><td class="num">-7.5</td><td class="num">53.0</td><td class="num">0.832</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">week 11</a></td></tr><tr><td>MIA @ BUF</td><td>1:00 PM</td><td>CBS</td><td class="num">-14.5</td><td class="num">51.0</td><td class="num">0.957</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">week 11</a></td></tr><tr><td>BAL @ CAR</td><td>1:00 PM</td><td>FOX</td><td class="num">-4.2</td><td class="num">52.7</td><td class="num">0.711</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">week 11</a></td></tr><tr><td>NO @ CHI</td><td>1:00 PM</td><td>FOX</td><td class="num">-8.9</td><td class="num">51.4</td><td class="num">0.870</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">week 11</a></td></tr><tr><td>TEN @ DAL</td><td>1:00 PM</td><td>FOX</td><td class="num">-7.7</td><td class="num">55.8</td><td class="num">0.839</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">week 11</a></td></tr><tr><td>TB @ DET</td><td>1:00 PM</td><td>FOX</td><td class="num">-4.5</td><td class="num">49.3</td><td class="num">0.724</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">week 11</a></td></tr><tr><td>AZ @ KC</td><td>1:00 PM</td><td>CBS</td><td class="num">-15.6</td><td class="num">48.0</td><td class="num">0.966</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">week 11</a></td></tr><tr><td>PIT @ PHI</td><td>1:00 PM</td><td>CBS</td><td class="num">+6.7</td><td class="num">41.5</td><td class="num">0.192</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">week 11</a></td></tr><tr><td>NYJ @ LAC</td><td>4:05 PM</td><td>FOX</td><td class="num">+2.0</td><td class="num">45.5</td><td class="num">0.396</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">week 11</a></td></tr><tr><td>JAX @ NYG</td><td>4:25 PM</td><td>CBS</td><td class="num">+7.2</td><td class="num">47.4</td><td class="num">0.177</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">week 11</a></td></tr><tr><td>LV @ DEN</td><td>4:25 PM</td><td>CBS</td><td class="num">-5.5</td><td class="num">52.1</td><td class="num">0.766</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">week 11</a></td></tr><tr><td>MIN @ SF</td><td>8:20 PM</td><td>NBC</td><td class="num">-4.6</td><td class="num">44.9</td><td class="num">0.728</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">week 11</a></td></tr><tr><td>CIN @ WAS</td><td>8:15 PM</td><td>ESPN</td><td class="num">+5.6</td><td class="num">52.9</td><td class="num">0.232</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">week 11</a></td></tr>
+</tbody></table></div>
+<p class="cls">Slate read from the official Week 11 schedule page on 2026-11-16. 13 games and 6 byes
+account for all 32 clubs. Registered forecast file:
+<code>data/preregistration_week11.json</code>, SHA-256 <span class="mono">5d4ca4fc7c7e0ec09cd664c39114e505…</span>.</p>
+
+<h2>Gates, in order</h2>
+<div class="tbl"><table>
+<thead><tr><th class="num">Gate</th><th>Requirement</th><th>Blocking condition</th><th>Status</th></tr></thead><tbody>
+<tr><td class="num">G1</td><td>Registration committed before any forecast</td>
+<td>no commit hash ⇒ no entry</td><td><span class="b ok">met for 3 strategies</span></td></tr>
+<tr><td class="num">G2</td><td>Forecast published before kickoff</td>
+<td>late rows rejected, not back-filled</td><td><span class="b ok">rule active</span></td></tr>
+<tr><td class="num">G3</td><td>Results corpus reconciles to official standings</td>
+<td>148 rows, 160 figures, no tolerance</td><td><span class="b ok">met</span></td></tr>
+<tr><td class="num">G4</td><td>Licensed price for CLV and ROI</td>
+<td>no NFL page publishes a price</td><td><span class="b bad">blocked</span></td></tr>
+<tr><td class="num">G5</td><td>≥80 scored singles to publish skill</td>
+<td>currently 100 backtested, 0 live</td><td><span class="b warn">met for backtest only</span></td></tr>
+<tr><td class="num">G6</td><td>≥200 scored singles to rank two strategies</td>
+<td>0 live</td><td><span class="b bad">blocked</span></td></tr>
+<tr><td class="num">G7</td><td>Multiplicity adjustment across live hypotheses</td>
+<td>1 live hypothesis, so no adjustment needed yet</td><td><span class="b info">armed</span></td></tr>
+<tr><td class="num">G8</td><td>Two-sided "what would change our mind" field</td>
+<td>required per strategy</td><td><span class="b ok">met</span></td></tr>
+</tbody></table></div>
+
+<h2>Pre-registration, in force</h2>
+<p>The full frozen rule text is in <a href="../verified/PREREGISTRATION.md">PREREGISTRATION.md</a>, with an
+executable form in <code>scripts/preregister_model.py</code>. The parts that make it a registration rather
+than a description: the constants, the sample window, the primary metric, the minimum detectable effect and
+the stopping rule were all fixed before any prospective forecast existed, and changing any of them creates a
+new version with a new commit rather than an edit.</p>
+<p><b>Its own stopping rule, stated in advance:</b> retire the model rather than re-fit it if the interval
+lower bound on Brier skill is below −0.05 after 200 scored singles. This is what stops a bad model from being
+tuned until it looks good.</p>
+
+</div></main>
+<footer><div class="wrap">
+<p><b>What this is.</b> A verified-data dashboard. Official league values carry a source link.
+Model output is labelled model output. No licensed betting price exists in this repository, so
+closing-line value and realised return are <b>not computed and not implied</b> anywhere.</p>
+<p>Every page here is generated from the committed data files by <code>scripts/build_verified_site.py</code>
+and re-checked by <code>scripts/check_verified_site.py</code>. Other dashboards in this repository
+(<a href="../">root</a>, <a href="../board/index.html">board</a>, <a href="../docs/index.html">docs</a>,
+<a href="../depth/index.html">depth</a>, <a href="../site-9b181d31/index.html">site-9b181d31</a>) are separate builds and
+are not superseded by this one.</p>
+</div></footer>
+</body></html>

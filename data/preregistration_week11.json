@@ -1,0 +1,3772 @@
+{
+ "clubs": 32,
+ "constants": {
+  "hfa": 1.9,
+  "k": 4.0,
+  "league_points": 22.0,
+  "logistic_scale": 0.55,
+  "sigma": 8.5
+ },
+ "deadline": "2026-11-17",
+ "example_forecasts": {
+  "ATL@AZ": {
+   "exp_away": 25.5714,
+   "exp_home": 24.0429,
+   "p_home": 0.418979,
+   "spread_home": 1.5286,
+   "total": 49.6143
+  },
+  "ATL@BAL": {
+   "exp_away": 23.5659,
+   "exp_home": 25.922,
+   "p_home": 0.623391,
+   "spread_home": -2.356,
+   "total": 49.4879
+  },
+  "ATL@BUF": {
+   "exp_away": 20.7198,
+   "exp_home": 33.4604,
+   "p_home": 0.938502,
+   "spread_home": -12.7407,
+   "total": 54.1802
+  },
+  "ATL@CAR": {
+   "exp_away": 23.5659,
+   "exp_home": 28.2297,
+   "p_home": 0.730585,
+   "spread_home": -4.6637,
+   "total": 51.7956
+  },
+  "ATL@CHI": {
+   "exp_away": 19.5659,
+   "exp_home": 29.922,
+   "p_home": 0.901606,
+   "spread_home": -10.356,
+   "total": 49.4879
+  },
+  "ATL@CIN": {
+   "exp_away": 20.5595,
+   "exp_home": 31.9476,
+   "p_home": 0.919528,
+   "spread_home": -11.3881,
+   "total": 52.5071
+  },
+  "ATL@CLE": {
+   "exp_away": 20.6429,
+   "exp_home": 24.3286,
+   "p_home": 0.687485,
+   "spread_home": -3.6857,
+   "total": 44.9714
+  },
+  "ATL@DAL": {
+   "exp_away": 25.0714,
+   "exp_home": 31.3286,
+   "p_home": 0.792231,
+   "spread_home": -6.2571,
+   "total": 56.4
+  },
+  "ATL@DEN": {
+   "exp_away": 19.7198,
+   "exp_home": 26.6143,
+   "p_home": 0.81378,
+   "spread_home": -6.8945,
+   "total": 46.3341
+  },
+  "ATL@DET": {
+   "exp_away": 20.7198,
+   "exp_home": 31.1527,
+   "p_home": 0.903056,
+   "spread_home": -10.433,
+   "total": 51.8725
+  },
+  "ATL@GB": {
+   "exp_away": 20.7143,
+   "exp_home": 27.0429,
+   "p_home": 0.794735,
+   "spread_home": -6.3286,
+   "total": 47.7571
+  },
+  "ATL@HOU": {
+   "exp_away": 22.2582,
+   "exp_home": 29.3066,
+   "p_home": 0.818715,
+   "spread_home": -7.0484,
+   "total": 51.5648
+  },
+  "ATL@IND": {
+   "exp_away": 24.2857,
+   "exp_home": 25.7571,
+   "p_home": 0.578043,
+   "spread_home": -1.4714,
+   "total": 50.0429
+  },
+  "ATL@JAX": {
+   "exp_away": 16.489,
+   "exp_home": 32.0758,
+   "p_home": 0.96558,
+   "spread_home": -15.5868,
+   "total": 48.5648
+  },
+  "ATL@KC": {
+   "exp_away": 17.4121,
+   "exp_home": 29.6143,
+   "p_home": 0.931509,
+   "spread_home": -12.2022,
+   "total": 47.0264
+  },
+  "ATL@LA": {
+   "exp_away": 18.2857,
+   "exp_home": 28.6143,
+   "p_home": 0.901083,
+   "spread_home": -10.3286,
+   "total": 46.9
+  },
+  "ATL@LAC": {
+   "exp_away": 24.2262,
+   "exp_home": 22.031,
+   "p_home": 0.384718,
+   "spread_home": 2.1952,
+   "total": 46.2571
+  },
+  "ATL@LV": {
+   "exp_away": 25.5714,
+   "exp_home": 28.8286,
+   "p_home": 0.667459,
+   "spread_home": -3.2571,
+   "total": 54.4
+  },
+  "ATL@MIA": {
+   "exp_away": 22.6429,
+   "exp_home": 22.7681,
+   "p_home": 0.506699,
+   "spread_home": -0.1253,
+   "total": 45.411
+  },
+  "ATL@MIN": {
+   "exp_away": 15.1044,
+   "exp_home": 24.922,
+   "p_home": 0.890905,
+   "spread_home": -9.8176,
+   "total": 40.0264
+  },
+  "ATL@NE": {
+   "exp_away": 22.2143,
+   "exp_home": 26.6857,
+   "p_home": 0.722412,
+   "spread_home": -4.4714,
+   "total": 48.9
+  },
+  "ATL@NO": {
+   "exp_away": 23.5659,
+   "exp_home": 26.922,
+   "p_home": 0.672138,
+   "spread_home": -3.356,
+   "total": 50.4879
+  },
+  "ATL@NYG": {
+   "exp_away": 20.489,
+   "exp_home": 26.9989,
+   "p_home": 0.800989,
+   "spread_home": -6.5099,
+   "total": 47.4879
+  },
+  "ATL@NYJ": {
+   "exp_away": 23.0714,
+   "exp_home": 24.7571,
+   "p_home": 0.589181,
+   "spread_home": -1.6857,
+   "total": 47.8286
+  },
+  "ATL@PHI": {
+   "exp_away": 22.4121,
+   "exp_home": 22.7681,
+   "p_home": 0.519031,
+   "spread_home": -0.356,
+   "total": 45.1802
+  },
+  "ATL@PIT": {
+   "exp_away": 17.9762,
+   "exp_home": 26.9476,
+   "p_home": 0.872029,
+   "spread_home": -8.9714,
+   "total": 44.9238
+  },
+  "ATL@SEA": {
+   "exp_away": 17.4286,
+   "exp_home": 26.8286,
+   "p_home": 0.881915,
+   "spread_home": -9.4,
+   "total": 44.2571
+  },
+  "ATL@SF": {
+   "exp_away": 20.489,
+   "exp_home": 32.9989,
+   "p_home": 0.93559,
+   "spread_home": -12.5099,
+   "total": 53.4879
+  },
+  "ATL@TB": {
+   "exp_away": 19.1044,
+   "exp_home": 26.922,
+   "p_home": 0.84187,
+   "spread_home": -7.8176,
+   "total": 46.0264
+  },
+  "ATL@TEN": {
+   "exp_away": 23.7967,
+   "exp_home": 24.2297,
+   "p_home": 0.523137,
+   "spread_home": -0.433,
+   "total": 48.0264
+  },
+  "ATL@WAS": {
+   "exp_away": 22.5659,
+   "exp_home": 26.4604,
+   "p_home": 0.696999,
+   "spread_home": -3.8945,
+   "total": 49.0264
+  },
+  "AZ@BAL": {
+   "exp_away": 22.3516,
+   "exp_home": 28.1363,
+   "p_home": 0.775103,
+   "spread_home": -5.7846,
+   "total": 50.4879
+  },
+  "AZ@BUF": {
+   "exp_away": 19.5055,
+   "exp_home": 35.6747,
+   "p_home": 0.969488,
+   "spread_home": -16.1692,
+   "total": 55.1802
+  },
+  "AZ@CAR": {
+   "exp_away": 22.3516,
+   "exp_home": 30.444,
+   "p_home": 0.849537,
+   "spread_home": -8.0923,
+   "total": 52.7956
+  },
+  "AZ@CHI": {
+   "exp_away": 18.3516,
+   "exp_home": 32.1363,
+   "p_home": 0.950196,
+   "spread_home": -13.7846,
+   "total": 50.4879
+  },
+  "AZ@CIN": {
+   "exp_away": 19.3452,
+   "exp_home": 34.1619,
+   "p_home": 0.959664,
+   "spread_home": -14.8167,
+   "total": 53.5071
+  },
+  "AZ@CLE": {
+   "exp_away": 19.4286,
+   "exp_home": 26.5429,
+   "p_home": 0.820799,
+   "spread_home": -7.1143,
+   "total": 45.9714
+  },
+  "AZ@DAL": {
+   "exp_away": 23.8571,
+   "exp_home": 33.5429,
+   "p_home": 0.888133,
+   "spread_home": -9.6857,
+   "total": 57.4
+  },
+  "AZ@DEN": {
+   "exp_away": 18.5055,
+   "exp_home": 28.8286,
+   "p_home": 0.900979,
+   "spread_home": -10.3231,
+   "total": 47.3341
+  },
+  "AZ@DET": {
+   "exp_away": 19.5055,
+   "exp_home": 33.367,
+   "p_home": 0.950969,
+   "spread_home": -13.8615,
+   "total": 52.8725
+  },
+  "AZ@GB": {
+   "exp_away": 19.5,
+   "exp_home": 29.2571,
+   "p_home": 0.889642,
+   "spread_home": -9.7571,
+   "total": 48.7571
+  },
+  "AZ@HOU": {
+   "exp_away": 21.044,
+   "exp_home": 31.5209,
+   "p_home": 0.903876,
+   "spread_home": -10.4769,
+   "total": 52.5648
+  },
+  "AZ@IND": {
+   "exp_away": 23.0714,
+   "exp_home": 27.9714,
+   "p_home": 0.740415,
+   "spread_home": -4.9,
+   "total": 51.0429
+  },
+  "AZ@JAX": {
+   "exp_away": 15.2747,
+   "exp_home": 34.2901,
+   "p_home": 0.983167,
+   "spread_home": -19.0154,
+   "total": 49.5648
+  },
+  "AZ@KC": {
+   "exp_away": 16.1978,
+   "exp_home": 31.8286,
+   "p_home": 0.965891,
+   "spread_home": -15.6308,
+   "total": 48.0264
+  },
+  "AZ@LA": {
+   "exp_away": 17.0714,
+   "exp_home": 30.8286,
+   "p_home": 0.949918,
+   "spread_home": -13.7571,
+   "total": 47.9
+  },
+  "AZ@LAC": {
+   "exp_away": 23.0119,
+   "exp_home": 24.2452,
+   "p_home": 0.565574,
+   "spread_home": -1.2333,
+   "total": 47.2571
+  },
+  "AZ@LV": {
+   "exp_away": 24.3571,
+   "exp_home": 31.0429,
+   "p_home": 0.806917,
+   "spread_home": -6.6857,
+   "total": 55.4
+  },
+  "AZ@MIA": {
+   "exp_away": 21.4286,
+   "exp_home": 24.9824,
+   "p_home": 0.681393,
+   "spread_home": -3.5538,
+   "total": 46.411
+  },
+  "AZ@MIN": {
+   "exp_away": 13.8901,
+   "exp_home": 27.1363,
+   "p_home": 0.944454,
+   "spread_home": -13.2462,
+   "total": 41.0264
+  },
+  "AZ@NE": {
+   "exp_away": 21.0,
+   "exp_home": 28.9,
+   "p_home": 0.844203,
+   "spread_home": -7.9,
+   "total": 49.9
+  },
+  "AZ@NO": {
+   "exp_away": 22.3516,
+   "exp_home": 29.1363,
+   "p_home": 0.810191,
+   "spread_home": -6.7846,
+   "total": 51.4879
+  },
+  "AZ@NYG": {
+   "exp_away": 19.2747,
+   "exp_home": 29.2132,
+   "p_home": 0.893393,
+   "spread_home": -9.9385,
+   "total": 48.4879
+  },
+  "AZ@NYJ": {
+   "exp_away": 21.8571,
+   "exp_home": 26.9714,
+   "p_home": 0.749128,
+   "spread_home": -5.1143,
+   "total": 48.8286
+  },
+  "AZ@PHI": {
+   "exp_away": 21.1978,
+   "exp_home": 24.9824,
+   "p_home": 0.692012,
+   "spread_home": -3.7846,
+   "total": 46.1802
+  },
+  "AZ@PIT": {
+   "exp_away": 16.7619,
+   "exp_home": 29.1619,
+   "p_home": 0.934159,
+   "spread_home": -12.4,
+   "total": 45.9238
+  },
+  "AZ@SEA": {
+   "exp_away": 16.2143,
+   "exp_home": 29.0429,
+   "p_home": 0.939578,
+   "spread_home": -12.8286,
+   "total": 45.2571
+  },
+  "AZ@SF": {
+   "exp_away": 19.2747,
+   "exp_home": 35.2132,
+   "p_home": 0.967994,
+   "spread_home": -15.9385,
+   "total": 54.4879
+  },
+  "AZ@TB": {
+   "exp_away": 17.8901,
+   "exp_home": 29.1363,
+   "p_home": 0.917253,
+   "spread_home": -11.2462,
+   "total": 47.0264
+  },
+  "AZ@TEN": {
+   "exp_away": 22.5824,
+   "exp_home": 26.444,
+   "p_home": 0.695508,
+   "spread_home": -3.8615,
+   "total": 49.0264
+  },
+  "AZ@WAS": {
+   "exp_away": 21.3516,
+   "exp_home": 28.6747,
+   "p_home": 0.827275,
+   "spread_home": -7.3231,
+   "total": 50.0264
+  },
+  "BAL@BUF": {
+   "exp_away": 21.3846,
+   "exp_home": 33.6692,
+   "p_home": 0.932625,
+   "spread_home": -12.2846,
+   "total": 55.0538
+  },
+  "BAL@CAR": {
+   "exp_away": 24.2308,
+   "exp_home": 28.4385,
+   "p_home": 0.710958,
+   "spread_home": -4.2077,
+   "total": 52.6692
+  },
+  "BAL@CHI": {
+   "exp_away": 20.2308,
+   "exp_home": 30.1308,
+   "p_home": 0.892607,
+   "spread_home": -9.9,
+   "total": 50.3615
+  },
+  "BAL@CIN": {
+   "exp_away": 21.2244,
+   "exp_home": 32.1564,
+   "p_home": 0.912008,
+   "spread_home": -10.9321,
+   "total": 53.3808
+  },
+  "BAL@CLE": {
+   "exp_away": 21.3077,
+   "exp_home": 24.5374,
+   "p_home": 0.666153,
+   "spread_home": -3.2297,
+   "total": 45.8451
+  },
+  "BAL@DAL": {
+   "exp_away": 25.7363,
+   "exp_home": 31.5374,
+   "p_home": 0.775717,
+   "spread_home": -5.8011,
+   "total": 57.2736
+  },
+  "BAL@DEN": {
+   "exp_away": 20.3846,
+   "exp_home": 26.8231,
+   "p_home": 0.798543,
+   "spread_home": -6.4385,
+   "total": 47.2077
+  },
+  "BAL@DET": {
+   "exp_away": 21.3846,
+   "exp_home": 31.3615,
+   "p_home": 0.894174,
+   "spread_home": -9.9769,
+   "total": 52.7462
+  },
+  "BAL@GB": {
+   "exp_away": 21.3791,
+   "exp_home": 27.2516,
+   "p_home": 0.778364,
+   "spread_home": -5.8725,
+   "total": 48.6308
+  },
+  "BAL@HOU": {
+   "exp_away": 22.9231,
+   "exp_home": 29.5154,
+   "p_home": 0.803785,
+   "spread_home": -6.5923,
+   "total": 52.4385
+  },
+  "BAL@IND": {
+   "exp_away": 24.9505,
+   "exp_home": 25.9659,
+   "p_home": 0.554086,
+   "spread_home": -1.0154,
+   "total": 50.9165
+  },
+  "BAL@JAX": {
+   "exp_away": 17.1538,
+   "exp_home": 32.2846,
+   "p_home": 0.962186,
+   "spread_home": -15.1308,
+   "total": 49.4385
+  },
+  "BAL@KC": {
+   "exp_away": 18.0769,
+   "exp_home": 29.8231,
+   "p_home": 0.925017,
+   "spread_home": -11.7462,
+   "total": 47.9
+  },
+  "BAL@LA": {
+   "exp_away": 18.9505,
+   "exp_home": 28.8231,
+   "p_home": 0.892042,
+   "spread_home": -9.8725,
+   "total": 47.7736
+  },
+  "BAL@LAC": {
+   "exp_away": 24.891,
+   "exp_home": 22.2397,
+   "p_home": 0.361902,
+   "spread_home": 2.6513,
+   "total": 47.1308
+  },
+  "BAL@LV": {
+   "exp_away": 26.2363,
+   "exp_home": 29.0374,
+   "p_home": 0.645465,
+   "spread_home": -2.8011,
+   "total": 55.2736
+  },
+  "BAL@MIA": {
+   "exp_away": 23.3077,
+   "exp_home": 22.9769,
+   "p_home": 0.482319,
+   "spread_home": 0.3308,
+   "total": 46.2846
+  },
+  "BAL@MIN": {
+   "exp_away": 15.7692,
+   "exp_home": 25.1308,
+   "p_home": 0.881056,
+   "spread_home": -9.3615,
+   "total": 40.9
+  },
+  "BAL@NE": {
+   "exp_away": 22.8791,
+   "exp_home": 26.8945,
+   "p_home": 0.702432,
+   "spread_home": -4.0154,
+   "total": 49.7736
+  },
+  "BAL@NO": {
+   "exp_away": 24.2308,
+   "exp_home": 27.1308,
+   "p_home": 0.650292,
+   "spread_home": -2.9,
+   "total": 51.3615
+  },
+  "BAL@NYG": {
+   "exp_away": 21.1538,
+   "exp_home": 27.2077,
+   "p_home": 0.784982,
+   "spread_home": -6.0538,
+   "total": 48.3615
+  },
+  "BAL@NYJ": {
+   "exp_away": 23.7363,
+   "exp_home": 24.9659,
+   "p_home": 0.565381,
+   "spread_home": -1.2297,
+   "total": 48.7022
+  },
+  "BAL@PHI": {
+   "exp_away": 23.0769,
+   "exp_home": 22.9769,
+   "p_home": 0.494653,
+   "spread_home": 0.1,
+   "total": 46.0538
+  },
+  "BAL@PIT": {
+   "exp_away": 18.641,
+   "exp_home": 27.1564,
+   "p_home": 0.860743,
+   "spread_home": -8.5154,
+   "total": 45.7974
+  },
+  "BAL@SEA": {
+   "exp_away": 18.0934,
+   "exp_home": 27.0374,
+   "p_home": 0.871372,
+   "spread_home": -8.944,
+   "total": 45.1308
+  },
+  "BAL@SF": {
+   "exp_away": 21.1538,
+   "exp_home": 33.2077,
+   "p_home": 0.929456,
+   "spread_home": -12.0538,
+   "total": 54.3615
+  },
+  "BAL@TB": {
+   "exp_away": 19.7692,
+   "exp_home": 27.1308,
+   "p_home": 0.828447,
+   "spread_home": -7.3615,
+   "total": 46.9
+  },
+  "BAL@TEN": {
+   "exp_away": 24.4615,
+   "exp_home": 24.4385,
+   "p_home": 0.498766,
+   "spread_home": 0.0231,
+   "total": 48.9
+  },
+  "BAL@WAS": {
+   "exp_away": 23.2308,
+   "exp_home": 26.6692,
+   "p_home": 0.676011,
+   "spread_home": -3.4385,
+   "total": 49.9
+  },
+  "BUF@CAR": {
+   "exp_away": 31.7692,
+   "exp_home": 25.5923,
+   "p_home": 0.210608,
+   "spread_home": 6.1769,
+   "total": 57.3615
+  },
+  "BUF@CHI": {
+   "exp_away": 27.7692,
+   "exp_home": 27.2846,
+   "p_home": 0.474108,
+   "spread_home": 0.4846,
+   "total": 55.0538
+  },
+  "BUF@CIN": {
+   "exp_away": 28.7628,
+   "exp_home": 29.3103,
+   "p_home": 0.529241,
+   "spread_home": -0.5474,
+   "total": 58.0731
+  },
+  "BUF@CLE": {
+   "exp_away": 28.8462,
+   "exp_home": 21.6912,
+   "p_home": 0.177925,
+   "spread_home": 7.1549,
+   "total": 50.5374
+  },
+  "BUF@DAL": {
+   "exp_away": 33.2747,
+   "exp_home": 28.6912,
+   "p_home": 0.272806,
+   "spread_home": 4.5835,
+   "total": 61.9659
+  },
+  "BUF@DEN": {
+   "exp_away": 27.9231,
+   "exp_home": 23.9769,
+   "p_home": 0.300673,
+   "spread_home": 3.9462,
+   "total": 51.9
+  },
+  "BUF@DET": {
+   "exp_away": 28.9231,
+   "exp_home": 28.5154,
+   "p_home": 0.478212,
+   "spread_home": 0.4077,
+   "total": 57.4385
+  },
+  "BUF@GB": {
+   "exp_away": 28.9176,
+   "exp_home": 24.4055,
+   "p_home": 0.275848,
+   "spread_home": 4.5121,
+   "total": 53.3231
+  },
+  "BUF@HOU": {
+   "exp_away": 30.4615,
+   "exp_home": 26.6692,
+   "p_home": 0.307637,
+   "spread_home": 3.7923,
+   "total": 57.1308
+  },
+  "BUF@IND": {
+   "exp_away": 32.489,
+   "exp_home": 23.1198,
+   "p_home": 0.118772,
+   "spread_home": 9.3692,
+   "total": 55.6088
+  },
+  "BUF@JAX": {
+   "exp_away": 24.6923,
+   "exp_home": 29.4385,
+   "p_home": 0.73404,
+   "spread_home": -4.7462,
+   "total": 54.1308
+  },
+  "BUF@KC": {
+   "exp_away": 25.6154,
+   "exp_home": 26.9769,
+   "p_home": 0.572299,
+   "spread_home": -1.3615,
+   "total": 52.5923
+  },
+  "BUF@LA": {
+   "exp_away": 26.489,
+   "exp_home": 25.9769,
+   "p_home": 0.472643,
+   "spread_home": 0.5121,
+   "total": 52.4659
+  },
+  "BUF@LAC": {
+   "exp_away": 32.4295,
+   "exp_home": 19.3936,
+   "p_home": 0.057953,
+   "spread_home": 13.0359,
+   "total": 51.8231
+  },
+  "BUF@LV": {
+   "exp_away": 33.7747,
+   "exp_home": 26.1912,
+   "p_home": 0.16491,
+   "spread_home": 7.5835,
+   "total": 59.9659
+  },
+  "BUF@MIA": {
+   "exp_away": 30.8462,
+   "exp_home": 20.1308,
+   "p_home": 0.091783,
+   "spread_home": 10.7154,
+   "total": 50.9769
+  },
+  "BUF@MIN": {
+   "exp_away": 23.3077,
+   "exp_home": 22.2846,
+   "p_home": 0.445507,
+   "spread_home": 1.0231,
+   "total": 45.5923
+  },
+  "BUF@NE": {
+   "exp_away": 30.4176,
+   "exp_home": 24.0484,
+   "p_home": 0.20385,
+   "spread_home": 6.3692,
+   "total": 54.4659
+  },
+  "BUF@NO": {
+   "exp_away": 31.7692,
+   "exp_home": 24.2846,
+   "p_home": 0.167844,
+   "spread_home": 7.4846,
+   "total": 56.0538
+  },
+  "BUF@NYG": {
+   "exp_away": 28.6923,
+   "exp_home": 24.3615,
+   "p_home": 0.283662,
+   "spread_home": 4.3308,
+   "total": 53.0538
+  },
+  "BUF@NYJ": {
+   "exp_away": 31.2747,
+   "exp_home": 22.1198,
+   "p_home": 0.123654,
+   "spread_home": 9.1549,
+   "total": 53.3945
+  },
+  "BUF@PHI": {
+   "exp_away": 30.6154,
+   "exp_home": 20.1308,
+   "p_home": 0.095981,
+   "spread_home": 10.4846,
+   "total": 50.7462
+  },
+  "BUF@PIT": {
+   "exp_away": 26.1795,
+   "exp_home": 24.3103,
+   "p_home": 0.401352,
+   "spread_home": 1.8692,
+   "total": 50.4897
+  },
+  "BUF@SEA": {
+   "exp_away": 25.6319,
+   "exp_home": 24.1912,
+   "p_home": 0.423563,
+   "spread_home": 1.4407,
+   "total": 49.8231
+  },
+  "BUF@SF": {
+   "exp_away": 28.6923,
+   "exp_home": 30.3615,
+   "p_home": 0.588327,
+   "spread_home": -1.6692,
+   "total": 59.0538
+  },
+  "BUF@TB": {
+   "exp_away": 27.3077,
+   "exp_home": 24.2846,
+   "p_home": 0.343745,
+   "spread_home": 3.0231,
+   "total": 51.5923
+  },
+  "BUF@TEN": {
+   "exp_away": 32.0,
+   "exp_home": 21.5923,
+   "p_home": 0.097418,
+   "spread_home": 10.4077,
+   "total": 53.5923
+  },
+  "BUF@WAS": {
+   "exp_away": 30.7692,
+   "exp_home": 23.8231,
+   "p_home": 0.184552,
+   "spread_home": 6.9462,
+   "total": 54.5923
+  },
+  "CAR@CHI": {
+   "exp_away": 22.5385,
+   "exp_home": 30.1308,
+   "p_home": 0.835349,
+   "spread_home": -7.5923,
+   "total": 52.6692
+  },
+  "CAR@CIN": {
+   "exp_away": 23.5321,
+   "exp_home": 32.1564,
+   "p_home": 0.863513,
+   "spread_home": -8.6244,
+   "total": 55.6885
+  },
+  "CAR@CLE": {
+   "exp_away": 23.6154,
+   "exp_home": 24.5374,
+   "p_home": 0.549144,
+   "spread_home": -0.922,
+   "total": 48.1527
+  },
+  "CAR@DAL": {
+   "exp_away": 28.044,
+   "exp_home": 31.5374,
+   "p_home": 0.67858,
+   "spread_home": -3.4934,
+   "total": 59.5813
+  },
+  "CAR@DEN": {
+   "exp_away": 22.6923,
+   "exp_home": 26.8231,
+   "p_home": 0.707565,
+   "spread_home": -4.1308,
+   "total": 49.5154
+  },
+  "CAR@DET": {
+   "exp_away": 23.6923,
+   "exp_home": 31.3615,
+   "p_home": 0.8376,
+   "spread_home": -7.6692,
+   "total": 55.0538
+  },
+  "CAR@GB": {
+   "exp_away": 23.6868,
+   "exp_home": 27.2516,
+   "p_home": 0.681903,
+   "spread_home": -3.5648,
+   "total": 50.9385
+  },
+  "CAR@HOU": {
+   "exp_away": 25.2308,
+   "exp_home": 29.5154,
+   "p_home": 0.714327,
+   "spread_home": -4.2846,
+   "total": 54.7462
+  },
+  "CAR@IND": {
+   "exp_away": 27.2582,
+   "exp_home": 25.9659,
+   "p_home": 0.431329,
+   "spread_home": 1.2923,
+   "total": 53.2242
+  },
+  "CAR@JAX": {
+   "exp_away": 19.4615,
+   "exp_home": 32.2846,
+   "p_home": 0.939511,
+   "spread_home": -12.8231,
+   "total": 51.7462
+  },
+  "CAR@KC": {
+   "exp_away": 20.3846,
+   "exp_home": 29.8231,
+   "p_home": 0.88277,
+   "spread_home": -9.4385,
+   "total": 50.2077
+  },
+  "CAR@LA": {
+   "exp_away": 21.2582,
+   "exp_home": 28.8231,
+   "p_home": 0.834539,
+   "spread_home": -7.5648,
+   "total": 50.0813
+  },
+  "CAR@LAC": {
+   "exp_away": 27.1987,
+   "exp_home": 22.2397,
+   "p_home": 0.257167,
+   "spread_home": 4.959,
+   "total": 49.4385
+  },
+  "CAR@LV": {
+   "exp_away": 28.544,
+   "exp_home": 29.0374,
+   "p_home": 0.526361,
+   "spread_home": -0.4934,
+   "total": 57.5813
+  },
+  "CAR@MIA": {
+   "exp_away": 25.6154,
+   "exp_home": 22.9769,
+   "p_home": 0.362535,
+   "spread_home": 2.6385,
+   "total": 48.5923
+  },
+  "CAR@MIN": {
+   "exp_away": 18.0769,
+   "exp_home": 25.1308,
+   "p_home": 0.81889,
+   "spread_home": -7.0538,
+   "total": 43.2077
+  },
+  "CAR@NE": {
+   "exp_away": 25.1868,
+   "exp_home": 26.8945,
+   "p_home": 0.590318,
+   "spread_home": -1.7077,
+   "total": 52.0813
+  },
+  "CAR@NO": {
+   "exp_away": 26.5385,
+   "exp_home": 27.1308,
+   "p_home": 0.531632,
+   "spread_home": -0.5923,
+   "total": 53.6692
+  },
+  "CAR@NYG": {
+   "exp_away": 23.4615,
+   "exp_home": 27.2077,
+   "p_home": 0.690256,
+   "spread_home": -3.7462,
+   "total": 50.6692
+  },
+  "CAR@NYJ": {
+   "exp_away": 26.044,
+   "exp_home": 24.9659,
+   "p_home": 0.442606,
+   "spread_home": 1.078,
+   "total": 51.0099
+  },
+  "CAR@PHI": {
+   "exp_away": 25.3846,
+   "exp_home": 22.9769,
+   "p_home": 0.374019,
+   "spread_home": 2.4077,
+   "total": 48.3615
+  },
+  "CAR@PIT": {
+   "exp_away": 20.9487,
+   "exp_home": 27.1564,
+   "p_home": 0.790485,
+   "spread_home": -6.2077,
+   "total": 48.1051
+  },
+  "CAR@SEA": {
+   "exp_away": 20.4011,
+   "exp_home": 27.0374,
+   "p_home": 0.805263,
+   "spread_home": -6.6363,
+   "total": 47.4385
+  },
+  "CAR@SF": {
+   "exp_away": 23.4615,
+   "exp_home": 33.2077,
+   "p_home": 0.889411,
+   "spread_home": -9.7462,
+   "total": 56.6692
+  },
+  "CAR@TB": {
+   "exp_away": 22.0769,
+   "exp_home": 27.1308,
+   "p_home": 0.74669,
+   "spread_home": -5.0538,
+   "total": 49.2077
+  },
+  "CAR@TEN": {
+   "exp_away": 26.7692,
+   "exp_home": 24.4385,
+   "p_home": 0.377879,
+   "spread_home": 2.3308,
+   "total": 51.2077
+  },
+  "CAR@WAS": {
+   "exp_away": 25.5385,
+   "exp_home": 26.6692,
+   "p_home": 0.560176,
+   "spread_home": -1.1308,
+   "total": 52.2077
+  },
+  "CHI@CIN": {
+   "exp_away": 25.2244,
+   "exp_home": 28.1564,
+   "p_home": 0.651849,
+   "spread_home": -2.9321,
+   "total": 53.3808
+  },
+  "CHI@CLE": {
+   "exp_away": 25.3077,
+   "exp_home": 20.5374,
+   "p_home": 0.264951,
+   "spread_home": 4.7703,
+   "total": 45.8451
+  },
+  "CHI@DAL": {
+   "exp_away": 29.7363,
+   "exp_home": 27.5374,
+   "p_home": 0.384533,
+   "spread_home": 2.1989,
+   "total": 57.2736
+  },
+  "CHI@DEN": {
+   "exp_away": 24.3846,
+   "exp_home": 22.8231,
+   "p_home": 0.417263,
+   "spread_home": 1.5615,
+   "total": 47.2077
+  },
+  "CHI@DET": {
+   "exp_away": 25.3846,
+   "exp_home": 27.3615,
+   "p_home": 0.60417,
+   "spread_home": -1.9769,
+   "total": 52.7462
+  },
+  "CHI@GB": {
+   "exp_away": 25.3791,
+   "exp_home": 23.2516,
+   "p_home": 0.388155,
+   "spread_home": 2.1275,
+   "total": 48.6308
+  },
+  "CHI@HOU": {
+   "exp_away": 26.9231,
+   "exp_home": 25.5154,
+   "p_home": 0.425286,
+   "spread_home": 1.4077,
+   "total": 52.4385
+  },
+  "CHI@IND": {
+   "exp_away": 28.9505,
+   "exp_home": 21.9659,
+   "p_home": 0.183317,
+   "spread_home": 6.9846,
+   "total": 50.9165
+  },
+  "CHI@JAX": {
+   "exp_away": 21.1538,
+   "exp_home": 28.2846,
+   "p_home": 0.821317,
+   "spread_home": -7.1308,
+   "total": 49.4385
+  },
+  "CHI@KC": {
+   "exp_away": 22.0769,
+   "exp_home": 25.8231,
+   "p_home": 0.690256,
+   "spread_home": -3.7462,
+   "total": 47.9
+  },
+  "CHI@LA": {
+   "exp_away": 22.9505,
+   "exp_home": 24.8231,
+   "p_home": 0.598818,
+   "spread_home": -1.8725,
+   "total": 47.7736
+  },
+  "CHI@LAC": {
+   "exp_away": 28.891,
+   "exp_home": 18.2397,
+   "p_home": 0.092932,
+   "spread_home": 10.6513,
+   "total": 47.1308
+  },
+  "CHI@LV": {
+   "exp_away": 30.2363,
+   "exp_home": 25.0374,
+   "p_home": 0.247486,
+   "spread_home": 5.1989,
+   "total": 55.2736
+  },
+  "CHI@MIA": {
+   "exp_away": 27.3077,
+   "exp_home": 18.9769,
+   "p_home": 0.144058,
+   "spread_home": 8.3308,
+   "total": 46.2846
+  },
+  "CHI@MIN": {
+   "exp_away": 19.7692,
+   "exp_home": 21.1308,
+   "p_home": 0.572299,
+   "spread_home": -1.3615,
+   "total": 40.9
+  },
+  "CHI@NE": {
+   "exp_away": 26.8791,
+   "exp_home": 22.8945,
+   "p_home": 0.298946,
+   "spread_home": 3.9846,
+   "total": 49.7736
+  },
+  "CHI@NO": {
+   "exp_away": 28.2308,
+   "exp_home": 23.1308,
+   "p_home": 0.251447,
+   "spread_home": 5.1,
+   "total": 51.3615
+  },
+  "CHI@NYG": {
+   "exp_away": 25.1538,
+   "exp_home": 23.2077,
+   "p_home": 0.397405,
+   "spread_home": 1.9462,
+   "total": 48.3615
+  },
+  "CHI@NYJ": {
+   "exp_away": 27.7363,
+   "exp_home": 20.9659,
+   "p_home": 0.190279,
+   "spread_home": 6.7703,
+   "total": 48.7022
+  },
+  "CHI@PHI": {
+   "exp_away": 27.0769,
+   "exp_home": 18.9769,
+   "p_home": 0.150253,
+   "spread_home": 8.1,
+   "total": 46.0538
+  },
+  "CHI@PIT": {
+   "exp_away": 22.641,
+   "exp_home": 23.1564,
+   "p_home": 0.527533,
+   "spread_home": -0.5154,
+   "total": 45.7974
+  },
+  "CHI@SEA": {
+   "exp_away": 22.0934,
+   "exp_home": 23.0374,
+   "p_home": 0.550308,
+   "spread_home": -0.944,
+   "total": 45.1308
+  },
+  "CHI@SF": {
+   "exp_away": 25.1538,
+   "exp_home": 29.2077,
+   "p_home": 0.704149,
+   "spread_home": -4.0538,
+   "total": 54.3615
+  },
+  "CHI@TB": {
+   "exp_away": 23.7692,
+   "exp_home": 23.1308,
+   "p_home": 0.465911,
+   "spread_home": 0.6385,
+   "total": 46.9
+  },
+  "CHI@TEN": {
+   "exp_away": 28.4615,
+   "exp_home": 20.4385,
+   "p_home": 0.152366,
+   "spread_home": 8.0231,
+   "total": 48.9
+  },
+  "CHI@WAS": {
+   "exp_away": 27.2308,
+   "exp_home": 22.6692,
+   "p_home": 0.27374,
+   "spread_home": 4.5615,
+   "total": 49.9
+  },
+  "CIN@CLE": {
+   "exp_away": 27.3333,
+   "exp_home": 21.531,
+   "p_home": 0.224236,
+   "spread_home": 5.8024,
+   "total": 48.8643
+  },
+  "CIN@DAL": {
+   "exp_away": 31.7619,
+   "exp_home": 28.531,
+   "p_home": 0.333786,
+   "spread_home": 3.231,
+   "total": 60.2929
+  },
+  "CIN@DEN": {
+   "exp_away": 26.4103,
+   "exp_home": 23.8167,
+   "p_home": 0.364756,
+   "spread_home": 2.5936,
+   "total": 50.2269
+  },
+  "CIN@DET": {
+   "exp_away": 27.4103,
+   "exp_home": 28.3551,
+   "p_home": 0.550357,
+   "spread_home": -0.9449,
+   "total": 55.7654
+  },
+  "CIN@GB": {
+   "exp_away": 27.4048,
+   "exp_home": 24.2452,
+   "p_home": 0.337192,
+   "spread_home": 3.1595,
+   "total": 51.65
+  },
+  "CIN@HOU": {
+   "exp_away": 28.9487,
+   "exp_home": 26.509,
+   "p_home": 0.372415,
+   "spread_home": 2.4397,
+   "total": 55.4577
+  },
+  "CIN@IND": {
+   "exp_away": 30.9762,
+   "exp_home": 22.9595,
+   "p_home": 0.152543,
+   "spread_home": 8.0167,
+   "total": 53.9357
+  },
+  "CIN@JAX": {
+   "exp_away": 23.1795,
+   "exp_home": 29.2782,
+   "p_home": 0.786598,
+   "spread_home": -6.0987,
+   "total": 52.4577
+  },
+  "CIN@KC": {
+   "exp_away": 24.1026,
+   "exp_home": 26.8167,
+   "p_home": 0.641196,
+   "spread_home": -2.7141,
+   "total": 50.9192
+  },
+  "CIN@LA": {
+   "exp_away": 24.9762,
+   "exp_home": 25.8167,
+   "p_home": 0.544825,
+   "spread_home": -0.8405,
+   "total": 50.7929
+  },
+  "CIN@LAC": {
+   "exp_away": 30.9167,
+   "exp_home": 19.2333,
+   "p_home": 0.075921,
+   "spread_home": 11.6833,
+   "total": 50.15
+  },
+  "CIN@LV": {
+   "exp_away": 32.2619,
+   "exp_home": 26.031,
+   "p_home": 0.208693,
+   "spread_home": 6.231,
+   "total": 58.2929
+  },
+  "CIN@MIA": {
+   "exp_away": 29.3333,
+   "exp_home": 19.9705,
+   "p_home": 0.118915,
+   "spread_home": 9.3628,
+   "total": 49.3038
+  },
+  "CIN@MIN": {
+   "exp_away": 21.7949,
+   "exp_home": 22.1244,
+   "p_home": 0.517612,
+   "spread_home": -0.3295,
+   "total": 43.9192
+  },
+  "CIN@NE": {
+   "exp_away": 28.9048,
+   "exp_home": 23.8881,
+   "p_home": 0.254817,
+   "spread_home": 5.0167,
+   "total": 52.7929
+  },
+  "CIN@NO": {
+   "exp_away": 30.2564,
+   "exp_home": 24.1244,
+   "p_home": 0.212208,
+   "spread_home": 6.1321,
+   "total": 54.3808
+  },
+  "CIN@NYG": {
+   "exp_away": 27.1795,
+   "exp_home": 24.2013,
+   "p_home": 0.345914,
+   "spread_home": 2.9782,
+   "total": 51.3808
+  },
+  "CIN@NYJ": {
+   "exp_away": 29.7619,
+   "exp_home": 21.9595,
+   "p_home": 0.158563,
+   "spread_home": 7.8024,
+   "total": 51.7214
+  },
+  "CIN@PHI": {
+   "exp_away": 29.1026,
+   "exp_home": 19.9705,
+   "p_home": 0.124185,
+   "spread_home": 9.1321,
+   "total": 49.0731
+  },
+  "CIN@PIT": {
+   "exp_away": 24.6667,
+   "exp_home": 24.15,
+   "p_home": 0.472399,
+   "spread_home": 0.5167,
+   "total": 48.8167
+  },
+  "CIN@SEA": {
+   "exp_away": 24.119,
+   "exp_home": 24.031,
+   "p_home": 0.495289,
+   "spread_home": 0.0881,
+   "total": 48.15
+  },
+  "CIN@SF": {
+   "exp_away": 27.1795,
+   "exp_home": 30.2013,
+   "p_home": 0.656193,
+   "spread_home": -3.0218,
+   "total": 57.3808
+  },
+  "CIN@TB": {
+   "exp_away": 25.7949,
+   "exp_home": 24.1244,
+   "p_home": 0.411606,
+   "spread_home": 1.6705,
+   "total": 49.9192
+  },
+  "CIN@TEN": {
+   "exp_away": 30.4872,
+   "exp_home": 21.4321,
+   "p_home": 0.125986,
+   "spread_home": 9.0551,
+   "total": 51.9192
+  },
+  "CIN@WAS": {
+   "exp_away": 29.2564,
+   "exp_home": 23.6628,
+   "p_home": 0.2321,
+   "spread_home": 5.5936,
+   "total": 52.9192
+  },
+  "CLE@DAL": {
+   "exp_away": 24.1429,
+   "exp_home": 28.6143,
+   "p_home": 0.722412,
+   "spread_home": -4.4714,
+   "total": 52.7571
+  },
+  "CLE@DEN": {
+   "exp_away": 18.7912,
+   "exp_home": 23.9,
+   "p_home": 0.748907,
+   "spread_home": -5.1088,
+   "total": 42.6912
+  },
+  "CLE@DET": {
+   "exp_away": 19.7912,
+   "exp_home": 28.4385,
+   "p_home": 0.86409,
+   "spread_home": -8.6473,
+   "total": 48.2297
+  },
+  "CLE@GB": {
+   "exp_away": 19.7857,
+   "exp_home": 24.3286,
+   "p_home": 0.725465,
+   "spread_home": -4.5429,
+   "total": 44.1143
+  },
+  "CLE@HOU": {
+   "exp_away": 21.3297,
+   "exp_home": 26.5923,
+   "p_home": 0.755044,
+   "spread_home": -5.2626,
+   "total": 47.922
+  },
+  "CLE@IND": {
+   "exp_away": 23.3571,
+   "exp_home": 23.0429,
+   "p_home": 0.4832,
+   "spread_home": 0.3143,
+   "total": 46.4
+  },
+  "CLE@JAX": {
+   "exp_away": 15.5604,
+   "exp_home": 29.3615,
+   "p_home": 0.950363,
+   "spread_home": -13.8011,
+   "total": 44.922
+  },
+  "CLE@KC": {
+   "exp_away": 16.4835,
+   "exp_home": 26.9,
+   "p_home": 0.902747,
+   "spread_home": -10.4165,
+   "total": 43.3835
+  },
+  "CLE@LA": {
+   "exp_away": 17.3571,
+   "exp_home": 25.9,
+   "p_home": 0.861446,
+   "spread_home": -8.5429,
+   "total": 43.2571
+  },
+  "CLE@LAC": {
+   "exp_away": 23.2976,
+   "exp_home": 19.3167,
+   "p_home": 0.29911,
+   "spread_home": 3.981,
+   "total": 42.6143
+  },
+  "CLE@LV": {
+   "exp_away": 24.6429,
+   "exp_home": 26.1143,
+   "p_home": 0.578043,
+   "spread_home": -1.4714,
+   "total": 50.7571
+  },
+  "CLE@MIA": {
+   "exp_away": 21.7143,
+   "exp_home": 20.0538,
+   "p_home": 0.412128,
+   "spread_home": 1.6604,
+   "total": 41.7681
+  },
+  "CLE@MIN": {
+   "exp_away": 14.1758,
+   "exp_home": 22.2077,
+   "p_home": 0.847877,
+   "spread_home": -8.0319,
+   "total": 36.3835
+  },
+  "CLE@NE": {
+   "exp_away": 21.2857,
+   "exp_home": 23.9714,
+   "p_home": 0.639797,
+   "spread_home": -2.6857,
+   "total": 45.2571
+  },
+  "CLE@NO": {
+   "exp_away": 22.6374,
+   "exp_home": 24.2077,
+   "p_home": 0.583194,
+   "spread_home": -1.5703,
+   "total": 46.8451
+  },
+  "CLE@NYG": {
+   "exp_away": 19.5604,
+   "exp_home": 24.2846,
+   "p_home": 0.733122,
+   "spread_home": -4.7242,
+   "total": 43.8451
+  },
+  "CLE@NYJ": {
+   "exp_away": 22.1429,
+   "exp_home": 22.0429,
+   "p_home": 0.494653,
+   "spread_home": 0.1,
+   "total": 44.1857
+  },
+  "CLE@PHI": {
+   "exp_away": 21.4835,
+   "exp_home": 20.0538,
+   "p_home": 0.424137,
+   "spread_home": 1.4297,
+   "total": 41.5374
+  },
+  "CLE@PIT": {
+   "exp_away": 17.0476,
+   "exp_home": 24.2333,
+   "p_home": 0.823036,
+   "spread_home": -7.1857,
+   "total": 41.281
+  },
+  "CLE@SEA": {
+   "exp_away": 16.5,
+   "exp_home": 24.1143,
+   "p_home": 0.835995,
+   "spread_home": -7.6143,
+   "total": 40.6143
+  },
+  "CLE@SF": {
+   "exp_away": 19.5604,
+   "exp_home": 30.2846,
+   "p_home": 0.908374,
+   "spread_home": -10.7242,
+   "total": 49.8451
+  },
+  "CLE@TB": {
+   "exp_away": 18.1758,
+   "exp_home": 24.2077,
+   "p_home": 0.784188,
+   "spread_home": -6.0319,
+   "total": 42.3835
+  },
+  "CLE@TEN": {
+   "exp_away": 22.8681,
+   "exp_home": 21.5154,
+   "p_home": 0.428161,
+   "spread_home": 1.3527,
+   "total": 44.3835
+  },
+  "CLE@WAS": {
+   "exp_away": 21.6374,
+   "exp_home": 23.7462,
+   "p_home": 0.610896,
+   "spread_home": -2.1088,
+   "total": 45.3835
+  },
+  "DAL@DEN": {
+   "exp_away": 25.7912,
+   "exp_home": 28.3286,
+   "p_home": 0.632452,
+   "spread_home": -2.5374,
+   "total": 54.1198
+  },
+  "DAL@DET": {
+   "exp_away": 26.7912,
+   "exp_home": 32.867,
+   "p_home": 0.785775,
+   "spread_home": -6.0758,
+   "total": 59.6582
+  },
+  "DAL@GB": {
+   "exp_away": 26.7857,
+   "exp_home": 28.7571,
+   "p_home": 0.603889,
+   "spread_home": -1.9714,
+   "total": 55.5429
+  },
+  "DAL@HOU": {
+   "exp_away": 28.3297,
+   "exp_home": 31.0209,
+   "p_home": 0.640068,
+   "spread_home": -2.6912,
+   "total": 59.3505
+  },
+  "DAL@IND": {
+   "exp_away": 30.3571,
+   "exp_home": 27.4714,
+   "p_home": 0.350404,
+   "spread_home": 2.8857,
+   "total": 57.8286
+  },
+  "DAL@JAX": {
+   "exp_away": 22.5604,
+   "exp_home": 33.7901,
+   "p_home": 0.916985,
+   "spread_home": -11.2297,
+   "total": 56.3505
+  },
+  "DAL@KC": {
+   "exp_away": 23.4835,
+   "exp_home": 31.3286,
+   "p_home": 0.842651,
+   "spread_home": -7.8451,
+   "total": 54.8121
+  },
+  "DAL@LA": {
+   "exp_away": 24.3571,
+   "exp_home": 30.3286,
+   "p_home": 0.781992,
+   "spread_home": -5.9714,
+   "total": 54.6857
+  },
+  "DAL@LAC": {
+   "exp_away": 30.2976,
+   "exp_home": 23.7452,
+   "p_home": 0.197566,
+   "spread_home": 6.5524,
+   "total": 54.0429
+  },
+  "DAL@LV": {
+   "exp_away": 31.6429,
+   "exp_home": 30.5429,
+   "p_home": 0.441446,
+   "spread_home": 1.1,
+   "total": 62.1857
+  },
+  "DAL@MIA": {
+   "exp_away": 28.7143,
+   "exp_home": 24.4824,
+   "p_home": 0.28798,
+   "spread_home": 4.2319,
+   "total": 53.1967
+  },
+  "DAL@MIN": {
+   "exp_away": 21.1758,
+   "exp_home": 26.6363,
+   "p_home": 0.762785,
+   "spread_home": -5.4604,
+   "total": 47.8121
+  },
+  "DAL@NE": {
+   "exp_away": 28.2857,
+   "exp_home": 28.4,
+   "p_home": 0.506111,
+   "spread_home": -0.1143,
+   "total": 56.6857
+  },
+  "DAL@NO": {
+   "exp_away": 29.6374,
+   "exp_home": 28.6363,
+   "p_home": 0.446669,
+   "spread_home": 1.0011,
+   "total": 58.2736
+  },
+  "DAL@NYG": {
+   "exp_away": 26.5604,
+   "exp_home": 28.7132,
+   "p_home": 0.613128,
+   "spread_home": -2.1527,
+   "total": 55.2736
+  },
+  "DAL@NYJ": {
+   "exp_away": 29.1429,
+   "exp_home": 26.4714,
+   "p_home": 0.360907,
+   "spread_home": 2.6714,
+   "total": 55.6143
+  },
+  "DAL@PHI": {
+   "exp_away": 28.4835,
+   "exp_home": 24.4824,
+   "p_home": 0.298207,
+   "spread_home": 4.0011,
+   "total": 52.9659
+  },
+  "DAL@PIT": {
+   "exp_away": 24.0476,
+   "exp_home": 28.6619,
+   "p_home": 0.728497,
+   "spread_home": -4.6143,
+   "total": 52.7095
+  },
+  "DAL@SEA": {
+   "exp_away": 23.5,
+   "exp_home": 28.5429,
+   "p_home": 0.746245,
+   "spread_home": -5.0429,
+   "total": 52.0429
+  },
+  "DAL@SF": {
+   "exp_away": 26.5604,
+   "exp_home": 34.7132,
+   "p_home": 0.851182,
+   "spread_home": -8.1527,
+   "total": 61.2736
+  },
+  "DAL@TB": {
+   "exp_away": 25.1758,
+   "exp_home": 28.6363,
+   "p_home": 0.67704,
+   "spread_home": -3.4604,
+   "total": 53.8121
+  },
+  "DAL@TEN": {
+   "exp_away": 29.8681,
+   "exp_home": 25.944,
+   "p_home": 0.301662,
+   "spread_home": 3.9242,
+   "total": 55.8121
+  },
+  "DAL@WAS": {
+   "exp_away": 28.6374,
+   "exp_home": 28.1747,
+   "p_home": 0.47528,
+   "spread_home": 0.4626,
+   "total": 56.8121
+  },
+  "DEN@DET": {
+   "exp_away": 22.0769,
+   "exp_home": 27.5154,
+   "p_home": 0.761933,
+   "spread_home": -5.4385,
+   "total": 49.5923
+  },
+  "DEN@GB": {
+   "exp_away": 22.0714,
+   "exp_home": 23.4055,
+   "p_home": 0.57086,
+   "spread_home": -1.3341,
+   "total": 45.4769
+  },
+  "DEN@HOU": {
+   "exp_away": 23.6154,
+   "exp_home": 25.6692,
+   "p_home": 0.608098,
+   "spread_home": -2.0538,
+   "total": 49.2846
+  },
+  "DEN@IND": {
+   "exp_away": 25.6429,
+   "exp_home": 22.1198,
+   "p_home": 0.320038,
+   "spread_home": 3.5231,
+   "total": 47.7626
+  },
+  "DEN@JAX": {
+   "exp_away": 17.8462,
+   "exp_home": 28.4385,
+   "p_home": 0.905999,
+   "spread_home": -10.5923,
+   "total": 46.2846
+  },
+  "DEN@KC": {
+   "exp_away": 18.7692,
+   "exp_home": 25.9769,
+   "p_home": 0.823719,
+   "spread_home": -7.2077,
+   "total": 44.7462
+  },
+  "DEN@LA": {
+   "exp_away": 19.6429,
+   "exp_home": 24.9769,
+   "p_home": 0.757859,
+   "spread_home": -5.3341,
+   "total": 44.6198
+  },
+  "DEN@LAC": {
+   "exp_away": 25.5833,
+   "exp_home": 18.3936,
+   "p_home": 0.176839,
+   "spread_home": 7.1897,
+   "total": 43.9769
+  },
+  "DEN@LV": {
+   "exp_away": 26.9286,
+   "exp_home": 25.1912,
+   "p_home": 0.408148,
+   "spread_home": 1.7374,
+   "total": 52.1198
+  },
+  "DEN@MIA": {
+   "exp_away": 24.0,
+   "exp_home": 19.1308,
+   "p_home": 0.260852,
+   "spread_home": 4.8692,
+   "total": 43.1308
+  },
+  "DEN@MIN": {
+   "exp_away": 16.4615,
+   "exp_home": 21.2846,
+   "p_home": 0.73724,
+   "spread_home": -4.8231,
+   "total": 37.7462
+  },
+  "DEN@NE": {
+   "exp_away": 23.5714,
+   "exp_home": 23.0484,
+   "p_home": 0.472057,
+   "spread_home": 0.5231,
+   "total": 46.6198
+  },
+  "DEN@NO": {
+   "exp_away": 24.9231,
+   "exp_home": 23.2846,
+   "p_home": 0.413268,
+   "spread_home": 1.6385,
+   "total": 48.2077
+  },
+  "DEN@NYG": {
+   "exp_away": 21.8462,
+   "exp_home": 23.3615,
+   "p_home": 0.580334,
+   "spread_home": -1.5154,
+   "total": 45.2077
+  },
+  "DEN@NYJ": {
+   "exp_away": 24.4286,
+   "exp_home": 21.1198,
+   "p_home": 0.330093,
+   "spread_home": 3.3088,
+   "total": 45.5484
+  },
+  "DEN@PHI": {
+   "exp_away": 23.7692,
+   "exp_home": 19.1308,
+   "p_home": 0.270481,
+   "spread_home": 4.6385,
+   "total": 42.9
+  },
+  "DEN@PIT": {
+   "exp_away": 19.3333,
+   "exp_home": 23.3103,
+   "p_home": 0.700709,
+   "spread_home": -3.9769,
+   "total": 42.6436
+  },
+  "DEN@SEA": {
+   "exp_away": 18.7857,
+   "exp_home": 23.1912,
+   "p_home": 0.719574,
+   "spread_home": -4.4055,
+   "total": 41.9769
+  },
+  "DEN@SF": {
+   "exp_away": 21.8462,
+   "exp_home": 29.3615,
+   "p_home": 0.833074,
+   "spread_home": -7.5154,
+   "total": 51.2077
+  },
+  "DEN@TB": {
+   "exp_away": 20.4615,
+   "exp_home": 23.2846,
+   "p_home": 0.64654,
+   "spread_home": -2.8231,
+   "total": 43.7462
+  },
+  "DEN@TEN": {
+   "exp_away": 25.1538,
+   "exp_home": 20.5923,
+   "p_home": 0.27374,
+   "spread_home": 4.5615,
+   "total": 45.7462
+  },
+  "DEN@WAS": {
+   "exp_away": 23.9231,
+   "exp_home": 22.8231,
+   "p_home": 0.441446,
+   "spread_home": 1.1,
+   "total": 46.7462
+  },
+  "DET@GB": {
+   "exp_away": 26.6099,
+   "exp_home": 24.4055,
+   "p_home": 0.384254,
+   "spread_home": 2.2044,
+   "total": 51.0154
+  },
+  "DET@HOU": {
+   "exp_away": 28.1538,
+   "exp_home": 26.6692,
+   "p_home": 0.421269,
+   "spread_home": 1.4846,
+   "total": 54.8231
+  },
+  "DET@IND": {
+   "exp_away": 30.1813,
+   "exp_home": 23.1198,
+   "p_home": 0.180866,
+   "spread_home": 7.0615,
+   "total": 53.3011
+  },
+  "DET@JAX": {
+   "exp_away": 22.3846,
+   "exp_home": 29.4385,
+   "p_home": 0.81889,
+   "spread_home": -7.0538,
+   "total": 51.8231
+  },
+  "DET@KC": {
+   "exp_away": 23.3077,
+   "exp_home": 26.9769,
+   "p_home": 0.686727,
+   "spread_home": -3.6692,
+   "total": 50.2846
+  },
+  "DET@LA": {
+   "exp_away": 24.1813,
+   "exp_home": 25.9769,
+   "p_home": 0.594858,
+   "spread_home": -1.7956,
+   "total": 50.1582
+  },
+  "DET@LAC": {
+   "exp_away": 30.1218,
+   "exp_home": 19.3936,
+   "p_home": 0.091554,
+   "spread_home": 10.7282,
+   "total": 49.5154
+  },
+  "DET@LV": {
+   "exp_away": 31.467,
+   "exp_home": 26.1912,
+   "p_home": 0.244435,
+   "spread_home": 5.2758,
+   "total": 57.6582
+  },
+  "DET@MIA": {
+   "exp_away": 28.5385,
+   "exp_home": 20.1308,
+   "p_home": 0.142041,
+   "spread_home": 8.4077,
+   "total": 48.6692
+  },
+  "DET@MIN": {
+   "exp_away": 21.0,
+   "exp_home": 22.2846,
+   "p_home": 0.568267,
+   "spread_home": -1.2846,
+   "total": 43.2846
+  },
+  "DET@NE": {
+   "exp_away": 28.1099,
+   "exp_home": 24.0484,
+   "p_home": 0.295509,
+   "spread_home": 4.0615,
+   "total": 52.1582
+  },
+  "DET@NO": {
+   "exp_away": 29.4615,
+   "exp_home": 24.2846,
+   "p_home": 0.248363,
+   "spread_home": 5.1769,
+   "total": 53.7462
+  },
+  "DET@NYG": {
+   "exp_away": 26.3846,
+   "exp_home": 24.3615,
+   "p_home": 0.393471,
+   "spread_home": 2.0231,
+   "total": 50.7462
+  },
+  "DET@NYJ": {
+   "exp_away": 28.967,
+   "exp_home": 22.1198,
+   "p_home": 0.187757,
+   "spread_home": 6.8473,
+   "total": 51.0868
+  },
+  "DET@PHI": {
+   "exp_away": 28.3077,
+   "exp_home": 20.1308,
+   "p_home": 0.148164,
+   "spread_home": 8.1769,
+   "total": 48.4385
+  },
+  "DET@PIT": {
+   "exp_away": 23.8718,
+   "exp_home": 24.3103,
+   "p_home": 0.52343,
+   "spread_home": -0.4385,
+   "total": 48.1821
+  },
+  "DET@SEA": {
+   "exp_away": 23.3242,
+   "exp_home": 24.1912,
+   "p_home": 0.546233,
+   "spread_home": -0.867,
+   "total": 47.5154
+  },
+  "DET@SF": {
+   "exp_away": 26.3846,
+   "exp_home": 30.3615,
+   "p_home": 0.700709,
+   "spread_home": -3.9769,
+   "total": 56.7462
+  },
+  "DET@TB": {
+   "exp_away": 25.0,
+   "exp_home": 24.2846,
+   "p_home": 0.461819,
+   "spread_home": 0.7154,
+   "total": 49.2846
+  },
+  "DET@TEN": {
+   "exp_away": 29.6923,
+   "exp_home": 21.5923,
+   "p_home": 0.150253,
+   "spread_home": 8.1,
+   "total": 51.2846
+  },
+  "DET@WAS": {
+   "exp_away": 28.4615,
+   "exp_home": 23.8231,
+   "p_home": 0.270481,
+   "spread_home": 4.6385,
+   "total": 52.2846
+  },
+  "GB@HOU": {
+   "exp_away": 24.044,
+   "exp_home": 26.6637,
+   "p_home": 0.636541,
+   "spread_home": -2.6198,
+   "total": 50.7077
+  },
+  "GB@IND": {
+   "exp_away": 26.0714,
+   "exp_home": 23.1143,
+   "p_home": 0.346934,
+   "spread_home": 2.9571,
+   "total": 49.1857
+  },
+  "GB@JAX": {
+   "exp_away": 18.2747,
+   "exp_home": 29.433,
+   "p_home": 0.915814,
+   "spread_home": -11.1582,
+   "total": 47.7077
+  },
+  "GB@KC": {
+   "exp_away": 19.1978,
+   "exp_home": 26.9714,
+   "p_home": 0.840615,
+   "spread_home": -7.7736,
+   "total": 46.1692
+  },
+  "GB@LA": {
+   "exp_away": 20.0714,
+   "exp_home": 25.9714,
+   "p_home": 0.779376,
+   "spread_home": -5.9,
+   "total": 46.0429
+  },
+  "GB@LAC": {
+   "exp_away": 26.0119,
+   "exp_home": 19.3881,
+   "p_home": 0.195155,
+   "spread_home": 6.6238,
+   "total": 45.4
+  },
+  "GB@LV": {
+   "exp_away": 27.3571,
+   "exp_home": 26.1857,
+   "p_home": 0.437683,
+   "spread_home": 1.1714,
+   "total": 53.5429
+  },
+  "GB@MIA": {
+   "exp_away": 24.4286,
+   "exp_home": 20.1253,
+   "p_home": 0.284858,
+   "spread_home": 4.3033,
+   "total": 44.5538
+  },
+  "GB@MIN": {
+   "exp_away": 16.8901,
+   "exp_home": 22.2791,
+   "p_home": 0.760009,
+   "spread_home": -5.389,
+   "total": 39.1692
+  },
+  "GB@NE": {
+   "exp_away": 24.0,
+   "exp_home": 24.0429,
+   "p_home": 0.502292,
+   "spread_home": -0.0429,
+   "total": 48.0429
+  },
+  "GB@NO": {
+   "exp_away": 25.3516,
+   "exp_home": 24.2791,
+   "p_home": 0.442896,
+   "spread_home": 1.0725,
+   "total": 49.6308
+  },
+  "GB@NYG": {
+   "exp_away": 22.2747,
+   "exp_home": 24.356,
+   "p_home": 0.609498,
+   "spread_home": -2.0813,
+   "total": 46.6308
+  },
+  "GB@NYJ": {
+   "exp_away": 24.8571,
+   "exp_home": 22.1143,
+   "p_home": 0.357391,
+   "spread_home": 2.7429,
+   "total": 46.9714
+  },
+  "GB@PHI": {
+   "exp_away": 24.1978,
+   "exp_home": 20.1253,
+   "p_home": 0.295019,
+   "spread_home": 4.0725,
+   "total": 44.3231
+  },
+  "GB@PIT": {
+   "exp_away": 19.7619,
+   "exp_home": 24.3048,
+   "p_home": 0.725465,
+   "spread_home": -4.5429,
+   "total": 44.0667
+  },
+  "GB@SEA": {
+   "exp_away": 19.2143,
+   "exp_home": 24.1857,
+   "p_home": 0.743341,
+   "spread_home": -4.9714,
+   "total": 43.4
+  },
+  "GB@SF": {
+   "exp_away": 22.2747,
+   "exp_home": 30.356,
+   "p_home": 0.849236,
+   "spread_home": -8.0813,
+   "total": 52.6308
+  },
+  "GB@TB": {
+   "exp_away": 20.8901,
+   "exp_home": 24.2791,
+   "p_home": 0.67369,
+   "spread_home": -3.389,
+   "total": 45.1692
+  },
+  "GB@TEN": {
+   "exp_away": 25.5824,
+   "exp_home": 21.5868,
+   "p_home": 0.298453,
+   "spread_home": 3.9956,
+   "total": 47.1692
+  },
+  "GB@WAS": {
+   "exp_away": 24.3516,
+   "exp_home": 23.8176,
+   "p_home": 0.471471,
+   "spread_home": 0.5341,
+   "total": 48.1692
+  },
+  "HOU@IND": {
+   "exp_away": 28.3352,
+   "exp_home": 24.6582,
+   "p_home": 0.312919,
+   "spread_home": 3.6769,
+   "total": 52.9934
+  },
+  "HOU@JAX": {
+   "exp_away": 20.5385,
+   "exp_home": 30.9769,
+   "p_home": 0.903159,
+   "spread_home": -10.4385,
+   "total": 51.5154
+  },
+  "HOU@KC": {
+   "exp_away": 21.4615,
+   "exp_home": 28.5154,
+   "p_home": 0.81889,
+   "spread_home": -7.0538,
+   "total": 49.9769
+  },
+  "HOU@LA": {
+   "exp_away": 22.3352,
+   "exp_home": 27.5154,
+   "p_home": 0.751769,
+   "spread_home": -5.1802,
+   "total": 49.8505
+  },
+  "HOU@LAC": {
+   "exp_away": 28.2756,
+   "exp_home": 20.9321,
+   "p_home": 0.172099,
+   "spread_home": 7.3436,
+   "total": 49.2077
+  },
+  "HOU@LV": {
+   "exp_away": 29.6209,
+   "exp_home": 27.7297,
+   "p_home": 0.400223,
+   "spread_home": 1.8912,
+   "total": 57.3505
+  },
+  "HOU@MIA": {
+   "exp_away": 26.6923,
+   "exp_home": 21.6692,
+   "p_home": 0.254557,
+   "spread_home": 5.0231,
+   "total": 48.3615
+  },
+  "HOU@MIN": {
+   "exp_away": 19.1538,
+   "exp_home": 23.8231,
+   "p_home": 0.730816,
+   "spread_home": -4.6692,
+   "total": 42.9769
+  },
+  "HOU@NE": {
+   "exp_away": 26.2637,
+   "exp_home": 25.5868,
+   "p_home": 0.463864,
+   "spread_home": 0.6769,
+   "total": 51.8506
+  },
+  "HOU@NO": {
+   "exp_away": 27.6154,
+   "exp_home": 25.8231,
+   "p_home": 0.405312,
+   "spread_home": 1.7923,
+   "total": 53.4385
+  },
+  "HOU@NYG": {
+   "exp_away": 24.5385,
+   "exp_home": 25.9,
+   "p_home": 0.572299,
+   "spread_home": -1.3615,
+   "total": 50.4385
+  },
+  "HOU@NYJ": {
+   "exp_away": 27.1209,
+   "exp_home": 23.6582,
+   "p_home": 0.322857,
+   "spread_home": 3.4626,
+   "total": 50.7791
+  },
+  "HOU@PHI": {
+   "exp_away": 26.4615,
+   "exp_home": 21.6692,
+   "p_home": 0.264037,
+   "spread_home": 4.7923,
+   "total": 48.1308
+  },
+  "HOU@PIT": {
+   "exp_away": 22.0256,
+   "exp_home": 25.8487,
+   "p_home": 0.693763,
+   "spread_home": -3.8231,
+   "total": 47.8744
+  },
+  "HOU@SEA": {
+   "exp_away": 21.478,
+   "exp_home": 25.7297,
+   "p_home": 0.712886,
+   "spread_home": -4.2516,
+   "total": 47.2077
+  },
+  "HOU@SF": {
+   "exp_away": 24.5385,
+   "exp_home": 31.9,
+   "p_home": 0.828447,
+   "spread_home": -7.3615,
+   "total": 56.4385
+  },
+  "HOU@TB": {
+   "exp_away": 23.1538,
+   "exp_home": 25.8231,
+   "p_home": 0.638984,
+   "spread_home": -2.6692,
+   "total": 48.9769
+  },
+  "HOU@TEN": {
+   "exp_away": 27.8462,
+   "exp_home": 23.1308,
+   "p_home": 0.267246,
+   "spread_home": 4.7154,
+   "total": 50.9769
+  },
+  "HOU@WAS": {
+   "exp_away": 26.6154,
+   "exp_home": 25.3615,
+   "p_home": 0.433348,
+   "spread_home": 1.2538,
+   "total": 51.9769
+  },
+  "IND@JAX": {
+   "exp_away": 16.989,
+   "exp_home": 33.0044,
+   "p_home": 0.9685,
+   "spread_home": -16.0154,
+   "total": 49.9934
+  },
+  "IND@KC": {
+   "exp_away": 17.9121,
+   "exp_home": 30.5429,
+   "p_home": 0.937131,
+   "spread_home": -12.6308,
+   "total": 48.4549
+  },
+  "IND@LA": {
+   "exp_away": 18.7857,
+   "exp_home": 29.5429,
+   "p_home": 0.908959,
+   "spread_home": -10.7571,
+   "total": 48.3286
+  },
+  "IND@LAC": {
+   "exp_away": 24.7262,
+   "exp_home": 22.9595,
+   "p_home": 0.406634,
+   "spread_home": 1.7667,
+   "total": 47.6857
+  },
+  "IND@LV": {
+   "exp_away": 26.0714,
+   "exp_home": 29.7571,
+   "p_home": 0.687485,
+   "spread_home": -3.6857,
+   "total": 55.8286
+  },
+  "IND@MIA": {
+   "exp_away": 23.1429,
+   "exp_home": 23.6967,
+   "p_home": 0.529583,
+   "spread_home": -0.5538,
+   "total": 46.8396
+  },
+  "IND@MIN": {
+   "exp_away": 15.6044,
+   "exp_home": 25.8505,
+   "p_home": 0.899501,
+   "spread_home": -10.2462,
+   "total": 41.4549
+  },
+  "IND@NE": {
+   "exp_away": 22.7143,
+   "exp_home": 27.6143,
+   "p_home": 0.740415,
+   "spread_home": -4.9,
+   "total": 50.3286
+  },
+  "IND@NO": {
+   "exp_away": 24.0659,
+   "exp_home": 27.8505,
+   "p_home": 0.692012,
+   "spread_home": -3.7846,
+   "total": 51.9165
+  },
+  "IND@NYG": {
+   "exp_away": 20.989,
+   "exp_home": 27.9275,
+   "p_home": 0.815201,
+   "spread_home": -6.9385,
+   "total": 48.9165
+  },
+  "IND@NYJ": {
+   "exp_away": 23.5714,
+   "exp_home": 25.6857,
+   "p_home": 0.611175,
+   "spread_home": -2.1143,
+   "total": 49.2571
+  },
+  "IND@PHI": {
+   "exp_away": 22.9121,
+   "exp_home": 23.6967,
+   "p_home": 0.54186,
+   "spread_home": -0.7846,
+   "total": 46.6088
+  },
+  "IND@PIT": {
+   "exp_away": 18.4762,
+   "exp_home": 27.8762,
+   "p_home": 0.881915,
+   "spread_home": -9.4,
+   "total": 46.3524
+  },
+  "IND@SEA": {
+   "exp_away": 17.9286,
+   "exp_home": 27.7571,
+   "p_home": 0.891133,
+   "spread_home": -9.8286,
+   "total": 45.6857
+  },
+  "IND@SF": {
+   "exp_away": 20.989,
+   "exp_home": 33.9275,
+   "p_home": 0.940899,
+   "spread_home": -12.9385,
+   "total": 54.9165
+  },
+  "IND@TB": {
+   "exp_away": 19.6044,
+   "exp_home": 27.8505,
+   "p_home": 0.853695,
+   "spread_home": -8.2462,
+   "total": 47.4549
+  },
+  "IND@TEN": {
+   "exp_away": 24.2967,
+   "exp_home": 25.1582,
+   "p_home": 0.545942,
+   "spread_home": -0.8615,
+   "total": 49.4549
+  },
+  "IND@WAS": {
+   "exp_away": 23.0659,
+   "exp_home": 27.389,
+   "p_home": 0.716003,
+   "spread_home": -4.3231,
+   "total": 50.4549
+  },
+  "JAX@KC": {
+   "exp_away": 24.2308,
+   "exp_home": 22.7462,
+   "p_home": 0.421269,
+   "spread_home": 1.4846,
+   "total": 46.9769
+  },
+  "JAX@LA": {
+   "exp_away": 25.1044,
+   "exp_home": 21.7462,
+   "p_home": 0.327759,
+   "spread_home": 3.3582,
+   "total": 46.8505
+  },
+  "JAX@LAC": {
+   "exp_away": 31.0449,
+   "exp_home": 15.1628,
+   "p_home": 0.032382,
+   "spread_home": 15.8821,
+   "total": 46.2077
+  },
+  "JAX@LV": {
+   "exp_away": 32.3901,
+   "exp_home": 21.9604,
+   "p_home": 0.097006,
+   "spread_home": 10.4297,
+   "total": 54.3505
+  },
+  "JAX@MIA": {
+   "exp_away": 29.4615,
+   "exp_home": 15.9,
+   "p_home": 0.052111,
+   "spread_home": 13.5615,
+   "total": 45.3615
+  },
+  "JAX@MIN": {
+   "exp_away": 21.9231,
+   "exp_home": 18.0538,
+   "p_home": 0.304144,
+   "spread_home": 3.8692,
+   "total": 39.9769
+  },
+  "JAX@NE": {
+   "exp_away": 29.033,
+   "exp_home": 19.8176,
+   "p_home": 0.12226,
+   "spread_home": 9.2154,
+   "total": 48.8505
+  },
+  "JAX@NO": {
+   "exp_away": 30.3846,
+   "exp_home": 20.0538,
+   "p_home": 0.098875,
+   "spread_home": 10.3308,
+   "total": 50.4385
+  },
+  "JAX@NYG": {
+   "exp_away": 27.3077,
+   "exp_home": 20.1308,
+   "p_home": 0.177238,
+   "spread_home": 7.1769,
+   "total": 47.4385
+  },
+  "JAX@NYJ": {
+   "exp_away": 29.8901,
+   "exp_home": 17.889,
+   "p_home": 0.071287,
+   "spread_home": 12.0011,
+   "total": 47.7791
+  },
+  "JAX@PHI": {
+   "exp_away": 29.2308,
+   "exp_home": 15.9,
+   "p_home": 0.054604,
+   "spread_home": 13.3308,
+   "total": 45.1308
+  },
+  "JAX@PIT": {
+   "exp_away": 24.7949,
+   "exp_home": 20.0795,
+   "p_home": 0.267246,
+   "spread_home": 4.7154,
+   "total": 44.8744
+  },
+  "JAX@SEA": {
+   "exp_away": 24.2473,
+   "exp_home": 19.9604,
+   "p_home": 0.285577,
+   "spread_home": 4.2868,
+   "total": 44.2077
+  },
+  "JAX@SF": {
+   "exp_away": 27.3077,
+   "exp_home": 26.1308,
+   "p_home": 0.437393,
+   "spread_home": 1.1769,
+   "total": 53.4385
+  },
+  "JAX@TB": {
+   "exp_away": 25.9231,
+   "exp_home": 20.0538,
+   "p_home": 0.221758,
+   "spread_home": 5.8692,
+   "total": 45.9769
+  },
+  "JAX@TEN": {
+   "exp_away": 30.6154,
+   "exp_home": 17.3615,
+   "p_home": 0.055459,
+   "spread_home": 13.2538,
+   "total": 47.9769
+  },
+  "JAX@WAS": {
+   "exp_away": 29.3846,
+   "exp_home": 19.5923,
+   "p_home": 0.109622,
+   "spread_home": 9.7923,
+   "total": 48.9769
+  },
+  "KC@LA": {
+   "exp_away": 22.6429,
+   "exp_home": 22.6692,
+   "p_home": 0.50141,
+   "spread_home": -0.0264,
+   "total": 45.3121
+  },
+  "KC@LAC": {
+   "exp_away": 28.5833,
+   "exp_home": 16.0859,
+   "p_home": 0.064571,
+   "spread_home": 12.4974,
+   "total": 44.6692
+  },
+  "KC@LV": {
+   "exp_away": 29.9286,
+   "exp_home": 22.8835,
+   "p_home": 0.181389,
+   "spread_home": 7.0451,
+   "total": 52.8121
+  },
+  "KC@MIA": {
+   "exp_away": 27.0,
+   "exp_home": 16.8231,
+   "p_home": 0.101846,
+   "spread_home": 10.1769,
+   "total": 43.8231
+  },
+  "KC@MIN": {
+   "exp_away": 19.4615,
+   "exp_home": 18.9769,
+   "p_home": 0.474108,
+   "spread_home": 0.4846,
+   "total": 38.4385
+  },
+  "KC@NE": {
+   "exp_away": 26.5714,
+   "exp_home": 20.7407,
+   "p_home": 0.223181,
+   "spread_home": 5.8308,
+   "total": 47.3121
+  },
+  "KC@NO": {
+   "exp_away": 27.9231,
+   "exp_home": 20.9769,
+   "p_home": 0.184552,
+   "spread_home": 6.9462,
+   "total": 48.9
+  },
+  "KC@NYG": {
+   "exp_away": 24.8462,
+   "exp_home": 21.0538,
+   "p_home": 0.307637,
+   "spread_home": 3.7923,
+   "total": 45.9
+  },
+  "KC@NYJ": {
+   "exp_away": 27.4286,
+   "exp_home": 18.8121,
+   "p_home": 0.136685,
+   "spread_home": 8.6165,
+   "total": 46.2407
+  },
+  "KC@PHI": {
+   "exp_away": 26.7692,
+   "exp_home": 16.8231,
+   "p_home": 0.106451,
+   "spread_home": 9.9462,
+   "total": 43.5923
+  },
+  "KC@PIT": {
+   "exp_away": 22.3333,
+   "exp_home": 21.0026,
+   "p_home": 0.429313,
+   "spread_home": 1.3308,
+   "total": 43.3359
+  },
+  "KC@SEA": {
+   "exp_away": 21.7857,
+   "exp_home": 20.8835,
+   "p_home": 0.451903,
+   "spread_home": 0.9022,
+   "total": 42.6692
+  },
+  "KC@SF": {
+   "exp_away": 24.8462,
+   "exp_home": 27.0538,
+   "p_home": 0.615912,
+   "spread_home": -2.2077,
+   "total": 51.9
+  },
+  "KC@TB": {
+   "exp_away": 23.4615,
+   "exp_home": 20.9769,
+   "p_home": 0.370174,
+   "spread_home": 2.4846,
+   "total": 44.4385
+  },
+  "KC@TEN": {
+   "exp_away": 28.1538,
+   "exp_home": 18.2846,
+   "p_home": 0.108026,
+   "spread_home": 9.8692,
+   "total": 46.4385
+  },
+  "KC@WAS": {
+   "exp_away": 26.9231,
+   "exp_home": 20.5154,
+   "p_home": 0.202518,
+   "spread_home": 6.4077,
+   "total": 47.4385
+  },
+  "LA@LAC": {
+   "exp_away": 27.5833,
+   "exp_home": 16.9595,
+   "p_home": 0.093429,
+   "spread_home": 10.6238,
+   "total": 44.5429
+  },
+  "LA@LV": {
+   "exp_away": 28.9286,
+   "exp_home": 23.7571,
+   "p_home": 0.248582,
+   "spread_home": 5.1714,
+   "total": 52.6857
+  },
+  "LA@MIA": {
+   "exp_away": 26.0,
+   "exp_home": 17.6967,
+   "p_home": 0.144785,
+   "spread_home": 8.3033,
+   "total": 43.6967
+  },
+  "LA@MIN": {
+   "exp_away": 18.4615,
+   "exp_home": 19.8505,
+   "p_home": 0.573737,
+   "spread_home": -1.389,
+   "total": 38.3121
+  },
+  "LA@NE": {
+   "exp_away": 25.5714,
+   "exp_home": 21.6143,
+   "p_home": 0.300179,
+   "spread_home": 3.9571,
+   "total": 47.1857
+  },
+  "LA@NO": {
+   "exp_away": 26.9231,
+   "exp_home": 21.8505,
+   "p_home": 0.252555,
+   "spread_home": 5.0725,
+   "total": 48.7736
+  },
+  "LA@NYG": {
+   "exp_away": 23.8462,
+   "exp_home": 21.9275,
+   "p_home": 0.398813,
+   "spread_home": 1.9187,
+   "total": 45.7736
+  },
+  "LA@NYJ": {
+   "exp_away": 26.4286,
+   "exp_home": 19.6857,
+   "p_home": 0.191186,
+   "spread_home": 6.7429,
+   "total": 46.1143
+  },
+  "LA@PHI": {
+   "exp_away": 25.7692,
+   "exp_home": 17.6967,
+   "p_home": 0.151005,
+   "spread_home": 8.0725,
+   "total": 43.4659
+  },
+  "LA@PIT": {
+   "exp_away": 21.3333,
+   "exp_home": 21.8762,
+   "p_home": 0.528997,
+   "spread_home": -0.5429,
+   "total": 43.2095
+  },
+  "LA@SEA": {
+   "exp_away": 20.7857,
+   "exp_home": 21.7571,
+   "p_home": 0.551762,
+   "spread_home": -0.9714,
+   "total": 42.5429
+  },
+  "LA@SF": {
+   "exp_away": 23.8462,
+   "exp_home": 27.9275,
+   "p_home": 0.705371,
+   "spread_home": -4.0813,
+   "total": 51.7736
+  },
+  "LA@TB": {
+   "exp_away": 22.4615,
+   "exp_home": 21.8505,
+   "p_home": 0.467373,
+   "spread_home": 0.611,
+   "total": 44.3121
+  },
+  "LA@TEN": {
+   "exp_away": 27.1538,
+   "exp_home": 19.1582,
+   "p_home": 0.153126,
+   "spread_home": 7.9956,
+   "total": 46.3121
+  },
+  "LA@WAS": {
+   "exp_away": 25.9231,
+   "exp_home": 21.389,
+   "p_home": 0.27491,
+   "spread_home": 4.5341,
+   "total": 47.3121
+  },
+  "LAC@LV": {
+   "exp_away": 22.3452,
+   "exp_home": 29.6976,
+   "p_home": 0.828168,
+   "spread_home": -7.3524,
+   "total": 52.0429
+  },
+  "LAC@MIA": {
+   "exp_away": 19.4167,
+   "exp_home": 23.6372,
+   "p_home": 0.711521,
+   "spread_home": -4.2205,
+   "total": 43.0538
+  },
+  "LAC@MIN": {
+   "exp_away": 11.8782,
+   "exp_home": 25.791,
+   "p_home": 0.951478,
+   "spread_home": -13.9128,
+   "total": 37.6692
+  },
+  "LAC@NE": {
+   "exp_away": 18.9881,
+   "exp_home": 27.5548,
+   "p_home": 0.862052,
+   "spread_home": -8.5667,
+   "total": 46.5429
+  },
+  "LAC@NO": {
+   "exp_away": 20.3397,
+   "exp_home": 27.791,
+   "p_home": 0.831158,
+   "spread_home": -7.4513,
+   "total": 48.1308
+  },
+  "LAC@NYG": {
+   "exp_away": 17.2628,
+   "exp_home": 27.8679,
+   "p_home": 0.906232,
+   "spread_home": -10.6051,
+   "total": 45.1308
+  },
+  "LAC@NYJ": {
+   "exp_away": 19.8452,
+   "exp_home": 25.6262,
+   "p_home": 0.774966,
+   "spread_home": -5.781,
+   "total": 45.4714
+  },
+  "LAC@PHI": {
+   "exp_away": 19.1859,
+   "exp_home": 23.6372,
+   "p_home": 0.721546,
+   "spread_home": -4.4513,
+   "total": 42.8231
+  },
+  "LAC@PIT": {
+   "exp_away": 14.75,
+   "exp_home": 27.8167,
+   "p_home": 0.942406,
+   "spread_home": -13.0667,
+   "total": 42.5667
+  },
+  "LAC@SEA": {
+   "exp_away": 14.2024,
+   "exp_home": 27.6976,
+   "p_home": 0.947184,
+   "spread_home": -13.4952,
+   "total": 41.9
+  },
+  "LAC@SF": {
+   "exp_away": 17.2628,
+   "exp_home": 33.8679,
+   "p_home": 0.972129,
+   "spread_home": -16.6051,
+   "total": 51.1308
+  },
+  "LAC@TB": {
+   "exp_away": 15.8782,
+   "exp_home": 27.791,
+   "p_home": 0.927452,
+   "spread_home": -11.9128,
+   "total": 43.6692
+  },
+  "LAC@TEN": {
+   "exp_away": 20.5705,
+   "exp_home": 25.0987,
+   "p_home": 0.72484,
+   "spread_home": -4.5282,
+   "total": 45.6692
+  },
+  "LAC@WAS": {
+   "exp_away": 19.3397,
+   "exp_home": 27.3295,
+   "p_home": 0.846711,
+   "spread_home": -7.9897,
+   "total": 46.6692
+  },
+  "LV@MIA": {
+   "exp_away": 26.2143,
+   "exp_home": 24.9824,
+   "p_home": 0.434503,
+   "spread_home": 1.2319,
+   "total": 51.1967
+  },
+  "LV@MIN": {
+   "exp_away": 18.6758,
+   "exp_home": 27.1363,
+   "p_home": 0.859328,
+   "spread_home": -8.4604,
+   "total": 45.8121
+  },
+  "LV@NE": {
+   "exp_away": 25.7857,
+   "exp_home": 28.9,
+   "p_home": 0.660642,
+   "spread_home": -3.1143,
+   "total": 54.6857
+  },
+  "LV@NO": {
+   "exp_away": 27.1374,
+   "exp_home": 29.1363,
+   "p_home": 0.605294,
+   "spread_home": -1.9989,
+   "total": 56.2736
+  },
+  "LV@NYG": {
+   "exp_away": 24.0604,
+   "exp_home": 29.2132,
+   "p_home": 0.750671,
+   "spread_home": -5.1527,
+   "total": 53.2736
+  },
+  "LV@NYJ": {
+   "exp_away": 26.6429,
+   "exp_home": 26.9714,
+   "p_home": 0.517563,
+   "spread_home": -0.3286,
+   "total": 53.6143
+  },
+  "LV@PHI": {
+   "exp_away": 25.9835,
+   "exp_home": 24.9824,
+   "p_home": 0.446669,
+   "spread_home": 1.0011,
+   "total": 50.9659
+  },
+  "LV@PIT": {
+   "exp_away": 21.5476,
+   "exp_home": 29.1619,
+   "p_home": 0.835995,
+   "spread_home": -7.6143,
+   "total": 50.7095
+  },
+  "LV@SEA": {
+   "exp_away": 21.0,
+   "exp_home": 29.0429,
+   "p_home": 0.84818,
+   "spread_home": -8.0429,
+   "total": 50.0429
+  },
+  "LV@SF": {
+   "exp_away": 24.0604,
+   "exp_home": 35.2132,
+   "p_home": 0.915724,
+   "spread_home": -11.1527,
+   "total": 59.2736
+  },
+  "LV@TB": {
+   "exp_away": 22.6758,
+   "exp_home": 29.1363,
+   "p_home": 0.799298,
+   "spread_home": -6.4604,
+   "total": 51.8121
+  },
+  "LV@TEN": {
+   "exp_away": 27.3681,
+   "exp_home": 26.444,
+   "p_home": 0.450739,
+   "spread_home": 0.9242,
+   "total": 53.8121
+  },
+  "LV@WAS": {
+   "exp_away": 26.1374,
+   "exp_home": 28.6747,
+   "p_home": 0.632452,
+   "spread_home": -2.5374,
+   "total": 54.8121
+  },
+  "MIA@MIN": {
+   "exp_away": 12.6154,
+   "exp_home": 24.2077,
+   "p_home": 0.922702,
+   "spread_home": -11.5923,
+   "total": 36.8231
+  },
+  "MIA@NE": {
+   "exp_away": 19.7253,
+   "exp_home": 25.9714,
+   "p_home": 0.791844,
+   "spread_home": -6.2462,
+   "total": 45.6967
+  },
+  "MIA@NO": {
+   "exp_away": 21.0769,
+   "exp_home": 26.2077,
+   "p_home": 0.74979,
+   "spread_home": -5.1308,
+   "total": 47.2846
+  },
+  "MIA@NYG": {
+   "exp_away": 18.0,
+   "exp_home": 26.2846,
+   "p_home": 0.85472,
+   "spread_home": -8.2846,
+   "total": 44.2846
+  },
+  "MIA@NYJ": {
+   "exp_away": 20.5824,
+   "exp_home": 24.0429,
+   "p_home": 0.67704,
+   "spread_home": -3.4604,
+   "total": 44.6253
+  },
+  "MIA@PHI": {
+   "exp_away": 19.9231,
+   "exp_home": 22.0538,
+   "p_home": 0.612012,
+   "spread_home": -2.1308,
+   "total": 41.9769
+  },
+  "MIA@PIT": {
+   "exp_away": 15.4872,
+   "exp_home": 26.2333,
+   "p_home": 0.908765,
+   "spread_home": -10.7462,
+   "total": 41.7205
+  },
+  "MIA@SEA": {
+   "exp_away": 14.9396,
+   "exp_home": 26.1143,
+   "p_home": 0.916086,
+   "spread_home": -11.1747,
+   "total": 41.0538
+  },
+  "MIA@SF": {
+   "exp_away": 18.0,
+   "exp_home": 32.2846,
+   "p_home": 0.955021,
+   "spread_home": -14.2846,
+   "total": 50.2846
+  },
+  "MIA@TB": {
+   "exp_away": 16.6154,
+   "exp_home": 26.2077,
+   "p_home": 0.886132,
+   "spread_home": -9.5923,
+   "total": 42.8231
+  },
+  "MIA@TEN": {
+   "exp_away": 21.3077,
+   "exp_home": 23.5154,
+   "p_home": 0.615912,
+   "spread_home": -2.2077,
+   "total": 44.8231
+  },
+  "MIA@WAS": {
+   "exp_away": 20.0769,
+   "exp_home": 25.7462,
+   "p_home": 0.770771,
+   "spread_home": -5.6692,
+   "total": 45.8231
+  },
+  "MIN@NE": {
+   "exp_away": 21.8791,
+   "exp_home": 18.433,
+   "p_home": 0.323629,
+   "spread_home": 3.4462,
+   "total": 40.3121
+  },
+  "MIN@NO": {
+   "exp_away": 23.2308,
+   "exp_home": 18.6692,
+   "p_home": 0.27374,
+   "spread_home": 4.5615,
+   "total": 41.9
+  },
+  "MIN@NYG": {
+   "exp_away": 20.1538,
+   "exp_home": 18.7462,
+   "p_home": 0.425286,
+   "spread_home": 1.4077,
+   "total": 38.9
+  },
+  "MIN@NYJ": {
+   "exp_away": 22.7363,
+   "exp_home": 16.5044,
+   "p_home": 0.20866,
+   "spread_home": 6.2319,
+   "total": 39.2407
+  },
+  "MIN@PHI": {
+   "exp_away": 22.0769,
+   "exp_home": 14.5154,
+   "p_home": 0.165558,
+   "spread_home": 7.5615,
+   "total": 36.5923
+  },
+  "MIN@PIT": {
+   "exp_away": 17.641,
+   "exp_home": 18.6949,
+   "p_home": 0.556118,
+   "spread_home": -1.0538,
+   "total": 36.3359
+  },
+  "MIN@SEA": {
+   "exp_away": 17.0934,
+   "exp_home": 18.5758,
+   "p_home": 0.578616,
+   "spread_home": -1.4824,
+   "total": 35.6692
+  },
+  "MIN@SF": {
+   "exp_away": 20.1538,
+   "exp_home": 24.7462,
+   "p_home": 0.727567,
+   "spread_home": -4.5923,
+   "total": 44.9
+  },
+  "MIN@TB": {
+   "exp_away": 18.7692,
+   "exp_home": 18.6692,
+   "p_home": 0.494653,
+   "spread_home": 0.1,
+   "total": 37.4385
+  },
+  "MIN@TEN": {
+   "exp_away": 23.4615,
+   "exp_home": 15.9769,
+   "p_home": 0.167844,
+   "spread_home": 7.4846,
+   "total": 39.4385
+  },
+  "MIN@WAS": {
+   "exp_away": 22.2308,
+   "exp_home": 18.2077,
+   "p_home": 0.297224,
+   "spread_home": 4.0231,
+   "total": 40.4385
+  },
+  "NE@NO": {
+   "exp_away": 24.9945,
+   "exp_home": 25.7791,
+   "p_home": 0.54186,
+   "spread_home": -0.7846,
+   "total": 50.7736
+  },
+  "NE@NYG": {
+   "exp_away": 21.9176,
+   "exp_home": 25.856,
+   "p_home": 0.698981,
+   "spread_home": -3.9385,
+   "total": 47.7736
+  },
+  "NE@NYJ": {
+   "exp_away": 24.5,
+   "exp_home": 23.6143,
+   "p_home": 0.452777,
+   "spread_home": 0.8857,
+   "total": 48.1143
+  },
+  "NE@PHI": {
+   "exp_away": 23.8407,
+   "exp_home": 21.6253,
+   "p_home": 0.383699,
+   "spread_home": 2.2154,
+   "total": 45.4659
+  },
+  "NE@PIT": {
+   "exp_away": 19.4048,
+   "exp_home": 25.8048,
+   "p_home": 0.797216,
+   "spread_home": -6.4,
+   "total": 45.2095
+  },
+  "NE@SEA": {
+   "exp_away": 18.8571,
+   "exp_home": 25.6857,
+   "p_home": 0.811633,
+   "spread_home": -6.8286,
+   "total": 44.5429
+  },
+  "NE@SF": {
+   "exp_away": 21.9176,
+   "exp_home": 31.856,
+   "p_home": 0.893393,
+   "spread_home": -9.9385,
+   "total": 53.7736
+  },
+  "NE@TB": {
+   "exp_away": 20.533,
+   "exp_home": 25.7791,
+   "p_home": 0.754391,
+   "spread_home": -5.2462,
+   "total": 46.3121
+  },
+  "NE@TEN": {
+   "exp_away": 25.2253,
+   "exp_home": 23.0868,
+   "p_home": 0.387597,
+   "spread_home": 2.1385,
+   "total": 48.3121
+  },
+  "NE@WAS": {
+   "exp_away": 23.9945,
+   "exp_home": 25.3176,
+   "p_home": 0.570284,
+   "spread_home": -1.3231,
+   "total": 49.3121
+  },
+  "NO@NYG": {
+   "exp_away": 22.1538,
+   "exp_home": 27.2077,
+   "p_home": 0.74669,
+   "spread_home": -5.0538,
+   "total": 49.3615
+  },
+  "NO@NYJ": {
+   "exp_away": 24.7363,
+   "exp_home": 24.9659,
+   "p_home": 0.512279,
+   "spread_home": -0.2297,
+   "total": 49.7022
+  },
+  "NO@PHI": {
+   "exp_away": 24.0769,
+   "exp_home": 22.9769,
+   "p_home": 0.441446,
+   "spread_home": 1.1,
+   "total": 47.0538
+  },
+  "NO@PIT": {
+   "exp_away": 19.641,
+   "exp_home": 27.1564,
+   "p_home": 0.833074,
+   "spread_home": -7.5154,
+   "total": 46.7974
+  },
+  "NO@SEA": {
+   "exp_away": 19.0934,
+   "exp_home": 27.0374,
+   "p_home": 0.845436,
+   "spread_home": -7.944,
+   "total": 46.1308
+  },
+  "NO@SF": {
+   "exp_away": 22.1538,
+   "exp_home": 33.2077,
+   "p_home": 0.914077,
+   "spread_home": -11.0538,
+   "total": 55.3615
+  },
+  "NO@TB": {
+   "exp_away": 20.7692,
+   "exp_home": 27.1308,
+   "p_home": 0.795883,
+   "spread_home": -6.3615,
+   "total": 47.9
+  },
+  "NO@TEN": {
+   "exp_away": 25.4615,
+   "exp_home": 24.4385,
+   "p_home": 0.445507,
+   "spread_home": 1.0231,
+   "total": 49.9
+  },
+  "NO@WAS": {
+   "exp_away": 24.2308,
+   "exp_home": 26.6692,
+   "p_home": 0.627521,
+   "spread_home": -2.4385,
+   "total": 50.9
+  },
+  "NYG@NYJ": {
+   "exp_away": 24.8132,
+   "exp_home": 21.889,
+   "p_home": 0.348533,
+   "spread_home": 2.9242,
+   "total": 46.7022
+  },
+  "NYG@PHI": {
+   "exp_away": 24.1538,
+   "exp_home": 19.9,
+   "p_home": 0.287018,
+   "spread_home": 4.2538,
+   "total": 44.0538
+  },
+  "NYG@PIT": {
+   "exp_away": 19.7179,
+   "exp_home": 24.0795,
+   "p_home": 0.717673,
+   "spread_home": -4.3615,
+   "total": 43.7974
+  },
+  "NYG@SEA": {
+   "exp_away": 19.1703,
+   "exp_home": 23.9604,
+   "p_home": 0.735872,
+   "spread_home": -4.7901,
+   "total": 43.1308
+  },
+  "NYG@SF": {
+   "exp_away": 22.2308,
+   "exp_home": 30.1308,
+   "p_home": 0.844203,
+   "spread_home": -7.9,
+   "total": 52.3615
+  },
+  "NYG@TB": {
+   "exp_away": 20.8462,
+   "exp_home": 24.0538,
+   "p_home": 0.665107,
+   "spread_home": -3.2077,
+   "total": 44.9
+  },
+  "NYG@TEN": {
+   "exp_away": 25.5385,
+   "exp_home": 21.3615,
+   "p_home": 0.290396,
+   "spread_home": 4.1769,
+   "total": 46.9
+  },
+  "NYG@WAS": {
+   "exp_away": 24.3077,
+   "exp_home": 23.5923,
+   "p_home": 0.461819,
+   "spread_home": 0.7154,
+   "total": 47.9
+  },
+  "NYJ@PHI": {
+   "exp_away": 21.9121,
+   "exp_home": 22.4824,
+   "p_home": 0.530461,
+   "spread_home": -0.5703,
+   "total": 44.3945
+  },
+  "NYJ@PIT": {
+   "exp_away": 17.4762,
+   "exp_home": 26.6619,
+   "p_home": 0.877058,
+   "spread_home": -9.1857,
+   "total": 44.1381
+  },
+  "NYJ@SEA": {
+   "exp_away": 16.9286,
+   "exp_home": 26.5429,
+   "p_home": 0.886606,
+   "spread_home": -9.6143,
+   "total": 43.4714
+  },
+  "NYJ@SF": {
+   "exp_away": 19.989,
+   "exp_home": 32.7132,
+   "p_home": 0.938298,
+   "spread_home": -12.7242,
+   "total": 52.7022
+  },
+  "NYJ@TB": {
+   "exp_away": 18.6044,
+   "exp_home": 26.6363,
+   "p_home": 0.847877,
+   "spread_home": -8.0319,
+   "total": 45.2407
+  },
+  "NYJ@TEN": {
+   "exp_away": 23.2967,
+   "exp_home": 23.944,
+   "p_home": 0.534557,
+   "spread_home": -0.6473,
+   "total": 47.2407
+  },
+  "NYJ@WAS": {
+   "exp_away": 22.0659,
+   "exp_home": 26.1747,
+   "p_home": 0.706591,
+   "spread_home": -4.1088,
+   "total": 48.2407
+  },
+  "PHI@PIT": {
+   "exp_away": 15.4872,
+   "exp_home": 26.0026,
+   "p_home": 0.904588,
+   "spread_home": -10.5154,
+   "total": 41.4897
+  },
+  "PHI@SEA": {
+   "exp_away": 14.9396,
+   "exp_home": 25.8835,
+   "p_home": 0.912212,
+   "spread_home": -10.944,
+   "total": 40.8231
+  },
+  "PHI@SF": {
+   "exp_away": 18.0,
+   "exp_home": 32.0538,
+   "p_home": 0.952852,
+   "spread_home": -14.0538,
+   "total": 50.0538
+  },
+  "PHI@TB": {
+   "exp_away": 16.6154,
+   "exp_home": 25.9769,
+   "p_home": 0.881056,
+   "spread_home": -9.3615,
+   "total": 42.5923
+  },
+  "PHI@TEN": {
+   "exp_away": 21.3077,
+   "exp_home": 23.2846,
+   "p_home": 0.60417,
+   "spread_home": -1.9769,
+   "total": 44.5923
+  },
+  "PHI@WAS": {
+   "exp_away": 20.0769,
+   "exp_home": 25.5154,
+   "p_home": 0.761933,
+   "spread_home": -5.4385,
+   "total": 45.5923
+  },
+  "PIT@SEA": {
+   "exp_away": 19.119,
+   "exp_home": 21.4476,
+   "p_home": 0.62201,
+   "spread_home": -2.3286,
+   "total": 40.5667
+  },
+  "PIT@SF": {
+   "exp_away": 22.1795,
+   "exp_home": 27.6179,
+   "p_home": 0.761933,
+   "spread_home": -5.4385,
+   "total": 49.7974
+  },
+  "PIT@TB": {
+   "exp_away": 20.7949,
+   "exp_home": 21.541,
+   "p_home": 0.539817,
+   "spread_home": -0.7462,
+   "total": 42.3359
+  },
+  "PIT@TEN": {
+   "exp_away": 25.4872,
+   "exp_home": 18.8487,
+   "p_home": 0.194663,
+   "spread_home": 6.6385,
+   "total": 44.3359
+  },
+  "PIT@WAS": {
+   "exp_away": 24.2564,
+   "exp_home": 21.0795,
+   "p_home": 0.33636,
+   "spread_home": 3.1769,
+   "total": 45.3359
+  },
+  "SEA@SF": {
+   "exp_away": 22.0604,
+   "exp_home": 27.0703,
+   "p_home": 0.744908,
+   "spread_home": -5.0099,
+   "total": 49.1308
+  },
+  "SEA@TB": {
+   "exp_away": 20.6758,
+   "exp_home": 20.9934,
+   "p_home": 0.516976,
+   "spread_home": -0.3176,
+   "total": 41.6692
+  },
+  "SEA@TEN": {
+   "exp_away": 25.3681,
+   "exp_home": 18.3011,
+   "p_home": 0.180692,
+   "spread_home": 7.067,
+   "total": 43.6692
+  },
+  "SEA@WAS": {
+   "exp_away": 24.1374,
+   "exp_home": 20.5319,
+   "p_home": 0.316213,
+   "spread_home": 3.6055,
+   "total": 44.6692
+  },
+  "SF@TB": {
+   "exp_away": 26.8462,
+   "exp_home": 24.0538,
+   "p_home": 0.354965,
+   "spread_home": 2.7923,
+   "total": 50.9
+  },
+  "SF@TEN": {
+   "exp_away": 31.5385,
+   "exp_home": 21.3615,
+   "p_home": 0.101846,
+   "spread_home": 10.1769,
+   "total": 52.9
+  },
+  "SF@WAS": {
+   "exp_away": 30.3077,
+   "exp_home": 23.5923,
+   "p_home": 0.192096,
+   "spread_home": 6.7154,
+   "total": 53.9
+  },
+  "TB@TEN": {
+   "exp_away": 25.4615,
+   "exp_home": 19.9769,
+   "p_home": 0.236281,
+   "spread_home": 5.4846,
+   "total": 45.4385
+  },
+  "TB@WAS": {
+   "exp_away": 24.2308,
+   "exp_home": 22.2077,
+   "p_home": 0.393471,
+   "spread_home": 2.0231,
+   "total": 46.4385
+  },
+  "TEN@WAS": {
+   "exp_away": 21.5385,
+   "exp_home": 26.9,
+   "p_home": 0.758936,
+   "spread_home": -5.3615,
+   "total": 48.4385
+  }
+ },
+ "fixture_count": 13,
+ "fixtures": [
+  {
+   "away": "IND",
+   "exp_away": 22.7582,
+   "exp_home": 30.2352,
+   "home": "HOU",
+   "p_home": 0.831926,
+   "spread_home": -7.4769,
+   "total": 52.9934
+  },
+  {
+   "away": "MIA",
+   "exp_away": 18.2308,
+   "exp_home": 32.7462,
+   "home": "BUF",
+   "p_home": 0.957094,
+   "spread_home": -14.5154,
+   "total": 50.9769
+  },
+  {
+   "away": "BAL",
+   "exp_away": 24.2308,
+   "exp_home": 28.4385,
+   "home": "CAR",
+   "p_home": 0.710958,
+   "spread_home": -4.2077,
+   "total": 52.6692
+  },
+  {
+   "away": "NO",
+   "exp_away": 21.2308,
+   "exp_home": 30.1308,
+   "home": "CHI",
+   "p_home": 0.870315,
+   "spread_home": -8.9,
+   "total": 51.3615
+  },
+  {
+   "away": "TEN",
+   "exp_away": 24.044,
+   "exp_home": 31.7681,
+   "home": "DAL",
+   "p_home": 0.839192,
+   "spread_home": -7.7242,
+   "total": 55.8121
+  },
+  {
+   "away": "TB",
+   "exp_away": 22.3846,
+   "exp_home": 26.9,
+   "home": "DET",
+   "p_home": 0.724293,
+   "spread_home": -4.5154,
+   "total": 49.2846
+  },
+  {
+   "away": "AZ",
+   "exp_away": 16.1978,
+   "exp_home": 31.8286,
+   "home": "KC",
+   "p_home": 0.965891,
+   "spread_home": -15.6308,
+   "total": 48.0264
+  },
+  {
+   "away": "PIT",
+   "exp_away": 24.1026,
+   "exp_home": 17.3872,
+   "home": "PHI",
+   "p_home": 0.192096,
+   "spread_home": 6.7154,
+   "total": 41.4897
+  },
+  {
+   "away": "NYJ",
+   "exp_away": 23.7262,
+   "exp_home": 21.7452,
+   "home": "LAC",
+   "p_home": 0.395624,
+   "spread_home": 1.981,
+   "total": 45.4714
+  },
+  {
+   "away": "JAX",
+   "exp_away": 27.3077,
+   "exp_home": 20.1308,
+   "home": "NYG",
+   "p_home": 0.177238,
+   "spread_home": 7.1769,
+   "total": 47.4385
+  },
+  {
+   "away": "LV",
+   "exp_away": 23.2912,
+   "exp_home": 28.8286,
+   "home": "DEN",
+   "p_home": 0.765749,
+   "spread_home": -5.5374,
+   "total": 52.1198
+  },
+  {
+   "away": "MIN",
+   "exp_away": 20.1538,
+   "exp_home": 24.7462,
+   "home": "SF",
+   "p_home": 0.727567,
+   "spread_home": -4.5923,
+   "total": 44.9
+  },
+  {
+   "away": "CIN",
+   "exp_away": 29.2564,
+   "exp_home": 23.6628,
+   "home": "WAS",
+   "p_home": 0.2321,
+   "spread_home": 5.5936,
+   "total": 52.9192
+  }
+ ],
+ "games_used": 148,
+ "model_id": "FL3-SHADOW-1",
+ "note": "Registered forecasts for unplayed fixtures. They are model output, not picks, and they are not staked. Kickoff times come from the official schedule page.",
+ "ratings": {
+  "ATL": {
+   "defense": 24.714286,
+   "games": 10,
+   "off": 20.642857
+  },
+  "AZ": {
+   "defense": 26.928571,
+   "games": 10,
+   "off": 19.428571
+  },
+  "BAL": {
+   "defense": 24.923077,
+   "games": 9,
+   "off": 21.307692
+  },
+  "BUF": {
+   "defense": 22.076923,
+   "games": 9,
+   "off": 28.846154
+  },
+  "CAR": {
+   "defense": 24.923077,
+   "games": 9,
+   "off": 23.615385
+  },
+  "CHI": {
+   "defense": 20.923077,
+   "games": 9,
+   "off": 25.307692
+  },
+  "CIN": {
+   "defense": 21.916667,
+   "games": 8,
+   "off": 27.333333
+  },
+  "CLE": {
+   "defense": 22.0,
+   "games": 10,
+   "off": 19.714286
+  },
+  "DAL": {
+   "defense": 26.428571,
+   "games": 10,
+   "off": 26.714286
+  },
+  "DEN": {
+   "defense": 21.076923,
+   "games": 9,
+   "off": 22.0
+  },
+  "DET": {
+   "defense": 22.076923,
+   "games": 9,
+   "off": 26.538462
+  },
+  "GB": {
+   "defense": 22.071429,
+   "games": 10,
+   "off": 22.428571
+  },
+  "HOU": {
+   "defense": 23.615385,
+   "games": 9,
+   "off": 24.692308
+  },
+  "IND": {
+   "defense": 25.642857,
+   "games": 10,
+   "off": 21.142857
+  },
+  "JAX": {
+   "defense": 17.846154,
+   "games": 9,
+   "off": 27.461538
+  },
+  "KC": {
+   "defense": 18.769231,
+   "games": 9,
+   "off": 25.0
+  },
+  "LA": {
+   "defense": 19.642857,
+   "games": 10,
+   "off": 24.0
+  },
+  "LAC": {
+   "defense": 25.583333,
+   "games": 8,
+   "off": 17.416667
+  },
+  "LV": {
+   "defense": 26.928571,
+   "games": 10,
+   "off": 24.214286
+  },
+  "MIA": {
+   "defense": 24.0,
+   "games": 9,
+   "off": 18.153846
+  },
+  "MIN": {
+   "defense": 16.461538,
+   "games": 9,
+   "off": 20.307692
+  },
+  "NE": {
+   "defense": 23.571429,
+   "games": 10,
+   "off": 22.071429
+  },
+  "NO": {
+   "defense": 24.923077,
+   "games": 9,
+   "off": 22.307692
+  },
+  "NYG": {
+   "defense": 21.846154,
+   "games": 9,
+   "off": 22.384615
+  },
+  "NYJ": {
+   "defense": 24.428571,
+   "games": 10,
+   "off": 20.142857
+  },
+  "PHI": {
+   "defense": 23.769231,
+   "games": 9,
+   "off": 18.153846
+  },
+  "PIT": {
+   "defense": 19.333333,
+   "games": 8,
+   "off": 22.333333
+  },
+  "SEA": {
+   "defense": 18.785714,
+   "games": 10,
+   "off": 22.214286
+  },
+  "SF": {
+   "defense": 21.846154,
+   "games": 9,
+   "off": 28.384615
+  },
+  "TB": {
+   "defense": 20.461538,
+   "games": 9,
+   "off": 22.307692
+  },
+  "TEN": {
+   "defense": 25.153846,
+   "games": 9,
+   "off": 19.615385
+  },
+  "WAS": {
+   "defense": 23.923077,
+   "games": 9,
+   "off": 21.846154
+  }
+ },
+ "registration": "verified/PREREGISTRATION.md",
+ "sha256": "5d4ca4fc7c7e0ec09cd664c39114e505512b61fb46e6056b647487b51b589046"
+}

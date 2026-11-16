@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Availability · FL3 NFL decision system</title>
+<meta name="description" content="Verified NFL 2026 data, originated lines and honest out-of-sample scoring. Every value links to an official source or is marked unverified.">
+<link rel="stylesheet" href="assets/verified.css">
+</head>
+<body>
+<a class="skip" href="#main" style="position:absolute;left:-9999px">Skip to content</a>
+<header class="top"><div class="wrap">
+<div class="brand"><b>FL3</b><span>NFL decision system · 2026 regular season</span>
+<span style="margin-left:auto;font-size:11.5px;color:#8b949e">read 2026-11-16 01:42 UTC</span></div>
+<nav class="cats"><a href="index.html">Overview</a><a href="results.html">Results</a><a href="lines.html">Our lines</a><a href="injuries.html" class="on">Availability</a><a href="strategies.html">Strategies</a><a href="verification.html">Verification</a><a href="review.html">Flagged for review</a><a href="method.html">Method &amp; sources</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+
+<h1>Availability &amp; depth — what the official report can and cannot tell you</h1>
+<p class="lede">Injury and availability tracking is where this project's most material data defect sits.
+Two captures of the same official Week 10 report disagree, and one of them silently drops a starting
+quarterback. That is documented here rather than smoothed over.</p>
+
+<h2>The defect <span class="b bad">material</span></h2>
+<div class="tbl"><table>
+<thead><tr><th>Capture</th><th class="num">Rows</th><th class="num">Clubs</th>
+<th class="num">Rows with a game status</th><th class="num">SEA</th><th class="num">CIN</th>
+<th>Verdict</th></tr></thead><tbody>
+<tr><td><code>data/injuries_2026_wk10.csv</code></td><td class="num">345</td><td class="num">28</td>
+<td class="num">160</td><td class="num">15</td><td class="num">9</td>
+<td><span class="b ok">matches the live official page</span></td></tr>
+<tr><td><code>data/injuries_2026_w10.csv</code></td><td class="num">160</td><td class="num">26</td>
+<td class="num">160</td><td class="num">4</td><td class="num">4</td>
+<td><span class="b bad">partial — 100% of rows carry a designation</span></td></tr>
+</tbody></table></div>
+<div class="note bad"><b>Why the second one matters.</b> It holds only players who already carry a game
+designation. It is not a subset by accident: every one of its 160 rows has a status and none is blank, while
+the official page leaves 185 rows undesignated. Any feature built on it inherits that selection bias,
+and it cannot represent "on the report, no designation". It is the input to the model behind
+<a href="../board/index.html">/board/</a>. <b>It omits Sam Darnold (QB, ribs/quadricep, Out)</b> — a starting
+quarterback — so a model fed this file prices Seattle as if he were available. The owner of that track
+should switch to the complete capture or label every output as built on designated players only. This
+session did not edit their file.</div>
+
+<h2>Live re-verification of the availability claims</h2>
+<div class="tbl"><table>
+<thead><tr><th>ID</th><th>Claim</th><th>Repo value</th><th>Live official value</th><th>Status</th><th>Source</th></tr></thead><tbody>
+<tr><td class="mono">LV-01</td><td>The Week 10 injury report capture holds 345 rows across 28 clubs.</td><td>345 rows across 28 clubs</td>
+<td>345 rows across 28 clubs</td><td><span class="b ok">confirmed</span></td><td><a class="src" href="https://www.nfl.com/injuries/league/2026/reg10" target="_blank" rel="noopener">report</a></td></tr><tr><td class="mono">LV-02</td><td>Detroit players Kerby Joseph, Cade Mays and D.J. Reed are published with a blank game-status cell.</td><td>Out / Out / Out</td>
+<td>Out / Out / Out (Knee / Ankle / Hip, all &#x27;Did Not Participate In Practice&#x27;)</td><td><span class="b warn">not reproducible</span></td><td><a class="src" href="https://www.nfl.com/injuries/league/2026/reg10" target="_blank" rel="noopener">report</a></td></tr><tr><td class="mono">LV-03</td><td>Published Week 10 injury counts are stale: 254 rows and 4 no-injury sections versus 279 rows and 2 sections live.</td><td>345 rows across 28 clubs</td>
+<td>345 rows across 28 clubs; no club section is empty</td><td><span class="b warn">not reproducible</span></td><td><a class="src" href="https://www.nfl.com/injuries/league/2026/reg10" target="_blank" rel="noopener">report</a></td></tr><tr><td class="mono">LV-04</td><td>Seattle and Cincinnati are shown as injury-free while listing 15 and 4 players.</td><td>SEA 4 rows, CIN 4 rows</td>
+<td>SEA 15 rows, CIN 9 rows, both with populated game-status cells</td><td><span class="b warn">partly stale</span></td><td><a class="src" href="https://www.nfl.com/injuries/league/2026/reg10" target="_blank" rel="noopener">report</a></td></tr><tr><td class="mono">LV-05</td><td>Two of the repo&#x27;s injury captures disagree with each other, so at least one is wrong.</td><td>wk10.csv matches live on every club; w10.csv is short on SEA (4), CIN (4), AZ (9), ATL (5), BUF (5), CAR (7), CLE (3), DAL (11), DET (5), GB (12), HOU (11), IND (8), JAX (4), KC (6), LV (2), LA (7), MIA (4), MIN (7), NE (13), NO (6), NYG (1), NYJ (9), PIT (1), SF (8), SEA (4), TEN (6), WAS (2)</td>
+<td>SEA 15, CIN 9, AZ 15, ATL 11, DAL 19, LAC 19, SF 12, WAS 9</td><td><span class="b bad">stale</span></td><td><a class="src" href="https://www.nfl.com/injuries/league/2026/reg10" target="_blank" rel="noopener">report</a></td></tr><tr><td class="mono">LV-14</td><td>Seattle&#x27;s Sam Darnold (QB) is on the Week 10 report as Out, which is a starting-quarterback availability event.</td><td>Sam Darnold, QB, Ribs/Quadricep, Did Not Participate In Practice, Out</td>
+<td>Sam Darnold, QB, Ribs/Quadricep, Did Not Participate In Practice, Out</td><td><span class="b ok">confirmed</span></td><td><a class="src" href="https://www.nfl.com/injuries/league/2026/reg10" target="_blank" rel="noopener">report</a></td></tr>
+</tbody></table></div>
+<p class="cls">Full reasoning, method and notes for each: <a href="verification.html">Verification</a>.</p>
+
+<h2>What a "2nd-string replacement" can honestly mean here</h2>
+<p>The brief asks for depth deficiency: which clubs are starting a backup, and how deep the drop is. The
+honest position, unchanged from the earlier sessions and re-confirmed today, is:</p>
+<ul>
+<li><b>Availability is official.</b> The league injury report owns who is Out, Doubtful or Questionable,
+and the club roster page owns roster status (active / injured reserve / PUP). Both are league-published
+and both are linked.</li>
+<li><b>Depth order is not official.</b> The league publishes no depth ordinal. Where a club publishes a
+chart, it is club-published and carries no effective date, so it can establish an order but cannot be
+shown to be current.</li>
+<li><b>Replacement evidence is not captured.</b> Snap counts and the 90-minute inactive list are not on
+any league page this repo can reach. A replacement can be named; that he took the starter's snaps cannot be
+evidenced. This requirement stays <b>open</b> and is published as open.</li>
+<li><b>The injury signal must be a surprise, not a level.</b> A player listed as Questionable every week is
+not news. The only defensible version is the <i>change</i> against a dated prior capture — which requires a
+series this repo does not yet have, and whose capture protocol is in
+<a href="method.html">Method</a>.</li>
+</ul>
+
+<h2>Why the practice-trend requirement cannot be back-filled</h2>
+<p>The official page renders one current report per week and overwrites the previous day's designations.
+There is no dated archive URL. A Wednesday-to-Friday progression therefore cannot be reconstructed for
+Week 10 — only captured prospectively, on a schedule, from now on. Stated as a gap rather than faked with
+an inference.</p>
+
+</div></main>
+<footer><div class="wrap">
+<p><b>What this is.</b> A verified-data dashboard. Official league values carry a source link.
+Model output is labelled model output. No licensed betting price exists in this repository, so
+closing-line value and realised return are <b>not computed and not implied</b> anywhere.</p>
+<p>Every page here is generated from the committed data files by <code>scripts/build_verified_site.py</code>
+and re-checked by <code>scripts/check_verified_site.py</code>. Other dashboards in this repository
+(<a href="../">root</a>, <a href="../board/index.html">board</a>, <a href="../docs/index.html">docs</a>,
+<a href="../depth/index.html">depth</a>, <a href="../site-9b181d31/index.html">site-9b181d31</a>) are separate builds and
+are not superseded by this one.</p>
+</div></footer>
+</body></html>
