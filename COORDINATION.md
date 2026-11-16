@@ -816,7 +816,15 @@ None new. All user-supplied Week-10 discrepancy claims (VR-04…VR-12) were re-c
 
 ## PR / merge / deploy record
 
-Planned: PR #25 from `arena/9d05cb63-fl3` to `main`, merged via `gh pr merge 25 --merge`; GitHub Pages deploy confirmed via the Pages workflow; PR link and merge result recorded below once created.
+| Item | Value |
+|---|---|
+| Pull request | [#25 — FL3 session closeout: official-source verification, live site confirmed, readiness register live](https://github.com/sassnarep3-star/FL3/pull/25) |
+| Merge | **MERGED** into `main` at 2026-11-16T01:37:56Z; merge commit `a3bd6b6` (no approval waited for, per brief) |
+| PR checks | `Verify data and site` success; `site` success |
+| Pages deploy | `pages build and deployment` success; site live at https://sassnarep3-star.github.io/FL3/ (fetched and confirmed serving) |
+| Branch state | `origin/main` = `a3bd6b6` (contains this branch); this branch tip = `827f64c`. Final record kept on this integration branch per the push-only-to-current-branch rule. |
+
+Flagged irregularities do not block the merge and are published on the live Flagged for Review page (`flagged.html`, 10 open items F01–F13, each with official-source evidence links). Parallel session's D01–D03 recorded as open irregularities without altering published data.
 
 ---
 
