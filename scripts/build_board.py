@@ -46,13 +46,14 @@ BOARD_DATA = [
     "league_facts.csv", "questions.csv", "suggestions.csv", "signals.csv", "gates.csv",
     "flags.csv", "derived_team_metrics.csv", "derived_league_stats.csv", "derived_correlations.csv",
     "power_ratings.csv", "lines_origination.csv", "model_calibration.csv", "decision_math.csv",
-    "leaderboard.csv", "verification_report.csv",
+    "leaderboard.csv", "verification_report.csv", "requirements_readiness.csv",
 ]
 
 # slug -> (title, nav label, group)
 PAGES = [
     ("index", "FL3 - NFL line origination and signal board", "Dashboard", "home"),
     ("executive-summary", "Executive summary", "Executive summary", "read"),
+    ("readiness", "Requirement readiness register", "Requirement readiness", "read"),
     ("questions", "Open questions and information gaps", "Questions & gaps", "read"),
     ("suggestions", "Suggestion register", "Suggestions", "read"),
     ("standings", "2026 standings (official)", "Standings", "data"),
@@ -153,6 +154,10 @@ COL_LABELS = {
     "rating_net_ppg": "Rating (net/g)", "rating_pyth_win_share": "Pyth win share",
     "schedule_adjusted": "Sched adj", "rating_method_a_vs_b_gap": "", "kickoff_et": "Kickoff ET",
     "practice": "Practice", "publisher": "Publisher",
+    "requirement": "Requirement", "current_state": "Readiness state", "evidence_in_repo": "Evidence in repo",
+    "missing_information": "Missing information", "blocking_gate": "Blocking gate",
+    "clearance_metric": "Clearance metric / number", "recommended_next_step": "Recommended next step",
+    "source_gap": "Source gap / review note", "repo_page": "Related page",
 }
 
 
@@ -337,7 +342,9 @@ def render_table(fname, columns=None, caption="", link_col=None, max_rows=None, 
                 tds.append("<td>" + cell + "</td>")
             elif c in ("note", "notes", "detail", "finding", "proposal", "hypothesis", "question",
                        "definition", "pass_criteria", "why_this_removes_luck", "interpretation",
-                       "trigger_rule", "action_required", "what_we_have", "what_we_need"):
+                       "trigger_rule", "action_required", "what_we_have", "what_we_need",
+                       "requirement", "evidence_in_repo", "missing_information", "blocking_gate",
+                       "clearance_metric", "recommended_next_step", "source_gap"):
                 tds.append(f"<td class='wide'>{html.escape(val)}</td>")
             elif val == "":
                 tds.append('<td><span class="none" title="not published - no official source">blank</span></td>')
@@ -570,6 +577,11 @@ def build(check_only: bool = False) -> int:
         copied.append(f)
 
     built = {}
+    readiness_check = subprocess.call([sys.executable, os.path.join(REPO, "scripts", "build_readiness.py"), "--check"], cwd=REPO)
+    if readiness_check != 0:
+        print("BUILD ABORTED - requirement readiness CSV is stale or invalid")
+        return 1
+
     for slug, title, label, group in PAGES:
         md_path = os.path.join(CONTENT, slug + ".md")
         md = ""
@@ -583,6 +595,40 @@ def build(check_only: bool = False) -> int:
                 f'<span class="kl">{html.escape(k)}</span><span class="kn">{html.escape(n)}</span></div>'
                 for k, v, n in kpis())
             body = f'<section class="kpis">{cards}</section>' + body
+        if slug == "index":
+            body += (
+                '<h2>Decision readiness — every requirement, blocker and clearance test</h2>'
+                '<p>Rows describe the checked-in evidence state; clearance criteria are proposed gates, '
+                'not observed NFL facts. Open the <a href="readiness.html">full register</a> for missing '
+                'information and recommended next steps. Requirements with no applicable official source '
+                'are left without a citation and explicitly flagged.</p>'
+            )
+            body += render_table(
+                "requirements_readiness.csv",
+                ["id", "category", "requirement", "current_state", "blocking_gate", "clearance_metric", "source_id", "source_gap"],
+                caption=f"{len(read_rows('requirements_readiness.csv'))} distinct requirements; a source link is provided where an applicable official input is registered.",
+            )
+        if slug == "readiness":
+            readiness_rows = read_rows("requirements_readiness.csv")
+            linked = sum(bool(r.get("source_id")) for r in readiness_rows)
+            source_gaps = len(readiness_rows) - linked
+            body += (
+                '<section class="keypoint"><strong>Decision-readiness register.</strong> '
+                f'{len(readiness_rows)} requirements are listed individually; {linked} rows link to an official input page, '
+                f'and {source_gaps} explicitly have no applicable official source in the registered source set. '
+                'Source links show where relevant official inputs may be checked; they do not certify that a feed, '
+                'field or feature has been captured. Clearance numbers are proposed project gates, not NFL facts. '
+                'The source snapshot dates differ; inspect the linked record and the related page before relying on a row. '
+                'Unknown or unsupported values are not inferred.</section>'
+            )
+            body += render_table(
+                "requirements_readiness.csv",
+                ["id", "category", "requirement", "current_state", "evidence_in_repo", "missing_information",
+                 "blocking_gate", "clearance_metric", "recommended_next_step", "source_id", "source_gap", "repo_page"],
+                caption="One row per distinct requirement. BLOCKED/PARTIAL/DESIGN ONLY are not completed features; "
+                        "a source gap is deliberately left without a fabricated citation.",
+                link_col="repo_page",
+            )
         if slug == "sources":
             body += render_table("sources.csv", caption="Every source the data layer is allowed to cite.")
             unknown = set()

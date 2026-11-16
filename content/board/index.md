@@ -13,8 +13,10 @@ same Pages build. Cross-references are one click away in the left rail.
 
 The board is generated. Every table you see is rendered from `data/*.csv` by `scripts/build_board.py`;
 if a value is not in the CSV it does not exist on the site, and if a CSV row fails an identity check
-the build stops. Start with the [Executive summary](executive-summary.html), then decide the items in
-the [Suggestion register](suggestions.html).
+the build stops. Start with the [Executive summary](executive-summary.html), then review the
+[Requirement readiness register](readiness.html) for each requested capability, its blocker and the
+number or condition that would clear it. Use the [Suggestion register](suggestions.html) to compare
+proposed paths before implementation.
 
 ## What is real right now
 
