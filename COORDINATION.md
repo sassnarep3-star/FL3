@@ -993,3 +993,27 @@ These are published on the Claims log with their source links and do not block t
 | PR checks | `Recompute and verify` pass (incl. new `check_verify.py`); `validate` pass; `site` pass |
 | Merge | **merged** into `main` (no `--auto`; no review waited for, per brief) |
 | Deploy | GitHub Pages via `pages.yml` (allowlist now includes `verify`); live at `/FL3/verify/` |
+
+# Session `arena/503e202a-fl3` — claim and scope (2026-11-16)
+
+## Claim
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T27 — Reconcile current executive summaries and archived dashboard labels with canonical data; add documentation-drift and generated-output checks | **in progress** | `arena/503e202a-fl3` | `README.md`, `docs/EXECUTIVE_SUMMARY.md`, `docs/METHODOLOGY.md`, `docs/executive_summary.md`, `build.py`, generated `docs/**`, `content/board/executive-summary.md`, generated `board/executive-summary.html`, `scripts/check_docs_accuracy.py`, `.github/workflows/verify.yml`, `.github/workflows/site.yml`, `COORDINATION.md` |
+
+This is an integration task over documentation and generated documentation pages only. It does not change the canonical source datasets, model outputs, or requirement-data generator. The board summary will be rebuilt only with `scripts/build_board.py`; the historical `/docs/` pages will be rebuilt only with `build.py`. The assigned workspace branch is `arena/503e202a-fl3`.
+
+### Scope extensions (recorded before editing those files)
+
+- Include `docs/METHODOLOGY.md` to align verification wording with the current source-gap policy and counts.
+- Include `content/board/executive-summary.md` and its generated page so the current board summary is grounded in the latest canonical data and explicit capture limitations.
+- Include `build.py`, generated `docs/**`, and `docs/executive_summary.md` to identify the parallel `/docs/` build as a dated archive and route readers to the canonical dashboard/readiness register without deleting historical content.
+- Include `.github/workflows/verify.yml` and `.github/workflows/site.yml` for documentation drift and generated-output checks. A read-only GitHub Pages API query reports current Pages source `main` / `/`; no Pages setting is changed here.
+- Numeric values are calculated from committed data. No NFL source is claimed as freshly fetched by this documentation task.
+
+## Coordination and conflict resolution
+
+The initial claim overlapped with T22 from `arena/00a6b558-fl3`; that session's work was preserved and this work was renumbered to T23. The later merged session `arena/7e2496c2-fl3` also used T23 for venue/Game Book work. To keep the shared board unambiguous, this documentation/integration task is now T27 (the next unused task ID after T26). All merged source-verification and injury-capture records are retained; this task does not edit their data files or overwrite their evidence.
+
+During required pre-push rebases, `COORDINATION.md` conflicts were resolved by retaining all remote session records and appending this T27 scope. No other session's work was discarded.
