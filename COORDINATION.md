@@ -780,3 +780,32 @@ the full details at `/board/readiness.html`. No table values will be duplicated 
 The deploy workflow and Pages build record confirm publication. This session's network policy did not
 permit fetching `github.io` directly, so URL content was not independently fetched after deployment;
 HTML generation, source links and internal links were verified locally and by CI.
+
+---
+
+# Session `arena/e4d6c8c1` — claim, scope and record
+
+## Claim (2026-11-16 UTC)
+
+No other session is active: every prior branch is merged, `gh pr list --state all` shows no open PR,
+and `origin` carries no unclaimed work. This session therefore claims its tasks **and** the
+integration task (T16-equivalent), per the protocol rule that a sole session performs integration.
+
+| Task | Status | Owner | Files (scope) |
+|---|---|---|---|
+| T22 — Official re-capture with hashes + staleness delta vs the 2026-11-14 snapshot | **in progress** | `arena/e4d6c8c1` | `data/captures/**`, `scripts/capture_official.py`, `data/snapshot_delta.csv` |
+| T23 — Official game-results feed (settled scores, per-row source) | **in progress** | `arena/e4d6c8c1` | `data/results_2026.csv`, `scripts/build_results.py` |
+| T24 — First prospective scoring of the originated Week 10 lines | **in progress** | `arena/e4d6c8c1` | `data/scoring_week10.csv`, `scripts/score_lines.py` |
+| T25 — Resolve or re-document FLG-025 (pass TD / INT league-identity break) | **in progress** | `arena/e4d6c8c1` | `data/flagged.json` (via generator only), `docs/` |
+| T26 — Register the requirement rows this session's brief adds and that are absent | **in progress** | `arena/e4d6c8c1` | `data/requirements_readiness.csv`, `scripts/build_readiness.py` |
+| T27 — Integration: build, verify, PR, merge, confirm deploy | **in progress** | `arena/e4d6c8c1` | shared `*.html`, `COORDINATION.md` |
+
+**Scope boundaries.** This session does not rewrite prior sessions' datasets. It adds new files, appends
+new register rows, and regenerates root pages only through the existing generators
+(`scripts/build_site.py`, `scripts/build_board.py`, `scripts/build_readiness.py`).
+
+**Freeze note — this is the central finding of the session.** The checked-in data is a **2026-11-14**
+snapshot, but *today is 2026-11-16*. Week 10's remaining 13 games were played on 2026-11-15/16. The
+site therefore publishes "originated lines" for games that have since been **settled**, without
+results. That is not a modelling error, but it is a **decision-usefulness** error, and it is fixable
+only by capturing the official results and scoring the forecasts. That is T23/T24.
