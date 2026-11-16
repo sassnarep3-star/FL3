@@ -814,3 +814,13 @@ Not claimed and not touched: `data/injuries_2026_wk10.csv` and `data/injuries_20
 **Verification run:** `build_readiness.py --check` OK (69); `build_board.py` built 21 pages; `build_site.py` built 11 pages; `check_site.py` **1603 assertions, ALL CHECKS PASSED**; `check_links.py` PASS; `verify.py` G-10 PASS with the pre-existing non-blocking V-09b warning (FLG-025).
 
 **Scope note for the board:** most of the requirement list was already in the register as R001–R067 (state and gate per row). Not done in this session, and recorded as open: the point-in-time snapshot store, a 32-club depth capture, the snap-count and inactive-list capture, the forecast/probability store, the leaderboard divisions, the parlay joint-evidence gate, and the matrix view.
+
+## T22 — PR / merge / deploy record
+
+| Item | Value |
+|---|---|
+| Pull request | [#22 — T22: live Week 10 injury re-check and readiness register update](https://github.com/sassnarep3-star/FL3/pull/22) |
+| PR checks | `Recompute and verify` pass; `validate` pass; `verify-and-build` pass; deploy skipped (PR) |
+| Merge | **merged** into `main` as `695e895` (no approval waited for, per brief) |
+| Post-merge CI | `Verify data and site` success; `site` success; `Deploy static site to GitHub Pages` success; `pages-build-deployment` success |
+| Live check | https://sassnarep3-star.github.io/FL3/board/readiness.html?v=22 served the updated register (69 rows) |
