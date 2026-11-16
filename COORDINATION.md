@@ -809,3 +809,52 @@ snapshot, but *today is 2026-11-16*. Week 10's remaining 13 games were played on
 site therefore publishes "originated lines" for games that have since been **settled**, without
 results. That is not a modelling error, but it is a **decision-usefulness** error, and it is fixable
 only by capturing the official results and scoring the forecasts. That is T23/T24.
+
+## T22–T27 result (2026-11-16 UTC, session `arena/e4d6c8c1`)
+
+Status: **done**, awaiting integration. All work is on `arena/e4d6c8c1-fl3`. No other session was
+active at claim time, no branch of another session had unmerged commits, and `gh pr list --state all`
+showed zero open PRs.
+
+| Task | Status | Files added / changed | Evidence |
+|---|---|---|---|
+| T22 — official re-capture with hashes + staleness delta | **done** | `data/captures/{week10_injuries_2026-11-16.csv, week10_results_2026-11-16.csv, standings_2026-11-16.csv, manifest.json}`, `scripts/capture_official.py`, `scripts/snapshot_delta.py`, `scripts/injury_crosscheck.py`, `data/snapshot_delta.{csv,json}`, `data/injury_crosscheck.{csv,json}` | Reads of `nfl.com/injuries/league/2026/reg10` (8 chunks), `nfl.com/schedules/2026/by-week/week-10` (2 chunks) and `nfl.com/standings/league/2026/REG` at 2026-11-16T01:28–01:31Z |
+| T23 — verified results feed | **done** | `data/captures_week10_results.csv`, `content/board/results.md` | 14 fixtures, 12 settled, each row links its own nfl.com game page; 2 declared not-final |
+| T24 — first prospective scoring | **done** | `scripts/score_week10.py`, `data/scoring_week10.csv`, `data/luck_panel.{json,csv}`, `content/board/luck.md` | n=11 after excluding the Thursday game as final-before-forecast |
+| T25 — FLG-025 / V-09b | **documented, not fixed** | `data/flags.csv` FLG-042, flagged.json F-entries | The break is between two published NFL tables, not a computation; those columns stay pricing-ineligible |
+| T26 — requirement rows | **done** | `data/requirements_readiness.csv` (67 → **73**), `scripts/build_readiness.py` | R068 results feed, R069 luck panel, R070 canonical line series, R071 depth-as-grid, R072 parse fixes, R073 staleness |
+| T27 — integration | **in progress** | see below | |
+
+### Verification actually run
+
+```
+python3 scripts/capture_official.py     # 347 injury rows / 28 clubs; 14 games, 12 final
+python3 scripts/reconcile_lines.py      # A MAE 11.62, B 8.02, naive 13.00; A-vs-B 6.72
+python3 scripts/score_week10.py         # BSS vs coin +0.194 [-0.018,+0.385]; vs base rate -0.016
+python3 scripts/snapshot_delta.py       # 22/32 clubs changed; 160 -> 347 injury rows
+python3 scripts/injury_crosscheck.py    # 16 substantive row diffs; LAC 0/19 -> 9/19
+python3 scripts/build_depth_blocks.py   # 176 cells; 6 grammar findings; 8 starter-out joins
+python3 scripts/verify.py               # GATE G-10 PASS with the known V-09b discrepancy
+python3 scripts/build_site.py           # 11 root pages
+python3 scripts/build_board.py          # 26 board pages
+python3 scripts/check_site.py           # 1668 assertions, ALL CHECKS PASSED
+python3 scripts/check_links.py          # 26 pages, 0 broken internal links, 0 orphans
+```
+
+### Irregularities recorded (published on `flagged.html`, do not block)
+
+F14 three line series disagree 6.72 pts · F15 snapshot predates the results · F16 same URL two days
+apart gives different availability · F17 LAR/LA key split · F18 undated depth charts · F19 six depth
+grammar failures · F20 Texans image chart · F21 Packers jersey prefix (resolved) · F22 three brief
+claims refuted · F23 11-game sample is skewed · F24 dispersion ratio 0.24.
+
+### Handoff notes for the integration step
+
+1. `scripts/build_board.py` now owns five new pages and eleven new `BOARD_DATA` tables. Any session
+   that later edits `BOARD_DATA` must re-run the generator; CI fails on drift.
+2. `scripts/check_site.py` gained no new page whitelist entries on purpose: the five new pages live
+   in `board/` and are validated by `scripts/check_links.py`, which already covers every `board/*.html`.
+3. The 2026-11-14 datasets were **not** overwritten. They are the only pre-kickoff record in the
+   repository and the entire basis of the Week 10 backtest. Superseding them is an owner decision.
+4. Selecting a canonical line series (R070 / FLG-029) is deliberately left open. It must not be
+   resolved by silently switching `scripts/build_site.py` to the `lines_origination.csv` series.
