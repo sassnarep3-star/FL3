@@ -1,0 +1,37 @@
+team,player,field,official_nfl_com,repo_table_345,issue,source_id,source_url
+IND,Arden Key,injuries,(blank),Hamstring,blank on official report,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+IND,Arden Key,game_status,(blank),Questionable,blank on official report,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+HOU,Jacob Hummel,row,listed on official report,absent from repo table,missing row,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Kayode Awosika,injuries,Fibula,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Kayode Awosika,practice_status,Full Participation in Practice,Limited Participation in Practice,value differs,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Kayode Awosika,game_status,Questionable,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Bud Dupree,practice_status,Full Participation in Practice,Did Not Participate In Practice,value differs,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Justin Eboigbe,injuries,Ankle,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Justin Eboigbe,game_status,Questionable,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Ladd McConkey,injuries,Back,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Ladd McConkey,game_status,Questionable,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Keaton Mitchell,practice_status,Full Participation in Practice,Limited Participation in Practice,value differs,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,David Njoku,injuries,Fibula,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,David Njoku,practice_status,Full Participation in Practice,Limited Participation in Practice,value differs,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,David Njoku,game_status,Questionable,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Denzel Perryman,injuries,Pectoral,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Denzel Perryman,game_status,Questionable,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Trey Pipkins,injuries,"Knee, Not injury related - personal matter",(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Trey Pipkins,practice_status,Limited Participation in Practice,Did Not Participate In Practice,value differs,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Trey Pipkins,game_status,Questionable,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Rodney Shelley,practice_status,Full Participation in Practice,Limited Participation in Practice,value differs,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Branson Taylor,injuries,Ankle,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Branson Taylor,game_status,Out,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Brenen Thompson,injuries,Hamstring,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Brenen Thompson,game_status,Doubtful,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Isas Waxter,injuries,Ankle,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Isas Waxter,game_status,Out,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Kendall Williamson,injuries,Calf,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+LAC,Kendall Williamson,game_status,Out,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+BAL,Calais Campbell,row,listed on official report,absent from repo table,missing row,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+BAL,Jaylinn Hawkins,injuries,Knee,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+BAL,Jaylinn Hawkins,game_status,Out,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+BAL,Adam Randall,injuries,"Hamstring, Neck",(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+BAL,Adam Randall,game_status,Questionable,(blank),blank in repo,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+BAL,Ronnie Stanley,row,listed on official report,absent from repo table,missing row,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+HOU,Jake Hummel,row,not on official report,present in repo table,extra row,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
