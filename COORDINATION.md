@@ -864,4 +864,11 @@ Not claimed and not touched: `data/injuries_2026_wk10.csv` and `.json` (primary 
 
 ## PR / merge / deploy record
 
-Filled in after the merge — see the entry below.
+| Item | Value |
+|---|---|
+| Pull request | [#27 — Official Week 10 injury capture (2026-11-16)](https://github.com/sassnarep3-star/FL3/pull/27) |
+| PR checks | `Recompute and verify` pass; `validate` pass; `verify-and-build` pass; deploy skipped (PR) |
+| Merge | **merged** into `main` as `630de3e` at 2026-11-16T01:39:09Z (merge commit, no `--auto`; no review waited for, per brief) |
+| Post-merge CI | `Verify data and site` success; `site` success; `Deploy static site to GitHub Pages` success; `pages build and deployment` success |
+| Live check | https://sassnarep3-star.github.io/FL3/board/official-capture.html served the new capture page (cites FLG-046); https://sassnarep3-star.github.io/FL3/board/flagged.html served the Flagged page |
+| Known gap | The sandbox cannot reach `github.io` directly; the live check used the page fetcher |
