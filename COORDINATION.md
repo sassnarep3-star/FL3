@@ -1226,25 +1226,28 @@ was added.
   sources, and generated question rows that omit their official source URL or gap note. Negative
   checks confirmed the guard rejects a missing gap, a commercial-market source ID, and a dropped link.
 - Official input references used from the existing registry: `SRC-001` through `SRC-010` as applicable,
-  `SRC-013`, `SRC-015`, `SRC-017`, and (after integration) `SRC-018` for the official Week 10 re-capture.
-  Registry capture dates/statuses are not promoted by linking; unread or incomplete inputs remain
-  explicitly noted.
+  `SRC-013`, `SRC-015`, `SRC-017`, `SRC-018` (Week 10 injury re-capture), and `SRC-021` (Week 10
+  results schedule capture). The question rows state that these registered URLs do not establish
+  unregistered Week 3-9 results or a complete historical corpus. Registry capture dates/statuses are
+  not promoted by linking; unread or incomplete inputs remain explicitly noted.
 - Remaining published irregularity: `V-09b / FLG-025` (official offense/defense pass-TD totals differ by 1
   and interceptions by 2), retained as a non-blocking build warning but a pricing-trust blocker. Injury
   report reconciliation and depth-source coverage remain flagged; they were not silently changed in this task.
 
 ### Rebase conflict resolution (2026-11-16 UTC)
 
-The first `git pull --rebase origin main` fetched `cda4072` after PR #27; conflicts in `COORDINATION.md`
-and generated board/verification outputs were resolved by retaining main's injury capture, readiness rows
-R068/R069 and close-outs, then regenerating outputs. A second pull fetched `2952f25` after PR #29 added the
-independent `verify/` subsite; its coordination conflict was resolved by preserving PR #29's close-out and
-both sessions' records. A third pull fetched `7c8ce4e` after PR #30 added the separately verified 148-game
-results corpus, walk-forward evaluation and `verified/` dashboard. The replay stopped only on the shared
-`COORDINATION.md` claim section; the resolution retained PR #30's record and all its files, plus T22's
-claim. T22 now explicitly distinguishes the board's 33-row model input from the separate 148-game corpus,
-updates the calibration/correlation caveats for the 100-game walk-forward evaluation, and does not merge
-that new data into existing model inputs. No canonical data or findings from either side were discarded.
+The first rebase onto `cda4072` (after PR #27) conflicted in `COORDINATION.md` and generated board/report
+outputs; main's injury capture, R068/R069, and close-outs were preserved and derived outputs regenerated.
+The second rebase onto `2952f25` (PR #29) retained its `verify/` close-out and coordination record. The
+third rebase onto `7c8ce4e` (PR #30) retained the separate 148-game results corpus, walk-forward evaluation
+and `verified/` dashboard; its only conflict was the shared coordination claim. The fourth rebase onto
+`2155ed5` (PRs #31 and #32) encountered a coordination conflict plus generated board/report conflicts
+while replaying the integration record. Resolution retained the newer main-side data, source registry,
+board pages and task close-outs; conflicted generated board/report pages were restored from main and then
+regenerated with the merged builder. The T22 question register now distinguishes the board's 33-row model
+input from the separate 148-game corpus, includes the registered Week 10 source `SRC-021`, and describes
+the 100-game walk-forward uncertainty without claiming skill. No canonical data or findings from either
+side were discarded.
 
 ### Post-rebase verification (2026-11-16 UTC)
 
@@ -1257,18 +1260,18 @@ that new data into existing model inputs. No canonical data or findings from eit
 - `python3 scripts/reconcile_injury_capture.py`: structural PASS, 14 game sections, 28 clubs, 347
   listed rows; generated reconciliation has 36 row/field differences against the older 345-row table.
   Those discrepancies remain published for review; the capture was not substituted into model inputs.
-- `python3 scripts/build_board.py` and `--check`: PASS; 22 pages and 27 data tables. Readiness register:
-  69 unique requirements, 48 with official source links, 21 explicitly flagged source gaps. `check_links.py`
-  PASS; 22 board pages and 33 external links.
-- The integrated suites pass: `check_site.py` 1,675 assertions; `check_verified_site.py` 605 assertions;
-  `check_verify.py` 197 assertions. `build_site.py`, `build_verified_site.py`, and `build_verify.py`
+- `python3 scripts/build_board.py` and `--check`: PASS; 28 pages and 38 data tables. Readiness register:
+  75 unique requirements, 53 with official source links, 22 explicitly flagged source gaps. `check_links.py`
+  PASS; 28 board pages and 39 external links.
+- The integrated suites pass: `check_site.py` 1,746 assertions; `check_verified_site.py` 605 assertions;
+  `check_verify.py` 203 assertions. `build_site.py`, `build_verified_site.py`, and `build_verify.py`
   regenerated their pages successfully.
 - Recomputed board model outputs with `compute_lines.py`, `compute_luck.py`, `compute_correlation.py`,
   `model.py`, `stats_tables.py`, and `make_leaderboard.py`; completed successfully. The board
   leaderboard remains an empty schema (zero settled bets), and market fields remain deliberately blank.
-- `python3 scripts/verify.py`: G-10 PASS with the already-published non-blocking V-09b / FLG-025
-  source discrepancy (pass TD delta -1; interceptions delta +2). `build_readiness.py --check` PASS.
-  Depth checks also pass: `verify_depth.py` 16 checks/0 failures; `check_depth_links.py` 9 pages,
-  134 internal and 502 allowlisted external links.
+- `python3 scripts/verify.py`: G-10 PASS; I-05 confirms all 18 distinct source IDs resolve. The already-
+  published non-blocking V-09b / FLG-025 remains (pass TD delta -1; interceptions delta +2).
+  `build_readiness.py --check` PASS. Depth checks also pass: `verify_depth.py` 16 checks/0 failures;
+  `check_depth_links.py` 9 pages, 134 internal and 502 allowlisted external links.
 - `git diff --check`: PASS. All open data-quality issues remain flagged; these results do not establish
   profitability, complete historical capture, or operational readiness.
