@@ -32,7 +32,8 @@ PAGES = ["index.html", "standings.html", "lines.html", "injuries.html", "strateg
          "correlation.html", "decisions.html", "suggestions.html", "flagged.html",
          "sources.html", "methodology.html",
          # verified-snapshot pages (session arena-fl3-60ee336e, integration 2026-11-14):
-         "data-snapshots.html", "data-standings.html", "data-schedule.html", "data-injuries.html"]
+         "data-snapshots.html", "data-standings.html", "data-schedule.html", "data-injuries.html",
+         "official-capture.html"]
 
 errors: list[str] = []
 warnings: list[str] = []

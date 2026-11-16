@@ -237,6 +237,128 @@
         }
       ],
       "action_needed": "Log the collision in COORDINATION.md and keep /legacy/ until the owner confirms it can be removed."
+    },
+    {
+      "id": "F14",
+      "status": "open",
+      "severity": "high",
+      "title": "Board and model-input Week 10 injury copy holds 160 of 347 official rows",
+      "observed": "board/data/injuries_2026_w10.csv (identical to data/injuries_2026_w10.csv) has 160 rows across 26 clubs. Seattle and Cincinnati have 4 rows each; the official page lists 15 and 9. 195 official player rows are absent from it, and 8 of its rows do not appear on the official page. model.py reads this file.",
+      "why_it_matters": "Any board output that reads this copy treats two clubs as nearly injury-free and 195 official rows are missing. Its availability inputs are incomplete.",
+      "cannot_confirm": "Whether the copy was an intentional subset. The file header states no selection rule.",
+      "impact_on_lines": "model.py reads this copy. Its inputs are incomplete for the Week 10 slate; no output was regenerated in this session.",
+      "evidence": [
+        {
+          "label": "Official Week 10 injury report (fetched 2026-11-16)",
+          "url": "https://www.nfl.com/injuries/league/2026/reg10"
+        },
+        {
+          "label": "Reconciliation against every published copy",
+          "url": "https://github.com/sassnarep3-star/FL3/blob/main/data/official/2026-w10-reconciliation.csv"
+        },
+        {
+          "label": "Capture page",
+          "url": "https://sassnarep3-star.github.io/FL3/official-capture.html"
+        }
+      ],
+      "action_needed": "Owner decision: replace the board copy with the official capture and re-run model.py, then re-check the board output."
+    },
+    {
+      "id": "F15",
+      "status": "open",
+      "severity": "medium",
+      "title": "Main Week 10 injury table (345 rows) differs from the official page on 20 rows",
+      "observed": "data/injuries_2026_wk10.csv: 3 official rows missing (Calais Campbell and Ronnie Stanley, BAL; Jacob Hummel, HOU); 1 extra name (Jake Hummel, HOU); 10 game-status values differ, including blanks where the page shows Out or Doubtful (Jaylinn Hawkins, Branson Taylor, Isas Waxter and Kendall Williamson show Out; Brenen Thompson shows Doubtful) and Questionable where the page shows none (Arden Key); 6 practice-status values differ (e.g. Keaton Mitchell and Rodney Shelley shown Limited, page shows Full).",
+      "why_it_matters": "Each difference changes an availability input. The page is the source of record, and the published copy has no per-row fetch time, so a difference cannot be dated.",
+      "cannot_confirm": "Whether any difference was a later change on the official page. The copy is dated 2026-11-14 and the page was read on 2026-11-16.",
+      "impact_on_lines": "Each row is an availability input. Not re-run in this session.",
+      "evidence": [
+        {
+          "label": "Official Week 10 injury report",
+          "url": "https://www.nfl.com/injuries/league/2026/reg10"
+        },
+        {
+          "label": "Reconciliation rows",
+          "url": "https://github.com/sassnarep3-star/FL3/blob/main/data/official/2026-w10-reconciliation.csv"
+        }
+      ],
+      "action_needed": "Owner decision: adopt the official values (already in the capture) and record the change in the register."
+    },
+    {
+      "id": "F16",
+      "status": "open",
+      "severity": "medium",
+      "title": "Injury JSON copy uses club code LA for the Rams",
+      "observed": "data/injuries_week10.json (read by compute_lines.py and build_site.py) uses LA for the Rams, not LAR as the official page and the other copies do. 14 Rams rows appear under LA and 14 are missing under LAR, plus Ronnie Stanley and Calais Campbell (BAL) missing. Of 46 differences in total, 10 are game-status, 6 practice-status.",
+      "why_it_matters": "A club-code mismatch silently drops a whole club from any join on LAR. Any club-level sum over this file understates the Rams.",
+      "cannot_confirm": "Whether any downstream join currently keys on LA. Not traced in this session.",
+      "impact_on_lines": "compute_lines.py reads this file. Not re-run in this session.",
+      "evidence": [
+        {
+          "label": "Official Week 10 injury report",
+          "url": "https://www.nfl.com/injuries/league/2026/reg10"
+        },
+        {
+          "label": "Reconciliation rows",
+          "url": "https://github.com/sassnarep3-star/FL3/blob/main/data/official/2026-w10-reconciliation.csv"
+        }
+      ],
+      "action_needed": "Owner decision: normalise LA to LAR and re-run the line model; then confirm the Rams totals."
+    },
+    {
+      "id": "F17",
+      "status": "open",
+      "severity": "medium",
+      "title": "Brief figures for Week 10 not reproduced by the current official page",
+      "observed": "The review brief states 279 rows, 2 no-injury sections, and Seattle and Cincinnati injury-free. The official page as read on 2026-11-16 lists 347 player rows across 14 games and 28 clubs, with 15 Seattle and 9 Cincinnati rows. The main repository copy matches those club counts.",
+      "why_it_matters": "A review that quotes the wrong total will mis-state the scale of the gap.",
+      "cannot_confirm": "What the source of the 279 figure was. It is not in the repository.",
+      "impact_on_lines": "None; this is a reporting correction.",
+      "evidence": [
+        {
+          "label": "Official Week 10 injury report",
+          "url": "https://www.nfl.com/injuries/league/2026/reg10"
+        },
+        {
+          "label": "Capture page",
+          "url": "https://sassnarep3-star.github.io/FL3/official-capture.html"
+        }
+      ],
+      "action_needed": "Use 347 for the page as captured. Re-capture if the official page changes."
+    },
+    {
+      "id": "F18",
+      "status": "resolved",
+      "severity": "low",
+      "title": "Lions game-status cells reported blank — not reproduced",
+      "observed": "Kerby Joseph, Cade Mays and D.J. Reed read Out on the official page (checked 2026-11-16). They read Out in data/injuries_2026_wk10.csv, data/injuries_week10.json, board/data/injuries_2026_w10.csv and the root injuries.html.",
+      "why_it_matters": "The blank-cell problem named in the brief is not present in the current copies.",
+      "cannot_confirm": "Whether an earlier copy had blank cells. Not in the repository history checked here.",
+      "impact_on_lines": "None.",
+      "evidence": [
+        {
+          "label": "Official Week 10 injury report",
+          "url": "https://www.nfl.com/injuries/league/2026/reg10"
+        }
+      ],
+      "action_needed": "None; keep the check in the reconciliation."
+    },
+    {
+      "id": "F19",
+      "status": "open",
+      "severity": "low",
+      "title": "Root injury page links every row to the generic injury page, not the Week 10 report",
+      "observed": "injuries.html row sources point to https://www.nfl.com/injuries/ (no week or season). The official Week 10 page is https://www.nfl.com/injuries/league/2026/reg10.",
+      "why_it_matters": "The generic link shows whatever week the site currently lists, so a reader cannot reproduce the row from the link.",
+      "cannot_confirm": "Whether the generic page shows Week 10 on the day it is read.",
+      "impact_on_lines": "None.",
+      "evidence": [
+        {
+          "label": "Official Week 10 injury report",
+          "url": "https://www.nfl.com/injuries/league/2026/reg10"
+        }
+      ],
+      "action_needed": "Owner decision: point each row to the week-specific page and its capture date."
     }
   ]
 }

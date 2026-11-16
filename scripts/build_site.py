@@ -30,6 +30,7 @@ PAGES = {
     "lines.html": "Our Lines",
     "injuries.html": "Injuries",
     "data-snapshots.html": "Data snapshots",
+    "official-capture.html": "Official capture",
     "strategies.html": "Strategies",
     "correlation.html": "Correlation",
     "decisions.html": "Decisions",

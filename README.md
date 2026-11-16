@@ -196,3 +196,13 @@ subsites (`docs/`, `depth/`, `legacy/`).
 Market references (ESPN, SBR/bet365, CBS, betus, BetMGM) are labeled **trusted
 market** — never "official" — and used only as the comparison column for our own
 originated lines. Model output is badged as model output everywhere.
+
+---
+
+## Official injury-report capture (session `arena/a8c1189d`, 2026-11-16)
+
+- **Page:** [`official-capture.html`](official-capture.html) — the official NFL.com Week 10 injury report (347 player rows, 14 games, 28 clubs) with a row-by-row reconciliation against every published Week 10 copy in this repository.
+- **Data:** `data/official/2026-w10-injury-report.csv` (capture) and `data/official/2026-w10-reconciliation.csv` (differences).
+- **Scripts:** `scripts/reconcile_official_w10.py`, `scripts/build_official_capture.py`, `scripts/capture_official_snapshot.py`.
+- **Snapshots:** `snapshots/` holds one gzip-compressed, SHA-256-named file per scheduled capture, plus `snapshots/index.csv`. Runs are scheduled by `.github/workflows/snapshot.yml` (Wednesday to Monday, UTC). The store is kept outside `data/` and `docs/`.
+- **Open items:** the published injury copies that feed the model still differ from the official page; see flags F14–F19 on the Flagged for Review page.

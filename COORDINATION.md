@@ -791,10 +791,10 @@ branches and a separate integration session. This session runs on the one branch
 
 | Task | Status | Owner | Files |
 |---|---|---|---|
-| T22 — Official Week 10 injury-report capture (all 14 games, 28 clubs, 347 rows) and row-by-row reconciliation against each published copy | in progress | `arena/a8c1189d` | `data/official/2026-w10-injury-report.csv`, `data/official/2026-w10-reconciliation.csv`, `scripts/reconcile_official_w10.py` |
-| T23 — Public page for the official capture and reconciliation, linked from the root site | in progress | `arena/a8c1189d` | `scripts/build_official_capture.py`, `official/**`, `.github/workflows/pages.yml` |
-| T24 — Scheduled, immutable, hashed availability-report snapshots with a loud drift alarm | in progress | `arena/a8c1189d` | `scripts/capture_official_snapshot.py`, `.github/workflows/snapshot.yml`, `data/snapshots/**` |
-| T25 — New irregularities onto Flagged for Review | in progress | `arena/a8c1189d` | `data/flagged.json`, `scripts/build_site.py` (flag rendering only) |
+| T22 — Official Week 10 injury-report capture (all 14 games, 28 clubs, 347 rows) and row-by-row reconciliation against each published copy | **done** (single transcription pass; cross-checked against 3 published copies, see record) | `arena/a8c1189d` | `data/official/2026-w10-injury-report.csv`, `data/official/2026-w10-reconciliation.csv`, `scripts/reconcile_official_w10.py` |
+| T23 — Public page for the official capture and reconciliation, linked from the root site | **done** | `arena/a8c1189d` | `scripts/build_official_capture.py`, `official/**`, `.github/workflows/pages.yml` |
+| T24 — Scheduled, immutable, hashed availability-report snapshots with a loud drift alarm | **needs review** (workflow written and YAML-checked; logic tested offline; first live run not yet observed — see record) | `arena/a8c1189d` | `scripts/capture_official_snapshot.py`, `.github/workflows/snapshot.yml`, `data/snapshots/**` |
+| T25 — New irregularities onto Flagged for Review | **done** (F14–F19; F18 resolved) | `arena/a8c1189d` | `data/flagged.json`, `scripts/build_site.py` (flag rendering only) |
 | T26 — Coordination record, verification log, PR and merge record | in progress | `arena/a8c1189d` | `COORDINATION.md` |
 
 **Not claimed this session (blocked or out of reach from this sandbox — see the record for reasons):**
@@ -802,3 +802,61 @@ depth-chart register and starter/backup model, NFL Game Books, snap counts, lice
 history, Texans depth image, roster-transaction log, model-line changes. Models and originated lines
 are **not** re-run on new inputs in this session; the official capture is published as evidence, and
 the model inputs stay on the existing copy until a reviewed change.
+
+## Session `arena/a8c1189d` — record of work (2026-11-16 UTC)
+
+### What was produced
+
+| Artifact | What it is |
+|---|---|
+| `data/official/2026-w10-injury-report.csv` | 347 player rows from the official NFL.com Week 10 injury report, one row per listed player, with game day, kickoff, network, club, injury, practice status, game status, and source code `R10` (= `https://www.nfl.com/injuries/league/2026/reg10`). |
+| `data/official/2026-w10-reconciliation.csv` | 271 difference rows: every player that differs between the official page and any published Week 10 copy, with both values and the official link. |
+| `scripts/reconcile_official_w10.py` | Pinned checks on the capture (347 rows, 14 games, 28 clubs, known status vocabulary, no duplicate club/player keys) and the row-by-row reconciliation. Exit 1 if the capture fails its pins. |
+| `official-capture.html` | Public page: capture checks, reconciliation summary, every difference, every official row, and the snapshot history. Linked from the root navigation. |
+| `scripts/build_official_capture.py` | Renders the page from the two CSVs above (deterministic). |
+| `scripts/capture_official_snapshot.py` | One immutable capture of the live injury report: HTTP check, size check, required-heading check, player-link check, gzip + SHA-256, append-only index. Refuses to store on drift (exit 2). |
+| `.github/workflows/snapshot.yml` | Schedule: 13:17 and 23:17 UTC, Wednesday to Monday. Commits each capture under `snapshots/` (outside `data/` and `docs/`, so the site-verification job is not triggered). |
+| `data/flagged.json` | Flags F14–F19 added (F18 resolved). |
+| `.github/workflows/pages.yml` | Not changed. `official-capture.html` is a root page and is copied by the existing `*.html` rule. |
+
+### Sources read (fetched 2026-11-16 with the agent's fetch tool; bash cannot reach nfl.com from this sandbox)
+
+- [NFL.com — 2026 injury report, Week 10](https://www.nfl.com/injuries/league/2026/reg10) — 8 pages of the fetch tool; all 14 games read.
+- Same page, news section: [Patriots QB Drake Maye ankle](https://www.nfl.com/news/patriots-drake-maye-ankle-injury-lions), [Ravens Lamar Jackson IR](https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-thursday-nov-5), [Dolphins place QB Malik Willis on IR](https://www.nfl.com/news/dolphins-place-qb-malik-willis-groin-on-injured-reserve-kyle-mccord-in-line-for-first-start) — cited as news headlines only; none is used as a value.
+
+### Verification performed
+
+1. **Pinned counts** on the capture: 347 rows, 14 games, 28 clubs; per-club counts re-tallied by hand from the page and matched.
+2. **Vocabulary**: every practice status is one of the three legal strings; every game status is blank, Out, Questionable or Doubtful; no duplicate club/player keys.
+3. **Cross-check against the published copies**: the main 345-row table agrees on both status fields for 328 of the 344 players it shares with the official page. Each of the 16 status disagreements in that copy was checked against the page text in this session (e.g. Hawkins and Taylor show Out on the page, blank in the copy; Arden Key shows no game status on the page, Questionable in the copy; Bud Dupree shows Full Participation on the page, Did Not Participate in the copy).
+4. **Lions designations (VR-08)**: Joseph, Mays and Reed read Out on the page and in every current copy — the blank-cell problem is not reproduced (flag F18, resolved).
+5. **Determinism**: reconcile, page build and site build are byte-identical on re-run (md5).
+6. **Site gates**: `check_site.py` 1,649 assertions pass; `check_links.py` passes on all 21 board pages and the root pages (0 broken links); `verify.py` gate G-10 pass (the existing FLG-025 discrepancy is unchanged); `build_board.py --check` pass; `model.py`, `stats_tables.py`, `make_leaderboard.py` re-run with no output change.
+7. **Snapshot logic**: tested offline in a scratch directory with synthetic bodies — first capture, unchanged capture, changed capture, and two drift refusals (missing heading, too small) behaved as designed. **Not yet run against nfl.com.**
+
+### Irregularities (all published as flags F14–F19; none blocks the merge)
+
+- **F14 (high)**: the board copy `board/data/injuries_2026_w10.csv` (identical to `data/injuries_2026_w10.csv`) has 160 of 347 official rows; Seattle and Cincinnati have 4 rows each where the page lists 15 and 9. `model.py` reads this file.
+- **F15 (medium)**: the main 345-row table differs on 20 rows (3 missing, 1 extra spelling "Jake Hummel", 16 status values).
+- **F16 (medium)**: `data/injuries_week10.json` (read by `compute_lines.py`) uses club code `LA` for the Rams; 14 Rams rows are off-code and two BAL rows are missing.
+- **F17 (medium)**: the brief's figures (279 rows, 2 no-injury sections, Seattle and Cincinnati injury-free) are not reproduced by the page read on 2026-11-16, which lists 347 rows.
+- **F18 (resolved)**: Lions game-status cells — not reproduced.
+- **F19 (low)**: `injuries.html` links each row to the generic injury page, not the Week 10 page.
+
+### Not done in this session (and why)
+
+| Item from the brief | Status | Reason |
+|---|---|---|
+| Replace the model inputs with the official capture and re-run lines | **not done** | Changes originated lines and the board. Needs an owner decision (F14–F16). |
+| Daily immutable snapshots, Wednesday to kickoff | **written, not live** | Workflow exists; first run happens after merge to `main` (schedules only run on the default branch). Has not been observed. Must update `REPORT_WEEK` each week. |
+| Depth-chart register, starter/backup model, 32-club roster/IR sweep | **not done** | Requires club depth-chart pages for all 32 clubs; not read in this session. The Texans depth image cannot be transcribed by eye (brief rules it out). |
+| NFL Game Books (starters, game-day status) and snap counts | **not done** | Game Books and snap-count sources not retrieved in this session. |
+| Roster transactions log, reserve-list capture, announced-starter evidence | **not done** | Transactions not retrieved in this session. |
+| Price-snapshot store, licensed odds, CLV, leaderboard, parlay/prop gates | **not done** | No licensed or official price source is available (already flagged as F07 and the readiness register). |
+| Weekly "what changed" diff, historical archive for past seasons | **not done** | Requires several weeks of snapshots; the store starts after merge. |
+| Executive summary, decision-readiness table, suggestions, questions | **already present** | Existing pages (`executive-summary.html`, `readiness.html`, `suggestions.html`, `questions.html`) were not changed here. |
+
+### Branch and PR
+
+- Working branch: `arena/a8c1189d-fl3` (as assigned). The brief's `session-<id>/<task>` branches were **not** created; the system assigned this session one branch.
+- PR and merge record: see the next section, filled in after merge.
