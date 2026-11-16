@@ -1051,3 +1051,57 @@ which is the protocol's route (log the request; publish the flag).
 `python3 scripts/check_site.py` and `python3 scripts/verify.py` were run on the checked-out snapshot; results
 are recorded in the verification log below once V02–V04 land. Nothing in the repo was modified before this
 claim was committed.
+
+---
+
+# Session `arena/03e651e0-fl3` — final record
+
+## Merge and deploy
+
+| Item | Value |
+|---|---|
+| Pull request | [#30](https://github.com/sassnarep3-star/FL3/pull/30) |
+| Merge | **merged** to `main` 2026-11-16T01:47:38Z, merge commit `7c8ce4e73811420affe5743ddeddb1fd5a1f79d3` |
+| PR checks | `Recompute and verify` pass · `validate` pass · `verify-and-build` pass |
+| Pages build API | `status: built`, commit `7c8ce4e` |
+| Live, verified by fetching the rendered page | `/FL3/verified/` and `/FL3/verified/strategies.html` both serve |
+
+Three merges of `origin/main` were needed during the session; `main` advanced four times
+(PRs #25, #27, #28, #29) while this branch was open, and another session added a `verify/`
+subsite one character from this session's `verified/`. Every conflict was resolved as a union —
+both nav entries kept, both CI suites run, both coordination records kept. Nothing was discarded.
+
+## What this session added
+
+| Artifact | What it establishes |
+|---|---|
+| `data/week_results_2026.csv` | 148 FINAL games, weeks 1–10. All 32 clubs' W/L/T, PF and PA reproduce the official standings exactly. `scripts/build_week_results.py --check` re-proves it. |
+| `scripts/score_lines.py`, `data/line_eval.{json,csv}` | Scores the committed Week 10 lines (n=11, leakage excluded) and runs a walk-forward over 100 games, with 4,000 game-cluster bootstrap intervals and explicit baselines. |
+| `scripts/verify_live.py`, `data/live_verification.{csv,json}` | 15 root-session claims re-checked against live NFL.com pages: 4 confirmed, 2 stale, 2 partly stale, 2 not reproducible, 5 unverifiable with stated source gaps. |
+| `verified/**` (8 pages), `scripts/build_verified_site.py` | The canonical dashboard. Every row sourced or explicitly marked. |
+| `scripts/check_verified_site.py` | 645 assertions over the rendered HTML, including tag balance, no template placeholders, no hand-typed figures. |
+| `verified/PREREGISTRATION.md`, `scripts/preregister_model.py` | `FL3-SHADOW-1` frozen constants, window, primary metric, multiplicity rule, stopping rule, ablation rule. |
+| `data/week11_slate_2026.csv`, `data/preregistration_week11.json` | 13 unplayed Week 11 fixtures and the first 13 registered live forecasts. |
+| `.github/workflows/pages.yml` | Replaced the `cp`-allowlist deploy with a gate. Pages is `build_type: legacy`, source `main:/`; the allowlist was never the deploy path and caused two recorded phantom-404s. |
+
+## The result, stated plainly
+
+The baseline **does not beat a pick'em line at 95% confidence** (spread RMSE gain +0.055,
+CI [−0.020, +0.130], n=100) and its **win probabilities are not distinguishable from a coin**
+(Brier skill +0.069, CI [−0.086, +0.229]). That is published on the first screen of the landing page.
+What the session establishes is the measurement apparatus, not an edge.
+
+## Handoff — the highest-value open work
+
+1. **`data/injuries_2026_w10.csv` should be retired or relabelled** (LV-05 / R-01). It holds 160 rows,
+   every one designated, against 345 on the live page, and omits Sam Darnold (QB, Out). It is the input
+   to `scripts/model.py` and therefore to the board track's leaderboard.
+2. **The root requirement register's "136 eligible game records" clearance metric** (R002/R053) must be
+   restated against the verified 148 before it can clear anything.
+3. **Capture the injury report daily, Wed–Sun, with retained hashes** (LV-12). Three requirements are
+   blocked only because no series was ever captured. The protocol is specified in `verified/method.html`.
+4. **Price policy before any backtest is published** (LV-10). CLV and ROI stay uncomputable until a
+   licensed source exists. Do not fill the market column from an aggregator.
+5. **Determine which of the seven published dashboards is canonical.** This session's answer is
+   `verified/`, on the evidence that it is the only one whose corpus reconciles. That is an
+   argument, not a decision — the owner should make it.
