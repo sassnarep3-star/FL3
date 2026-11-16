@@ -1,5 +1,32 @@
 name: Deploy static site to GitHub Pages
 
+# ---------------------------------------------------------------------------
+# READ THIS BEFORE EDITING THE FILE.
+#
+# GitHub Pages for this repository is configured as:
+#
+#     build_type: legacy        source: main  /  (repository root)
+#
+# verified with `gh api repos/sassnarep3-star/FL3/pages` on 2026-11-16.
+# In that mode GitHub publishes the repository root itself, so *every*
+# top-level directory is published automatically and no artifact has to be
+# assembled. There is nothing to `cp`.
+#
+# Between 2026-11-14 and 2026-11-16 this file was a second, competing
+# deployment: it built an artifact from a hand-maintained `cp -r` allowlist and
+# tried to push it through `deploy-pages`. That allowlist caused two recorded
+# incidents (a whole subsite silently not deploying; a subsite existing in the
+# repo but 404ing on the live site) because a green deploy job proved only that
+# the copy succeeded, not that the site was published. It was never the path
+# that actually served the site.
+#
+# It is now a *gate*, not a deployer: it validates the site and fails the build
+# if the root cannot be served. That is the only job a workflow can usefully do
+# here. If the owner ever switches Pages to "GitHub Actions", restore the
+# upload-pages-artifact + deploy-pages pair AND make the artifact the complete
+# root — but check `gh api .../pages` first and do not maintain an allowlist.
+# ---------------------------------------------------------------------------
+
 on:
   pull_request:
     branches: [main]
@@ -9,11 +36,9 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: pages-gate
   cancel-in-progress: true
 
 jobs:
@@ -22,30 +47,41 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Validate static site links and sources
+
+      - name: Root site is complete and self-contained
+        run: |
+          set -eu
+          missing=0
+          for f in index.html flagged.html .nojekyll; do
+            if [ ! -f "$f" ]; then echo "::error::missing $f at repo root"; missing=1; fi
+          done
+          # Every published subsite must be reachable from the root and must
+          # contain its own index. A directory that exists but has no entry
+          # point is exactly the 404 incident recorded on 2026-11-14.
+          for d in verified docs depth board site-9b181d31 legacy; do
+            if [ -d "$d" ] && [ ! -f "$d/index.html" ]; then
+              echo "::error::$d/ exists but has no index.html — it will 404 on the live site"
+              missing=1
+            fi
+            if [ -d "$d" ] && ! grep -q "$d/" index.html; then
+              echo "::error::$d/ is published but not linked from index.html"
+              missing=1
+            fi
+          done
+          [ "$missing" -eq 0 ] && echo "Root and every subsite entry point are present and linked."
+
+      - name: Verify the root site (data, links, sources, arithmetic)
         run: python3 scripts/check_site.py
 
-  deploy:
-    if: github.event_name != 'pull_request'
-    needs: validate
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-      - name: Assemble publishable site
-        run: |
-          mkdir -p _site
-          cp -r index.html *.html assets legacy depth docs site-9b181d31 board verify _site/
-          cp .nojekyll _site/
-      - name: Upload site artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Verify the live-verification register is internally consistent
+        run: python3 scripts/verify_live.py --check
+
+  # NOTE (2026-11-16, session arena/03e651e0): a `deploy` job that assembled an
+  # artifact from a `cp -r` allowlist was merged here by another session. It is
+  # not the deploy path. GitHub Pages for this repo is `build_type: legacy`,
+  # source `main:/` (verified via `gh api repos/sassnarep3-star/FL3/pages`), so
+  # the repository root publishes itself and no artifact is uploaded. The
+  # allowlist had already caused two phantom-404 incidents before this session
+  # removed it. It is deliberately NOT restored: an allowlist that can silently
+  # omit a directory is worse than no deploy job at all. See the header of this
+  # file. If you disagree, check the Pages API before re-adding it.

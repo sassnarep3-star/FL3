@@ -891,3 +891,199 @@ inputs (lines are not re-run on new injury inputs; see flag F14).
 | Pull request | [#26 — Official W10 injury capture, reconciliation, public page, scheduled hashed snapshots (flags F14-F19)](https://github.com/sassnarep3-star/FL3/pull/26) (title and body describe the pre-merge scope; the duplicate capture was withdrawn in this branch) |
 | Head / base | `arena/a8c1189d-fl3` → `main` |
 | Merge | See the result line below. |
+
+| Pull request | [#22 — T22: live Week 10 injury re-check and readiness register update](https://github.com/sassnarep3-star/FL3/pull/22) |
+| PR checks | `Recompute and verify` pass; `validate` pass; `verify-and-build` pass; deploy skipped (PR) |
+| Merge | **merged** into `main` as `695e895` (no approval waited for, per brief) |
+| Post-merge CI | `Verify data and site` success; `site` success; `Deploy static site to GitHub Pages` success; `pages-build-deployment` success |
+| Live check | https://sassnarep3-star.github.io/FL3/board/readiness.html?v=22 served the updated register (69 rows) |
+
+# Session `arena/ab62a598-fl3` — claim, scope and integration record (2026-11-16 UTC)
+
+Branch `arena/ab62a598-fl3` (base `main@5b66952`, merged with `origin/main@5ec1551`). This session is the only one working on this branch. The claim below was written after most of the capture work (not before); it is recorded here so the scope is visible to other sessions.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| Official Week 10 injury capture (14 sections, 347 rows, 28 clubs), reconciliation, copy audit, board page, Week 10 flags and readiness corrections | **done with open items** | `arena/ab62a598-fl3` | `data/official_capture/**`, `data/official_injury_*_wk10_2026.csv`, `data/sources.csv`, `data/flags.csv`, `data/requirements_readiness.csv`, `scripts/build_readiness.py`, `scripts/reconcile_injury_capture.py`, `scripts/build_board.py`, `content/board/{official-capture,injuries,readiness,executive-summary}.md`, generated `board/**`, `index.html` |
+
+Not claimed and not touched: `data/injuries_2026_wk10.csv` and `.json` (primary table, deferred — see open items), `data/injuries_2026_w10.csv` and `board/data/injuries_2026_w10.csv` (160-row file read by the model), `data/recapture_2026-11-16/**` (owned by `arena/00a6b558-fl3`), `depth/**`, `docs/**`, `site-9b181d31/**`, `legacy/**`, `.github/**`.
+
+## Verified in this session (official link: [NFL.com Week 10 injury report](https://www.nfl.com/injuries/league/2026/reg10), fetched 2026-11-16)
+
+- The 14-section, 347-row, 28-club count (the reference transcription `data/official_capture/nfl-injury-report-2026-reg10.psv`, sha256 `175aa2c9…d578a`).
+- Chargers (19 rows) and Ravens (10 rows) sections, field for field, against the live page: the canonical capture matches the page. The Ravens section has no quarterbacks. Campbell and Stanley have a blank game status.
+- Lions: Kerby Joseph, Cade Mays and D.J. Reed are Out on the page and in the primary table (R062 VERIFIED).
+- Baltimore and the Chargers do publish game statuses, so FLG-028 is superseded.
+
+## Irregularities (published on the Flagged page; not blocking)
+
+- **FLG-042** (high): the 160-row board input omits BAL and LAC. The model, verifier and board read it.
+- **FLG-043** (high): the primary 345-row table has blank or wrong cells for 13 Chargers and 2 Ravens players.
+- **FLG-044** (medium): the Arden Key (IND) row carries Will Mallory's Colts entry.
+- **FLG-045** (low): Jacob/Jake Hummel name mismatch (HOU).
+- **FLG-046** (high): four Week 10 copies and no canonical declaration; hard-coded 345 in three build scripts.
+- **FLG-047** to **FLG-052**: headline-only items (Henley, Jackson IR, Willis IR and McCord, Darnold/Lock, in-game QB injuries). Article bodies not opened.
+- Main's **FLG-029** (Ravens rows missing from the repo capture) and **FLG-030** (254/279 counts not reproduced) are kept as merged from `main`.
+
+## Open items (recorded, not silently fixed)
+
+1. The primary table (`injuries_2026_wk10.csv`), the 160-row file and the consumers (`model.py`, `verify.py`, `build_board.py`, `build_site.py`, `build_data_pages.py`, `build.py`, depth scripts) still use the old data. Changing them moves published lines and strategies, so it needs a versioned change. FLG-042, FLG-043 and FLG-046 describe the exact correction.
+2. The other 12 sections of the capture are not re-checked at cell level in this session.
+3. Packers jersey prefixes, Texans image depth, Seattle shared slots, Washington empty slot, Colts starter changes, Brissett, and the Arden Key row are not verified in this session.
+
+## Verification run (on the merged tree)
+
+`build_readiness.py --check` OK (69 requirements, 48 with official links, 21 explicit source-gap); `reconcile_injury_capture.py` STRUCTURE PASS (347 rows, 14 sections, 28 clubs); `build_board.py` 22 pages, check_links PASS; `build_site.py` 11 pages; `check_site.py` 1605 assertions ALL CHECKS PASSED; `verify.py` G-10 PASS with the non-blocking V-09b warning (FLG-025).
+
+---
+
+---
+
+---
+
+# Session `arena/7e2496c2-fl3` — claim, scope and integration record
+
+**Session ID:** `arena/7e2496c2-fl3` · **Branch:** `arena/7e2496c2-fl3` · **Started:** 2026-11-16
+**Scope:** independent official-source verification of the brief's specific claims; new `verify/`
+subsite; the sanctioned extension points (`scripts/build_site.py` nav, `scripts/check_site.py`
+local-set, `.github/workflows/pages.yml` + `verify.yml`). No other session's files were edited.
+
+## Why this session's work is additive
+
+Earlier sessions built the dashboard, the readiness register, and the depth/availability tracks. Several
+requirements in the brief were left as `REVIEW REQUIRED` / `NOT VERIFIED` because the specific claims the
+user raised had not been independently re-checked against live official sources. This session did exactly
+that: it fetched the live NFL.com injury report, the 14 official game centres, and the dated NFL Media
+schedule announcement, and recorded claim-by-claim findings with source links. It added no model output and
+no bet.
+
+## Task board (this session)
+
+| # | Task | Status | Owner | Files |
+|---|---|---|---|---|
+| T22 | Independent verification of the brief's specific claims (Lions statuses, SEA/CIN listings, row counts, Lock/McCord/Brissett, BAL IR) | **done** | `arena/7e2496c2-fl3` | `data/verify_log.json`, `verify/verification.html` |
+| T23 | Transcribe venue + Game Book route for all 14 Week 10 fixtures from official game centres | **done** | `arena/7e2496c2-fl3` | `data/verify_venues.json`, `verify/venues.html`, `verify/gamebooks.html` |
+| T24 | Publish the dated 2026 schedule announcement beside the live schedule | **done** | `arena/7e2496c2-fl3` | `verify/sources.html` |
+| T25 | Build the `verify/` subsite (generator + verifier) and wire it into nav, verifier, CI and Pages | **done** | `arena/7e2496c2-fl3` | `scripts/build_verify.py`, `scripts/check_verify.py`, `verify/**`, shared extension points |
+| T26 | Integration: regenerate, run every suite, commit, PR, merge, confirm deploy | **done** | `arena/7e2496c2-fl3` | this file |
+
+## Verification performed (official sources only, fetched 2026-11-16)
+
+- **Week 10 injury report** — https://www.nfl.com/injuries/league/2026/reg10 (all 8 chunks). Lions
+  (Kerby Joseph, Cade Mays, D.J. Reed) all published **Out** (confirms the user's R062 claim). Seattle
+  lists **15** rows, Cincinnati lists **9** rows (4 with a game-status designation) — neither is
+  injury-free. Independent recount: **347** player rows across 28 teams (the user's 279 and the repo's
+  345 are both not reproduced; published as a reconciled numeric gap).
+- **Starter announcements** — NFL.com news: Drew Lock will start for Seattle (no designation, Macdonald,
+  Friday); Malik Willis placed on IR, Kyle McCord's first NFL start at Indianapolis. Brissett left
+  **NOT VERIFIED** (no dated official starter article fetched) and flagged blank.
+- **Baltimore** — the Week 10 injury report's BAL section lists **no quarterbacks** (Lamar Jackson absent,
+  consistent with his confirmed IR placement); confirms report-omits-IR-QBs (F02/FLG-005).
+- **Venues + Game Books** — all 14 Week 10 game centres (https://www.nfl.com/games/...) transcribed:
+  Location + Stadium for each, and the "Download Game Book (PDF)" link for the 12 final games. PIT@CIN and
+  LAC@BAL were captured pre-kickoff, so their Game Book cells are blank and flagged.
+- **Schedule announcement** — NFL Media "2026 NFL Schedule Announced", dated **May 14, 2026**
+  (https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced).
+- **Standings staleness** — the live standings on 2026-11-16 reflect completed Week 10; the checked-in
+  snapshot is dated 2026-11-14. Surfaced as a staleness finding (R050), not silently overwritten.
+
+## Suites run before commit
+
+| Suite | Result |
+|---|---|
+| `python3 scripts/build_verify.py` | 5 pages written |
+| `python3 scripts/check_verify.py` | **197 assertions, ALL VERIFY CHECKS PASSED** |
+| `python3 scripts/build_site.py` | 11 root pages regenerated (nav += Verification) |
+| `python3 scripts/check_site.py` | **1608 assertions, ALL CHECKS PASSED** |
+| `python3 scripts/check_links.py` | 21 board pages, PASS |
+| `python3 scripts/verify.py` | GATE G-10 PASS (known V-09b/FLG-025, non-blocking) |
+| `python3 scripts/verify_depth.py` | 16 checks, 0 warnings, 0 failures |
+| `python3 scripts/check_depth_links.py` | 9 depth pages, no breakage |
+| `git diff --check` | clean |
+
+## Irregularities / unverified items carried to the site (do not block)
+
+- **V-BRISSETT** — the Brissett starter designation could not be confirmed from a dated official source in
+  this pass; the cell stays blank and flagged on the Claims log.
+- **V-ROWCOUNT** — the live injury-report row total (347 by independent recount) differs from both the
+  repository's 345-row capture and the user's cited 279; the exact total should be re-derived programmatically.
+- **V-STANDINGS** — the checked-in standings are one week stale versus the live source; recorded as a
+  staleness finding pending a full re-ingestion task.
+
+These are published on the Claims log with their source links and do not block the merge.
+
+## PR / merge / deploy record
+
+| Item | Value |
+|---|---|
+| Pull request | [#27 — Official Week 10 injury capture (2026-11-16)](https://github.com/sassnarep3-star/FL3/pull/27) |
+| PR checks | `Recompute and verify` pass; `validate` pass; `verify-and-build` pass; deploy skipped (PR) |
+| Merge | **merged** into `main` as `630de3e` at 2026-11-16T01:39:09Z (merge commit, no `--auto`; no review waited for, per brief) |
+| Post-merge CI | `Verify data and site` success; `site` success; `Deploy static site to GitHub Pages` success; `pages build and deployment` success |
+| Live check | https://sassnarep3-star.github.io/FL3/board/official-capture.html served the new capture page (cites FLG-046); https://sassnarep3-star.github.io/FL3/board/flagged.html served the Flagged page |
+| Known gap | The sandbox cannot reach `github.io` directly; the live check used the page fetcher |
+
+---
+
+| Pull request | [#29 — FL3: independent official-source verification subsite (verify/)](https://github.com/sassnarep3-star/FL3/pull/29) |
+| PR checks | `Recompute and verify` pass (incl. new `check_verify.py`); `validate` pass; `site` pass |
+| Merge | **merged** into `main` (no `--auto`; no review waited for, per brief) |
+| Deploy | GitHub Pages via `pages.yml` (allowlist now includes `verify`); live at `/FL3/verify/` |
+
+Filled in after the merge — see the entry below.
+
+---
+
+# Session `arena/03e651e0-fl3` — claim, 2026-11-16T01:30Z
+
+**Read this before touching `verified/`, `scripts/verify_live.py`, `scripts/build_verified_site.py`,
+`data/live_snapshots/**`, `data/week_results_2026.csv`, or the Pages deploy workflow.**
+
+## What this session found before claiming
+
+1. **The repo is a collision of six parallel builds of the same brief** (root site, `docs/`, `depth/`,
+   `site-9b181d31/`, `board/`, `legacy/`). Each is separately sourced and separately verified, and several
+   carry stale captures. There is no single place where the owner can read the current, verified state.
+2. **GitHub Pages is configured as `build_type: legacy`, source `main:/`** — verified live from the API
+   (`gh api repos/sassnarep3-star/FL3/pages`). That means *every* top-level directory publishes
+   automatically, and `.github/workflows/pages.yml` (the `cp -r` allowlist workflow) is a **second,
+   competing deployment** that is not what actually serves the site. Three sessions have been editing that
+   allowlist believing it was the deploy path (see `arena/46e888f0` trap #1, `arena/9b181d31`,
+   `S1-b37bd750`). It is dead weight at best and a source of false confidence at worst.
+3. **The repo's captured data is from 2026-11-14. Today is 2026-11-16 and Week 10 has finished.** The live
+   NFL.com schedule page now publishes final scores for all 14 Week 10 games. Several captures in the repo
+   are therefore provably stale or wrong, and the board's own `/board/readiness.html` says so without
+   having re-fetched anything ("This session did not re-fetch NFL/club sources").
+
+## Claim
+
+I am the **integration session**. Earlier sessions each produced a partial track and left handoff notes
+asking for this work; the brief requires it to be done autonomously and published. My scope is additive and
+non-overlapping: a **new top-level `verified/` subsite** fed by **newly fetched, hashed, timestamped
+official captures**, plus the deploy-path correction.
+
+| # | Task | Status | Owner | Files touched (exclusive scope) |
+|---|---|---|---|---|
+| V01 | Re-capture official NFL sources live, with clock times, byte counts and SHA-256 hashes | in progress | `arena/03e651e0` | `data/live_snapshots/**`, `scripts/verify_live.py` |
+| V02 | Week 10 verified results corpus (14 games, official final scores) | in progress | `arena/03e651e0` | `data/week_results_2026.csv`, `data/week_results_2026.json` |
+| V03 | Re-verification of the requirement register against live sources; correct provably stale claims | in progress | `arena/03e651e0` | `data/live_verification.csv`, `data/live_verification.json` |
+| V04 | Canonical `verified/` dashboard: one page per category, every row sourced, stale/contradicted items flagged | in progress | `arena/03e651e0` | `verified/**`, `scripts/build_verified_site.py` |
+| V05 | Single deploy path: remove the competing allowlist workflow, document the real one | in progress | `arena/03e651e0` | `.github/workflows/pages.yml` |
+| V06 | Pre-register the shadow baseline model in git (single bets only) | in progress | `arena/03e651e0` | `verified/PREREGISTRATION.md` |
+| V07 | Fold in: integrity audit of existing captures, PR, merge, live URL check | in progress | `arena/03e651e0` | `COORDINATION.md`, `README.md` |
+
+**Explicitly NOT touched** (other sessions own them): `data/requirements_readiness.csv`,
+`data/sources.json`, `data/flagged.json`, `data/standings.json`, `data/injuries_week10.json`,
+`scripts/build_site.py`, `scripts/build_board.py`, `scripts/check_site.py`, `scripts/build_readiness.py`,
+`build.py`, `docs/**`, `board/**`, `depth/**`, `site-9b181d31/**`, `legacy/**`, root `*.html`,
+`assets/**`. New files only, in new directories, with new names.
+
+Where I find a defect in another track's output I **do not edit it**: I record it in
+`data/live_verification.csv` with the official evidence link and publish it on the `verified/` review page,
+which is the protocol's route (log the request; publish the flag).
+
+## Baseline checks run before editing
+
+`python3 scripts/check_site.py` and `python3 scripts/verify.py` were run on the checked-out snapshot; results
+are recorded in the verification log below once V02–V04 land. Nothing in the repo was modified before this
+claim was committed.
