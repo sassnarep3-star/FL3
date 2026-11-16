@@ -70,7 +70,7 @@ PAGES = [
     ("team-stats", "Team efficiency inputs (official)", "Team stats", "data"),
     ("injuries", "Week 10 availability report", "Injuries & availability", "data"),
     ("official-capture", "Official Week 10 injury capture and reconciliation", "Injury capture", "data"),
-    ("league-facts", "League facts, rules and cadence", "League facts", "data"),
+    ("matchups", "Matchup deficiency matrix - Week 10", "Matchup matrix", "data"),    ("league-facts", "League facts, rules and cadence", "League facts", "data"),
     ("model", "Line origination model", "Model", "model"),
     ("parameters", "Model parameter register", "Parameter register", "model"),
     ("lines", "Origination output - Week 10 slate", "Lines", "model"),

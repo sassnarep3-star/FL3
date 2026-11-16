@@ -1325,3 +1325,24 @@ side were discarded.
 | Post-merge checks | `Verify data and site`, `site`, and `Deploy static site to GitHub Pages` succeeded; Pages build/deployment run [43789279189](https://github.com/sassnarep3-star/FL3/actions/runs/43789279189) succeeded |
 | Pages status | GitHub Pages API reports `status: built`, legacy source `main:/`, URL `https://sassnarep3-star.github.io/FL3/` |
 | Direct HTTP check | Not performed from this sandbox because `github.io` is outside the permitted outbound hosts; deployment success is confirmed by the Pages workflow and API status |
+
+---
+
+# Session `arena/f5117408-fl3` — claim (2026-11-16 UTC)
+
+Branch `arena/f5117408-fl3` (base `main@695e895`). This session is the only one working on this branch.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T25 — Interactive offense-vs-defense matchup deficiency matrix (readiness **R036**): a Week 10 unit matrix built from the official report (availability) + Ourlads order (14-club capture 2026-11-16 + the 2026-11-14 transcription), replacement **depth** tracked per unit, explicit `n/a` wherever either side's evidence is missing, wired into the root navigation and the verifier | **in progress** | `arena/f5117408-fl3` | `scripts/build_matchup_matrix.py`, `data/matchup_matrix_week10.csv`, `matchups.html`, `data/depth_charts_2026-11-16.json` + `.hashes.json` (new, see amendment), `content/board/matchups.md` (new), `scripts/build_site.py` (one nav entry), `scripts/check_site.py` (page list + `check_matchup_matrix()`), `scripts/build_board.py` (one PAGES entry, scope amendment below), `scripts/build_readiness.py` + `data/requirements_readiness.csv` (R036 row only), `board/matchups.html` + regenerated root/board pages from the existing generators, `COORDINATION.md` |
+
+Not claimed and not touched: `data/depth_risk.json`, `data/lineup_risk.json`, `depth/**`, `docs/**`, `site-9b181d31/**`, `legacy/**`, `.github/**`, `data/flags.csv`, `data/official_captures/**`, `scripts/diff_week10_injuries.py`, `scripts/build_data*.py`, `models/**`, and every other readiness row.
+
+Checked before claiming: open PR #23 (`arena/fa06d378`, T23 injury capture/diff) and open PR #24 (`arena/00a6b558`, T24 coordination record). Their file sets do not overlap this scope except `COORDINATION.md` (append-only sections; a conflict is resolved by keeping both sides) and generated `board/index.html` (regenerated from data after any merge, never hand-edited). The T22 completion record on `main` explicitly lists "the matrix view" as open — that is this task.
+
+**Evidence rules for T25:** availability comes only from the official NFL report; depth *order* comes only from the Ourlads transcription already registered as `S04`/`S05` (third-party, declared); a promotion is shown as **confirmed** only when the depth-1 player is ruled **Out**; a missing row renders `n/a` with a reason, never a guess; no score, projection or betting claim is computed — the matrix counts strings.
+
+**Scope amendment (2026-11-16, same claim):**
+1. `data/depth_charts_2026-11-16.json` (+ `.hashes.json`) — a targeted Ourlads capture of the 14 clubs needed to lift the matrix above floor coverage (the 2026-11-14 transcription alone left only 30 of 168 rows with both sides evidenced). Fetched live through the agent's fetch tool on 2026-11-16, transcribed by hand, order-only; `chart_updated` timestamps kept per club; SHA-256 over each club's canonical slots JSON stored because the fetch tool does not retain raw HTML bytes (the same raw-hash gap T22 logged for the report capture). Availability is never taken from it.
+2. `scripts/build_board.py` (one PAGES entry) + `content/board/matchups.md` — required because the readiness register's `repo_page` link resolves **relative to `board/`** in both renderers (`build_site` index links `board/{repo_page}`, `build_board` readiness links `{repo_page}`), so R036 needs `board/matchups.html` to exist. The board page is prose + a link to the root matrix; no table was added to the board's data set.
+3. The 2026-11-14 transcription stays the order source for the other 14 playing clubs; every row names its order source, and the 66 `n/a` rows name the missing group, club and source.

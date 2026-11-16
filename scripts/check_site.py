@@ -28,9 +28,9 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
-PAGES = ["index.html", "standings.html", "lines.html", "injuries.html", "strategies.html",
-         "correlation.html", "decisions.html", "suggestions.html", "flagged.html",
-         "sources.html", "methodology.html",
+PAGES = ["index.html", "standings.html", "lines.html", "injuries.html", "matchups.html",
+         "strategies.html", "correlation.html", "decisions.html", "suggestions.html",
+         "flagged.html", "sources.html", "methodology.html",
          # verified-snapshot pages (session arena-fl3-60ee336e, integration 2026-11-14):
          "data-snapshots.html", "data-standings.html", "data-schedule.html", "data-injuries.html",
          # canonical verified dashboard (session arena/03e651e0, 2026-11-16):
@@ -297,6 +297,50 @@ def check_readiness_register():
           f"R: canonical readiness register failed validation: {readiness_check.stdout}{readiness_check.stderr}")
 
 
+def check_matchup_matrix():
+    """M. matchup matrix (readiness R036): row count, official source on every
+    row, explicit n/a reasons, and the rendered page matches the CSV."""
+    with open(os.path.join(DATA, "matchup_matrix_week10.csv"), newline="", encoding="utf-8") as fh:
+        rows = list(csv.DictReader(fh))
+    check(len(rows) == 168, f"M: expected 168 matrix rows (14x2x6), got {len(rows)}")
+    page = open(os.path.join(ROOT, "matchups.html"), encoding="utf-8").read()
+    check(page.count("<tr data-game=") == len(rows),
+          "M: rendered matrix rows do not match the CSV row count")
+    report_url = "https://www.nfl.com/injuries/league/2026/reg10"
+    games, units = set(), set()
+    for r in rows:
+        games.add(r["game_id"])
+        units.add(r["unit"])
+        check(r["official_report_url"] == report_url,
+              f"M: {r['game_id']}/{r['unit']} does not cite the official report URL")
+        for col in ("off_chart_url", "def_chart_url", "depth_key_url"):
+            check(r[col].startswith("https://"), f"M: {r['game_id']}/{r['unit']} bad {col}")
+        if r["mismatch_flag"] == "na":
+            check(r["mismatch"].startswith("n/a"),
+                  f"M: {r['game_id']}/{r['unit']} n/a row without an explicit reason")
+            check("rows for" in r["mismatch"],
+                  f"M: {r['game_id']}/{r['unit']} n/a reason does not name the missing source")
+        if r["mismatch_flag"] in ("off", "def", "both"):
+            check(bool(r["off_promo_fact"]) or bool(r["def_promo_fact"]),
+                  f"M: {r['game_id']}/{r['unit']} promotion flag without a promotion fact")
+        if r["mismatch_flag"] == "none":
+            check(not r["off_promo_fact"] and not r["def_promo_fact"],
+                  f"M: {r['game_id']}/{r['unit']} promotion fact without a promotion flag")
+    check(len(games) == 14, f"M: expected 14 games in the matrix, got {len(games)}")
+    check(units == {u[0] for u in (
+        ("wr-cb",), ("te-s",), ("rb-lb",), ("t-de",), ("g-dt",), ("qb-dt",))},
+        f"M: unexpected unit set {sorted(units)}")
+    # the page must publish its semantics and its gaps
+    for phrase in ("no designation published", "n/a", "official Week 10 injury report",
+                   "Authority order", "R042"):
+        check(phrase in page, f"M: matchups.html does not publish '{phrase}'")
+    # every chain OUT must be traceable: no invented statuses in the CSV
+    for r in rows:
+        for col in ("off_chain", "def_chain"):
+            check(">None" not in r[col] and "None" != r[col],
+                  f"M: bare None in {r['game_id']}/{r['unit']} {col}")
+
+
 def main() -> None:
     check_arithmetic()
     check_completeness()
@@ -307,6 +351,7 @@ def main() -> None:
     check_blanks()
     check_flags_published()
     check_readiness_register()
+    check_matchup_matrix()
 
     print(f"ran {checks} assertions")
     if warnings:
