@@ -3,13 +3,17 @@
 The brief asks for *a clear list of questions, information and answers that must be addressed before
 any decision can reasonably be made, based on what we have and what we do not have*. This is that
 list. It is a table rather than prose because it is a work queue: each row states what we already
-have, exactly what is missing, how to get it, and which decision is waiting on it.
+have, exactly what is missing, how to get it, and which decision is waiting on it. The final two
+columns are row-level provenance: `source_id` links to a registered official input where one applies;
+`source_gap` states what that source does not establish, or why no official source applies. A link is a
+place to verify an input, not proof that the question is answered. Open questions remain open until
+the missing evidence is captured and reconciled.
 
 **How to read the `blocking` column:** `yes` = a decision that depends on this is currently
 undecidable with integrity (we would be guessing). `no` = it improves the model but does not gate the
 next step.
 
-:::table questions.csv | 20 open questions - 7 blocking | id,blocking,area,question,what_we_have,what_we_need,how_to_obtain,decision_it_unblocks
+:::table questions.csv | 20 open questions - 7 blocking; official input links or explicit source gaps | id,blocking,area,question,what_we_have,what_we_need,how_to_obtain,decision_it_unblocks,source_id,source_gap
 
 ## The seven that gate everything else
 
@@ -20,20 +24,21 @@ next step.
 - **Q-02 lineups.** "Which backup is playing" is the heart of your brief. The league publishes a
   *designation*, not a *lineup* ([FLG-017](flagged.html)), so every starter-quality adjustment in
   [models/line_model.yaml](model.html) is deliberately `value: null`.
-- **Q-03 IR / transactions.** A club can be missing its best player and show a nearly empty report
-  (Baltimore, Week 10 - [FLG-005](flagged.html)). Any deficiency count that reads only the report is
-  systematically wrong in the direction of "everyone is healthy".
-- **Q-04 game-level history.** 33 of 137 verified 2026 games are in the repo, and no prior season
-  is. Every distribution (margin SD, home advantage, push rate, correlation) is therefore labelled
-  provisional - see the fitted `beta = 1.14` anomaly in [FLG-026](flagged.html), which is what a
-  too-small sample looks like when you refuse to hide it.
-- **Q-05/Q-06 calibration.** The two constants that turn a rating gap into a spread, plus home-field
-  value. Right now: `sigma_margin` 11.92 pts (in-sample), `alpha` −0.82 pts (in-sample, not
-  distinguishable from 0), and no schedule adjustment at all.
-- **Q-07 correlation inputs.** Every parlay and prop-combo price depends on a joint distribution, and
-  the only correlation we can currently measure with an interval is same-game home-vs-away points at
-  r = 0.12 (CI −0.23 to +0.44) — i.e. uninformative. Until this is settled, gate G-07 cannot be
-  evaluated and no multi-leg strategy can be promoted ([Correlation](correlation.html)).
+- **Q-03 IR / transactions.** A weekly report does not establish reserve status or a dated roster
+  history. The repository records a Week 10 report/news discrepancy as a flag, but the cited article
+  body and transaction chain were not re-verified in this audit. Treat the named example as unresolved,
+  not as a confirmed player status. Any absence from the report remains unknown, never "healthy".
+- **Q-04 game-level history.** The repository contains 33 verified game rows against 137 games
+  reported through Week 9, and no prior-season corpus. Every fitted game distribution remains
+  provisional; see the in-sample `beta = 1.14` anomaly in [FLG-026](flagged.html). Future 2026 games
+  are not yet results and must not be backfilled as outcomes.
+- **Q-05/Q-06 calibration.** An in-sample fit on `n = 33` exists, but is not a validated pricing
+  parameter set: `beta = 1.14`, `sigma_margin = 11.92` points and `alpha = −0.82` points (SE 2.09).
+  No chronological holdout or market comparison exists, and there is no schedule adjustment.
+- **Q-07 correlation inputs.** Eight provisional coefficients are available from official-input data:
+  two game-level pairs (`n = 33`) and six team-level pairs (`n = 32`), each with an interval on the
+  [Correlation](correlation.html) page. Player-prop pairs and directly validated joint settlement
+  probabilities remain unavailable, so G-07 still blocks combo ranking.
 
 ## Questions we should not ask yet
 
@@ -46,13 +51,17 @@ made-up answer:
 - "Are parlays +EV here?" - needs the correlation measurements in [Correlation](correlation.html),
   which need Q-04 and Q-07.
 
-## Suggested way to answer them without me
+## Recommended next steps and owner-dependent gates
 
-1. Approve the data tasks (S-08, S-09, S-11) and let `scripts/fetch_nfl_data.py` run on a host that
-   can reach nfl.com - it closes Q-04 in one afternoon and needs no licence.
-2. Decide the odds vendor (Q-01). Nothing else on this page unblocks G-03, and G-03 is the gate that
-   separates "we have a model" from "we have an edge".
-3. Answer Q-17 (mandate) in writing - unit size, slate cap, kill-switch owner. Two hours of your time
-   that the entire staking/reward design depends on.
-4. Everything else in this table is a research task with a named source; it can be worked in parallel
-   by session, one row at a time, marking each row `answered` here with the link.
+1. Continue only with official, permitted schedule/results and availability capture. Keep each read
+   timestamped and immutable; do not call the 33-row corpus complete or use unplayed games as outcomes.
+2. Before any CLV/backtest publication, establish a licensed price-data source, permitted retention,
+   and settlement keys. Until that exists, leave market values blank and keep the price gate blocked.
+3. Keep all strategies in shadow/paper status while the forecast log, holdout evaluation and source
+   coverage are incomplete. No stake, reward or live-demotion policy is inferred from a model result.
+4. Treat legal scope, price licensing, infrastructure credentials and bankroll authority as explicit
+   owner-dependent questions. The site records the missing evidence and best next path; it cannot
+   supply contracts, legal approval or account access on the owner's behalf.
+5. Compare implementation options on the [Suggestions](suggestions.html) page before changing the
+   system. Record a choice and rationale there; only then should a path that depends on that choice be
+   implemented.
