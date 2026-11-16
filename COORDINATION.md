@@ -722,3 +722,13 @@ source discrepancy (`FLG-025`); `scripts/check_links.py` passed (20 board pages)
 passed (1,262 assertions). The readiness register will describe evidence and blockers as they exist in
 the checked-out snapshot, not imply that a feature or live feed is operational. Official source links
 are limited to NFL/club-operated properties already registered or referenced in the repository.
+
+### Scope extension — canonical root landing page integration (2026-11-16 UTC)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T21 — Surface the same one-row-per-requirement register on the repository root landing page | **in progress** | `arena/b791a027` | `scripts/build_site.py`, generated root `index.html`, `COORDINATION.md` |
+
+The first integration placed the full register on `board/index.html`; the root `/` landing page is the
+actual GitHub Pages entry point, so this extension mirrors the same CSV-backed rows there and links to
+the full details at `/board/readiness.html`. No table values will be duplicated by hand.
