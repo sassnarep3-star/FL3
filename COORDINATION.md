@@ -890,7 +890,10 @@ inputs (lines are not re-run on new injury inputs; see flag F25).
 |---|---|
 | Pull request | [#26 — Official W10 injury capture, reconciliation, public page, scheduled hashed snapshots (flags F25-F30)](https://github.com/sassnarep3-star/FL3/pull/26) (title and body describe the pre-merge scope; the duplicate capture was withdrawn in this branch) |
 | Head / base | `arena/a8c1189d-fl3` → `main` |
-| Merge | See the result line below. |
+| Merge | **Merged** to `main` on 2026-11-16 as merge commit `d1debe1` (`gh pr merge 26 --merge`, no auto-merge). Head at merge: `fc5e52f`. Before merging, the branch had `main` merged in three times as other sessions landed (PR #29, PR #32, PR #35); each conflict was resolved by keeping both sides' records and renumbering this session's flags F14–F19 → F25–F30, since `main` already used F14–F24. |
+| Pages deploy | Confirmed on `main`: "Deploy static site to GitHub Pages" success on `8caf8c7` (latest main, which includes d1debe1). Live pages fetched and read: `https://sassnarep3-star.github.io/FL3/board/official-capture.html` and `…/flagged.html` (shows "24 open" of 30 items). |
+| Checks at merge | `Verify data and site`, `site` and `Deploy static site to GitHub Pages` all success on `fc5e52f`. The "validate" job was cancelled on earlier heads by the concurrency group; a head with a cancelled run cannot be re-run, so later heads were checked instead. |
+| Not confirmed | First live `snapshot.yml` run; live nfl.com fetch from the snapshot script. Both remain open (see Snapshot store). |
 
 | Pull request | [#22 — T22: live Week 10 injury re-check and readiness register update](https://github.com/sassnarep3-star/FL3/pull/22) |
 | PR checks | `Recompute and verify` pass; `validate` pass; `verify-and-build` pass; deploy skipped (PR) |
