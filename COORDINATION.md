@@ -857,3 +857,10 @@ Most of the brief's roughly 60 items are not done here. Examples: a price-snapsh
 - Correct the 36 cells in `data/injuries_2026_wk10.csv` (or replace it with the verified transcription), re-run `scripts/diff_week10_injuries.py` until it reports zero, then re-run the board pipeline.
 - Choose a canonical Week 10 injury copy (FLG-032) and derive the others from it.
 - Decide the policy for a failing identity in `verify.py` (FLG-033).
+
+## PR record — `arena/fa06d378-fl3`
+
+| Item | Result |
+|---|---|
+| Pull request | [#23 — T23: official Week 10 injury capture, cell-level diff (36 discrepancies), flags FLG-031..033](https://github.com/sassnarep3-star/FL3/pull/23) |
+| Merge | **Not merged.** The brief's merge condition (all tasks done and integrated) is not met for this branch. Left open for review. |
