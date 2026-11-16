@@ -1234,13 +1234,15 @@ was added.
 
 ### Rebase conflict resolution (2026-11-16 UTC)
 
-`git pull --rebase origin main` fetched `cda4072` after PR #27 and its deploy record landed. Conflicts
-occurred in `COORDINATION.md` and generated board/verification files because main had incorporated the
-347-row official injury recapture and readiness rows R068/R069. Resolution policy: preserve main's
-source captures, flags, requirement rows, and closeout records; retain this session's question
-provenance changes; regenerate derived board/report outputs from the merged inputs. No canonical data
-or findings from either side were discarded; derived pages and reports were regenerated from the
-resolved inputs.
+The first `git pull --rebase origin main` fetched `cda4072` after PR #27 and its deploy record landed.
+Conflicts occurred in `COORDINATION.md` and generated board/verification files because main had
+incorporated the 347-row official injury recapture and readiness rows R068/R069. Resolution policy:
+preserve main's source captures, flags, requirement rows, and closeout records; retain this session's
+question provenance changes; regenerate derived board/report outputs from the merged inputs. A second
+pull --rebase fetched `2952f25` after PR #29 added the independent `verify/` subsite. Its `COORDINATION.md`
+conflict was resolved by preserving PR #29's close-out and both sessions' records. No canonical data or
+findings from either side were discarded; generated pages and reports were regenerated and checked
+against the merged inputs.
 
 ### Post-rebase verification (2026-11-16 UTC)
 
@@ -1249,8 +1251,9 @@ resolved inputs.
   Those discrepancies remain published for review; the capture was not substituted into model inputs.
 - `python3 scripts/build_board.py` and `--check`: PASS; 22 pages and 27 data tables. Readiness register:
   69 unique requirements, 48 with official source links, 21 explicitly flagged source gaps.
-- `python3 scripts/check_links.py`: PASS; 22 board pages and 33 external links. `python3 scripts/build_site.py`
-  and `python3 scripts/check_site.py`: PASS; 1,605 assertions.
+- `python3 scripts/check_links.py`: PASS; 22 board pages and 33 external links. `python3 scripts/build_verify.py`
+  regenerated five verification pages; `python3 scripts/check_verify.py`: PASS, 197 assertions. `python3 scripts/build_site.py`
+  and `python3 scripts/check_site.py`: PASS; 1,616 assertions.
 - Recomputed model outputs with `compute_lines.py`, `compute_luck.py`, `compute_correlation.py`,
   `model.py`, `stats_tables.py`, and `make_leaderboard.py`; completed successfully. Leaderboard remains
   an empty schema (zero settled bets), and market fields remain deliberately blank.
