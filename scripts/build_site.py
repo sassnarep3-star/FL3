@@ -29,6 +29,7 @@ PAGES = {
     "standings.html": "Standings",
     "lines.html": "Our Lines",
     "injuries.html": "Injuries",
+    "matchups.html": "Matchup matrix",
     "data-snapshots.html": "Data snapshots",
     "strategies.html": "Strategies",
     "correlation.html": "Correlation",
