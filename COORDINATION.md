@@ -707,3 +707,61 @@ without the edit the board would have existed only in the repository.
 If a future session adds another top-level output directory, it must update the same `cp -r` line, or the
 session's pages will silently not deploy. Worth promoting into the rules block at the top of this file the
 next time that file is edited by an integration task.
+
+# Session `arena/b791a027` — claim, scope and integration record
+
+## Claim (2026-11-16 UTC)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T20 — Publish a unified, evidence-bounded requirement readiness register and connect it to the dashboard | **done** | `arena/b791a027` | `data/requirements_readiness.csv`, `scripts/build_readiness.py`, `scripts/build_board.py`, `scripts/check_site.py`, `content/board/readiness.md`, `content/board/index.md`, `board/**`, `board/data/requirements_readiness.csv`, `COORDINATION.md` |
+
+This is the current Arena branch and is the sole scope for this session. Existing shared tracks are
+not being rewritten. Baseline audit before edits: `scripts/verify.py` completed with the known V-09b
+source discrepancy (`FLG-025`); `scripts/check_links.py` passed (20 board pages); `scripts/check_site.py`
+passed (1,262 assertions). The readiness register will describe evidence and blockers as they exist in
+the checked-out snapshot, not imply that a feature or live feed is operational. Official source links
+are limited to NFL/club-operated properties already registered or referenced in the repository.
+
+### Scope extension — canonical root landing page integration (2026-11-16 UTC)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T21 — Surface the same one-row-per-requirement register on the repository root landing page | **done** | `arena/b791a027` | `scripts/build_site.py`, `scripts/check_site.py`, generated root HTML pages (navigation), `index.html`, `COORDINATION.md` |
+
+The first integration placed the full register on `board/index.html`; the root `/` landing page is the
+actual GitHub Pages entry point, so this extension mirrors the same CSV-backed rows there and links to
+the full details at `/board/readiness.html`. No table values will be duplicated by hand.
+
+## T20–T21 implementation and verification (2026-11-16 UTC)
+
+- Added a generated, CSV-backed register with **67 distinct requirements** at
+  `data/requirements_readiness.csv`. The root landing page renders every row; the detailed
+  `/board/readiness.html` page adds evidence, missing information, gates, clearance criteria and
+  recommended next steps. The page is linked from root navigation and the board navigation.
+- **48 rows** link to a registered NFL, official club, or U.S. National Weather Service source
+  applicable as an input; **19 rows** have no applicable official source in the registry and show
+  an explicit source-gap/unverified note instead of a fabricated link. A citation is explicitly
+  not treated as proof that an input was captured.
+- Requirement content is generated/checked by `scripts/build_readiness.py`; `build_board.py`
+  invokes its consistency check. `check_site.py` verifies every requirement ID and every available
+  official URL appears on the root landing page, checks source gaps, and validates the canonical
+  CSV. `check_links.py` validates all 21 board pages and their internal links.
+- Commands run successfully: `python3 scripts/build_readiness.py --check` (67 unique rows);
+  `python3 scripts/build_site.py`; `python3 scripts/build_board.py`; `python3 scripts/check_site.py`
+  (**1,597 assertions, ALL CHECKS PASSED**); `python3 scripts/check_links.py` (**21 pages, 0 broken
+  internal links/orphans**); `git diff --check`.
+- Official input references carried forward from the existing source registry include NFL injury
+  reports, schedules/scores, standings and team stats, the NFL rulebook, NFL/club team pages and
+  NWS. These URLs are linked in the register. **This session did not re-fetch NFL/club sources**:
+  checked-in source captures are dated 2026-11-14, and the user-supplied specific Week 10 discrepancies
+  (injury row counts, Lions status cells, chart formats/slots, and named roster changes) remain flagged
+  as unverified claims until re-captured from the official pages.
+- Existing warnings remain visible and do not become verified by this change: V-09b reports pass TD
+  414 vs 415 allowed and interceptions 202 vs 200 forced (`FLG-025`); V-11 notes 5 one-decimal
+  rounding-boundary rates; the board game corpus remains 33/137 (24.1%); 19 register rows have a
+  source gap; official/ licensed market history is not established. A separate file has third-party
+  reference quotes, which do not satisfy the official-source or licensed immutable price requirement.
+- The numerical clearance criteria are proposals for future gates, not observed results, source facts,
+  profitability claims, or permission to stake. Backtest/leaderboard readiness remains blocked where
+  its evidence requirements are unmet.

@@ -15,6 +15,7 @@ Design rules enforced here
 """
 from __future__ import annotations
 
+import csv
 import html
 import json
 import os
@@ -36,6 +37,7 @@ PAGES = {
     "flagged.html": "Flagged for Review",
     "sources.html": "Sources",
     "methodology.html": "Methodology",
+    "board/readiness.html": "Requirement readiness",
 }
 
 CAPTURED = "2026-11-14"
@@ -119,7 +121,58 @@ def pct(v):
 # ---------------------------------------------------------------------------
 # page builders
 # ---------------------------------------------------------------------------
-def build_index(standings, lines, inj, luck, strat, dec, sug, flag):
+def read_requirement_rows():
+    with open(os.path.join(DATA, "requirements_readiness.csv"), newline="", encoding="utf-8") as fh:
+        return list(csv.DictReader(fh))
+
+
+def read_source_registry():
+    with open(os.path.join(DATA, "sources.csv"), newline="", encoding="utf-8") as fh:
+        return {row["source_id"]: row for row in csv.DictReader(fh)}
+
+
+def readiness_section(rows, sources):
+    """Render the same requirement rows on the actual repository-root landing page."""
+    state_kind = {
+        "BLOCKED": "bad", "PARTIAL": "warn", "NOT STARTED": "bad",
+        "DESIGN ONLY": "info", "IMPLEMENTED HERE": "ok",
+        "REVIEW REQUIRED": "warn", "REJECT SHORTCUT": "bad",
+    }
+    rendered = []
+    for r in rows:
+        sid_list = [sid for sid in r["source_id"].split(";") if sid]
+        links = []
+        for sid in sid_list:
+            src = sources.get(sid)
+            if src:
+                links.append(src_link(src["url"], sid))
+            else:
+                links.append(f'<span class="unverified">UNVERIFIED: {e(sid)}</span>')
+        source = " ".join(links) if links else (
+            '<span class="unverified">UNVERIFIED — no applicable official source</span>'
+            f'<br><small>{e(r["source_gap"])}</small>'
+        )
+        state = r["current_state"]
+        repo_target = r["repo_page"] if r["repo_page"].startswith("board/") else f"board/{r['repo_page']}"
+        rendered.append([
+            f"<b>{e(r['id'])}</b>", e(r["category"]), e(r["requirement"]),
+            badge(state, state_kind.get(state, "warn")), e(r["blocking_gate"]),
+            e(r["clearance_metric"]), source,
+            f'<a href="{e(repo_target)}">details</a>',
+        ])
+    return f"""
+<section id="requirement-readiness">
+  <h2>Decision readiness — every requirement, blocker and clearing number</h2>
+  <p class="lede">{len(rows)} requirements, one row each. States describe checked-in evidence; clearance
+  criteria are proposed gates, not observed NFL facts. Official links are input sources, not proof of
+  capture. Where no applicable official source is registered, the source is left blank and flagged.
+  <a href="board/readiness.html">Open the full register</a> for missing information and recommended next steps.</p>
+  {table(["ID", "Area", "Requirement", "Current state", "Blocking gate", "Clearance metric / number", "Official source / gap", "Evidence"], rendered, "wide")}
+</section>
+"""
+
+
+def build_index(standings, lines, inj, luck, strat, dec, sug, flag, readiness, sources):
     n_teams = len(standings["teams"])
     n_games = len(lines["games"])
     n_rows = sum(len(t["players"]) for g in inj["games"] for t in g["teams"])
@@ -190,6 +243,7 @@ def build_index(standings, lines, inj, luck, strat, dec, sug, flag):
      ["<a href='legacy/index.html'>Archived blueprint</a>", "An earlier session's data-free research plan, preserved unchanged", "Optional"]])}
 </section>
 """
+    body += readiness_section(readiness, sources)
     return page("Dashboard", body, "index.html")
 
 
@@ -741,9 +795,11 @@ def main():
     sug = load("suggestions.json")
     flag = load("flagged.json")
     src = load("sources.json")
+    readiness = read_requirement_rows()
+    official_sources = read_source_registry()
 
     out = {
-        "index.html": build_index(standings, lines, inj, luck, strat, dec, sug, flag),
+        "index.html": build_index(standings, lines, inj, luck, strat, dec, sug, flag, readiness, official_sources),
         "standings.html": build_standings(standings, luck),
         "lines.html": build_lines(lines, inj),
         "injuries.html": build_injuries(inj),

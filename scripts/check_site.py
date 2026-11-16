@@ -18,6 +18,7 @@ H. Unverified items appear on the flagged page
 """
 from __future__ import annotations
 
+import csv
 import html
 import json
 import os
@@ -158,6 +159,9 @@ def check_sources():
 # ------------------------------------------------------------ E. link integrity
 def check_links():
     local = set(PAGES) | {"assets/site.css", "legacy/index.html", "legacy/site.css", "legacy/site.js"}
+    board_root = os.path.join(ROOT, "board")
+    if os.path.isdir(board_root):
+        local.update(f"board/{name}" for name in os.listdir(board_root) if name.endswith(".html"))
     if os.path.isdir(os.path.join(ROOT, "legacy", "pages")):
         for f in os.listdir(os.path.join(ROOT, "legacy", "pages")):
             local.add(f"legacy/pages/{f}")
@@ -242,6 +246,34 @@ def check_flags_published():
     warn(n_unverified == src_page.count("unverified") // 2 or True, "")
 
 
+def check_readiness_register():
+    with open(os.path.join(DATA, "requirements_readiness.csv"), newline="", encoding="utf-8") as fh:
+        rows = list(csv.DictReader(fh))
+    with open(os.path.join(DATA, "sources.csv"), newline="", encoding="utf-8") as fh:
+        sources = {r["source_id"]: r for r in csv.DictReader(fh)}
+    index = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
+    check(len(rows) >= 50, f"R: expected a line-by-line readiness register, got {len(rows)} rows")
+    check(len({r["id"] for r in rows}) == len(rows), "R: readiness requirement IDs are not unique")
+    for row in rows:
+        check(row["id"] in index, f"R: {row['id']} is missing from the root landing page")
+        ids = [sid for sid in row["source_id"].split(";") if sid]
+        if not ids:
+            check(bool(row["source_gap"]), f"R: {row['id']} has no official link and no source-gap flag")
+            check(html.escape(row["source_gap"]) in index,
+                  f"R: {row['id']} source-gap note is not visible on the landing page")
+        for sid in ids:
+            source = sources.get(sid)
+            check(source is not None, f"R: {row['id']} cites unregistered source {sid}")
+            if source:
+                check(source["url"] in index,
+                      f"R: {row['id']} official source URL is missing from the landing page")
+    readiness_check = subprocess.run(
+        [sys.executable, os.path.join(ROOT, "scripts", "build_readiness.py"), "--check"],
+        capture_output=True, text=True, cwd=ROOT)
+    check(readiness_check.returncode == 0,
+          f"R: canonical readiness register failed validation: {readiness_check.stdout}{readiness_check.stderr}")
+
+
 def main() -> None:
     check_arithmetic()
     check_completeness()
@@ -251,6 +283,7 @@ def main() -> None:
     check_recompute()
     check_blanks()
     check_flags_published()
+    check_readiness_register()
 
     print(f"ran {checks} assertions")
     if warnings:
