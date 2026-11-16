@@ -278,6 +278,7 @@ def build_index(standings, lines, inj, luck, strat, dec, sug, flag, readiness, s
      ["<a href='board/line-provenance.html'>Line provenance</a>", "Three 'our line' files, reconciled on one axis", "Yes — decide"],
      ["<a href='board/data-freshness.html'>Data freshness</a>", "How stale the snapshot is, measured per club and per player", "Yes — read"],
      ["<a href='board/depth-evidence.html'>Depth evidence</a>", "What club depth charts publish, and the six ways a naive parse fails", "No"],
+     ["<a href='board/decision-queue.html'>Decision queue</a>", "Every requirement collapsed into the owner decision that releases it, ordered by rows released", "Yes — start here"],
      ["<a href='flagged.html'>Flagged for Review</a>", f"{len(flag['items'])} items, each with its evidence link", "Yes — review"],
      ["<a href='legacy/index.html'>Archived blueprint</a>", "An earlier session's data-free research plan, preserved unchanged", "Optional"]])}
 </section>
