@@ -452,6 +452,151 @@ except where the status says <span class="badge ok">implemented</span>.</p>
               </div></div>
           <p class="decide"><b>Decision needed:</b> Say whether club-published charts count as evidence, even though they are not nfl.com.</p>
         </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-18</span> Pick ONE canonical line series and freeze its sign convention</h3>
+            <span class="badge warn">proposed</span>
+          </header>
+          <p><b>Problem.</b> Three files publish a Week 10 line on two opposite conventions and disagree by 6.72 pts mean absolute (board/line-provenance.html). A reader gets a different answer depending on which page they open.</p>
+          <p class="fine">Unblocks: R070, FLG-029</p>
+          <p class="fine">Blocked by: Nothing - can start immediately</p>
+          <div class="paths">
+              <div class="path">
+                <div class="pathhead"><b>Path A</b> · Keep lines_week10.json and delete the other two </div>
+                <div class="pathmeta">effort: low · cost: free</div>
+                <div class="pros"><span class="plus">+</span> One file, one site, no reconciliation burden. The root site already renders it.</div>
+                <div class="cons"><span class="minus">−</span> It is the WORST performer on the only settled sample (MAE 11.62 vs 8.02), and deleting 2026-week10-lines.csv removes the only market quotes in the repo.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Switch to lines_origination.csv and label the other two deprecated </div>
+                <div class="pathmeta">effort: medium · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Better on the settled sample; its generator is the one with a documented calibration table; it is already labelled &#x27;provisional, not bettable&#x27;, which is honest.</div>
+                <div class="cons"><span class="minus">−</span> n=12. Promoting on twelve games is exactly the result-chasing the gates exist to prevent, and it would be promoting on the same sample that was used to compare.</div>
+              </div>
+              <div class="path rec">
+                <div class="pathhead"><b>Path C</b> · Write a third, canonical engine and retire both <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: high · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Lets the sign convention, the join key (game_id) and the dispersion fix be designed together rather than patched.</div>
+                <div class="cons"><span class="minus">−</span> Slowest. Leaves the site publishing two inconsistent series in the meantime unless they are labelled.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Which series is &#x27;our line&#x27;? (A keep json / B switch to csv / C new engine)</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-19</span> Make capture a schedule with a clock on every row, and never overwrite a pre-kickoff read</h3>
+            <span class="badge warn">proposed</span>
+          </header>
+          <p><b>Problem.</b> The site is stamped 2026-11-14 and prices games played 2026-11-15. The same official URL read 48 hours apart gave LAC a game status on 0/19 rows then 9/19 (board/data-freshness.html). A single capture is a snapshot of a clock, not of the truth.</p>
+          <p class="fine">Unblocks: R030, R073, R013, FLG-030, FLG-031</p>
+          <p class="fine">Blocked by: Nothing - can start immediately</p>
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · Daily scheduled capture into data/captures/, append-only <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: low · cost: free (GitHub Actions)</div>
+                <div class="pros"><span class="plus">+</span> Closes the staleness class of defect completely; gives the timestamped series the brief asks for; cheap because the pages are already readable.</div>
+                <div class="cons"><span class="minus">−</span> Repository growth (~350 rows/day uncompressed) and a growing number of dated files to keep link-checked.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Capture on the NFL&#x27;s published report cadence only (Wed/Thu/Fri + game day) </div>
+                <div class="pathmeta">effort: low · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Fewer files; matches when designations actually change.</div>
+                <div class="cons"><span class="minus">−</span> Misses Saturday practice bumps and the Saturday IR moves that produced the Ravens&#x27; two added rows.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path C</b> · External object store with hashes, repo keeps only an index </div>
+                <div class="pathmeta">effort: high · cost: low storage fee</div>
+                <div class="pros"><span class="plus">+</span> The durable-store requirement (R030) done properly; keeps raw rows out of the public artefact (R031).</div>
+                <div class="cons"><span class="minus">−</span> Adds a dependency and a credential to manage, and blocks the whole pipeline if it is unavailable.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> How often do we capture, and where does the immutable store live?</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-20</span> Treat dispersion, not bias, as the top modelling priority</h3>
+            <span class="badge warn">proposed</span>
+          </header>
+          <p><b>Problem.</b> Across 11 pre-kickoff forecasts the model&#x27;s margins have sd 3.41 while realised margins have sd 14.39 - a dispersion ratio of 0.24 (board/luck.html). Bias is +7.91 pts and accounts for only 28% of MSE. A near-constant forecast cannot beat a market however good its mean is.</p>
+          <p class="fine">Unblocks: R069, F24</p>
+          <p class="fine">Blocked by: Nothing - can start immediately</p>
+          <div class="paths">
+              <div class="path">
+                <div class="pathhead"><b>Path A</b> · Re-centre only (remove the +7.91 bias) </div>
+                <div class="pathmeta">effort: low · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Cheap; removes 28% of the squared error immediately.</div>
+                <div class="cons"><span class="minus">−</span> Does not touch the 72% that is dispersion. Would improve MAE and change nothing about the ability to find an edge.</div>
+              </div>
+              <div class="path rec">
+                <div class="pathhead"><b>Path B</b> · Widen uncertainty with a game-specific variance model <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: medium · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Attacks the actual defect. Rest-day, travel, neutral-site, roof and divisional-vs-cross-conference are published schedule facts available today.</div>
+                <div class="cons"><span class="minus">−</span> More parameters on a sample of 11 games; risks fitting noise and needs strict pre-registration.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path C</b> · Keep a fixed sigma and stop quoting probabilities </div>
+                <div class="pathmeta">effort: low · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Honest - if the model cannot express uncertainty, publishing only a point line with a wide band is defensible.</div>
+                <div class="cons"><span class="minus">−</span> Gives up the proper-score leaderboard, which needs a probability.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Is dispersion the accepted top modelling priority, and is the variance model pre-registered before the next window?</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-21</span> Replace fixed availability point-penalties with a pre-registered paired ablation</h3>
+            <span class="badge warn">proposed</span>
+          </header>
+          <p><b>Problem.</b> The engine subtracts fixed points per missing player by position (QB 2.6, CB 0.5, ...). Those constants are assumptions, not measurements, and depth rank does not tell us how much worse the replacement is (board/depth-evidence.html).</p>
+          <p class="fine">Unblocks: R028, R029, F19</p>
+          <p class="fine">Blocked by: Needs a multi-week snapshot series (SG-19) and a results corpus</p>
+          <div class="paths">
+              <div class="path">
+                <div class="pathhead"><b>Path A</b> · Fit the per-position penalty from settled games </div>
+                <div class="pathmeta">effort: medium · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Still publishes one number per position, easy to explain.</div>
+                <div class="cons"><span class="minus">−</span> Requires enough games with a clean before/after; with one week it would fit noise and become a new unvalidated constant.</div>
+              </div>
+              <div class="path rec">
+                <div class="pathhead"><b>Path B</b> · Paired ablation: identical model with and without availability features, chronological folds, interval on the difference <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: medium · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Answers the real question - does the availability signal add anything? - and reports uncertainty instead of a point estimate.</div>
+                <div class="cons"><span class="minus">−</span> Cannot run until there is a multi-week snapshot series (SG-19) and a results corpus.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path C</b> · Drop availability from the model until it can be validated </div>
+                <div class="pathmeta">effort: low · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Most honest for immediate publication; removes four unvalidated constants.</div>
+                <div class="cons"><span class="minus">−</span> Discards the one input the brief cares most about, and the availability signal is visibly real even if its size is unmeasured.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Target a paired ablation, or drop availability from the model until it can be validated?</p>
+        </article>
+        <article class="sug">
+          <header>
+            <h3><span class="sid">SG-22</span> Publish the requirement register as a decision queue, not a status list</h3>
+            <span class="badge warn">proposed</span>
+          </header>
+          <p><b>Problem.</b> 73 requirements with a status each is thorough but not actionable. Nothing currently says which single decision unblocks the most rows.</p>
+          <p class="fine">Unblocks: R023</p>
+          <p class="fine">Blocked by: Nothing - can start immediately</p>
+          <div class="paths">
+              <div class="path rec">
+                <div class="pathhead"><b>Path A</b> · Add a &#x27;decisions that unblock the most rows&#x27; view <span class="badge ok">recommended</span></div>
+                <div class="pathmeta">effort: low · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Turns 73 rows into about five named decisions; a reviewer can act in one sitting.</div>
+                <div class="cons"><span class="minus">−</span> The unblock counts are heuristic and will be argued over.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path B</b> · Add effort and owner columns </div>
+                <div class="pathmeta">effort: low · cost: free</div>
+                <div class="pros"><span class="plus">+</span> Standard project hygiene.</div>
+                <div class="cons"><span class="minus">−</span> Does not reduce the reading burden, which is the actual problem.</div>
+              </div>
+              <div class="path">
+                <div class="pathhead"><b>Path C</b> · Leave it as-is </div>
+                <div class="pathmeta">effort: none · cost: free</div>
+                <div class="pros"><span class="plus">+</span> No work.</div>
+                <div class="cons"><span class="minus">−</span> The brief explicitly asks for a page someone can review and choose from; a 73-row status table is not that.</div>
+              </div></div>
+          <p class="decide"><b>Decision needed:</b> Adopt the decision-queue view on top of the requirement register?</p>
+        </article>
 
 <h2>How to respond</h2>
 <p>Reply with the suggestion IDs and the path letters you want, for example
