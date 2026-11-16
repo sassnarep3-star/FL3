@@ -47,6 +47,8 @@ BOARD_DATA = [
     "flags.csv", "derived_team_metrics.csv", "derived_league_stats.csv", "derived_correlations.csv",
     "power_ratings.csv", "lines_origination.csv", "model_calibration.csv", "decision_math.csv",
     "leaderboard.csv", "verification_report.csv", "requirements_readiness.csv",
+    "official_injury_capture_wk10_2026.csv", "official_injury_reconciliation_wk10_2026.csv",
+    "official_injury_copy_audit_wk10_2026.csv",
 ]
 
 # slug -> (title, nav label, group)
@@ -60,6 +62,7 @@ PAGES = [
     ("games", "2026 game results (verified rows)", "Game results", "data"),
     ("team-stats", "Team efficiency inputs (official)", "Team stats", "data"),
     ("injuries", "Week 10 availability report", "Injuries & availability", "data"),
+    ("official-capture", "Official Week 10 injury capture and reconciliation", "Injury capture", "data"),
     ("league-facts", "League facts, rules and cadence", "League facts", "data"),
     ("model", "Line origination model", "Model", "model"),
     ("parameters", "Model parameter register", "Parameter register", "model"),
@@ -644,6 +647,20 @@ def build(check_only: bool = False) -> int:
             if unknown:
                 raise SystemExit("BUILD FAIL - rows cite sources that are not in data/sources.csv: "
                                  + ", ".join(sorted(unknown)))
+        if slug == "official-capture":
+            body += render_table(
+                "official_injury_copy_audit_wk10_2026.csv",
+                caption="Every Week 10 injury copy in the repo, compared with the official capture (row count and club coverage).")
+            body += render_table(
+                "official_injury_capture_wk10_2026.csv",
+                ["game_date", "game_pair_as_printed", "team", "player", "position", "injuries",
+                 "practice_status", "game_status", "source_id"],
+                caption=f"Canonical capture: {len(read_rows('official_injury_capture_wk10_2026.csv'))} listed players, 14 game sections, 28 clubs. Blank = blank on the official page.")
+            body += render_table(
+                "official_injury_reconciliation_wk10_2026.csv",
+                ["team", "player", "field", "official_nfl_com", "repo_table_345", "issue", "source_id"],
+                caption="Every field where the primary 345-row table differs from the official capture. Injury lists are compared as sets.",
+                link_col=None)
         if slug == "verification":
             body += render_table("verification_report.csv",
                                  caption="scripts/verify.py output - regenerated on every build")

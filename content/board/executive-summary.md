@@ -4,6 +4,13 @@
 game still to come. **Repo state at start:** one 5-byte `README.md`, one commit, no code, no data
 ([FLG-001](flagged.html)).
 
+
+## Update 2026-11-16 - official injury capture
+
+- The official Week 10 injury page was re-captured on 2026-11-16: **347 listed rows, 14 game sections, 28 clubs** ([Official Week 10 capture](official-capture.html), SRC-018).
+- The repo holds **four different Week 10 row counts** (345, 162, 160) and no declared canonical table. The 160-row copy that the board model reads has **no Baltimore or Chargers rows** ([FLG-042](flagged.html)).
+- Three claims were checked and **not reproduced**: the 254/279 row counts, the blank Lions status cells, and 'no game status for Baltimore or the Chargers' ([FLG-030](flagged.html), the Lions cells in R062, and [FLG-028](flagged.html) superseded).
+- Requirement readiness is unchanged in outcome: no model output, backtest or strategy is validated by this update. Blockers remain the price-data policy, the depth-source route, and the missing dated snapshot series.
 ## 1. What this project now is
 
 A data-to-price pipeline with a review discipline attached:
