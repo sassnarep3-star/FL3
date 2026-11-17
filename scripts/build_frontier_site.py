@@ -90,9 +90,10 @@ IRREGULARITIES = [
      "No Week 11 designation is published anywhere on this site. Expected availability for"
      " Week 11 is left blank."),
 ]
-IRREG_ROWS = "".join(
-    f"<tr><td><b>{i}</b></td><td>{w}</td><td>{ev}</td><td>{h}</td></tr>"
-    for i, w, ev, h in IRREGULARITIES)
+IRREG_ROWS = [
+    [f"<b>{i}</b>", w, ev, h]
+    for i, w, ev, h in IRREGULARITIES
+]
 
 
 def build_spec():
