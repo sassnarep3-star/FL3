@@ -2095,3 +2095,13 @@ and the retry merged cleanly. `check_verified_site.py` now runs 645 assertions (
   `data/captures_week10_results.csv` with the settled PIT@CIN 18–38 and the LAC@BAL final; the file is
   owned by session `arena/e4d6c8c1` and its 2026-11-16 capture is a correct point-in-time record, so
   the update is a versioned new capture, not an in-place edit.
+
+## CI evidence note for the merge head (2026-11-17 UTC)
+
+On head `cd67882` the `verify.yml` ("Verify data and site") and `site.yml` ("site") workflows passed.
+The `pages.yml` workflow run was **cancelled** by the `pages-gate` concurrency group
+(`cancel-in-progress: true`) — the same infrastructure artifact earlier sessions recorded; a
+cancelled run cannot be re-run. All three `pages.yml` validate steps were therefore reproduced
+locally on the identical tree and exit 0: root/subsite completeness checks, `check_site.py`
+(3,429 assertions, ALL CHECKS PASSED) and `verify_live.py --check` (15 claims, exit 0). This note is
+the commit that re-triggers CI on the final merge head.
