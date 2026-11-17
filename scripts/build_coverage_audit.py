@@ -322,6 +322,33 @@ def main() -> int:
     )
 
     gaps = [r for r in rows if r["binding_state"] == "BLOCKED"]
+
+    # AUD-01 is computed, not hardcoded, so it cannot go stale: the backtest-corpus
+    # metric once pinned "136 eligible game records" while the verified corpus held
+    # 148 settled games. Whether that mismatch is still present is read live from
+    # the register at build time.
+    r020_metric = by_id["R020"]["clearance_metric"]
+    results_csv = ROOT / "data" / "week_results_2026.csv"
+    corpus_games = sum(1 for _ in results_csv.open(encoding="utf-8-sig")) - 1
+    if "136" in r020_metric:
+        aud01_state = "OPEN"
+        aud01_text = (
+            f'The readiness register\'s backtest-corpus metric (R020) still reads "{esc(r020_metric[:180])}" - '
+            f"it pins the brief's 136-game figure while the verified results corpus holds "
+            f"<b>{corpus_games}</b> settled games (data/week_results_2026.csv). The clearance metric must be "
+            "restated by the register's owner before R020 can clear; this audit publishes the mismatch "
+            "instead of editing the register."
+        )
+    else:
+        aud01_state = "RESOLVED"
+        aud01_text = (
+            "Raised by session <code>arena/6c7144be-fl3</code>: R020's clearance metric then pinned the brief's "
+            '"136 eligible game records" while the verified results corpus holds '
+            f"<b>{corpus_games}</b> settled games (data/week_results_2026.csv). The register owners have since "
+            "restated the metric; it now reads "
+            f'"{esc(r020_metric[:180])}" and no longer pins a stale count. Recorded here as raised-and-resolved '
+            "so the delta stays published rather than being silently rewritten."
+        )
     html = f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -368,11 +395,8 @@ as register-internal additions at the bottom.</div>
 <h2>Audit findings (irregularities, not silently corrected)</h2>
 <table><thead><tr><th>ID</th><th>Finding</th><th>Evidence</th></tr></thead>
 <tbody>
-<tr><td class="mono">AUD-01</td><td>The readiness register's backtest-corpus metric still reads
-"exactly the predeclared <b>136</b> eligible game records" (R020), while the verified results corpus
-holds <b>148</b> settled games (data/week_results_2026.csv). The clearance metric predates the
-larger verified corpus and must be restated by the register's owner before R020 can clear;
-this audit publishes the mismatch instead of editing the register.</td>
+<tr><td class="mono">AUD-01 <span class="badge" style="background:{"#8b1a1a" if aud01_state == "OPEN" else "#2f6f3f"}">{aud01_state}</span></td>
+<td>{aud01_text}</td>
 <td><a href="../board/readiness.html">R020</a> &middot; <a href="../verified/index.html">verified corpus</a></td></tr>
 <tr><td class="mono">AUD-02</td><td>Two register rows describe the same brief requirement twice
 (R002/R068 results feed; R017/R069 luck panel) because two sessions registered the same bullet

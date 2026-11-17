@@ -1,5 +1,5 @@
 bullet_id,brief_requirement,readiness_ids,register_states,binding_state,detail_page
-B01,Add a price-snapshot store that records opening and closing numbers for every market we originate,R001,BLOCKED,BLOCKED,board/lines.html
+B01,Add a price-snapshot store that records opening and closing numbers for every market we originate,R001,PARTIAL,PARTIAL,board/../week11.html
 B02,Add a verified results feed so backtests and ROI can be computed at all,R002;R068,PARTIAL;PARTIAL,PARTIAL,board/games.html;board/results.html
 B03,"Originate the side first, then the total, then the moneyline",R003,DESIGN ONLY,DESIGN ONLY,board/signals.html
 B04,"Publish the model's fair line, the market line, and the difference as separate columns",R004,PARTIAL,PARTIAL,board/lines.html
@@ -21,8 +21,8 @@ B19,Turn the 136-game log into the pre-registered backtest corpus,R020,PARTIAL,P
 B20,Decide the price-data policy before any backtest is published,R021,BLOCKED,BLOCKED,board/questions.html
 B21,"Store every injury-hub read with its clock time and publish the delta, never the level",R022,PARTIAL,PARTIAL,board/injuries.html
 B22,"Put a decision-readiness table on the landing page: one row per requirement, with the gate that blocks it and the number that would clear it",R023,IMPLEMENTED HERE,IMPLEMENTED HERE,board/readiness.html
-B23,Transcribe the venue of every fixture from the official game centre and publish it,R024,PARTIAL,PARTIAL,board/games.html
-B24,Publish the league's dated schedule announcement beside the live schedule page,R025,NOT STARTED,NOT STARTED,board/games.html
+B23,Transcribe the venue of every fixture from the official game centre and publish it,R024,IMPLEMENTED HERE,IMPLEMENTED HERE,board/../week11.html
+B24,Publish the league's dated schedule announcement beside the live schedule page,R025,PARTIAL,PARTIAL,board/games.html
 B25,Use official NFL Game Books for actual starters and game-day status; do not infer depth rank or snaps,R026,BLOCKED,BLOCKED,board/injuries.html
 B26,Ingest game-level results to make the ratings opponent-aware,R027,PARTIAL,PARTIAL,board/games.html
 B27,"Add injury and personnel ablations instead of fixed penalties (compare identical models with and without verified availability features using chronological holdouts, and report the difference with uncertainty)",R028;R029,IMPLEMENTED;IMPLEMENTED,IMPLEMENTED,board/ablations.html
@@ -30,7 +30,7 @@ B28,"Automate immutable multi-day availability snapshots (official report and cl
 B29,"Build immutable official availability snapshots (scheduled capture of NFL injury reports, club depth pages and inactive evidence with raw hashes, timestamps and conflict flags)",R030;R038,PARTIAL;PARTIAL,PARTIAL,board/verification.html
 B30,Capture official inactive lists and snap counts,R038;R045,PARTIAL;NOT STARTED,NOT STARTED,board/questions.html;board/verification.html
 B31,Fix the two depth-parsing failures before widening coverage (Texans image chart; Packers jersey-number prefixes),R063;R072,REVIEW REQUIRED;PARTIAL,REVIEW REQUIRED,board/depth-evidence.html;board/questions.html
-B32,"Model depth slots as groups, not a single starter",R071;R075,PARTIAL;NOT STARTED,NOT STARTED,board/depth-evidence.html;board/flagged.html
+B32,"Model depth slots as groups, not a single starter",R071;R075,PARTIAL;PARTIAL,PARTIAL,board/../week11.html;board/depth-evidence.html
 B33,Treat roster turnover as a first-class data event,R065,REVIEW REQUIRED,REVIEW REQUIRED,board/flagged.html
 B34,"Start with a singles-only shadow baseline (pre-register a simple team-strength model, freeze versions and record forecasts before kickoff)",R057,PARTIAL,PARTIAL,board/leaderboard.html
 B35,Keep parlays and prop combos behind a joint-evidence gate,R058,BLOCKED,BLOCKED,board/correlation.html
@@ -41,16 +41,16 @@ B39,Split the site into a public analysis layer and a private data layer,R031,DE
 B40,"Add a per-team view: starters out, replacements named, net injury count",R032,PARTIAL,PARTIAL,board/injuries.html
 B41,Add an announced-starter evidence field (not an inferred replacement),R033,PARTIAL,PARTIAL,board/injuries.html
 B42,Add an official depth-chart register with date and source per row,R034,PARTIAL,PARTIAL,board/injuries.html
-B43,"Calibrate what ""Questionable"" means empirically instead of using old percentages",R035,NOT STARTED,NOT STARTED,board/injuries.html
+B43,"Calibrate what ""Questionable"" means empirically instead of using old percentages",R035,IMPLEMENTED HERE,IMPLEMENTED HERE,board/../availability.html
 B44,Interactive Offense vs. Defense Matchup Deficiency Matrix (1st-4th String),R036,PARTIAL,PARTIAL,board/matchups.html
 B45,Flag stale depth rows against the official transactions log,R037,PARTIAL,PARTIAL,board/flagged.html
 B46,"Point-in-Time Snapshot Ledger for Injuries, Depth Charts & Inactives",R038,PARTIAL,PARTIAL,board/verification.html
 B47,Populate the three missing Lions game-status designations,R062,VERIFIED,VERIFIED,board/flagged.html
 B48,Re-capture and republish the Week 10 injury tables,R039;R061,PARTIAL;PARTIAL,PARTIAL,board/flagged.html
 B49,"Reject: deriving depth order from jersey number, experience or salary",R040,IMPLEMENTED POLICY,IMPLEMENTED POLICY,board/verification.html
-B50,Represent shared and empty depth slots faithfully,R041;R064,NOT STARTED;REVIEW REQUIRED,REVIEW REQUIRED,board/injuries.html
+B50,Represent shared and empty depth slots faithfully,R041;R064,PARTIAL;REVIEW REQUIRED,REVIEW REQUIRED,board/../availability.html;board/injuries.html
 B51,Resolve the depth-order source before building the backup-deficiency feature,R042,BLOCKED,BLOCKED,board/questions.html
-B52,Score injury-designation reliability before using it as a feature,R043,NOT STARTED,NOT STARTED,board/validation.html
+B52,Score injury-designation reliability before using it as a feature,R043,IMPLEMENTED HERE,IMPLEMENTED HERE,board/../availability.html
 B53,"Snapshot the nfl.com injury report every Wed, Thu and Fri and keep a dated history",R044,PARTIAL,PARTIAL,board/injuries.html
 B54,"Treat the injury report as a timestamped series, not a weekly snapshot",R013;R022;R044,PARTIAL;PARTIAL;PARTIAL,PARTIAL,board/injuries.html
 B55,Use snap counts as the starter proxy when the depth chart is unavailable,R045,NOT STARTED,NOT STARTED,board/questions.html
@@ -63,7 +63,7 @@ B61,Publish every model total twice until one wins,R051,PARTIAL,PARTIAL,board/mo
 B62,Add a drift alarm to every scraper,R052,PARTIAL,PARTIAL,board/verification.html
 B63,Capture the reserve list so 'not listed' never means 'available',R053,PARTIAL,PARTIAL,board/injuries.html
 B64,Reject: ranking strategies by season-long ROI,R074,REJECT SHORTCUT,REJECT SHORTCUT,board/readiness.html
-B65,Archive weekly injury reports for past seasons,R054,NOT STARTED,NOT STARTED,board/questions.html
+B65,Archive weekly injury reports for past seasons,R054,PARTIAL,PARTIAL,board/../availability.html
 B66,Pre-register each strategy (definition frozen before results are seen),R009;R055,PARTIAL;PARTIAL,PARTIAL,board/signals.html
 B67,2026 Kickoff & Declared Onside-Kick Regime Priors Filter,R067,UNVERIFIED,UNVERIFIED,board/league-facts.html
 B68,Freeze a rule before it sees data (pre-registration; the commit hash is the registration),R055,PARTIAL,PARTIAL,board/signals.html
