@@ -1402,9 +1402,22 @@ python3 scripts/verify_depth.py      # 16 checks, 0 failures
 python3 scripts/check_depth_links.py # 9 depth pages, no breakage
 ```
 
-## PR / merge / deploy record
+## T34 — PR, merge, deploy (done, 2026-11-17 UTC)
 
-See the follow-up section appended after the merge (same session, T34).
+| Item | Value |
+|---|---|
+| Pull request | [#41 — Final acceptance audit and independent official-source verification (session arena/ff321d9c-fl3)](https://github.com/sassnarep3-star/FL3/pull/41) |
+| PR checks | `Recompute and verify` pass · `validate` pass · `verify-and-build` pass (deploy job correctly skipped on the PR event) |
+| Merge state on open | `MERGEABLE` — `main` had advanced to `175f622` (PR #40, which also touched `COORDINATION.md`) during the PR's life; the merge resolved cleanly with no content conflict |
+| Merge result | **Merged** into `main` at 2026-11-17T02:45:27Z, merge commit `947fbbc0eeacbf03c26548a28a173cd745cf5f88` (`gh pr merge 41 --merge`, no `--auto`, no approval waited, per the brief) |
+| Post-merge CI | `Verify data and site` success · `site` success · `Deploy static site to GitHub Pages` success · `pages build and deployment` success |
+| Pages status | `gh api repos/sassnarep3-star/FL3/pages` → `status: built`, legacy source `main:/`, URL https://sassnarep3-star.github.io/FL3/ |
+| Live check | Root landing page fetched after deploy (cache-busted `?v=pr41`) and confirmed serving the dashboard, the dashboard-comparison table and all navigation; all seven published tracks reachable |
+| Irregularities | None new; no backtest/ROI/skill claim added. Flagged-for-Review and source-gap items remain published for the owner's review and do not block the merge |
+
+**Status: all three tasks (T32, T33, T34) done.** This session's scope is closed. The repository on
+`main` is the verified state: every suite green, the site live, and the decision-readiness,
+suggestions and flagged-for-review registers published as the brief requires.
 
 ---
 
