@@ -30,6 +30,7 @@ PAGES = {
     "lines.html": "Our Lines",
     "injuries.html": "Injuries",
     "matchups.html": "Matchup matrix",
+    "ablations.html": "Ablations",
     "data-snapshots.html": "Data snapshots",
     "strategies.html": "Strategies",
     "correlation.html": "Correlation",
@@ -860,6 +861,137 @@ python3 scripts/check_site.py</code></pre>
 
 
 # ---------------------------------------------------------------------------
+def build_ablations(ab: dict) -> str:
+    """Readiness R028/R029: injury/availability ablation on a chronological holdout."""
+    meta = ab["meta"]
+    s = ab["summary"]
+    on, off, diff = s["availability_on"], s["availability_off"], s["paired_difference"]
+    n = on["n"]
+
+    def ci(v):
+        return "—" if not v else f"[{v[0]:.2f}, {v[1]:.2f}]"
+
+    stats = "".join(
+        [
+            stat(str(n), "holdout games (Week 10)", "chronological holdout"),
+            stat(str(meta["inputs"]["results"].get("calibration_window", "Weeks 1-9").split(" ")[-1]),
+                 "calibration games", "Weeks 1-9"),
+            stat(f"{on['spread_mae']:.2f}", "spread MAE · availability ON", f"95% CI {ci(on['spread_mae_ci95'])}"),
+            stat(f"{diff['total_mae']['diff_on_minus_off']:+.2f}",
+                 "paired total-MAE diff (ON - OFF)", f"95% CI {ci(diff['total_mae']['diff_ci95'])}"),
+        ]
+    )
+
+    # summary table
+    srows = []
+    for label, v in (("availability ON", on), ("availability OFF", off)):
+        srows.append([
+            label, str(v["n"]),
+            f"{v['spread_mae']:.2f}", ci(v["spread_mae_ci95"]), f"{v['spread_rmse']:.2f}",
+            f"{v['total_mae']:.2f}", ci(v["total_mae_ci95"]), f"{v['total_rmse']:.2f}",
+            f"{v['brier']:.4f}", ci(v["brier_ci95"]),
+        ])
+    summary_tbl = table(
+        ["variant", "n", "spread MAE", "spread MAE 95% CI", "spread RMSE",
+         "total MAE", "total MAE 95% CI", "total RMSE", "Brier", "Brier 95% CI"],
+        srows,
+    )
+
+    # paired differences
+    drows = []
+    for metric, label in (("spread_mae", "Spread MAE"), ("total_mae", "Total MAE"), ("brier", "Brier")):
+        m = diff[metric]
+        spans_zero = m["diff_ci95"][0] <= 0 <= m["diff_ci95"][1]
+        drows.append([
+            label, str(diff["n"]),
+            f"{m['diff_on_minus_off']:+.4f}", ci(m["diff_ci95"]),
+            f'<span class="badge {"warn" if spans_zero else "good"}">'
+            f'{"includes zero" if spans_zero else "excludes zero"}</span>',
+            e(m["verdict"]),
+        ])
+    diff_tbl = table(["metric", "n", "diff (ON - OFF)", "95% CI", "CI excludes zero?", "verdict"], drows)
+
+    # per-game table
+    grows = []
+    for g in ab["games"]:
+        grows.append([
+            f'{e(g["game_date"])}',
+            f'{e(g["away"])} @ {e(g["home"])}',
+            f'{g["actual_away_pts"]}-{g["actual_home_pts"]}',
+            f'{g["pred_margin_avail_on"]:+.1f}',
+            f'{g["pred_margin_avail_off"]:+.1f}',
+            f'{g["spread_err_on"]:.1f}',
+            f'{g["spread_err_off"]:.1f}',
+            f'{g["total_err_on"]:.1f}',
+            f'{g["total_err_off"]:.1f}',
+            f'{g["brier_on"]:.3f}',
+            f'{g["brier_off"]:.3f}',
+            src_link(g["results_source_url"], "results"),
+        ])
+    games_tbl = table(
+        ["date", "game", "final", "margin ON", "margin OFF",
+         "spread err ON", "spread err OFF", "total err ON", "total err OFF",
+         "Brier ON", "Brier OFF", "src"],
+        grows,
+    )
+
+    excl = "".join(f"<li>{e(x)}</li>" for x in meta["exclusions"])
+    lims = "".join(f"<li>{e(x)}</li>" for x in meta["limitations"])
+
+    body = f"""
+<section class="lead">
+  <h1>Injury / availability ablation</h1>
+  <p>{e(meta["title"])}. The brief replaces fixed injury penalties with <em>measured</em>
+  ablations: the identical originated-line model is run twice on the same chronological holdout,
+  once <strong>with</strong> the verified availability features (Week 10 official injury-report game
+  statuses) and once <strong>without</strong> them. {badge("model evaluation", "model")}
+  These numbers are <strong>not</strong> leaderboard entries - the brief forbids backtest numbers on
+  the leaderboard.</p>
+</section>
+<section>{stats}</section>
+<section>
+  <h2>Head-to-head summary</h2>
+  <p>Both variants use identical power ratings (calibrated on verified Weeks 1-9 only) and differ
+  <strong>only</strong> in whether the capped availability adjustment is applied.</p>
+  {summary_tbl}
+</section>
+<section>
+  <h2>Paired difference with uncertainty</h2>
+  <p>Each row resamples the {n} holdout games (bootstrap, seed 20261117, 20000 reps). A CI that
+  spans zero means the availability features do not demonstrate a measurable change - no skill
+  advantage is claimed.</p>
+  {diff_tbl}
+</section>
+<section>
+  <h2>Per-game detail</h2>
+  {games_tbl}
+</section>
+<section>
+  <h2>Method</h2>
+  <p>{e(meta["method"])}</p>
+</section>
+<section>
+  <h2>Exclusions</h2>
+  <ul>{excl}</ul>
+</section>
+<section>
+  <h2>Limitations</h2>
+  <ul>{lims}</ul>
+</section>
+<section>
+  <h2>Sources</h2>
+  <ul>
+    <li>Week 10 results: {src_link(meta["inputs"]["results"]["src"], "NFL.com Week 10 schedule")} -
+        file <code>data/week_results_2026.csv</code></li>
+    <li>Availability (injury game status): {src_link(meta["inputs"]["availability"]["src"], "NFL.com injury report")} -
+        file <code>data/injuries_week10.json</code></li>
+    <li>Ratings: {src_link(meta["inputs"]["ratings"]["src"], "NFL.com standings")}</li>
+  </ul>
+</section>
+"""
+    return page("Ablations", body, "ablations.html")
+
+
 def main():
     standings = load("standings.json")
     lines = load("lines_week10.json")
@@ -871,6 +1003,7 @@ def main():
     sug = load("suggestions.json")
     flag = load("flagged.json")
     src = load("sources.json")
+    ablations = load("ablations_week10.json")
     readiness = read_requirement_rows()
     official_sources = read_source_registry()
 
@@ -886,6 +1019,7 @@ def main():
         "flagged.html": build_flagged(flag),
         "sources.html": build_sources(src),
         "methodology.html": build_methodology(standings, luck, corr, lines),
+        "ablations.html": build_ablations(ablations),
     }
     for name, content in out.items():
         with open(os.path.join(ROOT, name), "w", encoding="utf-8") as fh:

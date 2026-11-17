@@ -29,6 +29,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
 PAGES = ["index.html", "standings.html", "lines.html", "injuries.html", "matchups.html",
+         "ablations.html",
          "strategies.html", "correlation.html", "decisions.html", "suggestions.html",
          "flagged.html", "sources.html", "methodology.html",
          # verified-snapshot pages (session arena-fl3-60ee336e, integration 2026-11-14):
@@ -341,6 +342,35 @@ def check_matchup_matrix():
                   f"M: bare None in {r['game_id']}/{r['unit']} {col}")
 
 
+def check_ablations():
+    """AB. injury/availability ablation (R028/R029): the page exists, every holdout
+    game row carries an official results source, the summary matches the JSON, and
+    the honest no-skill wording is published."""
+    ab = load("ablations_week10.json")
+    s = ab["summary"]
+    on, off, diff = s["availability_on"], s["availability_off"], s["paired_difference"]
+    check(on["n"] == off["n"] == diff["n"], "AB: holdout n differs between variants")
+    check(len(ab["games"]) == on["n"], "AB: per-game rows do not match the reported n")
+    for g in ab["games"]:
+        check(g["results_source_url"].startswith("https://www.nfl.com"),
+              f"AB: {g['away']}@{g['home']} has a non-official results source")
+    page = open(os.path.join(ROOT, "ablations.html"), encoding="utf-8").read()
+    for phrase in ("Injury / availability ablation", "Head-to-head summary",
+                   "Paired difference with uncertainty", "Per-game detail",
+                   "model evaluation", "not", "leaderboard"):
+        check(phrase in page, f"AB: ablations.html does not publish '{phrase}'")
+    # the honest interpretation must be present, not a skill claim
+    check("no skill advantage is claimed" in page.lower() or
+          "do not demonstrate a measurable" in page.lower(),
+          "AB: ablations.html does not publish the no-demonstrated-change wording")
+    # summary numbers rendered on the page must match the JSON
+    check(f"{on['spread_mae']:.2f}" in page, "AB: ON spread MAE not rendered on the page")
+    check(f"{off['spread_mae']:.2f}" in page, "AB: OFF spread MAE not rendered on the page")
+    # depth-tier features must be explicitly excluded (R042 gate)
+    check("Depth-tier" in page or "depth-tier" in page,
+          "AB: ablations.html does not state the depth-tier exclusion")
+
+
 def main() -> None:
     check_arithmetic()
     check_completeness()
@@ -352,6 +382,7 @@ def main() -> None:
     check_flags_published()
     check_readiness_register()
     check_matchup_matrix()
+    check_ablations()
 
     print(f"ran {checks} assertions")
     if warnings:
