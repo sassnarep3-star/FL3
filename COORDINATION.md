@@ -1889,5 +1889,5 @@ check_verified_site / check_verify / check_links / verify.py G-10 / verify_depth
 
 | Item | Result |
 |---|---|
-| Pull request | [#50 — Fix character-split table rendering on index.html and spec.html + regression check](https://github.com/sassnarep3-star/FL3/pull/50) |
+| Pull request | [#51 — Fix character-split table rendering on index.html and spec.html + regression check](https://github.com/sassnarep3-star/FL3/pull/51) |
 | Merge | merged into `main` (see the follow-up record for the commit and deploy runs) |
