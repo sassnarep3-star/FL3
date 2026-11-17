@@ -139,6 +139,14 @@ def main() -> int:
         check("UNVERIFIED" not in txt or p in ("index.html", "verification.html", "review.html", "method.html"),
               f"{p}: stray UNVERIFIED marker")
         check("<title>" in txt and "<h1>" in txt, f"{p}: missing title or h1")
+        # malformed nesting is invisible to a data check and renders as literal
+        # markup in some readers - assert balance on the inline tags actually used
+        # count opening tags that may carry attributes, e.g. <td class="mono">
+        for tag in ("b", "td", "tr", "table", "span"):
+            n_open = len(re.findall(rf"<{tag}[ >]", txt))
+            n_close = txt.count(f"</{tag}>")
+            check(n_open == n_close,
+                  f"{p}: unbalanced <{tag}> tags ({n_open} open, {n_close} close)")
 
         lp = Links()
         lp.feed(txt)
