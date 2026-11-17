@@ -18,6 +18,7 @@
 | Session ID | Branch | Scope | Started (UTC) |
 |---|---|---|---|
 | `arena/9d05cb63-fl3` | `arena/9d05cb63-fl3` | Repo review, official-source verification, and session closeout (PR + merge + Pages deploy record). No dataset or page content changed; only COORDINATION.md session records. | 2026-11-16 |
+| `arena/4d2c9111-fl3` | `arena/4d2c9111-fl3` | T32: injury/availability ablation with chronological holdout and uncertainty (R028/R029). New ablation script + datasets + `ablations.html` page; wired into root nav, board PAGES, and verifiers. | 2026-11-17 |
 
 Other sessions: **one competing session was discovered after this session's first push.**
 
@@ -63,6 +64,7 @@ and both pushed before either claim was visible. This is the exact race the prot
 | T17 | Merge-conflict resolution vs `arena/39f57d31-fl3` | **done** | `arena-e8bf2075` | `COORDINATION.md`, `README.md`, `index.html`, `assets/site.css`, `scripts/check_site.py` |
 | T18 | Archive the competing blueprint without discarding it | **done** | `arena-e8bf2075` | `legacy/**` |
 | T19 | Fold the other session's findings into the registers | **done** | `arena-e8bf2075` | `data/flagged.json`, `data/decisions.json`, `data/suggestions.json` |
+| T32 | Injury/availability ablation with chronological holdout and uncertainty (R028/R029) — compare the identical line model with and without verified availability features on a chronological holdout; publish MAE/RMSE/Brier with bootstrap CIs and an explicit n; no backtest numbers on the leaderboard | **in progress** | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
 
 **File ownership rule for future sessions:** `data/standings.json`, `data/sources.json`,
 `data/flagged.json` and every `*.html` at repo root are **shared outputs**. They are regenerated
@@ -1552,3 +1554,48 @@ What the session establishes is the measurement apparatus, not an edge.
 5. **Determine which of the seven published dashboards is canonical.** This session's answer is
    `verified/`, on the evidence that it is the only one whose corpus reconciles. That is an
    argument, not a decision — the owner should make it.
+---
+
+---
+
+# Session `arena/4d2c9111-fl3` — claim, scope and record (2026-11-17 UTC)
+
+**Session ID:** `arena/4d2c9111-fl3` · **Branch:** `arena/4d2c9111-fl3` · **Base:** `main@0e51cf8`
+**Started:** 2026-11-17. Sole session on this branch.
+
+## Claim (2026-11-17 UTC)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T32 — Injury/availability ablation with chronological holdout and uncertainty (readiness **R028/R029**) | in progress | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
+
+The brief asks twice to replace fixed injury penalties with measured ablations: *"Add injury/depth
+ablations, not fixed penalties — compare identical models with and without verified availability
+features using chronological holdouts"* (R028/R029). This was **NOT STARTED** in the readiness register.
+This session implements exactly that: one deterministic ablation harness that runs the identical
+originated-line model twice — once **with** the verified availability features (Week 10 official
+injury-report game statuses) and once **without** them — on a **chronological holdout**, scores both
+against the verified Week 10 results, and publishes MAE / RMSE / Brier with **bootstrap 95% CIs and
+an explicit n**. No backtest numbers are placed on the leaderboard (the brief forbids it); the
+ablation is a model-evaluation study on its own page.
+
+**Evidence rules for T32:**
+- Availability features come **only** from the verified official injury report (`data/injuries_week10.json`,
+  game status Out/Doubtful/Questionable). Depth-*tier* features are deliberately **excluded**: the
+  depth-tier source is unverified for most clubs (R042 is BLOCKED), so the brief's own gate forbids
+  building the depth feature until a route is verified for all 32 clubs.
+- Results come **only** from the verified per-game results corpus (`data/week_results_2026.csv`,
+  every row `https://www.nfl.com/...`). Standings are reconstructed deterministically from that corpus.
+- The two variants differ **only** in whether the availability adjustment is applied; every other
+  constant, rating and input is identical.
+- Uncertainty is a bootstrap over the holdout games (fixed seed, deterministic). If a CI includes
+  zero, the result is stated as "no demonstrated difference", never as skill.
+- Model output is badged as model output everywhere; no bet, no market quote.
+
+**Not claimed and not touched:** `data/injuries_2026_w10.csv` and the 160-row model input (owned by
+the injury-capture sessions; FLG-042/043 remain flagged), `data/depth_charts_*.json`, `depth/**`,
+`docs/**`, `site-9b181d31/**`, `legacy/**`, `.github/**`, `models/**`, every other readiness row,
+and the leaderboard data.
+
+**Baseline checks run before editing:** `verify.py` G-10 PASS (non-blocking V-09b/FLG-025);
+`check_site.py` 3,064 assertions ALL PASSED; `check_links.py` 29 pages PASS.
