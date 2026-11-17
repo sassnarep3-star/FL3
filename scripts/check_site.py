@@ -605,7 +605,10 @@ def check_frontier_datasets() -> None:
             ("PD-01", "week11.html"), ("NORTHWEST STADIUM", "week11.html"),
             ("Questionable", "availability.html"), ("DEMOTED", "lab.html"),
             ("cluster", "lab.html"), ("multiplicity", "lab.html"),
-            ("ablation", "lab.html"), ("blank", "spec.html")]:
+            ("ablation", "lab.html"), ("blank", "spec.html"),
+            # a count that drifted once already: Week 10 must read thirteen finals,
+            # never twelve, now that PIT@CIN is settled.
+            ("thirteen", "results.html")]:
         check(needle.lower() in open(_os.path.join(ROOT, page_name), encoding="utf-8").read().lower(),
               f"FR: {page_name} does not publish '{needle}'")
 
