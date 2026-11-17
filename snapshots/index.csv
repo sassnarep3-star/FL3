@@ -1,3 +1,4 @@
 capture_utc,report,season,week,url,http_status,bytes,sha256,raw_path,player_links,change_vs_previous,result
 2026-11-17T02:59:27Z,injuries,2026,11,https://www.nfl.com/injuries/league/2026/reg11,200,375756,a4b917e46806d7a2f432521c21cc6d8445304dbc2d0ce300dde1d220443cd378,,0,n/a,redirected:reg10
 2026-11-17T03:14:10Z,injuries,2026,11,https://www.nfl.com/injuries/league/2026/reg11,200,375756,d1a478544c98b8a31444addf8e15971d83f2b8b043a11afa8e84892b5931e3e7,,0,n/a,redirected:reg10
+2026-11-17T03:17:32Z,injuries,2026,11,https://www.nfl.com/injuries/league/2026/reg11,200,375756,d1a478544c98b8a31444addf8e15971d83f2b8b043a11afa8e84892b5931e3e7,,0,n/a,redirected:reg10

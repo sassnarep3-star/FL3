@@ -1,0 +1,1247 @@
+{
+ "meta": {
+  "games": 148,
+  "z_crit_95": 1.96,
+  "z_crit_bonferroni": 2.8653,
+  "weeks": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10
+  ],
+  "strategies": 4,
+  "controls": 4,
+  "comparisons": 12,
+  "alpha": 0.05,
+  "bonferroni_alpha": 0.004166666666666667,
+  "zero_inside_interval_rule": "materially-zero: a 95% interval that contains 0 cannot establish skill, and this page will not call it skill",
+  "bootstrap": "4000 game-cluster resamples, seed 20261117",
+  "price_policy": "no licensed price is held, so ROI and CLV are not computed and not implied",
+  "dataset": "retrospective",
+  "estimator_families": "A = pace (mean of both clubs' game totals). B = offence only (league total plus each club's scoring deviation). C = pace plus the whole home-field term. Three different quantities, published side by side until one wins walk-forward (R051).",
+  "regime_split": "every strategy is also evaluated on two disjoint slices \u2014 weeks 2-6, where every club has seen fewer than six games, and weeks 7-10, where it has seen more. A strategy whose edge only exists in one regime has not been shown to generalise.",
+  "method_version": "compare-1.1"
+ },
+ "calibration": {
+  "S1": [
+   {
+    "lo": 0.0,
+    "hi": 0.2,
+    "n": 5,
+    "pred": 0.1534128,
+    "actual": 0.4
+   },
+   {
+    "lo": 0.2,
+    "hi": 0.4,
+    "n": 41,
+    "pred": 0.3127132682926829,
+    "actual": 0.34146341463414637
+   },
+   {
+    "lo": 0.4,
+    "hi": 0.5,
+    "n": 23,
+    "pred": 0.4534792608695653,
+    "actual": 0.30434782608695654
+   },
+   {
+    "lo": 0.5,
+    "hi": 0.6,
+    "n": 27,
+    "pred": 0.5483594814814814,
+    "actual": 0.6666666666666666
+   },
+   {
+    "lo": 0.6,
+    "hi": 0.8,
+    "n": 28,
+    "pred": 0.7073935714285715,
+    "actual": 0.39285714285714285
+   },
+   {
+    "lo": 0.8,
+    "hi": 1.0,
+    "n": 8,
+    "pred": 0.8363682499999999,
+    "actual": 1.0
+   }
+  ],
+  "S2": [
+   {
+    "lo": 0.0,
+    "hi": 0.2,
+    "n": 0,
+    "pred": null,
+    "actual": null
+   },
+   {
+    "lo": 0.2,
+    "hi": 0.4,
+    "n": 19,
+    "pred": 0.3517814210526316,
+    "actual": 0.2631578947368421
+   },
+   {
+    "lo": 0.4,
+    "hi": 0.5,
+    "n": 50,
+    "pred": 0.4508414599999999,
+    "actual": 0.38
+   },
+   {
+    "lo": 0.5,
+    "hi": 0.6,
+    "n": 38,
+    "pred": 0.5435786842105264,
+    "actual": 0.4473684210526316
+   },
+   {
+    "lo": 0.6,
+    "hi": 0.8,
+    "n": 25,
+    "pred": 0.6510144800000001,
+    "actual": 0.76
+   },
+   {
+    "lo": 0.8,
+    "hi": 1.0,
+    "n": 0,
+    "pred": null,
+    "actual": null
+   }
+  ],
+  "S3": [
+   {
+    "lo": 0.0,
+    "hi": 0.2,
+    "n": 8,
+    "pred": 0.142953875,
+    "actual": 0.375
+   },
+   {
+    "lo": 0.2,
+    "hi": 0.4,
+    "n": 37,
+    "pred": 0.31059678378378375,
+    "actual": 0.24324324324324326
+   },
+   {
+    "lo": 0.4,
+    "hi": 0.5,
+    "n": 26,
+    "pred": 0.4472539615384614,
+    "actual": 0.46153846153846156
+   },
+   {
+    "lo": 0.5,
+    "hi": 0.6,
+    "n": 22,
+    "pred": 0.5460409090909091,
+    "actual": 0.5909090909090909
+   },
+   {
+    "lo": 0.6,
+    "hi": 0.8,
+    "n": 25,
+    "pred": 0.7061986400000001,
+    "actual": 0.44
+   },
+   {
+    "lo": 0.8,
+    "hi": 1.0,
+    "n": 14,
+    "pred": 0.8416975714285714,
+    "actual": 0.8571428571428571
+   }
+  ],
+  "S4": [
+   {
+    "lo": 0.0,
+    "hi": 0.2,
+    "n": 1,
+    "pred": 0.142984,
+    "actual": 0.0
+   },
+   {
+    "lo": 0.2,
+    "hi": 0.4,
+    "n": 43,
+    "pred": 0.32065948837209307,
+    "actual": 0.3953488372093023
+   },
+   {
+    "lo": 0.4,
+    "hi": 0.5,
+    "n": 25,
+    "pred": 0.45575835999999986,
+    "actual": 0.2
+   },
+   {
+    "lo": 0.5,
+    "hi": 0.6,
+    "n": 29,
+    "pred": 0.5422216896551725,
+    "actual": 0.6551724137931034
+   },
+   {
+    "lo": 0.6,
+    "hi": 0.8,
+    "n": 32,
+    "pred": 0.7010099375000001,
+    "actual": 0.53125
+   },
+   {
+    "lo": 0.8,
+    "hi": 1.0,
+    "n": 2,
+    "pred": 0.834652,
+    "actual": 1.0
+   }
+  ]
+ },
+ "luck": {
+  "S1": {
+   "n": 132,
+   "expected_wins": 86.28534100000006,
+   "won": 83,
+   "luck": -3.2853410000000594,
+   "win_rate": 0.6287878787878788,
+   "expected_rate": 0.6536768257575762
+  },
+  "S2": {
+   "n": 132,
+   "expected_wins": 76.70543199999996,
+   "won": 81,
+   "luck": 4.294568000000041,
+   "win_rate": 0.6136363636363636,
+   "expected_rate": 0.5811017575757572
+  },
+  "S3": {
+   "n": 132,
+   "expected_wins": 88.18731699999996,
+   "won": 83,
+   "luck": -5.187316999999965,
+   "win_rate": 0.6287878787878788,
+   "expected_rate": 0.6680857348484845
+  },
+  "S4": {
+   "n": 132,
+   "expected_wins": 83.50075000000001,
+   "won": 85,
+   "luck": 1.4992499999999893,
+   "win_rate": 0.6439393939393939,
+   "expected_rate": 0.6325814393939395
+  }
+ },
+ "regimes": {
+  "S1": [
+   {
+    "weeks": "2-6",
+    "n": 77,
+    "margin_mae": 10.172864935064934,
+    "margin_mae_ci": [
+     8.302459253246758,
+     12.197125909090907
+    ],
+    "brier": 0.2603408231539999
+   },
+   {
+    "weeks": "7-10",
+    "n": 55,
+    "margin_mae": 10.14463636363636,
+    "margin_mae_ci": [
+     8.079700136363636,
+     12.330030954545453
+    ],
+    "brier": 0.19983627890016362
+   }
+  ],
+  "S2": [
+   {
+    "weeks": "2-6",
+    "n": 77,
+    "margin_mae": 9.259884415584418,
+    "margin_mae_ci": [
+     7.542756915584418,
+     11.076073766233765
+    ],
+    "brier": 0.24669991008389613
+   },
+   {
+    "weeks": "7-10",
+    "n": 55,
+    "margin_mae": 11.115965454545455,
+    "margin_mae_ci": [
+     8.976813227272729,
+     13.27146304545455
+    ],
+    "brier": 0.21696541008334547
+   }
+  ],
+  "S3": [
+   {
+    "weeks": "2-6",
+    "n": 77,
+    "margin_mae": 10.435442857142855,
+    "margin_mae_ci": [
+     8.378134480519478,
+     12.669677272727274
+    ],
+    "brier": 0.2560408055731559
+   },
+   {
+    "weeks": "7-10",
+    "n": 55,
+    "margin_mae": 10.291350909090914,
+    "margin_mae_ci": [
+     8.300352681818183,
+     12.36143690909091
+    ],
+    "brier": 0.19597898332210906
+   }
+  ],
+  "S4": [
+   {
+    "weeks": "2-6",
+    "n": 77,
+    "margin_mae": 9.758966233766232,
+    "margin_mae_ci": [
+     7.9179012662337644,
+     11.716507792207793
+    ],
+    "brier": 0.25444415782836366
+   },
+   {
+    "weeks": "7-10",
+    "n": 55,
+    "margin_mae": 10.450932727272727,
+    "margin_mae_ci": [
+     8.32242840909091,
+     12.554984409090913
+    ],
+    "brier": 0.20456777840254556
+   }
+  ]
+ },
+ "total_estimator_comparison": [
+  {
+   "window": "weeks 2-10, all games",
+   "n": 132,
+   "mae_a_pace": 11.558149242424241,
+   "mae_b_offence_only": 11.547180303030297,
+   "mae_c_pace_plus_hfa": 11.56061212121212,
+   "b_minus_a": {
+    "est": -0.010968939393944055,
+    "boot_sd": 0.25433348873747463,
+    "z": -0.04312817572076124,
+    "survives_bonferroni": false
+   },
+   "c_minus_a": {
+    "est": 0.002462878787879319,
+    "boot_sd": 0.034572157738622995,
+    "z": 0.07123879297611393,
+    "survives_bonferroni": false
+   },
+   "best": "B",
+   "established": false
+  },
+  {
+   "window": "weeks 2-6",
+   "n": 77,
+   "mae_a_pace": 12.192653246753247,
+   "mae_b_offence_only": 11.917402597402594,
+   "mae_c_pace_plus_hfa": 12.203619480519484,
+   "b_minus_a": {
+    "est": -0.275250649350653,
+    "boot_sd": 0.3263145475586959,
+    "z": -0.843513264762253,
+    "survives_bonferroni": false
+   },
+   "c_minus_a": {
+    "est": 0.0109662337662364,
+    "boot_sd": 0.04838138083425993,
+    "z": 0.22666227331963554,
+    "survives_bonferroni": false
+   },
+   "best": "B",
+   "established": false
+  },
+  {
+   "window": "weeks 7-10",
+   "n": 55,
+   "mae_a_pace": 10.669843636363638,
+   "mae_b_offence_only": 11.028869090909087,
+   "mae_c_pace_plus_hfa": 10.660401818181818,
+   "b_minus_a": {
+    "est": 0.3590254545454492,
+    "boot_sd": 0.3853242630145267,
+    "z": 0.9317488904972329,
+    "survives_bonferroni": false
+   },
+   "c_minus_a": {
+    "est": -0.009441818181819883,
+    "boot_sd": 0.047100020644507384,
+    "z": -0.2004631431710625,
+    "survives_bonferroni": false
+   },
+   "best": "C",
+   "established": false
+  }
+ ],
+ "strategies": [
+  {
+   "id": "S1",
+   "key": "net",
+   "label": "Net points per game",
+   "description": "one rating per club: (PF-PA)/G shrunk to the league mean; total from both clubs' own pace"
+  },
+  {
+   "id": "S2",
+   "key": "pfpa",
+   "label": "Offence meets defence",
+   "description": "own scoring rate against the opponent's concession rate; total is the two expected scores"
+  },
+  {
+   "id": "S3",
+   "key": "massey",
+   "label": "Opponent-aware least squares",
+   "description": "Massey ratings solved from the game graph, so a club is rated against whom it actually played"
+  },
+  {
+   "id": "S4",
+   "key": "pyth",
+   "label": "Pythagorean, luck-stripped",
+   "description": "Pythagorean win share mapped to a margin; tests whether home field also raises the total"
+  }
+ ],
+ "controls": [
+  {
+   "id": "C1",
+   "key": "coin",
+   "label": "Coin flip",
+   "description": "win probability 0.50 fixed"
+  },
+  {
+   "id": "C2",
+   "key": "home_always",
+   "label": "Home always wins",
+   "description": "win probability 1.00 for the home club"
+  },
+  {
+   "id": "C3",
+   "key": "pickem",
+   "label": "Pick'em margin",
+   "description": "predicted margin 0 for every game"
+  },
+  {
+   "id": "C4",
+   "key": "trailing_total",
+   "label": "Trailing league mean total",
+   "description": "predicted total = mean total of all games already played"
+  }
+ ],
+ "evaluation": [
+  {
+   "strategy": "S1",
+   "key": "net",
+   "base_rate": 0.47297297297297297,
+   "n_margin": 132,
+   "n_total": 132,
+   "n_win": 132,
+   "margin_mae": 10.161103030303037,
+   "margin_rmse": 13.332934533708308,
+   "margin_bias": 0.6812772727272729,
+   "margin_dispersion": 0.5134142107173864,
+   "margin_mae_ci": [
+    8.676061250000005,
+    11.644128314393937
+   ],
+   "margin_rmse_ci": [
+    11.529711784804974,
+    15.005196055105188
+   ],
+   "dir_acc": 0.6212121212121212,
+   "total_mae": 11.558149242424241,
+   "total_rmse": 14.212132595573639,
+   "total_bias": 0.6619356060606064,
+   "total_mae_ci": [
+    10.170747632575758,
+    13.015935700757575
+   ],
+   "total_rmse_ci": [
+    12.495177241556265,
+    15.992530259311678
+   ],
+   "brier": 0.23513059638156805,
+   "logloss": 0.6620408575092981,
+   "brier_ci": [
+    0.20617122416408798,
+    0.26419616483143293
+   ],
+   "brier_skill_vs_coin": 0.05947761447372779,
+   "brier_skill_vs_base": 0.05672150491907191,
+   "brier_diff_vs_coin_ci": [
+    -0.04382877583591201,
+    0.014196164831432927
+   ],
+   "label": "Net points per game",
+   "description": "one rating per club: (PF-PA)/G shrunk to the league mean; total from both clubs' own pace",
+   "kind": "strategy"
+  },
+  {
+   "strategy": "S2",
+   "key": "pfpa",
+   "base_rate": 0.47297297297297297,
+   "n_margin": 132,
+   "n_total": 132,
+   "n_win": 132,
+   "margin_mae": 10.03325151515152,
+   "margin_rmse": 12.945228827044557,
+   "margin_bias": 0.8782833333333334,
+   "margin_dispersion": 0.25748235086900434,
+   "margin_mae_ci": [
+    8.654237613636361,
+    11.437388200757582
+   ],
+   "margin_rmse_ci": [
+    11.294679772718949,
+    14.50748169017841
+   ],
+   "dir_acc": 0.6060606060606061,
+   "total_mae": 11.547180303030297,
+   "total_rmse": 14.320580599787146,
+   "total_bias": 0.6633560606060614,
+   "total_mae_ci": [
+    10.130092878787881,
+    13.037142499999993
+   ],
+   "total_rmse_ci": [
+    12.466729913618929,
+    16.284990313361543
+   ],
+   "brier": 0.23431053508366667,
+   "logloss": 0.6606547819043805,
+   "brier_ci": [
+    0.21856729403851669,
+    0.25009640071827705
+   ],
+   "brier_skill_vs_coin": 0.06275785966533332,
+   "brier_skill_vs_base": 0.06001136255079942,
+   "brier_diff_vs_coin_ci": [
+    -0.03143270596148332,
+    9.640071827704427e-05
+   ],
+   "label": "Offence meets defence",
+   "description": "own scoring rate against the opponent's concession rate; total is the two expected scores",
+   "kind": "strategy"
+  },
+  {
+   "strategy": "S3",
+   "key": "massey",
+   "base_rate": 0.47297297297297297,
+   "n_margin": 132,
+   "n_total": 132,
+   "n_win": 132,
+   "margin_mae": 10.375404545454545,
+   "margin_rmse": 13.632214046359367,
+   "margin_bias": 0.8190590909090912,
+   "margin_dispersion": 0.5790696026233689,
+   "margin_mae_ci": [
+    8.919876287878784,
+    11.89046893939394
+   ],
+   "margin_rmse_ci": [
+    11.761756901083574,
+    15.430371787908888
+   ],
+   "dir_acc": 0.6212121212121212,
+   "total_mae": 11.558149242424241,
+   "total_rmse": 14.212132595573639,
+   "total_bias": 0.6619356060606064,
+   "total_mae_ci": [
+    10.170747632575758,
+    13.015935700757575
+   ],
+   "total_rmse_ci": [
+    12.495177241556265,
+    15.992530259311678
+   ],
+   "brier": 0.23101504630188638,
+   "logloss": 0.6562936970328042,
+   "brier_ci": [
+    0.20043017868279078,
+    0.2633909225845636
+   ],
+   "brier_skill_vs_coin": 0.07593981479245449,
+   "brier_skill_vs_base": 0.07323194611785355,
+   "brier_diff_vs_coin_ci": [
+    -0.04956982131720922,
+    0.01339092258456359
+   ],
+   "label": "Opponent-aware least squares",
+   "description": "Massey ratings solved from the game graph, so a club is rated against whom it actually played",
+   "kind": "strategy"
+  },
+  {
+   "strategy": "S4",
+   "key": "pyth",
+   "base_rate": 0.47297297297297297,
+   "n_margin": 132,
+   "n_total": 132,
+   "n_win": 132,
+   "margin_mae": 10.047285606060601,
+   "margin_rmse": 13.113018337402169,
+   "margin_bias": 0.6199204545454544,
+   "margin_dispersion": 0.43497029333218223,
+   "margin_mae_ci": [
+    8.624749810606062,
+    11.481715795454551
+   ],
+   "margin_rmse_ci": [
+    11.428119850095031,
+    14.722013475399574
+   ],
+   "dir_acc": 0.6363636363636364,
+   "total_mae": 11.56061212121212,
+   "total_rmse": 14.238252446799356,
+   "total_bias": 0.9114545454545455,
+   "total_mae_ci": [
+    10.186148996212118,
+    13.035874109848484
+   ],
+   "total_rmse_ci": [
+    12.51061029125191,
+    16.02450792470214
+   ],
+   "brier": 0.23366233306760603,
+   "logloss": 0.6582421124828778,
+   "brier_ci": [
+    0.20885598695975888,
+    0.25885292189159115
+   ],
+   "brier_skill_vs_coin": 0.06535066772957587,
+   "brier_skill_vs_base": 0.06261176858739137,
+   "brier_diff_vs_coin_ci": [
+    -0.04114401304024113,
+    0.008852921891591132
+   ],
+   "label": "Pythagorean, luck-stripped",
+   "description": "Pythagorean win share mapped to a margin; tests whether home field also raises the total",
+   "kind": "strategy"
+  },
+  {
+   "strategy": "C1",
+   "key": "coin",
+   "label": "Coin flip",
+   "description": "win probability 0.50 fixed",
+   "kind": "control",
+   "n_win": 132,
+   "base_rate": 0.47297297297297297,
+   "brier": 0.25,
+   "logloss": 0.6931471805599462,
+   "brier_ci": [
+    0.25,
+    0.25
+   ],
+   "brier_skill_vs_coin": 0.0,
+   "brier_skill_vs_base": -0.002930402930403142
+  },
+  {
+   "strategy": "C2",
+   "key": "home_always",
+   "label": "Home always wins",
+   "description": "win probability 1.00 for the home club",
+   "kind": "control",
+   "n_win": 132,
+   "base_rate": 0.47297297297297297,
+   "brier": 0.5454545454545454,
+   "logloss": 7.535733486146878,
+   "brier_ci": [
+    0.4621212121212121,
+    0.6287878787878788
+   ],
+   "brier_skill_vs_coin": -1.1818181818181817,
+   "brier_skill_vs_base": -1.1882117882117882
+  },
+  {
+   "strategy": "C3",
+   "key": "pickem",
+   "label": "Pick'em margin",
+   "description": "predicted margin 0 for every game",
+   "kind": "control",
+   "n_margin": 132,
+   "margin_mae": 10.659090909090908,
+   "margin_rmse": 13.382768205736989,
+   "margin_bias": 0.8257575757575758,
+   "margin_dispersion": 0.0,
+   "margin_mae_ci": [
+    9.303030303030303,
+    12.053030303030303
+   ],
+   "margin_rmse_ci": [
+    11.844926031317597,
+    14.894935062149267
+   ],
+   "base_rate": 0.47297297297297297
+  },
+  {
+   "strategy": "C4",
+   "key": "trailing_total",
+   "label": "Trailing league mean total",
+   "description": "predicted total = mean total of all games already played",
+   "kind": "control",
+   "n_total": 132,
+   "total_mae": 11.364287878787874,
+   "total_rmse": 13.970394835264385,
+   "total_bias": 0.6676969696969703,
+   "total_mae_ci": [
+    9.986310321969695,
+    12.766747310606059
+   ],
+   "total_rmse_ci": [
+    12.348706934322136,
+    15.537659083255782
+   ],
+   "base_rate": 0.47297297297297297
+  }
+ ],
+ "verdicts": [
+  {
+   "strategy": "S1",
+   "label": "Net points per game",
+   "margin_gain_vs_pickem": -0.4979878787878711,
+   "margin_gain_material": false,
+   "margin_gain_ci": [
+    -1.337151520270259,
+    0.3999639020270382
+   ],
+   "brier_diff_vs_coin": -0.014869403618431948,
+   "brier_diff_ci": [
+    -0.038855583206270285,
+    0.011860216161211934
+   ],
+   "brier_material": false,
+   "margin_gain": -0.4833405405405333,
+   "margin_gain_boot_sd": 0.44774131054118127,
+   "margin_gain_z": -1.0795084776884303,
+   "margin_survives_bonferroni": false,
+   "brier_diff": -0.014467239984006786,
+   "brier_diff_boot_sd": 0.012913006376358479,
+   "brier_diff_z": -1.120361870996505,
+   "brier_survives_bonferroni": false,
+   "called_skillful": false,
+   "bonferroni_alpha": 0.004166666666666667
+  },
+  {
+   "strategy": "S2",
+   "label": "Offence meets defence",
+   "margin_gain_vs_pickem": -0.6258393939393887,
+   "margin_gain_material": false,
+   "margin_gain_ci": [
+    -1.0708599493243223,
+    -0.12135731418918741
+   ],
+   "brier_diff_vs_coin": -0.01568946491633333,
+   "brier_diff_ci": [
+    -0.028890527331324595,
+    -0.0009527179528067743
+   ],
+   "brier_material": false,
+   "margin_gain": -0.5973702702702681,
+   "margin_gain_boot_sd": 0.2457456267657062,
+   "margin_gain_z": -2.430848020094375,
+   "margin_survives_bonferroni": false,
+   "brier_diff": -0.015198646006459482,
+   "brier_diff_boot_sd": 0.007189616031854071,
+   "brier_diff_z": -2.113971864299967,
+   "brier_survives_bonferroni": false,
+   "called_skillful": false,
+   "bonferroni_alpha": 0.004166666666666667
+  },
+  {
+   "strategy": "S3",
+   "label": "Opponent-aware least squares",
+   "margin_gain_vs_pickem": -0.2836863636363631,
+   "margin_gain_material": false,
+   "margin_gain_ci": [
+    -1.3778482954545452,
+    0.8002620643939409
+   ],
+   "brier_diff_vs_coin": -0.01898495369811362,
+   "brier_diff_ci": [
+    -0.04956982131720922,
+    0.01339092258456359
+   ],
+   "brier_material": false,
+   "margin_gain": -0.2836863636363631,
+   "margin_gain_boot_sd": 0.5496521773115443,
+   "margin_gain_z": -0.5161197851046971,
+   "margin_survives_bonferroni": false,
+   "brier_diff": -0.01898495369811362,
+   "brier_diff_boot_sd": 0.016065566956757114,
+   "brier_diff_z": -1.1817170068889866,
+   "brier_survives_bonferroni": false,
+   "called_skillful": false,
+   "bonferroni_alpha": 0.004166666666666667
+  },
+  {
+   "strategy": "S4",
+   "label": "Pythagorean, luck-stripped",
+   "margin_gain_vs_pickem": -0.611805303030307,
+   "margin_gain_material": false,
+   "margin_gain_ci": [
+    -1.3304705067567624,
+    0.17338015202702756
+   ],
+   "brier_diff_vs_coin": -0.01633766693239397,
+   "brier_diff_ci": [
+    -0.037105602951955696,
+    0.007263751413744871
+   ],
+   "brier_material": false,
+   "margin_gain": -0.5848533783783818,
+   "margin_gain_boot_sd": 0.38642016409154883,
+   "margin_gain_z": -1.5135167176209292,
+   "margin_survives_bonferroni": false,
+   "brier_diff": -0.015776772128891864,
+   "brier_diff_boot_sd": 0.011285766524558016,
+   "brier_diff_z": -1.3979353635006841,
+   "brier_survives_bonferroni": false,
+   "called_skillful": false,
+   "bonferroni_alpha": 0.004166666666666667
+  }
+ ],
+ "correlations": [
+  {
+   "name": "home margin vs game total (row-level, same game)",
+   "r": -0.14932737386425632,
+   "n": 148,
+   "note": "the dependence a same-game parlay would have to model",
+   "ci": [
+    -0.2952965762442738,
+    -0.009092457048232713
+   ]
+  },
+  {
+   "name": "predicted margin (S2) vs actual margin",
+   "r": 0.24210820933050856,
+   "n": 148,
+   "note": "the model's own discrimination, n = all forecast games",
+   "ci": [
+    0.08797078439654288,
+    0.3828460108694112
+   ]
+  },
+  {
+   "name": "predicted total (S2) vs actual total",
+   "r": 0.020100010635137677,
+   "n": 148,
+   "note": "totals are much harder than sides and the number should be lower",
+   "ci": [
+    -0.1805352525632206,
+    0.23036227910786028
+   ]
+  },
+  {
+   "name": "club points for vs points against (32 clubs, all games to date)",
+   "r": -0.07850105348668823,
+   "n": 32,
+   "note": "positive r means good offences also concede more \u2014 pace, not collapse",
+   "ci": [
+    -0.43582560679217736,
+    0.2506379283795712
+   ]
+  }
+ ],
+ "forecast_games": 148,
+ "slate_week11": [
+  {
+   "game_date": "2026-11-19",
+   "kickoff_et": "8:15 PM",
+   "away": "IND",
+   "home": "HOU",
+   "neutral": "false",
+   "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "accessed_utc": "2026-11-16T01:42Z",
+   "label": "prospective",
+   "market_spread": "",
+   "market_total": "",
+   "market_ml": "",
+   "residual_spread": "",
+   "residual_total": "",
+   "S1_margin": "5.94",
+   "S1_total": "48.54",
+   "S1_p_home": "0.6705",
+   "S2_margin": "2.68",
+   "S2_total": "46.55",
+   "S2_p_home": "0.5789",
+   "S3_margin": "5.86",
+   "S3_total": "48.54",
+   "S3_p_home": "0.6684",
+   "S4_margin": "4.77",
+   "S4_total": "47.95",
+   "S4_p_home": "0.6385"
+  },
+  {
+   "game_date": "2026-11-22",
+   "kickoff_et": "1:00 PM",
+   "away": "MIA",
+   "home": "BUF",
+   "neutral": "false",
+   "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "accessed_utc": "2026-11-16T01:42Z",
+   "label": "prospective",
+   "market_spread": "",
+   "market_total": "",
+   "market_ml": "",
+   "residual_spread": "",
+   "residual_total": "",
+   "S1_margin": "14.33",
+   "S1_total": "47.38",
+   "S1_p_home": "0.8565",
+   "S2_margin": "6.87",
+   "S2_total": "47.93",
+   "S2_p_home": "0.6952",
+   "S3_margin": "13.42",
+   "S3_total": "47.38",
+   "S3_p_home": "0.8407",
+   "S4_margin": "11.75",
+   "S4_total": "46.80",
+   "S4_p_home": "0.8089"
+  },
+  {
+   "game_date": "2026-11-22",
+   "kickoff_et": "1:00 PM",
+   "away": "BAL",
+   "home": "CAR",
+   "neutral": "false",
+   "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "accessed_utc": "2026-11-16T01:42Z",
+   "label": "prospective",
+   "market_spread": "",
+   "market_total": "",
+   "market_ml": "",
+   "residual_spread": "",
+   "residual_total": "",
+   "S1_margin": "2.14",
+   "S1_total": "48.38",
+   "S1_p_home": "0.5633",
+   "S2_margin": "0.78",
+   "S2_total": "45.47",
+   "S2_p_home": "0.5231",
+   "S3_margin": "2.51",
+   "S3_total": "48.38",
+   "S3_p_home": "0.5740",
+   "S4_margin": "1.79",
+   "S4_total": "47.80",
+   "S4_p_home": "0.5528"
+  },
+  {
+   "game_date": "2026-11-22",
+   "kickoff_et": "1:00 PM",
+   "away": "NO",
+   "home": "CHI",
+   "neutral": "false",
+   "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "accessed_utc": "2026-11-16T01:42Z",
+   "label": "prospective",
+   "market_spread": "",
+   "market_total": "",
+   "market_ml": "",
+   "residual_spread": "",
+   "residual_total": "",
+   "S1_margin": "7.69",
+   "S1_total": "47.61",
+   "S1_p_home": "0.7162",
+   "S2_margin": "3.55",
+   "S2_total": "48.66",
+   "S2_p_home": "0.6041",
+   "S3_margin": "8.72",
+   "S3_total": "47.61",
+   "S3_p_home": "0.7417",
+   "S4_margin": "6.29",
+   "S4_total": "47.03",
+   "S4_p_home": "0.6799"
+  },
+  {
+   "game_date": "2026-11-22",
+   "kickoff_et": "1:00 PM",
+   "away": "TEN",
+   "home": "DAL",
+   "neutral": "false",
+   "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "accessed_utc": "2026-11-16T01:42Z",
+   "label": "prospective",
+   "market_spread": "",
+   "market_total": "",
+   "market_ml": "",
+   "residual_spread": "",
+   "residual_total": "",
+   "S1_margin": "6.29",
+   "S1_total": "50.16",
+   "S1_p_home": "0.6801",
+   "S2_margin": "2.86",
+   "S2_total": "47.05",
+   "S2_p_home": "0.5840",
+   "S3_margin": "6.21",
+   "S3_total": "50.16",
+   "S3_p_home": "0.6778",
+   "S4_margin": "5.35",
+   "S4_total": "49.57",
+   "S4_p_home": "0.6545"
+  },
+  {
+   "game_date": "2026-11-22",
+   "kickoff_et": "1:00 PM",
+   "away": "TB",
+   "home": "DET",
+   "neutral": "false",
+   "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "accessed_utc": "2026-11-16T01:42Z",
+   "label": "prospective",
+   "market_spread": "",
+   "market_total": "",
+   "market_ml": "",
+   "residual_spread": "",
+   "residual_total": "",
+   "S1_margin": "2.51",
+   "S1_total": "46.38",
+   "S1_p_home": "0.5739",
+   "S2_margin": "0.96",
+   "S2_total": "50.11",
+   "S2_p_home": "0.5285",
+   "S3_margin": "0.56",
+   "S3_total": "46.38",
+   "S3_p_home": "0.5165",
+   "S4_margin": "1.48",
+   "S4_total": "45.80",
+   "S4_p_home": "0.5437"
+  },
+  {
+   "game_date": "2026-11-22",
+   "kickoff_et": "1:00 PM",
+   "away": "AZ",
+   "home": "KC",
+   "neutral": "false",
+   "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "accessed_utc": "2026-11-16T01:42Z",
+   "label": "prospective",
+   "market_spread": "",
+   "market_total": "",
+   "market_ml": "",
+   "residual_spread": "",
+   "residual_total": "",
+   "S1_margin": "15.53",
+   "S1_total": "45.61",
+   "S1_p_home": "0.8758",
+   "S2_margin": "7.47",
+   "S2_total": "44.91",
+   "S2_p_home": "0.7107",
+   "S3_margin": "13.48",
+   "S3_total": "45.61",
+   "S3_p_home": "0.8418",
+   "S4_margin": "13.20",
+   "S4_total": "45.02",
+   "S4_p_home": "0.8368"
+  },
+  {
+   "game_date": "2026-11-22",
+   "kickoff_et": "1:00 PM",
+   "away": "PIT",
+   "home": "PHI",
+   "neutral": "false",
+   "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "accessed_utc": "2026-11-16T01:42Z",
+   "label": "prospective",
+   "market_spread": "",
+   "market_total": "",
+   "market_ml": "",
+   "residual_spread": "",
+   "residual_total": "",
+   "S1_margin": "-10.82",
+   "S1_total": "41.78",
+   "S1_p_home": "0.2106",
+   "S2_margin": "-5.70",
+   "S2_total": "40.26",
+   "S2_p_home": "0.3359",
+   "S3_margin": "-11.32",
+   "S3_total": "41.78",
+   "S3_p_home": "0.2001",
+   "S4_margin": "-10.44",
+   "S4_total": "41.19",
+   "S4_p_home": "0.2189"
+  },
+  {
+   "game_date": "2026-11-22",
+   "kickoff_et": "4:05 PM",
+   "away": "NYJ",
+   "home": "LAC",
+   "neutral": "false",
+   "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "accessed_utc": "2026-11-16T01:42Z",
+   "label": "prospective",
+   "market_spread": "",
+   "market_total": "",
+   "market_ml": "",
+   "residual_spread": "",
+   "residual_total": "",
+   "S1_margin": "-5.38",
+   "S1_total": "44.12",
+   "S1_p_home": "0.3445",
+   "S2_margin": "-2.98",
+   "S2_total": "36.72",
+   "S2_p_home": "0.4122",
+   "S3_margin": "-5.19",
+   "S3_total": "44.12",
+   "S3_p_home": "0.3500",
+   "S4_margin": "-4.93",
+   "S4_total": "43.54",
+   "S4_p_home": "0.3572"
+  },
+  {
+   "game_date": "2026-11-22",
+   "kickoff_et": "4:25 PM",
+   "away": "JAX",
+   "home": "NYG",
+   "neutral": "false",
+   "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "accessed_utc": "2026-11-16T01:42Z",
+   "label": "prospective",
+   "market_spread": "",
+   "market_total": "",
+   "market_ml": "",
+   "residual_spread": "",
+   "residual_total": "",
+   "S1_margin": "-11.31",
+   "S1_total": "45.29",
+   "S1_p_home": "0.2003",
+   "S2_margin": "-5.95",
+   "S2_total": "51.29",
+   "S2_p_home": "0.3292",
+   "S3_margin": "-13.91",
+   "S3_total": "45.29",
+   "S3_p_home": "0.1506",
+   "S4_margin": "-9.41",
+   "S4_total": "44.71",
+   "S4_p_home": "0.2423"
+  },
+  {
+   "game_date": "2026-11-22",
+   "kickoff_et": "4:25 PM",
+   "away": "LV",
+   "home": "DEN",
+   "neutral": "false",
+   "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "accessed_utc": "2026-11-16T01:42Z",
+   "label": "prospective",
+   "market_spread": "",
+   "market_total": "",
+   "market_ml": "",
+   "residual_spread": "",
+   "residual_total": "",
+   "S1_margin": "3.67",
+   "S1_total": "47.99",
+   "S1_p_home": "0.6076",
+   "S2_margin": "1.54",
+   "S2_total": "46.95",
+   "S2_p_home": "0.5457",
+   "S3_margin": "5.39",
+   "S3_total": "47.99",
+   "S3_p_home": "0.6555",
+   "S4_margin": "2.77",
+   "S4_total": "47.40",
+   "S4_p_home": "0.5817"
+  },
+  {
+   "game_date": "2026-11-22",
+   "kickoff_et": "8:20 PM",
+   "away": "MIN",
+   "home": "SF",
+   "neutral": "true",
+   "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "accessed_utc": "2026-11-16T01:42Z",
+   "label": "prospective",
+   "market_spread": "",
+   "market_total": "",
+   "market_ml": "",
+   "residual_spread": "",
+   "residual_total": "",
+   "S1_margin": "2.60",
+   "S1_total": "43.79",
+   "S1_p_home": "0.5766",
+   "S2_margin": "1.01",
+   "S2_total": "49.93",
+   "S2_p_home": "0.5298",
+   "S3_margin": "0.15",
+   "S3_total": "43.79",
+   "S3_p_home": "0.5044",
+   "S4_margin": "-0.19",
+   "S4_total": "43.21",
+   "S4_p_home": "0.4943"
+  },
+  {
+   "game_date": "2026-11-23",
+   "kickoff_et": "8:15 PM",
+   "away": "CIN",
+   "home": "WAS",
+   "neutral": "false",
+   "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+   "accessed_utc": "2026-11-16T01:42Z",
+   "label": "prospective",
+   "market_spread": "",
+   "market_total": "",
+   "market_ml": "",
+   "residual_spread": "",
+   "residual_total": "",
+   "S1_margin": "-9.54",
+   "S1_total": "48.60",
+   "S1_p_home": "0.2392",
+   "S2_margin": "-5.06",
+   "S2_total": "50.62",
+   "S2_p_home": "0.3534",
+   "S3_margin": "-11.57",
+   "S3_total": "48.60",
+   "S3_p_home": "0.1950",
+   "S4_margin": "-7.62",
+   "S4_total": "48.01",
+   "S4_p_home": "0.2856"
+  }
+ ],
+ "slate_header": [
+  "game_date",
+  "kickoff_et",
+  "away",
+  "home",
+  "neutral",
+  "S2_margin",
+  "S2_total",
+  "S2_p_home",
+  "S1_margin",
+  "S1_total",
+  "S1_p_home",
+  "S3_margin",
+  "S3_total",
+  "S3_p_home",
+  "S4_margin",
+  "S4_total",
+  "S4_p_home",
+  "market_spread",
+  "market_total",
+  "market_ml",
+  "residual_spread",
+  "residual_total",
+  "sigma_used",
+  "label",
+  "source_url",
+  "accessed_utc"
+ ],
+ "sigma_week11": 13.454058397488794,
+ "forecast_sha256_of_inputs": "fb1fee7ae25a409ae6d896340457a666268608becbd9d9b6760cc8b4239bdb8a"
+}

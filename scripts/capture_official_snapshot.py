@@ -29,6 +29,7 @@ import csv
 import datetime as dt
 import gzip
 import hashlib
+import re
 import os
 import sys
 import urllib.error
@@ -70,6 +71,50 @@ def fetch(url: str):
         return 0, b"", ""
 
 
+WEEK_IN_TITLE = re.compile(r"WEEK\s*(\d+)", re.IGNORECASE)
+WEEK_IN_HEADS = re.compile(r"Week\s+(\d+)\s+of\s+the\s+2026", re.IGNORECASE)
+
+
+def reported_week(text: str):
+    """Which week does this body say it is? None if it does not say."""
+    m = WEEK_IN_HEADS.search(text) or WEEK_IN_TITLE.search(text)
+    return int(m.group(1)) if m else None
+
+
+def classify(body: bytes, week: int, status: int, final_url: str = ""):
+    """Turn a fetch into a decision: "ok" | "not_published_yet" | "drift".
+
+    THE DEFECT THIS FIXES (run 43974503837, 2026-11-16T22:54Z): the alarm could not tell "the
+    league has not published this week yet" from "our parser is blind", so a scheduled run before
+    the report appears failed the workflow. Both are now distinct outcomes:
+      * the URL resolved to a DIFFERENT week's route (the league redirects a not-yet-published
+        week to the current one)          -> not_published_yet
+      * the body is for an EARLIER week    -> not_published_yet
+      * the body is for a LATER week, or is broken/short/heading-less -> drift (exit 2)
+    """
+    problems = check_body(body, week, status)
+    if final_url and final_url.rstrip("/") != report_url(week).rstrip("/"):
+        tail = final_url.rstrip("/").rsplit("/", 1)[-1]
+        if re.fullmatch(r"reg\d+", tail) and tail != f"reg{week}":
+            got = int(tail[3:])
+            if got < week:
+                return "not_published_yet", problems + [
+                    f"requested week {week}, URL redirected to week {got}"]
+    if problems:
+        # a redirect away from the requested week is exactly why the marker is absent
+        text = body.decode("utf-8", errors="replace")
+        got = reported_week(text)
+        if got is not None and got < week:
+            return "not_published_yet", problems + [
+                f"requested week {week}, page still serves week {got}"]
+        return "drift", problems
+    text = body.decode("utf-8", errors="replace")
+    got = reported_week(text)
+    if got is not None and got > week:
+        return "drift", [f"requested week {week}, page serves a LATER week {got}"]
+    return "ok", []
+
+
 def check_body(body: bytes, week: int, status: int):
     """Return a list of drift problems. Empty list = safe to inspect player rows."""
     problems = []
@@ -108,12 +153,57 @@ def append_index(row: dict):
         w.writerow(row)
 
 
+def selftest():
+    """Prove the classifier on synthetic bodies. Nothing is written."""
+    def body(week_in_path=None, week_in_text=None, players=6, headings=True):
+        parts = ["<html><head><title>Official NFL Injury Report for Players"
+                 + (f" - Week {week_in_text} of the 2026 Season" if week_in_text else "") + "</title></head>"]
+        if headings:
+            parts.append("<th>Practice Status</th><th>Game Status</th>")
+        if week_in_path:
+            parts.append(f'<a href="/injuries/league/2026/reg{week_in_path}">week</a>')
+        parts.append('<a href="https://www.nfl.com/players/x/">X</a>' * players)
+        return ("".join(parts) + " " * (MIN_BYTES + 100) + "</html>").encode()
+
+    cases = [
+        ("requested week present, no redirect", body(11, 11), 11, "", "ok"),
+        ("redirected to the previous week", body(10, 10), 11,
+         "https://www.nfl.com/injuries/league/2026/reg10", "not_published_yet"),
+        ("page still serves the previous week (no redirect seen)", body(None, 10), 11, "",
+         "not_published_yet"),
+        ("page jumps PAST the requested week", body(None, 12), 11, "", "drift"),
+        ("headings missing", body(11, 11, headings=False), 11, "", "drift"),
+        ("short body", b"<html>tiny</html>", 11, "", "drift"),
+        ("week unreadable", body(), 11, "", "drift"),
+    ]
+    bad = 0
+    for name, b, week, final, expect in cases:
+        kind, probs = classify(b, week, 200, final)
+        ok = kind == expect
+        bad += 0 if ok else 1
+        print(f"  [{'PASS' if ok else 'FAIL'}] {name}: {kind}"
+              + ("" if ok else f" (expected {expect})") + (f" - {probs}" if probs else ""))
+    kind, _ = classify(b"", 11, 503, "")
+    ok = kind == "drift"
+    bad += 0 if ok else 1
+    print(f"  [{'PASS' if ok else 'FAIL'}] HTTP failure: {kind}")
+    if bad:
+        print(f"SELFTEST FAILED: {bad} case(s)", file=sys.stderr)
+        return 1
+    print("SELFTEST PASSED - not-published-yet is distinguished from drift")
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[1])
-    ap.add_argument("--week", type=int, required=True, help="NFL week number, e.g. 11")
+    ap.add_argument("--week", type=int, help="NFL week number, e.g. 11 (required unless --selftest)")
     ap.add_argument("--report", default="injuries", help="report name used in paths")
     ap.add_argument("--from-file", help="test only: read the body from this file instead of the network")
+    ap.add_argument("--selftest", action="store_true",
+                    help="unit-test the drift classifier on synthetic bodies; writes nothing")
     args = ap.parse_args(argv)
+    if args.selftest:
+        return selftest()
     if not 1 <= args.week <= 22:
         print("week must be 1-22", file=sys.stderr)
         return 1
@@ -142,8 +232,19 @@ def main(argv=None):
         print("nothing stored (normal before first publication; not a drift alarm)")
         return 0
 
-    problems = check_body(body, args.week, status)
+    kind, problems = classify(body, args.week, status, final_url)
     sha = hashlib.sha256(body).hexdigest()
+    if kind == "not_published_yet":
+        append_index({
+            "capture_utc": now.isoformat().replace("+00:00", "Z"),
+            "report": args.report, "season": 2026, "week": args.week, "url": url,
+            "http_status": status, "bytes": len(body), "sha256": sha,
+            "raw_path": "", "player_links": body.decode("utf-8", errors="replace").count("nfl.com/players/"),
+            "change_vs_previous": "n/a", "result": "not_published_yet",
+        })
+        print("NOT PUBLISHED YET for " + url + ": " + "; ".join(problems)
+              + " (recorded in snapshots/index.csv; no body stored)")
+        return 0
     if problems:
         print(f"DRIFT/FETCH FAILURE for {url}: " + "; ".join(problems), file=sys.stderr)
         print(f"nothing stored. status={status} bytes={len(body)} sha256={sha}", file=sys.stderr)

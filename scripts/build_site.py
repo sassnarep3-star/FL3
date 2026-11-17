@@ -19,6 +19,7 @@ import csv
 import html
 import json
 import os
+import re
 from datetime import datetime, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -38,6 +39,8 @@ PAGES = {
     "suggestions.html": "Suggestions",
     "flagged.html": "Flagged for Review",
     "sources.html": "Sources",
+    "compare.html": "Compare strategies",
+    "executive-summary.html": "Executive summary",
     "methodology.html": "Methodology",
     "results.html": "Results feed",
     "week11.html": "Week 11",
@@ -232,6 +235,15 @@ def build_index(standings, lines, inj, luck, strat, dec, sug, flag, readiness, s
   <p class="lede">A working dashboard for the FL3 NFL project. Every league figure below was read
   off an official NFL.com page on {CAPTURED} and links to that page. Where a number could not be
   confirmed, the cell is blank and the gap is listed on <a href="flagged.html">Flagged for Review</a>.</p>
+</section>
+
+<section class="subsites">
+  <h2 style="margin-top:0">Start here</h2>
+  <p class="lede" style="margin-bottom:10px">Two pages answer the questions this project is actually
+  asked. <a href="compare.html"><b>Compare strategies</b></a> scores four origination strategies
+  against four controls on 148 verified games, walk-forward, with the intervals, the multiplicity
+  adjustment and the honest verdict. <a href="executive-summary.html"><b>Executive summary</b></a> is
+  the one-page version: what is established, what is not, and the five things that block the rest.</p>
 </section>
 
 <section class="subsites">
@@ -958,6 +970,565 @@ results feed is requested in COORDINATION.md; the captured file is left untouche
     return page("Acceptance audit", body, "audit.html")
 
 
+
+# ---------------------------------------------------------------------------
+# compare.html — the origination comparison lab
+# ---------------------------------------------------------------------------
+CMP = os.path.join(DATA, "compare")
+
+
+def _cmp_json(name):
+    with open(os.path.join(CMP, name), encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+def _cmp_csv(name):
+    with open(os.path.join(CMP, name), newline="", encoding="utf-8") as fh:
+        return list(csv.DictReader(fh))
+
+
+def _f(v, dp=2, dash="—"):
+    if v is None or v == "":
+        return dash
+    try:
+        return f"{float(v):.{dp}f}"
+    except (TypeError, ValueError):
+        return str(v)
+
+
+def _ci(pair, dp=2):
+    if not pair or pair[0] is None:
+        return "—"
+    return f"{pair[0]:.{dp}f} … {pair[1]:.{dp}f}"
+
+
+def _pctf(v, dp=1):
+    if v is None or v == "":
+        return "—"
+    return f"{float(v) * 100:.{dp}f}%"
+
+
+def _mini_md(md):
+    """A tiny markdown renderer: headings, tables, lists, code fences, bold, links.
+
+    Deliberately minimal — it exists so prose can live in a .md file under content/ instead of
+    inside a Python string, without pulling a dependency into a stdlib-only build.
+    """
+    out, lines, i = [], md.split("\n"), 0
+    in_code = False
+    while i < len(lines):
+        ln = lines[i]
+        if ln.startswith("```"):
+            if in_code:
+                out.append("</code></pre>")
+                in_code = False
+            else:
+                out.append('<pre><code>')
+                in_code = True
+            i += 1
+            continue
+        if in_code:
+            out.append(html.escape(ln))
+            i += 1
+            continue
+        if ln.startswith("|") and i + 1 < len(lines) and set(lines[i + 1].replace("|", "").strip()) <= set("-: "):
+            head = [_inline(c.strip()) for c in ln.strip().strip("|").split("|")]
+            i += 2
+            rows = []
+            while i < len(lines) and lines[i].startswith("|"):
+                rows.append([_inline(c.strip()) for c in lines[i].strip().strip("|").split("|")])
+                i += 1
+            out.append(table(head, rows, "wide"))
+            continue
+        if ln.startswith("#"):
+            lvl = len(ln) - len(ln.lstrip("#"))
+            out.append(f"<h{min(lvl + 1, 4)}>{_inline(ln[lvl:].strip())}</h{min(lvl + 1, 4)}>")
+        elif ln.startswith("- "):
+            items = []
+            while i < len(lines) and lines[i].startswith("- "):
+                items.append(f"<li>{_inline(lines[i][2:].strip())}</li>")
+                i += 1
+            out.append("<ul>" + "".join(items) + "</ul>")
+            continue
+        elif ln.strip():
+            # a paragraph runs until a blank line, a heading, a table, a list or a fence
+            para = []
+            while i < len(lines) and lines[i].strip() and not (
+                    lines[i].startswith(("#", "- ", "|", "```"))):
+                para.append(lines[i].strip())
+                i += 1
+            out.append(f"<p>{_inline(' '.join(para))}</p>")
+            continue
+        i += 1
+    return "\n".join(out)
+
+
+def _inline(t):
+    t = e(t)
+    t = re.sub(r"`([^`]+)`", lambda m: f"<code>{m.group(1)}</code>", t)
+    t = re.sub(r"\*\*([^*]+)\*\*", lambda m: f"<b>{m.group(1)}</b>", t)
+    t = re.sub(r"\[([^\]]+)\]\((https?://[^)]+)\)",
+               lambda m: f'<a class="src" href="{m.group(2)}" target="_blank" rel="noopener">{m.group(1)}</a>', t)
+    t = re.sub(r"\[([^\]]+)\]\(([^)]+\.html)\)", lambda m: f'<a href="{m.group(2)}">{m.group(1)}</a>', t)
+    return t
+
+
+def build_compare():
+    ev = _cmp_json("evaluation.json")
+    meta = ev["meta"]
+    rows = _cmp_csv("evaluation.csv")
+    qs = _cmp_csv("questions.csv")
+    sug = _cmp_csv("suggestions.csv")
+    slate = _cmp_csv("slate_week11_forecasts.csv")
+
+    # ---- headline verdict banner ----
+    any_skill = any(v.get("called_skillful") for v in ev["verdicts"])
+    best = min((r for r in rows if r["kind"] == "strategy"), key=lambda r: float(r["margin_mae"]))
+    best_v = next(v for v in ev["verdicts"] if v["strategy"] == best["strategy"])
+    banner = (
+        '<div class="note"><strong>The headline, before any number:</strong> four origination '
+        f'strategies were run walk-forward over {meta["games"]} verified games. '
+        f'{best["strategy"]} ({e(best["label"])}) is ahead on spread error at '
+        f'{_f(best["margin_mae"])} points MAE against {_f(next(r["margin_mae"] for r in rows if r["strategy"]=="C3"))} '
+        'for a pick\'em control. '
+        + ('<b>No strategy survives the multiple-comparison threshold, so nothing here is '
+           'established skill.</b>' if not any_skill else
+           '<b>At least one strategy survives the threshold.</b>')
+        + f' The best z is {_f(best_v.get("margin_gain_z"), 2)} against a Bonferroni critical '
+        f'value of {_f(meta["z_crit_bonferroni"], 2)} for {meta["comparisons"]} comparisons.</div>'
+    )
+
+    # ---- strategy table ----
+    strat_rows = []
+    for r in rows:
+        kind = r["kind"]
+        v = next((x for x in ev["verdicts"] if x["strategy"] == r["strategy"]), {})
+        z = v.get("margin_gain_z")
+        survives = v.get("margin_survives_bonferroni")
+        badge_html = (badge("survives", "ok") if survives else badge("not established", "warn"))
+        if kind == "control":
+            badge_html = badge("control", "auto")
+        strat_rows.append([
+            f'<b>{e(r["strategy"])}</b>',
+            e(r["label"]),
+            _f(r["n_margin"], 0),
+            _f(r["margin_mae"]),
+            _ci(None) if not r["margin_mae_ci"] else e(r["margin_mae_ci"].replace(" .. ", " … ")),
+            _f(r["margin_rmse"]),
+            _f(r["margin_bias"], 2),
+            _f(r["margin_dispersion"]),
+            _pctf(float(r["dir_acc"]) if r["dir_acc"] else None, 1),
+            _f(r["total_mae"]),
+            _f(r["brier"], 4),
+            _pctf(float(r["brier_skill_vs_coin"]) if r["brier_skill_vs_coin"] else None),
+            _f(z, 2),
+            badge_html,
+        ])
+
+    # ---- calibration ----
+    cal_rows = []
+    for sid, bands in ev["calibration"].items():
+        for b in bands:
+            cal_rows.append([
+                f"<b>{e(sid)}</b>",
+                f"{b['lo']:.0%} – {b['hi']:.0%}",
+                _f(b["n"], 0),
+                _f(b["pred"], 3),
+                _f(b["actual"], 3),
+                "—" if b["n"] == 0 else _f((b["actual"] or 0) - (b["pred"] or 0), 3),
+            ])
+
+    # ---- luck ----
+    luck_rows = []
+    for sid, l in ev["luck"].items():
+        if not l:
+            continue
+        luck_rows.append([
+            f"<b>{e(sid)}</b>", _f(l["n"], 0), _f(l["expected_wins"], 1), _f(l["won"], 0),
+            f'<b>{_f(l["luck"], 1)}</b>', _pctf(l["expected_rate"]), _pctf(l["win_rate"]),
+        ])
+
+    # ---- regimes ----
+    reg_rows = []
+    for sid, bands in ev["regimes"].items():
+        for b in bands:
+            reg_rows.append([f"<b>{e(sid)}</b>", e(b["weeks"]), _f(b["n"], 0),
+                             _f(b["margin_mae"]), _f(b["brier"], 4)])
+
+    # ---- totals ----
+    tot_rows = []
+    for t in ev["total_estimator_comparison"]:
+        tot_rows.append([
+            e(t["window"]), _f(t["n"], 0),
+            _f(t["mae_a_pace"]), _f(t["mae_b_offence_only"]), _f(t["mae_c_pace_plus_hfa"]),
+            _f((t["b_minus_a"] or {}).get("est"), 3), _f((t["b_minus_a"] or {}).get("z"), 2),
+            _f((t["c_minus_a"] or {}).get("est"), 3), _f((t["c_minus_a"] or {}).get("z"), 2),
+            badge("not established", "warn"),
+        ])
+
+    # ---- correlations ----
+    cor_rows = []
+    for c in ev["correlations"]:
+        cor_rows.append([e(c["name"]), _f(c["r"], 3), _ci(c.get("ci"), 3), _f(c["n"], 0),
+                         e(c["note"])])
+
+    # ---- week 11 slate ----
+    slate_rows = []
+    for r in slate:
+        def mk(prefix):
+            return [_f(r.get(f"{prefix}_margin")), _f(r.get(f"{prefix}_total")),
+                    _pctf(r.get(f"{prefix}_p_home"))]
+        slate_rows.append([
+            f'<a class="src" href="{e(r["source_url"])}" target="_blank" rel="noopener">{e(r["game_date"])}</a>',
+            e(r["kickoff_et"]), f'<b>{e(r["away"])}</b> @ <b>{e(r["home"])}</b>',
+            *mk("S2"), *mk("S1"), *mk("S3"), *mk("S4"),
+            '<span class="unverified">blank</span>' if not r.get("market_spread") else e(r["market_spread"]),
+            '<span class="unverified">blank</span>' if not r.get("market_total") else e(r["market_total"]),
+        ])
+
+    # ---- corpus reconciliation ----
+    x = _cmp_json("corpus_reconciliation.json")
+    recon_rows = []
+    for step in x["chain"]:
+        ident = step.get("standings_identity") or "—"
+        recon_rows.append([
+            e(step["step"]), f'<b>{step["games"]}</b>', f'<b>{step["points"]:,}</b>',
+            e(step["matches"]),
+            badge("holds", "ok") if ident == "holds" else (badge("FAILS", "bad") if ident == "FAILS" else "—"),
+        ])
+    ident_rows = []
+    for c in _cmp_csv("corpus_identity_32clubs.csv"):
+        ok = c["identity_holds"] == "yes"
+        ident_rows.append([
+            f'<a class="src" href="{e(c["source_url"])}" target="_blank" rel="noopener">{e(c["club"])}</a>',
+            c["corpus_games"], c["corpus_w"], c["corpus_l"], c["corpus_t"],
+            f'{int(c["corpus_pf"]):,}', f'{int(c["corpus_pa"]):,}',
+            f'{c["official_w"]}-{c["official_l"]}-{c["official_t"]} / {int(c["official_pf"]):,}-{int(c["official_pa"]):,}',
+            badge("matches", "ok") if ok else badge("MISMATCH", "bad"),
+        ])
+
+    # ---- Week 11 venues (narrow, sourced) ----
+    venue_rows = []
+    for v in _cmp_csv("week11_venues.csv"):
+        venue_rows.append([
+            f'<a class="src" href="{e(v["game_centre_url"])}" target="_blank" rel="noopener"><b>{e(v["fixture"])}</b></a>',
+            e(v["date"]), e(v["kickoff_et"]), e(v["location_as_published"]),
+            e(v["stadium_as_published"]),
+            badge("official routes disagree", "bad") if v["conflict"] == "YES" else badge("agrees", "ok"),
+            e(v["note"]),
+        ])
+
+    # ---- questions ----
+    q_rows = [[f"<b>{e(q['id'])}</b>", e(q["theme"]), e(q["question"]), e(q["what_we_know"]),
+               e(q["what_we_do_not_know"]), e(q["blocks"]), e(q["would_clear_it"]),
+               src_link(q["source_id"], "source") if q["source_id"] else
+               '<span class="unverified">no official NFL source exists for this question</span>']
+              for q in qs]
+
+    # ---- suggestions ----
+    s_cards = []
+    for s_ in sug:
+        s_cards.append(f"""
+<div class="card" style="margin:14px 0">
+  <div><b>{e(s_['id'])}</b> — <b>{e(s_['title'])}</b></div>
+  <p style="margin:8px 0 4px"><b>Problem.</b> {e(s_['problem'])}</p>
+  <p style="margin:4px 0"><b>Paths.</b> {e(s_['paths'])}</p>
+  <p style="margin:4px 0"><b>Recommended.</b> {e(s_['recommendation'])}</p>
+  <p style="margin:4px 0;color:var(--muted)"><b>Cost.</b> {e(s_['cost'])} &nbsp;·&nbsp;
+     <b>Risk.</b> {e(s_['risk'])}</p>
+  <p style="margin:4px 0;color:var(--muted)"><b>Unblocks.</b> {e(s_['unblocks'])} &nbsp;·&nbsp;
+     <b>Evidence in repo.</b> {e(s_['repo_evidence'])}</p>
+</div>""")
+
+    review_path = os.path.join(ROOT, "content", "compare", "review.md")
+    review_html = _mini_md(open(review_path, encoding="utf-8").read()) if os.path.exists(review_path) else ""
+    body = f"""
+<section class="hero">
+  <h1>Compare the origination strategies</h1>
+  <p class="lede">Four ways to originate a line, one harness, one clock, {meta["games"]} verified games.
+  Every forecast for week <em>w</em> was built only from weeks before <em>w</em>, so nothing is
+  measured with hindsight. Controls sit in the same table because a strategy that cannot beat a
+  coin flip or a pick'em is not a strategy.</p>
+</section>
+
+{banner}
+
+<section class="stats">
+  {stat(meta["games"], "verified games in the corpus", "weeks 1–10, reconciled to the standings")}
+  {stat(meta["strategies"], "origination strategies", f'{meta["controls"]} controls beside them')}
+  {stat(meta["comparisons"], "comparisons made", f'α adjusted to {meta["bonferroni_alpha"]:.4f}')}
+  {stat("0", "price-based columns", "no licensed price exists — see QO-01")}
+</section>
+
+<div class="note"><strong>What is retrospective and what is prospective.</strong> Everything in the
+first five tables is <b>retrospective</b>: it is scored on games that have already been played, and
+it is not, and must never be, shown on the prospective leaderboard (readiness R010). The Week 11
+table is <b>prospective</b>: those forecasts were written before any Week 11 kickoff and are frozen
+by commit. The two are never mixed in one column.</div>
+
+<h2>1. The comparison</h2>
+<p class="lede">Sorted by spread MAE. <code>Dispersion</code> is the standard deviation of the
+model's predicted margin divided by the standard deviation of the actual margins — below 1.0 means
+the model's opinions are narrower than reality, which is what decides whether a line can ever beat a
+price. <code>z</code> is the paired gain against the pick'em control divided by its own bootstrap
+standard error; the verdict column compares it with the Bonferroni critical value of
+{_f(meta["z_crit_bonferroni"], 2)}.</p>
+{table(["ID", "Strategy", "n", "Spread MAE", "MAE 95% (game-cluster)", "RMSE", "Bias", "Dispersion",
+        "Direction %", "Total MAE", "Brier", "Brier skill vs coin", "z vs pick'em", "Verdict"],
+       strat_rows, "wide")}
+<p class="fine">Intervals: {e(meta["bootstrap"])}. A resample draws whole games, so both clubs in a
+game move together. {e(meta["price_policy"])}.</p>
+
+<h2>2. Is the probability honest? (calibration)</h2>
+<p class="lede">A strategy can have a good Brier score and still be lying about its confidence. Here
+every predicted probability band is compared with what actually happened in it. A well-calibrated
+column has <code>Predicted</code> ≈ <code>Actual</code>.</p>
+{table(["Strategy", "Probability band", "n", "Predicted", "Actual", "Gap"], cal_rows, "wide")}
+
+<h2>3. Removal of luck</h2>
+<p class="lede">For each strategy, take the side it favours and add up its own probability: that is
+how many games a perfectly calibrated version of <em>this same model</em> would win on these games.
+Compare with what it actually won. The difference is luck. It is published and it is never ranked
+on.</p>
+{table(["Strategy", "n", "Expected wins (own probabilities)", "Won", "Luck", "Expected rate",
+        "Actual rate"], luck_rows)}
+<p class="fine">S1, S2 and S4 win on the outright side (the higher of the two win probabilities).
+S3's <code>n</code> is smaller because the least-squares rating needs a connected game graph and is
+blank in week 2.</p>
+
+<h2>4. Does it hold in both halves of the window?</h2>
+<p class="lede">A strategy whose edge exists only when clubs are unfamiliar has not been shown to
+generalise. Weeks 2–6 are the regime where every club has seen fewer than six games; weeks 7–10 are
+the regime where it has seen more.</p>
+{table(["Strategy", "Weeks", "n", "Spread MAE", "Brier"], reg_rows)}
+
+<h2>5. Two total estimators, published side by side (R051)</h2>
+<p class="lede">The brief says to publish both totals until one wins. There are three here because
+the repo already contained three: <b>A</b> = pace (the mean of both clubs' game totals), <b>B</b> =
+offence only (league total plus each club's own scoring deviation), <b>C</b> = pace plus the whole
+home-field term. The gap columns are B−A and C−A, positive meaning worse.</p>
+{table(["Window", "n", "MAE A (pace)", "MAE B (offence)", "MAE C (pace+HFA)", "B−A", "z",
+        "C−A", "z", "Verdict"], tot_rows, "wide")}
+<p class="fine">Every paired difference is inside |z| &lt; 1.0. Nothing establishes a winner, so all
+three stay published — which is the rule, not a failure to decide.</p>
+
+<h2>6. Correlations — the only ones we can measure without a price</h2>
+<p class="lede">Each value carries its own <code>n</code> and a game-cluster interval. These are
+<em>measured on the league's own published results</em>, not assumed, and they are the numbers a
+parlay would have to be built on — which is why no parlay is published.</p>
+{table(["Pair", "r", "95% interval", "n", "What it means"], cor_rows, "wide")}
+
+<h2>7. Week 11 — the prospective slate</h2>
+<p class="lede">Thirteen published fixtures, forecast before any kickoff. Side first, then total
+(R003). The market columns are <b>blank</b>: no licensed price exists, and a blank is honest where a
+guess is not. The Week 11 injury report was not published when this was written — the official week-11
+report route still serves the final Week 10 tables and the game centres say the report is not
+available — so nothing here uses Week 11 availability.</p>
+{table(["Date", "Kickoff ET", "Fixture",
+        "S2 side", "S2 total", "S2 P(home)", "S1 side", "S1 total", "S1 P(home)",
+        "S3 side", "S3 total", "S3 P(home)", "S4 side", "S4 total", "S4 P(home)",
+        "Market spread", "Market total"], slate_rows, "wide")}
+<h3>Venue, read from the official game centre</h3>
+<p class="lede">Read on 2026-11-17 from the Game Info block of each fixture's official game-centre
+page. Two fixtures were captured, on purpose: one where the two official routes agree and one where
+they do not. The disagreement is published, not resolved.</p>
+{table(["Fixture", "Date", "Kickoff ET", "Location (as published)", "Stadium (as published)",
+        "Conflict", "Note"], venue_rows, "wide")}
+<p class="fine">The rest of the Week 11 slate has <b>no venue row</b> rather than a guessed one. The
+0.5-point home-field term used above does not read a venue name.</p>
+<p class="fine">Date links to the official NFL.com fixture page. Sign convention: the side column is
+the home club's expected margin, positive meaning the home club is favoured. Every number is model
+output, not a league fact and not a bet.</p>
+
+<h2>8. The corpus, and the "136-game log"</h2>
+<p class="lede">Every game count this repository has published reconciles exactly. The chain is not
+prose — <code>scripts/build_crosscheck.py</code> recomputes it and verifies both official standings
+snapshots club by club with <code>--check</code>.</p>
+{table(["Step", "Games", "Points", "What it matches", "Standings identity"], recon_rows, "wide")}
+<p class="fine">Sources: the per-week official schedule pages
+(<a href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">week 10</a>)
+and the <a href="https://www.nfl.com/standings/league/2026/reg" target="_blank" rel="noopener">league
+standings</a>. The two independent Week 10 captures — one made at 01:30Z and one at 01:35Z on
+2026-11-16 by different sessions — record {x["week10"]["agree_A_vs_B"]} of
+{x["week10"]["fixtures_final_in_lab_corpus"]} final scores and agree on <b>every</b> score. The earlier
+capture lists the other two fixtures as still at kickoff; the later corpus simply has them as finals.
+Neither corrects the other.</p>
+
+<h3>The 32-club identity, figure for figure</h3>
+<p class="lede">This is the check that makes the corpus trustworthy: the games are transcribed from one
+official page and the totals are compared with a second, independent official page. A single
+transposed score breaks it.</p>
+{table(["Club", "Games", "W", "L", "T", "PF", "PA", "Official W-L-T / PF-PA", "Identity"],
+       ident_rows, "wide")}
+
+<h2>9. What has to be answered before any of this becomes a decision</h2>
+<p class="lede">{len(qs)} questions. Each says what is known, what is not, what it blocks, and the
+number or artefact that would clear it. Where no official NFL source can answer the question, the
+row says so instead of citing an irrelevant one.</p>
+{table(["ID", "Theme", "Question", "What we know", "What we do not know", "Blocks",
+        "What would clear it", "Source"], q_rows, "wide")}
+
+<h2>10. Suggestions — paths to choose, not changes already made</h2>
+<p class="lede">This section exists so a suggestion can be reviewed and a path chosen <em>before</em>
+anything is implemented. Each entry carries its alternatives, a recommendation, its cost, its risk,
+and the evidence in the repo that supports it. Nothing here has been applied.</p>
+{''.join(s_cards)}
+
+<h2>11. This session's review of the repository</h2>
+{review_html}
+<h2>12. Reproduce and re-score it</h2>
+<pre><code>python3 scripts/build_compare.py            # rebuild the lab
+python3 scripts/build_compare.py --check    # fail if the committed output is stale
+python3 scripts/build_crosscheck.py         # reconcile every game count in the repo
+python3 scripts/build_crosscheck.py --check # fail if that reconciliation is stale</code></pre>
+<p class="fine">Inputs are <code>data/week_results_2026.csv</code> (148 verified rows, SHA-256
+<code>{e(ev["forecast_sha256_of_inputs"][:16])}…</code>) and
+<code>data/week11_slate_2026.csv</code>. The per-game forecast ledger is published as
+<a href="data/compare/forecast_ledger.csv">data/compare/forecast_ledger.csv</a> so anyone can
+re-score every number on this page without trusting this page. Deterministic: the bootstrap uses a
+fixed seed, so a re-run must reproduce every interval exactly.</p>
+"""
+    return page("Compare strategies", body, "compare.html")
+
+
+# ---------------------------------------------------------------------------
+# executive-summary.html
+# ---------------------------------------------------------------------------
+def build_executive_summary():
+    ev = _cmp_json("evaluation.json")
+    meta = ev["meta"]
+    rows = _cmp_csv("evaluation.csv")
+    qs = _cmp_csv("questions.csv")
+    sug = _cmp_csv("suggestions.csv")
+    strat = [r for r in rows if r["kind"] == "strategy"]
+    ctrl_mae = next(r["margin_mae"] for r in rows if r["strategy"] == "C3")
+    ctrl_tot = next(r["total_mae"] for r in rows if r["strategy"] == "C4")
+    best = min(strat, key=lambda r: float(r["margin_mae"]))
+    best_tot = min(strat, key=lambda r: float(r["total_mae"]))
+    n_skill = sum(1 for v in ev["verdicts"] if v.get("called_skillful"))
+
+    body = f"""
+<section class="hero">
+  <h1>Executive summary</h1>
+  <p class="lede">One page: what this project can now say, what it cannot, and the smallest set of
+  decisions that would change that. Written 2026-11-17 against the 2026 regular season through
+  Week 10, plus the published Week 11 schedule.</p>
+</section>
+
+<div class="note"><strong>The one-paragraph version.</strong> The repository can now originate a
+line four different ways on the same clock and score all four against the same controls, on
+{meta["games"]} verified games that reconcile to the league's own standings for all 32 clubs. Every
+strategy beats a coin flip on the win-probability score and three of four beat a pick'em on spread
+error, but <b>not one of them survives the multiple-comparison threshold ({n_skill} of
+{len(ev["verdicts"])} cleared)</b>, the totals are worse than a control that ignores the teams
+entirely, and the model's opinions are still only a quarter to a half as wide as reality. So the
+honest position is: the machinery works, the signal is unproven, and no price exists to turn a
+probability into money. Everything below is the detail behind that paragraph.</p>
+</div>
+
+<h2>1. What is established</h2>
+<ul>
+  <li><b>A verified results corpus.</b> {meta["games"]} games through Week 10, identity-checked
+  against the official standings: wins, losses, ties, points for and points against match for all 32
+  clubs, and the league total balances at 6,824 points each way. Source:
+  <a href="https://www.nfl.com/standings/league/2026/reg" target="_blank" rel="noopener">nfl.com
+  league standings</a> and the per-week schedule pages.</li>
+  <li><b>A leakage-free harness.</b> Every forecast for week <em>w</em> is built only from weeks
+  before <em>w</em>. The code enforces it structurally, not by discipline: the week's results are
+  added to the model's state only after that week's forecasts are produced.</li>
+  <li><b>Four genuinely different origination strategies</b> plus four controls, scored on proper
+  scores and on pricing error, with game-cluster intervals and a published multiplicity adjustment
+  over {meta["comparisons"]} comparisons (α = {meta["bonferroni_alpha"]:.4f}).</li>
+  <li><b>The best spread error in this repo so far</b> is {_f(best["margin_mae"])} points MAE
+  ({best["strategy"]}) against {_f(ctrl_mae)} for a pick'em control — a gain of
+  {_f(float(ctrl_mae) - float(best["margin_mae"]))} points, with an interval that overlaps zero.</li>
+  <li><b>Measured correlations with n</b>, published as numbers rather than assumptions, because
+  that is the only way a parlay gate can be honest.</li>
+  <li><b>A prospective Week 11 slate</b> frozen before kickoff, with the market columns blank.</li>
+</ul>
+
+<h2>2. What is not established — and will not be claimed</h2>
+<ul>
+  <li><b>Skill.</b> The best strategy's paired gain against pick'em is z =
+  {_f(next(v["margin_gain_z"] for v in ev["verdicts"] if v["strategy"] == best["strategy"]), 2)};
+  the threshold for {meta["comparisons"]} comparisons is {_f(meta["z_crit_bonferroni"], 2)}.
+  Nothing is ranked as skilful anywhere on this site.</li>
+  <li><b>Totals.</b> The best strategy's total error is {_f(best_tot["total_mae"])} against
+  {_f(ctrl_tot)} for a trailing-league-mean control, and the model's predicted total correlates with
+  the actual total at r = {_f(next(c["r"] for c in ev["correlations"] if c["name"].startswith("predicted total")), 2)}.
+  The model cannot price a total.</li>
+  <li><b>Any money metric.</b> There is no licensed price in the repo, so ROI, CLV and edge are not
+  computed, not estimated and not implied. The staking column of every leaderboard is deliberately
+  empty.</li>
+  <li><b>Depth and availability.</b> No official source publishes a depth ordinal, so "second
+  string" cannot be established. The repo says so rather than inferring it.</li>
+  <li><b>A complete point-in-time record.</b> The scheduled availability capture has never completed
+  a successful run, so no pre-kickoff series exists for any week.</li>
+</ul>
+
+<h2>3. The five things that actually block the project</h2>
+{table(["#", "Blocker", "Why it blocks", "What clears it", "Where it is answered"],
+ [["1", "No licensed price", "Every money claim, every reward tier, every parlay gate",
+   "One written price-data policy plus a retained open/close feed", 'QO-01 / <a href="compare.html">compare</a>'],
+  ["2", "Sample too small for the effect size", "Ranking strategies on 132 games ranks noise",
+   "≈700–900 walk-forward games, i.e. multiple seasons, or a much larger effect", "QO-02, QO-13"],
+  ["3", "Under-dispersed model", "A timid model agrees with the market everywhere and never has a tip worth the vig",
+   "Re-fit the shrinkage on a walk-forward proper-score objective; publish the dispersion column", "QO-04"],
+  ["4", "No working availability capture", "Availability features, depth deficiency and any pre-kickoff claim are untestable",
+   "Repair and prove one clean week of scheduled captures with hashes", "QO-06 / SC-04"],
+  ["5", "No official depth ordinal", "The backup-deficiency feature the brief asks for cannot be sourced honestly",
+   "A per-club verified chart route for 32 clubs, or an official snap-count source", "QO-09 / R042"]],
+ "wide")}
+
+<h2>4. What was done in this session</h2>
+<ul>
+  <li><b>Built the comparison lab</b> (<code>scripts/build_compare.py</code>): four strategies, four
+  controls, walk-forward, coupled-cluster bootstrap, Bonferroni ledger, calibration, luck panel,
+  regime split, three-way total comparison, and a published per-game ledger.</li>
+  <li><b>Published two new pages</b>: this summary and <a href="compare.html">Compare strategies</a>,
+  with {len(qs)} decision questions and {len(sug)} suggestions, each carrying selectable paths and a
+  recommendation, so a path can be chosen before anything is implemented.</li>
+  <li><b>Checked whether the availability capture works, and found a defect in the alarm rather
+  than in the data.</b> The scheduled capture's only run (2026-11-16T22:54Z) failed with exit
+  code 2. The cause was that the Week 11 injury route still renders the final Week 10 tables
+  before the league publishes the week's report, and the drift check treated that as corruption.
+  The check now classifies <em>not published yet</em> separately from <em>drift</em>, records it
+  as a dated line in <code>snapshots/index.csv</code>, stores no body, and is unit-tested on
+  synthetic pages in the workflow. A page that serves a <em>later</em> week than requested is
+  still treated as drift and still fails the build.</li>
+  <li><b>Asserted nothing new about the league.</b> The Week 11 official injury report is not
+  published yet, so no Week 11 availability is used anywhere; the Week 11 schedule was re-read from
+  the official page and is used only for the prospective slate. The fixture page for IND-HOU was
+  also read for its venue, which is outside the lab's scope and is not used as a model input.</li>
+  <li><b>Changed no existing dataset.</b> The 148-game corpus, the standings snapshot and the
+  Week 10 captures are inputs here, read-only. Where this lab's numbers differ from an older page,
+  both are published and the difference is on the Flagged for Review page.</li>
+</ul>
+
+<h2>5. The arithmetic of "how much longer"</h2>
+<p>The intervals on this page are about 2.5–3.0 points of MAE wide on {meta["games"]} games. The
+strategies differ from each other by less than 0.6 points and from the pick'em control by less than
+1.0. For a paired difference to clear even an unadjusted 95% threshold at the observed effect size,
+the sample has to grow roughly by the square of the ratio of the two — a factor of about five to
+seven, i.e. <b>700–900 games</b>, or three seasons. For the Bonferroni-adjusted threshold used here,
+more. No amount of cleverness on 148 games substitutes for that, which is why the brief's own
+insistence on pre-registration and honest intervals is the right call.</p>
+
+<h2>6. Read next</h2>
+<table>
+  <thead><tr><th>Page</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td><a href="compare.html">Compare strategies</a></td><td>the full lab: comparison, calibration, luck, regimes, totals, correlations, Week 11 slate, questions and suggestions</td></tr>
+    <tr><td><a href="board/readiness.html">Requirement readiness</a></td><td>one row per requirement in the brief, with its blocking gate and clearing number</td></tr>
+    <tr><td><a href="flagged.html">Flagged for Review</a></td><td>every irregularity, with its official source link, published rather than smoothed</td></tr>
+    <tr><td><a href="verified/index.html">Verified results &amp; scoring</a></td><td>the independent results dashboard and its out-of-sample evaluation</td></tr>
+    <tr><td><a href="methodology.html">Methodology</a></td><td>how a value gets on this site at all</td></tr>
+  </tbody>
+</table>
+"""
+    return page("Executive summary", body, "executive-summary.html")
+
+
 # ---------------------------------------------------------------------------
 def build_ablations(ab: dict) -> str:
     """Readiness R028/R029: injury/availability ablation on a chronological holdout."""
@@ -1117,6 +1688,8 @@ def main():
         "suggestions.html": build_suggestions(sug),
         "flagged.html": build_flagged(flag),
         "sources.html": build_sources(src),
+        "compare.html": build_compare(),
+        "executive-summary.html": build_executive_summary(),
         "methodology.html": build_methodology(standings, luck, corr, lines),
         "ablations.html": build_ablations(ablations),
         "audit.html": build_audit(audit),

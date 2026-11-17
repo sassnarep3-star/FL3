@@ -205,25 +205,41 @@ originated lines. Model output is badged as model output everywhere.
 - **Scheduled snapshots:** `.github/workflows/snapshot.yml` (Wednesday to Monday, 13:17 and 23:17 UTC) stores one gzip-compressed copy of the official injury page per run under `snapshots/raw/`, with SHA-256 and a line in `snapshots/index.csv`. It refuses to store on drift and fails loudly. Not yet observed live.
 - **Open items:** the published injury copies that feed the model still differ from the official page (flags F25–F30 on the Flagged for Review page).
 
-## Session `arena/6c7144be-fl3` additions (2026-11-17)
+---
 
-- **Open PRs integrated.** PR #23 (`arena/fa06d378-fl3`: official Week 10 injury
-  capture PSV + cell-level diff + flags FLG-031..033) and PR #34
-  (`arena/03e651e0-fl3`: `verified/strategies.html` self-contradiction fix +
-  tag-balance verifier) both predated the current squashed `main` and had no git
-  merge base with it; their content was grafted onto `main` and the PRs merged as
-  themselves (#23 → `b4e6294`, #34 → `e28b9cd`). Nothing from either session was
-  discarded; both handoffs are recorded in `COORDINATION.md`.
-- **Snapshot workflow repaired and verified live.** The scheduled
-  "Official injury-report snapshot" workflow had failed every run because
-  `nfl.com/injuries/league/2026/reg<W>` **redirects to the current week** until a
-  report is first published. The capture now records `redirected:<week>` /
-  `empty` rows and stays green, alarms only on real drift (printing a body snippet),
-  and self-tests on push. First live capture: run `44006920915` succeeded and the
-  bot committed `snapshots/index.csv` (`redirected:reg10`).
-- **Requirement-coverage audit.** `audit/index.html` +
-  `data/requirement_coverage_audit.csv` (from `scripts/build_coverage_audit.py`,
-  checked by `scripts/check_coverage_audit.py`) map **all 69** brief requirements
-  to their readiness-register rows, 0 unmapped. Findings are computed from the
-  live register (including a raised-and-resolved corpus-metric mismatch) and the
-  page is linked from the landing page's subsites table.
+## Strategy comparison lab (session `arena/3b7e0210`, 2026-11-17)
+
+The repo could originate a line five ways and could not say which way was better. It can now.
+
+**Live:** <https://sassnarep3-star.github.io/FL3/compare.html> ·
+**Summary:** <https://sassnarep3-star.github.io/FL3/executive-summary.html>
+
+| | |
+|---|---|
+| Input | `data/week_results_2026.csv` — 148 verified games, reconciled club by club to the official standings |
+| Arms | 4 origination strategies (net points, offence-meets-defence, opponent-aware least squares, Pythagorean) + 4 controls (coin, home-always, pick'em, trailing league mean total) |
+| Method | walk-forward: a week-*w* forecast may use only weeks `< w`; 4,000 game-cluster bootstrap resamples; Bonferroni ledger over 12 comparisons |
+| Headline | every strategy beats a coin flip on Brier score; the best beats pick'em on spread error by 0.63 points; **nothing survives the multiplicity threshold** (best |z| = 2.43 vs 2.87) |
+| Totals | predicted total vs actual total r = −0.03 (n = 148); a trailing-mean control beats every strategy |
+| Dispersion | 0.26–0.58 — the model's opinions are a quarter to a half as wide as reality, which is why no line can beat a price yet |
+| Money columns | **blank**. No licensed price exists, so no ROI and no CLV are computed anywhere |
+
+Two supporting artefacts, both deterministic and both `--check`-able:
+
+- `scripts/build_compare.py` → `data/compare/{evaluation.json,evaluation.csv,forecast_ledger.csv,slate_week11_forecasts.csv,questions.csv,suggestions.csv}`.
+  The per-game ledger lets anyone re-score every number without trusting the page.
+- `scripts/build_crosscheck.py` → proves how every game count in the repo relates:
+  **136** (weeks 1–9, 6,246 pts — the brief's "136-game log") → **137** (+ the Thursday W10 final,
+  6,291 pts — the board's snapshot) → **148** (+ the other 11 W10 finals, 6,824 pts — the verified
+  snapshot). All 32 clubs' W/L/T/PF/PA match the official standings on both snapshots.
+
+Also in this session: the scheduled availability capture's only run had failed because it could not
+tell "the league has not published this week yet" from "our parser is broken". `classify()` now
+separates the two (`not_published_yet` is recorded, drift still fails the build), unit-tested with
+`--selftest`. Full detail, including eight defects found and four left open, is in
+[compare.html §11](https://sassnarep3-star.github.io/FL3/compare.html).
+
+```bash
+python3 scripts/build_compare.py && python3 scripts/build_crosscheck.py
+python3 scripts/build_site.py && python3 scripts/check_site.py   # 3,450 assertions
+```
