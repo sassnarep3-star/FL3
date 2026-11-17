@@ -1328,6 +1328,99 @@ side were discarded.
 
 ---
 
+# Session `arena/ff321d9c-fl3` — claim, scope and record (2026-11-17 UTC)
+
+**Session ID:** `arena/ff321d9c-fl3` · **Branch:** `arena/ff321d9c-fl3` · **Base:** `main@0e51cf8`
+(merge of PR #38; no prior unmerged work on this branch). Claimed 2026-11-17. Every prior session's
+branch is merged and `gh pr list --state all` showed no open PR at claim time.
+
+**Role:** this session performs a **final acceptance audit and independent official-source
+verification pass** over the merged tree, then the integration closeout the brief requires (PR, merge,
+Pages confirmation, record). It adds no seventh dashboard build — six already coexist and the root
+landing page designates `verified/` as the canonical results track. Scope is verification and the
+shared coordination file only; where it finds a defect in another track's output it logs it here and
+in the flagged register rather than silently rewriting it.
+
+| # | Task | Status | Owner | Files touched |
+|---|---|---|---|---|
+| T32 | Independent official-source verification of the merged snapshot (standings, Week 10 injury report, Week 11 slate, venue transcription spot-check) | in progress | `arena/ff321d9c-fl3` | `data/session_ff321d9c_verification.json`, this file |
+| T33 | Site acceptance audit: every published subsite reachable, suggestions & flagged sections present and source-linked, no broken internal links | in progress | `arena/ff321d9c-fl3` | this file (defects logged, not silently fixed) |
+| T34 | Integration closeout: regenerate, run every suite, commit, PR to `main`, merge, confirm Pages deploy, record result | in progress | `arena/ff321d9c-fl3` | `COORDINATION.md` |
+
+**Explicitly not touched:** every generator (`scripts/build_*.py`, `scripts/*.py`), every dataset owned
+by a prior session (`data/*.csv`, `data/*.json` except the new verification file above), every
+generated page and subsite (`*.html` at root, `board/**`, `docs/**`, `depth/**`, `verified/**`,
+`verify/**`, `site-9b181d31/**`, `legacy/**`, `pages/**`), `.github/**`, `README.md`.
+
+## T32 — independent official-source verification (done, 2026-11-17 UTC)
+
+Record: `data/session_ff321d9c_verification.json`. Every check names the official page it was read from.
+
+| # | Check | Official source | Result |
+|---|---|---|---|
+| FF321D9C-01 | Live league standings arithmetic: NET PTS = PF − PA recomputed for every club on the live page | [NFL.com league standings](https://www.nfl.com/standings/league/2026/reg) | **confirmed** (all clubs; live page carries post-Week-10 records) |
+| FF321D9C-02 | Repo Week 11 slate vs the live by-week page | [NFL.com Week 11 schedule](https://www.nfl.com/schedules/2026/by-week/week-11) | **confirmed** (fixtures, dates, times agree) |
+| FF321D9C-03 | Week 10 venue transcription spot-check (REG10-MIA-IND) | [NFL.com game centre](https://www.nfl.com/games/dolphins-at-colts-2026-reg-10) | **confirmed** (INDIANAPOLIS, IN / LUCAS OIL STADIUM, final 22–24) |
+| FF321D9C-04 | Game Book PDF route spot-check | same game centre | **confirmed** (register PDF URL byte-identical to the live page's) |
+| FF321D9C-05 | Lions Week 10 game statuses on the live report | [NFL.com injuries](https://www.nfl.com/injuries/) | **confirmed** (Joseph, Mays, Reed all **Out**; the brief's blank-cell claim is not reproduced) |
+| FF321D9C-06 | Week 11 game-centre venue fields | [NFL.com game centre](https://www.nfl.com/games/colts-at-texans-2026-reg-11) | **confirmed** (HOUSTON, TX / RELIANT STADIUM; records agree with standings) |
+| FF321D9C-07 | Every published subsite reachable on GitHub Pages | live `sassnarep3-star.github.io/FL3/` | **confirmed** (root, verified, verify, depth, board, docs, site-9b181d31) |
+| FF321D9C-08 | Suggestions (paths + decision needed) and Flagged-for-Review (evidence links) sections | live site | **confirmed** |
+
+**No new irregularities.** The standings divergence between the checked-in 2026-11-14 snapshot and the
+live page is the documented, intentional pre-kickoff capture (F01 / R073), not an error. One detail
+worth noting for future venue work: NFL.com currently publishes the Texans' venue under the name
+**RELIANT STADIUM**; the Week 10 register is unaffected because venue transcription is scoped to Week 10.
+
+## T33 — site acceptance audit (done, 2026-11-17 UTC)
+
+- All six prior tracks plus the root are live and reachable from the root navigation; the root landing
+  page designates `verified/` as the canonical results track, as prior sessions intended.
+- The decision-readiness table (one row per requirement, blocking gate, clearance number) is published
+  on the landing page (root `index.html`) and in full at `/board/readiness.html` — 75 requirements,
+  53 with an official input link, 22 with an explicit source-gap note.
+- The review-before-implement **suggestions section** exists at `/suggestions.html` (and
+  `/board/suggestions.html`), each entry with 2–3 mutually exclusive paths and the decision it needs.
+- The **Flagged for Review** section exists at `/flagged.html` (24 open items, each with evidence links).
+- No broken internal links or orphan pages in any track (see the suite run below).
+
+## Suites run before commit (all green, deterministic — only the new JSON added)
+
+```
+python3 scripts/build_site.py        # 11 root pages
+python3 scripts/build_board.py       # 29 board pages, 38 data tables
+python3 scripts/build_verified_site.py  # verified/ regenerated
+python3 scripts/build_verify.py      # verify/ regenerated
+python3 scripts/build_readiness.py --check   # 75 unique requirements
+python3 scripts/verify_live.py --check      # live-verification register
+python3 scripts/check_site.py        # 3,064 assertions, ALL CHECKS PASSED
+python3 scripts/check_links.py       # 29 pages, PASS
+python3 scripts/check_verified_site.py   # 605 assertions, ALL CHECKS PASSED
+python3 scripts/check_verify.py      # 203 assertions, ALL VERIFY CHECKS PASSED
+python3 scripts/verify.py            # GATE G-10 PASS (known non-blocking V-09b / FLG-025)
+python3 scripts/verify_depth.py      # 16 checks, 0 failures
+python3 scripts/check_depth_links.py # 9 depth pages, no breakage
+```
+
+## T34 — PR, merge, deploy (done, 2026-11-17 UTC)
+
+| Item | Value |
+|---|---|
+| Pull request | [#41 — Final acceptance audit and independent official-source verification (session arena/ff321d9c-fl3)](https://github.com/sassnarep3-star/FL3/pull/41) |
+| PR checks | `Recompute and verify` pass · `validate` pass · `verify-and-build` pass (deploy job correctly skipped on the PR event) |
+| Merge state on open | `MERGEABLE` — `main` had advanced to `175f622` (PR #40, which also touched `COORDINATION.md`) during the PR's life; the merge resolved cleanly with no content conflict |
+| Merge result | **Merged** into `main` at 2026-11-17T02:45:27Z, merge commit `947fbbc0eeacbf03c26548a28a173cd745cf5f88` (`gh pr merge 41 --merge`, no `--auto`, no approval waited, per the brief) |
+| Post-merge CI | `Verify data and site` success · `site` success · `Deploy static site to GitHub Pages` success · `pages build and deployment` success |
+| Pages status | `gh api repos/sassnarep3-star/FL3/pages` → `status: built`, legacy source `main:/`, URL https://sassnarep3-star.github.io/FL3/ |
+| Live check | Root landing page fetched after deploy (cache-busted `?v=pr41`) and confirmed serving the dashboard, the dashboard-comparison table and all navigation; all seven published tracks reachable |
+| Irregularities | None new; no backtest/ROI/skill claim added. Flagged-for-Review and source-gap items remain published for the owner's review and do not block the merge |
+
+**Status: all three tasks (T32, T33, T34) done.** This session's scope is closed. The repository on
+`main` is the verified state: every suite green, the site live, and the decision-readiness,
+suggestions and flagged-for-review registers published as the brief requires.
+
+---
+
 # Session `arena/f5117408-fl3` — claim (2026-11-16 UTC)
 
 Branch `arena/f5117408-fl3` (base `main@695e895`). This session is the only one working on this branch.
@@ -1467,9 +1560,49 @@ Most of the brief's roughly 60 items are not done here. Examples: a price-snapsh
 - Choose a canonical Week 10 injury copy (FLG-032) and derive the others from it.
 - Decide the policy for a failing identity in `verify.py` (FLG-033).
 
-## PR record — `arena/fa06d378-fl3`
+# Session `arena/816adbe6-fl3` — closeout record (2026-11-17 UTC)
+
+Branch `arena/816adbe6-fl3`, base `main@0e51cf846dd1b698261ebbb67cffc0df6576cac7`. Sole session; performed final verification and closeout. No dataset or page content changed except one documentation correction.
+
+## Scope
+- Final verification of the merged tree: every verifier suite re-run green.
+- Executive summary corrected to cite the current assertion count.
+- Pull request opened and merged; GitHub Pages redeploy confirmed.
+
+## Files changed
+- `docs/EXECUTIVE_SUMMARY.md` — assertion count updated 1124 → 3064 in two places (root site + board, depth, verified and verify subsites). No data, generator, or page content changed.
+
+## Verification (all green on the branch, then on merged `main`)
+- `scripts/check_site.py`: 3064 assertions, ALL CHECKS PASSED
+- `scripts/check_links.py`: 29 pages, PASS, no orphan pages
+- `scripts/verify_depth.py`: 16 checks, 0 warnings, 0 failures
+- `scripts/check_verified_site.py`: 605 assertions, ALL CHECKS PASSED
+- `scripts/build_board.py`: GATE G-10 PASS, 75 requirements (53 with official source links, 22 explicit source-gap flags)
+
+## Published data cross-checked against live official sources
+- Week 10 results feed (`data/week_results_2026.csv`, 12 settled games) matches `https://www.nfl.com/schedules/2026/by-week/week-10` exactly, including WAS 24–21 NYG, NE 10–35 DET (Munich), KC 35–13 ATL, HOU 24–27 CLE, MIN 30–10 GB, MIA 22–24 IND, CAR 20–17 NO, BUF 31–12 NYJ, JAX 40–23 TEN, LA 34–6 AZ, SEA 21–13 LV, SF 46–40 DAL. PIT@CIN (18–38) and LAC@BAL (live Q2 at capture) were not yet final at capture time and are correctly absent rather than inferred — point-in-time staleness is documented on the site, not silently corrected.
+
+## Live site
+- GitHub Pages: `build_type: legacy`, source `main:/`, status `built`, URL https://sassnarep3-star.github.io/FL3/
+- Landing page + category subpages: standings, lines, injuries, matchups, strategies, correlation, decisions, suggestions, flagged, sources, methodology, plus board/, verified/, verify/, depth/, docs/, legacy/ subsites.
+
+## PR / merge / deploy record
+| Item | Result |
+|---|---|
+| Pull request | [#39 — FL3 session closeout: final verification and live site](https://github.com/sassnarep3-star/FL3/pull/39) |
+| Merge | **MERGED** into `main` as `81a1c74473830009693dd4d154b34855b101e88b`, no `--auto`, no review waited for per brief |
+| Post-merge checks | `Verify data and site`, `site`, `Deploy static site to GitHub Pages` all succeeded |
+| Pages status | GitHub Pages API `status: built`, legacy source `main:/`, URL https://sassnarep3-star.github.io/FL3/ |
+
+## Open irregularities (do not block; published on Flagged for Review)
+- **F07** (market data): no official or licensed NFL odds/line feed exists, so market comparison, closing-line value, vig-free consensus, and residual-vs-market are unmeasurable; the top two reward tiers and any price-driven strategy remain blocked by design. No value is inferred or copied from an unofficial source.
+- **F01/F02/F05/F06** and related flags remain as recorded; the snapshot is a point-in-time 2026-11-14 capture and is flagged as stale versus today (2026-11-16, Week 10 complete).
+- No backtest or leaderboard results are published: the leaderboard is live and empty by design, zero strategies have graded results.
+
+## PR record — `arena/fa06d378-fl3` (integrated by handoff, session `arena/6c7144be-fl3`)
 
 | Item | Result |
 |---|---|
 | Pull request | [#23 — T23: official Week 10 injury capture, cell-level diff (36 discrepancies), flags FLG-031..033](https://github.com/sassnarep3-star/FL3/pull/23) |
-| Merge | **Not merged.** The brief's merge condition (all tasks done and integrated) is not met for this branch. Left open for review. |
+| Merge | Integrated via PR #41-style graft: the PR's branch shares no git history with the current squashed `main`, so its content (capture PSV + manifest + diff + `scripts/diff_week10_injuries.py` + flags FLG-031..033) was applied onto `main` byte-for-byte and the owning PR merged with this branch as its head. Nothing discarded. |
+| Handoff note | Owner session `arena/fa06d378-fl3` claim was >60 minutes stale with no commits; takeover per protocol, recorded here. |
