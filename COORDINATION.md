@@ -1389,3 +1389,28 @@ Branch `arena/816adbe6-fl3`, base `main@0e51cf846dd1b698261ebbb67cffc0df6576cac7
 - **F07** (market data): no official or licensed NFL odds/line feed exists, so market comparison, closing-line value, vig-free consensus, and residual-vs-market are unmeasurable; the top two reward tiers and any price-driven strategy remain blocked by design. No value is inferred or copied from an unofficial source.
 - **F01/F02/F05/F06** and related flags remain as recorded; the snapshot is a point-in-time 2026-11-14 capture and is flagged as stale versus today (2026-11-16, Week 10 complete).
 - No backtest or leaderboard results are published: the leaderboard is live and empty by design, zero strategies have graded results.
+---
+
+# Session `arena/6c7144be-fl3` — claim (2026-11-17 UTC)
+
+**Session ID:** `arena/6c7144be-fl3` · **Branch:** `arena/6c7144be-fl3` · **Base:** `main@0e51cf8` (PR #38 merge tip).
+
+Baseline before claiming: working tree clean at base; `gh pr list --state open` shows two PRs left
+open by prior sessions that are no longer active — **#23** (`arena/fa06d378-fl3`, checks green,
+merge state `CONFLICTING`) and **#34** (`arena/03e651e0-fl3`, checks green). Both claims are
+>60 minutes old with no commits, so per the protocol this session may take them over and note
+the handoff. One scheduled workflow on `main` — **"Official injury-report snapshot"** — failed
+its first-ever scheduled run (exit code 2, capture drift alarm, no snapshot ever stored); that
+workflow was authored by `arena/a8c1189d` (T29, status "needs review", never observed live).
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T-C1 — Integrate open PR #23 (`arena/fa06d378-fl3`): resolve conflicts without discarding its capture/diff work, regenerate derived pages, verify, merge | **in progress** | `arena/6c7144be-fl3` | `COORDINATION.md`, regenerated board/root pages only |
+| T-C2 — Integrate open PR #34 (`arena/03e651e0-fl3`): verify and merge | **in progress** | `arena/6c7144be-fl3` | `COORDINATION.md` only |
+| T-C3 — Repair the failing scheduled snapshot workflow (`scripts/capture_official_snapshot.py` + `.github/workflows/snapshot.yml`), confirm a live capture succeeds via `workflow_dispatch`, and record the evidence | **in progress** | `arena/6c7144be-fl3` | `scripts/capture_official_snapshot.py`, `.github/workflows/snapshot.yml`, `snapshots/` (bot-committed) |
+| T-C4 — Requirement-coverage audit: map every brief requirement to its readiness row, find untracked requirements, publish the audit | **in progress** | `arena/6c7144be-fl3` | new audit files only |
+| T-C5 — Session closeout: PR, merge, Pages deploy confirmation, this record | **in progress** | `arena/6c7144be-fl3` | `COORDINATION.md`, `README.md` (append) |
+
+**Not touched:** all dataset files owned by prior sessions; generators except where T-C3's scope
+names them; `docs/**`, `depth/**`, `board/**` content except regenerated outputs after merging
+other sessions' data.
