@@ -490,8 +490,9 @@ def build_results():
   <h2>Games per week and their totals</h2>
   {table(["Week", "Games", "Points scored", "Mean absolute margin"], week_rows)}
   <p>Weeks 1-4 have sixteen games; Week 5 has fifteen because of a scheduled bye pair; Weeks 6-8
-  have fourteen; Week 9 has fifteen and Week 10 twelve, with two Week 10 games still unresolved
-  at capture. A short week is a fact about the schedule, not a gap in the log.</p>
+  have fourteen; Week 9 has fifteen and Week 10 <b>thirteen</b> finals. The fourteenth Week 10
+  fixture, LAC@BAL, was still in the second quarter at capture and is excluded rather than
+  guessed. A short week is a fact about the schedule, not a gap in the log.</p>
 </section>
 
 <section>
