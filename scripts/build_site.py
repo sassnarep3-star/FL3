@@ -44,6 +44,7 @@ PAGES = {
     "availability.html": "Availability",
     "lab.html": "Lab",
     "spec.html": "Spec",
+    "audit.html": "Acceptance audit",
     "board/readiness.html": "Requirement readiness",
     "verified/index.html": "Verified results & scoring",
     "verify/index.html": "Verification",
@@ -903,6 +904,53 @@ python3 scripts/check_site.py</code></pre>
     return page("Methodology", body, "methodology.html")
 
 
+def build_audit(audit):
+    """Acceptance audit: published registers vs live official sources (2026-11-17)."""
+    meta = audit["meta"]
+    rows = []
+    verdict_cls = {"CONFIRMED": "ok", "STALE": "warn", "MISMATCH": "bad", "UNVERIFIED": "bad"}
+    for r in audit["checks"]:
+        rows.append([
+            f"<b>{e(r['check_id'])}</b>",
+            e(r["category"]),
+            e(r["item"]),
+            e(r["repo_value"]),
+            e(r["live_value"]),
+            badge(r["verdict"], verdict_cls.get(r["verdict"], "warn")),
+            src_link(r["source_url"], "source"),
+            e(r["note"]),
+        ])
+    counts = {}
+    for r in audit["checks"]:
+        counts[r["verdict"]] = counts.get(r["verdict"], 0) + 1
+    stat_html = " ".join(
+        stat(counts.get(v, 0), v) for v in ("CONFIRMED", "STALE", "MISMATCH", "UNVERIFIED"))
+    body = f"""
+<h1>Acceptance audit</h1>
+<p class="lede">Every value published in this repository was compared, line by line, against the
+official page read on {e(meta['audit_utc'])}. <b>CONFIRMED</b> means the repo value matches the live
+official value. <b>STALE</b> means the repo value was correct at its capture time and the live source
+has since moved on — the snapshot is preserved, not rewritten. <b>MISMATCH</b> means the repo value
+disagrees with the live official value; it is published here for review.</p>
+
+<div class="note"><strong>Evidence rule.</strong> {e(meta['source_policy'])} Every row carries the
+URL that was read. Values that could not be confirmed from an official source are blank and flagged,
+never inferred.</div>
+
+<div class="stats">{stat_html}</div>
+
+{table(["Check", "Category", "Item", "Published in repo", "Live official value", "Verdict", "Source", "Note"], rows)}
+
+<h2>How to read the STALE rows</h2>
+<p>The standings rows are the 2026-11-14 point-in-time snapshot: every divergence equals the club's
+Week 10 result, so the snapshot is a correct pre-kickoff capture, not an error. The two result rows
+(PIT@CIN, LAC@BAL) were captured before their games concluded; the live schedule page now shows
+PIT@CIN FINAL 18&ndash;38 and LAC@BAL in progress (Q2, 17&ndash;7) at audit time. A refresh of the
+results feed is requested in COORDINATION.md; the captured file is left untouched.</p>
+"""
+    return page("Acceptance audit", body, "audit.html")
+
+
 # ---------------------------------------------------------------------------
 def build_ablations(ab: dict) -> str:
     """Readiness R028/R029: injury/availability ablation on a chronological holdout."""
@@ -1047,6 +1095,7 @@ def main():
     flag = load("flagged.json")
     src = load("sources.json")
     ablations = load("ablations_week10.json")
+    audit = load("acceptance_audit_2026-11-17.json")
     readiness = read_requirement_rows()
     official_sources = read_source_registry()
 
@@ -1063,6 +1112,7 @@ def main():
         "sources.html": build_sources(src),
         "methodology.html": build_methodology(standings, luck, corr, lines),
         "ablations.html": build_ablations(ablations),
+        "audit.html": build_audit(audit),
     }
     for name, content in out.items():
         with open(os.path.join(ROOT, name), "w", encoding="utf-8") as fh:
