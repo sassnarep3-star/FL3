@@ -2231,8 +2231,10 @@ All claimed tasks done. Merge record follows in the PR table.
 | Item | Result |
 |---|---|
 | Pull request | [#54 — FL3: integrate open PRs #23/#34, repair the snapshot workflow, publish the requirement-coverage audit](https://github.com/sassnarep3-star/FL3/pull/54) |
-| Merge | merged into `main` without waiting for approval, per brief (recorded below after merge) |
-| Deploy | GitHub Pages legacy build (`main:/`) confirmed via the Pages workflow and API (recorded below) |
+| Merge | **MERGED** into `main` at 2026-11-17T03:14:02Z, merge commit `2c67052c709e17afddff2bbb21ca615f7d3fcd1d`, no `--auto`, no review waited for, per brief |
+| Deploy | Post-merge: `Deploy static site to GitHub Pages` run `44008732716` success; `pages build and deployment` run `44008748716` success; Pages API `status: built`, source `main:/`, URL https://sassnarep3-star.github.io/FL3/. **Live pages fetched with cache-busters**: `/audit/index.html` serves the full audit (later sessions' register updates already reflected - the audit regenerates in CI); the landing page carries the `audit` subsite row. |
+| Follow-up PR | [#56 — Audit polish: normalize register repo_page conventions](https://github.com/sassnarep3-star/FL3/pull/56) - found by reviewing the live page (link texts rendered `board/../week11.html`), fixed by `page_link()` normalization. **Merged** at 2026-11-17T03:18:05Z as `581abb01994e25e9c557e8042f051b2fcb290a56`; Pages rebuilt (`status: built`) and the live audit page re-fetched: root-page links now render cleanly. |
+| Post-merge CI on main | `Verify data and site`, `site`, `Deploy static site to GitHub Pages`, `pages-build-deployment` all success; the scheduled snapshot workflow also ran on main and succeeded. |
 
 ## Follow-up record — PR #51 completion (2026-11-17 UTC, session `arena/bb4f237d-fl3`)
 
