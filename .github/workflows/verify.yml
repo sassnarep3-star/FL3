@@ -53,6 +53,11 @@ jobs:
           python3 scripts/build_verify.py
           python3 scripts/check_verify.py
 
+      - name: Build and verify the requirement-coverage audit
+        run: |
+          python3 scripts/build_coverage_audit.py
+          python3 scripts/check_coverage_audit.py
+
       - name: Confirm generated files are reproducible
         run: |
           if ! git diff --quiet; then

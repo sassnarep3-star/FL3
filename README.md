@@ -204,3 +204,26 @@ originated lines. Model output is badged as model output everywhere.
 - **Official capture and reconciliation:** see `board/official-capture.html` and `data/official_injury_*_wk10_2026.csv` (PR #27). This session cross-checked that capture against an independent transcription of the same page: 347 rows, 0 differences on club, player, position, injury, practice status and game status.
 - **Scheduled snapshots:** `.github/workflows/snapshot.yml` (Wednesday to Monday, 13:17 and 23:17 UTC) stores one gzip-compressed copy of the official injury page per run under `snapshots/raw/`, with SHA-256 and a line in `snapshots/index.csv`. It refuses to store on drift and fails loudly. Not yet observed live.
 - **Open items:** the published injury copies that feed the model still differ from the official page (flags F25–F30 on the Flagged for Review page).
+
+## Session `arena/6c7144be-fl3` additions (2026-11-17)
+
+- **Open PRs integrated.** PR #23 (`arena/fa06d378-fl3`: official Week 10 injury
+  capture PSV + cell-level diff + flags FLG-031..033) and PR #34
+  (`arena/03e651e0-fl3`: `verified/strategies.html` self-contradiction fix +
+  tag-balance verifier) both predated the current squashed `main` and had no git
+  merge base with it; their content was grafted onto `main` and the PRs merged as
+  themselves (#23 → `b4e6294`, #34 → `e28b9cd`). Nothing from either session was
+  discarded; both handoffs are recorded in `COORDINATION.md`.
+- **Snapshot workflow repaired and verified live.** The scheduled
+  "Official injury-report snapshot" workflow had failed every run because
+  `nfl.com/injuries/league/2026/reg<W>` **redirects to the current week** until a
+  report is first published. The capture now records `redirected:<week>` /
+  `empty` rows and stays green, alarms only on real drift (printing a body snippet),
+  and self-tests on push. First live capture: run `44006920915` succeeded and the
+  bot committed `snapshots/index.csv` (`redirected:reg10`).
+- **Requirement-coverage audit.** `audit/index.html` +
+  `data/requirement_coverage_audit.csv` (from `scripts/build_coverage_audit.py`,
+  checked by `scripts/check_coverage_audit.py`) map **all 69** brief requirements
+  to their readiness-register rows, 0 unmapped. Findings are computed from the
+  live register (including a raised-and-resolved corpus-metric mismatch) and the
+  page is linked from the landing page's subsites table.

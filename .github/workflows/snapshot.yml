@@ -1,20 +1,37 @@
 name: Official injury-report snapshot
 
-# Captures the official NFL.com injury report (Wednesday to Monday, twice a day, UTC) and commits
+# Captures the official NFL.com injury report (Wed-Sun, twice a day; see the cron block) and commits
 # one immutable, hashed file per capture under snapshots/. The store lives outside data/ and
 # docs/ so that the site-verification job (which diffs data/ and docs/) is not triggered by it.
 #
+# Normal non-capture outcomes are recorded, not alarmed:
+#   - a not-yet-published week URL redirects to the current week -> index row "redirected:<week>"
+#   - a published page with no player rows yet                   -> index row "empty"
 # Drift alarm: scripts/capture_official_snapshot.py exits 2 when the page does not look like the
-# report we parse (HTTP status, size, required headings, player links). That fails this workflow,
-# and GitHub notifies the repository owner of the failed run. Nothing is committed on failure.
+# report we parse (HTTP status, size, required headings, or a challenge-shaped body). That fails
+# this workflow, and GitHub notifies the repository owner of the failed run. Nothing is committed
+# on failure. The failure log prints the HTTP status and the first 300 body characters.
 #
 # Week: the scheduled runs use REPORT_WEEK below. Update it when the season moves to a new week
 # (the workflow_dispatch input overrides it for a single run).
 
 on:
   schedule:
-    - cron: "17 13 * * 3,4,5,6,0,1"
-    - cron: "17 23 * * 3,4,5,6,0,1"
+    # Morning slot runs Wed-Sun (report days through pre-kickoff Sunday);
+    # evening slot runs Wed-Sat (the day's final designations). Sunday evening and
+    # Monday are excluded: the next week's report does not exist until Wednesday and
+    # the league site redirects to the current week, which the capture records as
+    # "redirected" without storing anything.
+    - cron: "17 13 * * 3,4,5,6,0"
+    - cron: "17 23 * * 3,4,5,6"
+  # Self-test: any commit that touches the capture script runs one live capture,
+  # so a change to the fetch/drift logic is verified against the real page instead
+  # of only offline. The paths filter prevents loops (the workflow commits only
+  # under snapshots/).
+  push:
+    paths:
+      - "scripts/capture_official_snapshot.py"
+      - ".github/workflows/snapshot.yml"
   workflow_dispatch:
     inputs:
       week:
