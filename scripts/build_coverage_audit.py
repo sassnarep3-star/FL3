@@ -24,6 +24,7 @@ Exit codes: 0 ok, 1 audit invariant failed (missing mapping, missing file).
 from __future__ import annotations
 
 import csv
+import os
 import sys
 from pathlib import Path
 
@@ -237,6 +238,21 @@ def binding_state(states):
     return best
 
 
+def page_link(repo_page: str) -> str:
+    """Normalize a register repo_page value to a repo-root-relative target.
+
+    The register mixes three conventions that sessions introduced over time:
+    "board/x.html" (explicit), "x.html" (board-relative, the original convention)
+    and "../x.html" (escapes board/ to a root-level page). All normalize here so
+    the audit never renders a link text like "board/../week11.html".
+    """
+    if repo_page.startswith("board/"):
+        return repo_page
+    if repo_page.startswith("../"):
+        return os.path.normpath(os.path.join("board", repo_page)).replace(os.sep, "/")
+    return f"board/{repo_page}"
+
+
 def main() -> int:
     register = list(csv.DictReader(REGISTER.open(newline="", encoding="utf-8-sig")))
     by_id = {r["id"]: r for r in register}
@@ -257,10 +273,9 @@ def main() -> int:
             continue
         states = [by_id[i]["current_state"] for i in ids]
         pages = sorted({(by_id[i]["repo_page"] or "").strip() for i in ids if by_id[i]["repo_page"].strip()})
-        # A register row's repo_page is relative to board/ unless already prefixed.
         links = []
         for p in pages:
-            target = p if p.startswith("board/") else f"board/{p}"
+            target = page_link(p)
             if not (ROOT / target).exists():
                 problems.append(f"{bid}: repo_page target does not exist: {target}")
             links.append(target)
