@@ -18,6 +18,7 @@
 | Session ID | Branch | Scope | Started (UTC) |
 |---|---|---|---|
 | `arena/9d05cb63-fl3` | `arena/9d05cb63-fl3` | Repo review, official-source verification, and session closeout (PR + merge + Pages deploy record). No dataset or page content changed; only COORDINATION.md session records. | 2026-11-16 |
+| `arena/4d2c9111-fl3` | `arena/4d2c9111-fl3` | T35: injury/availability ablation with chronological holdout and uncertainty (R028/R029). New ablation script + datasets + `ablations.html` page; wired into root nav, board PAGES, and verifiers. | 2026-11-17 |
 
 Other sessions: **one competing session was discovered after this session's first push.**
 
@@ -63,6 +64,7 @@ and both pushed before either claim was visible. This is the exact race the prot
 | T17 | Merge-conflict resolution vs `arena/39f57d31-fl3` | **done** | `arena-e8bf2075` | `COORDINATION.md`, `README.md`, `index.html`, `assets/site.css`, `scripts/check_site.py` |
 | T18 | Archive the competing blueprint without discarding it | **done** | `arena-e8bf2075` | `legacy/**` |
 | T19 | Fold the other session's findings into the registers | **done** | `arena-e8bf2075` | `data/flagged.json`, `data/decisions.json`, `data/suggestions.json` |
+| T35 | Injury/availability ablation with chronological holdout and uncertainty (R028/R029) — compare the identical line model with and without verified availability features on a chronological holdout; publish MAE/RMSE/Brier with bootstrap CIs and an explicit n; no backtest numbers on the leaderboard | **in progress** | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
 
 **File ownership rule for future sessions:** `data/standings.json`, `data/sources.json`,
 `data/flagged.json` and every `*.html` at repo root are **shared outputs**. They are regenerated
@@ -1328,6 +1330,99 @@ side were discarded.
 
 ---
 
+# Session `arena/ff321d9c-fl3` — claim, scope and record (2026-11-17 UTC)
+
+**Session ID:** `arena/ff321d9c-fl3` · **Branch:** `arena/ff321d9c-fl3` · **Base:** `main@0e51cf8`
+(merge of PR #38; no prior unmerged work on this branch). Claimed 2026-11-17. Every prior session's
+branch is merged and `gh pr list --state all` showed no open PR at claim time.
+
+**Role:** this session performs a **final acceptance audit and independent official-source
+verification pass** over the merged tree, then the integration closeout the brief requires (PR, merge,
+Pages confirmation, record). It adds no seventh dashboard build — six already coexist and the root
+landing page designates `verified/` as the canonical results track. Scope is verification and the
+shared coordination file only; where it finds a defect in another track's output it logs it here and
+in the flagged register rather than silently rewriting it.
+
+| # | Task | Status | Owner | Files touched |
+|---|---|---|---|---|
+| T32 | Independent official-source verification of the merged snapshot (standings, Week 10 injury report, Week 11 slate, venue transcription spot-check) | in progress | `arena/ff321d9c-fl3` | `data/session_ff321d9c_verification.json`, this file |
+| T33 | Site acceptance audit: every published subsite reachable, suggestions & flagged sections present and source-linked, no broken internal links | in progress | `arena/ff321d9c-fl3` | this file (defects logged, not silently fixed) |
+| T34 | Integration closeout: regenerate, run every suite, commit, PR to `main`, merge, confirm Pages deploy, record result | in progress | `arena/ff321d9c-fl3` | `COORDINATION.md` |
+
+**Explicitly not touched:** every generator (`scripts/build_*.py`, `scripts/*.py`), every dataset owned
+by a prior session (`data/*.csv`, `data/*.json` except the new verification file above), every
+generated page and subsite (`*.html` at root, `board/**`, `docs/**`, `depth/**`, `verified/**`,
+`verify/**`, `site-9b181d31/**`, `legacy/**`, `pages/**`), `.github/**`, `README.md`.
+
+## T32 — independent official-source verification (done, 2026-11-17 UTC)
+
+Record: `data/session_ff321d9c_verification.json`. Every check names the official page it was read from.
+
+| # | Check | Official source | Result |
+|---|---|---|---|
+| FF321D9C-01 | Live league standings arithmetic: NET PTS = PF − PA recomputed for every club on the live page | [NFL.com league standings](https://www.nfl.com/standings/league/2026/reg) | **confirmed** (all clubs; live page carries post-Week-10 records) |
+| FF321D9C-02 | Repo Week 11 slate vs the live by-week page | [NFL.com Week 11 schedule](https://www.nfl.com/schedules/2026/by-week/week-11) | **confirmed** (fixtures, dates, times agree) |
+| FF321D9C-03 | Week 10 venue transcription spot-check (REG10-MIA-IND) | [NFL.com game centre](https://www.nfl.com/games/dolphins-at-colts-2026-reg-10) | **confirmed** (INDIANAPOLIS, IN / LUCAS OIL STADIUM, final 22–24) |
+| FF321D9C-04 | Game Book PDF route spot-check | same game centre | **confirmed** (register PDF URL byte-identical to the live page's) |
+| FF321D9C-05 | Lions Week 10 game statuses on the live report | [NFL.com injuries](https://www.nfl.com/injuries/) | **confirmed** (Joseph, Mays, Reed all **Out**; the brief's blank-cell claim is not reproduced) |
+| FF321D9C-06 | Week 11 game-centre venue fields | [NFL.com game centre](https://www.nfl.com/games/colts-at-texans-2026-reg-11) | **confirmed** (HOUSTON, TX / RELIANT STADIUM; records agree with standings) |
+| FF321D9C-07 | Every published subsite reachable on GitHub Pages | live `sassnarep3-star.github.io/FL3/` | **confirmed** (root, verified, verify, depth, board, docs, site-9b181d31) |
+| FF321D9C-08 | Suggestions (paths + decision needed) and Flagged-for-Review (evidence links) sections | live site | **confirmed** |
+
+**No new irregularities.** The standings divergence between the checked-in 2026-11-14 snapshot and the
+live page is the documented, intentional pre-kickoff capture (F01 / R073), not an error. One detail
+worth noting for future venue work: NFL.com currently publishes the Texans' venue under the name
+**RELIANT STADIUM**; the Week 10 register is unaffected because venue transcription is scoped to Week 10.
+
+## T33 — site acceptance audit (done, 2026-11-17 UTC)
+
+- All six prior tracks plus the root are live and reachable from the root navigation; the root landing
+  page designates `verified/` as the canonical results track, as prior sessions intended.
+- The decision-readiness table (one row per requirement, blocking gate, clearance number) is published
+  on the landing page (root `index.html`) and in full at `/board/readiness.html` — 75 requirements,
+  53 with an official input link, 22 with an explicit source-gap note.
+- The review-before-implement **suggestions section** exists at `/suggestions.html` (and
+  `/board/suggestions.html`), each entry with 2–3 mutually exclusive paths and the decision it needs.
+- The **Flagged for Review** section exists at `/flagged.html` (24 open items, each with evidence links).
+- No broken internal links or orphan pages in any track (see the suite run below).
+
+## Suites run before commit (all green, deterministic — only the new JSON added)
+
+```
+python3 scripts/build_site.py        # 11 root pages
+python3 scripts/build_board.py       # 29 board pages, 38 data tables
+python3 scripts/build_verified_site.py  # verified/ regenerated
+python3 scripts/build_verify.py      # verify/ regenerated
+python3 scripts/build_readiness.py --check   # 75 unique requirements
+python3 scripts/verify_live.py --check      # live-verification register
+python3 scripts/check_site.py        # 3,064 assertions, ALL CHECKS PASSED
+python3 scripts/check_links.py       # 29 pages, PASS
+python3 scripts/check_verified_site.py   # 605 assertions, ALL CHECKS PASSED
+python3 scripts/check_verify.py      # 203 assertions, ALL VERIFY CHECKS PASSED
+python3 scripts/verify.py            # GATE G-10 PASS (known non-blocking V-09b / FLG-025)
+python3 scripts/verify_depth.py      # 16 checks, 0 failures
+python3 scripts/check_depth_links.py # 9 depth pages, no breakage
+```
+
+## T34 — PR, merge, deploy (done, 2026-11-17 UTC)
+
+| Item | Value |
+|---|---|
+| Pull request | [#41 — Final acceptance audit and independent official-source verification (session arena/ff321d9c-fl3)](https://github.com/sassnarep3-star/FL3/pull/41) |
+| PR checks | `Recompute and verify` pass · `validate` pass · `verify-and-build` pass (deploy job correctly skipped on the PR event) |
+| Merge state on open | `MERGEABLE` — `main` had advanced to `175f622` (PR #40, which also touched `COORDINATION.md`) during the PR's life; the merge resolved cleanly with no content conflict |
+| Merge result | **Merged** into `main` at 2026-11-17T02:45:27Z, merge commit `947fbbc0eeacbf03c26548a28a173cd745cf5f88` (`gh pr merge 41 --merge`, no `--auto`, no approval waited, per the brief) |
+| Post-merge CI | `Verify data and site` success · `site` success · `Deploy static site to GitHub Pages` success · `pages build and deployment` success |
+| Pages status | `gh api repos/sassnarep3-star/FL3/pages` → `status: built`, legacy source `main:/`, URL https://sassnarep3-star.github.io/FL3/ |
+| Live check | Root landing page fetched after deploy (cache-busted `?v=pr41`) and confirmed serving the dashboard, the dashboard-comparison table and all navigation; all seven published tracks reachable |
+| Irregularities | None new; no backtest/ROI/skill claim added. Flagged-for-Review and source-gap items remain published for the owner's review and do not block the merge |
+
+**Status: all three tasks (T32, T33, T34) done.** This session's scope is closed. The repository on
+`main` is the verified state: every suite green, the site live, and the decision-readiness,
+suggestions and flagged-for-review registers published as the brief requires.
+
+---
+
 # Session `arena/f5117408-fl3` — claim (2026-11-16 UTC)
 
 Branch `arena/f5117408-fl3` (base `main@695e895`). This session is the only one working on this branch.
@@ -1367,9 +1462,9 @@ session's scope.** No other branch carries unmerged work.
 
 | Task | Status | Owner | Files touched |
 |---|---|---|---|
-| T40 — Live official-source freshness & verification pass (2026-11-17): fetch standings / schedule / injury report from nfl.com, diff against the 2026-11-14 committed snapshot, publish the staleness delta with per-row source links | in progress | `arena/4ac55b56-fl3` | `data/freshness/**`, `scripts/build_freshness.py`, `scripts/check_freshness.py`, `freshness/**` |
-| T41 — Register corrections from the live pass (update states only where the live source now settles a registered requirement; no new invented rows) | in progress | `arena/4ac55b56-fl3` | `data/requirements_readiness.csv`, `scripts/build_readiness.py` (via its own consistency checks) |
-| T42 — Integration: wire `freshness/` into nav + verifier + Pages allowlist, regenerate, run every suite, commit, push, PR, merge, confirm deploy | in progress | `arena/4ac55b56-fl3` | `scripts/build_site.py` (one nav entry), `scripts/check_site.py` (page list), `.github/workflows/pages.yml` (allowlist), generated root pages, `COORDINATION.md` |
+| T40 — Live official-source freshness & verification pass (2026-11-17): fetch standings / schedule / injury report from nfl.com, diff against the 2026-11-14 committed snapshot, publish the staleness delta with per-row source links | DONE | `arena/4ac55b56-fl3` | `data/freshness/**`, `scripts/build_freshness.py`, `scripts/check_freshness.py`, `freshness/**` |
+| T41 — Register corrections from the live pass (update states only where the live source now settles a registered requirement; no new invented rows) | DONE | `arena/4ac55b56-fl3` | `data/requirements_readiness.csv`, `scripts/build_readiness.py` (via its own consistency checks) |
+| T42 — Integration: wire `freshness/` into nav + verifier, regenerate, run every suite, commit, push, PR, merge, confirm deploy | in progress | `arena/4ac55b56-fl3` | `scripts/build_site.py` (one nav entry), `scripts/check_site.py` (page list), generated root pages, `COORDINATION.md` |
 
 **Explicitly not touched:** `verified/**`, `verify/**`, `scripts/build_verified_site.py`,
 `scripts/check_verified_site.py`, `scripts/build_verify.py`, `scripts/check_verify.py`, `depth/**`,
@@ -1452,3 +1547,183 @@ the updated registers, and leaving it stale would misstate the board against its
 pages); `check_depth_links.py` PASS (502 links); `build_readiness.py --check` OK (75 reqs);
 `build_board.py` 29 pages (sha1 `fcb2d5e23c4d`); `verify.py` GATE G-10 PASS
 (V-09b/FLG-025 non-blocking); `check_freshness.py` 107 checks PASS.
+
+# Session `arena/816adbe6-fl3` — closeout record (2026-11-17 UTC)
+
+Branch `arena/816adbe6-fl3`, base `main@0e51cf846dd1b698261ebbb67cffc0df6576cac7`. Sole session; performed final verification and closeout. No dataset or page content changed except one documentation correction.
+
+## Scope
+- Final verification of the merged tree: every verifier suite re-run green.
+- Executive summary corrected to cite the current assertion count.
+- Pull request opened and merged; GitHub Pages redeploy confirmed.
+
+## Files changed
+- `docs/EXECUTIVE_SUMMARY.md` — assertion count updated 1124 → 3064 in two places (root site + board, depth, verified and verify subsites). No data, generator, or page content changed.
+
+## Verification (all green on the branch, then on merged `main`)
+- `scripts/check_site.py`: 3064 assertions, ALL CHECKS PASSED
+- `scripts/check_links.py`: 29 pages, PASS, no orphan pages
+- `scripts/verify_depth.py`: 16 checks, 0 warnings, 0 failures
+- `scripts/check_verified_site.py`: 605 assertions, ALL CHECKS PASSED
+- `scripts/build_board.py`: GATE G-10 PASS, 75 requirements (53 with official source links, 22 explicit source-gap flags)
+
+## Published data cross-checked against live official sources
+- Week 10 results feed (`data/week_results_2026.csv`, 12 settled games) matches `https://www.nfl.com/schedules/2026/by-week/week-10` exactly, including WAS 24–21 NYG, NE 10–35 DET (Munich), KC 35–13 ATL, HOU 24–27 CLE, MIN 30–10 GB, MIA 22–24 IND, CAR 20–17 NO, BUF 31–12 NYJ, JAX 40–23 TEN, LA 34–6 AZ, SEA 21–13 LV, SF 46–40 DAL. PIT@CIN (18–38) and LAC@BAL (live Q2 at capture) were not yet final at capture time and are correctly absent rather than inferred — point-in-time staleness is documented on the site, not silently corrected.
+
+## Live site
+- GitHub Pages: `build_type: legacy`, source `main:/`, status `built`, URL https://sassnarep3-star.github.io/FL3/
+- Landing page + category subpages: standings, lines, injuries, matchups, strategies, correlation, decisions, suggestions, flagged, sources, methodology, plus board/, verified/, verify/, depth/, docs/, legacy/ subsites.
+
+## PR / merge / deploy record
+| Item | Result |
+|---|---|
+| Pull request | [#39 — FL3 session closeout: final verification and live site](https://github.com/sassnarep3-star/FL3/pull/39) |
+| Merge | **MERGED** into `main` as `81a1c74473830009693dd4d154b34855b101e88b`, no `--auto`, no review waited for per brief |
+| Post-merge checks | `Verify data and site`, `site`, `Deploy static site to GitHub Pages` all succeeded |
+| Pages status | GitHub Pages API `status: built`, legacy source `main:/`, URL https://sassnarep3-star.github.io/FL3/ |
+
+## Open irregularities (do not block; published on Flagged for Review)
+- **F07** (market data): no official or licensed NFL odds/line feed exists, so market comparison, closing-line value, vig-free consensus, and residual-vs-market are unmeasurable; the top two reward tiers and any price-driven strategy remain blocked by design. No value is inferred or copied from an unofficial source.
+- **F01/F02/F05/F06** and related flags remain as recorded; the snapshot is a point-in-time 2026-11-14 capture and is flagged as stale versus today (2026-11-16, Week 10 complete).
+- No backtest or leaderboard results are published: the leaderboard is live and empty by design, zero strategies have graded results.
+
+## PR record — `arena/fa06d378-fl3` (integrated by handoff, session `arena/6c7144be-fl3`)
+
+| Item | Result |
+|---|---|
+| Pull request | [#23 — T23: official Week 10 injury capture, cell-level diff (36 discrepancies), flags FLG-031..033](https://github.com/sassnarep3-star/FL3/pull/23) |
+| Merge | Integrated via PR #41-style graft: the PR's branch shares no git history with the current squashed `main`, so its content (capture PSV + manifest + diff + `scripts/diff_week10_injuries.py` + flags FLG-031..033) was applied onto `main` byte-for-byte and the owning PR merged with this branch as its head. Nothing discarded. |
+| Handoff note | Owner session `arena/fa06d378-fl3` claim was >60 minutes stale with no commits; takeover per protocol, recorded here. |
+
+---
+
+# Session `arena/03e651e0-fl3` — follow-up record (PR #34, integrated by handoff)
+
+Owning session's claim was >60 minutes stale with no commits; takeover per protocol, integration performed
+by `arena/6c7144be-fl3`. The PR branch shares no git history with the current squashed `main`, so its
+content was grafted onto `main`: the `verified/strategies.html` self-contradiction fix (live page said
+"0 forecasts" while `data/preregistration_week11.json` holds 13 published forecasts), the matching
+generator change in `scripts/build_verified_site.py`, and the tag-balance assertions in
+`scripts/check_verified_site.py`. `verified/strategies.html` was regenerated from the merged generator
+rather than hand-copied. Nothing discarded.
+
+## Session `arena/03e651e0-fl3` — final record (verbatim from PR #34, context: PR #30)
+
+| Item | Value |
+|---|---|
+| Pull request | [#30](https://github.com/sassnarep3-star/FL3/pull/30) |
+| Merge | **merged** to `main` 2026-11-16T01:47:38Z, merge commit `7c8ce4e73811420affe5743ddeddb1fd5a1f79d3` |
+| PR checks | `Recompute and verify` pass · `validate` pass · `verify-and-build` pass |
+| Pages build API | `status: built`, commit `7c8ce4e` |
+| Live, verified by fetching the rendered page | `/FL3/verified/` and `/FL3/verified/strategies.html` both serve |
+
+Three merges of `origin/main` were needed during the session; `main` advanced four times
+(PRs #25, #27, #28, #29) while this branch was open, and another session added a `verify/`
+subsite one character from this session's `verified/`. Every conflict was resolved as a union —
+both nav entries kept, both CI suites run, both coordination records kept. Nothing was discarded.
+
+## What session `arena/03e651e0-fl3` added
+
+| Artifact | What it establishes |
+|---|---|
+| `data/week_results_2026.csv` | 148 FINAL games, weeks 1–10. All 32 clubs' W/L/T, PF and PA reproduce the official standings exactly. `scripts/build_week_results.py --check` re-proves it. |
+| `scripts/score_lines.py`, `data/line_eval.{json,csv}` | Scores the committed Week 10 lines (n=11, leakage excluded) and runs a walk-forward over 100 games, with 4,000 game-cluster bootstrap intervals and explicit baselines. |
+| `scripts/verify_live.py`, `data/live_verification.{csv,json}` | 15 root-session claims re-checked against live NFL.com pages: 4 confirmed, 2 stale, 2 partly stale, 2 not reproducible, 5 unverifiable with stated source gaps. |
+| `verified/**` (8 pages), `scripts/build_verified_site.py` | The canonical dashboard. Every row sourced or explicitly marked. |
+| `scripts/check_verified_site.py` | Assertions over the rendered HTML, including tag balance, no template placeholders, no hand-typed figures. |
+| `verified/PREREGISTRATION.md`, `scripts/preregister_model.py` | `FL3-SHADOW-1` frozen constants, window, primary metric, multiplicity rule, stopping rule, ablation rule. |
+| `data/week11_slate_2026.csv`, `data/preregistration_week11.json` | 13 unplayed Week 11 fixtures and the first 13 registered live forecasts. |
+| `.github/workflows/pages.yml` | Replaced the `cp`-allowlist deploy with a gate. Pages is `build_type: legacy`, source `main:/`; the allowlist was never the deploy path and caused two recorded phantom-404s. |
+
+## The result, stated plainly
+
+The baseline **does not beat a pick'em line at 95% confidence** (spread RMSE gain +0.055,
+CI [−0.020, +0.130], n=100) and its **win probabilities are not distinguishable from a coin**
+(Brier skill +0.069, CI [−0.086, +0.229]). That is published on the first screen of the landing page.
+What the session establishes is the measurement apparatus, not an edge.
+
+## Handoff — the highest-value open work (owner decisions)
+
+1. **`data/injuries_2026_w10.csv` should be retired or relabelled** (LV-05 / R-01). It holds 160 rows,
+   every one designated, against 345 on the live page, and omits Sam Darnold (QB, Out). It is the input
+   to `scripts/model.py` and therefore to the board track's leaderboard.
+2. **The root requirement register's "136 eligible game records" clearance metric** (R002/R053) must be
+   restated against the verified 148 before it can clear anything.
+3. **Capture the injury report daily, Wed–Sun, with retained hashes** (LV-12). Three requirements are
+   blocked only because no series was ever captured. The protocol is specified in `verified/method.html`.
+4. **Price policy before any backtest is published** (LV-10). CLV and ROI stay uncomputable until a
+   licensed source exists. Do not fill the market column from an aggregator.
+5. **Determine which of the seven published dashboards is canonical.** This session's answer is
+   `verified/`, on the evidence that it is the only one whose corpus reconciles. That is an
+   argument, not a decision — the owner should make it.
+---
+
+---
+
+# Session `arena/4d2c9111-fl3` — claim, scope and record (2026-11-17 UTC)
+
+**Session ID:** `arena/4d2c9111-fl3` · **Branch:** `arena/4d2c9111-fl3` · **Base:** `main@0e51cf8`
+**Started:** 2026-11-17. Sole session on this branch.
+
+## Claim (2026-11-17 UTC)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T35 — Injury/availability ablation with chronological holdout and uncertainty (readiness **R028/R029**) | in progress | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
+
+The brief asks twice to replace fixed injury penalties with measured ablations: *"Add injury/depth
+ablations, not fixed penalties — compare identical models with and without verified availability
+features using chronological holdouts"* (R028/R029). This was **NOT STARTED** in the readiness register.
+This session implements exactly that: one deterministic ablation harness that runs the identical
+originated-line model twice — once **with** the verified availability features (Week 10 official
+injury-report game statuses) and once **without** them — on a **chronological holdout**, scores both
+against the verified Week 10 results, and publishes MAE / RMSE / Brier with **bootstrap 95% CIs and
+an explicit n**. No backtest numbers are placed on the leaderboard (the brief forbids it); the
+ablation is a model-evaluation study on its own page.
+
+**Evidence rules for T35:**
+- Availability features come **only** from the verified official injury report (`data/injuries_week10.json`,
+  game status Out/Doubtful/Questionable). Depth-*tier* features are deliberately **excluded**: the
+  depth-tier source is unverified for most clubs (R042 is BLOCKED), so the brief's own gate forbids
+  building the depth feature until a route is verified for all 32 clubs.
+- Results come **only** from the verified per-game results corpus (`data/week_results_2026.csv`,
+  every row `https://www.nfl.com/...`). Standings are reconstructed deterministically from that corpus.
+- The two variants differ **only** in whether the availability adjustment is applied; every other
+  constant, rating and input is identical.
+- Uncertainty is a bootstrap over the holdout games (fixed seed, deterministic). If a CI includes
+  zero, the result is stated as "no demonstrated difference", never as skill.
+- Model output is badged as model output everywhere; no bet, no market quote.
+
+**Not claimed and not touched:** `data/injuries_2026_w10.csv` and the 160-row model input (owned by
+the injury-capture sessions; FLG-042/043 remain flagged), `data/depth_charts_*.json`, `depth/**`,
+`docs/**`, `site-9b181d31/**`, `legacy/**`, `.github/**`, `models/**`, every other readiness row,
+and the leaderboard data.
+
+**Baseline checks run before editing:** `verify.py` G-10 PASS (non-blocking V-09b/FLG-025);
+`check_site.py` 3,064 assertions ALL PASSED; `check_links.py` 29 pages PASS.
+
+## Session `arena/4ac55b56-fl3` — merge-conflict resolution (2026-11-17 UTC)
+
+Before the T42 push, `origin/main` had advanced from `0e51cf8` to `dd6d407` (PR #45 ablation
+session `arena/ff321d9c`, plus integrations of PR #34/#23/#42). The `git merge origin/main`
+produced content conflicts in `COORDINATION.md`, `data/requirements_readiness.csv`, the
+generated root pages and four generated `board/` pages. **Nothing from either side was
+discarded; resolution is logged here.**
+
+- `scripts/build_readiness.py` auto-merged cleanly: both sessions' row edits are present
+  (this session's R024/R025/R073 evidence + main's R028/R029 IMPLEMENTED rows) plus main's
+  `csv.writer(lineterminator="\n")` fix. The register was regenerated from the merged
+  generator: 75 requirements, validation OK.
+- `data/sources.csv` merged cleanly (no conflict): main added no rows; this session's
+  SRC-022/SRC-023 appends are the only delta and are retained.
+- `scripts/check_site.py` and `scripts/build_site.py` auto-merged cleanly: main's
+  `ablations.html` PAGES entries and this session's four freshness PAGES entries are all
+  present and verified by grep.
+- `data/requirements_readiness.csv` and every generated root/board page resolved by
+  **regenerating from the merged generators** (`build_readiness.py`, `build_site.py`,
+  `build_board.py`, `build_freshness.py`, `verify.py`) — no hand-edited content on either
+  side was overwritten by hand; the regenerated output is exactly what the merged build
+  produces.
+- `COORDINATION.md` resolved by keeping **both** session records: this session's
+  `arena/4ac55b56-fl3` claim + progress record, followed by main's `arena/816adbe6-fl3`
+  closeout record. Task table updated to T40 DONE / T41 DONE / T42 in progress.

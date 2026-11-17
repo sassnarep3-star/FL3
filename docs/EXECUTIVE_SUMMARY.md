@@ -21,7 +21,7 @@
 | Remove luck; be selectively skill-based | **Luck measured per club** (Pythagorean, ±2.17 wins range) and **a luck penalty in the score** | `standings.html`, `strategies.html` |
 | Track injuries and defensive/offensive depth deficiencies | **Injuries done** (345 official rows, split by side of ball). **Depth ordinal is honestly blocked** — no official source exists | `injuries.html`, flag F05 |
 | Executive summary | **This document**, plus the site dashboard | `docs/EXECUTIVE_SUMMARY.md`, `index.html` |
-| No manual input; verification with source links | **1124 automated assertions pass**; every table row carries an official link | `scripts/check_site.py`, `sources.html` |
+| No manual input; verification with source links | **3064 automated assertions pass**; every table row carries an official link | `scripts/check_site.py`, `sources.html` |
 | GitHub Pages live site | **Done** | https://sassnarep3-star.github.io/FL3/ |
 
 ---
@@ -104,7 +104,7 @@ None of these are hidden. Each is a row on `flagged.html` with a link.
 
 ## 6. Verification
 
-`python3 scripts/check_site.py` runs **1124 assertions** and passes with zero warnings, covering:
+`python3 scripts/check_site.py` runs **3064 assertions** and passes with zero warnings, covering:
 
 - arithmetic on official figures, for all 32 clubs
 - completeness (32 clubs / 8 divisions × 4 / 14 games / 28 clubs on the slate / no club twice)

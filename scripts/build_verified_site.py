@@ -601,7 +601,9 @@ stake, and no return. Everything here is a forecast-quality test.</p>
 <p class="cls">The 100 scored rows are the walk-forward forecasts, which are the registered rule applied
 retrospectively to games that had not yet been played. They are a <b>backtest of a frozen rule</b>, and
 backtest numbers never appear as a live record. The live record for <code>FL3-SHADOW-1</code> starts at
-Week 11 and currently has <b>0</b> forecasts.</p>
+Week 11 with <b>{len(ctx["fixtures"]["fixtures"])} forecasts published</b> and <b>0 scored</b> — published
+means committed before kickoff; scored means the official final score exists. Nothing has been scored yet
+because none of the Week 11 games has been played.</p>
 
 <h2>Why combos are excluded outright</h2>
 <p>Multiplying marginal probabilities is invalid when the legs are dependent, and it always overstates a
