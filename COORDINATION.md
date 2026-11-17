@@ -2230,7 +2230,7 @@ All claimed tasks done. Merge record follows in the PR table.
 
 | Item | Result |
 |---|---|
-| Pull request | (URL recorded below at creation) |
+| Pull request | [#54 — FL3: integrate open PRs #23/#34, repair the snapshot workflow, publish the requirement-coverage audit](https://github.com/sassnarep3-star/FL3/pull/54) |
 | Merge | merged into `main` without waiting for approval, per brief (recorded below after merge) |
 | Deploy | GitHub Pages legacy build (`main:/`) confirmed via the Pages workflow and API (recorded below) |
 
