@@ -1,0 +1,159 @@
+{
+  "_meta": {
+    "title": "Week 11 2026 — official fixture register (schedule facts only)",
+    "captured_utc": "2026-11-17T02:47Z",
+    "sources": {
+      "schedule": "https://www.nfl.com/schedules/2026/by-week/week-11",
+      "policy": "Date, kickoff time (ET), network and bye clubs are read from the official Week 11 schedule page. Location and Stadium are the exact strings published under 'Game Info' on each official game centre. Nothing is inferred: where a page did not publish a value the cell is empty and the reason is recorded."
+    },
+    "rule": "This file is the only permitted source of fixture context (readiness R015). No travel distance, rest days, altitude, weather or roof value is derived here — those need their own official sources and are listed as gaps.",
+    "counts": {"fixtures": 13, "byes": 6, "clubs": 32}
+  },
+  "byes": ["ATL", "CLE", "GB", "LA", "NE", "SEA"],
+  "fixtures": [
+    {
+      "game_id": "REG11-IND-HOU", "week": 11, "day": "Thursday", "date": "2026-11-19",
+      "kickoff_et": "8:15 PM", "network": "Prime Video", "away": "IND", "home": "HOU",
+      "location": "HOUSTON, TX", "stadium": "RELIANT STADIUM",
+      "schedule_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+      "game_url": "https://www.nfl.com/games/colts-at-texans-2026-reg-11",
+      "record_as_published": {"IND": "3-7", "HOU": "3-6"},
+      "kickoff_utc": "2026-11-20T01:15Z",
+      "kickoff_utc_basis": "8:15 PM ET on 2026-11-19, converted to UTC (ET = UTC-5 in November)"
+    },
+    {
+      "game_id": "REG11-MIA-BUF", "week": 11, "day": "Sunday", "date": "2026-11-22",
+      "kickoff_et": "1:00 PM", "network": "CBS", "away": "MIA", "home": "BUF",
+      "location": "ORCHARD PARK, NY", "stadium": "HIGHMARK STADIUM",
+      "schedule_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+      "game_url": "https://www.nfl.com/games/dolphins-at-bills-2026-reg-11",
+      "record_as_published": {"MIA": "1-8", "BUF": "8-1"},
+      "kickoff_utc": "2026-11-22T18:00Z",
+      "kickoff_utc_basis": "1:00 PM ET on 2026-11-22, converted to UTC (ET = UTC-5 in November)"
+    },
+    {
+      "game_id": "REG11-BAL-CAR", "week": 11, "day": "Sunday", "date": "2026-11-22",
+      "kickoff_et": "1:00 PM", "network": "FOX", "away": "BAL", "home": "CAR",
+      "location": "CHARLOTTE, NC", "stadium": "BANK OF AMERICA STADIUM",
+      "schedule_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+      "game_url": "https://www.nfl.com/games/ravens-at-panthers-2026-reg-11",
+      "record_as_published": {"BAL": "4-5", "CAR": "4-5"},
+      "kickoff_utc": "2026-11-22T18:00Z",
+      "kickoff_utc_basis": "1:00 PM ET on 2026-11-22, converted to UTC (ET = UTC-5 in November)"
+    },
+    {
+      "game_id": "REG11-NO-CHI", "week": 11, "day": "Sunday", "date": "2026-11-22",
+      "kickoff_et": "1:00 PM", "network": "FOX", "away": "NO", "home": "CHI",
+      "location": "CHICAGO, IL", "stadium": "SOLDIER FIELD",
+      "schedule_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+      "game_url": "https://www.nfl.com/games/saints-at-bears-2026-reg-11",
+      "record_as_published": {"NO": "3-6", "CHI": "7-2"},
+      "kickoff_utc": "2026-11-22T18:00Z",
+      "kickoff_utc_basis": "1:00 PM ET on 2026-11-22, converted to UTC (ET = UTC-5 in November)"
+    },
+    {
+      "game_id": "REG11-TEN-DAL", "week": 11, "day": "Sunday", "date": "2026-11-22",
+      "kickoff_et": "1:00 PM", "network": "FOX", "away": "TEN", "home": "DAL",
+      "location": "ARLINGTON, TX", "stadium": "AT&T STADIUM",
+      "schedule_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+      "game_url": "https://www.nfl.com/games/titans-at-cowboys-2026-reg-11",
+      "record_as_published": {"TEN": "1-8", "DAL": "4-6"},
+      "kickoff_utc": "2026-11-22T18:00Z",
+      "kickoff_utc_basis": "1:00 PM ET on 2026-11-22, converted to UTC (ET = UTC-5 in November)"
+    },
+    {
+      "game_id": "REG11-TB-DET", "week": 11, "day": "Sunday", "date": "2026-11-22",
+      "kickoff_et": "1:00 PM", "network": "FOX", "away": "TB", "home": "DET",
+      "location": "DETROIT, MI", "stadium": "FORD FIELD",
+      "schedule_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+      "game_url": "https://www.nfl.com/games/buccaneers-at-lions-2026-reg-11",
+      "record_as_published": {"TB": "3-6", "DET": "7-2"},
+      "kickoff_utc": "2026-11-22T18:00Z",
+      "kickoff_utc_basis": "1:00 PM ET on 2026-11-22, converted to UTC (ET = UTC-5 in November)"
+    },
+    {
+      "game_id": "REG11-AZ-KC", "week": 11, "day": "Sunday", "date": "2026-11-22",
+      "kickoff_et": "1:00 PM", "network": "CBS", "away": "AZ", "home": "KC",
+      "location": "KANSAS CITY, MO", "stadium": "ARROWHEAD STADIUM",
+      "schedule_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+      "game_url": "https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11",
+      "record_as_published": {"AZ": "3-7", "KC": "7-2"},
+      "kickoff_utc": "2026-11-22T18:00Z",
+      "kickoff_utc_basis": "1:00 PM ET on 2026-11-22, converted to UTC (ET = UTC-5 in November)"
+    },
+    {
+      "game_id": "REG11-PIT-PHI", "week": 11, "day": "Sunday", "date": "2026-11-22",
+      "kickoff_et": "1:00 PM", "network": "CBS", "away": "PIT", "home": "PHI",
+      "location": "PHILADELPHIA, PA", "stadium": "LINCOLN FINANCIAL FIELD",
+      "schedule_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+      "game_url": "https://www.nfl.com/games/steelers-at-eagles-2026-reg-11",
+      "record_as_published": {"PIT": "6-3", "PHI": "2-7"},
+      "kickoff_utc": "2026-11-22T18:00Z",
+      "kickoff_utc_basis": "1:00 PM ET on 2026-11-22, converted to UTC (ET = UTC-5 in November)"
+    },
+    {
+      "game_id": "REG11-NYJ-LAC", "week": 11, "day": "Sunday", "date": "2026-11-22",
+      "kickoff_et": "4:05 PM", "network": "FOX", "away": "NYJ", "home": "LAC",
+      "location": "INGLEWOOD, CA", "stadium": "SOFI STADIUM",
+      "schedule_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+      "game_url": "https://www.nfl.com/games/jets-at-chargers-2026-reg-11",
+      "record_as_published": {"NYJ": "2-8", "LAC": "0-8"},
+      "kickoff_utc": "2026-11-22T21:05Z",
+      "kickoff_utc_basis": "4:05 PM ET on 2026-11-22, converted to UTC (ET = UTC-5 in November)"
+    },
+    {
+      "game_id": "REG11-JAX-NYG", "week": 11, "day": "Sunday", "date": "2026-11-22",
+      "kickoff_et": "4:25 PM", "network": "CBS", "away": "JAX", "home": "NYG",
+      "location": "EAST RUTHERFORD, NJ", "stadium": "METLIFE STADIUM",
+      "schedule_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+      "game_url": "https://www.nfl.com/games/jaguars-at-giants-2026-reg-11",
+      "record_as_published": {"JAX": "7-2", "NYG": "5-3-1"},
+      "kickoff_utc": "2026-11-22T21:25Z",
+      "kickoff_utc_basis": "4:25 PM ET on 2026-11-22, converted to UTC (ET = UTC-5 in November)"
+    },
+    {
+      "game_id": "REG11-LV-DEN", "week": 11, "day": "Sunday", "date": "2026-11-22",
+      "kickoff_et": "4:25 PM", "network": "CBS", "away": "LV", "home": "DEN",
+      "location": "DENVER, CO", "stadium": "EMPOWER FIELD AT MILE HIGH",
+      "schedule_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+      "game_url": "https://www.nfl.com/games/raiders-at-broncos-2026-reg-11",
+      "record_as_published": {"LV": "4-6", "DEN": "7-2"},
+      "kickoff_utc": "2026-11-22T21:25Z",
+      "kickoff_utc_basis": "4:25 PM ET on 2026-11-22, converted to UTC (ET = UTC-5 in November)"
+    },
+    {
+      "game_id": "REG11-MIN-SF", "week": 11, "day": "Sunday", "date": "2026-11-22",
+      "kickoff_et": "8:20 PM", "network": "NBC", "away": "MIN", "home": "SF",
+      "location": "MEXICO CITY", "stadium": "ESTADIO BANORTE",
+      "schedule_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+      "game_url": "https://www.nfl.com/games/vikings-at-49ers-2026-reg-11",
+      "record_as_published": {"MIN": "7-2", "SF": "8-1"},
+      "neutral_site": true,
+      "neutral_site_basis": "The official schedule page labels the game 'Mexico City' under a Mexico City 2026 banner and the game centre publishes Location MEXICO CITY; the 'home' club designation is administrative only.",
+      "kickoff_utc": "2026-11-23T01:20Z",
+      "kickoff_utc_basis": "8:20 PM ET on 2026-11-22, converted to UTC (ET = UTC-5 in November)"
+    },
+    {
+      "game_id": "REG11-CIN-WAS", "week": 11, "day": "Monday", "date": "2026-11-23",
+      "kickoff_et": "8:15 PM", "network": "ESPN", "away": "CIN", "home": "WAS",
+      "location": "LANDOVER, MD", "stadium": "NORTHWEST STADIUM",
+      "schedule_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+      "game_url": "https://www.nfl.com/games/bengals-at-commanders-2026-reg-11",
+      "record_as_published": {"CIN": "7-2", "WAS": "3-5-1"},
+      "kickoff_utc": "2026-11-24T01:15Z",
+      "kickoff_utc_basis": "8:15 PM ET on 2026-11-23, converted to UTC (ET = UTC-5 in November)"
+    }
+  ],
+  "known_oddities": [
+    {
+      "id": "FIX-01",
+      "item": "Washington's stadium is published as 'NORTHWEST STADIUM' on the official game centre and the schedule page links a FedEx Field hotel search.",
+      "action": "Published exactly as the official page states. Not corrected."
+    },
+    {
+      "id": "FIX-02",
+      "item": "The Seattle@Las Vegas Week 10 Game Book prints the venue as 'Allegiant Stadium' with the city omitted from the extracted block.",
+      "action": "Recorded with the omission; the city is not filled in."
+    }
+  ]
+}

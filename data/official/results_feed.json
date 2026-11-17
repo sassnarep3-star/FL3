@@ -1,0 +1,85 @@
+{
+  "_meta": {
+    "title": "Canonical verified results feed + pre-registered backtest corpus declaration",
+    "captured_utc": "2026-11-17T02:47Z",
+    "purpose": "One file that states, with arithmetic, exactly how many 2026 games are verified, which source each came from, and which games are excluded and why. Every downstream number (ratings, ablations, backtests) must cite this file and this count.",
+    "corpus_file": "data/week_results_2026.csv",
+    "corpus_origin": "Transcribed game-by-game from https://www.nfl.com/schedules/2026/by-week/week-{1..10} by an earlier session (accessed 2026-11-16T01:35Z). Re-verified by this session against live official sources (see reconciliation)."
+  },
+  "reconciliation": {
+    "method": "The 148-game corpus was aggregated to club records and points and compared, club by club, against the official league standings page and against the records printed on each Week 11 official game centre. The comparison is exact (W, L, T, PF, PA for all 32 clubs).",
+    "official_standings_url": "https://www.nfl.com/standings/league/2026/REG",
+    "official_week10_schedule_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+    "corpus_games": 148,
+    "official_games_played": 149,
+    "clubs_matching_before_correction": 30,
+    "clubs_mismatching_before_correction": ["CIN", "PIT"],
+    "mismatch_detail": {
+      "CIN": {"corpus": {"w": 6, "l": 2, "t": 0, "pf": 240, "pa": 175}, "official": {"w": 7, "l": 2, "t": 0, "pf": 278, "pa": 193}, "delta": {"w": 1, "pf": 38, "pa": 18}},
+      "PIT": {"corpus": {"w": 6, "l": 2, "t": 0, "pf": 180, "pa": 144}, "official": {"w": 6, "l": 3, "t": 0, "pf": 198, "pa": 182}, "delta": {"l": 1, "pf": 18, "pa": 38}}
+    },
+    "root_cause": "Exactly one game is missing from the 148-game corpus: PIT@CIN Week 10. It was not FINAL when the corpus was transcribed (2026-11-16T01:35Z) and was therefore, correctly, not recorded. The official Week 10 schedule page now reports it FINAL at PIT 18 - CIN 38, and the official standings page includes it.",
+    "correction": {
+      "game_id": "REG10-PIT-CIN",
+      "date": "2026-11-15",
+      "away": "PIT", "away_pts": 18,
+      "home": "CIN", "home_pts": 38,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+      "evidence": "The Week 10 schedule page states 'Steelers 18, Bengals 38, FINAL, Sunday, November 15th'. The official standings page gives CIN 7-2 with PF 278 / PA 193 and PIT 6-3 with PF 198 / PA 182, which is exactly the 148-game corpus plus this one game."
+    },
+    "result_after_correction": {
+      "games": 149,
+      "clubs_matching": 32,
+      "clubs_mismatching": [],
+      "league_pf_sum": 6880,
+      "league_pa_sum": 6880,
+      "identity": "sum(PF) == sum(PA) across all 32 clubs, so every point scored is a point allowed"
+    },
+    "excluded_from_all_evaluation": [
+      {
+        "game_id": "REG10-LAC-BAL",
+        "reason": "Not final. The official Week 10 schedule page and the official game centre both show LAC 17 - BAL 7 at Q2 01:05 at capture time 2026-11-17T02:47Z. No final score exists, so no result row and no forecast scoring is permitted.",
+        "source_url": "https://www.nfl.com/games/chargers-at-ravens-2026-reg-10"
+      }
+    ],
+    "why_this_matters": "Before this correction the repo's own line evaluation was computed against 148 games that omitted a PIT loss and a CIN win. Ratings that use W-L-T or points would have understated CIN and omitted one PIT loss. The correction changes at most one game of information per club, but it is the difference between a corpus that reconciles to the official standings and one that does not."
+  },
+  "corpus_declaration": {
+    "status": "PRE-REGISTERED",
+    "registered_utc": "2026-11-17T02:47Z",
+    "seasons": ["2026"],
+    "weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    "games": 149,
+    "team_games": 298,
+    "note_on_the_brief": "The brief asks to 'turn the 136-game log into the pre-registered backtest corpus'. The verified count is not 136. It is 149 after adding the one missing official game to the 148 already transcribed. 136 is not reproducible from any official page and is not used anywhere. This is recorded as a corrected number, not as a discrepancy that blocks work.",
+    "train_validation_holdout_split": {
+      "status": "PROPOSED, NOT YET USED",
+      "reason_it_cannot_be_used_yet": "A three-way split needs more than one season. With a single 2026 season, any holdout drawn from Weeks 1-10 is inside the same season as the ratings it would test, and the pre-registered shadow model already fits its ratings on all 149 games. Using those ratings as 'out of sample' would be a leak. The split below is therefore published as the declared rule for the moment a second season exists, and is explicitly NOT claimed as evidence today.",
+      "declared_rule": {
+        "train": "all regular-season games in seasons strictly before the validation season",
+        "validation": "the most recent complete prior season",
+        "final_holdout": "the current season, opened only once and reported regardless of sign"
+      },
+      "what_is_used_today": "Chronological within-season walk-forward only: fit on Weeks 1..k-1, predict Week k, for k = 6..10. Cluster-robust uncertainty is computed by resampling games (not plays)."
+    },
+    "price_data_policy_decision": {
+      "id": "PD-01",
+      "decided_utc": "2026-11-17T02:47Z",
+      "decision": "A price-data source is NOT acquired. From this commit forward, no backtest may report ROI, expected value, closing-line value or any vig-adjusted figure, because no licensed price exists in this repository.",
+      "what_is_permitted_without_prices": [
+        "Probability forecasts stored with their inputs (readiness R016).",
+        "Proper scores that need only an outcome: Brier score, log loss, Brier skill against a declared benchmark.",
+        "Line accuracy against the official final margin and total (spread RMSE, total RMSE), which need no price.",
+        "The residual of our own line against any market number ONLY once a licensed, timestamped market number exists; until then the market columns stay blank (this is the existing Q-01 / R001 position, now written as a policy rather than an open question)."
+      ],
+      "what_remains_blocked": [
+        "R001 price snapshots of the market (blocked on licence, not on effort).",
+        "R019 residual versus market (blocked on the same).",
+        "R049 vig-free market consensus (blocked on the same).",
+        "R058 parlay joint-probability gating against operator void/push rules (blocked on operator rules, which are terms-of-service documents, not football data)."
+      ],
+      "consequence_for_the_leaderboard": "The leaderboard cannot rank by ROI today. It ranks by Brier skill with clustered uncertainty and a multiplicity adjustment, and reports ROI as UNAVAILABLE rather than as zero.",
+      "verdict": "This is a decision, not a deferral: the project proceeds on skill-only scoring and says so on every page that would otherwise show a return figure."
+    }
+  }
+}
