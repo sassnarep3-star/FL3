@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab — ablation and leaderboard · FL3 NFL Decision System</title>
+<meta name="description" content="Verified NFL data, originated lines, strategy gates and open decisions. Every value links to an official source.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="brand"><span class="mark">FL3</span><span class="sub">NFL Decision System</span></div>
+  <nav><a href="index.html">Dashboard</a><a href="standings.html">Standings</a><a href="lines.html">Our Lines</a><a href="injuries.html">Injuries</a><a href="matchups.html">Matchup matrix</a><a href="ablations.html">Ablations</a><a href="data-snapshots.html">Data snapshots</a><a href="strategies.html">Strategies</a><a href="correlation.html">Correlation</a><a href="decisions.html">Decisions</a><a href="suggestions.html">Suggestions</a><a href="flagged.html">Flagged for Review</a><a href="sources.html">Sources</a><a href="methodology.html">Methodology</a><a href="results.html">Results feed</a><a href="week11.html">Week 11</a><a href="availability.html">Availability</a><a href="lab.html" class="on">Lab</a><a href="spec.html">Spec</a><a href="board/readiness.html">Requirement readiness</a><a href="verified/index.html">Verified results &amp; scoring</a><a href="verify/index.html">Verification</a></nav>
+</header>
+<main id="main">
+
+<section class="hero">
+  <h1>Two results, one of them unwelcome</h1>
+  <p class="lede">The brief asks for injury effects as an <i>ablation</i> on chronological
+  holdouts rather than a fixed point penalty, and for a leaderboard ranked by a proper score with
+  a cluster lower bound and a multiplicity adjustment, with a demotion gate to paper. Both are
+  built. Neither flatters the model, and the pages says so.</p>
+</section>
+
+<section>
+  <h2>1 · Injury ablation</h2>
+  <p class="lede">Model M1 adds a personnel term for depth-1 players the official report had
+  already ruled out; the coefficient is fitted on the training slice only. Model M0 is the same
+  model without it. They are compared on the same games, so the interval is paired.</p>
+  <div class="tablewrap"><table class=""><thead><tr><th>Metric</th><th>Games</th><th>M1 − M0</th><th>95% cluster interval</th><th>Sign convention</th><th>Verdict</th></tr></thead><tbody><tr><td><b>margin absolute error</b></td><td>13</td><td>+0.3896</td><td>[-0.2164, +0.9090]</td><td>negative is better for M1</td><td><span class="badge warn">no difference distinguishable from noise</span></td></tr><tr><td><b>total absolute error</b></td><td>13</td><td>+0.5333</td><td>[-0.4762, +1.5428]</td><td>negative is better for M1</td><td><span class="badge warn">no difference distinguishable from noise</span></td></tr><tr><td><b>Brier score (home win)</b></td><td>13</td><td>+0.0017</td><td>[-0.0139, +0.0164]</td><td>negative is better for M1</td><td><span class="badge warn">no difference distinguishable from noise</span></td></tr></tbody></table></div>
+  <p><b>All three intervals cross zero.</b> On the only week where a depth chart exists, adding
+  personnel information made the model slightly worse on every metric, and the difference is
+  inside the noise of thirteen games. The honest conclusion is that this repository cannot yet
+  demonstrate that an injury term helps — which is exactly the reason the brief forbids a fixed
+  penalty. A fixed penalty of, say, 2 points per missing starter would have produced the same
+  forty-point error bars while looking authoritative.</p>
+  <p>Thirteen games is not enough to settle it either way. This is reported as insufficient
+  evidence, not as evidence of absence, and the coefficient is published so the next week can
+  move it.</p>
+</section>
+
+<section>
+  <h2>Walk-forward folds</h2>
+  <p>Ratings are fitted on Weeks 1..k and scored on Week k+1. The personnel term can only switch
+  on where a depth capture exists, which is Week 10.</p>
+  <div class="tablewrap"><table class=""><thead><tr><th>Fit → test</th><th>Games</th><th>Margin MAE M0</th><th>Margin MAE M1</th><th>Total MAE M0</th><th>Brier M0</th><th>Brier pick'em</th><th>Personnel</th></tr></thead><tbody><tr><td>Weeks 1-4 → 5</td><td>15</td><td>11.43</td><td>11.43</td><td>10.52</td><td>0.2512</td><td>0.2500</td><td><span class="badge info">base only</span></td></tr><tr><td>Weeks 1-5 → 6</td><td>14</td><td>7.62</td><td>7.62</td><td>12.09</td><td>0.3345</td><td>0.2500</td><td><span class="badge info">base only</span></td></tr><tr><td>Weeks 1-6 → 7</td><td>14</td><td>12.22</td><td>12.22</td><td>10.63</td><td>0.3179</td><td>0.2500</td><td><span class="badge info">base only</span></td></tr><tr><td>Weeks 1-7 → 8</td><td>14</td><td>11.16</td><td>11.16</td><td>12.81</td><td>0.2029</td><td>0.2500</td><td><span class="badge info">base only</span></td></tr><tr><td>Weeks 1-8 → 9</td><td>15</td><td>9.30</td><td>9.30</td><td>12.03</td><td>0.1278</td><td>0.2500</td><td><span class="badge info">base only</span></td></tr><tr><td>Weeks 1-9 → 10</td><td>13</td><td>10.75</td><td>11.14</td><td>9.77</td><td>0.1722</td><td>0.2500</td><td><span class="badge ok">personnel on</span></td></tr></tbody></table></div>
+</section>
+
+<section>
+  <h2>2 · Leaderboard v2 — proper score, not ROI</h2>
+  <p class="lede">85 games, nine strategies scored on the same fixtures.
+  Skill is 1 − Brier ÷ Brier(coin). The interval is a game-cluster bootstrap. The
+  p-value is Holm-adjusted across the five non-baseline strategies. A strategy clears the gate
+  only if its adjusted p is below 0.05 <i>and</i> its 2.5% cluster bound is above zero.</p>
+  <div class="tablewrap"><table class="wide"><thead><tr><th>#</th><th>Strategy</th><th>Brier</th><th>Skill</th><th>95% cluster interval</th><th>2.5% bound</th><th>p (skill>0)</th><th>p Holm</th><th>ROI</th><th>Verdict</th></tr></thead><tbody><tr><td>1</td><td><b>FL3 ratings, no home edge</b></td><td>0.2174</td><td>+0.131</td><td>[-0.037, +0.295]</td><td>-0.037</td><td>0.070</td><td>0.209</td><td><span class="unverified">blank — PD-01</span></td><td><span class="badge bad">demoted to paper</span></td></tr><tr><td>2</td><td><b>Record-only (no points)</b></td><td>0.2201</td><td>+0.120</td><td>[-0.013, +0.250]</td><td>-0.013</td><td>0.036</td><td>0.182</td><td><span class="unverified">blank — PD-01</span></td><td><span class="badge bad">demoted to paper</span></td></tr><tr><td>3</td><td><b>Rating differential, cautious</b></td><td>0.2279</td><td>+0.088</td><td>[-0.011, +0.184]</td><td>-0.011</td><td>0.041</td><td>0.182</td><td><span class="unverified">blank — PD-01</span></td><td><span class="badge bad">demoted to paper</span></td></tr><tr><td>4</td><td><b>FL3-SHADOW-1 (ratings)</b></td><td>0.2341</td><td>+0.064</td><td>[-0.109, +0.230]</td><td>-0.109</td><td>0.240</td><td>0.479</td><td><span class="unverified">blank — PD-01</span></td><td><span class="badge bad">demoted to paper</span></td></tr><tr><td>5</td><td><b>Rating differential, overconfident</b></td><td>0.2483</td><td>+0.007</td><td>[-0.219, +0.221]</td><td>-0.219</td><td>0.468</td><td>0.479</td><td><span class="unverified">blank — PD-01</span></td><td><span class="badge bad">demoted to paper</span></td></tr><tr><td>6</td><td><b>BASELINE coin 0.5</b></td><td>0.2500</td><td>+0.000</td><td>[+0.000, +0.000]</td><td>+0.000</td><td>1.000</td><td>—</td><td><span class="unverified">blank — PD-01</span></td><td><span class="badge info">baseline (reference, not a claim)</span></td></tr><tr><td>7</td><td><b>BASELINE always favourite</b></td><td>0.3294</td><td>-0.318</td><td>[-0.741, +0.059]</td><td>-0.741</td><td>0.936</td><td>—</td><td><span class="unverified">blank — PD-01</span></td><td><span class="badge info">baseline (reference, not a claim)</span></td></tr><tr><td>8</td><td><b>BASELINE always away</b></td><td>0.4118</td><td>-0.647</td><td>[-1.071, -0.224]</td><td>-1.071</td><td>0.998</td><td>—</td><td><span class="unverified">blank — PD-01</span></td><td><span class="badge info">baseline (reference, not a claim)</span></td></tr><tr><td>9</td><td><b>BASELINE always home</b></td><td>0.5882</td><td>-1.353</td><td>[-1.776, -0.929]</td><td>-1.776</td><td>1.000</td><td>—</td><td><span class="unverified">blank — PD-01</span></td><td><span class="badge info">baseline (reference, not a claim)</span></td></tr></tbody></table></div>
+  <p><b>Nothing clears.</b> The best row is <i>FL3 ratings, no home edge</i> at skill +0.131,
+  but its 2.5% bound is −0.037 and its Holm-adjusted p is 0.21. Under the pre-registered rule
+  that is a demotion to paper, and the table says so in the same row as the encouraging number.</p>
+  <p>Note what the baselines establish: "always home" is catastrophically bad
+  (skill −1.35) and "always away" is bad (−0.65). Home advantage is real; the question the
+  leaderboard is testing is whether this model adds anything <i>beyond</i> knowing who is at home.
+  Marginally, it does not yet.</p>
+</section>
+
+<section>
+  <h2>What would change our mind — for each strategy</h2>
+  <p>Every row in <code>data/lab/leaderboard_v2.json</code> carries a
+  <code>what_would_change_our_mind</code> and a <code>what_would_falsify_it</code> list. In
+  summary, for all of them: a second season's games the strategy was not fitted on, and the same
+  sign of skill under a different proper score (log loss), would move a row out of paper. A
+  bootstrap interval that still includes zero, or skill that flips sign between Weeks 5-7 and
+  Weeks 8-10, would kill it.</p>
+  <p><b>A calibration note, stated because it is uncomfortable.</b> The rating differential is
+  overconfident: the best fixed shrink of its probability toward 0.5 was 0.65, which lifts its
+  Brier from 0.234 to 0.228. The leaderboard does not silently apply that shrink — that would be
+  fitting on the test set. It is recorded here as the most promising next iteration, to be
+  pre-registered before it is scored.</p>
+</section>
+
+<section>
+  <h2>What is deliberately missing</h2>
+  <ul class="tight">
+    <li><b>ROI.</b> Blank for every strategy, by policy PD-01. A rank by season-long ROI over 85
+      games would be a rank by luck; the brief rejects it and so does the code.</li>
+    <li><b>Win rate.</b> Not a column. It drops ties and ignores confidence.</li>
+    <li><b>A three-way train/validation/holdout split.</b> One season cannot supply one without
+      leakage. The rule is declared in the results feed for the moment a second season exists and
+      is explicitly not claimed as evidence today.</li>
+  </ul>
+</section>
+
+</main>
+<footer>
+  <p><strong>Snapshot 2026-11-14.</strong> NFL data © the National Football League, quoted from nfl.com
+  with links on every row. This site publishes our own model output, not betting advice, and not a
+  sportsbook quote. Values that could not be confirmed against an official source are blank and
+  listed on <a href="flagged.html">Flagged for Review</a>.</p>
+</footer>
+</body>
+</html>

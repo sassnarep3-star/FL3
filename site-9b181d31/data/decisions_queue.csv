@@ -1,0 +1,13 @@
+gate,rows_released,rows_without_official_source,blocker_type,decision,requirement_ids
+Q-02,24,0,PROCUREMENT,"Decide the depth/availability source route: club pages (verified per club), an authorised feed, or publish the field as unknown.",R006;R011;R012;R013;R014;R022;R071;R072;R026;R032;R033;R034;R036;R037;R040;R041;R042;R044;R045;R053;R063;R064;R065;R066
+G-10,15,0,ENGINEERING,Stand up scheduled capture with a clock time and an immutable store.,R002;R015;R068;R073;R024;R025;R030;R038;R039;R047;R050;R052;R061;R062;R067
+G-02,13,4,PROTOCOL,"Freeze the evaluation protocol - sample window, fold dates, multiplicity rule - before any comparison is run.",R003;R009;R018;R020;R070;R028;R029;R038;R051;R055;R056;R057;R067
+G-04,8,3,PROTOCOL,"Freeze the evaluation protocol - sample window, fold dates, multiplicity rule - before any comparison is run.",R069;R028;R035;R043;R046;R051;R059;R060
+Q-01,6,6,PROCUREMENT,"License a market-price source, or accept in writing that no ROI, CLV or edge figure will ever be published.",R001;R004;R019;R021;R031;R049
+G-01,5,4,PROTOCOL,"Freeze the evaluation protocol - sample window, fold dates, multiplicity rule - before any comparison is run.",R005;R017;R069;R048;R059
+G-03,4,4,PROCUREMENT,"License a market-price source, or accept in writing that no ROI, CLV or edge figure will ever be published.",R001;R005;R019;R048
+G-12,4,2,PROTOCOL,"Freeze the evaluation protocol - sample window, fold dates, multiplicity rule - before any comparison is run.",R009;R010;R016;R057
+Q-04,3,0,PROTOCOL,"Commit to a minimum results coverage before any rating is trusted, and accept that ratings stay opponent-unaware until it is met.",R020;R027;R054
+G-07,2,1,PROTOCOL,Decide whether correlation may be measured on a priced market or only on realised outcomes.,R007;R058
+(none stated),1,1,UNCLASSIFIED,No single owner decision identified - inspect the rows.,R023
+G-11,1,1,GOVERNANCE,Define the demotion state machine and who may reverse a transition.,R008

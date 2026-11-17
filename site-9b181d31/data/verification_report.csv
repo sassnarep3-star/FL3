@@ -1,0 +1,19 @@
+check_id,check,result,detail,rows_checked,blocking,meaning
+V-01,"standings W/L/T, PCT and games reconcile",PASS,ok for 32 clubs,,yes,identity satisfied
+V-02,standings PF - PA == NET PTS,PASS,ok for 32 clubs,,yes,identity satisfied
+V-03,league points and wins balance,PASS,sum(PF)=6291 sum(PA)=6291 sum(W)=136 sum(L)=136 ties=2,,yes,identity satisfied
+V-04,team-games total is even (every game has two teams),PASS,team-games=274 -> games=137; ties imply 1 tied game(s),,yes,identity satisfied
+V-05,every game row references two of the 32 clubs,PASS,33 game rows checked,,yes,identity satisfied
+V-06,offense passing: published rate equals recomputed rate,PASS,32 clubs x 3 rate columns,,yes,identity satisfied
+V-07,offense rushing: published rate equals recomputed rate,PASS,32 clubs x 2 rate columns,,yes,identity satisfied
+V-08,defense passing: published rate equals recomputed rate,PASS,32 clubs x 3 rate columns,,yes,identity satisfied
+V-09a,league volume identities hold - this is the proof that the unlabelled stat columns are mapped correctly (FLG-014),PASS,pass_att: off=9037 def=9037; pass_cmp: off=5787 def=5787; pass_yds: off=64098 def=64098; pass_1st_downs: off=3026 def=3026; sacks_taken: off=643 def=643,,yes,identity satisfied
+V-09b,league scoring/turnover identities hold,FAIL,pass_td=414 vs opp_pass_td=415 (delta -1); pass_int=202 vs opp_int_forced=200 (delta +2),,no,"source-level inconsistency - values published as read, pricing-ineligible"
+V-11,published rates that sit on the 1-decimal rounding boundary,WARN,"passes only because of rounding slack: PIT.yds_per_att, JAX.yds_per_att, KC.yds_per_att, SEA.yds_per_att, WAS.opp_yds_per_att",5,no,informational
+V-10,injury rows use only legal designations and known clubs,PASS,160 rows with a game-status designation,,yes,identity satisfied
+I-01,games verified through Week 9 (league),DERIVED,games=137; tied=1; points/game=45.92 per club,32,,
+I-02,game-level coverage of the season,PARTIAL,data/games_2026.csv holds 33 rows vs 137 verified games (24.1% coverage) - see FLG-016,33,,
+I-05,every cited source id is registered in data/sources.csv,PASS,all 18 distinct source ids resolve,,yes,identity satisfied
+I-06,"model output completeness (ours filled, market's deliberately blank)",PASS,"14/14 rows carry our number; 0/14 carry a market number - the gap is Q-01, not an omission",,yes,identity satisfied
+I-06b,no market value was invented anywhere,PASS,market_spread/market_total/market_source must stay blank while SRC-016 is not acquired,,no,identity satisfied
+I-07,every data/*.csv row parses with exactly its header's field count,PASS,"23 files, all rows well-formed",,yes,identity satisfied

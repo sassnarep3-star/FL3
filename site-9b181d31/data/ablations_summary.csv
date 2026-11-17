@@ -1,0 +1,6 @@
+table,variant,n,spread_mae,spread_mae_ci95_lo,spread_mae_ci95_hi,spread_rmse,total_mae,total_mae_ci95_lo,total_mae_ci95_hi,total_rmse,brier,brier_ci95_lo,brier_ci95_hi
+summary,availability ON,12,11.648,6.967,16.52,14.399,8.877,4.37,14.635,12.728,0.2197,0.164,0.2812
+summary,availability OFF,12,11.693,7.174,16.266,14.227,9.513,4.85,15.312,13.256,0.2134,0.1699,0.2611
+summary,"paired difference (ON - OFF), spread MAE",12,-0.045,-0.808,0.846,1.478,,,,,,,
+summary,"paired difference (ON - OFF), total MAE",12,,,,,-0.637,-1.173,-0.221,,,,
+summary,"paired difference (ON - OFF), Brier",12,,,,,,,,,0.0063,-0.0194,0.0361
