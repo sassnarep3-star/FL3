@@ -2015,9 +2015,9 @@ open PR, and the integration closeout (regenerate, verify, PR, merge, confirm de
 
 | Task | Status | Owner | Files |
 |---|---|---|---|
-| T32 — Acceptance audit: line-by-line live verification of the published registers (standings, Week 10 results, Week 10 injury report, fixture venues, schedule announcement) against official NFL.com / NFL Media sources, with a published audit page and dataset | in progress | `arena/f0d91da4-fl3` | `data/acceptance_audit_2026-11-17.csv` + `.json` (new), `audit.html` (new, via `scripts/build_site.py`), `scripts/check_site.py` (page list + audit checks), `COORDINATION.md` |
-| T33 — Take over and merge stale open PR #34 (session `arena/03e651e0-fl3`, last activity 2026-11-16, >60 min stale with no commits; all three CI checks pass; diff reviewed) | in progress | `arena/f0d91da4-fl3` | none (merge action + this record) |
-| T34 — Integration closeout: regenerate every build, run all suites, PR from this branch to `main`, merge, confirm GitHub Pages deploy | in progress | `arena/f0d91da4-fl3` | `COORDINATION.md`, generated shared outputs via the existing generators |
+| T32 — Acceptance audit: line-by-line live verification of the published registers (standings, Week 10 results, Week 10 injury report, fixture venues, schedule announcement) against official NFL.com / NFL Media sources, with a published audit page and dataset | **done** | `arena/f0d91da4-fl3` | `data/acceptance_audit_2026-11-17.csv` + `.json` (new), `audit.html` (new, via `scripts/build_site.py`), `scripts/check_site.py` (page list + audit checks), `COORDINATION.md` |
+| T33 — Take over and merge stale open PR #34 (session `arena/03e651e0-fl3`, last activity 2026-11-16, >60 min stale with no commits; all three CI checks pass; diff reviewed) | **done** | `arena/f0d91da4-fl3` | none (merge action + this record) |
+| T34 — Integration closeout: regenerate every build, run all suites, PR from this branch to `main`, merge, confirm GitHub Pages deploy | **done** | `arena/f0d91da4-fl3` | `COORDINATION.md`, generated shared outputs via the existing generators |
 
 
 **Scope boundaries.** New files only in `data/` (new names) plus the sanctioned extension points
@@ -2105,3 +2105,21 @@ cancelled run cannot be re-run. All three `pages.yml` validate steps were theref
 locally on the identical tree and exit 0: root/subsite completeness checks, `check_site.py`
 (3,429 assertions, ALL CHECKS PASSED) and `verify_live.py --check` (15 claims, exit 0). This note is
 the commit that re-triggers CI on the final merge head.
+
+## Final PR / merge / deployment record (2026-11-17 UTC)
+
+| Item | Result |
+|---|---|
+| Pull request | [#44 — T32-T34: acceptance audit of published registers vs live official sources, PR #34 takeover, integration closeout](https://github.com/sassnarep3-star/FL3/pull/44) |
+| PR checks | `Verify data and site` pass · `site` pass; the `pages.yml` run was cancelled by the `pages-gate` concurrency group (documented artifact; all three of its steps reproduced locally, exit 0 — see the CI evidence note above) |
+| Merge conflicts during the session | Three rebases onto a moving `main` (PRs #34, #45, #48, #50 landed while this branch was open). Conflicts: `COORDINATION.md` (resolved as a union — every session's record kept) and the shared generators `scripts/build_site.py` / `scripts/check_site.py` (resolved as a union — both sessions' nav entries, page builders and check functions kept). Every generated root page was then regenerated from the merged generators, never hand-resolved. Nothing from any session was discarded. |
+| Merge | **Merged** into `main` at `1dad4efe079dd93de405fafc7e6dbd9c9194ccc6` (2026-11-17T03:04:35Z), `gh pr merge 44 --merge`, no `--auto`, no review waited for, per the brief |
+| Post-merge CI | `Verify data and site` run `44007569307` success · `site` run `44007569528` success · `Deploy static site to GitHub Pages` run `44007569568` success · `pages build and deployment` run `44007569265` success |
+| Pages status | GitHub Pages API `status: built`, `build_type: legacy`, source `main:/`, URL https://sassnarep3-star.github.io/FL3/ |
+| Merged-tree verifiers | `check_site.py` 5,693 assertions ALL PASSED · `check_verified_site.py` 645 ALL PASSED · `check_verify.py` 203 PASSED · `verify.py` G-10 PASS (non-blocking V-09b/FLG-025) · `check_links.py` PASS · `verify_depth.py` 16 checks PASS · `check_depth_links.py` OK · `build_board.py` 30 pages deterministic · `build_readiness.py --check` OK (75 requirements) · `verify_live.py --check` exit 0 · `git status` clean |
+
+**Irregularities carried, not blocked:** the results-feed staleness on PIT@CIN/LAC@BAL (logged as a
+requested follow-up; session `arena/4ac55b56-fl3`'s PR #48 independently fixed the published
+results page's final-count wording), the Houston Hummel display-name mismatch, the 2026-11-14
+standings snapshot's expected staleness, and the pre-existing F01/F02/F05/F07 flags. All are
+published with source links on `audit.html`, `flagged.html` and the board's flagged page.
