@@ -24,6 +24,14 @@ on:
     # "redirected" without storing anything.
     - cron: "17 13 * * 3,4,5,6,0"
     - cron: "17 23 * * 3,4,5,6"
+  # Self-test: any commit that touches the capture script runs one live capture,
+  # so a change to the fetch/drift logic is verified against the real page instead
+  # of only offline. The paths filter prevents loops (the workflow commits only
+  # under snapshots/).
+  push:
+    paths:
+      - "scripts/capture_official_snapshot.py"
+      - ".github/workflows/snapshot.yml"
   workflow_dispatch:
     inputs:
       week:
