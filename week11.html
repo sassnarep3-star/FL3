@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 11 — official fixtures and originated prices · FL3 NFL Decision System</title>
+<meta name="description" content="Verified NFL data, originated lines, strategy gates and open decisions. Every value links to an official source.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="brand"><span class="mark">FL3</span><span class="sub">NFL Decision System</span></div>
+  <nav><a href="index.html">Dashboard</a><a href="standings.html">Standings</a><a href="lines.html">Our Lines</a><a href="injuries.html">Injuries</a><a href="matchups.html">Matchup matrix</a><a href="ablations.html">Ablations</a><a href="data-snapshots.html">Data snapshots</a><a href="strategies.html">Strategies</a><a href="correlation.html">Correlation</a><a href="decisions.html">Decisions</a><a href="suggestions.html">Suggestions</a><a href="flagged.html">Flagged for Review</a><a href="sources.html">Sources</a><a href="methodology.html">Methodology</a><a href="results.html">Results feed</a><a href="week11.html" class="on">Week 11</a><a href="availability.html">Availability</a><a href="lab.html">Lab</a><a href="spec.html">Spec</a><a href="board/readiness.html">Requirement readiness</a><a href="verified/index.html">Verified results &amp; scoring</a><a href="verify/index.html">Verification</a></nav>
+</header>
+<main id="main">
+
+<section class="hero">
+  <h1>Week 11: thirteen fixtures, six byes, and one number the project actually owns</h1>
+  <p class="lede">The schedule facts below are transcribed from the official Week 11 schedule page
+  and from each game centre's own Game Info block, captured 2026-11-17. The four model columns
+  are this project's own origination from the frozen pre-registered model. The two market columns
+  are blank, and stay blank, because no licensed market number is held.</p>
+</section>
+
+<section class="stats">
+  <div class="stat"><b>13</b><span>fixtures</span></div>
+  <div class="stat"><b>6</b><span>clubs on bye</span></div>
+  <div class="stat"><b>2</b><span>London games this week</span><em>none — the international game is Mexico City</em></div>
+  <div class="stat"><b>13</b><span>fixtures with a game centre captured</span></div>
+</section>
+
+<section>
+  <h2>The register</h2>
+  <p class="lede">Kickoff is the published Eastern time. The <code>kickoff_utc</code> field in the
+  data file converts it, and the price store refuses to timestamp a capture after that moment.
+  Stadium and city are the exact strings the game centre prints — including "NORTHWEST STADIUM"
+  for Washington, which the schedule page's own booking links still call FedEx Field.</p>
+  <div class="tablewrap"><table class="wide"><thead><tr><th>Matchup</th><th>Day</th><th>Kickoff</th><th>Network</th><th>Venue (as printed)</th><th>Fair spread (home)</th><th>Fair total</th><th>P(home)</th><th>Market spread</th><th>Market total</th><th>Source</th></tr></thead><tbody><tr><td><b>IND @ HOU</b></td><td>Thursday 2026-11-19</td><td>8:15 PM ET</td><td>PRIME</td><td>RELIANT STADIUM<br><small>HOUSTON, TX</small></td><td>-7.5</td><td>53.0</td><td>83.2%</td><td><span class="unverified">blank — PD-01</span></td><td><span class="unverified">blank — PD-01</span></td><td><a class="src" href="https://www.nfl.com/games/colts-at-texans-2026-reg-11" target="_blank" rel="noopener">game centre</a> · <a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">schedule</a></td></tr><tr><td><b>MIA @ BUF</b></td><td>Sunday 2026-11-22</td><td>1:00 PM ET</td><td>CBS</td><td>HIGHMARK STADIUM<br><small>ORCHARD PARK, NY</small></td><td>-14.5</td><td>51.0</td><td>95.7%</td><td><span class="unverified">blank — PD-01</span></td><td><span class="unverified">blank — PD-01</span></td><td><a class="src" href="https://www.nfl.com/games/dolphins-at-bills-2026-reg-11" target="_blank" rel="noopener">game centre</a> · <a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">schedule</a></td></tr><tr><td><b>BAL @ CAR</b></td><td>Sunday 2026-11-22</td><td>1:00 PM ET</td><td>FOX</td><td>BANK OF AMERICA STADIUM<br><small>CHARLOTTE, NC</small></td><td>-4.2</td><td>52.7</td><td>71.1%</td><td><span class="unverified">blank — PD-01</span></td><td><span class="unverified">blank — PD-01</span></td><td><a class="src" href="https://www.nfl.com/games/ravens-at-panthers-2026-reg-11" target="_blank" rel="noopener">game centre</a> · <a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">schedule</a></td></tr><tr><td><b>NO @ CHI</b></td><td>Sunday 2026-11-22</td><td>1:00 PM ET</td><td>FOX</td><td>SOLDIER FIELD<br><small>CHICAGO, IL</small></td><td>-8.9</td><td>51.4</td><td>87.0%</td><td><span class="unverified">blank — PD-01</span></td><td><span class="unverified">blank — PD-01</span></td><td><a class="src" href="https://www.nfl.com/games/saints-at-bears-2026-reg-11" target="_blank" rel="noopener">game centre</a> · <a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">schedule</a></td></tr><tr><td><b>TEN @ DAL</b></td><td>Sunday 2026-11-22</td><td>1:00 PM ET</td><td>FOX</td><td>AT&amp;T STADIUM<br><small>ARLINGTON, TX</small></td><td>-7.7</td><td>55.8</td><td>83.9%</td><td><span class="unverified">blank — PD-01</span></td><td><span class="unverified">blank — PD-01</span></td><td><a class="src" href="https://www.nfl.com/games/titans-at-cowboys-2026-reg-11" target="_blank" rel="noopener">game centre</a> · <a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">schedule</a></td></tr><tr><td><b>TB @ DET</b></td><td>Sunday 2026-11-22</td><td>1:00 PM ET</td><td>FOX</td><td>FORD FIELD<br><small>DETROIT, MI</small></td><td>-4.5</td><td>49.3</td><td>72.4%</td><td><span class="unverified">blank — PD-01</span></td><td><span class="unverified">blank — PD-01</span></td><td><a class="src" href="https://www.nfl.com/games/buccaneers-at-lions-2026-reg-11" target="_blank" rel="noopener">game centre</a> · <a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">schedule</a></td></tr><tr><td><b>AZ @ KC</b></td><td>Sunday 2026-11-22</td><td>1:00 PM ET</td><td>CBS</td><td>ARROWHEAD STADIUM<br><small>KANSAS CITY, MO</small></td><td>-15.6</td><td>48.0</td><td>96.6%</td><td><span class="unverified">blank — PD-01</span></td><td><span class="unverified">blank — PD-01</span></td><td><a class="src" href="https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11" target="_blank" rel="noopener">game centre</a> · <a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">schedule</a></td></tr><tr><td><b>PIT @ PHI</b></td><td>Sunday 2026-11-22</td><td>1:00 PM ET</td><td>CBS</td><td>LINCOLN FINANCIAL FIELD<br><small>PHILADELPHIA, PA</small></td><td>6.7</td><td>41.5</td><td>19.2%</td><td><span class="unverified">blank — PD-01</span></td><td><span class="unverified">blank — PD-01</span></td><td><a class="src" href="https://www.nfl.com/games/steelers-at-eagles-2026-reg-11" target="_blank" rel="noopener">game centre</a> · <a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">schedule</a></td></tr><tr><td><b>NYJ @ LAC</b></td><td>Sunday 2026-11-22</td><td>4:05 PM ET</td><td>FOX</td><td>SOFI STADIUM<br><small>INGLEWOOD, CA</small></td><td>2.0</td><td>45.5</td><td>39.6%</td><td><span class="unverified">blank — PD-01</span></td><td><span class="unverified">blank — PD-01</span></td><td><a class="src" href="https://www.nfl.com/games/jets-at-chargers-2026-reg-11" target="_blank" rel="noopener">game centre</a> · <a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">schedule</a></td></tr><tr><td><b>JAX @ NYG</b></td><td>Sunday 2026-11-22</td><td>4:25 PM ET</td><td>CBS</td><td>METLIFE STADIUM<br><small>EAST RUTHERFORD, NJ</small></td><td>7.2</td><td>47.4</td><td>17.7%</td><td><span class="unverified">blank — PD-01</span></td><td><span class="unverified">blank — PD-01</span></td><td><a class="src" href="https://www.nfl.com/games/jaguars-at-giants-2026-reg-11" target="_blank" rel="noopener">game centre</a> · <a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">schedule</a></td></tr><tr><td><b>LV @ DEN</b></td><td>Sunday 2026-11-22</td><td>4:25 PM ET</td><td>CBS</td><td>EMPOWER FIELD AT MILE HIGH<br><small>DENVER, CO</small></td><td>-5.5</td><td>52.1</td><td>76.6%</td><td><span class="unverified">blank — PD-01</span></td><td><span class="unverified">blank — PD-01</span></td><td><a class="src" href="https://www.nfl.com/games/raiders-at-broncos-2026-reg-11" target="_blank" rel="noopener">game centre</a> · <a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">schedule</a></td></tr><tr><td><b>MIN @ SF</b></td><td>Sunday 2026-11-22</td><td>8:20 PM ET</td><td>NBC</td><td>ESTADIO BANORTE<br><small>MEXICO CITY</small></td><td>-2.7</td><td>43.0</td><td>64.0%</td><td><span class="unverified">blank — PD-01</span></td><td><span class="unverified">blank — PD-01</span></td><td><a class="src" href="https://www.nfl.com/games/vikings-at-49ers-2026-reg-11" target="_blank" rel="noopener">game centre</a> · <a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">schedule</a></td></tr><tr><td><b>CIN @ WAS</b></td><td>Monday 2026-11-23</td><td>8:15 PM ET</td><td>ESPN</td><td>NORTHWEST STADIUM<br><small>LANDOVER, MD</small></td><td>5.6</td><td>52.9</td><td>23.2%</td><td><span class="unverified">blank — PD-01</span></td><td><span class="unverified">blank — PD-01</span></td><td><a class="src" href="https://www.nfl.com/games/bengals-at-commanders-2026-reg-11" target="_blank" rel="noopener">game centre</a> · <a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">schedule</a></td></tr></tbody></table></div>
+  <p><b>Byes:</b> ATL, CLE, GB, LA, NE, SEA. 13 fixtures × 2 clubs + 6 × 2 bye clubs = 32.</p>
+</section>
+
+<section>
+  <h2>Why the market columns are blank</h2>
+  <p>Policy <b>PD-01</b> was decided this session and is written into
+  <code>data/official/results_feed.json</code>. Its substance:</p>
+  <ul class="tight">
+    <li>No licensed, timestamped price feed exists in this repository. Publishing a market number
+      we do not hold would be an invented number wearing a source link.</li>
+    <li>So the project does not report ROI, expected value or closing-line value anywhere. It
+      reports proper scores that need only an outcome — Brier, log loss, and line error against
+      the official final margin and total.</li>
+    <li>The comparison the brief asks for (fair line vs market line vs difference) is therefore
+      published as <b>fair line and blank</b>, with the blank labelled. The third column appears
+      the day a licensed feed does.</li>
+    <li>This is a decision, not a deferral. It is written down so it cannot silently change.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Markets are originated side first, then total, then moneyline</h2>
+  <p>Each snapshot stores <code>market_order: ["side", "total", "moneyline"]</code> and the store
+  refuses to write a later market before an earlier one for the same fixture. The order matters
+  because the total is informed by the side: a team's expected points and its opponent's are not
+  independent, so deriving a total first forces an assumption about pace that the side has
+  already told you.</p>
+  <p><a href="spec.html">Specification and traceability</a> ·
+     <a href="availability.html">Availability graph</a> ·
+     <a href="lab.html">Ablations and leaderboard</a></p>
+</section>
+
+</main>
+<footer>
+  <p><strong>Snapshot 2026-11-14.</strong> NFL data © the National Football League, quoted from nfl.com
+  with links on every row. This site publishes our own model output, not betting advice, and not a
+  sportsbook quote. Values that could not be confirmed against an official source are blank and
+  listed on <a href="flagged.html">Flagged for Review</a>.</p>
+</footer>
+</body>
+</html>

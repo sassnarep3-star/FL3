@@ -1,0 +1,348 @@
+week,game_date,game_pair_as_printed,team,opponent,player,position,injuries,practice_status,game_status,source_id,source_url,capture_date
+10,2026-11-12,WAS vs NYG,WAS,NYG,John Bates,TE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,WAS,NYG,Treylon Burks,WR,,Did Not Participate In Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,WAS,NYG,Jayden Daniels,QB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,WAS,NYG,Matt Gulbin,C,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,WAS,NYG,Chig Okonkwo,TE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,WAS,NYG,Lucas Patrick,C,Concussion,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,WAS,NYG,Amik Robertson,CB,,Limited Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,WAS,NYG,Shy Tuttle,DT,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,WAS,NYG,Colson Yankoff,TE,Knee,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,NYG,WAS,Abdul Carter,LB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,NYG,WAS,Jermaine Eluemunor,T,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,NYG,WAS,Malik Harrison,LB,Groin,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,NYG,WAS,Colton Hood,CB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,NYG,WAS,Theo Johnson,TE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,NYG,WAS,Charlie Jones,WR,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,NYG,WAS,J.J. McCarthy,QB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,NYG,WAS,Darnell Mooney,WR,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,NYG,WAS,Malik Nabers,WR,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,NYG,WAS,Cam Skattebo,RB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-12,WAS vs NYG,NYG,WAS,Andrew Thomas,T,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,NE,DET,Ben Brown,C,Knee,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,NE,DET,A.J. Brown,WR,"Ankle, Knee",Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,NE,DET,Kevin Byard,S,Chest,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,NE,DET,Carlton Davis III,CB,Knee,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,NE,DET,Reggie Gilliam,FB,Knee,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,NE,DET,TreVeyon Henderson,RB,Illness,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,NE,DET,Hunter Henry,TE,,Limited Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,NE,DET,Cameron Latu,TE,Back,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,NE,DET,Drake Maye,QB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,NE,DET,Morgan Moses,T,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,NE,DET,Walter Rouse,T,Concussion,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,NE,DET,Brenden Schooler,S,Hamstring,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,NE,DET,Rhamondre Stevenson,RB,Knee,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,NE,DET,Greg Van Roten,G,Hamstring,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,NE,DET,Charles Woods,CB,Hamstring,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,DET,NE,Brian Branch,S,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,DET,NE,Jared Goff,QB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,DET,NE,Kerby Joseph,S,Knee,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,DET,NE,Cade Mays,C,Ankle,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,DET,NE,D.J. Reed,CB,Hip,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,DET,NE,Jacob Saylors,RB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,DET,NE,Amon-Ra St. Brown,WR,Rib,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,DET,NE,Sione Vaki,RB,Ankle,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,NE vs DET,DET,NE,DJ Wonnum,DE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,KC,ATL,Jeffrey Bassa,LB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,KC,ATL,Mansoor Delane,CB,Shoulder,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,KC,ATL,Justin Fields,QB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,KC,ATL,Jaden Hicks,S,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,KC,ATL,Travis Kelce,TE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,KC,ATL,Patrick Mahomes,QB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,KC,ATL,Jaylon Moore,T,Ankle,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,KC,ATL,Omarr Norman-Lott,DT,Knee,Limited Participation in Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,KC,ATL,Jaydn Ott,RB,Hamstring,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,KC,ATL,Rashee Rice,WR,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,KC,ATL,Kenneth Walker III,RB,Groin,Did Not Participate In Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,KC,ATL,Peter Woods,DT,Neck,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,KC,ATL,Xavier Worthy,WR,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,ATL,KC,Zachariah Branch,WR,Hamstring,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,ATL,KC,Kendal Daniels,LB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,ATL,KC,Divine Deablo,LB,Forearm,Did Not Participate In Practice,Doubtful,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,ATL,KC,Gervon Dexter Sr.,DT,Illness,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,ATL,KC,Jake Matthews,T,,Limited Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,ATL,KC,Liam McCullough,LS,,Did Not Participate In Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,ATL,KC,James Pearce Jr.,DE,Back,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,ATL,KC,Za'Darius Smith,DE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,ATL,KC,Jawaan Taylor,T,,Limited Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,ATL,KC,Cameron Thomas,DE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,KC vs ATL,ATL,KC,Josh Woods,LB,Ankle,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,MIN,GB,Jordan Addison,WR,Thumb,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,MIN,GB,Blake Cashman,LB,Concussion,Limited Participation in Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,MIN,GB,Christian Darrisaw,T,,Did Not Participate In Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,MIN,GB,T.J. Hockenson,TE,"Wrist, Chest",Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,MIN,GB,Tyrion Ingram-Dawkins,DT,Ankle,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,MIN,GB,Theo Jackson,S,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,MIN,GB,Jauan Jennings,WR,Calf,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,MIN,GB,Josh Metellus,S,Shoulder,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,MIN,GB,Kyler Murray,QB,Hamstring,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,MIN,GB,Harrison Smith,S,,Limited Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,MIN,GB,Kyle Van Noy,LB,Calf,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,MIN,GB,Jay Ward,S,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,MIN,GB,Carson Wentz,QB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,GB,MIN,Aaron Banks,G,,Limited Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,GB,MIN,Chris Brooks,RB,Ankle,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,GB,MIN,Javon Bullard,S,"Ankle, Knee",Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,GB,MIN,Zaire Franklin,LB,Shin,Did Not Participate In Practice,Doubtful,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,GB,MIN,Travis Glover,G,Knee,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,GB,MIN,Ty'Ron Hopper,LB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,GB,MIN,Josh Jacobs,RB,Finger,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,GB,MIN,Xavier McKinney,S,Foot,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,GB,MIN,Bo Melton,WR,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,GB,MIN,Skyy Moore,WR,Ankle,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,GB,MIN,Micah Parsons,LB,"Knee, Illness",Limited Participation in Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,GB,MIN,Sean Rhyan,C,Ankle,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,GB,MIN,Trey Smack,K,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,GB,MIN,Lukas Van Ness,LB,Back,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,GB,MIN,Josh Whyle,TE,Concussion,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,GB,MIN,Savion Williams,WR,,Limited Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIN vs GB,GB,MIN,Kevin Zeitler,G,"Ankle, Triceps",Did Not Participate In Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,JAX,TEN,Jessie Bates,S,Not injury related - resting player,Limited Participation in Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,JAX,TEN,Ezra Cleveland,G,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,JAX,TEN,Branson Combs,LB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,JAX,TEN,Jordan Davis,DT,Not injury related - resting player,Limited Participation in Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,JAX,TEN,BJ Green II,DE,Forearm,Full Participation in Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,JAX,TEN,Robert Hainsey,C,Concussion,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,JAX,TEN,Antonio Johnson,S,,Limited Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,JAX,TEN,Jakobi Meyers,WR,,Limited Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,JAX,TEN,Chris Rodriguez Jr.,RB,,Limited Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,JAX,TEN,Bhayshul Tuten,RB,,Limited Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,JAX,TEN,Travon Walker,DE,,Limited Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,TEN,JAX,Cody Barton,LB,Concussion,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,TEN,JAX,John Franklin-Myers,DE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,TEN,JAX,Marcus Harris,CB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,TEN,JAX,Anthony Hill Jr.,LB,Neck,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,TEN,JAX,Jaylon Jones,CB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,TEN,JAX,JC Latham,T,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,TEN,JAX,Tony Pollard,RB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,TEN,JAX,Peter Skoronski,G,Hamstring,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,TEN,JAX,Tyjae Spears,RB,Knee,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,TEN,JAX,Carnell Tate,WR,Shoulder,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,TEN,JAX,Tommy Townsend,P,"Knee, Achilles",Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,JAX vs TEN,TEN,JAX,Kevin Winston Jr.,S,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,BUF,NYJ,Alec Anderson,G,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,BUF,NYJ,Christian Benford,CB,Wrist,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,BUF,NYJ,Terrel Bernard,LB,,Did Not Participate In Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,BUF,NYJ,Spencer Brown,T,Ankle,Did Not Participate In Practice,Doubtful,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,BUF,NYJ,Dion Dawkins,T,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,BUF,NYJ,Sam Franklin Jr.,S,Shoulder,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,BUF,NYJ,Greg Gaines,DT,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,BUF,NYJ,Jordan Hancock,CB,Hamstring,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,BUF,NYJ,Dalton Kincaid,TE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,BUF,NYJ,Connor McGovern,C,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,BUF,NYJ,Ed Oliver,DE,,Did Not Participate In Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,BUF,NYJ,Ar'maj Reed-Adams,G,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,BUF,NYJ,T.J. Sanders,DE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,BUF,NYJ,Tyrell Shavers,WR,Knee,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,NYJ,BUF,Jarvis Brownlee Jr.,CB,Illness,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,NYJ,BUF,Omar Cooper Jr.,WR,Ankle,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,NYJ,BUF,Adonai Mitchell,WR,Knee,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,NYJ,BUF,Joseph Ossai,DE,Ankle,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,NYJ,BUF,VJ Payne,S,Knee,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,NYJ,BUF,Harrison Phillips,DT,Ankle,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,NYJ,BUF,Trevin Wallace,LB,Groin,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,NYJ,BUF,Garrett Wilson,WR,Concussion,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,BUF vs NYJ,NYJ,BUF,Nahshon Wright,CB,Back,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,MIA,IND,Tucker Addington,LS,,Limited Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,MIA,IND,Kaytron Allen,RB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,MIA,IND,Darrell Baker Jr.,CB,Knee,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,MIA,IND,Chris Bell,WR,Knee,Did Not Participate In Practice,Doubtful,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,MIA,IND,Aaron Brewer,C,Concussion,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,MIA,IND,Malik Herring,DE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,MIA,IND,Will Kacmarek,TE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,MIA,IND,Michael Taaffe,S,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,MIA,IND,Dante Trader Jr.,S,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,MIA,IND,Jared Wayne,WR,Quadricep,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,MIA,IND,Jaylen Wright,RB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,IND,MIA,Mo Alie-Cox,TE,Groin,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,IND,MIA,CJ Allen,LB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,IND,MIA,Jaylon Carlies,LB,Neck,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,IND,MIA,Akeem Davis-Gaither,LB,Knee,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,IND,MIA,A.J. Haulcy,S,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,IND,MIA,Arden Key,DE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,IND,MIA,Will Mallory,TE,Hamstring,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,IND,MIA,Luke Rhodes,LS,Hamstring,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,IND,MIA,Grover Stewart,DT,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,IND,MIA,Jonathan Taylor,RB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,IND,MIA,Jerry Tillery,DT,Calf,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,IND,MIA,Jalen Travis,T,Knee,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,IND,MIA,Justin Walley,CB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,MIA vs IND,IND,MIA,Charvarius Ward,CB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,CAR,NO,Jonathon Brooks,RB,Groin,Limited Participation in Practice,Doubtful,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,CAR,NO,Brady Christensen,G,Hamstring,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,CAR,NO,Trevor Etienne,RB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,CAR,NO,Chuba Hubbard,RB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,CAR,NO,Lee Hunter,DT,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,CAR,NO,Mike Jackson,CB,Groin,Limited Participation in Practice,Doubtful,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,CAR,NO,Will Lee III,CB,Hamstring,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,CAR,NO,Xavier Legette,WR,Knee,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,CAR,NO,Damien Lewis,G,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,CAR,NO,Bobby Okereke,LB,Foot,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,CAR,NO,Jaelan Phillips,LB,Hamstring,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,CAR,NO,Torricelli Simpkins III,G,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,NO,CAR,Kelvin Banks Jr.,T,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,NO,CAR,CJ Donaldson,RB,Shoulder,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,NO,CAR,David Edwards,G,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,NO,CAR,Martin Emerson,CB,Shin,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,NO,CAR,Travis Etienne,RB,Hamstring,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,NO,CAR,Noah Fant,TE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,NO,CAR,Taliese Fuaga,T,Knee,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,NO,CAR,Alvin Kamara,RB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,NO,CAR,Erik McCoy,C,Biceps,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,NO,CAR,Christen Miller,DT,Knee,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,NO,CAR,Asim Richards,T,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,CAR vs NO,NO,CAR,Quincy Riley,CB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,HOU,CLE,Azeez Al-Shaair,LB,"Groin, Not injury related - personal matter",Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,HOU,CLE,Will Anderson Jr.,DE,Ankle,Did Not Participate In Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,HOU,CLE,Reed Blankenship,S,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,HOU,CLE,Trent Brown,T,"Wrist, Illness",Did Not Participate In Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,HOU,CLE,Tank Dell,WR,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,HOU,CLE,Blake Fisher,T,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,HOU,CLE,Marvin Harrison Jr.,WR,Hamstring,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,HOU,CLE,Jacob Hummel,LB,Groin,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,HOU,CLE,Danielle Hunter,DE,Hamstring,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,HOU,CLE,Brevin Jordan,TE,"Finger, Foot",Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,HOU,CLE,Woody Marks,RB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,HOU,CLE,David Montgomery,RB,Groin,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,HOU,CLE,Keylan Rutledge,G,"Neck, Shoulder",Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,HOU,CLE,Jaylin Smith,CB,Hamstring,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,HOU,CLE,Wyatt Teller,G,"Illness, Back",Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,HOU,CLE,Tommy Togiai,DT,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,CLE,HOU,Austin Barber,T,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,CLE,HOU,Denzel Boston,WR,Toe,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,CLE,HOU,Michael Burton,FB,Calf,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,CLE,HOU,Maliek Collins,DT,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,CLE,HOU,Harold Fannin Jr.,TE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,CLE,HOU,Ronnie Hickman Jr.,S,Concussion,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,CLE,HOU,Tytus Howard,T,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,CLE,HOU,Elgton Jenkins,C,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,CLE,HOU,Donovan McMillon,S,,Limited Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,CLE,HOU,Carson Schwesinger,LB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,CLE,HOU,Denzel Ward,CB,,Limited Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,HOU vs CLE,CLE,HOU,Quincy Williams,LB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,LAR,AZ,Davis Allen,TE,Oblique,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,LAR,AZ,Steve Avila,G,Hamstring,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,LAR,AZ,Joe Cardona,LS,Ankle,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,LAR,AZ,Kam Curl,S,Toe,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,LAR,AZ,Aaron Donald,DT,,Did Not Participate In Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,LAR,AZ,Terrance Ferguson,TE,"Ankle, Hamstring",Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,LAR,AZ,Braden Fiske,DT,,Did Not Participate In Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,LAR,AZ,Myles Garrett,LB,"Knee, Not injury related - resting player",Did Not Participate In Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,LAR,AZ,Tyler Higbee,TE,,Limited Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,LAR,AZ,Trent McDuffie,CB,Back,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,LAR,AZ,Puka Nacua,WR,,Did Not Participate In Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,LAR,AZ,Colby Parkinson,TE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,LAR,AZ,Matthew Stafford,QB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,LAR,AZ,Byron Young,LB,,Did Not Participate In Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,AZ,LAR,Budda Baker,S,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,AZ,LAR,Zachary Carter,DT,Knee,Limited Participation in Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,AZ,LAR,Hjalte Froholdt,C,Concussion,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,AZ,LAR,Jon Gaines II,G,Ankle,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,AZ,LAR,Bam Knight,RB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,AZ,LAR,Hunter Long,TE,Knee,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,AZ,LAR,Roy Lopez,DT,"Toe, Ankle",Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,AZ,LAR,Max Melton,CB,"Knee, Hand",Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,AZ,LAR,Darius Robinson,DT,Wrist,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,AZ,LAR,Isaac Seumalo,G,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,AZ,LAR,Dante Stills,DT,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,AZ,LAR,Josh Sweat,LB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,AZ,LAR,Jayden Williams,T,Knee,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,AZ,LAR,Mack Wilson,LB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,LAR vs AZ,AZ,LAR,Andrew Wingard,S,Groin,Did Not Participate In Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,SEA,LV,AJ Barner,TE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,SEA,LV,Anthony Bradford,G,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,SEA,LV,Charles Cross,T,Ankle,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,SEA,LV,Sam Darnold,QB,"Ribs, Quadricep",Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,SEA,LV,Derick Hall,LB,,Did Not Participate In Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,SEA,LV,Drew Lock,QB,,Limited Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,SEA,LV,Quenton Nelson,G,Knee,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,SEA,LV,Uchenna Nwosu,LB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,SEA,LV,Patrick O'Connell,LB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,SEA,LV,Connor O'Toole,LB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,SEA,LV,Brandon Pili,DT,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,SEA,LV,Jarran Reed,DT,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,SEA,LV,Rashid Shaheed,WR,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,SEA,LV,Jaxon Smith-Njigba,WR,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,SEA,LV,Leonard Williams,DT,Stinger,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,LV,SEA,Thomas Booker,DT,Ankle,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,LV,SEA,Foley Fatukasi,DT,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,LV,SEA,Ian Thomas,TE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,LV,SEA,Dont'e Thornton Jr.,WR,Back,Did Not Participate In Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SEA vs LV,LV,SEA,Trey Zuhn III,C,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,SF,DAL,Mike Evans,WR,Achilles,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,SF,DAL,Renardo Green,CB,Back,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,SF,DAL,Dre Greenlaw,LB,Knee,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,SF,DAL,Nate Hobbs,CB,Groin,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,SF,DAL,Deommodore Lenoir,CB,Foot,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,SF,DAL,Christian McCaffrey,RB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,SF,DAL,Siran Neal,S,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,SF,DAL,Demarcus Robinson,WR,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,SF,DAL,Deebo Samuel Sr.,WR,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,SF,DAL,Upton Stout,CB,"Shoulder, Neck",Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,SF,DAL,C.J. West,DT,Knee,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,SF,DAL,Trent Williams,T,Shoulder,Did Not Participate In Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,DaRon Bland,CB,Ankle,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,Jonathan Bullard,DT,Calf,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,Alijah Clark,S,Illness,Did Not Participate In Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,Donovan Ezeiruaku,LB,Ankle,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,Jake Ferguson,TE,"Knee, Ankle",Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,Tyler Goodson,RB,"Ankle, Knee",Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,Malik Hooker,S,,Did Not Participate In Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,Marist Liufau,LB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,P.J. Locke,S,Concussion,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,Von Miller,LB,,Did Not Participate In Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,Jonathan Mingo,WR,Ankle,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,Devin Moore,CB,Hip,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,DeMarvion Overshown,LB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,George Pickens,WR,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,Joey Porter Jr.,CB,"Ankle, Foot",Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,Luke Schoonmaker,TE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,Brevyn Spann-Ford,TE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,Juanyeh Thomas,S,Hamstring,Did Not Participate In Practice,Doubtful,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,SF vs DAL,DAL,SF,KaVontae Turpin,WR,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,PIT vs CIN,PIT,CIN,Brandin Echols,CB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,PIT vs CIN,PIT,CIN,DeShon Elliott,S,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,PIT vs CIN,PIT,CIN,Derrick Harmon,DT,Foot,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,PIT vs CIN,PIT,CIN,Cameron Heyward,DT,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,PIT vs CIN,PIT,CIN,Ben Skowronek,WR,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,PIT vs CIN,PIT,CIN,Doneiko Slaughter,CB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,PIT vs CIN,PIT,CIN,Darnell Washington,TE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,PIT vs CIN,PIT,CIN,T.J. Watt,LB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,PIT vs CIN,CIN,PIT,Jonathan Allen,DT,,Limited Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,PIT vs CIN,CIN,PIT,Jalen Davis,CB,Hamstring,Full Participation in Practice,Doubtful,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,PIT vs CIN,CIN,PIT,Kyle Dugger,S,Quadricep,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,PIT vs CIN,CIN,PIT,Dylan Fairchild,G,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,PIT vs CIN,CIN,PIT,B.J. Hill,DT,,Did Not Participate In Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,PIT vs CIN,CIN,PIT,Andrei Iosivas,WR,Thumb,Full Participation in Practice,Doubtful,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,PIT vs CIN,CIN,PIT,Dexter Lawrence,DT,,Did Not Participate In Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,PIT vs CIN,CIN,PIT,Brian Parker II,G,Knee,Full Participation in Practice,Doubtful,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-15,PIT vs CIN,CIN,PIT,DJ Turner II,CB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,Kayode Awosika,G,Fibula,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,Bud Dupree,DE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,Justin Eboigbe,DE,Ankle,Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,Alex Harkey,G,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,Tre Harris,WR,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,Cam Hart,CB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,Daiyan Henley,LB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,Deane Leonard,CB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,Khalil Mack,LB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,Ladd McConkey,WR,Back,Did Not Participate In Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,Keaton Mitchell,RB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,David Njoku,TE,Fibula,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,Denzel Perryman,LB,Pectoral,Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,Trey Pipkins,T,"Not injury related - personal matter, Knee",Limited Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,Rodney Shelley,CB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,Branson Taylor,G,Ankle,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,Brenen Thompson,WR,Hamstring,Did Not Participate In Practice,Doubtful,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,Isas Waxter,CB,Ankle,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,LAC,BAL,Kendall Williamson,S,Calf,Did Not Participate In Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,BAL,LAC,Rasheen Ali,RB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,BAL,LAC,Rashod Bateman,WR,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,BAL,LAC,Calais Campbell,DT,,Did Not Participate In Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,BAL,LAC,Kyle Hamilton,S,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,BAL,LAC,Jaylinn Hawkins,S,Knee,Limited Participation in Practice,Out,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,BAL,LAC,Matthew Hibner,TE,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,BAL,LAC,Olaivavega Ioane,G,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,BAL,LAC,Adam Randall,RB,"Neck, Hamstring",Full Participation in Practice,Questionable,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,BAL,LAC,Ronnie Stanley,T,,Did Not Participate In Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16
+10,2026-11-16,LAC vs BAL,BAL,LAC,Nate Wiggins,CB,,Full Participation in Practice,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10,2026-11-16

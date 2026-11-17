@@ -1,0 +1,2 @@
+snapshot_file,captured_utc,model_id,markets_originated,sha256_declared,sha256_recomputed,intact
+data/pricing/snapshots/20261117T0247Z.json,2026-11-17T02:47Z,FL3-SHADOW-1,13,f21e0ec63b58e53ac67227c7840975f024c7e60bb92e830b5e50f4a224444814,f21e0ec63b58e53ac67227c7840975f024c7e60bb92e830b5e50f4a224444814,YES

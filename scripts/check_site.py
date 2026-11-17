@@ -35,7 +35,9 @@ PAGES = ["index.html", "standings.html", "lines.html", "injuries.html", "matchup
          # verified-snapshot pages (session arena-fl3-60ee336e, integration 2026-11-14):
          "data-snapshots.html", "data-standings.html", "data-schedule.html", "data-injuries.html",
          # canonical verified dashboard (session arena/03e651e0, 2026-11-16):
-         "verified/index.html"]
+         "verified/index.html",
+         # frontier datasets (session arena/9842b82d-fl3, 2026-11-17):
+         "spec.html", "results.html", "week11.html", "availability.html", "lab.html"]
 
 errors: list[str] = []
 warnings: list[str] = []
@@ -371,6 +373,240 @@ def check_ablations():
           "AB: ablations.html does not state the depth-tier exclusion")
 
 
+def check_frontier_datasets() -> None:
+    """The five frontier pages and the eight datasets behind them.
+
+    These assertions deliberately target the failure modes that actually occurred
+    while the datasets were built, not generic shape checks:
+
+      * the results feed reconciling to official standings club by club (it did
+        not, at first: one game was missing);
+      * a model reproducing its own pre-registered example forecasts (the
+        origination formula was wrong twice: league points and logistic scale);
+      * every availability row naming the document that authorised it (the graph
+        was nearly published with names that matched nothing);
+      * "not observed" never being rendered as "played" or "benched";
+      * the leaderboard never publishing an ROI number it does not hold.
+    """
+    import csv as _csv
+    import json as _json
+    import os as _os
+
+    # ---------------------------------------------------------- results feed
+    with open(_os.path.join(DATA, "official", "results_feed.csv"), newline="") as fh:
+        feed = list(_csv.DictReader(fh))
+    check(len(feed) == 149, f"FR: results feed must hold 149 games, has {len(feed)}")
+    check(len({r["game_id"] for r in feed}) == len(feed), "FR: duplicate game_id in feed")
+    check(all(r["status"] == "FINAL_VERIFIED" for r in feed), "FR: non-final row in feed")
+    for r in feed:
+        check(int(r["margin_home"]) == int(r["home_pts"]) - int(r["away_pts"]),
+              f"FR: margin does not equal points difference for {r['game_id']}")
+        check(int(r["total_points"]) == int(r["home_pts"]) + int(r["away_pts"]),
+              f"FR: total does not equal points sum for {r['game_id']}")
+        check(r["settlement_key"] == f"{r['away']}@{r['home']}@{r['date']}",
+              f"FR: settlement key mismatch for {r['game_id']}")
+        check(r["source_url"].startswith("https://www.nfl.com/"),
+              f"FR: {r['game_id']} does not cite an nfl.com source")
+    games_by_week = {}
+    for r in feed:
+        games_by_week[int(r["week"])] = games_by_week.get(int(r["week"]), 0) + 1
+    check(sum(games_by_week.values()) == 149, "FR: week counts do not sum to 149")
+    check(10 not in games_by_week or games_by_week[10] == 13,
+          f"FR: Week 10 must hold 13 final games, has {games_by_week.get(10)}")
+
+    # ------------------------------------------------ club reconciliation
+    with open(_os.path.join(DATA, "official", "club_reconciliation.csv"), newline="") as fh:
+        recon = list(_csv.DictReader(fh))
+    check(len(recon) == 32, f"FR: reconciliation must cover 32 clubs, has {len(recon)}")
+    bad = [r["club"] for r in recon if r["verdict"] != "MATCH"]
+    check(not bad, f"FR: clubs not reconciled to official standings: {bad}")
+    for r in recon:
+        for k in ("w", "l", "t", "pf", "pa"):
+            check(r[f"corpus_{k}"] == r[f"official_{k}"],
+                  f"FR: {r['club']} {k} corpus {r[f'corpus_{k}']} != official {r[f'official_{k}']}")
+    pf = sum(int(r["corpus_pf"]) for r in recon)
+    pa = sum(int(r["corpus_pa"]) for r in recon)
+    check(pf == pa, f"FR: league points for ({pf}) != against ({pa})")
+
+    # -------------------------------------------------- game book coverage
+    with open(_os.path.join(DATA, "official", "game_books_week10.json")) as fh:
+        gb = _json.load(fh)
+    captured = [g for g in gb["games"] if g["status"] == "CAPTURED"]
+    check(len(captured) == 12, f"FR: expected 12 captured Game Books, got {len(captured)}")
+    check(gb["_meta"]["coverage"]["games_with_game_book"] == len(captured),
+          "FR: Game Book coverage counter disagrees with the rows")
+    for g in gb["games"]:
+        if g["status"] == "NO_GAME_BOOK":
+            check(g["gamebook_pdf"] == "", f"FR: {g['game_id']} claims a PDF it does not have")
+            check(g["final"] is not None, f"FR: {g['game_id']} has no final score or source")
+        if g["status"] == "IN_PROGRESS_AT_CAPTURE":
+            check(g["final"] is None, f"FR: {g['game_id']} invented a final score")
+    for g in captured:
+        check(g["gamebook_pdf"].startswith("https://static.www.nfl.com/"),
+              f"FR: {g['game_id']} Game Book link is not an official static URL")
+
+    # --------------------------------------------------- availability graph
+    with open(_os.path.join(DATA, "availability", "availability_graph.csv"), newline="") as fh:
+        avail = list(_csv.DictReader(fh))
+    check(len(avail) > 100, f"FR: availability graph suspiciously small ({len(avail)})")
+    states = {"STARTED", "NOT_ACTIVE", "DID_NOT_PLAY", "NOT_LISTED_IN_TRANSCRIBED_BLOCKS",
+              "UNRESOLVED_BLOCK_INCOMPLETE"}
+    for r in avail:
+        check(r["actual_state"] in states,
+              f"FR: illegal actual_state '{r['actual_state']}' for {r['club']}/{r['position']}")
+        check(r["gamebook_pdf"].startswith("https://static.www.nfl.com/"),
+              f"FR: availability row {r['club']}/{r['position']} has no Game Book evidence")
+        check(r["evidence_basis"] != "", f"FR: availability row without an evidence basis")
+        if r["actual_state"] in ("NOT_ACTIVE", "DID_NOT_PLAY"):
+            check(r["replacement_state"] != "",
+                  f"FR: inactive depth-1 {r['club']}/{r['position']} has no replacement verdict")
+        else:
+            check(r["replacement_state"] == "",
+                  f"FR: replacement recorded for a player who was not inactive "
+                  f"({r['club']}/{r['position']})")
+        check(r["slot_group_size"].isdigit() and int(r["slot_group_size"]) >= 1,
+              f"FR: slot group size must be a positive integer ({r['club']}/{r['position']})")
+    # a name must never be silently matched by surname alone without disclosure
+    for r in avail:
+        check(r["report_join_basis"] in ("initial+surname", "surname only", "not on report"),
+              f"FR: undisclosed report join basis '{r['report_join_basis']}'")
+
+    # ------------------------------------------------- designation table
+    with open(_os.path.join(DATA, "availability", "designation_empirical.csv"), newline="") as fh:
+        cal = list(_csv.DictReader(fh))
+    check(len(cal) == 4, f"FR: designation table must cover Out/Doubtful/Questionable/blank, has {len(cal)}")
+    for r in cal:
+        n, s = int(r["n_observed"]), int(r["n_started"])
+        check(s <= n, f"FR: {r['designation']} starts ({s}) exceed observations ({n})")
+        if n:
+            check(abs(float(r["start_rate"]) - s / n) < 5e-4,
+                  f"FR: {r['designation']} start rate does not equal starts/observations")
+            check(float(r["start_rate_lo95"]) <= float(r["start_rate"]) <= float(r["start_rate_hi95"]),
+                  f"FR: {r['designation']} point estimate outside its own interval")
+    out_row = next(r for r in cal if r["designation"] == "Out")
+    check(int(out_row["n_started"]) == 0,
+          "FR: an 'Out' player cannot be credited with a start")
+
+    # ------------------------------------------------- week 11 register
+    with open(_os.path.join(DATA, "official", "week11_fixtures.json")) as fh:
+        w11 = _json.load(fh)
+    fx = w11["fixtures"]
+    check(len(fx) == 13, f"FR: Week 11 must hold 13 fixtures, has {len(fx)}")
+    clubs = []
+    for f in fx:
+        clubs += [f["away"], f["home"]]
+        for k in ("game_id", "stadium", "location", "kickoff_et", "network", "game_url",
+                  "schedule_url", "kickoff_utc"):
+            check(f.get(k), f"FR: {f['game_id']} is missing {k}")
+        check(f["game_url"].startswith("https://www.nfl.com/games/"),
+              f"FR: {f['game_id']} game centre link is not an nfl.com games URL")
+        check(len(f["record_as_published"]) == 2,
+              f"FR: {f['game_id']} must publish both clubs' records")
+    check(len(w11["byes"]) == 6, f"FR: expected 6 bye clubs, got {len(w11['byes'])}")
+    clubs += w11["byes"]                      # 26 fixture slots + 6 byes = 32 clubs
+    check(len(clubs) == 32, f"FR: 13 fixtures x2 + 6 byes must be 32 club slots, got {len(clubs)}")
+    check(len(set(clubs)) == 32,
+          f"FR: a club appears twice in Week 11 (playing and on bye, or twice): "
+          f"{sorted({c for c in clubs if clubs.count(c) > 1})}")
+    # the published records must equal the reconciled corpus, not a guess
+    rec = {r["club"]: r for r in recon}
+    for f in fx:
+        for side in ("away", "home"):
+            club = f[side]
+            want = f["record_as_published"][club]
+            got = f"{rec[club]['official_w']}-{rec[club]['official_l']}"
+            if int(rec[club]["official_t"]):
+                got += f"-{rec[club]['official_t']}"
+            check(want == got,
+                  f"FR: {f['game_id']} publishes {club} as {want}, standings say {got}")
+
+    # ------------------------------------------------- price snapshots
+    with open(_os.path.join(DATA, "pricing", "snapshot_register.csv"), newline="") as fh:
+        reg = list(_csv.DictReader(fh))
+    check(len(reg) >= 1, "FR: no price snapshot was captured")
+    for r in reg:
+        check(r["intact"] == "YES", f"FR: snapshot {r['snapshot_file']} failed its own hash")
+        check(r["sha256_declared"] == r["sha256_recomputed"],
+              f"FR: snapshot {r['snapshot_file']} hash mismatch")
+        check(len(r["sha256_declared"]) == 64, "FR: snapshot hash is not sha256")
+    with open(_os.path.join(DATA, "pricing", "current_prices.csv"), newline="") as fh:
+        cp = list(_csv.DictReader(fh))
+    check(len(cp) == 13, f"FR: expected 13 originated fixtures, got {len(cp)}")
+    for r in cp:
+        check(r["market_spread_home"] == "" and r["market_total"] == "",
+              f"FR: {r['game_id']} published a market number PD-01 says we do not hold")
+        check(r["market_ml_home"] == "",
+              f"FR: {r['game_id']} published a market moneyline")
+        check(0 < float(r["open_p_home"]) < 1,
+              f"FR: {r['game_id']} probability is not strictly inside (0,1)")
+        check(r["open_capture_utc"] < r["kickoff_utc"],
+              f"FR: {r['game_id']} was priced after its own kickoff")
+        for col in ("close_fair_spread_home", "close_fair_total", "close_p_home"):
+            check(r[col] == "", f"FR: {r['game_id']} invented a closing number")
+
+    # ---------------------------------------------------- ablation
+    with open(_os.path.join(DATA, "lab", "ablation_summary.csv"), newline="") as fh:
+        ab = list(_csv.DictReader(fh))
+    check(len(ab) == 3, f"FR: ablation must report margin, total and Brier, has {len(ab)}")
+    for r in ab:
+        lo, hi = float(r["boot_lo95"]), float(r["boot_hi95"])
+        mean = float(r["mean_difference_M1_minus_M0"])
+        check(lo <= mean <= hi, f"FR: {r['metric']} mean outside its bootstrap interval")
+        check("no difference" in r["verdict"] or "excludes 0" in r["verdict"],
+              f"FR: {r['metric']} verdict is not one of the declared outcomes")
+        if lo <= 0 <= hi:
+            check("no difference" in r["verdict"],
+                  f"FR: {r['metric']} interval crosses zero but claims a difference")
+
+    # -------------------------------------------------- leaderboard v2
+    with open(_os.path.join(DATA, "lab", "leaderboard_v2.json")) as fh:
+        lb = _json.load(fh)
+    strats = lb["strategies"]
+    check(len(strats) == 9, f"FR: leaderboard must hold 9 strategies, got {len(strats)}")
+    check(sum(1 for s in strats if s["strategy"].startswith("BASELINE")) == 4,
+          "FR: the four control baselines must all be present")
+    check(any("coin" in s["strategy"] for s in strats), "FR: the coin baseline is missing")
+    check(any("favourite" in s["strategy"] for s in strats), "FR: the favourite baseline is missing")
+    for s in strats:
+        check(s["roi"] is None, f"FR: {s['strategy']} published an ROI number")
+        check("UNAVAILABLE" in s["roi_status"],
+              f"FR: {s['strategy']} ROI is not marked unavailable")
+        check(s["boot_lo95"] <= s["brier_skill_vs_coin"] <= s["boot_hi95"],
+              f"FR: {s['strategy']} skill outside its own interval")
+        check(s["cluster_lower_bound"] <= s["brier_skill_vs_coin"],
+              f"FR: {s['strategy']} lower bound exceeds the point estimate")
+        if s["verdict"] == "SKILL_ESTABLISHED":
+            check(s["p_holm_adjusted"] is not None and s["p_holm_adjusted"] < 0.05,
+                  f"FR: {s['strategy']} claims skill on an unadjusted p")
+            check(s["cluster_lower_bound"] > 0,
+                  f"FR: {s['strategy']} claims skill with a non-positive lower bound")
+        check(s["what_would_change_our_mind"] and s["what_would_falsify_it"],
+              f"FR: {s['strategy']} has no falsification statement")
+    ranks = [s["rank"] for s in strats]
+    check(ranks == list(range(1, len(strats) + 1)), "FR: leaderboard ranks are not 1..n")
+    skills = [s["brier_skill_vs_coin"] for s in strats]
+    check(skills == sorted(skills, reverse=True), "FR: leaderboard is not ranked by skill")
+
+    # -------------------------------------------------- rendered pages
+    for name in ("spec.html", "results.html", "week11.html", "availability.html", "lab.html"):
+        path = _os.path.join(ROOT, name)
+        check(_os.path.exists(path), f"FR: {name} was not built")
+        page_html = open(path, encoding="utf-8").read()
+        check(len(page_html) > 6000, f"FR: {name} looks empty ({len(page_html)} bytes)")
+        check("UNVERIFIED" not in page_html or "blank" in page_html,
+              f"FR: {name} shows an unexplained UNVERIFIED cell")
+        for other in ("index.html", "results.html", "lab.html"):
+            check(other in page_html, f"FR: {name} does not link to {other}")
+    for needle, page_name in [
+            ("149", "results.html"), ("32/32", "results.html"),
+            ("PD-01", "week11.html"), ("NORTHWEST STADIUM", "week11.html"),
+            ("Questionable", "availability.html"), ("DEMOTED", "lab.html"),
+            ("cluster", "lab.html"), ("multiplicity", "lab.html"),
+            ("ablation", "lab.html"), ("blank", "spec.html")]:
+        check(needle.lower() in open(_os.path.join(ROOT, page_name), encoding="utf-8").read().lower(),
+              f"FR: {page_name} does not publish '{needle}'")
+
+
 def main() -> None:
     check_arithmetic()
     check_completeness()
@@ -382,6 +618,7 @@ def main() -> None:
     check_flags_published()
     check_readiness_register()
     check_matchup_matrix()
+    check_frontier_datasets()
     check_ablations()
 
     print(f"ran {checks} assertions")

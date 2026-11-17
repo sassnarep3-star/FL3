@@ -1,0 +1,123 @@
+{
+ "generated_utc": "2026-11-16T01:55Z",
+ "requirements": 73,
+ "gates": 12,
+ "distinct_decisions": 8,
+ "top_decision": {
+  "gate": "Q-02",
+  "rows_released": 24,
+  "rows_without_official_source": 0,
+  "blocker_type": "PROCUREMENT",
+  "decision": "Decide the depth/availability source route: club pages (verified per club), an authorised feed, or publish the field as unknown.",
+  "requirement_ids": "R006;R011;R012;R013;R014;R022;R071;R072;R026;R032;R033;R034;R036;R037;R040;R041;R042;R044;R045;R053;R063;R064;R065;R066"
+ },
+ "rows_by_blocker_type": {
+  "PROCUREMENT": 34,
+  "ENGINEERING": 15,
+  "PROTOCOL": 35,
+  "UNCLASSIFIED": 1,
+  "GOVERNANCE": 1
+ },
+ "queue": [
+  {
+   "gate": "Q-02",
+   "rows_released": 24,
+   "rows_without_official_source": 0,
+   "blocker_type": "PROCUREMENT",
+   "decision": "Decide the depth/availability source route: club pages (verified per club), an authorised feed, or publish the field as unknown.",
+   "requirement_ids": "R006;R011;R012;R013;R014;R022;R071;R072;R026;R032;R033;R034;R036;R037;R040;R041;R042;R044;R045;R053;R063;R064;R065;R066"
+  },
+  {
+   "gate": "G-10",
+   "rows_released": 15,
+   "rows_without_official_source": 0,
+   "blocker_type": "ENGINEERING",
+   "decision": "Stand up scheduled capture with a clock time and an immutable store.",
+   "requirement_ids": "R002;R015;R068;R073;R024;R025;R030;R038;R039;R047;R050;R052;R061;R062;R067"
+  },
+  {
+   "gate": "G-02",
+   "rows_released": 13,
+   "rows_without_official_source": 4,
+   "blocker_type": "PROTOCOL",
+   "decision": "Freeze the evaluation protocol - sample window, fold dates, multiplicity rule - before any comparison is run.",
+   "requirement_ids": "R003;R009;R018;R020;R070;R028;R029;R038;R051;R055;R056;R057;R067"
+  },
+  {
+   "gate": "G-04",
+   "rows_released": 8,
+   "rows_without_official_source": 3,
+   "blocker_type": "PROTOCOL",
+   "decision": "Freeze the evaluation protocol - sample window, fold dates, multiplicity rule - before any comparison is run.",
+   "requirement_ids": "R069;R028;R035;R043;R046;R051;R059;R060"
+  },
+  {
+   "gate": "Q-01",
+   "rows_released": 6,
+   "rows_without_official_source": 6,
+   "blocker_type": "PROCUREMENT",
+   "decision": "License a market-price source, or accept in writing that no ROI, CLV or edge figure will ever be published.",
+   "requirement_ids": "R001;R004;R019;R021;R031;R049"
+  },
+  {
+   "gate": "G-01",
+   "rows_released": 5,
+   "rows_without_official_source": 4,
+   "blocker_type": "PROTOCOL",
+   "decision": "Freeze the evaluation protocol - sample window, fold dates, multiplicity rule - before any comparison is run.",
+   "requirement_ids": "R005;R017;R069;R048;R059"
+  },
+  {
+   "gate": "G-03",
+   "rows_released": 4,
+   "rows_without_official_source": 4,
+   "blocker_type": "PROCUREMENT",
+   "decision": "License a market-price source, or accept in writing that no ROI, CLV or edge figure will ever be published.",
+   "requirement_ids": "R001;R005;R019;R048"
+  },
+  {
+   "gate": "G-12",
+   "rows_released": 4,
+   "rows_without_official_source": 2,
+   "blocker_type": "PROTOCOL",
+   "decision": "Freeze the evaluation protocol - sample window, fold dates, multiplicity rule - before any comparison is run.",
+   "requirement_ids": "R009;R010;R016;R057"
+  },
+  {
+   "gate": "Q-04",
+   "rows_released": 3,
+   "rows_without_official_source": 0,
+   "blocker_type": "PROTOCOL",
+   "decision": "Commit to a minimum results coverage before any rating is trusted, and accept that ratings stay opponent-unaware until it is met.",
+   "requirement_ids": "R020;R027;R054"
+  },
+  {
+   "gate": "G-07",
+   "rows_released": 2,
+   "rows_without_official_source": 1,
+   "blocker_type": "PROTOCOL",
+   "decision": "Decide whether correlation may be measured on a priced market or only on realised outcomes.",
+   "requirement_ids": "R007;R058"
+  },
+  {
+   "gate": "(none stated)",
+   "rows_released": 1,
+   "rows_without_official_source": 1,
+   "blocker_type": "UNCLASSIFIED",
+   "decision": "No single owner decision identified - inspect the rows.",
+   "requirement_ids": "R023"
+  },
+  {
+   "gate": "G-11",
+   "rows_released": 1,
+   "rows_without_official_source": 1,
+   "blocker_type": "GOVERNANCE",
+   "decision": "Define the demotion state machine and who may reverse a transition.",
+   "requirement_ids": "R008"
+  }
+ ],
+ "unclassified_gates": [
+  "(none stated)"
+ ],
+ "note": "Rows can sit behind more than one gate, so the per-gate counts sum to more than the requirement count. Nothing here changes a status; it is a view over data/requirements_readiness.csv."
+}

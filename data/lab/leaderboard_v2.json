@@ -1,0 +1,218 @@
+{
+  "_meta": {
+    "title": "FL3 strategy leaderboard v2 \u2014 proper-score ranking",
+    "generated_utc": "2026-11-17T02:47Z",
+    "n_games": 85,
+    "seasons": [
+      "2026"
+    ],
+    "weeks_tested": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "benchmark": "coin flip p=0.5 for the home club",
+    "score": "Brier, lower is better; skill = 1 - Brier/Brier(coin)",
+    "uncertainty": "game-cluster bootstrap, 4000 resamples, seed 20261117",
+    "multiplicity": "Holm over the non-baseline strategies",
+    "demotion_rule": "DEMOTED_TO_PAPER unless Holm-adjusted p < 0.05 and the 2.5% cluster lower bound is > 0.0",
+    "roi_policy": "PD-01 \u2014 no licensed price is held, so ROI is UNAVAILABLE for every strategy. It is never reported as zero.",
+    "why_not_win_rate": "Win rate ignores confidence and drops ties; a strategy that says 0.51 every week and one that says 0.99 are indistinguishable to it."
+  },
+  "benchmark_brier": 0.25,
+  "strategies": [
+    {
+      "rank": 1,
+      "strategy": "FL3 ratings, no home edge",
+      "brier": 0.21738,
+      "brier_skill_vs_coin": 0.1305,
+      "boot_lo95": -0.0367,
+      "boot_hi95": 0.2953,
+      "cluster_lower_bound": -0.0367,
+      "p_skill_gt_0": 0.06975,
+      "p_holm_adjusted": 0.20925000000000002,
+      "roi": null,
+      "roi_status": "UNAVAILABLE \u2014 PD-01",
+      "verdict": "DEMOTED_TO_PAPER",
+      "what_would_change_our_mind": [
+        "A cluster lower bound that stays above zero on games the strategy did not see when it was fitted (a second season).",
+        "The same sign of skill on a different scoring rule (log loss), so the result is not an artefact of Brier."
+      ],
+      "what_would_falsify_it": [
+        "A bootstrap interval that includes zero once a second season is added.",
+        "Skill that flips sign between Weeks 5-7 and Weeks 8-10."
+      ]
+    },
+    {
+      "rank": 2,
+      "strategy": "Record-only (no points)",
+      "brier": 0.22008,
+      "brier_skill_vs_coin": 0.1197,
+      "boot_lo95": -0.0135,
+      "boot_hi95": 0.2504,
+      "cluster_lower_bound": -0.0135,
+      "p_skill_gt_0": 0.0365,
+      "p_holm_adjusted": 0.1825,
+      "roi": null,
+      "roi_status": "UNAVAILABLE \u2014 PD-01",
+      "verdict": "DEMOTED_TO_PAPER",
+      "what_would_change_our_mind": [
+        "A cluster lower bound that stays above zero on games the strategy did not see when it was fitted (a second season).",
+        "The same sign of skill on a different scoring rule (log loss), so the result is not an artefact of Brier."
+      ],
+      "what_would_falsify_it": [
+        "A bootstrap interval that includes zero once a second season is added.",
+        "Skill that flips sign between Weeks 5-7 and Weeks 8-10."
+      ]
+    },
+    {
+      "rank": 3,
+      "strategy": "Rating differential, cautious",
+      "brier": 0.22794,
+      "brier_skill_vs_coin": 0.0882,
+      "boot_lo95": -0.0105,
+      "boot_hi95": 0.1839,
+      "cluster_lower_bound": -0.0105,
+      "p_skill_gt_0": 0.0405,
+      "p_holm_adjusted": 0.1825,
+      "roi": null,
+      "roi_status": "UNAVAILABLE \u2014 PD-01",
+      "verdict": "DEMOTED_TO_PAPER",
+      "what_would_change_our_mind": [
+        "A cluster lower bound that stays above zero on games the strategy did not see when it was fitted (a second season).",
+        "The same sign of skill on a different scoring rule (log loss), so the result is not an artefact of Brier."
+      ],
+      "what_would_falsify_it": [
+        "A bootstrap interval that includes zero once a second season is added.",
+        "Skill that flips sign between Weeks 5-7 and Weeks 8-10."
+      ]
+    },
+    {
+      "rank": 4,
+      "strategy": "FL3-SHADOW-1 (ratings)",
+      "brier": 0.23411,
+      "brier_skill_vs_coin": 0.0636,
+      "boot_lo95": -0.1086,
+      "boot_hi95": 0.2302,
+      "cluster_lower_bound": -0.1086,
+      "p_skill_gt_0": 0.23975,
+      "p_holm_adjusted": 0.4795,
+      "roi": null,
+      "roi_status": "UNAVAILABLE \u2014 PD-01",
+      "verdict": "DEMOTED_TO_PAPER",
+      "what_would_change_our_mind": [
+        "A cluster lower bound that stays above zero on games the strategy did not see when it was fitted (a second season).",
+        "The same sign of skill on a different scoring rule (log loss), so the result is not an artefact of Brier."
+      ],
+      "what_would_falsify_it": [
+        "A bootstrap interval that includes zero once a second season is added.",
+        "Skill that flips sign between Weeks 5-7 and Weeks 8-10."
+      ]
+    },
+    {
+      "rank": 5,
+      "strategy": "Rating differential, overconfident",
+      "brier": 0.24829,
+      "brier_skill_vs_coin": 0.0068,
+      "boot_lo95": -0.219,
+      "boot_hi95": 0.2212,
+      "cluster_lower_bound": -0.219,
+      "p_skill_gt_0": 0.4675,
+      "p_holm_adjusted": 0.4795,
+      "roi": null,
+      "roi_status": "UNAVAILABLE \u2014 PD-01",
+      "verdict": "DEMOTED_TO_PAPER",
+      "what_would_change_our_mind": [
+        "A cluster lower bound that stays above zero on games the strategy did not see when it was fitted (a second season).",
+        "The same sign of skill on a different scoring rule (log loss), so the result is not an artefact of Brier."
+      ],
+      "what_would_falsify_it": [
+        "A bootstrap interval that includes zero once a second season is added.",
+        "Skill that flips sign between Weeks 5-7 and Weeks 8-10."
+      ]
+    },
+    {
+      "rank": 6,
+      "strategy": "BASELINE coin 0.5",
+      "brier": 0.25,
+      "brier_skill_vs_coin": 0.0,
+      "boot_lo95": 0.0,
+      "boot_hi95": 0.0,
+      "cluster_lower_bound": 0.0,
+      "p_skill_gt_0": 1.0,
+      "p_holm_adjusted": "",
+      "roi": null,
+      "roi_status": "UNAVAILABLE \u2014 PD-01",
+      "verdict": "BASELINE (reference, not a claim)",
+      "what_would_change_our_mind": [
+        "Nothing \u2014 this row exists to be beaten by the others."
+      ],
+      "what_would_falsify_it": [
+        "A model that fails to beat it."
+      ]
+    },
+    {
+      "rank": 7,
+      "strategy": "BASELINE always favourite",
+      "brier": 0.32941,
+      "brier_skill_vs_coin": -0.3176,
+      "boot_lo95": -0.7412,
+      "boot_hi95": 0.0588,
+      "cluster_lower_bound": -0.7412,
+      "p_skill_gt_0": 0.93575,
+      "p_holm_adjusted": "",
+      "roi": null,
+      "roi_status": "UNAVAILABLE \u2014 PD-01",
+      "verdict": "BASELINE (reference, not a claim)",
+      "what_would_change_our_mind": [
+        "Nothing \u2014 this row exists to be beaten by the others."
+      ],
+      "what_would_falsify_it": [
+        "A model that fails to beat it."
+      ]
+    },
+    {
+      "rank": 8,
+      "strategy": "BASELINE always away",
+      "brier": 0.41176,
+      "brier_skill_vs_coin": -0.6471,
+      "boot_lo95": -1.0706,
+      "boot_hi95": -0.2235,
+      "cluster_lower_bound": -1.0706,
+      "p_skill_gt_0": 0.99825,
+      "p_holm_adjusted": "",
+      "roi": null,
+      "roi_status": "UNAVAILABLE \u2014 PD-01",
+      "verdict": "BASELINE (reference, not a claim)",
+      "what_would_change_our_mind": [
+        "Nothing \u2014 this row exists to be beaten by the others."
+      ],
+      "what_would_falsify_it": [
+        "A model that fails to beat it."
+      ]
+    },
+    {
+      "rank": 9,
+      "strategy": "BASELINE always home",
+      "brier": 0.58824,
+      "brier_skill_vs_coin": -1.3529,
+      "boot_lo95": -1.7765,
+      "boot_hi95": -0.9294,
+      "cluster_lower_bound": -1.7765,
+      "p_skill_gt_0": 1.0,
+      "p_holm_adjusted": "",
+      "roi": null,
+      "roi_status": "UNAVAILABLE \u2014 PD-01",
+      "verdict": "BASELINE (reference, not a claim)",
+      "what_would_change_our_mind": [
+        "Nothing \u2014 this row exists to be beaten by the others."
+      ],
+      "what_would_falsify_it": [
+        "A model that fails to beat it."
+      ]
+    }
+  ]
+}

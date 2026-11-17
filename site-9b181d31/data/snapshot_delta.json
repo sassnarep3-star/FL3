@@ -1,0 +1,48 @@
+{
+ "generated_utc": "2026-11-16T01:32Z",
+ "old_snapshot": "2026-11-14",
+ "new_capture": "2026-11-16",
+ "standings": {
+  "clubs_compared": 32,
+  "clubs_changed": 22,
+  "fields_compared": [
+   "w",
+   "l",
+   "t",
+   "pf",
+   "pa",
+   "net_pts",
+   "games"
+  ]
+ },
+ "injuries": {
+  "rows_old": 160,
+  "rows_new": 347,
+  "clubs_old": 26,
+  "clubs_new": 28,
+  "rows_added": 189,
+  "rows_removed": 2,
+  "designation_changed": 2
+ },
+ "brief_claims_checked": [
+  {
+   "claim": "DET Kerby Joseph game status blank in the checked-in file",
+   "checked_in_file": "Out",
+   "live_page": "Out",
+   "outcome": "REFUTED"
+  },
+  {
+   "claim": "DET Cade Mays game status blank in the checked-in file",
+   "checked_in_file": "Out",
+   "live_page": "Out",
+   "outcome": "REFUTED"
+  },
+  {
+   "claim": "DET D.J. Reed game status blank in the checked-in file",
+   "checked_in_file": "Out",
+   "live_page": "Out",
+   "outcome": "REFUTED"
+  }
+ ],
+ "interpretation": "A two-day-old snapshot is not a small staleness problem here: it predates the results of the games it prices. The correct fix is scheduled capture (retain every capture with its clock time), not a bigger one-off read."
+}

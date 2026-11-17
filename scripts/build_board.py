@@ -379,6 +379,23 @@ def source_cell(source_id):
     return " ".join(parts)
 
 
+def _root_pages():
+    import re as _re
+    site = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts", "build_site.py")
+    try:
+        text = open(site, encoding="utf-8").read()
+    except OSError:
+        return set()
+    return set(_re.findall(r'"([a-z0-9\-]+\.html)":', text))
+
+
+ROOT_PAGES = _root_pages()
+
+
+def _is_external(val: str) -> bool:
+    return val.startswith(("http://", "https://", "//", "mailto:"))
+
+
 def render_table(fname, columns=None, caption="", link_col=None, max_rows=None, default_src=True):
     rows = read_rows(fname)
     if not rows:
@@ -418,9 +435,15 @@ def render_table(fname, columns=None, caption="", link_col=None, max_rows=None, 
                 tds.append(f"<td class='wide'>{html.escape(val)}</td>")
             elif val == "":
                 tds.append('<td><span class="none" title="not published - no official source">blank</span></td>')
-            elif link_col == c:
+            elif link_col == c and _is_external(val):
                 tds.append(f"<td><a href='{html.escape(val)}' target='_blank' rel='noopener nofollow'>"
                            f"{html.escape(val)[:90]}</a></td>")
+            elif link_col == c:
+                # A repo-relative page, rendered as-is so check_links resolves it.
+                # Never prefix it: board/ pages sit one directory below the root
+                # pages, and guessing the depth is how a link becomes a 404.
+                href = val if val.startswith("../") else "../" + val if val in ROOT_PAGES else val
+                tds.append(f"<td><a href='{html.escape(href)}'>{html.escape(val)}</a></td>")
             else:
                 tds.append(f"<td>{html.escape(val)}</td>")
         body.append("<tr>" + "".join(tds) + "</tr>")
