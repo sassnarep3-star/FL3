@@ -1,0 +1,164 @@
+# Line origination model - parameter register
+#
+# CONTRACT
+#   Any parameter with status `uncalibrated` or `blocked` MUST render as BLANK on the site
+#   and may not be used in a published price. A value may only be entered here when its
+#   `evidence` points at a row in data/ that passed scripts/verify.py (gate G-10).
+#   Filling a value by memory, by "industry standard", or by a model output that was not
+#   fitted on data in this repo is a G-12 violation (parameter sealing).
+#
+# This file is machine-read by scripts/build_site.py (models page) and is the single
+# authority for what the model believes.
+
+meta:
+  version: "0.3"
+  updated_utc: "2026-11-14T06:00:00Z"
+  session: S1-b37bd750
+  fitted_by: scripts/model.py
+  calibration_table: data/model_calibration.csv
+  verification: scripts/verify.py
+
+pipeline:
+  ingest:      scripts/fetch_nfl_data.py     # untested in this sandbox - FLG-024
+  verify:      scripts/verify.py             # gate G-10; exit 1 blocks publish
+  derive:      scripts/model.py              # metrics, league stats, correlations
+  calibrate:   scripts/model.py              # beta / alpha / sigma / gamma on verified games
+  rate:        scripts/model.py              # power_ratings.csv
+  price:       scripts/model.py              # lines_origination.csv
+  thresholds:  scripts/stats_tables.py        # decision_math.csv (closed form)
+  board:       scripts/make_leaderboard.py
+  publish:     scripts/build_site.py
+  link_check:  scripts/check_links.py
+
+data_inputs:
+  standings:        data/standings_2026.csv          # SRC-002, verified
+  team_pass_off:    data/team_pass_off_2026.csv       # SRC-003, verified (labels by identity)
+  team_rush_off:    data/team_rush_off_2026.csv       # SRC-004, verified
+  team_pass_def:    data/team_pass_def_2026.csv       # SRC-005, verified
+  games:            data/games_2026.csv               # SRC-006/007/008, 33 of 137 rows - FLG-016
+  injuries_week10:  data/injuries_2026_w10.csv        # SRC-001, 160 designated rows
+  slate_week10:     data/slate_2026_w10.csv           # SRC-001/008
+  league_facts:     data/league_facts.csv             # SRC-009/010/011
+  excluded_columns:                                    # published-but-ineligible
+    - team_pass_off_2026.pass_td                        # FLG-025
+    - team_pass_off_2026.pass_int                       # FLG-025
+    - team_pass_def_2026.opp_pass_td                    # FLG-025
+    - team_pass_def_2026.opp_int_forced                 # FLG-025
+    - "11 unlabelled stat columns"                      # FLG-014
+
+strength:
+  method_primary:
+    value: net_points_per_game
+    definition: "(PF - PA) / games_played, from the official standings"
+    status: derived-verified
+    evidence: data/derived_team_metrics.csv ; V-01..V-03 pass
+    limitation: "no schedule or opponent adjustment yet (Q-04)"
+  method_secondary:
+    value: pythagorean_expected_wins
+    exponent: 3.4
+    exponent_status: derived
+    evidence: "fitted in scripts/model.py on the 2026 standings, SSE 29.95 wins^2 over 32 clubs"
+    note: "fitted here, not borrowed from folklore"
+  blending:
+    value: null
+    status: blocked
+    blocked_by: Q-04
+    note: "two ratings may be averaged only once both exist out-of-sample (S-12)"
+  schedule_adjustment:
+    value: null
+    status: blocked
+    blocked_by: Q-04
+    note: "left blank rather than approximated - the whole point of the register"
+
+conversion:                       # rating gap -> points
+  beta:
+    value: 1.140
+    standard_error: 0.271
+    n: 33
+    status: provisional-in-sample
+    method: "OLS of verified home margin on the net-points gap"
+    expectation: "beta should be < 1; beta > 1 here is the small-sample symptom recorded as FLG-026"
+    may_set_stake: false
+  home_field_points:
+    value: -0.82
+    standard_error: 2.09
+    n: 33
+    status: provisional-in-sample
+    evidence: data/model_calibration.csv
+    note: "indistinguishable from zero on this sample; 2026 has two international fixtures (F-01) that
+      are not 'home games' in the usual sense and are not yet handled separately"
+    may_set_stake: false
+  sigma_margin_points:
+    value: 11.92
+    n: 33
+    status: provisional-in-sample
+    evidence: data/model_calibration.csv
+    note: "the residual SD that turns a spread into a win probability; Q-05 asks for the 5-season value"
+    may_set_stake: false
+  shrinkage_prior:
+    value: null
+    status: blocked
+    blocked_by: Q-04
+    note: "regression toward the mean is the single biggest correction a naive ratings model needs"
+
+totals:
+  league_average_points_per_club:
+    value: 22.96
+    status: derived-verified
+    evidence: "sum(PF) 6291 / 274 team-games, official standings; F-13"
+  gamma_exponent:
+    value: 1.20
+    n: 33
+    status: provisional-in-sample
+    note: "grid boundary hit - the multiplicative form is not identified on this sample (FLG-026)"
+    may_set_stake: false
+  pace_inputs:
+    value: "dropbacks = pass_att + sacks_taken ; rush_att"
+    status: derived-verified
+    evidence: "SRC-003/004/005 with V-09a volume identities holding exactly"
+
+availability:                     # the 2nd/3rd/4th-string module
+  replacement_identification:
+    value: null
+    status: blocked
+    blocked_by: Q-02
+    reason: "the official report publishes a designation, not a lineup; no league-wide depth chart exists
+      (FLG-017)"
+  positional_weights:
+    qb: null        # must be measured (S-10), never assumed
+    offensive_line: null
+    edge_rusher: null
+    cb: null
+    wr1: null
+    rb1: null
+    status: blocked
+    blocked_by: [Q-02, Q-08]
+  designation_semantics:
+    out: unavailable_for_this_game_per_report
+    doubtful: "historically ~10-20% active; no official conversion table exists - FLG-018"
+    questionable: "no official conversion table exists; treated as 50/50 only inside signal specs, never
+      in a price - FLG-018"
+    injured_reserve: "absent from the weekly report entirely - FLG-005; must be merged from transactions
+      (Q-03)"
+    not_injury_related: "rest or personal; may still be listed Out - FLG-019; excluded from deficiency
+      counts by rule"
+
+markets:
+  vig_model:
+    value: null
+    status: blocked
+    blocked_by: Q-01
+    note: "no official source publishes odds (F-14, FLG-010); a 4.55% break-even at -110 is arithmetic
+      in data/decision_math.csv, not a market measurement"
+  opening_close_sources:
+    value: []
+    status: blocked
+    blocked_by: Q-01
+
+policy:
+  publish_rule: "a row is published only with a source_id that exists in data/sources.csv; blank + flag otherwise"
+  abstain_rule: "bet only if |model - market| > vig + measured model error band (S-25); with no market
+    column the rule always abstains"
+  rounding: "prices published to 0.5, probabilities to 3 dp, never to a precision the inputs do not support"
+  parameter_sealing: "models/*.yaml is committed before a week's predictions are made (gate G-12)"
+  luck_removal: "grade log-loss and CLV first, P&L last; rewards paid on the skill score, never on raw ROI (S-24)"

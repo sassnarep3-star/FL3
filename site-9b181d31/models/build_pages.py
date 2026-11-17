@@ -285,4 +285,4 @@ for src, dst in [
         s = os.path.join(BASE, src, fn)
         if os.path.isfile(s):
             shutil.copy2(s, os.path.join(BASE, dst, fn))
-print("built docs/injuries.html and docs/data.html from data/*.csv; synced docs/data, docs/research, docs/models")
+print("built site-9b181d31/injuries.html and site-9b181d31/data.html from data/*.csv; synced site-9b181d31/data, .../research, .../models")

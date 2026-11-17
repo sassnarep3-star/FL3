@@ -1,0 +1,33 @@
+abbr,team,rating_net_ppg,rating_pyth_win_share,rating_method_a_vs_b_gap,schedule_adjusted,status,note,source_id
+BUF,Buffalo Bills,8.62,0.744,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+NE,New England Patriots,0.44,0.517,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+NYJ,New York Jets,-4.56,0.333,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+MIA,Miami Dolphins,-9.25,0.172,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+PIT,Pittsburgh Steelers,4.50,0.681,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+CIN,Cincinnati Bengals,8.12,0.745,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+CLE,Cleveland Browns,-3.89,0.339,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+BAL,Baltimore Ravens,-5.22,0.320,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+JAX,Jacksonville Jaguars,13.50,0.897,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+HOU,Houston Texans,2.12,0.571,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+IND,Indianapolis Colts,-7.22,0.263,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+TEN,Tennessee Titans,-6.88,0.250,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+DEN,Denver Broncos,1.33,0.553,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+KC,Kansas City Chiefs,7.38,0.764,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+LV,Las Vegas Raiders,-3.33,0.400,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+LAC,Los Angeles Chargers,-12.25,0.117,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+NYG,New York Giants,0.78,0.530,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+DAL,Dallas Cowboys,1.11,0.536,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+WAS,Washington Commanders,-3.00,0.392,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+PHI,Philadelphia Eagles,-8.11,0.203,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+CHI,Chicago Bears,6.33,0.714,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+DET,Detroit Lions,4.12,0.634,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+MIN,Minnesota Vikings,3.75,0.686,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+GB,Green Bay Packers,2.78,0.603,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+CAR,Carolina Panthers,-2.50,0.419,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+NO,New Orleans Saints,-3.88,0.371,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+TB,Tampa Bay Buccaneers,2.67,0.606,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+ATL,Atlanta Falcons,-3.89,0.359,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+SF,San Francisco 49ers,9.88,0.801,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+SEA,Seattle Seahawks,4.44,0.679,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+LA,Los Angeles Rams,3.67,0.639,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001
+AZ,Arizona Cardinals,-8.56,0.228,,,provisional-unadjusted,no schedule adjustment: game-level opponents for Weeks 3-9 are not ingested (Q-04),SRC-002;SRC-003;SRC-004;SRC-005;SRC-001

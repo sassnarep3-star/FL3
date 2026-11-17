@@ -106,6 +106,72 @@ ROWS.extend([
 ])
 
 
+
+# ---------------------------------------------------------------------------
+# Evidence added by session arena/9842b82d-fl3 on 2026-11-17.
+# Applied after ROWS so the canonical generator stays the single source. Only
+# rows with a checked-in artifact move, and only as far as that artifact goes.
+# ---------------------------------------------------------------------------
+OVERLAY = {
+    # id: (state, evidence, still_missing, next_step, source_ids, repo_page, note)
+    "R001": ("PARTIAL",
+        "data/pricing/snapshots/20261117T0247Z.json immortalises our own open for all 13 Week 11 markets, and data/pricing/snapshot_register.csv carries a SHA-256 that is recomputed on every build; the market columns stay blank by policy PD-01.",
+        "The store can hold OUR open and close; it cannot hold a market open or close until a licensed feed exists. No closing capture has occurred yet.",
+        "Capture a second snapshot after the Week 11 injury report publishes, then write the open/close pair into data/pricing/current_prices.csv.",
+        (), "../week11.html",
+        "Policy PD-01 in data/official/results_feed.json records that no market number will be published until one is licensed."),
+    "R024": ("IMPLEMENTED HERE",
+        "data/official/week11_fixtures.json transcribes stadium and city verbatim from all 13 Week 11 official game centres, with the game-centre URL on every row; data/official/game_books_week10.json holds the Week 10 venue for the 12 games with a Game Book.",
+        "Week 12 and later are not captured yet.",
+        "Repeat the transcription for Week 12 when its game centres publish.",
+        ("SRC-006",), "../week11.html",
+        "Where two official pages disagree on a venue name, both strings are published and neither is normalised."),
+    "R035": ("IMPLEMENTED HERE",
+        "data/availability/designation_empirical.csv publishes the empirical start rate of Out, Doubtful, Questionable and no-designation, with n, Wilson intervals and the count of slots that could not be observed, computed from the 12 captured Week 10 Game Books.",
+        "One week of data (30 Out, 19 Questionable observed) calibrates the designations only for that week; the sample is too small for a permanent rate.",
+        "Recompute the table every week a Game Book is captured and publish the trend.",
+        ("SRC-001",), "../availability.html",
+        "Slots that could not be observed are reported as unobservable, never as benchings."),
+    "R041": ("PARTIAL",
+        "data/availability/availability_graph.csv publishes slot_group_size on every depth-1 slot, so a position with several rank-1 players is visibly a group and is never collapsed to one name.",
+        "Empty slots are still not represented: no capture has recorded a position with no listed player.",
+        "Extend the depth transcription to record empty positions explicitly.",
+        ("SRC-017",), "../availability.html",
+        "Group size is published as a number; the source's ordering inside a group is not invented."),
+    "R043": ("IMPLEMENTED HERE",
+        "data/availability/injury_surprise.csv scores every depth-1 player's official declaration against the Game Book's own Not Active and Did Not Play blocks, and separates Out, Questionable and no-designation into distinct surprise classes.",
+        "The Game Book substitution list cannot be extracted reliably, so a player in none of the four blocks is reported as unobservable rather than as having played.",
+        "Add the official participation report once its format is confirmed, which would close the unobservable column.",
+        ("SRC-001;SRC-021",), "../availability.html",
+        "Only a starting-lineup sighting counts as having played; absence is never evidence of action."),
+    "R054": ("PARTIAL",
+        "data/official/game_books_week10.json archives the 12 Week 10 Game Books as exact PDF URLs plus transcribed starter, did-not-play, not-active and dismissal blocks, which is the availability archive the reliability test needs.",
+        "Prior-season injury reports are still not archived.",
+        "Start the same archive for the 2025 weekly injury reports.",
+        ("SRC-001",), "../availability.html",
+        "This is a single-week archive, not a multi-season one."),
+    "R075": ("PARTIAL",
+        "slot_group_size in data/availability/availability_graph.csv records how many players share a rank-1 slot, so a tie is published as a group rather than broken silently.",
+        "Ties inside a group are not ordered, and no source publishes an order within them.",
+        "Record the source's own ordering inside a group where it publishes one.",
+        (), "../week11.html",
+        "No official depth rank exists on NFL.com, so the order is a declared third-party input."),
+}
+
+
+def rows_with_overlay():
+    out = []
+    for r in ROWS:
+        row = list(r)
+        if row[0] in OVERLAY:
+            state, ev, missing, step, srcs, page, _note = OVERLAY[row[0]]
+            row[3], row[4], row[5], row[8], row[11] = state, ev, missing, step, page
+            if srcs:
+                row[9] = ";".join(srcs)
+        out.append(tuple(row))
+    return out
+
+
 def read_sources():
     with SOURCE_PATH.open(newline="", encoding="utf-8") as f:
         return {r["source_id"]: r for r in csv.DictReader(f)}
@@ -116,15 +182,16 @@ def write_csv():
     with CSV_PATH.open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f, lineterminator="\n")
         w.writerow(FIELDS)
-        w.writerows(ROWS)
+        w.writerows(rows_with_overlay())
 
 
 def validate():
     sources = read_sources()
-    ids = [r[0] for r in ROWS]
+    ROWS_EFFECTIVE = rows_with_overlay()
+    ids = [r[0] for r in ROWS_EFFECTIVE]
     assert len(ids) == len(set(ids)), "duplicate requirement ID"
-    assert len(ROWS) >= 50, "register unexpectedly incomplete"
-    for r in ROWS:
+    assert len(ROWS_EFFECTIVE) >= 50, "register unexpectedly incomplete"
+    for r in ROWS_EFFECTIVE:
         assert len(r) == len(FIELDS), f"{r[0]} has {len(r)} fields"
         rid, _, requirement, state, evidence, missing, gate, metric, next_step, srcs, source_gap, _ = r
         assert requirement and evidence and missing and gate and metric and next_step, f"{rid} has an empty required field"
@@ -142,14 +209,14 @@ def validate():
         return "missing"
     with CSV_PATH.open(newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
-    if len(rows) != len(ROWS) or [r["id"] for r in rows] != ids:
+    if len(rows) != len(ROWS_EFFECTIVE) or [r["id"] for r in rows] != ids:
         return "stale"
     if not rows or list(rows[0].keys()) != FIELDS:
         return "stale"
-    for generated, expected in zip(rows, ROWS):
+    for generated, expected in zip(rows, ROWS_EFFECTIVE):
         if [generated[k] for k in FIELDS] != list(expected):
             return "stale"
-    return f"OK: {len(rows)} unique requirements; {sum(bool(r[9]) for r in ROWS)} have official source links, {sum(not bool(r[9]) for r in ROWS)} are explicitly source-gap flagged"
+    return f"OK: {len(rows)} unique requirements; {sum(bool(r[9]) for r in ROWS_EFFECTIVE)} have official source links, {sum(not bool(r[9]) for r in ROWS_EFFECTIVE)} are explicitly source-gap flagged"
 
 
 if __name__ == "__main__":

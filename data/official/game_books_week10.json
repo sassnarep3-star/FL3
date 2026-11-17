@@ -1,0 +1,338 @@
+{
+  "_meta": {
+    "title": "Week 10 2026 — official NFL Game Book availability capture (starters, substitutions, did-not-play, not-active)",
+    "captured_utc": "2026-11-17T02:47Z",
+    "source_class": "official-league (National Football League Game Summary PDF, published on each official game centre)",
+    "fetch_method": "Each Game Book PDF was fetched directly and parsed as text by this session. The 'Lineups' block is the club's declared starting eleven on each side of the ball; 'Substitutions' lists players who entered; 'Did Not Play' and 'Not Active' are published verbatim.",
+    "why_this_matters": "The weekly injury report publishes a game status only for a subset of players and never publishes who actually started. The Game Book is the only official page that states the starting lineup, and therefore the only way to confirm or refute a replacement. This file is the evidence layer the availability graph is built on.",
+    "rules": [
+      "Only the four published blocks are transcribed: Lineups (starters), Substitutions, Did Not Play, Not Active.",
+      "No snap count is published in a Game Book, so no snap count appears here. Playing time is NOT inferred.",
+      "A player is never described as 'starter' or 'backup' by this file; it records whether the Game Book names him in the starting lineup.",
+      "Two games had no Game Book at capture time because they were still in progress or not final: LAC@BAL and PIT@CIN. Their rows are present with status=NO_GAME_BOOK."
+    ],
+    "coverage": {
+      "games_total": 14,
+      "games_with_game_book": 12,
+      "games_without_game_book": 2,
+      "games_without_game_book_list": ["LAC@BAL", "PIT@CIN"]
+    }
+  },
+  "games": [
+    {
+      "game_id": "REG10-WAS-NYG",
+      "away": "WAS",
+      "home": "NYG",
+      "final": {"WAS": 24, "NYG": 21},
+      "game_url": "https://www.nfl.com/games/commanders-at-giants-2026-reg-10",
+      "gamebook_pdf": "https://static.www.nfl.com/image/upload/v1794570519/gamecenter/ab5828d9-4feb-11f1-abca-2c54536568a9.pdf",
+      "venue_in_gamebook": "MetLife Stadium, East Rutherford, NJ",
+      "status": "CAPTURED",
+      "teams": {
+        "WAS": {
+          "starters_offense": ["WR 14 A.Williams", "TE 87 J.Bates", "LT 74 B.Coleman", "LG 75 C.Paul", "C 67 N.Allegretti", "RG 76 S.Cosmi", "RT 72 J.Conerly", "TE 82 B.Sinnott", "WR 13 T.Burks", "QB 5 J.Daniels", "RB 1 R.White"],
+          "starters_defense": ["OLB 98 O.Oweh", "DT 97 T.Settle", "DT 96 S.Tuttle", "OLB 45 K.Chaisson", "LB 52 S.Styles", "LB 4 F.Luvu", "CB 23 T.Amos", "CB 2 A.Robertson", "S 39 J.Reaves", "S 25 N.Cross", "S 20 Q.Martin"],
+          "did_not_play": ["QB 8 M.Mariota", "C/G 61 J.Good-Jones", "C 66 M.Gulbin"],
+          "not_active": ["3QB 16 A.Kaliakmanis", "CB 37 I.Yiadom", "DT 50 R.Barber", "G 62 T.Togiai", "G 63 L.Patrick", "TE 80 C.Yankoff"]
+        },
+        "NYG": {
+          "starters_offense": ["WR 17 D.Mooney", "TE 84 T.Johnson", "LT 78 A.Thomas", "LG 76 J.Runyan", "C 60 B.Hudson", "RG 65 F.Mauigoa", "RT 72 J.Eluemunor", "WR 1 M.Nabers", "TE 9 I.Likely", "QB 18 J.McCarthy", "RB 44 C.Skattebo"],
+          "starters_defense": ["OLB 5 K.Thibodeaux", "DL 93 S.Harris", "DL 97 B.Jamison-Travis", "DL 98 D.Reader", "OLB 3 A.Carter", "LB 41 M.McFadden", "LB 52 A.Reese", "CB 20 G.Newsome", "CB 2 D.Banks", "S 8 J.Holland", "S 24 A.Washington"],
+          "did_not_play": ["C 61 J.Schmitz"],
+          "not_active": ["CB 21 P.Adebo", "CB 35 N.Reed", "LB 54 M.Harrison", "OL 67 J.Sills", "OL 74 J.Davis", "TE 86 T.Fidone", "DL 99 B.Okoye"]
+        }
+      }
+    },
+    {
+      "game_id": "REG10-NE-DET",
+      "away": "NE",
+      "home": "DET",
+      "final": {"NE": 10, "DET": 35},
+      "game_url": "https://www.nfl.com/games/patriots-at-lions-2026-reg-10",
+      "gamebook_pdf": "https://static.www.nfl.com/image/upload/v1794764592/gamecenter/ab582c2f-4feb-11f1-abca-2c54536568a9.pdf",
+      "venue_in_gamebook": "Allianz Arena, Munich, Germany",
+      "status": "CAPTURED",
+      "teams": {
+        "NE": {
+          "starters_offense": ["LT 66 W.Campbell", "LG 70 G.Van Roten", "C 55 J.Wilson", "RG 65 M.Pryor", "RT 76 M.Moses", "TE 85 H.Henry", "TE 82 E.Raridon", "QB 10 D.Maye", "RB 38 R.Stevenson", "WR 1 A.Brown", "WR 13 M.Hollins"],
+          "starters_defense": ["OLB 5 Dr.Jones", "DT 97 M.Williams", "DT 94 C.Durden", "OLB 91 E.Ponder", "LB 14 R.Spillane", "LB 53 C.Elliss", "CB 0 C.Gonzalez", "CB 25 M.Jones", "CB 22 C.Woods", "S 4 C.Woodson", "S 31 K.Byard"],
+          "did_not_play": [],
+          "not_active": ["CB 7 C.Davis", "3QB 15 B.Morton", "S 41 B.Schooler", "T 68 D.Crownover", "OL 72 W.Rouse", "C 77 B.Brown"]
+        },
+        "DET": {
+          "starters_offense": ["WR 18 I.TeSlaa", "TE 87 S.LaPorta", "LT 58 P.Sewell", "LG 73 C.Mahogany", "C 70 J.Scruggs", "RG 69 T.Ratledge", "RT 76 B.Miller", "WR 1 J.Williams", "WR 14 A.St. Brown", "QB 16 J.Goff", "RB 0 J.Gibbs"],
+          "starters_defense": ["DE 97 A.Hutchinson", "DL 54 A.McNeill", "DL 91 T.Williams", "DL 93 T.Lacy", "LB 53 T.Nowaske", "LB 44 M.Rodriguez", "LB 55 D.Barnes", "DB 32 B.Branch", "CB 23 R.Ya-Sin", "CB 21 R.McCreary", "S 36 C.Clark"],
+          "did_not_play": [],
+          "not_active": ["CB 4 D.Reed", "CB 6 K.Abney", "LB 57 A.Ogbongbemiga", "C 64 C.Mays", "DL 94 M.Wingo", "DE 99 A.Hassanein"]
+        }
+      }
+    },
+    {
+      "game_id": "REG10-KC-ATL",
+      "away": "KC",
+      "home": "ATL",
+      "final": {"KC": 35, "ATL": 13},
+      "game_url": "https://www.nfl.com/games/chiefs-at-falcons-2026-reg-10",
+      "gamebook_pdf": "https://static.www.nfl.com/image/upload/v1794777676/gamecenter/ab582f5b-4feb-11f1-abca-2c54536568a9.pdf",
+      "venue_in_gamebook": "Mercedes-Benz Stadium, Atlanta, GA",
+      "status": "CAPTURED",
+      "teams": {
+        "KC": {
+          "starters_offense": ["WR 1 X.Worthy", "TE 87 T.Kelce", "LT 70 K.Benson", "LG 76 K.Suamataia", "C 52 C.Humphrey", "RG 65 Tr.Smith", "RT 73 J.Ezeudu", "TE 83 N.Gray", "WR 4 R.Rice", "RB 10 E.Johnson", "QB 15 P.Mahomes"],
+          "starters_defense": ["DE 56 G.Karlaftis", "NT 92 K.Tonga", "DT 95 C.Jones", "DE 91 F.Anudike-Uzomah", "LB 43 J.Cochrane", "LB 23 D.Tranquill", "LB 32 N.Bolton", "DB 27 C.Conner", "DB 20 N.Williams", "CB 5 M.Delane", "S 17 A.Gilman"],
+          "did_not_play": ["RB 9 K.Walker", "3QB 19 G.Nussmeier", "RB 34 J.Ott", "CB 39 M.Smith", "FB 47 B.VanSumeren", "OL 77 J.Moore", "DL 99 P.Woods"],
+          "not_active": []
+        },
+        "ATL": {
+          "starters_offense": ["WR 4 J.Dotson", "TE 8 K.Pitts", "LT 70 J.Matthews", "LG 65 M.Bergeron", "C 62 C.Levin", "RG 63 C.Lindstrom", "RT 71 J.Taylor", "TE 89 C.Woerner", "WR 5 D.London", "QB 9 M.Penix", "RB 7 B.Robinson"],
+          "starters_defense": ["DL 54 B.Dorlus", "DL 92 M.Smith", "DT 95 G.Dexter", "DE 99 C.Thomas", "LB 53 K.Daniels", "LB 42 J.Woods", "DB 29 S.Brown", "CB 24 A.Terrell", "CB 26 C.Henderson", "S 23 D.Hellams", "S 31 X.Watts"],
+          "did_not_play": ["QB 1 T.Tagovailoa"],
+          "not_active": ["ILB 0 D.Deablo", "CB 12 Av.Terrell", "3QB 13 A.Dalton", "WR 17 Z.Branch", "QB 18 J.Strand", "CB 37 R.Longerbeam", "T 73 C.Williams"]
+        }
+      }
+    },
+    {
+      "game_id": "REG10-HOU-CLE",
+      "away": "HOU",
+      "home": "CLE",
+      "final": {"HOU": 24, "CLE": 27},
+      "game_url": "https://www.nfl.com/games/texans-at-browns-2026-reg-10",
+      "gamebook_pdf": "https://static.www.nfl.com/image/upload/v1794777616/gamecenter/ab583279-4feb-11f1-abca-2c54536568a9.pdf",
+      "venue_in_gamebook": "Huntington Bank Field, Cleveland, OH",
+      "status": "CAPTURED",
+      "teams": {
+        "HOU": {
+          "starters_offense": ["WR 12 N.Collins", "LT 79 A.Ersery", "LG 64 F.Nwaiwu", "C 63 E.Brown", "RG 69 E.Ingram", "RT 77 T.Brown", "TE 86 D.Schultz", "WR 14 K.Boutte", "WR 19 X.Hutchinson", "QB 7 C.Stroud", "RB 4 W.Marks"],
+          "starters_defense": ["DE 90 J.Clowney", "DT 72 T.Togiai", "DT 98 S.Rankins", "DE 51 W.Anderson", "CB 24 D.Stingley", "CB 3 K.Lassiter", "LB 35 J.Hansen", "LB 39 H.To'oTo'o", "S 2 C.Bullock", "S 5 J.Pitre", "S 29 M.Stewart"],
+          "did_not_play": ["QB 10 D.Mills", "T 71 B.Smith"],
+          "not_active": ["LB 0 A.Al-Shaair", "TE 9 B.Jordan", "WR 18 M.Harrison", "RB 32 D.Montgomery", "DE 55 D.Hunter", "C/G 66 K.Rutledge", "G 75 W.Teller"]
+        },
+        "CLE": {
+          "starters_offense": ["TE 44 H.Fannin", "LT 55 S.Fano", "LG 77 Z.Johnson", "C 74 E.Jenkins", "RG 58 A.Barber", "RT 71 T.Howard", "TE 86 B.Whiteheart", "WR 1 K.Concepcion", "WR 12 D.Boston", "QB 4 D.Watson", "RB 10 Q.Judkins"],
+          "starters_defense": [],
+          "did_not_play": ["QB 2 S.Sanders"],
+          "not_active": ["3QB 6 D.Gabriel", "QB 15 T.Green", "LB 17 J.Jefferson", "CB 20 N.Igbinoghene", "S 33 R.Hickman", "C 52 P.Brailsford"],
+          "transcription_note": "The Cleveland defensive starters were not readable as a labelled block in the text extraction of this Game Book; the cells are therefore left EMPTY rather than guessed. Flagged as an irregularity."
+        }
+      }
+    },
+    {
+      "game_id": "REG10-MIN-GB",
+      "away": "MIN",
+      "home": "GB",
+      "final": {"MIN": 30, "GB": 10},
+      "game_url": "https://www.nfl.com/games/vikings-at-packers-2026-reg-10",
+      "gamebook_pdf": "https://static.www.nfl.com/image/upload/v1794776656/gamecenter/ab788967-4feb-11f1-abca-2c54536568a9.pdf",
+      "venue_in_gamebook": "Lambeau Field, Green Bay, WI",
+      "status": "CAPTURED",
+      "teams": {
+        "MIN": {
+          "starters_offense": ["TE 85 B.Yurosek", "LT 71 C.Darrisaw", "LG 60 J.Huber", "C 64 B.Brandel", "RG 76 W.Fries", "RT 75 B.O'Neill", "WR 18 J.Jefferson", "WR 13 T.Felton", "QB 8 K.Cousins", "RB 33 A.Jones", "FB 45 M.Bredeson"],
+          "starters_defense": ["OLB 15 D.Turner", "DL 95 C.Banks", "DL 50 L.Rodriguez", "DL 61 J.Redmond", "OLB 43 A.Van Ginkel", "LB 0 I.Pace", "LB 55 E.Wilson", "CB 2 I.Rodgers", "CB 7 B.Murphy", "S 26 J.Jackson", "S 44 J.Metellus"],
+          "did_not_play": ["QB 11 C.Wentz", "C/G 52 J.Burton"],
+          "not_active": ["QB 1 K.Murray", "WR 3 J.Addison", "3QB 12 M.Broser", "WR 14 J.Jennings", "LB 51 B.Cashman", "TE 87 T.Hockenson", "DL 90 T.Ingram-Dawkins"]
+        },
+        "GB": {
+          "starters_offense": ["WR 0 M.Golden", "LT 77 J.Morgan", "LG 72 L.Tomlinson", "C 73 J.Williams", "RG 79 T.Glover", "RT 71 A.Belton", "TE 85 T.Kraft", "WR 9 C.Watson", "TE 86 M.Redman", "QB 10 J.Love", "RB 30 C.Brooks"],
+          "starters_defense": ["EDGE 90 L.Van Ness", "DT 94 K.Brooks", "DT 95 D.Wyatt", "DT 55 C.McClellan", "EDGE 99 B.Sorrell", "LB 58 I.McDuffie", "LB 59 T.Hopper", "CB 2 B.Cisse", "CB 25 K.Nixon", "S 29 X.McKinney", "S 33 E.Williams"],
+          "did_not_play": [],
+          "not_active": ["RB 8 J.Jacobs", "RB 22 P.Strong", "LB 44 Z.Franklin", "G/T 67 D.Jennings", "G 70 K.Zeitler", "C/G 75 S.Rhyan"]
+        }
+      }
+    },
+    {
+      "game_id": "REG10-MIA-IND",
+      "away": "MIA",
+      "home": "IND",
+      "final": {"MIA": 22, "IND": 24},
+      "game_url": "https://www.nfl.com/games/dolphins-at-colts-2026-reg-10",
+      "gamebook_pdf": "https://static.www.nfl.com/image/upload/v1794777736/gamecenter/ab789365-4feb-11f1-abca-2c54536568a9.pdf",
+      "venue_in_gamebook": "Lucas Oil Stadium, Indianapolis, IN",
+      "status": "CAPTURED",
+      "teams": {
+        "MIA": {
+          "starters_offense": ["WR 7 C.Douglas", "LT 52 P.Paul", "LG 74 K.Proctor", "C 60 A.Meyer", "RG 71 J.Savaiinaea", "RT 73 A.Jackson", "TE 85 G.Dulcich", "FB 34 D.Herman", "WR 6 M.Washington", "QB 14 K.McCord", "RB 0 O.Gordon"],
+          "starters_defense": ["DE 9 J.Uche", "DL 94 J.Phillips", "DL 78 K.Grant", "DE 44 C.Robinson", "ILB 10 J.Rodriguez", "ILB 20 J.Brooks", "CB 3 C.Johnson", "CB 8 J.Brents", "S 16 M.Taaffe", "S 11 D.Trader", "S 19 K.Louis"],
+          "did_not_play": ["QB 15 B.Cook", "G 64 C.Haynes"],
+          "not_active": ["WR 18 C.Bell", "CB 24 M.Dial", "C 55 A.Brewer", "G/T 77 C.Wallace", "TE 80 J.Joly", "WR 86 J.Wayne"]
+        },
+        "IND": {
+          "starters_offense": ["WR 80 D.Burks", "WR 13 L.Treadwell", "TE 84 T.Warren", "LT 79 B.Raimann", "LG 62 J.Farmer", "C 60 T.Bortolini", "RG 68 D.Tucker", "RT 71 M.Goncalves", "WR 6 A.Gould", "QB 17 D.Jones", "RB 28 J.Taylor"],
+          "starters_defense": ["DE 98 A.Key", "DT 74 K.Givens", "DT 90 G.Stewart", "DT 95 A.Adebawore", "DE 97 L.Latu", "LB 50 B.Boettcher", "LB 53 C.Allen", "CB 1 A.Gardner", "CB 7 C.Ward", "S 25 A.Haulcy", "S 0 C.Bynum"],
+          "did_not_play": ["QB 5 A.Richardson", "WR 9 Q.Watkins", "T 73 C.Heck"],
+          "not_active": ["3QB 15 R.Leonard", "LS 46 L.Rhodes", "LB 57 J.Carlies", "T 75 J.Travis", "TE 86 W.Mallory", "DT 94 J.Tillery"]
+        }
+      }
+    },
+    {
+      "game_id": "REG10-CAR-NO",
+      "away": "CAR",
+      "home": "NO",
+      "final": {"CAR": 20, "NO": 17},
+      "game_url": "https://www.nfl.com/games/panthers-at-saints-2026-reg-10",
+      "gamebook_pdf": "https://static.www.nfl.com/image/upload/v1794777436/gamecenter/ab789769-4feb-11f1-abca-2c54536568a9.pdf",
+      "venue_in_gamebook": "Caesars Superdome, New Orleans, LA",
+      "status": "CAPTURED",
+      "teams": {
+        "CAR": {
+          "starters_offense": ["TE 88 D.Waller", "LT 63 R.Walker", "LG 68 D.Lewis", "C 77 L.Fortner", "RG 50 R.Hunt", "RT 57 M.Freeling", "TE 82 T.Tremble", "WR 18 J.Coker", "WR 4 T.McMillan", "QB 9 B.Young", "RB 30 C.Hubbard"],
+          "starters_defense": ["OLB 91 P.Jones", "DT 98 T.Wharton", "DT 95 D.Brown", "OLB 5 J.Phillips", "LB 33 T.Dodson", "LB 55 D.Lloyd", "CB 26 C.Smith-Wade", "CB 35 M.Wilson", "S 20 Z.Wheatley", "S 7 T.Moehrig", "S 21 N.Scott"],
+          "did_not_play": ["TE 0 J.Sanders", "3QB 16 H.King", "CB 24 W.Lee", "RB 28 A.Dillon", "LB 58 B.Okereke", "C 75 S.Hecht", "DT 93 T.Edwards"],
+          "not_active": []
+        },
+        "NO": {
+          "starters_offense": ["TE 83 J.Johnson", "TE 87 N.Fant", "LT 71 K.Banks", "LG 76 D.Edwards", "C 51 C.Ruiz", "RG 65 J.Wright", "RT 72 A.Richards", "WR 14 D.Vele", "WR 12 C.Olave", "QB 6 T.Shough", "RB 3 T.Etienne"],
+          "starters_defense": ["DE 99 C.Young", "DL 93 N.Shepherd", "DL 91 V.Broughton", "DE 96 C.Granderson", "LB 55 K.Elliss", "LB 20 P.Werner", "CB 22 M.Emerson", "CB 1 K.McKinstry", "S 23 J.Blackmon", "S 21 J.Reid", "S 7 J.Sanker"],
+          "did_not_play": ["3QB 11 Z.Wilson", "S 42 M.Reid", "RB 43 C.Donaldson", "LB 53 J.Ford", "T 75 T.Fuaga", "C 78 E.McCoy"],
+          "not_active": [],
+          "transcription_note": "The Game Book text renders the Saints quarterback as 'T.Though'; the official player page name is Tyler Shough. The name is stored as published in the PDF and the discrepancy is flagged, not silently corrected."
+        }
+      }
+    },
+    {
+      "game_id": "REG10-BUF-NYJ",
+      "away": "BUF",
+      "home": "NYJ",
+      "final": {"BUF": 31, "NYJ": 12},
+      "game_url": "https://www.nfl.com/games/bills-at-jets-2026-reg-10",
+      "gamebook_pdf": "https://static.www.nfl.com/image/upload/v1794777196/gamecenter/ab789ac9-4feb-11f1-abca-2c54536568a9.pdf",
+      "venue_in_gamebook": "MetLife Stadium, East Rutherford, NJ",
+      "status": "CAPTURED",
+      "teams": {
+        "BUF": {
+          "starters_offense": ["TE 88 D.Knox", "LT 73 D.Dawkins", "LG 70 A.Anderson", "C 66 C.McGovern", "RG 64 O.Torrence", "RT 79 S.Brown", "WR 0 K.Coleman", "TE 86 D.Kincaid", "WR 2 D.Moore", "QB 17 J.Allen", "RB 4 J.Cook"],
+          "starters_defense": ["OLB 15 G.Rousseau", "DL 91 E.Oliver", "DL 96 D.Walker", "DL 94 L.Jackson", "OLB 9 B.Chubb", "ILB 8 T.Bernard", "CB 23 D.Alford", "CB 21 D.Igbinosun", "CB 47 C.Benford", "S 24 C.Bishop", "S 22 A.Hooker"],
+          "did_not_play": ["T 76 B.Freeland"],
+          "not_active": ["QB 6 S.Buechele", "S 29 J.Kilgore", "OLB 51 M.Danna", "G 60 A.Reed-Adams", "T/G 74 J.Bowry", "DL 97 G.Gaines"]
+        },
+        "NYJ": {
+          "starters_offense": ["WR 5 G.Wilson", "LT 74 O.Fashanu", "LG 64 D.Parham", "C 71 J.Myers", "RG 66 J.Tippmann", "RT 70 A.Membou", "TE 85 M.Taylor", "WR 11 O.Cooper", "TE 16 K.Sadiq", "QB 7 G.Smith", "RB 20 B.Hall"],
+          "starters_defense": ["DE 52 K.Enagbare", "DL 91 J.Briggs", "DL 95 D.Jackson", "DL 97 H.Phillips", "DE 31 D.Bailey", "LB 44 J.Sherwood", "LB 56 D.Davis", "CB 21 B.Stephens", "CB 1 A.Thomas", "S 6 D.Belton", "S 29 M.Fitzpatrick"],
+          "did_not_play": ["RB 0 B.Allen", "RB 3 K.Nwangwu", "DE 9 W.McDonald", "QB 10 C.Klubnik", "P 14 A.McNamara", "WR 15 A.Mitchell", "WR 18 I.Williams", "K 19 J.Sanders", "CB 23 D.Ponds", "DB 26 N.Wright", "DB 27 M.Moore", "RB 32 I.Davis", "S 34 V.Payne", "CB 37 Q.Stiggers", "LS 42 T.Hennessy", "DE 46 J.Ossai", "FB 47 A.Beck", "LB 48 J.Keller", "LB 50 T.Reeder", "OL 67 J.Meredith", "OL 79 C.Okorafor", "WR 84 M.McClain", "TE 89 J.Ruckert", "DL 96 J.Heflin", "DL 98 P.Page"],
+          "not_active": ["DB 2 J.Brownlee", "WR 17 T.Patrick", "LB 49 T.Wallace", "TE 86 J.Woods", "DE 92 N.Lynn"],
+          "irregularity": "C.Klubnik and A.Beck are listed under Did Not Play yet both appear in the official passing/rushing statistics for the Jets. An official document therefore contradicts itself for these two players. Published as found; flagged for review."
+        }
+      }
+    },
+    {
+      "game_id": "REG10-JAX-TEN",
+      "away": "JAX",
+      "home": "TEN",
+      "final": {"JAX": 40, "TEN": 23},
+      "game_url": "https://www.nfl.com/games/jaguars-at-titans-2026-reg-10",
+      "gamebook_pdf": "https://static.www.nfl.com/image/upload/v1794777496/gamecenter/ab789e15-4feb-11f1-abca-2c54536568a9.pdf",
+      "venue_in_gamebook": "Nissan Stadium, Nashville, TN",
+      "status": "CAPTURED",
+      "teams": {
+        "JAX": {
+          "starters_offense": ["WR 3 J.Meyers", "TE 85 B.Strange", "LT 72 W.Little", "LG 75 E.Pregnon", "C 73 R.Hainsey", "RG 76 E.Cleveland", "RT 70 C.Van Lanen", "WR 11 P.Washington", "WR 7 Bri.Thomas", "QB 16 T.Lawrence", "RB 33 B.Tuten"],
+          "starters_defense": ["DE 41 J.Hines-Allen", "DT 91 A.Armstead", "DT 93 M.Dickerson", "DE 44 T.Walker", "LB 23 F.Oluokun", "LB 51 V.Miller", "CB 12 T.Hunter", "CB 1 M.Brown", "S 26 K.Merriweather", "S 6 A.Johnson", "S 25 R.Lane"],
+          "did_not_play": ["QB 10 Q.Ewers"],
+          "not_active": ["S 0 J.Bates", "WR 18 C.Williams", "DT 90 J.Davis", "DE 97 W.Williams", "DT 98 A.Regis"]
+        },
+        "TEN": {
+          "starters_offense": ["TE 82 D.Bellinger", "TE 84 G.Helm", "WR 17 C.Dike", "LT 75 D.Moore", "LG 76 C.Zavala", "C 51 A.Schlottmann", "RG 70 A.Mafi", "RT 55 J.Latham", "WR 5 E.Ayomanor", "QB 1 C.Ward", "RB 20 T.Pollard"],
+          "starters_defense": ["DE 57 J.Martin", "DL 91 J.Franklin-Myers", "DT 90 S.Thomas", "DE 11 J.Johnson", "LB 33 C.Gray", "LB 54 D.Mausi", "CB 25 Jo.Williams", "CB 24 A.Taylor", "CB 18 C.Flott", "S 29 T.Adams", "S 23 K.Winston"],
+          "did_not_play": ["QB 10 M.Trubisky"],
+          "not_active": ["WR 14 C.Tate", "RB 32 N.Singleton", "CB 42 J.Jones", "LB 50 C.Barton", "LB 53 A.Hill", "T 78 B.Crenshaw-Dickson", "DT 96 J.Marshall"]
+        }
+      }
+    },
+    {
+      "game_id": "REG10-LAR-AZ",
+      "away": "LAR",
+      "home": "AZ",
+      "final": {"LAR": 34, "AZ": 6},
+      "game_url": "https://www.nfl.com/games/rams-at-cardinals-2026-reg-10",
+      "gamebook_pdf": "https://static.www.nfl.com/image/upload/v1794786979/gamecenter/ab78a133-4feb-11f1-abca-2c54536568a9.pdf",
+      "venue_in_gamebook": "State Farm Stadium, Glendale, AZ",
+      "status": "CAPTURED",
+      "teams": {
+        "LAR": {
+          "starters_offense": ["WR 4 K.Mumpfield", "LT 77 A.Jackson", "LG 50 B.Limmer", "C 65 C.Shelton", "RG 69 K.Dotson", "RT 71 W.McClendon", "WR 14 X.Smith", "WR 6 C.Daniels", "QB 9 M.Stafford", "RB 24 B.Corum", "RB 23 K.Williams"],
+          "starters_defense": ["OLB 95 M.Garrett", "DE 99 A.Donald", "DE 90 T.Davis", "DE 55 B.Fiske", "OLB 0 B.Young", "ILB 48 O.Speights", "ILB 53 N.Landman", "CB 30 J.Wallace", "CB 22 T.McDuffie", "S 37 Q.Lake", "S 3 K.Curl"],
+          "did_not_play": ["QB 13 S.Bennett"],
+          "not_active": ["3QB 15 T.Simpson", "S 36 M.Pulley", "LS 49 J.Cardona", "OLB 59 D.Peterson", "OL 73 S.Avila", "OL 79 K.Trost", "OLB 94 D.Johnson"]
+        },
+        "AZ": {
+          "starters_offense": ["WR 80 S.Fehoko", "TE 84 E.Higgins", "TE 89 H.Long", "LT 78 J.Fryar", "LG 73 I.Seumalo", "C 58 H.Conner", "RG 74 I.Adams", "RT 65 E.Wilkinson", "TE 85 T.McBride", "QB 19 C.Beck", "RB 22 T.Allgeier"],
+          "starters_defense": ["OLB 10 J.Sweat", "DL 97 W.Nolen", "DT 55 D.Stills", "OLB 25 Z.Collins", "ILB 50 J.Gibbons", "ILB 1 Ma.Wilson", "CB 35 K.King", "CB 29 D.Burke", "CB 13 K.Clark", "S 28 A.Wingard", "S 3 B.Baker"],
+          "did_not_play": ["QB 9 J.Johnson", "OL 76 A.Reese"],
+          "not_active": ["3QB 18 J.Aguilar", "CB 24 S.Thomas", "OLB 54 E.Leota", "OL 66 J.Williams", "OL 71 J.Gaines", "OL 72 H.Froholdt"]
+        }
+      }
+    },
+    {
+      "game_id": "REG10-SEA-LV",
+      "away": "SEA",
+      "home": "LV",
+      "final": {"SEA": 21, "LV": 13},
+      "game_url": "https://www.nfl.com/games/seahawks-at-raiders-2026-reg-10",
+      "gamebook_pdf": "https://static.www.nfl.com/image/upload/v1794787399/gamecenter/ab78a43c-4feb-11f1-abca-2c54536568a9.pdf",
+      "venue_in_gamebook": "Allegiant Stadium (city not printed in the extracted block)",
+      "status": "CAPTURED",
+      "teams": {
+        "SEA": {
+          "starters_offense": ["WR 11 J.Smith-Njigba", "WR 10 C.Kupp", "TE 81 E.Saubert", "LT 74 J.Jones", "LG 76 G.Zabel", "C 61 J.Sundell", "RG 75 A.Bradford", "RT 72 A.Lucas", "TE 88 A.Barner", "QB 2 D.Lock", "RB 26 Z.Charbonnet"],
+          "starters_defense": ["DE 91 B.Murphy", "DE 90 J.Reed", "LB 0 D.Lawrence", "LB 58 D.Hall", "LB 32 D.Thomas", "LB 13 E.Jones", "CB 21 D.Witherspoon", "CB 29 J.Jobe", "S 3 N.Emmanwori", "S 39 T.Okada", "S 20 J.Love"],
+          "did_not_play": ["QB 6 J.Milroe", "C 55 O.Oluwatimi"],
+          "not_active": ["QB 14 S.Darnold", "RB 23 E.Wilson", "CB 27 A.Smith", "G 53 Q.Nelson", "T 67 C.Cross", "NT 97 D.Eastern", "DT 99 L.Williams"]
+        },
+        "LV": {
+          "starters_offense": ["TE 89 B.Bowers", "LT 74 K.Miller", "LG 70 S.Burford", "C 65 T.Linderbaum", "RG 66 T.Zuhn", "RT 71 D.Glaze", "TE 87 M.Mayer", "WR 1 T.Tucker", "QB 15 F.Mendoza", "FB 34 C.Heyward", "RB 2 A.Jeanty"],
+          "starters_defense": ["DE 95 K.Paye", "DT 94 F.Fatukasi", "DT 69 A.Butler", "DE 98 M.Crosby", "LB 17 N.Dean", "LB 7 Q.Walker", "CB 35 H.Masses", "CB 3 T.Johnson", "CB 5 E.Stokes", "S 11 J.Chinn", "S 31 T.Stukes"],
+          "did_not_play": ["QB 12 A.O'Connell"],
+          "not_active": ["WR 10 D.Thornton", "WR 19 M.Benson", "S 27 T.McCollum", "S 43 D.Johnson", "G 77 B.Cabeldue", "DT 99 T.Booker"]
+        }
+      }
+    },
+    {
+      "game_id": "REG10-SF-DAL",
+      "away": "SF",
+      "home": "DAL",
+      "final": {"SF": 46, "DAL": 40},
+      "game_url": "https://www.nfl.com/games/49ers-at-cowboys-2026-reg-10",
+      "gamebook_pdf": "https://static.www.nfl.com/image/upload/v1794790580/gamecenter/ab78a748-4feb-11f1-abca-2c54536568a9.pdf",
+      "venue_in_gamebook": "AT&T Stadium",
+      "status": "CAPTURED",
+      "teams": {
+        "SF": {
+          "starters_offense": ["WR 19 D.Samuel", "FB 44 K.Juszczyk", "TE 85 G.Kittle", "LT 71 T.Williams", "LG 75 C.Colby", "C 64 J.Brendel", "RG 77 D.Puni", "RT 68 C.McKivitz", "WR 17 J.Watkins", "QB 13 B.Purdy", "RB 23 C.McCaffrey"],
+          "starters_defense": ["DL 97 N.Bosa", "DL 99 D.Buckner", "DL 92 O.Odighizuwa", "DL 56 K.White", "LB 57 D.Greenlaw", "LB 54 F.Warner", "DB 2 D.Lenoir", "CB 20 U.Stout", "CB 0 R.Green", "S 27 J.Brown", "S 6 M.Mustapha"],
+          "did_not_play": ["QB 10 M.Jones"],
+          "not_active": ["WR 5 M.Evans", "3QB 14 K.Rourke", "LB 48 T.Bethune", "OL 69 E.Cruz", "WR 84 B.Cooks"]
+        },
+        "DAL": {
+          "starters_offense": ["WR 88 C.Lamb", "WR 19 R.Flournoy", "LT 60 T.Guyton", "LG 73 T.Smith", "C 56 C.Beebe", "RG 52 T.Booker", "RT 78 T.Steele", "TE 89 B.Spann-Ford", "WR 3 G.Pickens", "QB 4 D.Prescott", "RB 33 J.Williams"],
+          "starters_defense": ["OLB 40", "DT 92", "DT 97", "OLB 7", "LB 53", "LB 50", "DB 13", "CB 25", "CB 26", "S 14", "S 24"],
+          "did_not_play": ["QB 16 S.Howell"],
+          "not_active": ["S 1 P.Locke", "OL B 6 D.Ezeiruaku", "CB 15 D.Kendrick", "WR 18 J.Mingo", "S 43 J.Thomas", "T 65 A.Cornelius", "TE 87 J.Ferguson"],
+          "transcription_note": "The Dallas defensive starters render in the PDF text as jersey numbers with the player name column missing. Numbers only are stored as published (no name is invented). Flagged as an irregularity and excluded from name-level joins."
+        }
+      }
+    },
+    {
+      "game_id": "REG10-PIT-CIN",
+      "away": "PIT",
+      "home": "CIN",
+      "final": {"PIT": 18, "CIN": 38},
+      "game_url": "https://www.nfl.com/games/steelers-at-bengals-2026-reg-10",
+      "gamebook_pdf": "",
+      "status": "NO_GAME_BOOK",
+      "status_reason": "No Game Book PDF was published on the game centre at capture time and none is linked from the venue register captured on 2026-11-16. The score is taken from the official Week 10 schedule page, which states the game FINAL at PIT 18 - CIN 38.",
+      "score_source": "https://www.nfl.com/schedules/2026/by-week/week-10",
+      "teams": {}
+    },
+    {
+      "game_id": "REG10-LAC-BAL",
+      "away": "LAC",
+      "home": "BAL",
+      "final": null,
+      "game_url": "https://www.nfl.com/games/chargers-at-ravens-2026-reg-10",
+      "gamebook_pdf": "",
+      "status": "IN_PROGRESS_AT_CAPTURE",
+      "status_reason": "The official Week 10 schedule page and the game centre both show this game still in progress (LAC 17 - BAL 7, Q2 01:05) at capture time 2026-11-17T02:47Z. No final score is published, no Game Book exists, and no value is entered. This game is NOT in any results corpus.",
+      "teams": {}
+    }
+  ]
+}

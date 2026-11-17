@@ -1,0 +1,78 @@
+{
+ "generated_utc": "2026-11-16T01:35Z",
+ "headline_sample_n": 11,
+ "excluded_final_before_forecast": 1,
+ "settled_games_total": 12,
+ "probability_skill": {
+  "brier_model": 0.2015,
+  "brier_coin": 0.25,
+  "brier_base_rate": 0.1983,
+  "bss_vs_coin": 0.194,
+  "bss_vs_coin_ci95": [
+   -0.0181,
+   0.3848
+  ],
+  "bss_vs_coin_prob_positive": 0.963,
+  "bss_vs_base_rate": -0.016,
+  "logloss_model": 0.5932,
+  "logloss_coin": 0.6931,
+  "logloss_base_rate": 0.586,
+  "bootstrap_resamples": 20000,
+  "bootstrap_seed": 20261116
+ },
+ "pricing_error": {
+  "bias_pts": 7.91,
+  "mae_pts": 12.04,
+  "rmse_pts": 14.89,
+  "mse": 221.72,
+  "bias_squared": 62.55,
+  "error_variance": 159.16,
+  "sd_model_margins": 3.41,
+  "sd_actual_margins": 14.39,
+  "dispersion_ratio": 0.24
+ },
+ "result_luck": {
+  "picks_won": 8,
+  "expected_wins_by_own_probabilities": 6.61,
+  "luck_gap_wins": 1.39,
+  "home_win_rate_in_sample": 0.273
+ },
+ "calibration": [
+  {
+   "bin": "0.00-0.40",
+   "n": 4,
+   "stated": "0.355",
+   "observed": "0.000"
+  },
+  {
+   "bin": "0.40-0.50",
+   "n": 1,
+   "stated": "0.430",
+   "observed": "0.000"
+  },
+  {
+   "bin": "0.50-0.60",
+   "n": 4,
+   "stated": "0.553",
+   "observed": "0.500"
+  },
+  {
+   "bin": "0.60-0.70",
+   "n": 2,
+   "stated": "0.622",
+   "observed": "0.500"
+  },
+  {
+   "bin": "0.70-1.01",
+   "n": 0,
+   "stated": "",
+   "observed": ""
+  }
+ ],
+ "verdict": "One 11-game sample cannot establish skill. On this sample the model beats a coin flip on Brier but is WORSE than quoting the sample base rate, its spread opinions are under-dispersed by a factor of about four relative to realised margins, and its picks benefited from luck. Nothing here clears a validation gate.",
+ "not_computed_and_why": {
+  "roi": "No licensed market price exists (Q-01 / FLG-010); any ROI number would require an invented price.",
+  "clv": "Same blocking item, plus no retained opening/closing quotes.",
+  "p_value": "Deliberately omitted: n=11, game-clustered, and a p-value would invite exactly the over-reading the gates exist to prevent."
+ }
+}

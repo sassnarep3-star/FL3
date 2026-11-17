@@ -39,6 +39,11 @@ PAGES = {
     "flagged.html": "Flagged for Review",
     "sources.html": "Sources",
     "methodology.html": "Methodology",
+    "results.html": "Results feed",
+    "week11.html": "Week 11",
+    "availability.html": "Availability",
+    "lab.html": "Lab",
+    "spec.html": "Spec",
     "board/readiness.html": "Requirement readiness",
     "verified/index.html": "Verified results & scoring",
     "verify/index.html": "Verification",
@@ -159,7 +164,14 @@ def readiness_section(rows, sources):
             f'<br><small>{e(r["source_gap"])}</small>'
         )
         state = r["current_state"]
-        repo_target = r["repo_page"] if r["repo_page"].startswith("board/") else f"board/{r['repo_page']}"
+        # repo_page may name a root page (PAGES) or a board page; only board pages
+        # get the prefix, so a root page is never silently redirected to a 404.
+        if r["repo_page"] in PAGES:
+            repo_target = r["repo_page"]
+        elif r["repo_page"].startswith("board/"):
+            repo_target = r["repo_page"]
+        else:
+            repo_target = f"board/{r['repo_page']}"
         rendered.append([
             f"<b>{e(r['id'])}</b>", e(r["category"]), e(r["requirement"]),
             badge(state, state_kind.get(state, "warn")), e(r["blocking_gate"]),
@@ -176,6 +188,27 @@ def readiness_section(rows, sources):
   {table(["ID", "Area", "Requirement", "Current state", "Blocking gate", "Clearance metric / number", "Official source / gap", "Evidence"], rendered, "wide")}
 </section>
 """
+
+
+FRONTIER_ROWS = "".join(
+    f"<tr><td><a href='{p}'>{t}</a></td><td>{d}</td><td>{h}</td></tr>"
+    for p, t, d, h in [
+        ("results.html", "Results feed",
+         "149 verified games reconciled club-by-club to the official standings",
+         "32/32 clubs match; one missing game found and corrected"),
+        ("availability.html", "Availability graph",
+         "Depth-1 expected vs Game Book actual for Week 10, with replacement depth",
+         "&ldquo;Questionable&rdquo; started 84% of the time; &ldquo;Out&rdquo; is the only reliable signal"),
+        ("lab.html", "Lab",
+         "Injury ablation on chronological holdouts + leaderboard v2 on proper scores",
+         "Personnel term helps on no metric; no strategy clears the demotion gate"),
+        ("week11.html", "Week 11",
+         "13 official fixtures with venue, kickoff, network and our originated prices",
+         "Market columns blank by policy PD-01"),
+        ("spec.html", "Specification",
+         "Row grain, authority and deliberate blanks for all eight new datasets",
+         "Six gaps left visibly blank, not filled"),
+    ])
 
 
 def build_index(standings, lines, inj, luck, strat, dec, sug, flag, readiness, sources):
@@ -300,6 +333,15 @@ def build_index(standings, lines, inj, luck, strat, dec, sug, flag, readiness, s
   hold</strong>: the three Lions statuses are not blank (they read Out), Seattle and Cincinnati are
   not shown injury-free, and Baltimore no longer lists Lamar Jackson at QB (the chart reads Brissett,
   Fagnano, Slovis). Details on <a href="flagged.html">Flagged for Review</a> as F22.</p>
+</section>
+
+<section>
+  <h2>Added 17 November — the frontier datasets</h2>
+  <p class="lede">Five new pages, each backed by a file whose every row names its official source.
+  Two of them report results that go against the model, and say so in the same table as the
+  encouraging number.</p>
+  {table(["Page", "What is on it", "Headline"],
+    FRONTIER_ROWS)}
 </section>
 
 <section>

@@ -1,0 +1,5 @@
+designation,n_observed,n_started,n_started_again,start_rate,start_rate_lo95,start_rate_hi95,same_col,same_lo,same_hi,n_not_observed
+Out,30,0,0,0.0,0.0,0.114,0.0,0.0,0.114,8
+Doubtful,3,0,0,0.0,0.0,0.562,0.0,0.0,0.562,1
+Questionable,19,16,16,0.842,0.624,0.945,0.842,0.624,0.945,8
+(blank),47,46,46,0.979,0.889,0.996,0.979,0.889,0.996,14

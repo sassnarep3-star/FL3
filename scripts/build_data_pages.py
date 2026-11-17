@@ -32,6 +32,11 @@ NAV = [
     ("flagged.html", "Flagged for Review", "flagged"),
     ("sources.html", "Sources", "sources"),
     ("methodology.html", "Methodology", "methodology"),
+    ("spec.html", "Spec", "spec"),
+    ("results.html", "Results feed", "results"),
+    ("week11.html", "Week 11", "week11"),
+    ("availability.html", "Availability", "availability"),
+    ("lab.html", "Lab", "lab"),
 ]
 
 PROVENANCE = (

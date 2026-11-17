@@ -1,0 +1,4 @@
+metric,n_games,mean_difference_M1_minus_M0,boot_lo95,boot_hi95,sign_convention,verdict
+margin absolute error,13,0.38958,-0.21643,0.90902,negative is better for M1,no difference distinguishable from noise
+total absolute error,13,0.53332,-0.47615,1.5428,negative is better for M1,no difference distinguishable from noise
+Brier score (home win),13,0.00169,-0.0139,0.0164,negative is better for M1,no difference distinguishable from noise
