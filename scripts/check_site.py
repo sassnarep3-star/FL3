@@ -31,7 +31,7 @@ DATA = os.path.join(ROOT, "data")
 PAGES = ["index.html", "standings.html", "lines.html", "injuries.html", "matchups.html",
          "ablations.html",
          "strategies.html", "correlation.html", "decisions.html", "suggestions.html",
-         "flagged.html", "sources.html", "methodology.html",
+         "flagged.html", "sources.html", "methodology.html", "audit.html",
          # verified-snapshot pages (session arena-fl3-60ee336e, integration 2026-11-14):
          "data-snapshots.html", "data-standings.html", "data-schedule.html", "data-injuries.html",
          # canonical verified dashboard (session arena/03e651e0, 2026-11-16):
@@ -64,6 +64,10 @@ def warn(cond: bool, msg: str) -> None:
 def load(name):
     with open(os.path.join(DATA, name), encoding="utf-8") as fh:
         return json.load(fh)
+
+
+def is_url(u):
+    return isinstance(u, str) and re.match(r"^https://[^\s]+$", u) is not None
 
 
 # ---------------------------------------------------------------- A. arithmetic
@@ -375,6 +379,34 @@ def check_ablations():
     check("Depth-tier" in page or "depth-tier" in page,
           "AB: ablations.html does not state the depth-tier exclusion")
 
+def check_audit():
+    """A. acceptance audit (session arena/f0d91da4-fl3, 2026-11-17): the audit
+    register exists, every row carries an official source link and a legal
+    verdict, and the rendered page matches the register."""
+    audit = load("acceptance_audit_2026-11-17.json")
+    checks_list = audit["checks"]
+    check(len(checks_list) > 0, "A: acceptance audit register is empty")
+    legal = {"CONFIRMED", "STALE", "MISMATCH", "UNVERIFIED"}
+    ids = set()
+    for r in checks_list:
+        ids.add(r["check_id"])
+        check(r["verdict"] in legal, f"A: audit {r['check_id']} has illegal verdict {r['verdict']!r}")
+        check(is_url(r["source_url"]), f"A: audit {r['check_id']} has no official source url")
+        check(bool(r["live_value"]), f"A: audit {r['check_id']} has no live observed value")
+    check(len(ids) == len(checks_list), "A: audit check IDs are not unique")
+    # the CSV twin must exist and carry the same rows
+    with open(os.path.join(DATA, "acceptance_audit_2026-11-17.csv"), newline="", encoding="utf-8") as fh:
+        csv_rows = list(csv.DictReader(fh))
+    check(len(csv_rows) == len(checks_list),
+          f"A: audit CSV has {len(csv_rows)} rows, JSON has {len(checks_list)}")
+    page = open(os.path.join(ROOT, "audit.html"), encoding="utf-8").read()
+    for r in checks_list:
+        check(html.escape(r["check_id"]) in page,
+              f"A: audit check {r['check_id']} is not rendered on audit.html")
+    # the page must publish the verdict semantics and the evidence rule
+    for phrase in ("CONFIRMED", "STALE", "MISMATCH", "nfl.com", "Acceptance audit"):
+        check(phrase in page, f"A: audit.html does not publish '{phrase}'")
+
 
 def check_frontier_datasets() -> None:
     """The five frontier pages and the eight datasets behind them.
@@ -626,6 +658,7 @@ def main() -> None:
     check_matchup_matrix()
     check_frontier_datasets()
     check_ablations()
+    check_audit()
 
     print(f"ran {checks} assertions")
     if warnings:
