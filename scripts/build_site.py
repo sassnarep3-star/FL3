@@ -39,9 +39,16 @@ PAGES = {
     "flagged.html": "Flagged for Review",
     "sources.html": "Sources",
     "methodology.html": "Methodology",
+    "results.html": "Results feed",
+    "week11.html": "Week 11",
+    "availability.html": "Availability",
+    "lab.html": "Lab",
+    "spec.html": "Spec",
+    "audit.html": "Acceptance audit",
     "board/readiness.html": "Requirement readiness",
     "verified/index.html": "Verified results & scoring",
     "verify/index.html": "Verification",
+    "freshness/index.html": "Freshness",
 }
 
 CAPTURED = "2026-11-14"
@@ -158,7 +165,14 @@ def readiness_section(rows, sources):
             f'<br><small>{e(r["source_gap"])}</small>'
         )
         state = r["current_state"]
-        repo_target = r["repo_page"] if r["repo_page"].startswith("board/") else f"board/{r['repo_page']}"
+        # repo_page may name a root page (PAGES) or a board page; only board pages
+        # get the prefix, so a root page is never silently redirected to a 404.
+        if r["repo_page"] in PAGES:
+            repo_target = r["repo_page"]
+        elif r["repo_page"].startswith("board/"):
+            repo_target = r["repo_page"]
+        else:
+            repo_target = f"board/{r['repo_page']}"
         rendered.append([
             f"<b>{e(r['id'])}</b>", e(r["category"]), e(r["requirement"]),
             badge(state, state_kind.get(state, "warn")), e(r["blocking_gate"]),
@@ -175,6 +189,31 @@ def readiness_section(rows, sources):
   {table(["ID", "Area", "Requirement", "Current state", "Blocking gate", "Clearance metric / number", "Official source / gap", "Evidence"], rendered, "wide")}
 </section>
 """
+
+
+# NOTE (2026-11-17, arena/bb4f237d-fl3): this must be a LIST OF ROWS, not a joined HTML
+# string. table() iterates `rows` and then iterates each row for cells; a joined string
+# was rendered one character per cell and shipped to production (see PR #46 follow-up).
+FRONTIER_ROWS = [
+    [f"<a href='{p}'>{t}</a>", d, h]
+    for p, t, d, h in [
+        ("results.html", "Results feed",
+         "149 verified games reconciled club-by-club to the official standings",
+         "32/32 clubs match; one missing game found and corrected"),
+        ("availability.html", "Availability graph",
+         "Depth-1 expected vs Game Book actual for Week 10, with replacement depth",
+         "&ldquo;Questionable&rdquo; started 84% of the time; &ldquo;Out&rdquo; is the only reliable signal"),
+        ("lab.html", "Lab",
+         "Injury ablation on chronological holdouts + leaderboard v2 on proper scores",
+         "Personnel term helps on no metric; no strategy clears the demotion gate"),
+        ("week11.html", "Week 11",
+         "13 official fixtures with venue, kickoff, network and our originated prices",
+         "Market columns blank by policy PD-01"),
+        ("spec.html", "Specification",
+         "Row grain, authority and deliberate blanks for all eight new datasets",
+         "Six gaps left visibly blank, not filled"),
+    ]
+]
 
 
 def build_index(standings, lines, inj, luck, strat, dec, sug, flag, readiness, sources):
@@ -302,6 +341,15 @@ def build_index(standings, lines, inj, luck, strat, dec, sug, flag, readiness, s
   hold</strong>: the three Lions statuses are not blank (they read Out), Seattle and Cincinnati are
   not shown injury-free, and Baltimore no longer lists Lamar Jackson at QB (the chart reads Brissett,
   Fagnano, Slovis). Details on <a href="flagged.html">Flagged for Review</a> as F22.</p>
+</section>
+
+<section>
+  <h2>Added 17 November — the frontier datasets</h2>
+  <p class="lede">Five new pages, each backed by a file whose every row names its official source.
+  Two of them report results that go against the model, and say so in the same table as the
+  encouraging number.</p>
+  {table(["Page", "What is on it", "Headline"],
+    FRONTIER_ROWS)}
 </section>
 
 <section>
@@ -863,6 +911,53 @@ python3 scripts/check_site.py</code></pre>
     return page("Methodology", body, "methodology.html")
 
 
+def build_audit(audit):
+    """Acceptance audit: published registers vs live official sources (2026-11-17)."""
+    meta = audit["meta"]
+    rows = []
+    verdict_cls = {"CONFIRMED": "ok", "STALE": "warn", "MISMATCH": "bad", "UNVERIFIED": "bad"}
+    for r in audit["checks"]:
+        rows.append([
+            f"<b>{e(r['check_id'])}</b>",
+            e(r["category"]),
+            e(r["item"]),
+            e(r["repo_value"]),
+            e(r["live_value"]),
+            badge(r["verdict"], verdict_cls.get(r["verdict"], "warn")),
+            src_link(r["source_url"], "source"),
+            e(r["note"]),
+        ])
+    counts = {}
+    for r in audit["checks"]:
+        counts[r["verdict"]] = counts.get(r["verdict"], 0) + 1
+    stat_html = " ".join(
+        stat(counts.get(v, 0), v) for v in ("CONFIRMED", "STALE", "MISMATCH", "UNVERIFIED"))
+    body = f"""
+<h1>Acceptance audit</h1>
+<p class="lede">Every value published in this repository was compared, line by line, against the
+official page read on {e(meta['audit_utc'])}. <b>CONFIRMED</b> means the repo value matches the live
+official value. <b>STALE</b> means the repo value was correct at its capture time and the live source
+has since moved on — the snapshot is preserved, not rewritten. <b>MISMATCH</b> means the repo value
+disagrees with the live official value; it is published here for review.</p>
+
+<div class="note"><strong>Evidence rule.</strong> {e(meta['source_policy'])} Every row carries the
+URL that was read. Values that could not be confirmed from an official source are blank and flagged,
+never inferred.</div>
+
+<div class="stats">{stat_html}</div>
+
+{table(["Check", "Category", "Item", "Published in repo", "Live official value", "Verdict", "Source", "Note"], rows)}
+
+<h2>How to read the STALE rows</h2>
+<p>The standings rows are the 2026-11-14 point-in-time snapshot: every divergence equals the club's
+Week 10 result, so the snapshot is a correct pre-kickoff capture, not an error. The two result rows
+(PIT@CIN, LAC@BAL) were captured before their games concluded; the live schedule page now shows
+PIT@CIN FINAL 18&ndash;38 and LAC@BAL in progress (Q2, 17&ndash;7) at audit time. A refresh of the
+results feed is requested in COORDINATION.md; the captured file is left untouched.</p>
+"""
+    return page("Acceptance audit", body, "audit.html")
+
+
 # ---------------------------------------------------------------------------
 def build_ablations(ab: dict) -> str:
     """Readiness R028/R029: injury/availability ablation on a chronological holdout."""
@@ -1007,6 +1102,7 @@ def main():
     flag = load("flagged.json")
     src = load("sources.json")
     ablations = load("ablations_week10.json")
+    audit = load("acceptance_audit_2026-11-17.json")
     readiness = read_requirement_rows()
     official_sources = read_source_registry()
 
@@ -1023,6 +1119,7 @@ def main():
         "sources.html": build_sources(src),
         "methodology.html": build_methodology(standings, luck, corr, lines),
         "ablations.html": build_ablations(ablations),
+        "audit.html": build_audit(audit),
     }
     for name, content in out.items():
         with open(os.path.join(ROOT, name), "w", encoding="utf-8") as fh:

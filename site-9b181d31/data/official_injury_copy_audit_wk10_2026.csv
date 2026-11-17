@@ -1,0 +1,7 @@
+file,data_rows,clubs_present,clubs_missing_vs_official,source_id,source_url
+data/injuries_2026_wk10.csv,345,28,,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+data/injuries_2026_w10.csv,160,26,BAL;LAC,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+board/data/injuries_2026_w10.csv,160,26,BAL;LAC,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+data/2026-week10-injuries.csv,162,27,LAC,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+data/injuries_2026_wk10.json,345,see file,not computed,SRC-018,https://www.nfl.com/injuries/league/2026/reg10
+data/injuries_2026_w10.json,345,see file,not computed,SRC-018,https://www.nfl.com/injuries/league/2026/reg10

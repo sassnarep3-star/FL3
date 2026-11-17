@@ -1,0 +1,118 @@
+{
+ "generated_utc": "2026-11-16T01:40Z",
+ "clubs_transcribed": [
+  "BAL",
+  "GB",
+  "SEA"
+ ],
+ "clubs_image_only": [
+  "HOU"
+ ],
+ "clubs_total_accounted": 4,
+ "rows": 176,
+ "findings_by_kind": {
+  "continuation_row": 1,
+  "empty_rank1": 2,
+  "duplicate_rank1": 5,
+  "duplicate_rank2": 6,
+  "shared_slot": 1,
+  "image_only": 1
+ },
+ "page_effective_dates": {
+  "GB": "Unofficial, Nov. 10, 2026",
+  "SEA": "(none published)",
+  "BAL": "(none published)"
+ },
+ "starter_out": [
+  {
+   "club": "GB",
+   "position": "C",
+   "starter": "Sean Rhyan",
+   "designation": "Out",
+   "named_backup": "Jager Burton",
+   "backup_designation": "(not on report)",
+   "chart_date": "Unofficial, Nov. 10, 2026",
+   "source_depth": "https://www.packers.com/team/depth-chart",
+   "source_injury": "https://www.nfl.com/injuries/league/2026/reg10"
+  },
+  {
+   "club": "GB",
+   "position": "RB",
+   "starter": "Josh Jacobs",
+   "designation": "Out",
+   "named_backup": "MarShawn Lloyd",
+   "backup_designation": "(not on report)",
+   "chart_date": "Unofficial, Nov. 10, 2026",
+   "source_depth": "https://www.packers.com/team/depth-chart",
+   "source_injury": "https://www.nfl.com/injuries/league/2026/reg10"
+  },
+  {
+   "club": "GB",
+   "position": "LB",
+   "starter": "Zaire Franklin",
+   "designation": "Doubtful",
+   "named_backup": "Ty'Ron Hopper",
+   "backup_designation": "",
+   "chart_date": "Unofficial, Nov. 10, 2026",
+   "source_depth": "https://www.packers.com/team/depth-chart",
+   "source_injury": "https://www.nfl.com/injuries/league/2026/reg10"
+  },
+  {
+   "club": "SEA",
+   "position": "LT",
+   "starter": "Charles Cross",
+   "designation": "Out",
+   "named_backup": "Josh Jones",
+   "backup_designation": "(not on report)",
+   "chart_date": "(none published)",
+   "source_depth": "https://www.seahawks.com/team/depth-chart/",
+   "source_injury": "https://www.nfl.com/injuries/league/2026/reg10"
+  },
+  {
+   "club": "SEA",
+   "position": "LG",
+   "starter": "Quenton Nelson",
+   "designation": "Out",
+   "named_backup": "Anthony Bradford",
+   "backup_designation": "",
+   "chart_date": "(none published)",
+   "source_depth": "https://www.seahawks.com/team/depth-chart/",
+   "source_injury": "https://www.nfl.com/injuries/league/2026/reg10"
+  },
+  {
+   "club": "SEA",
+   "position": "QB",
+   "starter": "Sam Darnold",
+   "designation": "Out",
+   "named_backup": "Drew Lock",
+   "backup_designation": "",
+   "chart_date": "(none published)",
+   "source_depth": "https://www.seahawks.com/team/depth-chart/",
+   "source_injury": "https://www.nfl.com/injuries/league/2026/reg10"
+  },
+  {
+   "club": "SEA",
+   "position": "DT",
+   "starter": "Leonard Williams",
+   "designation": "Out",
+   "named_backup": "Rylie Mills",
+   "backup_designation": "(not on report)",
+   "chart_date": "(none published)",
+   "source_depth": "https://www.seahawks.com/team/depth-chart/",
+   "source_injury": "https://www.nfl.com/injuries/league/2026/reg10"
+  },
+  {
+   "club": "BAL",
+   "position": "SS",
+   "starter": "Jaylinn Hawkins",
+   "designation": "Out",
+   "named_backup": "Keondre Jackson",
+   "backup_designation": "(not on report)",
+   "chart_date": "(none published)",
+   "source_depth": "https://www.baltimoreravens.com/team/depth-chart/",
+   "source_injury": "https://www.nfl.com/injuries/league/2026/reg10"
+  }
+ ],
+ "rule": "A club depth chart is a grid. Column 1 is 'rank 1 of this position as the club last published it', not 'the starter in this game'. Rank 1 may be shared, may be empty, may be duplicated across positions, and may be stale or contradicted by the official injury report.",
+ "consequence_for_the_model": "The repository's availability adjustment applies a fixed points penalty per position. This dataset shows why that cannot be validated from depth alone: we can establish WHO is replaced, not HOW MUCH worse the replacement is. Turning depth into points is still an unmeasured assumption."
+}

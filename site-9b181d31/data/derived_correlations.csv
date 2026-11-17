@@ -1,0 +1,13 @@
+scope,pair,r,ci95_low,ci95_high,n,basis,status,interpretation,source_id
+game,home points vs away points (same game),0.118,-0.234,0.444,33,2026 Weeks 1-2 box scores,measured-provisional,drives the correlation of two same-game team-total bets,SRC-006;SRC-007
+game,home margin vs game total,-0.020,-0.361,0.325,33,2026 Weeks 1-2 box scores,measured-provisional,negative r means high totals come with closer games - matters for spread+total parlays,SRC-006;SRC-007
+team,net points per game vs pass yards per game,0.463,0.136,0.699,32,2026 season team aggregates,measured-provisional,does the aerial game actually separate good teams from bad ones this year,SRC-002;SRC-003;SRC-004;SRC-005
+team,net points per game vs rush yards per game,0.172,-0.188,0.491,32,2026 season team aggregates,measured-provisional,the classic test; a small r here is why run-heavy 'control' edges are hard to bet,SRC-002;SRC-003;SRC-004;SRC-005
+team,net points per game vs pass rate,-0.212,-0.522,0.148,32,2026 season team aggregates,measured-provisional,"script effect: losing teams pass more, so raw pass-rate correlations are misleading",SRC-002;SRC-003;SRC-004;SRC-005
+team,points allowed per game vs opponent pass yards allowed per game,0.419,0.083,0.670,32,2026 season team aggregates,measured-provisional,"if r is high, pass-yards allowed is a usable defensive-quality proxy for prop pricing",SRC-002;SRC-003;SRC-004;SRC-005
+team,sacks taken per game vs opponent sacks per game (same club),-0.039,-0.382,0.314,32,2026 season team aggregates,measured-provisional,near-zero is expected: O-line quality and pass-rush quality are different traits,SRC-002;SRC-003;SRC-004;SRC-005
+team,offense pass attempts vs rush attempts (same club),-0.098,-0.432,0.260,32,2026 season team aggregates,measured-provisional,within-team volume substitution; the reason 'both overs' in one backfield are not independent,SRC-002;SRC-003;SRC-004;SRC-005
+pending,spread outcome vs next-week spread outcome (market autocorrelation),,,,,no verified data,unverified-blank,cannot be measured without market lines (Q-01),
+pending,injury-report 'Out' count vs same-game point total,,,,,no verified data,unverified-blank,needs 4+ weeks of game-level data (Q-04),
+pending,parlay leg correlation as priced by books,,,,,no verified data,unverified-blank,no official source publishes book correlation rules (FLG-010),
+pending,"player prop vs team volume, per position",,,,,no verified data,unverified-blank,blocked by Q-08 (no player-level rates in repo),

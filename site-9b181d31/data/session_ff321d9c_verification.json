@@ -1,0 +1,74 @@
+{
+  "session": "arena/ff321d9c-fl3",
+  "verified_utc": "2026-11-17",
+  "policy": "Only nfl.com and club-operated pages count as evidence. Each check below names the official page it was read from. Values that could not be confirmed were left blank and flagged, never inferred. This file records the checks performed by this session; it adds no model output and no bet.",
+  "checks": [
+    {
+      "id": "FF321D9C-01",
+      "subject": "2026 league standings (post-Week-10) read from the live official page",
+      "source": "https://www.nfl.com/standings/league/2026/reg",
+      "method": "Fetched all rows of the live standings page and recomputed NET PTS = PF - PA for every club shown.",
+      "result": "confirmed",
+      "detail": "Arithmetic reproduces for every club on the live page (e.g. BUF 287-199=88, SF 281-196=85, CHI 241-184=57, CIN 278-193=85, DEN 198-186=12, DET 257-199=58, JAX 269-144=125, KC 237-156=81, MIN 176-126=50, PIT 198-182=16, NYG 203-196=7, CLE 188-220=-32, GB 226-221=5, LAR 248-187=61, SEA 223-175=48, NE 221-242=-21, BAL 189-236=-47, CAR 219-236=-17, DAL 286-282=4, LV 251-289=-38, WAS 196-223=-27, HOU 233-219=14, NO 202-236=-34, TB 202-178=24). The live page carries post-Week-10 records (BUF 8-1, NE 5-5).",
+      "note": "The checked-in snapshot (2026-11-14) holds pre-Week-10 records by design: it is the pre-kickoff point-in-time capture the Week 10 lines were originated from. The divergence is documented staleness (flag F01 / R073), not an arithmetic error."
+    },
+    {
+      "id": "FF321D9C-02",
+      "subject": "Week 11 schedule slate vs the live official by-week page",
+      "source": "https://www.nfl.com/schedules/2026/by-week/week-11",
+      "method": "Fetched the live Week 11 page and compared fixture-by-fixture against data/2026-week11-games.csv.",
+      "result": "confirmed",
+      "detail": "Games checked against the live page agree: IND@HOU Thu Nov 19 20:15 Prime (TNF); MIA@BUF, BAL@CAR, NO@CHI, TEN@DAL, TB@DET Sun Nov 22 13:00. Repo rows carry the same sources and per-row source_url pointing at this page."
+    },
+    {
+      "id": "FF321D9C-03",
+      "subject": "Week 10 fixture venue transcription spot-check",
+      "source": "https://www.nfl.com/games/dolphins-at-colts-2026-reg-10",
+      "method": "Fetched the official game centre and compared Location/Stadium against data/verify_venues.json (REG10-MIA-IND).",
+      "result": "confirmed",
+      "detail": "Official page: Location INDIANAPOLIS, IN; Stadium LUCAS OIL STADIUM; final MIA 22 - IND 24. The register row matches exactly (location, stadium, status FINAL)."
+    },
+    {
+      "id": "FF321D9C-04",
+      "subject": "Official NFL Game Book PDF route spot-check",
+      "source": "https://www.nfl.com/games/dolphins-at-colts-2026-reg-10",
+      "method": "The live game centre publishes a 'Download Game Book (PDF)' link; compared its URL against the register's gamebook_pdf for REG10-MIA-IND.",
+      "result": "confirmed",
+      "detail": "The PDF URL on the live page (static.www.nfl.com/image/upload/.../ab789365-4feb-11f1-abca-2c54536568a9.pdf) is byte-identical to the register's gamebook_pdf for that fixture. The register holds Game Book links for the 12 final Week 10 games and an explicit 'not yet published' flag for the 2 games captured pre-kickoff."
+    },
+    {
+      "id": "FF321D9C-05",
+      "subject": "Week 10 injury report spot-check: Lions game statuses",
+      "source": "https://www.nfl.com/injuries/",
+      "method": "Fetched the live official injury page (Week 10 sections) and read the Detroit Lions rows.",
+      "result": "confirmed",
+      "detail": "Kerby Joseph (S, Knee, Did Not Participate, Out), Cade Mays (C, Ankle, Did Not Participate, Out), D.J. Reed (CB, Hip, Did Not Participate, Out) — all three published Out on the live official page, matching the committed snapshot. The brief's 'blank game-status cell' claim is not reproduced."
+    },
+    {
+      "id": "FF321D9C-06",
+      "subject": "Week 11 game centre venue fields (method re-confirmation)",
+      "source": "https://www.nfl.com/games/colts-at-texans-2026-reg-11",
+      "method": "Fetched an upcoming Week 11 game centre to confirm the venue transcription route works for non-final fixtures.",
+      "result": "confirmed",
+      "detail": "Official page: Location HOUSTON, TX; Stadium RELIANT STADIUM (the club's venue under its current official name on NFL.com). Team records shown (IND 3-7, HOU 3-6) agree with the live standings."
+    },
+    {
+      "id": "FF321D9C-07",
+      "subject": "Live site acceptance: every published subsite reachable on GitHub Pages",
+      "source": "https://sassnarep3-star.github.io/FL3/",
+      "method": "Fetched the root landing page and each subsite index directly from the live Pages host.",
+      "result": "confirmed",
+      "detail": "Root, /verified/, /verify/, /depth/, /board/, /docs/ and /site-9b181d31/ all serve their index pages. The root navigation links every subsite; the pages.yml workflow's own entry-point check agrees.",
+      "note": "Pages is configured legacy from main:/ (gh api repos/sassnarep3-star/FL3/pages -> status built), so the repository root publishes itself and there is no artifact allowlist to go stale."
+    },
+    {
+      "id": "FF321D9C-08",
+      "subject": "Suggestions section (review-before-implement) and Flagged-for-Review section present and source-linked",
+      "source": "https://sassnarep3-star.github.io/FL3/suggestions.html and https://sassnarep3-star.github.io/FL3/flagged.html",
+      "method": "Fetched both live pages and checked that suggestions carry 2-3 selectable paths with a decision needed, and that every flagged item carries its evidence link.",
+      "result": "confirmed",
+      "detail": "suggestions.html lists each suggestion with mutually exclusive paths, effort/cost and a 'Decision needed' line. flagged.html publishes 24 open items, each with the official page(s) to check. Both are reachable from the root navigation."
+    }
+  ],
+  "irregularities_not_new": "No new irregularities were found. The standings snapshot divergence from the live page is the documented, intentional pre-kickoff capture (F01/R073). The Week 11 Texans venue is published under its current official name RELIANT STADIUM on NFL.com; no repo table contradicts it because venue transcription is currently scoped to Week 10."
+}

@@ -53,6 +53,17 @@ def main() -> int:
                 continue
             if target.endswith(".html") or "/" in target:
                 path = os.path.normpath(os.path.join(DOCS, target))
+                # ../x.html escapes board/ into the published root site. It is a
+                # legitimate cross-site link (board/readiness.html -> ../week11.html)
+                # and is checked for existence at the repository root, then counted
+                # as external so it can never be mistaken for a board page.
+                if target.startswith("../"):
+                    root_path = os.path.normpath(os.path.join(REPO, target[3:]))
+                    if not os.path.exists(root_path):
+                        broken.append(f"{page} -> {href} (file missing at repository root)")
+                    else:
+                        external.add(target)
+                    continue
                 if not os.path.exists(path):
                     broken.append(f"{page} -> {href} (file missing)")
                     continue

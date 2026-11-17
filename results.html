@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Results — the verified corpus · FL3 NFL Decision System</title>
+<meta name="description" content="Verified NFL data, originated lines, strategy gates and open decisions. Every value links to an official source.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="brand"><span class="mark">FL3</span><span class="sub">NFL Decision System</span></div>
+  <nav><a href="index.html">Dashboard</a><a href="standings.html">Standings</a><a href="lines.html">Our Lines</a><a href="injuries.html">Injuries</a><a href="matchups.html">Matchup matrix</a><a href="ablations.html">Ablations</a><a href="data-snapshots.html">Data snapshots</a><a href="strategies.html">Strategies</a><a href="correlation.html">Correlation</a><a href="decisions.html">Decisions</a><a href="suggestions.html">Suggestions</a><a href="flagged.html">Flagged for Review</a><a href="sources.html">Sources</a><a href="methodology.html">Methodology</a><a href="results.html" class="on">Results feed</a><a href="week11.html">Week 11</a><a href="availability.html">Availability</a><a href="lab.html">Lab</a><a href="spec.html">Spec</a><a href="board/readiness.html">Requirement readiness</a><a href="verified/index.html">Verified results &amp; scoring</a><a href="verify/index.html">Verification</a></nav>
+</header>
+<main id="main">
+
+<section class="hero">
+  <h1>149 verified games, and a corpus that reconciles to the league's own standings</h1>
+  <p class="lede">The brief asks for a verified results feed that makes backtests and ROI
+  possible. The first job is arithmetic: does the games log add up to what the league says each
+  club has done? For 148 transcribed games it did not — two clubs were wrong. Here is the
+  correction, the proof, and the one game that is deliberately excluded.</p>
+</section>
+
+<section class="stats">
+  <div class="stat"><b>149</b><span>final, verified games</span></div>
+  <div class="stat"><b>32</b><span>clubs reconciled</span></div>
+  <div class="stat"><b>32/32</b><span>clubs matching exactly</span></div>
+  <div class="stat"><b>1</b><span>game excluded</span><em>LAC@BAL — not final</em></div>
+</section>
+
+<section>
+  <h2>The correction: one missing game, exactly</h2>
+  <p>Aggregating the 148-game log gave <b>CIN 6-2, 240 PF / 175 PA</b> and
+  <b>PIT 6-2, 180 PF / 144 PA</b>. The official standings give <b>CIN 7-2, 278 / 193</b> and
+  <b>PIT 6-3, 198 / 182</b>. The differences are identical and opposite: one CIN win by
+  <b>38-18</b> and one PIT loss by <b>18-38</b>. That is not a rounding issue or a tie-handling
+  issue; it is a single game, PIT@CIN in Week 10, which was not final when the log was first
+  transcribed and was therefore correctly omitted at the time.</p>
+  <p>Adding it makes all 32 clubs match on W, L, T, PF and PA, and makes the league's
+  points-for sum equal its points-against sum (6880).
+  The feed now states the count: <b>149 games</b>.</p>
+  <p class="lede">The brief's figure of 136 games is not reproducible from any official page. It
+  was recorded as a corrected number rather than treated as a defect to argue about. Weeks 1-9
+  hold exactly 136 games; the brief is nine weeks of a ten-week season.</p>
+</section>
+
+<section>
+  <h2>Games per week and their totals</h2>
+  <div class="tablewrap"><table class=""><thead><tr><th>Week</th><th>Games</th><th>Points scored</th><th>Mean absolute margin</th></tr></thead><tbody><tr><td><b>1</b></td><td>16</td><td>791</td><td>12</td></tr><tr><td><b>2</b></td><td>16</td><td>647</td><td>12</td></tr><tr><td><b>3</b></td><td>16</td><td>756</td><td>8</td></tr><tr><td><b>4</b></td><td>16</td><td>764</td><td>7</td></tr><tr><td><b>5</b></td><td>15</td><td>726</td><td>10</td></tr><tr><td><b>6</b></td><td>14</td><td>610</td><td>6</td></tr><tr><td><b>7</b></td><td>14</td><td>632</td><td>11</td></tr><tr><td><b>8</b></td><td>14</td><td>653</td><td>13</td></tr><tr><td><b>9</b></td><td>15</td><td>667</td><td>12</td></tr><tr><td><b>10</b></td><td>13</td><td>634</td><td>13</td></tr></tbody></table></div>
+  <p>Weeks 1-4 have sixteen games; Week 5 has fifteen because of a scheduled bye pair; Weeks 6-8
+  have fourteen; Week 9 has fifteen and Week 10 <b>thirteen</b> finals. The fourteenth Week 10
+  fixture, LAC@BAL, was still in the second quarter at capture and is excluded rather than
+  guessed. A short week is a fact about the schedule, not a gap in the log.</p>
+</section>
+
+<section>
+  <h2>Week 10, game by game</h2>
+  <div class="tablewrap"><table class=""><thead><tr><th>Date</th><th>Away</th><th>Home</th><th>Margin</th><th>Total</th><th>Winner</th><th>Source</th></tr></thead><tbody><tr><td>2026-11-12</td><td>WAS 24</td><td>NYG 21</td><td>-3</td><td>45</td><td>AWAY</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">result</a></td></tr><tr><td>2026-11-15</td><td>BUF 31</td><td>NYJ 12</td><td>-19</td><td>43</td><td>AWAY</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">result</a></td></tr><tr><td>2026-11-15</td><td>CAR 20</td><td>NO 17</td><td>-3</td><td>37</td><td>AWAY</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">result</a></td></tr><tr><td>2026-11-15</td><td>HOU 24</td><td>CLE 27</td><td>+3</td><td>51</td><td>HOME</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">result</a></td></tr><tr><td>2026-11-15</td><td>JAX 40</td><td>TEN 23</td><td>-17</td><td>63</td><td>AWAY</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">result</a></td></tr><tr><td>2026-11-15</td><td>KC 35</td><td>ATL 13</td><td>-22</td><td>48</td><td>AWAY</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">result</a></td></tr><tr><td>2026-11-15</td><td>LA 34</td><td>AZ 6</td><td>-28</td><td>40</td><td>AWAY</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">result</a></td></tr><tr><td>2026-11-15</td><td>MIA 22</td><td>IND 24</td><td>+2</td><td>46</td><td>HOME</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">result</a></td></tr><tr><td>2026-11-15</td><td>MIN 30</td><td>GB 10</td><td>-20</td><td>40</td><td>AWAY</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">result</a></td></tr><tr><td>2026-11-15</td><td>NE 10</td><td>DET 35</td><td>+25</td><td>45</td><td>HOME</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">result</a></td></tr><tr><td>2026-11-15</td><td>PIT 18</td><td>CIN 38</td><td>+20</td><td>56</td><td>HOME</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">result</a></td></tr><tr><td>2026-11-15</td><td>SEA 21</td><td>LV 13</td><td>-8</td><td>34</td><td>AWAY</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">result</a></td></tr><tr><td>2026-11-15</td><td>SF 46</td><td>DAL 40</td><td>-6</td><td>86</td><td>AWAY</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">result</a></td></tr></tbody></table></div>
+</section>
+
+<section>
+  <h2>Every club against the official standings</h2>
+  <div class="tablewrap"><table class="wide"><thead><tr><th>Club</th><th>Official W-L-T</th><th>Corpus W-L-T</th><th>Official PF</th><th>Corpus PF</th><th>Official PA</th><th>Corpus PA</th><th>Verdict</th><th>Source</th></tr></thead><tbody><tr><td><b>BUF</b></td><td>8-1-0</td><td>8-1-0</td><td>287</td><td>287</td><td>199</td><td>199</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>SF</b></td><td>8-1-0</td><td>8-1-0</td><td>281</td><td>281</td><td>196</td><td>196</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>CHI</b></td><td>7-2-0</td><td>7-2-0</td><td>241</td><td>241</td><td>184</td><td>184</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>CIN</b></td><td>7-2-0</td><td>7-2-0</td><td>278</td><td>278</td><td>193</td><td>193</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>DEN</b></td><td>7-2-0</td><td>7-2-0</td><td>198</td><td>198</td><td>186</td><td>186</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>DET</b></td><td>7-2-0</td><td>7-2-0</td><td>257</td><td>257</td><td>199</td><td>199</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>JAX</b></td><td>7-2-0</td><td>7-2-0</td><td>269</td><td>269</td><td>144</td><td>144</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>KC</b></td><td>7-2-0</td><td>7-2-0</td><td>237</td><td>237</td><td>156</td><td>156</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>MIN</b></td><td>7-2-0</td><td>7-2-0</td><td>176</td><td>176</td><td>126</td><td>126</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>CLE</b></td><td>6-4-0</td><td>6-4-0</td><td>188</td><td>188</td><td>220</td><td>220</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>GB</b></td><td>6-4-0</td><td>6-4-0</td><td>226</td><td>226</td><td>221</td><td>221</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>LA</b></td><td>6-4-0</td><td>6-4-0</td><td>248</td><td>248</td><td>187</td><td>187</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>PIT</b></td><td>6-3-0</td><td>6-3-0</td><td>198</td><td>198</td><td>182</td><td>182</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>SEA</b></td><td>6-4-0</td><td>6-4-0</td><td>223</td><td>223</td><td>175</td><td>175</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>NE</b></td><td>5-5-0</td><td>5-5-0</td><td>221</td><td>221</td><td>242</td><td>242</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>NYG</b></td><td>5-3-1</td><td>5-3-1</td><td>203</td><td>203</td><td>196</td><td>196</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>BAL</b></td><td>4-5-0</td><td>4-5-0</td><td>189</td><td>189</td><td>236</td><td>236</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>CAR</b></td><td>4-5-0</td><td>4-5-0</td><td>219</td><td>219</td><td>236</td><td>236</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>DAL</b></td><td>4-6-0</td><td>4-6-0</td><td>286</td><td>286</td><td>282</td><td>282</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>LV</b></td><td>4-6-0</td><td>4-6-0</td><td>251</td><td>251</td><td>289</td><td>289</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>ATL</b></td><td>3-7-0</td><td>3-7-0</td><td>201</td><td>201</td><td>258</td><td>258</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>AZ</b></td><td>3-7-0</td><td>3-7-0</td><td>184</td><td>184</td><td>289</td><td>289</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>HOU</b></td><td>3-6-0</td><td>3-6-0</td><td>233</td><td>233</td><td>219</td><td>219</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>IND</b></td><td>3-7-0</td><td>3-7-0</td><td>208</td><td>208</td><td>271</td><td>271</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>NO</b></td><td>3-6-0</td><td>3-6-0</td><td>202</td><td>202</td><td>236</td><td>236</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>TB</b></td><td>3-6-0</td><td>3-6-0</td><td>202</td><td>202</td><td>178</td><td>178</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>WAS</b></td><td>3-5-1</td><td>3-5-1</td><td>196</td><td>196</td><td>223</td><td>223</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>NYJ</b></td><td>2-8-0</td><td>2-8-0</td><td>194</td><td>194</td><td>254</td><td>254</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>PHI</b></td><td>2-7-0</td><td>2-7-0</td><td>148</td><td>148</td><td>221</td><td>221</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>MIA</b></td><td>1-8-0</td><td>1-8-0</td><td>148</td><td>148</td><td>224</td><td>224</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>TEN</b></td><td>1-8-0</td><td>1-8-0</td><td>167</td><td>167</td><td>239</td><td>239</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr><tr><td><b>LAC</b></td><td>0-8-0</td><td>0-8-0</td><td>121</td><td>121</td><td>219</td><td>219</td><td><span class="badge ok">MATCH</span></td><td><a class="src" href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">standings</a></td></tr></tbody></table></div>
+  <p><b>32 of 32 match.</b> A mismatch here fails the build; the
+  dataset cannot ship in a state where the corpus disagrees with the standings.</p>
+</section>
+
+<section>
+  <h2>What the feed refuses to contain</h2>
+  <ul class="tight">
+    <li>A game without an official final score. LAC@BAL was still in the second quarter at
+      capture (17-7) and is excluded from every count, every rating and every backtest.</li>
+    <li>A score derived from a live play-by-play page. A live page is not a result.</li>
+    <li>A "close enough" match. The comparison is exact on five integers per club.</li>
+  </ul>
+</section>
+
+</main>
+<footer>
+  <p><strong>Snapshot 2026-11-14.</strong> NFL data © the National Football League, quoted from nfl.com
+  with links on every row. This site publishes our own model output, not betting advice, and not a
+  sportsbook quote. Values that could not be confirmed against an official source are blank and
+  listed on <a href="flagged.html">Flagged for Review</a>.</p>
+</footer>
+</body>
+</html>

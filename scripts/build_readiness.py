@@ -41,7 +41,7 @@ ROWS = [
 ("R017","Dashboard","Publish removal-of-luck panel on dashboard","PARTIAL","Luck decomposition scripts/artifacts exist in another track; a consistently sourced, dashboard-integrated panel is not demonstrated here.","Prospective predictions, proper scores and expected-versus-realized results with uncertainty.","Luck-adjustment gate G-01","Panel reports expected and realized scores/returns, game-cluster interval and sample size; no claim of literal zero luck.","Unify panel around prospective forecast ledger; label uncertainty and sample window.","","No official NFL source defines a luck-adjusted betting panel; metric policy is methodological.","leaderboard.html"),
 ("R018","Governance","Add two-sided what-would-change-our-mind fields to each strategy","PARTIAL","Strategy catalogue exists; complete two-sided falsification criteria are not machine-checked.","Explicit evidence that strengthens and weakens each hypothesis, with thresholds.","Strategy registration gate G-02","Every strategy has both a falsifier and confirming condition, frozen before test, plus stop/review rule.","Extend strategy schema and verifier; reject one-sided narrative-only entries.","","No official NFL source applies; this is a research-governance field.","signals.html"),
 ("R019","Origination","Price a line independently and publish scheduled residual versus market from day one","BLOCKED","Model-line artifacts exist; market prices are blank and recurring origination cadence is not demonstrated.","Licensed market data, pre-kickoff forecast schedule, quote snapshots and residual convention.","Market gate Q-01 / G-03","Prospective forecast recorded before each market snapshot; residual computed only from valid same-market, same-time prices.","Do not fabricate market residuals; secure an approved price-data source first.","","No official NFL odds source is registered; residual remains blank.","lines.html"),
-("R020","Backtest","Use the 136-game log as a pre-registered backtest corpus","PARTIAL","The board has 33 verified game rows and notes a 136/137-game log elsewhere; the canonical corpus is not complete here.","All 136 target games, source-linked outcomes and registration frozen before evaluation.","Corpus gate Q-04 / G-02","Exactly the predeclared 136 eligible game records reconcile; each strategy's feature timestamp predates kickoff; no train/test leakage.","Reconcile the named log against official game records, then freeze corpus manifest and hash.","SRC-006;SRC-008","Official schedule/results are input references; requested 136-game corpus completeness is not verified.","games.html"),
+("R020","Backtest","Use the 136-game log as a pre-registered backtest corpus","PARTIAL","2026-11-17 UPDATE: the canonical verified results corpus now exists as data/week_results_2026.csv - 148 FINAL games, weeks 1-10, whose W/L/T/PF/PA for all 32 clubs reconcile with the official standings (build_week_results.py --check passes in CI; PR #30/#31). A frozen-rule walk-forward was scored over 100 of those games (verified/strategies.html; intervals include zero, no skill claimed). The brief's specific 136 figure was never reproduced from an official page (the season holds 148 settled games through Week 10), and the forecasts were registered after those games were played, so the corpus is a backtest corpus, not a pre-registered one.","All games in the canonical corpus (148 settled games weeks 1-10), source-linked outcomes, and any new window registered before kickoff.","Corpus gate Q-04 / G-02","The named corpus reconciles against official game records (identity check passes for all 32 clubs); each strategy's feature timestamp predates kickoff for any prospective window; no train/test leakage.","Reconcile the named log against official game records, then freeze corpus manifest and hash.","SRC-006;SRC-008;SRC-021","Official schedule/results are input references; the brief's 136 figure is not reproduced, and pre-registration applies only to the Week 11-onward live record.","games.html"),
 ("R021","Governance","Decide price-data policy before publishing any backtest","BLOCKED","Repository source registry says market data has not been acquired; a policy is not established.","Permitted source, licensing/retention terms, book selection, quote timestamp and missing-data rules.","Publish gate Q-01","Written policy approved internally and every quote conforms; no backtest release before policy and provenance manifest exist.","Record a source-and-retention policy decision in the suggestion register; no live scraping without terms review.","","No official NFL market-price source exists in the registered official-source set.","questions.html"),
 ("R022","Availability","Store every injury-hub read with clock time and publish delta, never level","PARTIAL","One dated weekly injury capture is present; a multi-read immutable time series is not shown.","Raw response/page hash, fetch timestamp, source URL, parsed version and diff for every read.","Snapshot gate Q-02","At least one immutable capture per scheduled report update through kickoff; all published injury signals are deltas between timestamps.","Add append-only snapshot storage and delta rendering; fail closed on missing timestamps.","SRC-001","NFL injury page is the official input; snapshot cadence/retention is not established in repo.","injuries.html"),
 ("R068","Results","Verified results feed so backtests and ROI can be computed at all","PARTIAL","data/captures/week10_results_2026-11-16.csv holds all 14 Week 10 fixtures with 12 settled scores, each row linking its nfl.com game page; data/scoring_week10.csv scores the frozen Week 10 forecast against it. The older corpus is still 33 of 137 rows.","Result rows for every week in any evaluation window, with a clock time per capture and a correction path.","Results coverage gate G-10","Every game in the window has an official final score, a game-page link and a capture timestamp; blanks are declared not-final rather than inferred.","Extend the capture to weeks 1-9 from the official schedule pages; keep the existing 33-row corpus as a separate, labelled subset.","SRC-021","NFL schedule pages are the official input; weekly capture automation is not yet running.","results.html"),
@@ -49,11 +49,11 @@ ROWS = [
 ("R070","Data quality","One canonical line series, with a documented sign convention and one owner per file","NOT STARTED","Three files publish a Week 10 line for the same fixtures on two different sign conventions: data/lines_week10.json (root site, MAE 11.62), data/lines_origination.csv (board site, MAE 8.02) and data/2026-week10-lines.csv (no generator at all). Mean absolute disagreement between the first two is 6.72 pts on the same 14 fixtures.","An owner decision on which series is canonical, a shared game_id join key, and one documented convention.","Provenance gate G-02","One published line per market per fixture; every other series carries an explicit label explaining why it differs and is not presented as our price.","Pick a canonical series only after a walk-forward comparison; until then label both pages with the discrepancy.","","This is an internal repository defect, not an NFL data question, so no official source applies.","line-provenance.html"),
 ("R071","Availability","Treat club depth charts as grids: shared slots, duplicated ranks, empty rank-1 and continuation rows","PARTIAL","data/depth_blocks.csv preserves raw cell structure for 3 clubs and 176 player cells; data/depth_grammar_findings.csv records 1 shared slot, 5 duplicate rank-1 slots, 6 duplicate rank-2 slots, 2 empty rank-1 cells, 1 continuation row and 1 image-only chart.","32 clubs transcribed with raw cell text, plus a rule set the model must obey before any rank enters a feature.","Depth coverage gate Q-02","No feature reads column 1 as 'the starter'; shared and empty slots propagate as unknown, and duplicates are not double-counted.","Extend transcription to 32 clubs club-by-club, keeping the raw string and the page date where one exists.","SRC-017","Club pages are official and are the only source of depth order; 2 of 3 sampled publish no effective date.","depth-evidence.html"),
 ("R072","Depth parsing","Fix the two named depth-parsing failures before widening coverage","PARTIAL","Both are confirmed against the live pages on 2026-11-16. Packers: every cell is 'jersey + space + name'; the parse recovers both fields and stores the raw string. Texans: the chart is a single raster image with no player text in the HTML, so no parser fix exists.","An authorised structured source for Houston depth, or an explicit decision to leave Houston depth unknown.","Depth coverage gate Q-02","1 of 32 clubs (HOU) is declared impossible from this source rather than transcribed by eye.","Do not widen coverage until the image case has an owner decision.","SRC-017","Houston's own page is the source and it does not publish machine-readable depth.","depth-evidence.html"),
-("R073","Data operations","Measure and publish snapshot staleness instead of stamping a date and moving on","PARTIAL","data/snapshot_delta.csv compares the checked-in 2026-11-14 snapshot with a 2026-11-16 re-capture: 22 of 32 clubs changed, the injury report went from 160 rows / 26 clubs to 347 rows / 28 clubs, and LAC carried game status on 0 of 19 rows before its Monday game and 9 of 19 after.","A scheduled capture with a clock time on every read, retained side by side rather than overwritten.","Snapshot operations gate G-10","Every page states the age of the data it renders, and a snapshot older than one game day fails a freshness gate.","Run capture on a schedule; never overwrite a pre-kickoff snapshot with a post-kickoff one.","SRC-018;SRC-020","Both official pages are readable; the gap is cadence and retention, not access.","data-freshness.html"),
+("R073","Data operations","Measure and publish snapshot staleness instead of stamping a date and moving on","PARTIAL","data/snapshot_delta.csv compares the checked-in 2026-11-14 snapshot with a 2026-11-16 re-capture: 22 of 32 clubs changed, the injury report went from 160 rows / 26 clubs to 347 rows / 28 clubs, and LAC carried game status on 0 of 19 rows before its Monday game and 9 of 19 after. Updated 2026-11-17: the freshness subsite (freshness/) re-read the live standings and schedule pages and publishes the delta — 24 of 32 clubs reflected, 4 Week-10 bye clubs, 4 played-but-not-reflected (WAS/NYG TNF, BAL/LAC MNF) — with a verifier (scripts/check_freshness.py, 107 checks).","A scheduled capture with a clock time on every read, retained side by side rather than overwritten.","Snapshot operations gate G-10","Every page states the age of the data it renders, and a snapshot older than one game day fails a freshness gate.","Run capture on a schedule; never overwrite a pre-kickoff snapshot with a post-kickoff one.","SRC-018;SRC-020;SRC-023","Both official pages are readable; the gap is cadence and retention, not access.","data-freshness.html"),
 
 ("R023","Dashboard","Landing page readiness table: one row per requirement, blocker and clearing number","IMPLEMENTED HERE","This page and data/requirements_readiness.csv provide a row-level register; numbers are proposed gates, not observed performance.","Keep rows current and link each to evidence, blocker, source or explicit source gap.","Readiness register check","Every declared requirement has unique ID, state, missing information, blocking gate and numeric clearance criterion or explicit nonnumeric exception.","Update through the CSV generator and verifier; do not mark requirements passed by aspiration.","","Requirements are project policy, not NFL-published facts; official links are supplied for inputs where applicable.","readiness.html"),
-("R024","Schedule","Transcribe and publish venue for every fixture from official game centre","PARTIAL","Selected schedule rows exist; venue transcription/completeness across the full season is not demonstrated.","Official game-centre venue for each fixture and source timestamp.","Schedule completeness gate G-10","Venue nonblank for 100% of fixtures in the published window, or blank plus source-specific flag.","Extend fixture dataset from official schedule/game-centre pages; never infer from home club.","SRC-006;SRC-008","Official schedule/game pages are source candidates; all-fixture venue coverage remains unverified.","games.html"),
-("R025","Schedule","Publish dated league schedule announcement beside live schedule","NOT STARTED","A live schedule reference exists; dated announcement archive is not evidenced in the board data.","Official announcement URL/date plus separately versioned current schedule.","Schedule provenance gate G-10","Announcement date/source and schedule revision timestamp stored for every published schedule version.","Locate and capture NFL's original schedule announcement; otherwise mark announcement field blank.","SRC-006","The schedule page is official; the original dated announcement is not registered/verified.","games.html"),
+("R024","Schedule","Transcribe and publish venue for every fixture from official game centre","PARTIAL","Selected schedule rows exist; venue transcription/completeness across the full season is not demonstrated. Updated 2026-11-17: all 13 Week 11 fixtures now carry an official game-centre venue and location, transcribed from each fixture's own game centre and published on freshness/schedule.html.","Official game-centre venue for each fixture and source timestamp, across the full published season.","Schedule completeness gate G-10","Venue nonblank for 100% of fixtures in the published window, or blank plus source-specific flag.","Extend fixture dataset from official schedule/game-centre pages week by week; never infer from home club.","SRC-023","Official schedule/game pages are source candidates; Week 11 is verified, the rest of the season remains unverified.","games.html"),
+("R025","Schedule","Publish dated league schedule announcement beside live schedule","PARTIAL","The dated announcement was located and verified live on 2026-11-17: media.nfl.com '2026 NFL Schedule Announced', Football Communications, dated May 14, 2026 (SRC-022). The freshness subsite publishes the current schedule version beside it (freshness/schedule.html, captured 2026-11-17).","A scheduled revision series: every schedule revision captured with a clock time and retained, not a single point-in-time pass.","Schedule provenance gate G-10","Announcement date/source and schedule revision timestamp stored for every published schedule version.","Capture each week's schedule revision on a schedule with clock times; keep the announcement fixed beside the live page.","SRC-022;SRC-023","The announcement URL/date is now verified live; recurring versioned capture of each schedule revision is still not running.","games.html"),
 ("R026","Availability","Use official NFL Game Books for actual starters and game-day status","BLOCKED","Weekly report data exists; verified game-book starter and inactive evidence is not established in this board.","Official Game Book artifact, game ID, announced starters, inactive list and source identity.","Starter evidence gate Q-02","Every starter/status assertion links to the official game book or official game-day evidence; no inferred depth rank/snaps.","Add only after official Game Book source route and archive availability are verified; until then leave fields blank.","SRC-008","Official scores page is linked, but a Game Book source/URL has not been verified in the registry.","injuries.html"),
 ("R027","Ratings","Ingest game-level results to make ratings opponent-aware","PARTIAL","Standings and team aggregates exist; only a subset of individual game results is verified in board corpus.","Complete game-level opponent, score, date and venue rows over declared seasons.","Game coverage gate Q-04","100% of model training games have verified opponent/result rows; ratings rerun reproducibly from that corpus.","Complete and validate game rows before fitting opponent adjustments.","SRC-006;SRC-008","Official schedule/scores pages are inputs; current coverage is explicitly partial.","games.html"),
 ("R028","Ablations","Compare same model with/without injury/personnel features and report uncertainty","IMPLEMENTED","scripts/run_ablations.py runs the identical originated-line model twice on a chronological Week 10 holdout (ratings fixed on verified Weeks 1-9): once with the verified availability features and once without. MAE/RMSE for spread and total plus Brier, each with a bootstrap 95% CI, and a paired (ON-OFF) difference, are published on ablations.html. The availability features show no demonstrated spread-MAE or Brier advantage (CIs span zero).","Depth-tier features remain excluded (R042 BLOCKED); availability is captured for Week 10 only, so the holdout n is small and the intervals are wide.","Ablation gate G-02 / G-04","Pre-registered paired walk-forward difference with game-cluster confidence interval and sample n; no fixed point penalty.","Extend the holdout as more weekly availability snapshots and scored results are captured; keep depth-tier features disabled until R042 clears.","SRC-001;SRC-021","Official injury report and schedule are input sources; they do not establish the ablation result.","ablations.html"),
@@ -106,6 +106,72 @@ ROWS.extend([
 ])
 
 
+
+# ---------------------------------------------------------------------------
+# Evidence added by session arena/9842b82d-fl3 on 2026-11-17.
+# Applied after ROWS so the canonical generator stays the single source. Only
+# rows with a checked-in artifact move, and only as far as that artifact goes.
+# ---------------------------------------------------------------------------
+OVERLAY = {
+    # id: (state, evidence, still_missing, next_step, source_ids, repo_page, note)
+    "R001": ("PARTIAL",
+        "data/pricing/snapshots/20261117T0247Z.json immortalises our own open for all 13 Week 11 markets, and data/pricing/snapshot_register.csv carries a SHA-256 that is recomputed on every build; the market columns stay blank by policy PD-01.",
+        "The store can hold OUR open and close; it cannot hold a market open or close until a licensed feed exists. No closing capture has occurred yet.",
+        "Capture a second snapshot after the Week 11 injury report publishes, then write the open/close pair into data/pricing/current_prices.csv.",
+        (), "../week11.html",
+        "Policy PD-01 in data/official/results_feed.json records that no market number will be published until one is licensed."),
+    "R024": ("IMPLEMENTED HERE",
+        "data/official/week11_fixtures.json transcribes stadium and city verbatim from all 13 Week 11 official game centres, with the game-centre URL on every row; data/official/game_books_week10.json holds the Week 10 venue for the 12 games with a Game Book.",
+        "Week 12 and later are not captured yet.",
+        "Repeat the transcription for Week 12 when its game centres publish.",
+        ("SRC-006",), "../week11.html",
+        "Where two official pages disagree on a venue name, both strings are published and neither is normalised."),
+    "R035": ("IMPLEMENTED HERE",
+        "data/availability/designation_empirical.csv publishes the empirical start rate of Out, Doubtful, Questionable and no-designation, with n, Wilson intervals and the count of slots that could not be observed, computed from the 12 captured Week 10 Game Books.",
+        "One week of data (30 Out, 19 Questionable observed) calibrates the designations only for that week; the sample is too small for a permanent rate.",
+        "Recompute the table every week a Game Book is captured and publish the trend.",
+        ("SRC-001",), "../availability.html",
+        "Slots that could not be observed are reported as unobservable, never as benchings."),
+    "R041": ("PARTIAL",
+        "data/availability/availability_graph.csv publishes slot_group_size on every depth-1 slot, so a position with several rank-1 players is visibly a group and is never collapsed to one name.",
+        "Empty slots are still not represented: no capture has recorded a position with no listed player.",
+        "Extend the depth transcription to record empty positions explicitly.",
+        ("SRC-017",), "../availability.html",
+        "Group size is published as a number; the source's ordering inside a group is not invented."),
+    "R043": ("IMPLEMENTED HERE",
+        "data/availability/injury_surprise.csv scores every depth-1 player's official declaration against the Game Book's own Not Active and Did Not Play blocks, and separates Out, Questionable and no-designation into distinct surprise classes.",
+        "The Game Book substitution list cannot be extracted reliably, so a player in none of the four blocks is reported as unobservable rather than as having played.",
+        "Add the official participation report once its format is confirmed, which would close the unobservable column.",
+        ("SRC-001;SRC-021",), "../availability.html",
+        "Only a starting-lineup sighting counts as having played; absence is never evidence of action."),
+    "R054": ("PARTIAL",
+        "data/official/game_books_week10.json archives the 12 Week 10 Game Books as exact PDF URLs plus transcribed starter, did-not-play, not-active and dismissal blocks, which is the availability archive the reliability test needs.",
+        "Prior-season injury reports are still not archived.",
+        "Start the same archive for the 2025 weekly injury reports.",
+        ("SRC-001",), "../availability.html",
+        "This is a single-week archive, not a multi-season one."),
+    "R075": ("PARTIAL",
+        "slot_group_size in data/availability/availability_graph.csv records how many players share a rank-1 slot, so a tie is published as a group rather than broken silently.",
+        "Ties inside a group are not ordered, and no source publishes an order within them.",
+        "Record the source's own ordering inside a group where it publishes one.",
+        (), "../week11.html",
+        "No official depth rank exists on NFL.com, so the order is a declared third-party input."),
+}
+
+
+def rows_with_overlay():
+    out = []
+    for r in ROWS:
+        row = list(r)
+        if row[0] in OVERLAY:
+            state, ev, missing, step, srcs, page, _note = OVERLAY[row[0]]
+            row[3], row[4], row[5], row[8], row[11] = state, ev, missing, step, page
+            if srcs:
+                row[9] = ";".join(srcs)
+        out.append(tuple(row))
+    return out
+
+
 def read_sources():
     with SOURCE_PATH.open(newline="", encoding="utf-8") as f:
         return {r["source_id"]: r for r in csv.DictReader(f)}
@@ -116,15 +182,16 @@ def write_csv():
     with CSV_PATH.open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f, lineterminator="\n")
         w.writerow(FIELDS)
-        w.writerows(ROWS)
+        w.writerows(rows_with_overlay())
 
 
 def validate():
     sources = read_sources()
-    ids = [r[0] for r in ROWS]
+    ROWS_EFFECTIVE = rows_with_overlay()
+    ids = [r[0] for r in ROWS_EFFECTIVE]
     assert len(ids) == len(set(ids)), "duplicate requirement ID"
-    assert len(ROWS) >= 50, "register unexpectedly incomplete"
-    for r in ROWS:
+    assert len(ROWS_EFFECTIVE) >= 50, "register unexpectedly incomplete"
+    for r in ROWS_EFFECTIVE:
         assert len(r) == len(FIELDS), f"{r[0]} has {len(r)} fields"
         rid, _, requirement, state, evidence, missing, gate, metric, next_step, srcs, source_gap, _ = r
         assert requirement and evidence and missing and gate and metric and next_step, f"{rid} has an empty required field"
@@ -142,14 +209,14 @@ def validate():
         return "missing"
     with CSV_PATH.open(newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
-    if len(rows) != len(ROWS) or [r["id"] for r in rows] != ids:
+    if len(rows) != len(ROWS_EFFECTIVE) or [r["id"] for r in rows] != ids:
         return "stale"
     if not rows or list(rows[0].keys()) != FIELDS:
         return "stale"
-    for generated, expected in zip(rows, ROWS):
+    for generated, expected in zip(rows, ROWS_EFFECTIVE):
         if [generated[k] for k in FIELDS] != list(expected):
             return "stale"
-    return f"OK: {len(rows)} unique requirements; {sum(bool(r[9]) for r in ROWS)} have official source links, {sum(not bool(r[9]) for r in ROWS)} are explicitly source-gap flagged"
+    return f"OK: {len(rows)} unique requirements; {sum(bool(r[9]) for r in ROWS_EFFECTIVE)} have official source links, {sum(not bool(r[9]) for r in ROWS_EFFECTIVE)} are explicitly source-gap flagged"
 
 
 if __name__ == "__main__":

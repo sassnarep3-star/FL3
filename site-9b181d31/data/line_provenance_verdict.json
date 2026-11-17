@@ -1,0 +1,24 @@
+{
+ "generated_at_utc": "2026-11-16T01:30Z",
+ "settled_games": 12,
+ "convention_note": "All values are signed home margin: positive = home team wins by that many points. A is published in the repository as home_spread (negative = home favoured) and is inverted here to compare on one axis.",
+ "mae": {
+  "A": 11.625,
+  "B": 8.017,
+  "C": 11.591
+ },
+ "bias": {
+  "A": 7.842,
+  "B": 0.3,
+  "C": 7.409
+ },
+ "naive_home_zero_mae": 13.0,
+ "n_by_series": {
+  "A": 12,
+  "B": 12,
+  "C": 11
+ },
+ "ab_disagreement_mean_abs": 6.721,
+ "rendered_by_live_site": "A",
+ "caveat": "n=12 settled games. This is a provenance check, not a model evaluation: with 12 observations nothing here supports a claim that any series has skill."
+}
