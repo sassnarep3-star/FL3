@@ -1350,3 +1350,42 @@ Checked before claiming: open PR #23 (`arena/fa06d378`, T23 injury capture/diff)
 **Completion record (2026-11-16 UTC):** PR #37 (https://github.com/sassnarep3-star/FL3/pull/37) merged into `main` at `6e60052b4dc51b6ee2e86be3dc931b207abcc129` (2026-11-16T02:43:20Z), no approval waited, after integration verification on the branch. Post-merge workflows all succeeded: "Verify data and site" run `43793871461`, "site" run `43793871430`, "Deploy static site to GitHub Pages" run `43793871503`, "pages build and deployment" run `43793870453`. Live confirm: `https://sassnarep3-star.github.io/FL3/matchups.html?v=deploy-37` fetched after deployment — serves the full 168-row matrix with the "Matchup matrix" nav entry, stats (102 both-evidenced / 66 n/a / 25 confirmed promotions / 8 marker conflicts) and the source links. Merged-tree verifiers: `check_site.py` 3,064 assertions ALL PASSED; `check_links.py` 29 pages PASS; `verify.py` G-10 PASS (non-blocking V-09b/FLG-025); `build_readiness.py --check` OK (75 requirements, R036=PARTIAL).
 
 **Conflicts resolved during rebase onto `main@cc8793a` (nothing from other sessions discarded):** `COORDINATION.md` (kept both sides: main's session sections + this claim); `scripts/build_readiness.py` (kept this session's R036=PARTIAL and main's newer R037 wording); `scripts/check_site.py` (kept main's generalised local-link walker — it already covers `depth/` — dropped this session's narrower special case); `scripts/build_board.py` (kept both new PAGES entries: `official-capture` + `matchups`); every generated root/board page resolved by regenerating from the merged sources, then all verifiers re-run green.
+
+# Session `arena/816adbe6-fl3` — closeout record (2026-11-17 UTC)
+
+Branch `arena/816adbe6-fl3`, base `main@0e51cf846dd1b698261ebbb67cffc0df6576cac7`. Sole session; performed final verification and closeout. No dataset or page content changed except one documentation correction.
+
+## Scope
+- Final verification of the merged tree: every verifier suite re-run green.
+- Executive summary corrected to cite the current assertion count.
+- Pull request opened and merged; GitHub Pages redeploy confirmed.
+
+## Files changed
+- `docs/EXECUTIVE_SUMMARY.md` — assertion count updated 1124 → 3064 in two places (root site + board, depth, verified and verify subsites). No data, generator, or page content changed.
+
+## Verification (all green on the branch, then on merged `main`)
+- `scripts/check_site.py`: 3064 assertions, ALL CHECKS PASSED
+- `scripts/check_links.py`: 29 pages, PASS, no orphan pages
+- `scripts/verify_depth.py`: 16 checks, 0 warnings, 0 failures
+- `scripts/check_verified_site.py`: 605 assertions, ALL CHECKS PASSED
+- `scripts/build_board.py`: GATE G-10 PASS, 75 requirements (53 with official source links, 22 explicit source-gap flags)
+
+## Published data cross-checked against live official sources
+- Week 10 results feed (`data/week_results_2026.csv`, 12 settled games) matches `https://www.nfl.com/schedules/2026/by-week/week-10` exactly, including WAS 24–21 NYG, NE 10–35 DET (Munich), KC 35–13 ATL, HOU 24–27 CLE, MIN 30–10 GB, MIA 22–24 IND, CAR 20–17 NO, BUF 31–12 NYJ, JAX 40–23 TEN, LA 34–6 AZ, SEA 21–13 LV, SF 46–40 DAL. PIT@CIN (18–38) and LAC@BAL (live Q2 at capture) were not yet final at capture time and are correctly absent rather than inferred — point-in-time staleness is documented on the site, not silently corrected.
+
+## Live site
+- GitHub Pages: `build_type: legacy`, source `main:/`, status `built`, URL https://sassnarep3-star.github.io/FL3/
+- Landing page + category subpages: standings, lines, injuries, matchups, strategies, correlation, decisions, suggestions, flagged, sources, methodology, plus board/, verified/, verify/, depth/, docs/, legacy/ subsites.
+
+## PR / merge / deploy record
+| Item | Result |
+|---|---|
+| Pull request | [#39 — FL3 session closeout: final verification and live site](https://github.com/sassnarep3-star/FL3/pull/39) |
+| Merge | **MERGED** into `main` as `81a1c74473830009693dd4d154b34855b101e88b`, no `--auto`, no review waited for per brief |
+| Post-merge checks | `Verify data and site`, `site`, `Deploy static site to GitHub Pages` all succeeded |
+| Pages status | GitHub Pages API `status: built`, legacy source `main:/`, URL https://sassnarep3-star.github.io/FL3/ |
+
+## Open irregularities (do not block; published on Flagged for Review)
+- **F07** (market data): no official or licensed NFL odds/line feed exists, so market comparison, closing-line value, vig-free consensus, and residual-vs-market are unmeasurable; the top two reward tiers and any price-driven strategy remain blocked by design. No value is inferred or copied from an unofficial source.
+- **F01/F02/F05/F06** and related flags remain as recorded; the snapshot is a point-in-time 2026-11-14 capture and is flagged as stale versus today (2026-11-16, Week 10 complete).
+- No backtest or leaderboard results are published: the leaderboard is live and empty by design, zero strategies have graded results.
