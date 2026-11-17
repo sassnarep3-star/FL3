@@ -19,6 +19,7 @@ import csv
 import html
 import json
 import os
+import re
 from datetime import datetime, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -1007,6 +1008,71 @@ def _pctf(v, dp=1):
     return f"{float(v) * 100:.{dp}f}%"
 
 
+def _mini_md(md):
+    """A tiny markdown renderer: headings, tables, lists, code fences, bold, links.
+
+    Deliberately minimal — it exists so prose can live in a .md file under content/ instead of
+    inside a Python string, without pulling a dependency into a stdlib-only build.
+    """
+    out, lines, i = [], md.split("\n"), 0
+    in_code = False
+    while i < len(lines):
+        ln = lines[i]
+        if ln.startswith("```"):
+            if in_code:
+                out.append("</code></pre>")
+                in_code = False
+            else:
+                out.append('<pre><code>')
+                in_code = True
+            i += 1
+            continue
+        if in_code:
+            out.append(html.escape(ln))
+            i += 1
+            continue
+        if ln.startswith("|") and i + 1 < len(lines) and set(lines[i + 1].replace("|", "").strip()) <= set("-: "):
+            head = [_inline(c.strip()) for c in ln.strip().strip("|").split("|")]
+            i += 2
+            rows = []
+            while i < len(lines) and lines[i].startswith("|"):
+                rows.append([_inline(c.strip()) for c in lines[i].strip().strip("|").split("|")])
+                i += 1
+            out.append(table(head, rows, "wide"))
+            continue
+        if ln.startswith("#"):
+            lvl = len(ln) - len(ln.lstrip("#"))
+            out.append(f"<h{min(lvl + 1, 4)}>{_inline(ln[lvl:].strip())}</h{min(lvl + 1, 4)}>")
+        elif ln.startswith("- "):
+            items = []
+            while i < len(lines) and lines[i].startswith("- "):
+                items.append(f"<li>{_inline(lines[i][2:].strip())}</li>")
+                i += 1
+            out.append("<ul>" + "".join(items) + "</ul>")
+            continue
+        elif ln.strip():
+            # a paragraph runs until a blank line, a heading, a table, a list or a fence
+            para = []
+            while i < len(lines) and lines[i].strip() and not (
+                    lines[i].startswith(("#", "- ", "|", "```"))):
+                para.append(lines[i].strip())
+                i += 1
+            out.append(f"<p>{_inline(' '.join(para))}</p>")
+            continue
+        i += 1
+    return "\n".join(out)
+
+
+def _inline(t):
+    t = e(t)
+    t = re.sub(r"`([^`]+)`", lambda m: f"<code>{m.group(1)}</code>", t)
+    t = re.sub(r"\*\*([^*]+)\*\*", lambda m: f"<b>{m.group(1)}</b>", t)
+    t = re.sub(r"\[([^\]]+)\]\((https?://[^)]+)\)",
+               lambda m: f'<a class="src" href="{m.group(2)}" target="_blank" rel="noopener">{m.group(1)}</a>', t)
+    t = re.sub(r"\[([^\]]+)\]\(([^)]+\.html)\)", lambda m: f'<a href="{m.group(2)}">{m.group(1)}</a>', t)
+    return t
+
+
 def build_compare():
     ev = _cmp_json("evaluation.json")
     meta = ev["meta"]
@@ -1141,6 +1207,17 @@ def build_compare():
             badge("matches", "ok") if ok else badge("MISMATCH", "bad"),
         ])
 
+    # ---- Week 11 venues (narrow, sourced) ----
+    venue_rows = []
+    for v in _cmp_csv("week11_venues.csv"):
+        venue_rows.append([
+            f'<a class="src" href="{e(v["game_centre_url"])}" target="_blank" rel="noopener"><b>{e(v["fixture"])}</b></a>',
+            e(v["date"]), e(v["kickoff_et"]), e(v["location_as_published"]),
+            e(v["stadium_as_published"]),
+            badge("official routes disagree", "bad") if v["conflict"] == "YES" else badge("agrees", "ok"),
+            e(v["note"]),
+        ])
+
     # ---- questions ----
     q_rows = [[f"<b>{e(q['id'])}</b>", e(q["theme"]), e(q["question"]), e(q["what_we_know"]),
                e(q["what_we_do_not_know"]), e(q["blocks"]), e(q["would_clear_it"]),
@@ -1163,6 +1240,8 @@ def build_compare():
      <b>Evidence in repo.</b> {e(s_['repo_evidence'])}</p>
 </div>""")
 
+    review_path = os.path.join(ROOT, "content", "compare", "review.md")
+    review_html = _mini_md(open(review_path, encoding="utf-8").read()) if os.path.exists(review_path) else ""
     body = f"""
 <section class="hero">
   <h1>Compare the origination strategies</h1>
@@ -1249,6 +1328,14 @@ available — so nothing here uses Week 11 availability.</p>
         "S2 side", "S2 total", "S2 P(home)", "S1 side", "S1 total", "S1 P(home)",
         "S3 side", "S3 total", "S3 P(home)", "S4 side", "S4 total", "S4 P(home)",
         "Market spread", "Market total"], slate_rows, "wide")}
+<h3>Venue, read from the official game centre</h3>
+<p class="lede">Read on 2026-11-17 from the Game Info block of each fixture's official game-centre
+page. Two fixtures were captured, on purpose: one where the two official routes agree and one where
+they do not. The disagreement is published, not resolved.</p>
+{table(["Fixture", "Date", "Kickoff ET", "Location (as published)", "Stadium (as published)",
+        "Conflict", "Note"], venue_rows, "wide")}
+<p class="fine">The rest of the Week 11 slate has <b>no venue row</b> rather than a guessed one. The
+0.5-point home-field term used above does not read a venue name.</p>
 <p class="fine">Date links to the official NFL.com fixture page. Sign convention: the side column is
 the home club's expected margin, positive meaning the home club is favoured. Every number is model
 output, not a league fact and not a bet.</p>
@@ -1287,7 +1374,9 @@ anything is implemented. Each entry carries its alternatives, a recommendation, 
 and the evidence in the repo that supports it. Nothing here has been applied.</p>
 {''.join(s_cards)}
 
-<h2>11. Reproduce and re-score it</h2>
+<h2>11. This session's review of the repository</h2>
+{review_html}
+<h2>12. Reproduce and re-score it</h2>
 <pre><code>python3 scripts/build_compare.py            # rebuild the lab
 python3 scripts/build_compare.py --check    # fail if the committed output is stale
 python3 scripts/build_crosscheck.py         # reconcile every game count in the repo
