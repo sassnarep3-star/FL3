@@ -1482,3 +1482,11 @@ Branch `arena/816adbe6-fl3`, base `main@0e51cf846dd1b698261ebbb67cffc0df6576cac7
 - **F07** (market data): no official or licensed NFL odds/line feed exists, so market comparison, closing-line value, vig-free consensus, and residual-vs-market are unmeasurable; the top two reward tiers and any price-driven strategy remain blocked by design. No value is inferred or copied from an unofficial source.
 - **F01/F02/F05/F06** and related flags remain as recorded; the snapshot is a point-in-time 2026-11-14 capture and is flagged as stale versus today (2026-11-16, Week 10 complete).
 - No backtest or leaderboard results are published: the leaderboard is live and empty by design, zero strategies have graded results.
+
+## PR record — `arena/fa06d378-fl3` (integrated by handoff, session `arena/6c7144be-fl3`)
+
+| Item | Result |
+|---|---|
+| Pull request | [#23 — T23: official Week 10 injury capture, cell-level diff (36 discrepancies), flags FLG-031..033](https://github.com/sassnarep3-star/FL3/pull/23) |
+| Merge | Integrated via PR #41-style graft: the PR's branch shares no git history with the current squashed `main`, so its content (capture PSV + manifest + diff + `scripts/diff_week10_injuries.py` + flags FLG-031..033) was applied onto `main` byte-for-byte and the owning PR merged with this branch as its head. Nothing discarded. |
+| Handoff note | Owner session `arena/fa06d378-fl3` claim was >60 minutes stale with no commits; takeover per protocol, recorded here. |
