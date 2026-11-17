@@ -1292,9 +1292,10 @@ Compare with what it actually won. The difference is luck. It is published and i
 on.</p>
 {table(["Strategy", "n", "Expected wins (own probabilities)", "Won", "Luck", "Expected rate",
         "Actual rate"], luck_rows)}
-<p class="fine">S1, S2 and S4 win on the outright side (the higher of the two win probabilities).
-S3's <code>n</code> is smaller because the least-squares rating needs a connected game graph and is
-blank in week 2.</p>
+<p class="fine">A positive luck figure means the strategy won more games than its own probabilities said it
+should; a negative one means it won fewer. On identical rows the spread between the four is
+about 9.5 wins, which is larger than any of the differences the comparison table is arguing
+about — which is the clearest argument for not ranking on wins.</p>
 
 <h2>4. Does it hold in both halves of the window?</h2>
 <p class="lede">A strategy whose edge exists only when clubs are unfamiliar has not been shown to

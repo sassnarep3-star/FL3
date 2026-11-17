@@ -47,7 +47,7 @@ standard error; the verdict column compares it with the Bonferroni critical valu
 2.87.</p>
 <div class="tablewrap"><table class="wide"><thead><tr><th>ID</th><th>Strategy</th><th>n</th><th>Spread MAE</th><th>MAE 95% (game-cluster)</th><th>RMSE</th><th>Bias</th><th>Dispersion</th><th>Direction %</th><th>Total MAE</th><th>Brier</th><th>Brier skill vs coin</th><th>z vs pick'em</th><th>Verdict</th></tr></thead><tbody><tr><td><b>S1</b></td><td>Net points per game</td><td>132</td><td>10.16</td><td>8.6761 … 11.6441</td><td>13.33</td><td>0.68</td><td>0.51</td><td>62.1%</td><td>11.56</td><td>0.2351</td><td>5.9%</td><td>-1.08</td><td><span class="badge warn">not established</span></td></tr><tr><td><b>S2</b></td><td>Offence meets defence</td><td>132</td><td>10.03</td><td>8.6542 … 11.4374</td><td>12.95</td><td>0.88</td><td>0.26</td><td>60.6%</td><td>11.55</td><td>0.2343</td><td>6.3%</td><td>-2.43</td><td><span class="badge warn">not established</span></td></tr><tr><td><b>S3</b></td><td>Opponent-aware least squares</td><td>132</td><td>10.38</td><td>8.9199 … 11.8905</td><td>13.63</td><td>0.82</td><td>0.58</td><td>62.1%</td><td>11.56</td><td>0.2310</td><td>7.6%</td><td>-0.52</td><td><span class="badge warn">not established</span></td></tr><tr><td><b>S4</b></td><td>Pythagorean, luck-stripped</td><td>132</td><td>10.05</td><td>8.6247 … 11.4817</td><td>13.11</td><td>0.62</td><td>0.43</td><td>63.6%</td><td>11.56</td><td>0.2337</td><td>6.5%</td><td>-1.51</td><td><span class="badge warn">not established</span></td></tr><tr><td><b>C1</b></td><td>Coin flip</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>0.2500</td><td>0.0%</td><td>—</td><td><span class="badge auto">control</span></td></tr><tr><td><b>C2</b></td><td>Home always wins</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>0.5455</td><td>-118.2%</td><td>—</td><td><span class="badge auto">control</span></td></tr><tr><td><b>C3</b></td><td>Pick&#x27;em margin</td><td>132</td><td>10.66</td><td>9.3030 … 12.0530</td><td>13.38</td><td>0.83</td><td>0.00</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="badge auto">control</span></td></tr><tr><td><b>C4</b></td><td>Trailing league mean total</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>11.36</td><td>—</td><td>—</td><td>—</td><td><span class="badge auto">control</span></td></tr></tbody></table></div>
 <p class="fine">Intervals: 4000 game-cluster resamples, seed 20261117. A resample draws whole games, so both clubs in a
-game move together. no licensed price is held, so ROI and CLV are not computed and not implied.</p>
+game move together. No licensed price is held, so ROI and CLV are not computed and not implied..</p>
 
 <h2>2. Is the probability honest? (calibration)</h2>
 <p class="lede">A strategy can have a good Brier score and still be lying about its confidence. Here
@@ -61,9 +61,10 @@ how many games a perfectly calibrated version of <em>this same model</em> would 
 Compare with what it actually won. The difference is luck. It is published and it is never ranked
 on.</p>
 <div class="tablewrap"><table class=""><thead><tr><th>Strategy</th><th>n</th><th>Expected wins (own probabilities)</th><th>Won</th><th>Luck</th><th>Expected rate</th><th>Actual rate</th></tr></thead><tbody><tr><td><b>S1</b></td><td>132</td><td>86.3</td><td>83</td><td><b>-3.3</b></td><td>65.4%</td><td>62.9%</td></tr><tr><td><b>S2</b></td><td>132</td><td>76.7</td><td>81</td><td><b>4.3</b></td><td>58.1%</td><td>61.4%</td></tr><tr><td><b>S3</b></td><td>132</td><td>88.2</td><td>83</td><td><b>-5.2</b></td><td>66.8%</td><td>62.9%</td></tr><tr><td><b>S4</b></td><td>132</td><td>83.5</td><td>85</td><td><b>1.5</b></td><td>63.3%</td><td>64.4%</td></tr></tbody></table></div>
-<p class="fine">S1, S2 and S4 win on the outright side (the higher of the two win probabilities).
-S3's <code>n</code> is smaller because the least-squares rating needs a connected game graph and is
-blank in week 2.</p>
+<p class="fine">A positive luck figure means the strategy won more games than its own probabilities said it
+should; a negative one means it won fewer. On identical rows the spread between the four is
+about 9.5 wins, which is larger than any of the differences the comparison table is arguing
+about — which is the clearest argument for not ranking on wins.</p>
 
 <h2>4. Does it hold in both halves of the window?</h2>
 <p class="lede">A strategy whose edge exists only when clubs are unfamiliar has not been shown to
