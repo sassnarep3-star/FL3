@@ -2302,3 +2302,29 @@ All claimed tasks done. Merge record follows in the PR table.
 | Designation calibration | Questionable → started 16/19 observed (84 %, 95 % CI 62–95 %); Out → started 0/30 |
 
 **One thing to re-check next session.** The Week 10 `LAC@BAL` game was in the second quarter at capture and is excluded from all 149 games, all ratings and every score. When it is final, `data/official/results_feed.json` is the single place to record the correction: add the row there, re-run `scripts/build_frontier_data.py` (it fails the build if the corpus stops reconciling to the standings), then re-run the ablation and leaderboard. Do not hand-edit `data/official/results_feed.csv`.
+
+### CI note — `Deploy static site to GitHub Pages` run `44010185187` (2026-11-17T03:26Z, `main@03f7868`)
+
+The `validate` job's **"Verify the root site"** step failed on that push, after Pages itself had already
+rebuilt successfully (`pages build and deployment` success, Pages API `status: built`).
+
+**It is not reproducible.** The identical command, on the identical commit, in a fresh
+`git clone --depth 1` of `main@03f7868` with no working-tree artifacts, passes:
+
+```
+python3 scripts/check_site.py  ->  ran 6154 assertions  ALL CHECKS PASSED  (rc=0)
+python3 scripts/verify_live.py --check  ->  rc=0
+```
+
+The run log could not be retrieved (`results-receiver.actions.githubusercontent.com` returned
+`EOF`), so the exact assertion that tripped is unknown. Two things were ruled out: the commit is not
+the cause (verified on a clean clone), and the site is not broken (Pages rebuilt and the live pages serve
+correctly, `check_links` PASS). A `workflow_dispatch` re-run was refused with HTTP 403 — the sandbox's
+GitHub integration cannot dispatch workflows — so the next ordinary push to `main` will re-run the job
+and settle it.
+
+**If this failure repeats with a reproducible assertion, treat it as real and fix the data.** The most
+likely candidates given this session's changes are a count that drifted in a generated page (two were
+already caught and asserted this session: Week 10 "twelve" vs "thirteen", and the Week 11 bye
+arithmetic) or an assertion whose threshold assumes a page that another session has since extended.
+Do not "fix" it by loosening an assertion without first reading which number it disagreed with.
