@@ -1,0 +1,9 @@
+strategy,kind,label,n_margin,margin_mae,margin_mae_ci,margin_rmse,margin_bias,margin_dispersion,dir_acc,n_total,total_mae,total_mae_ci,total_rmse,total_bias,n_win,brier,brier_ci,logloss,brier_skill_vs_coin,dataset
+S1,strategy,Net points per game,132,10.1611,8.6761 .. 11.6441,13.3329,0.6813,0.5134,0.6212,132,11.5581,10.1707 .. 13.0159,14.2121,0.6619,132,0.2351,0.2062 .. 0.2642,0.6620,0.0595,retrospective
+S2,strategy,Offence meets defence,132,10.0333,8.6542 .. 11.4374,12.9452,0.8783,0.2575,0.6061,132,11.5472,10.1301 .. 13.0371,14.3206,0.6634,132,0.2343,0.2186 .. 0.2501,0.6607,0.0628,retrospective
+S3,strategy,Opponent-aware least squares,132,10.3754,8.9199 .. 11.8905,13.6322,0.8191,0.5791,0.6212,132,11.5581,10.1707 .. 13.0159,14.2121,0.6619,132,0.2310,0.2004 .. 0.2634,0.6563,0.0759,retrospective
+S4,strategy,"Pythagorean, luck-stripped",132,10.0473,8.6247 .. 11.4817,13.1130,0.6199,0.4350,0.6364,132,11.5606,10.1861 .. 13.0359,14.2383,0.9115,132,0.2337,0.2089 .. 0.2589,0.6582,0.0654,retrospective
+C1,control,Coin flip,,,,,,,,,,,,,132,0.2500,0.2500 .. 0.2500,0.6931,0.0000,retrospective
+C2,control,Home always wins,,,,,,,,,,,,,132,0.5455,0.4621 .. 0.6288,7.5357,-1.1818,retrospective
+C3,control,Pick'em margin,132,10.6591,9.3030 .. 12.0530,13.3828,0.8258,0.0000,,,,,,,,,,,,retrospective
+C4,control,Trailing league mean total,,,,,,,,132,11.3643,9.9863 .. 12.7667,13.9704,0.6677,,,,,,retrospective

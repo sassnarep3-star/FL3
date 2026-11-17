@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Executive summary · FL3 NFL Decision System</title>
+<meta name="description" content="Verified NFL data, originated lines, strategy gates and open decisions. Every value links to an official source.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="brand"><span class="mark">FL3</span><span class="sub">NFL Decision System</span></div>
+  <nav><a href="index.html">Dashboard</a><a href="standings.html">Standings</a><a href="lines.html">Our Lines</a><a href="injuries.html">Injuries</a><a href="matchups.html">Matchup matrix</a><a href="data-snapshots.html">Data snapshots</a><a href="strategies.html">Strategies</a><a href="correlation.html">Correlation</a><a href="decisions.html">Decisions</a><a href="suggestions.html">Suggestions</a><a href="flagged.html">Flagged for Review</a><a href="sources.html">Sources</a><a href="compare.html">Compare strategies</a><a href="executive-summary.html" class="on">Executive summary</a><a href="methodology.html">Methodology</a><a href="board/readiness.html">Requirement readiness</a><a href="verified/index.html">Verified results &amp; scoring</a><a href="verify/index.html">Verification</a></nav>
+</header>
+<main id="main">
+
+<section class="hero">
+  <h1>Executive summary</h1>
+  <p class="lede">One page: what this project can now say, what it cannot, and the smallest set of
+  decisions that would change that. Written 2026-11-17 against the 2026 regular season through
+  Week 10, plus the published Week 11 schedule.</p>
+</section>
+
+<div class="note"><strong>The one-paragraph version.</strong> The repository can now originate a
+line four different ways on the same clock and score all four against the same controls, on
+148 verified games that reconcile to the league's own standings for all 32 clubs. Every
+strategy beats a coin flip on the win-probability score and three of four beat a pick'em on spread
+error, but <b>not one of them survives the multiple-comparison threshold (0 of
+4 cleared)</b>, the totals are worse than a control that ignores the teams
+entirely, and the model's opinions are still only a quarter to a half as wide as reality. So the
+honest position is: the machinery works, the signal is unproven, and no price exists to turn a
+probability into money. Everything below is the detail behind that paragraph.</p>
+</div>
+
+<h2>1. What is established</h2>
+<ul>
+  <li><b>A verified results corpus.</b> 148 games through Week 10, identity-checked
+  against the official standings: wins, losses, ties, points for and points against match for all 32
+  clubs, and the league total balances at 6,824 points each way. Source:
+  <a href="https://www.nfl.com/standings/league/2026/reg" target="_blank" rel="noopener">nfl.com
+  league standings</a> and the per-week schedule pages.</li>
+  <li><b>A leakage-free harness.</b> Every forecast for week <em>w</em> is built only from weeks
+  before <em>w</em>. The code enforces it structurally, not by discipline: the week's results are
+  added to the model's state only after that week's forecasts are produced.</li>
+  <li><b>Four genuinely different origination strategies</b> plus four controls, scored on proper
+  scores and on pricing error, with game-cluster intervals and a published multiplicity adjustment
+  over 12 comparisons (α = 0.0042).</li>
+  <li><b>The best spread error in this repo so far</b> is 10.03 points MAE
+  (S2) against 10.66 for a pick'em control — a gain of
+  0.63 points, with an interval that overlaps zero.</li>
+  <li><b>Measured correlations with n</b>, published as numbers rather than assumptions, because
+  that is the only way a parlay gate can be honest.</li>
+  <li><b>A prospective Week 11 slate</b> frozen before kickoff, with the market columns blank.</li>
+</ul>
+
+<h2>2. What is not established — and will not be claimed</h2>
+<ul>
+  <li><b>Skill.</b> The best strategy's paired gain against pick'em is z =
+  -2.43;
+  the threshold for 12 comparisons is 2.87.
+  Nothing is ranked as skilful anywhere on this site.</li>
+  <li><b>Totals.</b> The best strategy's total error is 11.55 against
+  11.36 for a trailing-league-mean control, and the model's predicted total correlates with
+  the actual total at r = 0.02.
+  The model cannot price a total.</li>
+  <li><b>Any money metric.</b> There is no licensed price in the repo, so ROI, CLV and edge are not
+  computed, not estimated and not implied. The staking column of every leaderboard is deliberately
+  empty.</li>
+  <li><b>Depth and availability.</b> No official source publishes a depth ordinal, so "second
+  string" cannot be established. The repo says so rather than inferring it.</li>
+  <li><b>A complete point-in-time record.</b> The scheduled availability capture has never completed
+  a successful run, so no pre-kickoff series exists for any week.</li>
+</ul>
+
+<h2>3. The five things that actually block the project</h2>
+<div class="tablewrap"><table class="wide"><thead><tr><th>#</th><th>Blocker</th><th>Why it blocks</th><th>What clears it</th><th>Where it is answered</th></tr></thead><tbody><tr><td>1</td><td>No licensed price</td><td>Every money claim, every reward tier, every parlay gate</td><td>One written price-data policy plus a retained open/close feed</td><td>QO-01 / <a href="compare.html">compare</a></td></tr><tr><td>2</td><td>Sample too small for the effect size</td><td>Ranking strategies on 132 games ranks noise</td><td>≈700–900 walk-forward games, i.e. multiple seasons, or a much larger effect</td><td>QO-02, QO-13</td></tr><tr><td>3</td><td>Under-dispersed model</td><td>A timid model agrees with the market everywhere and never has a tip worth the vig</td><td>Re-fit the shrinkage on a walk-forward proper-score objective; publish the dispersion column</td><td>QO-04</td></tr><tr><td>4</td><td>No working availability capture</td><td>Availability features, depth deficiency and any pre-kickoff claim are untestable</td><td>Repair and prove one clean week of scheduled captures with hashes</td><td>QO-06 / SC-04</td></tr><tr><td>5</td><td>No official depth ordinal</td><td>The backup-deficiency feature the brief asks for cannot be sourced honestly</td><td>A per-club verified chart route for 32 clubs, or an official snap-count source</td><td>QO-09 / R042</td></tr></tbody></table></div>
+
+<h2>4. What was done in this session</h2>
+<ul>
+  <li><b>Built the comparison lab</b> (<code>scripts/build_compare.py</code>): four strategies, four
+  controls, walk-forward, coupled-cluster bootstrap, Bonferroni ledger, calibration, luck panel,
+  regime split, three-way total comparison, and a published per-game ledger.</li>
+  <li><b>Published two new pages</b>: this summary and <a href="compare.html">Compare strategies</a>,
+  with 15 decision questions and 10 suggestions, each carrying selectable paths and a
+  recommendation, so a path can be chosen before anything is implemented.</li>
+  <li><b>Ran no new capture</b> and asserted nothing new about the league. The Week 11 official
+  injury report is not published yet; the Week 11 schedule was re-read and is used only for the
+  prospective slate.</li>
+  <li><b>Changed no existing dataset.</b> The 148-game corpus, the standings snapshot and the
+  Week 10 captures are inputs here, read-only. Where this lab's numbers differ from an older page,
+  both are published and the difference is on the Flagged for Review page.</li>
+</ul>
+
+<h2>5. The arithmetic of "how much longer"</h2>
+<p>The intervals on this page are about 2.5–3.0 points of MAE wide on 148 games. The
+strategies differ from each other by less than 0.6 points and from the pick'em control by less than
+1.0. For a paired difference to clear even an unadjusted 95% threshold at the observed effect size,
+the sample has to grow roughly by the square of the ratio of the two — a factor of about five to
+seven, i.e. <b>700–900 games</b>, or three seasons. For the Bonferroni-adjusted threshold used here,
+more. No amount of cleverness on 148 games substitutes for that, which is why the brief's own
+insistence on pre-registration and honest intervals is the right call.</p>
+
+<h2>6. Read next</h2>
+<table>
+  <thead><tr><th>Page</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td><a href="compare.html">Compare strategies</a></td><td>the full lab: comparison, calibration, luck, regimes, totals, correlations, Week 11 slate, questions and suggestions</td></tr>
+    <tr><td><a href="board/readiness.html">Requirement readiness</a></td><td>one row per requirement in the brief, with its blocking gate and clearing number</td></tr>
+    <tr><td><a href="flagged.html">Flagged for Review</a></td><td>every irregularity, with its official source link, published rather than smoothed</td></tr>
+    <tr><td><a href="verified/index.html">Verified results &amp; scoring</a></td><td>the independent results dashboard and its out-of-sample evaluation</td></tr>
+    <tr><td><a href="methodology.html">Methodology</a></td><td>how a value gets on this site at all</td></tr>
+  </tbody>
+</table>
+
+</main>
+<footer>
+  <p><strong>Snapshot 2026-11-14.</strong> NFL data © the National Football League, quoted from nfl.com
+  with links on every row. This site publishes our own model output, not betting advice, and not a
+  sportsbook quote. Values that could not be confirmed against an official source are blank and
+  listed on <a href="flagged.html">Flagged for Review</a>.</p>
+</footer>
+</body>
+</html>
