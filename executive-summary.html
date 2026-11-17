@@ -84,9 +84,18 @@ probability into money. Everything below is the detail behind that paragraph.</p
   <li><b>Published two new pages</b>: this summary and <a href="compare.html">Compare strategies</a>,
   with 15 decision questions and 10 suggestions, each carrying selectable paths and a
   recommendation, so a path can be chosen before anything is implemented.</li>
-  <li><b>Ran no new capture</b> and asserted nothing new about the league. The Week 11 official
-  injury report is not published yet; the Week 11 schedule was re-read and is used only for the
-  prospective slate.</li>
+  <li><b>Checked whether the availability capture works, and found a defect in the alarm rather
+  than in the data.</b> The scheduled capture's only run (2026-11-16T22:54Z) failed with exit
+  code 2. The cause was that the Week 11 injury route still renders the final Week 10 tables
+  before the league publishes the week's report, and the drift check treated that as corruption.
+  The check now classifies <em>not published yet</em> separately from <em>drift</em>, records it
+  as a dated line in <code>snapshots/index.csv</code>, stores no body, and is unit-tested on
+  synthetic pages in the workflow. A page that serves a <em>later</em> week than requested is
+  still treated as drift and still fails the build.</li>
+  <li><b>Asserted nothing new about the league.</b> The Week 11 official injury report is not
+  published yet, so no Week 11 availability is used anywhere; the Week 11 schedule was re-read from
+  the official page and is used only for the prospective slate. The fixture page for IND-HOU was
+  also read for its venue, which is outside the lab's scope and is not used as a model input.</li>
   <li><b>Changed no existing dataset.</b> The 148-game corpus, the standings snapshot and the
   Week 10 captures are inputs here, read-only. Where this lab's numbers differ from an older page,
   both are published and the difference is on the Flagged for Review page.</li>

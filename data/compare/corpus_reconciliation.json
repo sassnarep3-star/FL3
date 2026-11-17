@@ -1,0 +1,81 @@
+{
+ "title": "Corpus reconciliation \u2014 how every game count in this repository relates",
+ "source": {
+  "per_week_schedules": "https://www.nfl.com/schedules/2026/by-week/week-{w}",
+  "standings": "https://www.nfl.com/standings/league/2026/reg",
+  "read_utc": "2026-11-16T01:35Z (corpus transcription)"
+ },
+ "chain": [
+  {
+   "step": "weeks 1-9 only",
+   "games": 136,
+   "points": 6246,
+   "matches": "the brief's '136-game log'",
+   "standings_identity": null
+  },
+  {
+   "step": "+ the Thursday Week 10 final (WAS 24-21 NYG)",
+   "games": 1,
+   "points": 45,
+   "matches": "the game flag F01 records the official DIVISION standings route as still missing at its capture time. The league-standings route that data/standings_2026.csv was read from does include it, which is why that snapshot reconciles at 137 and not 136",
+   "standings_identity": null
+  },
+  {
+   "step": "= corpus through Week 9's schedule plus that game (137)",
+   "games": 137,
+   "points": 6291,
+   "matches": "data/standings_2026.csv, the board's snapshot (137 games, 6,291 points)",
+   "standings_identity": "holds"
+  },
+  {
+   "step": "+ the other 11 Week 10 finals",
+   "games": 11,
+   "points": 533,
+   "matches": "the games still shown as KICKOFF in the earlier capture",
+   "standings_identity": null
+  },
+  {
+   "step": "= full corpus (148)",
+   "games": 148,
+   "points": 6824,
+   "matches": "data/standings_2026_wk10_verified.csv (148 games, 6,824 points)",
+   "standings_identity": "holds"
+  }
+ ],
+ "identities": {
+  "points_balance_148": true,
+  "wins_equal_losses_148": true,
+  "clubs_148": 32,
+  "delta_137_to_148_games": 11,
+  "delta_137_to_148_points": 533,
+  "delta_matches_added_games": true,
+  "identity_failures_148": [],
+  "identity_failures_137": []
+ },
+ "week10": {
+  "fixtures_final_in_lab_corpus": 12,
+  "fixtures_final_in_captureA": 12,
+  "agree_A_vs_B": 12,
+  "agree_all_three": 12,
+  "only_in_A": [],
+  "only_in_B": [],
+  "capture_A": {
+   "file": "data/captures_week10_results.csv",
+   "session": "ab62a598",
+   "captured_utc": "2026-11-16T01:30Z",
+   "source": "https://www.nfl.com/schedules/2026/by-week/week-10"
+  },
+  "capture_B": {
+   "file": "data/week_results_2026.csv (week 10 rows)",
+   "session": "03e651e0",
+   "captured_utc": "2026-11-16T01:35Z",
+   "source": "https://www.nfl.com/schedules/2026/by-week/week-10"
+  },
+  "reading": "The earlier capture records 12 finals and 2 games still at KICKOFF; the later corpus contains those same 12. The two independent transcriptions agree on every score. Neither is a correction of the other - they are the same fact at two clock times, and both are kept."
+ },
+ "other_counts": {
+  "33": "data/games_2026.csv, the board's own result rows (24.1% of the corpus) - kept as is, reported as partial on the board's results page",
+  "137": "the board's standings snapshot: 136 games through Week 9 plus the Thursday Week 10 final, 6,291 points. Flag F01 records that the official DIVISION standings route still omitted that game when it was read, so the two official standings routes disagreed with each other on 2026-11-14. This reconciliation uses the league route, which had it.",
+  "254 / 279": "reported injury-report row counts from an earlier read; the current official capture has 347 rows across 14 game sections (FLG-030)"
+ }
+}

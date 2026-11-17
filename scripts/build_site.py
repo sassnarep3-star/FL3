@@ -1120,6 +1120,27 @@ def build_compare():
             '<span class="unverified">blank</span>' if not r.get("market_total") else e(r["market_total"]),
         ])
 
+    # ---- corpus reconciliation ----
+    x = _cmp_json("corpus_reconciliation.json")
+    recon_rows = []
+    for step in x["chain"]:
+        ident = step.get("standings_identity") or "—"
+        recon_rows.append([
+            e(step["step"]), f'<b>{step["games"]}</b>', f'<b>{step["points"]:,}</b>',
+            e(step["matches"]),
+            badge("holds", "ok") if ident == "holds" else (badge("FAILS", "bad") if ident == "FAILS" else "—"),
+        ])
+    ident_rows = []
+    for c in _cmp_csv("corpus_identity_32clubs.csv"):
+        ok = c["identity_holds"] == "yes"
+        ident_rows.append([
+            f'<a class="src" href="{e(c["source_url"])}" target="_blank" rel="noopener">{e(c["club"])}</a>',
+            c["corpus_games"], c["corpus_w"], c["corpus_l"], c["corpus_t"],
+            f'{int(c["corpus_pf"]):,}', f'{int(c["corpus_pa"]):,}',
+            f'{c["official_w"]}-{c["official_l"]}-{c["official_t"]} / {int(c["official_pf"]):,}-{int(c["official_pa"]):,}',
+            badge("matches", "ok") if ok else badge("MISMATCH", "bad"),
+        ])
+
     # ---- questions ----
     q_rows = [[f"<b>{e(q['id'])}</b>", e(q["theme"]), e(q["question"]), e(q["what_we_know"]),
                e(q["what_we_do_not_know"]), e(q["blocks"]), e(q["would_clear_it"]),
@@ -1232,22 +1253,45 @@ available — so nothing here uses Week 11 availability.</p>
 the home club's expected margin, positive meaning the home club is favoured. Every number is model
 output, not a league fact and not a bet.</p>
 
-<h2>8. What has to be answered before any of this becomes a decision</h2>
+<h2>8. The corpus, and the "136-game log"</h2>
+<p class="lede">Every game count this repository has published reconciles exactly. The chain is not
+prose — <code>scripts/build_crosscheck.py</code> recomputes it and verifies both official standings
+snapshots club by club with <code>--check</code>.</p>
+{table(["Step", "Games", "Points", "What it matches", "Standings identity"], recon_rows, "wide")}
+<p class="fine">Sources: the per-week official schedule pages
+(<a href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">week 10</a>)
+and the <a href="https://www.nfl.com/standings/league/2026/reg" target="_blank" rel="noopener">league
+standings</a>. The two independent Week 10 captures — one made at 01:30Z and one at 01:35Z on
+2026-11-16 by different sessions — record {x["week10"]["agree_A_vs_B"]} of
+{x["week10"]["fixtures_final_in_lab_corpus"]} final scores and agree on <b>every</b> score. The earlier
+capture lists the other two fixtures as still at kickoff; the later corpus simply has them as finals.
+Neither corrects the other.</p>
+
+<h3>The 32-club identity, figure for figure</h3>
+<p class="lede">This is the check that makes the corpus trustworthy: the games are transcribed from one
+official page and the totals are compared with a second, independent official page. A single
+transposed score breaks it.</p>
+{table(["Club", "Games", "W", "L", "T", "PF", "PA", "Official W-L-T / PF-PA", "Identity"],
+       ident_rows, "wide")}
+
+<h2>9. What has to be answered before any of this becomes a decision</h2>
 <p class="lede">{len(qs)} questions. Each says what is known, what is not, what it blocks, and the
 number or artefact that would clear it. Where no official NFL source can answer the question, the
 row says so instead of citing an irrelevant one.</p>
 {table(["ID", "Theme", "Question", "What we know", "What we do not know", "Blocks",
         "What would clear it", "Source"], q_rows, "wide")}
 
-<h2>9. Suggestions — paths to choose, not changes already made</h2>
+<h2>10. Suggestions — paths to choose, not changes already made</h2>
 <p class="lede">This section exists so a suggestion can be reviewed and a path chosen <em>before</em>
 anything is implemented. Each entry carries its alternatives, a recommendation, its cost, its risk,
 and the evidence in the repo that supports it. Nothing here has been applied.</p>
 {''.join(s_cards)}
 
-<h2>10. Reproduce and re-score it</h2>
+<h2>11. Reproduce and re-score it</h2>
 <pre><code>python3 scripts/build_compare.py            # rebuild the lab
-python3 scripts/build_compare.py --check    # fail if the committed output is stale</code></pre>
+python3 scripts/build_compare.py --check    # fail if the committed output is stale
+python3 scripts/build_crosscheck.py         # reconcile every game count in the repo
+python3 scripts/build_crosscheck.py --check # fail if that reconciliation is stale</code></pre>
 <p class="fine">Inputs are <code>data/week_results_2026.csv</code> (148 verified rows, SHA-256
 <code>{e(ev["forecast_sha256_of_inputs"][:16])}…</code>) and
 <code>data/week11_slate_2026.csv</code>. The per-game forecast ledger is published as
@@ -1355,9 +1399,18 @@ probability into money. Everything below is the detail behind that paragraph.</p
   <li><b>Published two new pages</b>: this summary and <a href="compare.html">Compare strategies</a>,
   with {len(qs)} decision questions and {len(sug)} suggestions, each carrying selectable paths and a
   recommendation, so a path can be chosen before anything is implemented.</li>
-  <li><b>Ran no new capture</b> and asserted nothing new about the league. The Week 11 official
-  injury report is not published yet; the Week 11 schedule was re-read and is used only for the
-  prospective slate.</li>
+  <li><b>Checked whether the availability capture works, and found a defect in the alarm rather
+  than in the data.</b> The scheduled capture's only run (2026-11-16T22:54Z) failed with exit
+  code 2. The cause was that the Week 11 injury route still renders the final Week 10 tables
+  before the league publishes the week's report, and the drift check treated that as corruption.
+  The check now classifies <em>not published yet</em> separately from <em>drift</em>, records it
+  as a dated line in <code>snapshots/index.csv</code>, stores no body, and is unit-tested on
+  synthetic pages in the workflow. A page that serves a <em>later</em> week than requested is
+  still treated as drift and still fails the build.</li>
+  <li><b>Asserted nothing new about the league.</b> The Week 11 official injury report is not
+  published yet, so no Week 11 availability is used anywhere; the Week 11 schedule was re-read from
+  the official page and is used only for the prospective slate. The fixture page for IND-HOU was
+  also read for its venue, which is outside the lab's scope and is not used as a model input.</li>
   <li><b>Changed no existing dataset.</b> The 148-game corpus, the standings snapshot and the
   Week 10 captures are inputs here, read-only. Where this lab's numbers differ from an older page,
   both are published and the difference is on the Flagged for Review page.</li>

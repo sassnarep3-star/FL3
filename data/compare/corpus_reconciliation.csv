@@ -1,0 +1,6 @@
+step,games,points,matches,standings_identity
+weeks 1-9 only,136,6246,the brief's '136-game log',
++ the Thursday Week 10 final (WAS 24-21 NYG),1,45,"the game flag F01 records the official DIVISION standings route as still missing at its capture time. The league-standings route that data/standings_2026.csv was read from does include it, which is why that snapshot reconciles at 137 and not 136",
+= corpus through Week 9's schedule plus that game (137),137,6291,"data/standings_2026.csv, the board's snapshot (137 games, 6,291 points)",holds
++ the other 11 Week 10 finals,11,533,the games still shown as KICKOFF in the earlier capture,
+= full corpus (148),148,6824,"data/standings_2026_wk10_verified.csv (148 games, 6,824 points)",holds

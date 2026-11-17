@@ -45,8 +45,10 @@ jobs:
       # The comparison lab reads only committed data and is deterministic (fixed bootstrap seed),
       # so CI re-runs it and then requires the committed output to reproduce. Its own --check is
       # also invoked from inside check_site.py (check S), so a drift fails twice rather than once.
-      - name: Rebuild the strategy comparison lab
-        run: python3 scripts/build_compare.py
+      - name: Rebuild the strategy comparison lab and corpus reconciliation
+        run: |
+          python3 scripts/build_compare.py
+          python3 scripts/build_crosscheck.py
 
       - name: Verify data, links and arithmetic (root site + comparison lab)
         run: python3 scripts/check_site.py
