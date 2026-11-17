@@ -26,7 +26,7 @@
   "dataset": "retrospective",
   "estimator_families": "A = pace (mean of both clubs' game totals). B = offence only (league total plus each club's scoring deviation). C = pace plus the whole home-field term. Three different quantities, published side by side until one wins walk-forward (R051).",
   "regime_split": "every strategy is also evaluated on two disjoint slices \u2014 weeks 2-6, where every club has seen fewer than six games, and weeks 7-10, where it has seen more. A strategy whose edge only exists in one regime has not been shown to generalise.",
-  "built_utc": "2026-11-17T02:56Z"
+  "method_version": "compare-1.1"
  },
  "calibration": {
   "S1": [

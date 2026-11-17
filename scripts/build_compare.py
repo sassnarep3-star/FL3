@@ -721,7 +721,9 @@ def build():
                         "every club has seen fewer than six games, and weeks 7-10, where it has "
                         "seen more. A strategy whose edge only exists in one regime has not been "
                         "shown to generalise.",
-        "built_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"),
+        # NO build timestamp: CI requires this file to be byte-identical on a re-run, and a
+        # clock read would make every run dirty. Provenance is the input SHA-256 below.
+        "method_version": "compare-1.1",
     }
 
     # ---- honest verdict per (strategy, market) -----------------------------
@@ -981,8 +983,8 @@ def main():
             return 1
         with open(path, encoding="utf-8") as fh:
             old = json.load(fh)
-        # built_utc moves every run; everything else must match exactly. JSON round-trip both
-        # sides first so a tuple in memory and a list on disk compare equal.
+        # No clock value is written, so this is an exact comparison. JSON round-trip both sides
+        # first so a tuple in memory and a list on disk compare equal.
         a = json.loads(json.dumps(old, default=str))
         b = json.loads(json.dumps(out, default=str))
         a["meta"].pop("built_utc", None); b["meta"].pop("built_utc", None)
