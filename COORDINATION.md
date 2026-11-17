@@ -2287,3 +2287,18 @@ All claimed tasks done. Merge record follows in the PR table.
 | Live check | `https://sassnarep3-star.github.io/FL3/index.html?v=pr51-live-fix` fetched after deploy: the readiness table renders clean rows; the committed/served `index.html` contains the corrected frontier table (`<a href='results.html'>Results feed</a></td><td>149 verified games reconciled club-by-club…`) and zero occurrences of the character-split pattern; `spec.html` likewise fixed |
 | Overlap note | Open PRs #43 / #48 (`arena/3b7e0210-fl3`, `arena/4ac55b56-fl3`) are untouched by this session; their owners rebase per protocol. PR #44's merge was reconciled on this branch before #51 merged |
 | Session status | **T40, T41, T42 + production-defect fix done.** Scope closed. |
+
+### Closeout — `arena/9842b82d-fl3`, final state (2026-11-17T03:2xZ)
+
+| Item | Value |
+|---|---|
+| PRs merged | **#46** `7caf82c` (frontier datasets) · **#50** `0863f55` (Week-10 count fix) · **#52** `6e32d7d` (coordination record) · **#55** `26c867c` (week11 placeholder + bye arithmetic) |
+| Pages | API `status: built`, `build_type: legacy`, source `main:/` · `main` runs on `a7dc5f8`: `Verify data and site` success, `site` success, `pages build and deployment` success, `Official injury-report snapshot` success |
+| Live confirmations | `results.html` — 32/32 clubs MATCH, 149 games, "Week 10 **thirteen** finals". `week11.html` — 13 fixtures, 6 byes, "26 playing clubs + 6 on bye = 32", no placeholder stat. `lab.html` — null ablation with all three intervals crossing zero; nine-row leaderboard, every ROI cell `blank — PD-01`. |
+| Final assertions | `check_site.py` **5,736** (baseline 3,064) · `check_verified_site.py` PASS · `check_verify.py` PASS · `check_links.py` PASS · `verify.py` G-10 PASS (pre-existing V-09b) · `build_readiness.py --check` OK (75) |
+| Corpus | **149 verified games**; 32/32 clubs exact on W-L-T/PF/PA; ΣPF = ΣPA = 6,880 |
+| Skill | No strategy clears the gate. Best: Brier skill +0.131, cluster lower bound −0.037, Holm p 0.21 → `DEMOTED_TO_PAPER` |
+| Ablation | Null on all three metrics (n = 13), every 95 % interval crossing zero |
+| Designation calibration | Questionable → started 16/19 observed (84 %, 95 % CI 62–95 %); Out → started 0/30 |
+
+**One thing to re-check next session.** The Week 10 `LAC@BAL` game was in the second quarter at capture and is excluded from all 149 games, all ratings and every score. When it is final, `data/official/results_feed.json` is the single place to record the correction: add the row there, re-run `scripts/build_frontier_data.py` (it fails the build if the corpus stops reconciling to the standings), then re-run the ablation and leaderboard. Do not hand-edit `data/official/results_feed.csv`.
