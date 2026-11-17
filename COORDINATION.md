@@ -1350,3 +1350,34 @@ Checked before claiming: open PR #23 (`arena/fa06d378`, T23 injury capture/diff)
 **Completion record (2026-11-16 UTC):** PR #37 (https://github.com/sassnarep3-star/FL3/pull/37) merged into `main` at `6e60052b4dc51b6ee2e86be3dc931b207abcc129` (2026-11-16T02:43:20Z), no approval waited, after integration verification on the branch. Post-merge workflows all succeeded: "Verify data and site" run `43793871461`, "site" run `43793871430`, "Deploy static site to GitHub Pages" run `43793871503`, "pages build and deployment" run `43793870453`. Live confirm: `https://sassnarep3-star.github.io/FL3/matchups.html?v=deploy-37` fetched after deployment — serves the full 168-row matrix with the "Matchup matrix" nav entry, stats (102 both-evidenced / 66 n/a / 25 confirmed promotions / 8 marker conflicts) and the source links. Merged-tree verifiers: `check_site.py` 3,064 assertions ALL PASSED; `check_links.py` 29 pages PASS; `verify.py` G-10 PASS (non-blocking V-09b/FLG-025); `build_readiness.py --check` OK (75 requirements, R036=PARTIAL).
 
 **Conflicts resolved during rebase onto `main@cc8793a` (nothing from other sessions discarded):** `COORDINATION.md` (kept both sides: main's session sections + this claim); `scripts/build_readiness.py` (kept this session's R036=PARTIAL and main's newer R037 wording); `scripts/check_site.py` (kept main's generalised local-link walker — it already covers `depth/` — dropped this session's narrower special case); `scripts/build_board.py` (kept both new PAGES entries: `official-capture` + `matchups`); every generated root/board page resolved by regenerating from the merged sources, then all verifiers re-run green.
+
+---
+
+# Session `arena/4ac55b56-fl3` — claim, scope and record (2026-11-17 UTC)
+
+**Session ID:** `arena/4ac55b56-fl3` · **Branch:** `arena/4ac55b56-fl3` (base `main@0e51cf8`, clean tree)
+**Started:** 2026-11-17
+
+**Pre-claim checks:** `gh pr list --state all` shows one open PR — [#34](https://github.com/sassnarep3-star/FL3/pull/34)
+(`arena/03e651e0-fl3`, files: `COORDINATION.md`, `scripts/build_verified_site.py`,
+`scripts/check_verified_site.py`, `verified/strategies.html`). **None of those files are in this
+session's scope.** No other branch carries unmerged work.
+
+## Claimed scope (disjoint from every prior session and from PR #34)
+
+| Task | Status | Owner | Files touched |
+|---|---|---|---|
+| T40 — Live official-source freshness & verification pass (2026-11-17): fetch standings / schedule / injury report from nfl.com, diff against the 2026-11-14 committed snapshot, publish the staleness delta with per-row source links | in progress | `arena/4ac55b56-fl3` | `data/freshness/**`, `scripts/build_freshness.py`, `scripts/check_freshness.py`, `freshness/**` |
+| T41 — Register corrections from the live pass (update states only where the live source now settles a registered requirement; no new invented rows) | in progress | `arena/4ac55b56-fl3` | `data/requirements_readiness.csv`, `scripts/build_readiness.py` (via its own consistency checks) |
+| T42 — Integration: wire `freshness/` into nav + verifier + Pages allowlist, regenerate, run every suite, commit, push, PR, merge, confirm deploy | in progress | `arena/4ac55b56-fl3` | `scripts/build_site.py` (one nav entry), `scripts/check_site.py` (page list), `.github/workflows/pages.yml` (allowlist), generated root pages, `COORDINATION.md` |
+
+**Explicitly not touched:** `verified/**`, `verify/**`, `scripts/build_verified_site.py`,
+`scripts/check_verified_site.py`, `scripts/build_verify.py`, `scripts/check_verify.py`, `depth/**`,
+`board/**`, `docs/**`, `site-9b181d31/**`, `legacy/**`, `data/sources.json`, `data/flagged.json`,
+`data/flags.csv`, `data/sources.csv`, `scripts/build_board.py`, `scripts/verify.py`,
+`scripts/build_depth_*.py`, `scripts/check_depth_links.py`, `scripts/verify_depth.py`, and every
+prior session's data registers except the readiness CSV (append/correct-only, evidence-bound).
+
+**Evidence rule:** only nfl.com / operations.nfl.com / club-operated pages count. Every published row
+carries its own source link. Where the live page cannot confirm a value, the cell stays blank and is
+flagged — never inferred. The freshness ledger publishes clock times and deltas, never levels alone.
