@@ -34,7 +34,10 @@ PAGES = ["index.html", "standings.html", "lines.html", "injuries.html", "matchup
          # verified-snapshot pages (session arena-fl3-60ee336e, integration 2026-11-14):
          "data-snapshots.html", "data-standings.html", "data-schedule.html", "data-injuries.html",
          # canonical verified dashboard (session arena/03e651e0, 2026-11-16):
-         "verified/index.html"]
+         "verified/index.html",
+         # freshness pass subsite (session arena/4ac55b56-fl3, 2026-11-17):
+         "freshness/index.html", "freshness/standings.html",
+         "freshness/schedule.html", "freshness/findings.html"]
 
 errors: list[str] = []
 warnings: list[str] = []

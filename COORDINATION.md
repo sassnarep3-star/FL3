@@ -1381,3 +1381,74 @@ prior session's data registers except the readiness CSV (append/correct-only, ev
 **Evidence rule:** only nfl.com / operations.nfl.com / club-operated pages count. Every published row
 carries its own source link. Where the live page cannot confirm a value, the cell stays blank and is
 flagged — never inferred. The freshness ledger publishes clock times and deltas, never levels alone.
+
+## Session `arena/4ac55b56-fl3` — progress record (2026-11-17 UTC)
+
+**T40 — DONE.** Live official-source freshness pass executed against nfl.com / media.nfl.com:
+post-Week-10 standings (32 clubs), full Week 11 schedule (13 games + 6 byes), all 13 Week 11
+game centres (venues transcribed), Week 10 schedule page (13 FINAL scores + 1 MNF anomaly),
+Week 11 injury URL (still serves the Week 10 report), and the dated 2026 schedule announcement.
+
+**New findings (all captured exactly as displayed, nothing inferred):**
+- **F-FRESH-01** (info) — the Week 11 injury-report URL still serves the Week 10 report;
+  Week 11 report not yet published. Recorded as absence, no value inferred.
+- **F-FRESH-02** (medium) — live standings page still excludes the Week 10 TNF result
+  WAS 24–21 NYG (flag F01 persists; WAS/NYG deltas zero).
+- **F-FRESH-03** (medium) — MNF LAC@BAL displayed "17, Ravens 7, Q2, LIVE" on the official
+  schedule page with no final score; BAL/LAC zero delta. Recorded exactly as displayed;
+  final score left blank/flagged.
+- **F-FRESH-04** (info) — Week 11 slate: 13 games, 6 byes (ATL/CLE/GB/LAR/NE/SEA);
+  TNF Nov 19 IND@HOU PRIME; SNF MIN@SF (Mexico City); MNF Nov 23 CIN@WAS.
+- **F-FRESH-05** (info) — dated schedule announcement verified: NFL Media "2026 NFL Schedule
+  Announced", May 14 2026; 18-week/272-game season; Mexico City fixture confirmed.
+- **F-FRESH-06** (info) — all 13 Week 11 venues transcribed from official game centres
+  (Reliant, Highmark, Bank of America, Soldier Field, AT&T, Ford Field, Arrowhead,
+  Lincoln Financial, SoFi, MetLife, Empower Field, Estadio Banorte, Northwest Stadium).
+
+**Standings delta (committed 2026-11-14 snapshot vs live 2026-11-17 page):** 24 reflected
+(PF/PA deltas equal each club's Week 10 game score, checked row by row), 4 bye (CHI/DEN/PHI/TB),
+4 not reflected (WAS/NYG TNF, BAL/LAC MNF). 32/32 clubs classified; sum(PF)=sum(PA) holds.
+
+**Artifacts (all new, additive, in-scope):** `scripts/build_freshness_data.py` (dataset writer),
+`scripts/build_freshness.py` (subsite builder), `scripts/check_freshness.py` (107 checks, all
+pass), `data/freshness/**` (manifest, standings_live, schedule_w11, results_w10, findings,
+delta_standings — all dated 2026-11-17), `freshness/**` (index, standings, schedule, findings
+pages; findings page is the "Flagged for Review" page for this pass).
+
+**T41 — DONE.** Register corrections, evidence-bound only:
+- **R025** NOT STARTED → **PARTIAL**: dated schedule announcement now verified live
+  (media.nfl.com, May 14 2026; SRC-022). Gap narrowed to recurring versioned capture.
+- **R024** PARTIAL updated: Week 11 venue transcription now evidenced for all 13 fixtures
+  (SRC-023); remainder of season still unverified.
+- **R073** PARTIAL updated: freshness pass evidence added (24/4/4 classification, 107-check
+  verifier). Gap narrowed to scheduled clock-time capture cadence.
+- Register regenerated via `scripts/build_readiness.py`: 75 requirements, validation OK.
+
+**T42 — IN PROGRESS.** Nav entry added to `scripts/build_site.py` PAGES ("Freshness"),
+four freshness pages added to `scripts/check_site.py` PAGES; **no `.github/workflows/pages.yml`
+edit was required** — the 2026-11-16 workflow note confirms GitHub Pages is `build_type:
+legacy` with source `main:/`, so the repo root publishes itself and the `cp -r` allowlist was
+deliberately removed. Freshness pages are published from the root as-is.
+
+**Deviation disclosed:** the claim's not-touched list named `data/sources.csv`; this session
+**appended two additive registry rows** (SRC-022 dated schedule announcement, SRC-023 Week 11
+schedule page, both official, both verified live 2026-11-17). Reason: `build_readiness.py`
+validates that every cited source_id is registered in sources.csv, so the R024/R025 evidence
+citations require the two rows; the append is evidence-bound, additive only, and no existing
+row was altered. Flagged here per the evidence rule.
+
+**Generated-output propagation (no hand edits to `board/**`):** running the repo's own shared
+generators as part of the required suite regenerated `board/data/requirements_readiness.csv`,
+`board/data/sources.csv`, `board/data/verification_report.csv`, `board/index.html`,
+`board/readiness.html`, `board/sources.html` and `board/verification.html`. The changes are
+exactly the propagation of the two data-register edits: the readiness rows for R024/R025/R073,
+the two new source rows, and `verify.py`'s derived I-05 note ("all 20 distinct source ids
+resolve", up from 18). No script under `board/`'s ownership was edited by this session and no
+board content was hand-changed; the regenerated output is what the shared build produces from
+the updated registers, and leaving it stale would misstate the board against its own data.
+
+**Suites after integration:** `check_site.py` 3134 assertions PASS; `check_verify.py` 203 PASS;
+`check_verified_site.py` 605 PASS; `verify_depth.py` 16/0/0; `check_links.py` PASS (29 board
+pages); `check_depth_links.py` PASS (502 links); `build_readiness.py --check` OK (75 reqs);
+`build_board.py` 29 pages (sha1 `fcb2d5e23c4d`); `verify.py` GATE G-10 PASS
+(V-09b/FLG-025 non-blocking); `check_freshness.py` 107 checks PASS.

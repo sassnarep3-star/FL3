@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Freshness · FL3 Freshness</title>
+<meta name="description" content="Official-source freshness pass for the FL3 NFL decision system: live standings delta, Week 11 slate with venues, and flagged findings.">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="brand"><span class="mark">FL3</span><span class="sub">Freshness pass · 2026-11-17</span></div>
+  <nav><a href="../index.html">Dashboard</a><a href="index.html" class="on">Freshness</a><a href="standings.html">Standings delta</a><a href="schedule.html">Week 11 slate</a><a href="findings.html">Findings</a></nav>
+</header>
+<main id="main">
+
+<section class="hero">
+  <h1>Official-source freshness pass — 2026-11-17</h1>
+  <p class="lede">Every figure on this subsite was read off a live official NFL.com or
+  media.nfl.com page on <b>2026-11-17 (UTC)</b> and links to that page. It measures how far
+  the committed <b>2026-11-14</b> snapshot has drifted from the live source, and publishes
+  the delta rather than overwriting the snapshot.</p>
+</section>
+
+<section>
+  <h2>What was re-verified</h2>
+  <table>
+<thead><tr><th>Source</th><th>Fetched (UTC)</th><th>What it proved</th></tr></thead>
+<tbody>
+<tr><td><a class="src" href="https://www.nfl.com/standings/league/2026/reg" target="_blank" rel="noopener">standings</a></td><td>2026-11-17</td><td>32 clubs W/L/T/PCT/PF/PA/NET, post-Week 10 Sunday slate</td></tr><tr><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">schedule_week11</a></td><td>2026-11-17</td><td>13 games, dates/times/networks, 6 bye clubs</td></tr><tr><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">schedule_week10</a></td><td>2026-11-17</td><td>14 games with final scores (13 FINAL; MNF displayed LIVE Q2)</td></tr><tr><td><a class="src" href="https://www.nfl.com/injuries/league/2026/reg11" target="_blank" rel="noopener">injuries_week11_url</a></td><td>2026-11-17</td><td>redirects to the Week 10 report; Week 11 report not published</td></tr><tr><td><a class="src" href="https://www.nfl.com/injuries/league/2026/reg10" target="_blank" rel="noopener">injuries_week10</a></td><td>2026-11-17</td><td>Week 10 report still served as the current report</td></tr><tr><td><a class="src" href="https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced" target="_blank" rel="noopener">schedule_announcement</a></td><td>2026-11-17</td><td>dated 2026 schedule announcement, May 14, 2026</td></tr>
+</tbody>
+</table>
+</section>
+
+<section>
+  <h2>Snapshot drift in one line</h2>
+  <p class="lede">The committed standings snapshot is <b>3 days old</b> and pre-dates the
+  Week 10 Sunday slate. Comparing it with the live page:</p>
+  <table>
+<thead><tr><th>Measure</th><th>Value</th><th>Detail</th></tr></thead>
+<tbody>
+<tr><td>Clubs compared</td><td>32</td><td>committed snapshot vs live league standings page</td></tr><tr><td>Results reflected on the live page</td><td>24</td><td>PF/PA deltas match each club's Week 10 game score exactly</td></tr><tr><td>Week 10 bye clubs</td><td>4</td><td>CHI, DEN, PHI, TB — no game, no delta</td></tr><tr><td>Played but NOT reflected</td><td>4</td><td>WAS/NYG (TNF) and BAL/LAC (MNF) — see findings F-FRESH-02, F-FRESH-03</td></tr><tr><td>Week 11 injury report</td><td>not yet published</td><td>the reg11 URL serves the Week 10 report — see F-FRESH-01</td></tr><tr><td>Week 11 slate</td><td>13 games + 6 byes</td><td>venues transcribed from all 13 official game centres — see F-FRESH-06</td></tr>
+</tbody>
+</table>
+</section>
+
+<section>
+  <h2>Subpages</h2>
+  <table>
+<thead><tr><th>Page</th><th>Contents</th></tr></thead>
+<tbody>
+<tr><td><a href="standings.html"><b>Standings delta</b></a></td><td>Live 2026-11-17 standings for all 32 clubs, and the per-club delta against the committed 2026-11-14 snapshot with a classification per row</td></tr><tr><td><a href="schedule.html"><b>Week 11 slate</b></a></td><td>The 13 Week 11 fixtures with official game-centre venues, the 6 bye clubs, and the Week 10 results as displayed on the schedule page</td></tr><tr><td><a href="findings.html"><b>Findings</b></a></td><td>Six dated findings (F-FRESH-01 … F-FRESH-06), each with its official source link</td></tr>
+</tbody>
+</table>
+</section>
+
+<section>
+  <h2>Method in one paragraph</h2>
+  <p class="lede">Values were transcribed from the official pages through the agent's fetch
+  tool; the fetch tool does not retain raw response bytes, so the transcription is the
+  capture record and is checked arithmetically by <code>scripts/check_freshness.py</code>
+  (PCT = (W + 0.5·T)/(W+L+T), NET = PF − PA, sum(PF) = sum(PA), deltas against each
+  club's Week 10 game score). Where the official page does not state a value, the cell is
+  blank and the item is listed under Findings. Nothing was inferred or corrected.</p>
+</section>
+
+</main>
+</body>
+</html>

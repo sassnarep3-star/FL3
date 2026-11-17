@@ -1,0 +1,52 @@
+{
+ "meta": {
+  "title": "Freshness pass findings (2026-11-17)",
+  "session": "arena/4ac55b56-fl3",
+  "fetched_utc": "2026-11-17",
+  "note": "Published on the Flagged for Review page of the freshness subsite. None of these block the merge; none were silently corrected."
+ },
+ "findings": [
+  {
+   "id": "F-FRESH-01",
+   "severity": "info",
+   "title": "Week 11 injury report is not yet published",
+   "detail": "The Week 11 injury-report URL https://www.nfl.com/injuries/league/2026/reg11 serves the Week 10 report (page title: \"Official NFL Injury Report for Players - Week 10 of the 2026 Season\"). All 13 Week 11 game centres display \"Injury Report is not available at this time.\" Week 11 kicks off Thursday 2026-11-19, so no Week 11 availability data exists yet. The ledger records the absence; no availability value is inferred for Week 11.",
+   "src": "https://www.nfl.com/injuries/league/2026/reg11"
+  },
+  {
+   "id": "F-FRESH-02",
+   "severity": "medium",
+   "title": "Live standings page still excludes the Week 10 Thursday result (flag F01 persists)",
+   "detail": "As of the 2026-11-17 fetch, https://www.nfl.com/standings/league/2026/reg still shows NYG 5-3-1 and WAS 3-5-1, unchanged from the 2026-11-14 committed snapshot, while the schedule page marks WAS 24 - NYG 21 (Thursday Night Football, Nov 12) FINAL. The Thursday result is not reflected in the standings page three days after the game. Existing flag F01 persists; the delta table classifies WAS and NYG as 'not reflected' rather than correcting them.",
+   "src": "https://www.nfl.com/standings/league/2026/reg"
+  },
+  {
+   "id": "F-FRESH-03",
+   "severity": "high",
+   "title": "Week 10 Monday game displayed as LIVE in Q2 on the schedule page; standings exclude it",
+   "detail": "The schedule page fetched 2026-11-17 displays the Week 10 Monday Night Football game \"Chargers 17, Ravens 7, Q2, ESPN\" with a LIVE indicator, roughly one day after the scheduled 2026-11-16 kickoff. The final score is not published on the official schedule page, and the standings page shows both BAL (4-5) and LAC (0-8) unchanged from the 2026-11-14 snapshot. The final score cell is left blank and flagged; no result is inferred.",
+   "src": "https://www.nfl.com/schedules/2026/by-week/week-10"
+  },
+  {
+   "id": "F-FRESH-04",
+   "severity": "info",
+   "title": "Week 11 slate verified: 13 games, 6 bye clubs, one Mexico City international game",
+   "detail": "The Week 11 schedule page lists 13 games and 6 bye clubs (ATL, CLE, GB, LAR, NE, SEA): 26 playing clubs + 6 byes = 32. The MIN@SF Sunday night game is an international game in Mexico City (Estadio Banorte), consistent with the league's dated schedule announcement.",
+   "src": "https://www.nfl.com/schedules/2026/by-week/week-11"
+  },
+  {
+   "id": "F-FRESH-05",
+   "severity": "info",
+   "title": "Dated 2026 schedule announcement verified live (May 14, 2026)",
+   "detail": "https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced is live, by Football Communications, dated May 14, 2026, and announces the 18-week, 272-game regular season. It confirms the Week 11 Mexico City game. This is the dated announcement evidence for requirement R025.",
+   "src": "https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced"
+  },
+  {
+   "id": "F-FRESH-06",
+   "severity": "info",
+   "title": "Week 11 venues transcribed from all 13 official game centres",
+   "detail": "Location and stadium for every Week 11 fixture were read from the Game Info block of each official nfl.com game centre (13/13). Each venue row links its own game centre. No venue was inferred from third-party sources.",
+   "src": "https://www.nfl.com/schedules/2026/by-week/week-11"
+  }
+ ]
+}
