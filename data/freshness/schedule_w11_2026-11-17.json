@@ -1,0 +1,148 @@
+{
+ "meta": {
+  "title": "2026 NFL Week 11 schedule \u2014 live capture",
+  "source": "https://www.nfl.com/schedules/2026/by-week/week-11",
+  "fetched_utc": "2026-11-17",
+  "note": "13 games + 6 bye clubs. Venue and location for every fixture were read from the official game centre linked per row."
+ },
+ "games": [
+  {
+   "away": "IND",
+   "home": "HOU",
+   "date": "Thu Nov 19",
+   "time": "8:15 PM",
+   "network": "Prime Video",
+   "location": "HOUSTON, TX",
+   "stadium": "RELIANT STADIUM",
+   "src": "https://www.nfl.com/games/colts-at-texans-2026-reg-11"
+  },
+  {
+   "away": "MIA",
+   "home": "BUF",
+   "date": "Sun Nov 22",
+   "time": "1:00 PM",
+   "network": "CBS",
+   "location": "ORCHARD PARK, NY",
+   "stadium": "HIGHMARK STADIUM",
+   "src": "https://www.nfl.com/games/dolphins-at-bills-2026-reg-11"
+  },
+  {
+   "away": "BAL",
+   "home": "CAR",
+   "date": "Sun Nov 22",
+   "time": "1:00 PM",
+   "network": "FOX",
+   "location": "CHARLOTTE, NC",
+   "stadium": "BANK OF AMERICA STADIUM",
+   "src": "https://www.nfl.com/games/ravens-at-panthers-2026-reg-11"
+  },
+  {
+   "away": "NO",
+   "home": "CHI",
+   "date": "Sun Nov 22",
+   "time": "1:00 PM",
+   "network": "FOX",
+   "location": "CHICAGO, IL",
+   "stadium": "SOLDIER FIELD",
+   "src": "https://www.nfl.com/games/saints-at-bears-2026-reg-11"
+  },
+  {
+   "away": "TEN",
+   "home": "DAL",
+   "date": "Sun Nov 22",
+   "time": "1:00 PM",
+   "network": "FOX",
+   "location": "ARLINGTON, TX",
+   "stadium": "AT&T STADIUM",
+   "src": "https://www.nfl.com/games/titans-at-cowboys-2026-reg-11"
+  },
+  {
+   "away": "TB",
+   "home": "DET",
+   "date": "Sun Nov 22",
+   "time": "1:00 PM",
+   "network": "FOX",
+   "location": "DETROIT, MI",
+   "stadium": "FORD FIELD",
+   "src": "https://www.nfl.com/games/buccaneers-at-lions-2026-reg-11"
+  },
+  {
+   "away": "AZ",
+   "home": "KC",
+   "date": "Sun Nov 22",
+   "time": "1:00 PM",
+   "network": "CBS",
+   "location": "KANSAS CITY, MO",
+   "stadium": "ARROWHEAD STADIUM",
+   "src": "https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11"
+  },
+  {
+   "away": "PIT",
+   "home": "PHI",
+   "date": "Sun Nov 22",
+   "time": "1:00 PM",
+   "network": "CBS",
+   "location": "PHILADELPHIA, PA",
+   "stadium": "LINCOLN FINANCIAL FIELD",
+   "src": "https://www.nfl.com/games/steelers-at-eagles-2026-reg-11"
+  },
+  {
+   "away": "NYJ",
+   "home": "LAC",
+   "date": "Sun Nov 22",
+   "time": "4:05 PM",
+   "network": "FOX",
+   "location": "INGLEWOOD, CA",
+   "stadium": "SOFI STADIUM",
+   "src": "https://www.nfl.com/games/jets-at-chargers-2026-reg-11"
+  },
+  {
+   "away": "JAX",
+   "home": "NYG",
+   "date": "Sun Nov 22",
+   "time": "4:25 PM",
+   "network": "CBS",
+   "location": "EAST RUTHERFORD, NJ",
+   "stadium": "METLIFE STADIUM",
+   "src": "https://www.nfl.com/games/jaguars-at-giants-2026-reg-11"
+  },
+  {
+   "away": "LV",
+   "home": "DEN",
+   "date": "Sun Nov 22",
+   "time": "4:25 PM",
+   "network": "CBS",
+   "location": "DENVER, CO",
+   "stadium": "EMPOWER FIELD AT MILE HIGH",
+   "src": "https://www.nfl.com/games/raiders-at-broncos-2026-reg-11"
+  },
+  {
+   "away": "MIN",
+   "home": "SF",
+   "date": "Sun Nov 22",
+   "time": "8:20 PM",
+   "network": "NBC",
+   "location": "MEXICO CITY",
+   "stadium": "ESTADIO BANORTE",
+   "src": "https://www.nfl.com/games/vikings-at-49ers-2026-reg-11"
+  },
+  {
+   "away": "CIN",
+   "home": "WAS",
+   "date": "Mon Nov 23",
+   "time": "8:15 PM",
+   "network": "ESPN",
+   "location": "LANDOVER, MD",
+   "stadium": "NORTHWEST STADIUM",
+   "src": "https://www.nfl.com/games/bengals-at-commanders-2026-reg-11"
+  }
+ ],
+ "bye_clubs": [
+  "ATL",
+  "CLE",
+  "GB",
+  "LAR",
+  "NE",
+  "SEA"
+ ]
+}

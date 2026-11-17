@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Findings · FL3 Freshness</title>
+<meta name="description" content="Official-source freshness pass for the FL3 NFL decision system: live standings delta, Week 11 slate with venues, and flagged findings.">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="brand"><span class="mark">FL3</span><span class="sub">Freshness pass · 2026-11-17</span></div>
+  <nav><a href="../index.html">Dashboard</a><a href="index.html">Freshness</a><a href="standings.html">Standings delta</a><a href="schedule.html">Week 11 slate</a><a href="findings.html" class="on">Findings</a></nav>
+</header>
+<main id="main">
+
+<section class="hero">
+  <h1>Freshness findings — flagged for review</h1>
+  <p class="lede">This is the <b>Flagged for Review</b> page for the 2026-11-17
+  official-source freshness pass: six dated findings, each linking the official page it
+  was read from. None of these were silently corrected, and none block the merge — they
+  are published here for review.</p>
+</section>
+
+<section>
+  <table>
+<thead><tr><th>ID</th><th>Severity</th><th>Finding</th><th>Detail</th><th>Source</th></tr></thead>
+<tbody>
+<tr><td><b>F-FRESH-01</b></td><td><span class="badge ">info</span></td><td>Week 11 injury report is not yet published</td><td>The Week 11 injury-report URL https://www.nfl.com/injuries/league/2026/reg11 serves the Week 10 report (page title: &quot;Official NFL Injury Report for Players - Week 10 of the 2026 Season&quot;). All 13 Week 11 game centres display &quot;Injury Report is not available at this time.&quot; Week 11 kicks off Thursday 2026-11-19, so no Week 11 availability data exists yet. The ledger records the absence; no availability value is inferred for Week 11.</td><td><a class="src" href="https://www.nfl.com/injuries/league/2026/reg11" target="_blank" rel="noopener">source</a></td></tr><tr><td><b>F-FRESH-02</b></td><td><span class="badge warn">medium</span></td><td>Live standings page still excludes the Week 10 Thursday result (flag F01 persists)</td><td>As of the 2026-11-17 fetch, https://www.nfl.com/standings/league/2026/reg still shows NYG 5-3-1 and WAS 3-5-1, unchanged from the 2026-11-14 committed snapshot, while the schedule page marks WAS 24 - NYG 21 (Thursday Night Football, Nov 12) FINAL. The Thursday result is not reflected in the standings page three days after the game. Existing flag F01 persists; the delta table classifies WAS and NYG as &#x27;not reflected&#x27; rather than correcting them.</td><td><a class="src" href="https://www.nfl.com/standings/league/2026/reg" target="_blank" rel="noopener">source</a></td></tr><tr><td><b>F-FRESH-03</b></td><td><span class="badge bad">high</span></td><td>Week 10 Monday game displayed as LIVE in Q2 on the schedule page; standings exclude it</td><td>The schedule page fetched 2026-11-17 displays the Week 10 Monday Night Football game &quot;Chargers 17, Ravens 7, Q2, ESPN&quot; with a LIVE indicator, roughly one day after the scheduled 2026-11-16 kickoff. The final score is not published on the official schedule page, and the standings page shows both BAL (4-5) and LAC (0-8) unchanged from the 2026-11-14 snapshot. The final score cell is left blank and flagged; no result is inferred.</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">source</a></td></tr><tr><td><b>F-FRESH-04</b></td><td><span class="badge ">info</span></td><td>Week 11 slate verified: 13 games, 6 bye clubs, one Mexico City international game</td><td>The Week 11 schedule page lists 13 games and 6 bye clubs (ATL, CLE, GB, LAR, NE, SEA): 26 playing clubs + 6 byes = 32. The MIN@SF Sunday night game is an international game in Mexico City (Estadio Banorte), consistent with the league&#x27;s dated schedule announcement.</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">source</a></td></tr><tr><td><b>F-FRESH-05</b></td><td><span class="badge ">info</span></td><td>Dated 2026 schedule announcement verified live (May 14, 2026)</td><td>https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced is live, by Football Communications, dated May 14, 2026, and announces the 18-week, 272-game regular season. It confirms the Week 11 Mexico City game. This is the dated announcement evidence for requirement R025.</td><td><a class="src" href="https://media.nfl.com/football-information/2026/news/2026-nfl-schedule-announced" target="_blank" rel="noopener">source</a></td></tr><tr><td><b>F-FRESH-06</b></td><td><span class="badge ">info</span></td><td>Week 11 venues transcribed from all 13 official game centres</td><td>Location and stadium for every Week 11 fixture were read from the Game Info block of each official nfl.com game centre (13/13). Each venue row links its own game centre. No venue was inferred from third-party sources.</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-11" target="_blank" rel="noopener">source</a></td></tr>
+</tbody>
+</table>
+</section>
+
+</main>
+</body>
+</html>

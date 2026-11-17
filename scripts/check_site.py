@@ -36,6 +36,9 @@ PAGES = ["index.html", "standings.html", "lines.html", "injuries.html", "matchup
          "data-snapshots.html", "data-standings.html", "data-schedule.html", "data-injuries.html",
          # canonical verified dashboard (session arena/03e651e0, 2026-11-16):
          "verified/index.html",
+         # freshness pass subsite (session arena/4ac55b56-fl3, 2026-11-17):
+         "freshness/index.html", "freshness/standings.html",
+         "freshness/schedule.html", "freshness/findings.html",
          # frontier datasets (session arena/9842b82d-fl3, 2026-11-17):
          "spec.html", "results.html", "week11.html", "availability.html", "lab.html"]
 

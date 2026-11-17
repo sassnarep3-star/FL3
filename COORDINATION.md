@@ -1448,6 +1448,106 @@ Checked before claiming: open PR #23 (`arena/fa06d378`, T23 injury capture/diff)
 
 ---
 
+# Session `arena/4ac55b56-fl3` — claim, scope and record (2026-11-17 UTC)
+
+**Session ID:** `arena/4ac55b56-fl3` · **Branch:** `arena/4ac55b56-fl3` (base `main@0e51cf8`, clean tree)
+**Started:** 2026-11-17
+
+**Pre-claim checks:** `gh pr list --state all` shows one open PR — [#34](https://github.com/sassnarep3-star/FL3/pull/34)
+(`arena/03e651e0-fl3`, files: `COORDINATION.md`, `scripts/build_verified_site.py`,
+`scripts/check_verified_site.py`, `verified/strategies.html`). **None of those files are in this
+session's scope.** No other branch carries unmerged work.
+
+## Claimed scope (disjoint from every prior session and from PR #34)
+
+| Task | Status | Owner | Files touched |
+|---|---|---|---|
+| T40 — Live official-source freshness & verification pass (2026-11-17): fetch standings / schedule / injury report from nfl.com, diff against the 2026-11-14 committed snapshot, publish the staleness delta with per-row source links | DONE | `arena/4ac55b56-fl3` | `data/freshness/**`, `scripts/build_freshness.py`, `scripts/check_freshness.py`, `freshness/**` |
+| T41 — Register corrections from the live pass (update states only where the live source now settles a registered requirement; no new invented rows) | DONE | `arena/4ac55b56-fl3` | `data/requirements_readiness.csv`, `scripts/build_readiness.py` (via its own consistency checks) |
+| T42 — Integration: wire `freshness/` into nav + verifier, regenerate, run every suite, commit, push, PR, merge, confirm deploy | in progress | `arena/4ac55b56-fl3` | `scripts/build_site.py` (one nav entry), `scripts/check_site.py` (page list), generated root pages, `COORDINATION.md` |
+
+**Explicitly not touched:** `verified/**`, `verify/**`, `scripts/build_verified_site.py`,
+`scripts/check_verified_site.py`, `scripts/build_verify.py`, `scripts/check_verify.py`, `depth/**`,
+`board/**`, `docs/**`, `site-9b181d31/**`, `legacy/**`, `data/sources.json`, `data/flagged.json`,
+`data/flags.csv`, `data/sources.csv`, `scripts/build_board.py`, `scripts/verify.py`,
+`scripts/build_depth_*.py`, `scripts/check_depth_links.py`, `scripts/verify_depth.py`, and every
+prior session's data registers except the readiness CSV (append/correct-only, evidence-bound).
+
+**Evidence rule:** only nfl.com / operations.nfl.com / club-operated pages count. Every published row
+carries its own source link. Where the live page cannot confirm a value, the cell stays blank and is
+flagged — never inferred. The freshness ledger publishes clock times and deltas, never levels alone.
+
+## Session `arena/4ac55b56-fl3` — progress record (2026-11-17 UTC)
+
+**T40 — DONE.** Live official-source freshness pass executed against nfl.com / media.nfl.com:
+post-Week-10 standings (32 clubs), full Week 11 schedule (13 games + 6 byes), all 13 Week 11
+game centres (venues transcribed), Week 10 schedule page (13 FINAL scores + 1 MNF anomaly),
+Week 11 injury URL (still serves the Week 10 report), and the dated 2026 schedule announcement.
+
+**New findings (all captured exactly as displayed, nothing inferred):**
+- **F-FRESH-01** (info) — the Week 11 injury-report URL still serves the Week 10 report;
+  Week 11 report not yet published. Recorded as absence, no value inferred.
+- **F-FRESH-02** (medium) — live standings page still excludes the Week 10 TNF result
+  WAS 24–21 NYG (flag F01 persists; WAS/NYG deltas zero).
+- **F-FRESH-03** (medium) — MNF LAC@BAL displayed "17, Ravens 7, Q2, LIVE" on the official
+  schedule page with no final score; BAL/LAC zero delta. Recorded exactly as displayed;
+  final score left blank/flagged.
+- **F-FRESH-04** (info) — Week 11 slate: 13 games, 6 byes (ATL/CLE/GB/LAR/NE/SEA);
+  TNF Nov 19 IND@HOU PRIME; SNF MIN@SF (Mexico City); MNF Nov 23 CIN@WAS.
+- **F-FRESH-05** (info) — dated schedule announcement verified: NFL Media "2026 NFL Schedule
+  Announced", May 14 2026; 18-week/272-game season; Mexico City fixture confirmed.
+- **F-FRESH-06** (info) — all 13 Week 11 venues transcribed from official game centres
+  (Reliant, Highmark, Bank of America, Soldier Field, AT&T, Ford Field, Arrowhead,
+  Lincoln Financial, SoFi, MetLife, Empower Field, Estadio Banorte, Northwest Stadium).
+
+**Standings delta (committed 2026-11-14 snapshot vs live 2026-11-17 page):** 24 reflected
+(PF/PA deltas equal each club's Week 10 game score, checked row by row), 4 bye (CHI/DEN/PHI/TB),
+4 not reflected (WAS/NYG TNF, BAL/LAC MNF). 32/32 clubs classified; sum(PF)=sum(PA) holds.
+
+**Artifacts (all new, additive, in-scope):** `scripts/build_freshness_data.py` (dataset writer),
+`scripts/build_freshness.py` (subsite builder), `scripts/check_freshness.py` (107 checks, all
+pass), `data/freshness/**` (manifest, standings_live, schedule_w11, results_w10, findings,
+delta_standings — all dated 2026-11-17), `freshness/**` (index, standings, schedule, findings
+pages; findings page is the "Flagged for Review" page for this pass).
+
+**T41 — DONE.** Register corrections, evidence-bound only:
+- **R025** NOT STARTED → **PARTIAL**: dated schedule announcement now verified live
+  (media.nfl.com, May 14 2026; SRC-022). Gap narrowed to recurring versioned capture.
+- **R024** PARTIAL updated: Week 11 venue transcription now evidenced for all 13 fixtures
+  (SRC-023); remainder of season still unverified.
+- **R073** PARTIAL updated: freshness pass evidence added (24/4/4 classification, 107-check
+  verifier). Gap narrowed to scheduled clock-time capture cadence.
+- Register regenerated via `scripts/build_readiness.py`: 75 requirements, validation OK.
+
+**T42 — IN PROGRESS.** Nav entry added to `scripts/build_site.py` PAGES ("Freshness"),
+four freshness pages added to `scripts/check_site.py` PAGES; **no `.github/workflows/pages.yml`
+edit was required** — the 2026-11-16 workflow note confirms GitHub Pages is `build_type:
+legacy` with source `main:/`, so the repo root publishes itself and the `cp -r` allowlist was
+deliberately removed. Freshness pages are published from the root as-is.
+
+**Deviation disclosed:** the claim's not-touched list named `data/sources.csv`; this session
+**appended two additive registry rows** (SRC-022 dated schedule announcement, SRC-023 Week 11
+schedule page, both official, both verified live 2026-11-17). Reason: `build_readiness.py`
+validates that every cited source_id is registered in sources.csv, so the R024/R025 evidence
+citations require the two rows; the append is evidence-bound, additive only, and no existing
+row was altered. Flagged here per the evidence rule.
+
+**Generated-output propagation (no hand edits to `board/**`):** running the repo's own shared
+generators as part of the required suite regenerated `board/data/requirements_readiness.csv`,
+`board/data/sources.csv`, `board/data/verification_report.csv`, `board/index.html`,
+`board/readiness.html`, `board/sources.html` and `board/verification.html`. The changes are
+exactly the propagation of the two data-register edits: the readiness rows for R024/R025/R073,
+the two new source rows, and `verify.py`'s derived I-05 note ("all 20 distinct source ids
+resolve", up from 18). No script under `board/`'s ownership was edited by this session and no
+board content was hand-changed; the regenerated output is what the shared build produces from
+the updated registers, and leaving it stale would misstate the board against its own data.
+
+**Suites after integration:** `check_site.py` 3134 assertions PASS; `check_verify.py` 203 PASS;
+`check_verified_site.py` 605 PASS; `verify_depth.py` 16/0/0; `check_links.py` PASS (29 board
+pages); `check_depth_links.py` PASS (502 links); `build_readiness.py --check` OK (75 reqs);
+`build_board.py` 29 pages (sha1 `fcb2d5e23c4d`); `verify.py` GATE G-10 PASS
+(V-09b/FLG-025 non-blocking); `check_freshness.py` 107 checks PASS.
+
 # Session `arena/bb4f237d-fl3` — claim (2026-11-17T02:41Z)
 
 Branch `arena/bb4f237d-fl3` (base `main@81a1c74`, i.e. after PR #39). This session is the only one working on this branch.
@@ -1715,6 +1815,43 @@ and the leaderboard data.
 
 **Baseline checks run before editing:** `verify.py` G-10 PASS (non-blocking V-09b/FLG-025);
 `check_site.py` 3,064 assertions ALL PASSED; `check_links.py` 29 pages PASS.
+
+## Session `arena/4ac55b56-fl3` — merge-conflict resolution (2026-11-17 UTC)
+
+Before the T42 push, `origin/main` had advanced from `0e51cf8` to `dd6d407` (PR #45 ablation
+session `arena/ff321d9c`, plus integrations of PR #34/#23/#42). The `git merge origin/main`
+produced content conflicts in `COORDINATION.md`, `data/requirements_readiness.csv`, the
+generated root pages and four generated `board/` pages. **Nothing from either side was
+discarded; resolution is logged here.**
+
+- `scripts/build_readiness.py` auto-merged cleanly: both sessions' row edits are present
+  (this session's R024/R025/R073 evidence + main's R028/R029 IMPLEMENTED rows) plus main's
+  `csv.writer(lineterminator="\n")` fix. The register was regenerated from the merged
+  generator: 75 requirements, validation OK.
+- `data/sources.csv` merged cleanly (no conflict): main added no rows; this session's
+  SRC-022/SRC-023 appends are the only delta and are retained.
+- `scripts/check_site.py` and `scripts/build_site.py` auto-merged cleanly: main's
+  `ablations.html` PAGES entries and this session's four freshness PAGES entries are all
+  present and verified by grep.
+- `data/requirements_readiness.csv` and every generated root/board page resolved by
+  **regenerating from the merged generators** (`build_readiness.py`, `build_site.py`,
+  `build_board.py`, `build_freshness.py`, `verify.py`) — no hand-edited content on either
+  side was overwritten by hand; the regenerated output is exactly what the merged build
+  produces.
+- `COORDINATION.md` resolved by keeping **both** session records: this session's
+  `arena/4ac55b56-fl3` claim + progress record, followed by main's `arena/816adbe6-fl3`
+  closeout record. Task table updated to T40 DONE / T41 DONE / T42 in progress.
+
+**Second conflict round (`origin/main` advanced `dd6d407` → `a9c1b29`, PR #47 from
+`arena/bb4f237d-fl3` + earlier PRs #40-#43):** same method. `scripts/build_readiness.py`
+auto-merged cleanly with all sessions' rows (this session's R024/R025/R073 + main's R028/R029
+IMPLEMENTED + R020 restatement); the register was regenerated (75 requirements, validation OK).
+Generated root/board pages resolved by regeneration from the merged generators.
+`COORDINATION.md` resolved by keeping **all** session records — both conflict regions kept
+both sides, so `arena/bb4f237d-fl3`'s claim and T40-T42 result records, plus the prior
+sessions' records, are all preserved alongside this session's records. Nothing from any
+session was discarded.
+
 ## T40–T42 result (2026-11-17 UTC, session `arena/bb4f237d-fl3`)
 
 ### T40 — takeover of stalled PRs #34 / #23: overtaken by events, no work lost
@@ -1853,3 +1990,12 @@ The verified-results subsite and `docs/` still say **148**: **cross-scope reques
 | Live content check | `https://sassnarep3-star.github.io/FL3/board/flagged.html?v=pr47-confirm` fetched after deploy — serves the full FLG register including the FLG-027 dated correction and the FLG-031/033 cross-reference notes |
 | Handoffs closed | PR #23 and PR #34 both merged by their own/other sessions before this branch merged; their content reconciled on this branch and confirmed identical after merge |
 | Session status | **T40, T41, T42 done.** Scope closed. |
+
+**Third conflict round (`origin/main` advanced `a9c1b29` → `5965438`, PR #49 from
+`arena/bb4f237d-fl3` + PR #46 from `arena/9842b82d-fl3` — frontier datasets / results feed
+149 / leaderboard v2):** `scripts/check_site.py` PAGES list conflicted; resolved by keeping
+**both** session additions (this session's four freshness entries + main's five frontier-dataset
+entries) as one continuous list. `data/requirements_readiness.csv` and generated root/board
+pages resolved by regeneration from the merged generators (`build_readiness.py` unchanged on
+main between the two tips; all sessions' rows present, 75 requirements validation OK). All
+verifiers re-run green on the merged tree. Nothing from any session was discarded.
