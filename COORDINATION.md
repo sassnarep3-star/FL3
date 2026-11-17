@@ -1767,3 +1767,42 @@ build_board.py --check   PASS (30 pages, deterministic sha 90ab51d7cfc5)
 | Merge | merged into `main` (merge commit recorded on the PR), no approval waited, per the brief |
 | Pages deploy | confirmed after merge via the Pages API and the deploy workflow (see the follow-up record below for the run ids) |
 | Flagged items | do not block; published on `flagged.html` (root F-series) and `board/flagged.html` (FLG-series) |
+---
+
+# Session `arena/9842b82d-fl3` — claim (2026-11-17 UTC)
+
+Branch `arena/9842b82d-fl3` (base `main@0e51cf8`, PR #38). Checked before claiming: no open PRs on the
+repo (`gh pr list --state open` → 0), `COORDINATION.md`'s most recent claim (`arena/f5117408-fl3`, PR #37)
+is closed and merged, and every previous claim is older than 60 minutes and already marked **done**. No
+competing session is active, so this session is the integration session for its own branch.
+
+**Baseline measured on the checkout before editing (all green):** `check_site.py` 3,064 assertions PASS;
+`check_links.py` 29 pages PASS; `verify.py` GATE G-10 PASS with the already-published non-blocking
+V-09b/FLG-025; `check_verified_site.py` 605 assertions PASS; `check_verify.py` 203 assertions PASS;
+`build_board.py --check` 29 pages PASS; Pages API reports `build_type: legacy, main:/, status: built`.
+
+## Scope (new filenames only; no existing register, generator or page is rewritten)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T30 — Requirement traceability matrix: every line of the brief → implemented artefact → official source → what is still missing, published as its own dashboard page | **in progress** | `arena/9842b82d-fl3` | `data/spec_trace.csv`, `scripts/build_spec.py`, `spec.html` |
+| T31 — Official Week 11 fixture register (13 fixtures: date, kickoff ET, network, venue, game-centre URL) transcribed from the official schedule page and game centres | **in progress** | `arena/9842b82d-fl3` | `data/week11_official_fixtures.csv`, `data/week11_venues.json` |
+| T32 — Price-snapshot store for **our own** originated numbers (open = first pre-kickoff origination, close = last), immutable, hashed, with the market columns deliberately blank and the price-data policy decided in writing | **in progress** | `arena/9842b82d-fl3` | `data/price_snapshots/**`, `scripts/build_price_snapshots.py`, `POLICY-price-data.md` |
+| T33 — Availability graph (expected vs actual), with actual starters transcribed from official NFL Game Books where a PDF exists, and `UNVERIFIED` where it does not | **in progress** | `arena/9842b82d-fl3` | `data/availability_graph/**`, `scripts/build_availability_graph.py` |
+| T34 — Canonical verified results feed with settlement keys, plus the pre-registered backtest corpus declaration (the corpus is **148** games, not the brief's 136 — published as a corrected number, with the reconciliation) | **in progress** | `arena/9842b82d-fl3` | `data/results_feed.csv`, `scripts/build_results_feed.py` |
+| T35 — Injury/personnel ablation on chronological holdouts with clustered uncertainty, replacing fixed point penalties | **in progress** | `arena/9842b82d-fl3` | `data/ablation_injury.csv`, `scripts/build_ablation.py` |
+| T36 — Leaderboard split into signal and staking, proper-score divisions, control baselines (random / favourites-only), demotion gate and pre-registration freeze | **in progress** | `arena/9842b82d-fl3` | `data/leaderboard_v2.json`, `scripts/build_leaderboard_v2.py` |
+| T37 — Site integration: new pages wired into navigation, verifier extended for them, Links/Pages checks re-run | **in progress** | `arena/9842b82d-fl3` | `scripts/build_site.py` (nav + new page list), `scripts/check_site.py` (new checks only), generated `*.html` |
+| T38 — PR, merge, Pages deploy verification, record | **in progress** | `arena/9842b82d-fl3` | this file |
+
+**Not touched by this session:** every other session's datasets (`data/depth_risk.json`,
+`data/lineup_risk.json`, `data/matchup_matrix_week10.csv`, `data/official_capture/**`,
+`data/recapture_2026-11-16/**`, `data/injuries_week10.json`, `data/standings.json`,
+`data/lines_week10.json`, `data/luck.json`, `data/strategies.json`, `data/requirements_readiness.csv`),
+`depth/**`, `docs/**`, `board/**`, `verified/**`, `verify/**`, `legacy/**`, `site-9b181d31/**`,
+`models/**` and `.github/**`. New findings that belong in those registers are recorded here and on this
+session's own pages instead of being written into another session's file.
+
+**Evidence rule for every task:** a value is published only if it was read on an official NFL source in
+this session and the row links that URL. Anything else is `UNVERIFIED` with the reason. No price, starter,
+snap count, depth rank or injury designation is inferred.
