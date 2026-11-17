@@ -1999,3 +1999,19 @@ entries) as one continuous list. `data/requirements_readiness.csv` and generated
 pages resolved by regeneration from the merged generators (`build_readiness.py` unchanged on
 main between the two tips; all sessions' rows present, 75 requirements validation OK). All
 verifiers re-run green on the merged tree. Nothing from any session was discarded.
+
+## Session `arena/4ac55b56-fl3` — T42 final record: PR, merge, deploy (2026-11-17 UTC)
+
+| Item | Result |
+|---|---|
+| Pull request | [#48 — T40-T42: live 2026-11-17 official-source freshness pass, freshness subsite, register corrections](https://github.com/sassnarep3-star/FL3/pull/48) |
+| Merge | **MERGED** into `main` at merge commit `14f9c094c84370a13e2459782c59acae73bd51e0`, merged 2026-11-17T03:01:53Z, no approval waited |
+| Merge conflicts | three rounds (`dd6d407`, `a9c1b29`, `5965438`); each resolved without discarding any session's work (see the three conflict-resolution notes above); `check_site.py` PAGES conflict resolved by keeping both sessions' entries in one list |
+| Post-merge workflows | "Verify data and site" success; "site" success; "Deploy static site to GitHub Pages" success; "pages build and deployment" success (runs from 2026-11-17T03:01-03:15Z) |
+| Live confirm | all four freshness pages fetched live and serve correctly: `https://sassnarep3-star.github.io/FL3/freshness/`, `/standings.html`, `/schedule.html`, `/findings.html` (initial 404 was CDN caching; cache-busted fetches confirm the deploy). Root index nav carries the "Freshness" entry. |
+| Flagged items | F-FRESH-01..06 published on `freshness/findings.html` ("Flagged for Review" page); they do not block the merge |
+
+**All suites on the merged tree:** `check_freshness.py` 107 checks PASS · `check_site.py` ALL
+PASS · `check_verify.py` ALL PASS · `check_verified_site.py` ALL PASS · `verify_depth.py`
+16/0/0 · `check_links.py` PASS · `check_depth_links.py` PASS · `build_readiness.py --check`
+OK (75 requirements) · `verify.py` GATE G-10 PASS (V-09b/FLG-025 non-blocking).
