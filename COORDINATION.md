@@ -1422,3 +1422,54 @@ What the session establishes is the measurement apparatus, not an edge.
 5. **Determine which of the seven published dashboards is canonical.** This session's answer is
    `verified/`, on the evidence that it is the only one whose corpus reconciles. That is an
    argument, not a decision — the owner should make it.
+**Scope note for the board:** most of the requirement list was already in the register as R001–R067 (state and gate per row). Not done in this session, and recorded as open: the point-in-time snapshot store, a 32-club depth capture, the snap-count and inactive-list capture, the forecast/probability store, the leaderboard divisions, the parlay joint-evidence gate, and the matrix view.
+# Session `arena/fa06d378-fl3` — claim, verification and handoff record (2026-11-16 UTC)
+
+## Claim and scope
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T23 — Cell-level re-transcription of the official Week 10 injury report (all 347 rows) and a field-by-field diff against the repo table. Complements T22 (`arena/00a6b558-fl3`), which checked club counts and the Lions rows only and left cell-level work open. | **needs review** (36 discrepancies open: FLG-031) | `arena/fa06d378-fl3` | `data/official_captures/**`, `scripts/diff_week10_injuries.py`, `data/flags.csv` (appended FLG-031…FLG-033 only), generated `board/**` |
+
+**Claim-order note.** The protocol asks for a claim to be pushed before work starts. This session wrote the work first and the claim in the same commit, and that is recorded here rather than hidden. A first rebase also collided with T22 from `arena/00a6b558-fl3`, which had already claimed and completed the Week 10 re-check. This session did not repeat T22's work. It took the cell-level step T22 left open, renamed as T23. Its flags were renumbered to avoid collisions: FLG-029 and FLG-030 belong to the other session, and the Lions and row-count items were dropped as duplicates of their FLG-029 and FLG-030 wording.
+
+**Branch name.** The session branch is `arena/fa06d378-fl3`, the name given for this session. The `session-<id>/<task>` form in the brief was not used because the session rules fix the working branch.
+
+**Not claimed, not touched:** `data/injuries_2026_wk10.csv` (the 345-row table under review), `data/injuries_2026_w10.*`, `board/data/injuries_2026_w10.csv`, `data/recapture_2026-11-16/**` (T22's capture), root `index.html` and the other shared outputs. The discrepancies are logged for the integration session rather than fixed in place.
+
+## Sources
+
+| Source | URL | Used for |
+|---|---|---|
+| NFL.com official Week 10 injury report (2026) | https://www.nfl.com/injuries/league/2026/reg10 | Full transcription, 8 page chunks, 347 rows across 28 club tables (`data/official_captures/nfl_week10_2026_injury_report.psv`) |
+
+## Verification performed
+
+1. Eight chunks of the official page were read with the fetch tool. Each row was transcribed to `CLUB|PLAYER|POS|INJURIES|PRACTICE|GAME`. The transcription hash is `sha256 ee75c02e91f204a98b5ca1687fa36f63fb4769b738a9c55f514c88803e67cf83`. It covers the transcription file, not the raw HTML. No raw HTML was retained, so the capture has no raw hash. The manifest says so.
+2. `python3 scripts/diff_week10_injuries.py` compares the transcription with `data/injuries_2026_wk10.csv` on club, player, position, injury, practice status and game status. Result: 347 official rows, 345 repo rows, **36 discrepancies** (`data/official_captures/nfl_week10_2026_injury_diff.csv`).
+3. Per-club counts agree everywhere except BAL (10 official, 8 repo). This matches T22's finding.
+4. Lions and row-count claims are not repeated here. T22 and FLG-030 cover them.
+5. `scripts/verify.py`, `scripts/build_board.py`, `scripts/check_links.py` and `scripts/check_site.py` are run after the flag append.
+
+## Irregularities (published on the board's Flagged page; none block anything)
+
+- **FLG-031 (high):** 36 cell-level discrepancies against the official page. This extends FLG-029.
+- **FLG-032 (medium):** four copies of the Week 10 injury data with different row counts and schemas.
+- **FLG-033 (medium):** `verify.py` prints `[FAIL]` for V-09b but the gate reports `PASS` with exit 0.
+
+## What this session did not do
+
+Most of the brief's roughly 60 items are not done here. Examples: a price-snapshot store, a results feed, strategy pre-registration, leaderboard divisions, depth-group modelling, snap counts, inactive lists, multi-day snapshots with raw hashes, correlations with n, the demotion gate and the site-wide readiness table. Many depend on sources the repo does not have: a licensed price feed, official snap counts, and official inactive lists. Those blockers are recorded in `board/data/requirements_readiness.csv`, and this session did not re-do them.
+
+## Handoff notes for the integration session
+
+- Correct the 36 cells in `data/injuries_2026_wk10.csv` (or replace it with the verified transcription), re-run `scripts/diff_week10_injuries.py` until it reports zero, then re-run the board pipeline.
+- Choose a canonical Week 10 injury copy (FLG-032) and derive the others from it.
+- Decide the policy for a failing identity in `verify.py` (FLG-033).
+
+## PR record — `arena/fa06d378-fl3`
+
+| Item | Result |
+|---|---|
+| Pull request | [#23 — T23: official Week 10 injury capture, cell-level diff (36 discrepancies), flags FLG-031..033](https://github.com/sassnarep3-star/FL3/pull/23) |
+| Merge | **Not merged.** The brief's merge condition (all tasks done and integrated) is not met for this branch. Left open for review. |

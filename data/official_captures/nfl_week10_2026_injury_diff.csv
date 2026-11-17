@@ -1,0 +1,37 @@
+club,player,field,official_nfl_com,repo_value,discrepancy
+BAL,Adam Randall,injury,"Neck, Hamstring",(blank),mismatch
+BAL,Adam Randall,game_status,Questionable,(blank),mismatch
+BAL,Calais Campbell,row,present on official page,MISSING from repo,missing_in_repo
+BAL,Jaylinn Hawkins,injury,Knee,(blank),mismatch
+BAL,Jaylinn Hawkins,game_status,Out,(blank),mismatch
+BAL,Ronnie Stanley,row,present on official page,MISSING from repo,missing_in_repo
+HOU,Jacob Hummel,row,present on official page,MISSING from repo,missing_in_repo
+HOU,Jake Hummel,row,not on official page,present in repo,extra_in_repo
+IND,Arden Key,injury,(blank),Hamstring,mismatch
+IND,Arden Key,game_status,(blank),Questionable,mismatch
+LAC,Branson Taylor,injury,Ankle,(blank),mismatch
+LAC,Branson Taylor,game_status,Out,(blank),mismatch
+LAC,Brenen Thompson,injury,Hamstring,(blank),mismatch
+LAC,Brenen Thompson,game_status,Doubtful,(blank),mismatch
+LAC,Bud Dupree,practice_status,Full Participation in Practice,Did Not Participate In Practice,mismatch
+LAC,David Njoku,injury,Fibula,(blank),mismatch
+LAC,David Njoku,practice_status,Full Participation in Practice,Limited Participation in Practice,mismatch
+LAC,David Njoku,game_status,Questionable,(blank),mismatch
+LAC,Denzel Perryman,injury,Pectoral,(blank),mismatch
+LAC,Denzel Perryman,game_status,Questionable,(blank),mismatch
+LAC,Isas Waxter,injury,Ankle,(blank),mismatch
+LAC,Isas Waxter,game_status,Out,(blank),mismatch
+LAC,Justin Eboigbe,injury,Ankle,(blank),mismatch
+LAC,Justin Eboigbe,game_status,Questionable,(blank),mismatch
+LAC,Kayode Awosika,injury,Fibula,(blank),mismatch
+LAC,Kayode Awosika,practice_status,Full Participation in Practice,Limited Participation in Practice,mismatch
+LAC,Kayode Awosika,game_status,Questionable,(blank),mismatch
+LAC,Keaton Mitchell,practice_status,Full Participation in Practice,Limited Participation in Practice,mismatch
+LAC,Kendall Williamson,injury,Calf,(blank),mismatch
+LAC,Kendall Williamson,game_status,Out,(blank),mismatch
+LAC,Ladd McConkey,injury,Back,(blank),mismatch
+LAC,Ladd McConkey,game_status,Questionable,(blank),mismatch
+LAC,Rodney Shelley,practice_status,Full Participation in Practice,Limited Participation in Practice,mismatch
+LAC,Trey Pipkins,injury,"Not injury related - personal matter, Knee",(blank),mismatch
+LAC,Trey Pipkins,practice_status,Limited Participation in Practice,Did Not Participate In Practice,mismatch
+LAC,Trey Pipkins,game_status,Questionable,(blank),mismatch
