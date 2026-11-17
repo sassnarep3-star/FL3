@@ -18,6 +18,7 @@
 | Session ID | Branch | Scope | Started (UTC) |
 |---|---|---|---|
 | `arena/9d05cb63-fl3` | `arena/9d05cb63-fl3` | Repo review, official-source verification, and session closeout (PR + merge + Pages deploy record). No dataset or page content changed; only COORDINATION.md session records. | 2026-11-16 |
+| `arena/4d2c9111-fl3` | `arena/4d2c9111-fl3` | T35: injury/availability ablation with chronological holdout and uncertainty (R028/R029). New ablation script + datasets + `ablations.html` page; wired into root nav, board PAGES, and verifiers. | 2026-11-17 |
 
 Other sessions: **one competing session was discovered after this session's first push.**
 
@@ -63,6 +64,7 @@ and both pushed before either claim was visible. This is the exact race the prot
 | T17 | Merge-conflict resolution vs `arena/39f57d31-fl3` | **done** | `arena-e8bf2075` | `COORDINATION.md`, `README.md`, `index.html`, `assets/site.css`, `scripts/check_site.py` |
 | T18 | Archive the competing blueprint without discarding it | **done** | `arena-e8bf2075` | `legacy/**` |
 | T19 | Fold the other session's findings into the registers | **done** | `arena-e8bf2075` | `data/flagged.json`, `data/decisions.json`, `data/suggestions.json` |
+| T35 | Injury/availability ablation with chronological holdout and uncertainty (R028/R029) — compare the identical line model with and without verified availability features on a chronological holdout; publish MAE/RMSE/Brier with bootstrap CIs and an explicit n; no backtest numbers on the leaderboard | **in progress** | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
 
 **File ownership rule for future sessions:** `data/standings.json`, `data/sources.json`,
 `data/flagged.json` and every `*.html` at repo root are **shared outputs**. They are regenerated
@@ -1606,3 +1608,110 @@ Branch `arena/816adbe6-fl3`, base `main@0e51cf846dd1b698261ebbb67cffc0df6576cac7
 | Pull request | [#23 — T23: official Week 10 injury capture, cell-level diff (36 discrepancies), flags FLG-031..033](https://github.com/sassnarep3-star/FL3/pull/23) |
 | Merge | Integrated via PR #41-style graft: the PR's branch shares no git history with the current squashed `main`, so its content (capture PSV + manifest + diff + `scripts/diff_week10_injuries.py` + flags FLG-031..033) was applied onto `main` byte-for-byte and the owning PR merged with this branch as its head. Nothing discarded. |
 | Handoff note | Owner session `arena/fa06d378-fl3` claim was >60 minutes stale with no commits; takeover per protocol, recorded here. |
+
+---
+
+# Session `arena/03e651e0-fl3` — follow-up record (PR #34, integrated by handoff)
+
+Owning session's claim was >60 minutes stale with no commits; takeover per protocol, integration performed
+by `arena/6c7144be-fl3`. The PR branch shares no git history with the current squashed `main`, so its
+content was grafted onto `main`: the `verified/strategies.html` self-contradiction fix (live page said
+"0 forecasts" while `data/preregistration_week11.json` holds 13 published forecasts), the matching
+generator change in `scripts/build_verified_site.py`, and the tag-balance assertions in
+`scripts/check_verified_site.py`. `verified/strategies.html` was regenerated from the merged generator
+rather than hand-copied. Nothing discarded.
+
+## Session `arena/03e651e0-fl3` — final record (verbatim from PR #34, context: PR #30)
+
+| Item | Value |
+|---|---|
+| Pull request | [#30](https://github.com/sassnarep3-star/FL3/pull/30) |
+| Merge | **merged** to `main` 2026-11-16T01:47:38Z, merge commit `7c8ce4e73811420affe5743ddeddb1fd5a1f79d3` |
+| PR checks | `Recompute and verify` pass · `validate` pass · `verify-and-build` pass |
+| Pages build API | `status: built`, commit `7c8ce4e` |
+| Live, verified by fetching the rendered page | `/FL3/verified/` and `/FL3/verified/strategies.html` both serve |
+
+Three merges of `origin/main` were needed during the session; `main` advanced four times
+(PRs #25, #27, #28, #29) while this branch was open, and another session added a `verify/`
+subsite one character from this session's `verified/`. Every conflict was resolved as a union —
+both nav entries kept, both CI suites run, both coordination records kept. Nothing was discarded.
+
+## What session `arena/03e651e0-fl3` added
+
+| Artifact | What it establishes |
+|---|---|
+| `data/week_results_2026.csv` | 148 FINAL games, weeks 1–10. All 32 clubs' W/L/T, PF and PA reproduce the official standings exactly. `scripts/build_week_results.py --check` re-proves it. |
+| `scripts/score_lines.py`, `data/line_eval.{json,csv}` | Scores the committed Week 10 lines (n=11, leakage excluded) and runs a walk-forward over 100 games, with 4,000 game-cluster bootstrap intervals and explicit baselines. |
+| `scripts/verify_live.py`, `data/live_verification.{csv,json}` | 15 root-session claims re-checked against live NFL.com pages: 4 confirmed, 2 stale, 2 partly stale, 2 not reproducible, 5 unverifiable with stated source gaps. |
+| `verified/**` (8 pages), `scripts/build_verified_site.py` | The canonical dashboard. Every row sourced or explicitly marked. |
+| `scripts/check_verified_site.py` | Assertions over the rendered HTML, including tag balance, no template placeholders, no hand-typed figures. |
+| `verified/PREREGISTRATION.md`, `scripts/preregister_model.py` | `FL3-SHADOW-1` frozen constants, window, primary metric, multiplicity rule, stopping rule, ablation rule. |
+| `data/week11_slate_2026.csv`, `data/preregistration_week11.json` | 13 unplayed Week 11 fixtures and the first 13 registered live forecasts. |
+| `.github/workflows/pages.yml` | Replaced the `cp`-allowlist deploy with a gate. Pages is `build_type: legacy`, source `main:/`; the allowlist was never the deploy path and caused two recorded phantom-404s. |
+
+## The result, stated plainly
+
+The baseline **does not beat a pick'em line at 95% confidence** (spread RMSE gain +0.055,
+CI [−0.020, +0.130], n=100) and its **win probabilities are not distinguishable from a coin**
+(Brier skill +0.069, CI [−0.086, +0.229]). That is published on the first screen of the landing page.
+What the session establishes is the measurement apparatus, not an edge.
+
+## Handoff — the highest-value open work (owner decisions)
+
+1. **`data/injuries_2026_w10.csv` should be retired or relabelled** (LV-05 / R-01). It holds 160 rows,
+   every one designated, against 345 on the live page, and omits Sam Darnold (QB, Out). It is the input
+   to `scripts/model.py` and therefore to the board track's leaderboard.
+2. **The root requirement register's "136 eligible game records" clearance metric** (R002/R053) must be
+   restated against the verified 148 before it can clear anything.
+3. **Capture the injury report daily, Wed–Sun, with retained hashes** (LV-12). Three requirements are
+   blocked only because no series was ever captured. The protocol is specified in `verified/method.html`.
+4. **Price policy before any backtest is published** (LV-10). CLV and ROI stay uncomputable until a
+   licensed source exists. Do not fill the market column from an aggregator.
+5. **Determine which of the seven published dashboards is canonical.** This session's answer is
+   `verified/`, on the evidence that it is the only one whose corpus reconciles. That is an
+   argument, not a decision — the owner should make it.
+---
+
+---
+
+# Session `arena/4d2c9111-fl3` — claim, scope and record (2026-11-17 UTC)
+
+**Session ID:** `arena/4d2c9111-fl3` · **Branch:** `arena/4d2c9111-fl3` · **Base:** `main@0e51cf8`
+**Started:** 2026-11-17. Sole session on this branch.
+
+## Claim (2026-11-17 UTC)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T35 — Injury/availability ablation with chronological holdout and uncertainty (readiness **R028/R029**) | in progress | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
+
+The brief asks twice to replace fixed injury penalties with measured ablations: *"Add injury/depth
+ablations, not fixed penalties — compare identical models with and without verified availability
+features using chronological holdouts"* (R028/R029). This was **NOT STARTED** in the readiness register.
+This session implements exactly that: one deterministic ablation harness that runs the identical
+originated-line model twice — once **with** the verified availability features (Week 10 official
+injury-report game statuses) and once **without** them — on a **chronological holdout**, scores both
+against the verified Week 10 results, and publishes MAE / RMSE / Brier with **bootstrap 95% CIs and
+an explicit n**. No backtest numbers are placed on the leaderboard (the brief forbids it); the
+ablation is a model-evaluation study on its own page.
+
+**Evidence rules for T35:**
+- Availability features come **only** from the verified official injury report (`data/injuries_week10.json`,
+  game status Out/Doubtful/Questionable). Depth-*tier* features are deliberately **excluded**: the
+  depth-tier source is unverified for most clubs (R042 is BLOCKED), so the brief's own gate forbids
+  building the depth feature until a route is verified for all 32 clubs.
+- Results come **only** from the verified per-game results corpus (`data/week_results_2026.csv`,
+  every row `https://www.nfl.com/...`). Standings are reconstructed deterministically from that corpus.
+- The two variants differ **only** in whether the availability adjustment is applied; every other
+  constant, rating and input is identical.
+- Uncertainty is a bootstrap over the holdout games (fixed seed, deterministic). If a CI includes
+  zero, the result is stated as "no demonstrated difference", never as skill.
+- Model output is badged as model output everywhere; no bet, no market quote.
+
+**Not claimed and not touched:** `data/injuries_2026_w10.csv` and the 160-row model input (owned by
+the injury-capture sessions; FLG-042/043 remain flagged), `data/depth_charts_*.json`, `depth/**`,
+`docs/**`, `site-9b181d31/**`, `legacy/**`, `.github/**`, `models/**`, every other readiness row,
+and the leaderboard data.
+
+**Baseline checks run before editing:** `verify.py` G-10 PASS (non-blocking V-09b/FLG-025);
+`check_site.py` 3,064 assertions ALL PASSED; `check_links.py` 29 pages PASS.

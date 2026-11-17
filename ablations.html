@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ablations · FL3 NFL Decision System</title>
+<meta name="description" content="Verified NFL data, originated lines, strategy gates and open decisions. Every value links to an official source.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="brand"><span class="mark">FL3</span><span class="sub">NFL Decision System</span></div>
+  <nav><a href="index.html">Dashboard</a><a href="standings.html">Standings</a><a href="lines.html">Our Lines</a><a href="injuries.html">Injuries</a><a href="matchups.html">Matchup matrix</a><a href="ablations.html" class="on">Ablations</a><a href="data-snapshots.html">Data snapshots</a><a href="strategies.html">Strategies</a><a href="correlation.html">Correlation</a><a href="decisions.html">Decisions</a><a href="suggestions.html">Suggestions</a><a href="flagged.html">Flagged for Review</a><a href="sources.html">Sources</a><a href="methodology.html">Methodology</a><a href="board/readiness.html">Requirement readiness</a><a href="verified/index.html">Verified results &amp; scoring</a><a href="verify/index.html">Verification</a></nav>
+</header>
+<main id="main">
+
+<section class="lead">
+  <h1>Injury / availability ablation</h1>
+  <p>Injury / availability ablation — chronological holdout (Week 10, 2026). The brief replaces fixed injury penalties with <em>measured</em>
+  ablations: the identical originated-line model is run twice on the same chronological holdout,
+  once <strong>with</strong> the verified availability features (Week 10 official injury-report game
+  statuses) and once <strong>without</strong> them. <span class="badge model">model evaluation</span>
+  These numbers are <strong>not</strong> leaderboard entries - the brief forbids backtest numbers on
+  the leaderboard.</p>
+</section>
+<section><div class="stat"><b>12</b><span>holdout games (Week 10)</span><em>chronological holdout</em></div><div class="stat"><b>1-9</b><span>calibration games</span><em>Weeks 1-9</em></div><div class="stat"><b>11.65</b><span>spread MAE · availability ON</span><em>95% CI [6.97, 16.52]</em></div><div class="stat"><b>-0.64</b><span>paired total-MAE diff (ON - OFF)</span><em>95% CI [-1.17, -0.22]</em></div></section>
+<section>
+  <h2>Head-to-head summary</h2>
+  <p>Both variants use identical power ratings (calibrated on verified Weeks 1-9 only) and differ
+  <strong>only</strong> in whether the capped availability adjustment is applied.</p>
+  <div class="tablewrap"><table class=""><thead><tr><th>variant</th><th>n</th><th>spread MAE</th><th>spread MAE 95% CI</th><th>spread RMSE</th><th>total MAE</th><th>total MAE 95% CI</th><th>total RMSE</th><th>Brier</th><th>Brier 95% CI</th></tr></thead><tbody><tr><td>availability ON</td><td>12</td><td>11.65</td><td>[6.97, 16.52]</td><td>14.40</td><td>8.88</td><td>[4.37, 14.63]</td><td>12.73</td><td>0.2197</td><td>[0.16, 0.28]</td></tr><tr><td>availability OFF</td><td>12</td><td>11.69</td><td>[7.17, 16.27]</td><td>14.23</td><td>9.51</td><td>[4.85, 15.31]</td><td>13.26</td><td>0.2134</td><td>[0.17, 0.26]</td></tr></tbody></table></div>
+</section>
+<section>
+  <h2>Paired difference with uncertainty</h2>
+  <p>Each row resamples the 12 holdout games (bootstrap, seed 20261117, 20000 reps). A CI that
+  spans zero means the availability features do not demonstrate a measurable change - no skill
+  advantage is claimed.</p>
+  <div class="tablewrap"><table class=""><thead><tr><th>metric</th><th>n</th><th>diff (ON - OFF)</th><th>95% CI</th><th>CI excludes zero?</th><th>verdict</th></tr></thead><tbody><tr><td>Spread MAE</td><td>12</td><td>-0.0450</td><td>[-0.81, 0.85]</td><td><span class="badge warn">includes zero</span></td><td>The 95% CI on the paired spread MAE difference includes zero: the availability features do not demonstrate a measurable change on this holdout. No skill advantage is claimed.</td></tr><tr><td>Total MAE</td><td>12</td><td>-0.6370</td><td>[-1.17, -0.22]</td><td><span class="badge good">excludes zero</span></td><td>The availability features reduce total MAE on this holdout and the paired 95% CI excludes zero. Promising, but n is small; treat as a single-window result.</td></tr><tr><td>Brier</td><td>12</td><td>+0.0063</td><td>[-0.02, 0.04]</td><td><span class="badge warn">includes zero</span></td><td>The 95% CI on the paired Brier difference includes zero: the availability features do not demonstrate a measurable change on this holdout. No skill advantage is claimed.</td></tr></tbody></table></div>
+</section>
+<section>
+  <h2>Per-game detail</h2>
+  <div class="tablewrap"><table class=""><thead><tr><th>date</th><th>game</th><th>final</th><th>margin ON</th><th>margin OFF</th><th>spread err ON</th><th>spread err OFF</th><th>total err ON</th><th>total err OFF</th><th>Brier ON</th><th>Brier OFF</th><th>src</th></tr></thead><tbody><tr><td>2026-11-12</td><td>WAS @ NYG</td><td>24-21</td><td>+4.5</td><td>+3.9</td><td>7.5</td><td>6.9</td><td>1.8</td><td>2.5</td><td>0.419</td><td>0.393</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">results</a></td></tr><tr><td>2026-11-15</td><td>BUF @ NYJ</td><td>31-12</td><td>-4.0</td><td>-3.4</td><td>15.0</td><td>15.6</td><td>8.7</td><td>8.2</td><td>0.136</td><td>0.151</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">results</a></td></tr><tr><td>2026-11-15</td><td>CAR @ NO</td><td>20-17</td><td>+0.8</td><td>+1.4</td><td>3.8</td><td>4.3</td><td>14.6</td><td>15.0</td><td>0.278</td><td>0.297</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">results</a></td></tr><tr><td>2026-11-15</td><td>HOU @ CLE</td><td>24-27</td><td>+1.5</td><td>-0.5</td><td>1.5</td><td>3.5</td><td>4.2</td><td>4.1</td><td>0.202</td><td>0.268</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">results</a></td></tr><tr><td>2026-11-15</td><td>JAX @ TEN</td><td>40-23</td><td>-6.8</td><td>-6.2</td><td>10.2</td><td>10.8</td><td>16.4</td><td>17.3</td><td>0.081</td><td>0.091</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">results</a></td></tr><tr><td>2026-11-15</td><td>KC @ ATL</td><td>35-13</td><td>-2.1</td><td>-2.6</td><td>19.9</td><td>19.4</td><td>1.2</td><td>1.4</td><td>0.184</td><td>0.171</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">results</a></td></tr><tr><td>2026-11-15</td><td>LA @ AZ</td><td>34-6</td><td>-3.7</td><td>-3.1</td><td>24.3</td><td>24.9</td><td>7.3</td><td>7.9</td><td>0.140</td><td>0.156</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">results</a></td></tr><tr><td>2026-11-15</td><td>MIA @ IND</td><td>22-24</td><td>+1.8</td><td>+2.6</td><td>0.2</td><td>0.6</td><td>0.2</td><td>0.6</td><td>0.195</td><td>0.171</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">results</a></td></tr><tr><td>2026-11-15</td><td>MIN @ GB</td><td>30-10</td><td>+3.5</td><td>+1.5</td><td>23.5</td><td>21.5</td><td>0.9</td><td>2.3</td><td>0.376</td><td>0.303</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">results</a></td></tr><tr><td>2026-11-15</td><td>NE @ DET</td><td>10-35</td><td>+4.0</td><td>+3.4</td><td>21.0</td><td>21.6</td><td>5.0</td><td>5.2</td><td>0.136</td><td>0.152</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">results</a></td></tr><tr><td>2026-11-15</td><td>SEA @ LV</td><td>21-13</td><td>+2.3</td><td>-1.3</td><td>10.3</td><td>6.7</td><td>12.8</td><td>15.8</td><td>0.333</td><td>0.208</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">results</a></td></tr><tr><td>2026-11-15</td><td>SF @ DAL</td><td>46-40</td><td>-3.3</td><td>-1.6</td><td>2.7</td><td>4.4</td><td>33.5</td><td>33.9</td><td>0.154</td><td>0.200</td><td><a class="src" href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">results</a></td></tr></tbody></table></div>
+</section>
+<section>
+  <h2>Method</h2>
+  <p>Identical originated-line model run twice on the same Week 10 holdout. Ratings are calibrated on verified Weeks 1-9 only (chronological). Variant A applies the capped availability adjustment from the official Week 10 injury report; Variant B zeroes it. The two variants differ ONLY in the availability adjustment. Scored against verified Week 10 results. MAE/RMSE for spread and total; Brier for home win probability. 95% CIs are non-parametric bootstraps over the holdout games (seed 20261117, 20000 reps).</p>
+</section>
+<section>
+  <h2>Exclusions</h2>
+  <ul><li>Depth-tier features are NOT modelled: the depth-tier source is unverified for most clubs (R042 BLOCKED), so the brief&#x27;s gate forbids building that feature.</li><li>No market price is used; no bet is recommended. Model output only.</li><li>These are model-evaluation numbers, NOT leaderboard entries (the brief forbids backtest numbers on the leaderboard).</li></ul>
+</section>
+<section>
+  <h2>Limitations</h2>
+  <ul><li>Availability is captured for Week 10 only, so the head-to-head comparison is on the Week 10 holdout (n=12). The CIs are correspondingly wide.</li><li>The holdout has 12 scored Week 10 games; the full 14-game slate is not yet fully scored in the results corpus.</li></ul>
+</section>
+<section>
+  <h2>Sources</h2>
+  <ul>
+    <li>Week 10 results: <a class="src" href="https://www.nfl.com/schedules/2026/REG10" target="_blank" rel="noopener">NFL.com Week 10 schedule</a> -
+        file <code>data/week_results_2026.csv</code></li>
+    <li>Availability (injury game status): <a class="src" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">NFL.com injury report</a> -
+        file <code>data/injuries_week10.json</code></li>
+    <li>Ratings: <a class="src" href="https://www.nfl.com/standings/division/2026/REG" target="_blank" rel="noopener">NFL.com standings</a></li>
+  </ul>
+</section>
+
+</main>
+<footer>
+  <p><strong>Snapshot 2026-11-14.</strong> NFL data © the National Football League, quoted from nfl.com
+  with links on every row. This site publishes our own model output, not betting advice, and not a
+  sportsbook quote. Values that could not be confirmed against an official source are blank and
+  listed on <a href="flagged.html">Flagged for Review</a>.</p>
+</footer>
+</body>
+</html>
