@@ -2198,6 +2198,47 @@ locally on the identical tree and exit 0: root/subsite completeness checks, `che
 (3,429 assertions, ALL CHECKS PASSED) and `verify_live.py --check` (15 claims, exit 0). This note is
 the commit that re-triggers CI on the final merge head.
 
+# Session `arena/3b7e0210-fl3` — claim (2026-11-17 UTC)
+
+Branch `arena/3b7e0210-fl3`, base `main@0e51cf8` (PR #38). No other session is active in this repo
+as of this claim (last five session sections are closed out; open PRs #23 and #34 are stale — see
+below). Work is additive: nothing already published is deleted or overwritten.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T26 — **Origination comparison lab**: a leakage-free walk-forward evaluation of rival line-origination strategies on the repo's own 148-game verified corpus, with proper scores, game-cluster bootstrap intervals, a trials (multiplicity) adjustment and control baselines; plus the "compare two strategies" register that states what must be answered before a winner may be declared | **in progress** | `arena/3b7e0210-fl3` | `scripts/build_compare.py` (new), `data/compare/**` (new), `compare.html` (new root page), `content/board/compare.md` + `board/compare.html` (new), `COORDINATION.md` |
+| T27 — **Decision-support registers for this session's questions and suggestions** (what is known, what is missing, what would clear it, and selectable paths with a recommendation) | **in progress** | `arena/3b7e0210-fl3` | `data/compare/questions.csv`, `data/compare/suggestions.csv` (new), rendered on `compare.html` |
+| T28 — **Executive summary for this session** (root-level, one page, honest about what is and is not established) | **in progress** | `arena/3b7e0210-fl3` | `executive-summary.html` (new root page) + builder |
+| T29 — Wiring: one nav entry per new page, verifier coverage, CI determinism | **in progress** | `arena/3b7e0210-fl3` | `scripts/build_site.py` (PAGES + nav), `scripts/build_board.py` (one PAGES entry), `scripts/check_site.py` (page list + a `check_compare()` guard), `.github/workflows/verify.yml` (one step), regenerated pages |
+
+**Explicitly not touched:** `data/week_results_2026.*` (read-only input), `data/standings*`,
+`data/flagged.json`, `data/sources.csv`, `data/requirements_readiness.csv`, `data/questions.csv`,
+`data/suggestions.csv`, `models/**`, `verified/**`, `verify/**`, `docs/**`, `depth/**`,
+`site-9b181d31/**`, `legacy/**`, `snapshots/**`, and every other readiness row.
+
+**Open PRs checked before claiming:** #23 (`arena/fa06d378`, Week 10 injury capture) and #34
+(`arena/03e651e0`, live-page fix) are >24 h old and unmerged. Both are disjoint from T26–T29 except
+`COORDINATION.md`, where this section is append-only. They are **not** merged by this session: this
+session does not have the owner's authority to accept another session's data into the canonical
+tables, and neither blocks the work here.
+
+**Method rules for T26** (fixed before any number is computed):
+1. Every forecast for week *w* uses only games from weeks `< w`. No game, score or rating from week
+   *w* or later enters its own forecast. Burn-in week 1 has no prior and is reported, not hidden.
+2. Inputs are the 148 verified game rows in `data/week_results_2026.*`, which reconcile to the
+   league's own standings figure for figure (W/L/T/PF/PA, 32 clubs). No value is typed in by hand.
+3. No price exists in this repo, so **no ROI and no CLV are computed**. The comparison is on proper
+   scores (Brier, log loss) and on pricing error (MAE/RMSE/bias/dispersion), which need no price.
+4. Every interval is a game-cluster bootstrap (a whole game is resampled; the two clubs in it move
+   together). The number of strategy variants compared here is published and used for a
+   Bonferroni-style multiplicity adjustment, because ranking the best of five on the same sample is
+   itself a source of apparent skill.
+5. Controls are published beside every strategy: coin flip, home-always, pick'em margin, trailing
+   league mean total. A strategy that does not beat a control is not a strategy.
+6. Nothing from this evaluation may appear on the prospective leaderboard (R010); it is labelled
+   **in-sample / retrospective** everywhere it appears, and the page says so in the first paragraph.
+
+**Completion record:** added at the end of this section after the PR merges.
 ---
 
 # Session `arena/6c7144be-fl3` — completion record (2026-11-17 UTC)
