@@ -58,7 +58,7 @@ jobs:
           # Every published subsite must be reachable from the root and must
           # contain its own index. A directory that exists but has no entry
           # point is exactly the 404 incident recorded on 2026-11-14.
-          for d in verified docs depth board site-9b181d31 legacy; do
+          for d in verified docs depth board site-9b181d31 legacy audit; do
             if [ -d "$d" ] && [ ! -f "$d/index.html" ]; then
               echo "::error::$d/ exists but has no index.html — it will 404 on the live site"
               missing=1
