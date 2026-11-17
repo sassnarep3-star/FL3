@@ -18,7 +18,7 @@
 | Session ID | Branch | Scope | Started (UTC) |
 |---|---|---|---|
 | `arena/9d05cb63-fl3` | `arena/9d05cb63-fl3` | Repo review, official-source verification, and session closeout (PR + merge + Pages deploy record). No dataset or page content changed; only COORDINATION.md session records. | 2026-11-16 |
-| `arena/4d2c9111-fl3` | `arena/4d2c9111-fl3` | T35: injury/availability ablation with chronological holdout and uncertainty (R028/R029). New ablation script + datasets + `ablations.html` page; wired into root nav, board PAGES, and verifiers. | 2026-11-17 |
+| `arena/4d2c9111-fl3` | `arena/4d2c9111-fl3` | T35 (done): injury/availability ablation with chronological holdout and uncertainty (R028/R029). New ablation script + datasets + `ablations.html` page; wired into root nav, board PAGES, and verifiers. Merged via PR #45; Pages deploy confirmed. | 2026-11-17 |
 
 Other sessions: **one competing session was discovered after this session's first push.**
 
@@ -64,7 +64,7 @@ and both pushed before either claim was visible. This is the exact race the prot
 | T17 | Merge-conflict resolution vs `arena/39f57d31-fl3` | **done** | `arena-e8bf2075` | `COORDINATION.md`, `README.md`, `index.html`, `assets/site.css`, `scripts/check_site.py` |
 | T18 | Archive the competing blueprint without discarding it | **done** | `arena-e8bf2075` | `legacy/**` |
 | T19 | Fold the other session's findings into the registers | **done** | `arena-e8bf2075` | `data/flagged.json`, `data/decisions.json`, `data/suggestions.json` |
-| T35 | Injury/availability ablation with chronological holdout and uncertainty (R028/R029) — compare the identical line model with and without verified availability features on a chronological holdout; publish MAE/RMSE/Brier with bootstrap CIs and an explicit n; no backtest numbers on the leaderboard | **in progress** | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
+| T35 | Injury/availability ablation with chronological holdout and uncertainty (R028/R029) — compare the identical line model with and without verified availability features on a chronological holdout; publish MAE/RMSE/Brier with bootstrap CIs and an explicit n; no backtest numbers on the leaderboard | **done** | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
 
 **File ownership rule for future sessions:** `data/standings.json`, `data/sources.json`,
 `data/flagged.json` and every `*.html` at repo root are **shared outputs**. They are regenerated
@@ -1567,7 +1567,7 @@ What the session establishes is the measurement apparatus, not an edge.
 
 | Task | Status | Owner | Files |
 |---|---|---|---|
-| T35 — Injury/availability ablation with chronological holdout and uncertainty (readiness **R028/R029**) | in progress | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
+| T35 — Injury/availability ablation with chronological holdout and uncertainty (readiness **R028/R029**) | **done** | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
 
 The brief asks twice to replace fixed injury penalties with measured ablations: *"Add injury/depth
 ablations, not fixed penalties — compare identical models with and without verified availability
@@ -1599,3 +1599,55 @@ and the leaderboard data.
 
 **Baseline checks run before editing:** `verify.py` G-10 PASS (non-blocking V-09b/FLG-025);
 `check_site.py` 3,064 assertions ALL PASSED; `check_links.py` 29 pages PASS.
+## T35 completion record (2026-11-17 UTC)
+
+**Implementation.** `scripts/run_ablations.py` (deterministic, stdlib only) runs the identical
+originated-line model twice on a chronological Week 10 holdout: ratings fixed on verified Weeks 1-9,
+each forecast scored against the verified Week 10 results. Variant A applies the capped availability
+adjustment from the official Week 10 injury report; Variant B zeroes it. The two variants differ
+**only** in the availability adjustment. Outputs `data/ablations_week10.json`,
+`data/ablations_week10.csv`, `data/ablations_summary.csv`. Root page `ablations.html` +
+`board/ablations.html` + `content/board/ablations.md`; wired into the root nav, the board `PAGES`
+list, and `check_site.py` (`check_ablations`). Readiness R028/R029 marked **IMPLEMENTED**.
+
+**Result (published, badged as model evaluation, not a leaderboard entry).** On the Week 10 holdout
+(n=12 scored games): spread MAE ON 11.65 vs OFF 11.69 (paired diff −0.05, 95% CI [−0.81, +0.85] →
+includes zero); total MAE ON 8.88 vs OFF 9.51 (paired diff −0.64, 95% CI [−1.17, −0.22] → excludes
+zero, single window, small n); Brier ON 0.2197 vs OFF 0.2134 (paired diff +0.006, 95% CI
+[−0.02, +0.04] → includes zero). The availability features show **no demonstrated spread-MAE or Brier
+advantage**; the total-MAE signal is reported as a single-window result. **No skill advantage is
+claimed.**
+
+**Verification performed (official sources only, fetched 2026-11-17).**
+- Week 10 injury report `https://www.nfl.com/injuries/league/2026/reg10` — live; structure and the
+  Lions Out designations (R062) confirmed against the captured data.
+- Week 10 schedule/results `https://www.nfl.com/schedules/2026/REG10` — live; the 12 settled Week 10
+  scores match `data/week_results_2026.csv` exactly (WAS 24-21 NYG, NE 10-35 DET, KC 35-13 ATL, …).
+- Suites on the merged tree: `run_ablations.py` → `build_readiness.py` (75 requirements) →
+  `build_board.py` (30 pages) → `build_site.py` (12 pages) → `check_site.py` **3,129 assertions ALL
+  PASSED** → `check_links.py` PASS (30 pages) → `verify.py` G-10 PASS (non-blocking V-09b/FLG-025) →
+  `check_verified_site.py` / `check_verify.py` / `verify_depth.py` PASS → `git diff --check` CLEAN.
+
+**Irregularities / exclusions (published, do not block).**
+- Depth-tier features deliberately **excluded** (R042 BLOCKED): the depth-tier source is unverified
+  for most clubs, so the brief's gate forbids building that feature; the depth-ablation arm is not run.
+- Availability is captured for Week 10 only → the head-to-head is on the scored Week 10 holdout (small
+  n, wide intervals); stated on the page.
+- Existing non-blocking `V-09b / FLG-025` (official offense/defense pass-TD and INT totals differ) is
+  unchanged and remains a pricing-trust blocker.
+
+**PR / merge / deploy record.**
+
+| Item | Result |
+|---|---|
+| Pull request | [#45 — T35: injury/availability ablation with chronological holdout and uncertainty (R028/R029)](https://github.com/sassnarep3-star/FL3/pull/45) |
+| PR checks | `Verify data and site` and `Deploy static site to GitHub Pages` both **success** on the PR head (deploy correctly skipped-on-PR where applicable) |
+| Merge | **MERGED** into `main` at `dd6d407d42ca59f07f5f6fe8e11bcaf125ff0486` (2026-11-17T02:54:27Z), `gh pr merge 45 --merge`, no approval waited |
+| Post-merge CI | `Verify data and site`, `site`, `Deploy static site to GitHub Pages`, and `pages build and deployment` all **success** on `main` |
+| Pages status | GitHub Pages API `status: built`, source `main:/`, URL https://sassnarep3-star.github.io/FL3/ |
+| Live ablations page | https://sassnarep3-star.github.io/FL3/ablations.html (root nav "Ablations") |
+
+**Task-ID collision note.** This session first claimed T32; `arena/ff321d9c-fl3` on `main` had already
+used T32–T34, so this task was renumbered **T35** and the renumber recorded (commit `bfd67be`). No
+work from either session was discarded; the rebase onto `main@e28b9cd` resolved only a
+`COORDINATION.md` conflict by keeping both sides.
