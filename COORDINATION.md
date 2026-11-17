@@ -18,7 +18,7 @@
 | Session ID | Branch | Scope | Started (UTC) |
 |---|---|---|---|
 | `arena/9d05cb63-fl3` | `arena/9d05cb63-fl3` | Repo review, official-source verification, and session closeout (PR + merge + Pages deploy record). No dataset or page content changed; only COORDINATION.md session records. | 2026-11-16 |
-| `arena/4d2c9111-fl3` | `arena/4d2c9111-fl3` | T32: injury/availability ablation with chronological holdout and uncertainty (R028/R029). New ablation script + datasets + `ablations.html` page; wired into root nav, board PAGES, and verifiers. | 2026-11-17 |
+| `arena/4d2c9111-fl3` | `arena/4d2c9111-fl3` | T35: injury/availability ablation with chronological holdout and uncertainty (R028/R029). New ablation script + datasets + `ablations.html` page; wired into root nav, board PAGES, and verifiers. | 2026-11-17 |
 
 Other sessions: **one competing session was discovered after this session's first push.**
 
@@ -64,7 +64,7 @@ and both pushed before either claim was visible. This is the exact race the prot
 | T17 | Merge-conflict resolution vs `arena/39f57d31-fl3` | **done** | `arena-e8bf2075` | `COORDINATION.md`, `README.md`, `index.html`, `assets/site.css`, `scripts/check_site.py` |
 | T18 | Archive the competing blueprint without discarding it | **done** | `arena-e8bf2075` | `legacy/**` |
 | T19 | Fold the other session's findings into the registers | **done** | `arena-e8bf2075` | `data/flagged.json`, `data/decisions.json`, `data/suggestions.json` |
-| T32 | Injury/availability ablation with chronological holdout and uncertainty (R028/R029) — compare the identical line model with and without verified availability features on a chronological holdout; publish MAE/RMSE/Brier with bootstrap CIs and an explicit n; no backtest numbers on the leaderboard | **in progress** | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
+| T35 | Injury/availability ablation with chronological holdout and uncertainty (R028/R029) — compare the identical line model with and without verified availability features on a chronological holdout; publish MAE/RMSE/Brier with bootstrap CIs and an explicit n; no backtest numbers on the leaderboard | **in progress** | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
 
 **File ownership rule for future sessions:** `data/standings.json`, `data/sources.json`,
 `data/flagged.json` and every `*.html` at repo root are **shared outputs**. They are regenerated
@@ -1567,7 +1567,7 @@ What the session establishes is the measurement apparatus, not an edge.
 
 | Task | Status | Owner | Files |
 |---|---|---|---|
-| T32 — Injury/availability ablation with chronological holdout and uncertainty (readiness **R028/R029**) | in progress | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
+| T35 — Injury/availability ablation with chronological holdout and uncertainty (readiness **R028/R029**) | in progress | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
 
 The brief asks twice to replace fixed injury penalties with measured ablations: *"Add injury/depth
 ablations, not fixed penalties — compare identical models with and without verified availability
@@ -1579,7 +1579,7 @@ against the verified Week 10 results, and publishes MAE / RMSE / Brier with **bo
 an explicit n**. No backtest numbers are placed on the leaderboard (the brief forbids it); the
 ablation is a model-evaluation study on its own page.
 
-**Evidence rules for T32:**
+**Evidence rules for T35:**
 - Availability features come **only** from the verified official injury report (`data/injuries_week10.json`,
   game status Out/Doubtful/Questionable). Depth-*tier* features are deliberately **excluded**: the
   depth-tier source is unverified for most clubs (R042 is BLOCKED), so the brief's own gate forbids
