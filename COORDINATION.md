@@ -1715,3 +1715,55 @@ and the leaderboard data.
 
 **Baseline checks run before editing:** `verify.py` G-10 PASS (non-blocking V-09b/FLG-025);
 `check_site.py` 3,064 assertions ALL PASSED; `check_links.py` 29 pages PASS.
+## T40–T42 result (2026-11-17 UTC, session `arena/bb4f237d-fl3`)
+
+### T40 — takeover of stalled PRs #34 / #23: overtaken by events, no work lost
+
+Both stalled PRs were merged by other sessions while this integration branch was open, so no takeover
+merge was needed. This branch had already integrated both branches locally (union merges, verified),
+and the later merges of the same content into `main` reconciled cleanly — the final merge of
+`origin/main` into this branch produced only generated-artifact conflicts, resolved by regeneration.
+
+| PR | What happened | Evidence on `main` |
+|---|---|---|
+| #23 (`arena/fa06d378-fl3`) | merged 2026-11-17T02:47:56Z; session `arena/6c7144be-fl3` recorded the handoff integration | merge `b4e6294`, graft commit `af5bf2a` |
+| #34 (`arena/03e651e0-fl3`) | merged 2026-11-17 (after 24 h stalled); integrated by a later session | merge `e28b9cd`, graft commit `f8a14e5` |
+
+Both contents are on `main` and also carried by this branch; `check_verified_site.py` is at 645
+assertions (PR #34's addition) and the FLG-031..033 rows are in `data/flags.csv` exactly as PR #23
+wrote them. Nothing from either session was discarded or duplicated.
+
+### T41 — line-by-line review: findings and fixes (all on this branch)
+
+| Finding | Evidence | Fix |
+|---|---|---|
+| **FLG-027 factual claim stale**: it says Pages source is `main:/docs`; the live GitHub Pages API reports `build_type: legacy`, `source: main` path `/` (root) | `gh api repos/sassnarep3-star/FL3/pages` read 2026-11-17T02:5xZ | Dated UPDATE note appended to FLG-027 in both `data/flags.csv` and `board/data/flags.csv`; board regenerated. (`.github/workflows/site.yml`'s header comment repeats the stale claim; not edited — outside claimed scope. Logged here.) |
+| **FLG-031 / FLG-033 lacked cross-references** to the later rows that itemise the same issues (FLG-043/044/045, FLG-066) | both rows present, overlap risk for reviewers | Dated cross-reference notes appended (append-only, FLG-028 precedent) |
+| **R020 stale against the verified corpus**: PR #34's handoff asked for the "136 eligible game records" metric to be restated against the verified 148 | `data/week_results_2026.csv` = 148 FINAL games, identity check passes; `scripts/build_week_results.py --check` green in CI | `scripts/build_readiness.py` R020 row restated (state stays PARTIAL — the brief's 136 figure is not reproduced and the corpus is retrospective, not pre-registered); register + both rendered pages regenerated |
+| **PR #23's capture integrity re-checked** | `sha256sum data/official_captures/nfl_week10_2026_injury_report.psv` = `ee75c02e…7cf83` = manifest value; `diff_week10_injuries.py` re-run: 36 discrepancies, unchanged | no change needed |
+| **Live official-source spot checks** | standings page fetched (32 clubs, post-Week-10 records; arithmetic spot-checked) — https://www.nfl.com/standings/league/2026/reg; Week 11 by-week page fetched — https://www.nfl.com/schedules/2026/by-week/week-11 | all 13 pre-registered Week 11 fixtures (`data/preregistration_week11.json`, `FL3-SHADOW-1`) match the official slate fixture-for-fixture |
+| **CSV line-ending drift during merge** | merge produced mixed CRLF/LF rows; `verify.py` I-07 caught it as a field-count failure (gate worked as designed) | both flags copies normalised to their original per-file style; csv field-count check = 8/8 on all 58 rows |
+
+### Verification run on the final integrated tree (all green)
+
+```
+check_site.py            ALL CHECKS PASSED
+check_verified_site.py   ALL CHECKS PASSED (645 assertions)
+check_verify.py          ALL VERIFY CHECKS PASSED
+check_links.py           PASS (30 board pages)
+verify.py                GATE G-10 PASS (known non-blocking V-09b / FLG-025)
+verify_depth.py          16 checks, 0 failures
+check_depth_links.py     PASS
+build_readiness.py --check  75 unique requirements
+build_week_results.py --check  identity check PASSED
+build_board.py --check   PASS (30 pages, deterministic sha 90ab51d7cfc5)
+```
+
+### T42 — PR / merge / deploy record
+
+| Item | Result |
+|---|---|
+| Pull request | [#46 — Integration round: stalled-PR reconciliation, register corrections, review fixes](https://github.com/sassnarep3-star/FL3/pull/46) |
+| Merge | merged into `main` (merge commit recorded on the PR), no approval waited, per the brief |
+| Pages deploy | confirmed after merge via the Pages API and the deploy workflow (see the follow-up record below for the run ids) |
+| Flagged items | do not block; published on `flagged.html` (root F-series) and `board/flagged.html` (FLG-series) |
