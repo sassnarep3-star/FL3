@@ -264,8 +264,8 @@ def build_week11():
 <section class="stats">
   {stat(len(fx["fixtures"]), "fixtures")}
   {stat(len(fx["byes"]), "clubs on bye")}
-  {stat("2", "London games this week", "none — the international game is Mexico City")}
-  {stat("13", "fixtures with a game centre captured")}
+  {stat(len(prices), "fixtures with our own open price", "all pre-kickoff, hashed")}
+  {stat("13", "game centres captured", "venue transcribed verbatim on each")}
 </section>
 
 <section>
@@ -276,7 +276,8 @@ def build_week11():
   for Washington, which the schedule page's own booking links still call FedEx Field.</p>
   {table(["Matchup", "Day", "Kickoff", "Network", "Venue (as printed)", "Fair spread (home)",
           "Fair total", "P(home)", "Market spread", "Market total", "Source"], rows, "wide")}
-  <p><b>Byes:</b> {e(byes)}. 13 fixtures × 2 clubs + 6 × 2 bye clubs = 32.</p>
+  <p><b>Byes:</b> {e(byes)}. The arithmetic that has to close: 13 fixtures × 2 club slots
+  = 26 playing clubs, plus {len(fx["byes"])} clubs on bye = 32.</p>
 </section>
 
 <section>

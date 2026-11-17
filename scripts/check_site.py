@@ -626,6 +626,12 @@ def check_frontier_datasets() -> None:
     for name in ("spec.html", "results.html", "week11.html", "availability.html", "lab.html"):
         path = _os.path.join(ROOT, name)
         check(_os.path.exists(path), f"FR: {name} was not built")
+        if name == "week11.html":
+            _w = open(path, encoding="utf-8").read()
+            check("London games" not in _w,
+                  "FR: week11.html still carries the placeholder London-games stat")
+            check("6 × 2 bye" not in _w,
+                  "FR: week11.html still states the bye arithmetic as 6 x 2")
         page_html = open(path, encoding="utf-8").read()
         check(len(page_html) > 6000, f"FR: {name} looks empty ({len(page_html)} bytes)")
         check("UNVERIFIED" not in page_html or "blank" in page_html,
@@ -640,7 +646,11 @@ def check_frontier_datasets() -> None:
             ("ablation", "lab.html"), ("blank", "spec.html"),
             # a count that drifted once already: Week 10 must read thirteen finals,
             # never twelve, now that PIT@CIN is settled.
-            ("thirteen", "results.html")]:
+            ("thirteen", "results.html"),
+            # the bye arithmetic has to be stated in its closing form, and a
+            # placeholder stat ("2 London games, none") must never ship.
+            ("26 playing clubs", "week11.html"),
+            ("plus 6 clubs on bye = 32", "week11.html")]:
         check(needle.lower() in open(_os.path.join(ROOT, page_name), encoding="utf-8").read().lower(),
               f"FR: {page_name} does not publish '{needle}'")
 
