@@ -1350,3 +1350,21 @@ Checked before claiming: open PR #23 (`arena/fa06d378`, T23 injury capture/diff)
 **Completion record (2026-11-16 UTC):** PR #37 (https://github.com/sassnarep3-star/FL3/pull/37) merged into `main` at `6e60052b4dc51b6ee2e86be3dc931b207abcc129` (2026-11-16T02:43:20Z), no approval waited, after integration verification on the branch. Post-merge workflows all succeeded: "Verify data and site" run `43793871461`, "site" run `43793871430`, "Deploy static site to GitHub Pages" run `43793871503`, "pages build and deployment" run `43793870453`. Live confirm: `https://sassnarep3-star.github.io/FL3/matchups.html?v=deploy-37` fetched after deployment — serves the full 168-row matrix with the "Matchup matrix" nav entry, stats (102 both-evidenced / 66 n/a / 25 confirmed promotions / 8 marker conflicts) and the source links. Merged-tree verifiers: `check_site.py` 3,064 assertions ALL PASSED; `check_links.py` 29 pages PASS; `verify.py` G-10 PASS (non-blocking V-09b/FLG-025); `build_readiness.py --check` OK (75 requirements, R036=PARTIAL).
 
 **Conflicts resolved during rebase onto `main@cc8793a` (nothing from other sessions discarded):** `COORDINATION.md` (kept both sides: main's session sections + this claim); `scripts/build_readiness.py` (kept this session's R036=PARTIAL and main's newer R037 wording); `scripts/check_site.py` (kept main's generalised local-link walker — it already covers `depth/` — dropped this session's narrower special case); `scripts/build_board.py` (kept both new PAGES entries: `official-capture` + `matchups`); every generated root/board page resolved by regenerating from the merged sources, then all verifiers re-run green.
+
+---
+
+# Session `arena/bb4f237d-fl3` — claim (2026-11-17T02:41Z)
+
+Branch `arena/bb4f237d-fl3` (base `main@81a1c74`, i.e. after PR #39). This session is the only one working on this branch.
+
+## Claimed scope
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T40 — Take over the two stalled open PRs (#34 `arena/03e651e0-fl3`, #23 `arena/fa06d378-fl3`; both open >24 h with zero commits, takeover permitted by the protocol): integrate their content into main without discarding anything, log the handoff | **in progress** | `arena/bb4f237d-fl3` | `COORDINATION.md` (union), `scripts/build_verified_site.py`, `scripts/check_verified_site.py`, `verified/strategies.html`, `data/flags.csv` + `board/data/flags.csv` (append FLG-031..033), `data/official_captures/**`, `scripts/diff_week10_injuries.py`, regenerated `board/**` |
+| T41 — Fresh line-by-line repo review of the merged tree: every published page re-checked against its generator inputs, verifiers re-run, any drift or self-contradiction fixed, official-source spot checks | **in progress** | `arena/bb4f237d-fl3` | fixes only where a defect is proven; otherwise read-only |
+| T42 — Final closeout for this round: PR, merge without waiting for approval, confirm the Pages deploy, record the PR link and merge result here | **in progress** | `arena/bb4f237d-fl3` | `COORDINATION.md` (this section) |
+
+**Not claimed and not touched:** every dataset under `data/` and `board/data/` owned by other sessions' tasks (beyond the append-only flag rows listed above), `depth/**`, `docs/**`, `site-9b181d31/**`, `legacy/**`, `verify/**`, `verified/**` generator logic (beyond PR #34's own fixes), `models/**`, `.github/**`.
+
+**State at claim time:** `origin/main` = `81a1c74` (PR #39 merged 2026-11-17T02:38Z). Open PRs #34 and #23 last updated 2026-11-16T01:49Z / 01:32Z. `gh pr list --state open` shows exactly those two. No other branch had unmerged commits.
