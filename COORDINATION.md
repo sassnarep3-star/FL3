@@ -1548,6 +1548,120 @@ pages); `check_depth_links.py` PASS (502 links); `build_readiness.py --check` OK
 `build_board.py` 29 pages (sha1 `fcb2d5e23c4d`); `verify.py` GATE G-10 PASS
 (V-09b/FLG-025 non-blocking); `check_freshness.py` 107 checks PASS.
 
+# Session `arena/bb4f237d-fl3` — claim (2026-11-17T02:41Z)
+
+Branch `arena/bb4f237d-fl3` (base `main@81a1c74`, i.e. after PR #39). This session is the only one working on this branch.
+
+## Claimed scope
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T40 — Take over the two stalled open PRs (#34 `arena/03e651e0-fl3`, #23 `arena/fa06d378-fl3`; both open >24 h with zero commits, takeover permitted by the protocol): integrate their content into main without discarding anything, log the handoff | **in progress** | `arena/bb4f237d-fl3` | `COORDINATION.md` (union), `scripts/build_verified_site.py`, `scripts/check_verified_site.py`, `verified/strategies.html`, `data/flags.csv` + `board/data/flags.csv` (append FLG-031..033), `data/official_captures/**`, `scripts/diff_week10_injuries.py`, regenerated `board/**` |
+| T41 — Fresh line-by-line repo review of the merged tree: every published page re-checked against its generator inputs, verifiers re-run, any drift or self-contradiction fixed, official-source spot checks | **in progress** | `arena/bb4f237d-fl3` | fixes only where a defect is proven; otherwise read-only |
+| T42 — Final closeout for this round: PR, merge without waiting for approval, confirm the Pages deploy, record the PR link and merge result here | **in progress** | `arena/bb4f237d-fl3` | `COORDINATION.md` (this section) |
+
+**Not claimed and not touched:** every dataset under `data/` and `board/data/` owned by other sessions' tasks (beyond the append-only flag rows listed above), `depth/**`, `docs/**`, `site-9b181d31/**`, `legacy/**`, `verify/**`, `verified/**` generator logic (beyond PR #34's own fixes), `models/**`, `.github/**`.
+
+**State at claim time:** `origin/main` = `81a1c74` (PR #39 merged 2026-11-17T02:38Z). Open PRs #34 and #23 last updated 2026-11-16T01:49Z / 01:32Z. `gh pr list --state open` shows exactly those two. No other branch had unmerged commits.
+
+---
+
+# Session `arena/03e651e0-fl3` — final record
+
+## Merge and deploy
+
+| Item | Value |
+|---|---|
+| Pull request | [#30](https://github.com/sassnarep3-star/FL3/pull/30) |
+| Merge | **merged** to `main` 2026-11-16T01:47:38Z, merge commit `7c8ce4e73811420affe5743ddeddb1fd5a1f79d3` |
+| PR checks | `Recompute and verify` pass · `validate` pass · `verify-and-build` pass |
+| Pages build API | `status: built`, commit `7c8ce4e` |
+| Live, verified by fetching the rendered page | `/FL3/verified/` and `/FL3/verified/strategies.html` both serve |
+
+Three merges of `origin/main` were needed during the session; `main` advanced four times
+(PRs #25, #27, #28, #29) while this branch was open, and another session added a `verify/`
+subsite one character from this session's `verified/`. Every conflict was resolved as a union —
+both nav entries kept, both CI suites run, both coordination records kept. Nothing was discarded.
+
+## What this session added
+
+| Artifact | What it establishes |
+|---|---|
+| `data/week_results_2026.csv` | 148 FINAL games, weeks 1–10. All 32 clubs' W/L/T, PF and PA reproduce the official standings exactly. `scripts/build_week_results.py --check` re-proves it. |
+| `scripts/score_lines.py`, `data/line_eval.{json,csv}` | Scores the committed Week 10 lines (n=11, leakage excluded) and runs a walk-forward over 100 games, with 4,000 game-cluster bootstrap intervals and explicit baselines. |
+| `scripts/verify_live.py`, `data/live_verification.{csv,json}` | 15 root-session claims re-checked against live NFL.com pages: 4 confirmed, 2 stale, 2 partly stale, 2 not reproducible, 5 unverifiable with stated source gaps. |
+| `verified/**` (8 pages), `scripts/build_verified_site.py` | The canonical dashboard. Every row sourced or explicitly marked. |
+| `scripts/check_verified_site.py` | 645 assertions over the rendered HTML, including tag balance, no template placeholders, no hand-typed figures. |
+| `verified/PREREGISTRATION.md`, `scripts/preregister_model.py` | `FL3-SHADOW-1` frozen constants, window, primary metric, multiplicity rule, stopping rule, ablation rule. |
+| `data/week11_slate_2026.csv`, `data/preregistration_week11.json` | 13 unplayed Week 11 fixtures and the first 13 registered live forecasts. |
+| `.github/workflows/pages.yml` | Replaced the `cp`-allowlist deploy with a gate. Pages is `build_type: legacy`, source `main:/`; the allowlist was never the deploy path and caused two recorded phantom-404s. |
+
+## The result, stated plainly
+
+The baseline **does not beat a pick'em line at 95% confidence** (spread RMSE gain +0.055,
+CI [−0.020, +0.130], n=100) and its **win probabilities are not distinguishable from a coin**
+(Brier skill +0.069, CI [−0.086, +0.229]). That is published on the first screen of the landing page.
+What the session establishes is the measurement apparatus, not an edge.
+
+## Handoff — the highest-value open work
+
+1. **`data/injuries_2026_w10.csv` should be retired or relabelled** (LV-05 / R-01). It holds 160 rows,
+   every one designated, against 345 on the live page, and omits Sam Darnold (QB, Out). It is the input
+   to `scripts/model.py` and therefore to the board track's leaderboard.
+2. **The root requirement register's "136 eligible game records" clearance metric** (R002/R053) must be
+   restated against the verified 148 before it can clear anything.
+3. **Capture the injury report daily, Wed–Sun, with retained hashes** (LV-12). Three requirements are
+   blocked only because no series was ever captured. The protocol is specified in `verified/method.html`.
+4. **Price policy before any backtest is published** (LV-10). CLV and ROI stay uncomputable until a
+   licensed source exists. Do not fill the market column from an aggregator.
+5. **Determine which of the seven published dashboards is canonical.** This session's answer is
+   `verified/`, on the evidence that it is the only one whose corpus reconciles. That is an
+   argument, not a decision — the owner should make it.
+**Scope note for the board:** most of the requirement list was already in the register as R001–R067 (state and gate per row). Not done in this session, and recorded as open: the point-in-time snapshot store, a 32-club depth capture, the snap-count and inactive-list capture, the forecast/probability store, the leaderboard divisions, the parlay joint-evidence gate, and the matrix view.
+# Session `arena/fa06d378-fl3` — claim, verification and handoff record (2026-11-16 UTC)
+
+## Claim and scope
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T23 — Cell-level re-transcription of the official Week 10 injury report (all 347 rows) and a field-by-field diff against the repo table. Complements T22 (`arena/00a6b558-fl3`), which checked club counts and the Lions rows only and left cell-level work open. | **needs review** (36 discrepancies open: FLG-031) | `arena/fa06d378-fl3` | `data/official_captures/**`, `scripts/diff_week10_injuries.py`, `data/flags.csv` (appended FLG-031…FLG-033 only), generated `board/**` |
+
+**Claim-order note.** The protocol asks for a claim to be pushed before work starts. This session wrote the work first and the claim in the same commit, and that is recorded here rather than hidden. A first rebase also collided with T22 from `arena/00a6b558-fl3`, which had already claimed and completed the Week 10 re-check. This session did not repeat T22's work. It took the cell-level step T22 left open, renamed as T23. Its flags were renumbered to avoid collisions: FLG-029 and FLG-030 belong to the other session, and the Lions and row-count items were dropped as duplicates of their FLG-029 and FLG-030 wording.
+
+**Branch name.** The session branch is `arena/fa06d378-fl3`, the name given for this session. The `session-<id>/<task>` form in the brief was not used because the session rules fix the working branch.
+
+**Not claimed, not touched:** `data/injuries_2026_wk10.csv` (the 345-row table under review), `data/injuries_2026_w10.*`, `board/data/injuries_2026_w10.csv`, `data/recapture_2026-11-16/**` (T22's capture), root `index.html` and the other shared outputs. The discrepancies are logged for the integration session rather than fixed in place.
+
+## Sources
+
+| Source | URL | Used for |
+|---|---|---|
+| NFL.com official Week 10 injury report (2026) | https://www.nfl.com/injuries/league/2026/reg10 | Full transcription, 8 page chunks, 347 rows across 28 club tables (`data/official_captures/nfl_week10_2026_injury_report.psv`) |
+
+## Verification performed
+
+1. Eight chunks of the official page were read with the fetch tool. Each row was transcribed to `CLUB|PLAYER|POS|INJURIES|PRACTICE|GAME`. The transcription hash is `sha256 ee75c02e91f204a98b5ca1687fa36f63fb4769b738a9c55f514c88803e67cf83`. It covers the transcription file, not the raw HTML. No raw HTML was retained, so the capture has no raw hash. The manifest says so.
+2. `python3 scripts/diff_week10_injuries.py` compares the transcription with `data/injuries_2026_wk10.csv` on club, player, position, injury, practice status and game status. Result: 347 official rows, 345 repo rows, **36 discrepancies** (`data/official_captures/nfl_week10_2026_injury_diff.csv`).
+3. Per-club counts agree everywhere except BAL (10 official, 8 repo). This matches T22's finding.
+4. Lions and row-count claims are not repeated here. T22 and FLG-030 cover them.
+5. `scripts/verify.py`, `scripts/build_board.py`, `scripts/check_links.py` and `scripts/check_site.py` are run after the flag append.
+
+## Irregularities (published on the board's Flagged page; none block anything)
+
+- **FLG-031 (high):** 36 cell-level discrepancies against the official page. This extends FLG-029.
+- **FLG-032 (medium):** four copies of the Week 10 injury data with different row counts and schemas.
+- **FLG-033 (medium):** `verify.py` prints `[FAIL]` for V-09b but the gate reports `PASS` with exit 0.
+
+## What this session did not do
+
+Most of the brief's roughly 60 items are not done here. Examples: a price-snapshot store, a results feed, strategy pre-registration, leaderboard divisions, depth-group modelling, snap counts, inactive lists, multi-day snapshots with raw hashes, correlations with n, the demotion gate and the site-wide readiness table. Many depend on sources the repo does not have: a licensed price feed, official snap counts, and official inactive lists. Those blockers are recorded in `board/data/requirements_readiness.csv`, and this session did not re-do them.
+
+## Handoff notes for the integration session
+
+- Correct the 36 cells in `data/injuries_2026_wk10.csv` (or replace it with the verified transcription), re-run `scripts/diff_week10_injuries.py` until it reports zero, then re-run the board pipeline.
+- Choose a canonical Week 10 injury copy (FLG-032) and derive the others from it.
+- Decide the policy for a failing identity in `verify.py` (FLG-033).
+
 # Session `arena/816adbe6-fl3` — closeout record (2026-11-17 UTC)
 
 Branch `arena/816adbe6-fl3`, base `main@0e51cf846dd1b698261ebbb67cffc0df6576cac7`. Sole session; performed final verification and closeout. No dataset or page content changed except one documentation correction.
@@ -1727,3 +1841,66 @@ discarded; resolution is logged here.**
 - `COORDINATION.md` resolved by keeping **both** session records: this session's
   `arena/4ac55b56-fl3` claim + progress record, followed by main's `arena/816adbe6-fl3`
   closeout record. Task table updated to T40 DONE / T41 DONE / T42 in progress.
+
+**Second conflict round (`origin/main` advanced `dd6d407` → `a9c1b29`, PR #47 from
+`arena/bb4f237d-fl3` + earlier PRs #40-#43):** same method. `scripts/build_readiness.py`
+auto-merged cleanly with all sessions' rows (this session's R024/R025/R073 + main's R028/R029
+IMPLEMENTED + R020 restatement); the register was regenerated (75 requirements, validation OK).
+Generated root/board pages resolved by regeneration from the merged generators.
+`COORDINATION.md` resolved by keeping **all** session records — both conflict regions kept
+both sides, so `arena/bb4f237d-fl3`'s claim and T40-T42 result records, plus the prior
+sessions' records, are all preserved alongside this session's records. Nothing from any
+session was discarded.
+
+## T40–T42 result (2026-11-17 UTC, session `arena/bb4f237d-fl3`)
+
+### T40 — takeover of stalled PRs #34 / #23: overtaken by events, no work lost
+
+Both stalled PRs were merged by other sessions while this integration branch was open, so no takeover
+merge was needed. This branch had already integrated both branches locally (union merges, verified),
+and the later merges of the same content into `main` reconciled cleanly — the final merge of
+`origin/main` into this branch produced only generated-artifact conflicts, resolved by regeneration.
+
+| PR | What happened | Evidence on `main` |
+|---|---|---|
+| #23 (`arena/fa06d378-fl3`) | merged 2026-11-17T02:47:56Z; session `arena/6c7144be-fl3` recorded the handoff integration | merge `b4e6294`, graft commit `af5bf2a` |
+| #34 (`arena/03e651e0-fl3`) | merged 2026-11-17 (after 24 h stalled); integrated by a later session | merge `e28b9cd`, graft commit `f8a14e5` |
+
+Both contents are on `main` and also carried by this branch; `check_verified_site.py` is at 645
+assertions (PR #34's addition) and the FLG-031..033 rows are in `data/flags.csv` exactly as PR #23
+wrote them. Nothing from either session was discarded or duplicated.
+
+### T41 — line-by-line review: findings and fixes (all on this branch)
+
+| Finding | Evidence | Fix |
+|---|---|---|
+| **FLG-027 factual claim stale**: it says Pages source is `main:/docs`; the live GitHub Pages API reports `build_type: legacy`, `source: main` path `/` (root) | `gh api repos/sassnarep3-star/FL3/pages` read 2026-11-17T02:5xZ | Dated UPDATE note appended to FLG-027 in both `data/flags.csv` and `board/data/flags.csv`; board regenerated. (`.github/workflows/site.yml`'s header comment repeats the stale claim; not edited — outside claimed scope. Logged here.) |
+| **FLG-031 / FLG-033 lacked cross-references** to the later rows that itemise the same issues (FLG-043/044/045, FLG-066) | both rows present, overlap risk for reviewers | Dated cross-reference notes appended (append-only, FLG-028 precedent) |
+| **R020 stale against the verified corpus**: PR #34's handoff asked for the "136 eligible game records" metric to be restated against the verified 148 | `data/week_results_2026.csv` = 148 FINAL games, identity check passes; `scripts/build_week_results.py --check` green in CI | `scripts/build_readiness.py` R020 row restated (state stays PARTIAL — the brief's 136 figure is not reproduced and the corpus is retrospective, not pre-registered); register + both rendered pages regenerated |
+| **PR #23's capture integrity re-checked** | `sha256sum data/official_captures/nfl_week10_2026_injury_report.psv` = `ee75c02e…7cf83` = manifest value; `diff_week10_injuries.py` re-run: 36 discrepancies, unchanged | no change needed |
+| **Live official-source spot checks** | standings page fetched (32 clubs, post-Week-10 records; arithmetic spot-checked) — https://www.nfl.com/standings/league/2026/reg; Week 11 by-week page fetched — https://www.nfl.com/schedules/2026/by-week/week-11 | all 13 pre-registered Week 11 fixtures (`data/preregistration_week11.json`, `FL3-SHADOW-1`) match the official slate fixture-for-fixture |
+| **CSV line-ending drift during merge** | merge produced mixed CRLF/LF rows; `verify.py` I-07 caught it as a field-count failure (gate worked as designed) | both flags copies normalised to their original per-file style; csv field-count check = 8/8 on all 58 rows |
+
+### Verification run on the final integrated tree (all green)
+
+```
+check_site.py            ALL CHECKS PASSED
+check_verified_site.py   ALL CHECKS PASSED (645 assertions)
+check_verify.py          ALL VERIFY CHECKS PASSED
+check_links.py           PASS (30 board pages)
+verify.py                GATE G-10 PASS (known non-blocking V-09b / FLG-025)
+verify_depth.py          16 checks, 0 failures
+check_depth_links.py     PASS
+build_readiness.py --check  75 unique requirements
+build_week_results.py --check  identity check PASSED
+build_board.py --check   PASS (30 pages, deterministic sha 90ab51d7cfc5)
+```
+
+### T42 — PR / merge / deploy record
+
+| Item | Result |
+|---|---|
+| Pull request | [#47 — Integration round: stalled-PR reconciliation, register corrections, review fixes](https://github.com/sassnarep3-star/FL3/pull/47) |
+| Merge | merged into `main` (merge commit recorded on the PR), no approval waited, per the brief |
+| Pages deploy | confirmed after merge via the Pages API and the deploy workflow (see the follow-up record below for the run ids) |
+| Flagged items | do not block; published on `flagged.html` (root F-series) and `board/flagged.html` (FLG-series) |
