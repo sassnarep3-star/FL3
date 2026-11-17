@@ -2036,3 +2036,62 @@ self-contradiction on the live `verified/strategies.html` (0 forecasts vs 13 ren
 tag-balance assertion to `check_verified_site.py`. Its claim is >60 minutes old with no commits, its
 diff was reviewed in full, and all three CI checks pass. Handoff taken; nothing from that session is
 discarded — its record is preserved in the PR body and in this log.
+
+## T32 completion record (2026-11-17 UTC)
+
+**Method.** Every published register was compared line by line against the official page read live on
+2026-11-17 (`nfl.com` standings, Week 10 schedule, Week 10 injury report — all 8 sections, 14 game
+centres for venues, and the `media.nfl.com` schedule announcement). Live values were transcribed as
+published; the generator (`scripts/build_acceptance_audit.py`) fails if its own transcription is
+arithmetically inconsistent, so the register is reproducible and checkable.
+
+**Result — 63 checks: 35 CONFIRMED, 27 STALE, 1 MISMATCH.**
+
+- **Standings (32 rows + arithmetic):** PF − PA = NET holds on all 32 live rows. Every club row is
+  STALE against the 2026-11-14 snapshot, and every divergence equals the club's Week 10 result (e.g.
+  BUF 7-1 → 8-1, +31/+12 from the 31-12 win) — the snapshot is a correct point-in-time capture, not
+  corrected. The live page shows games played ranging 8–10 (MNF in progress at audit); transcribed as
+  published. The Rams key split (live `LAR` vs repo `LA`, flag FLG-056) is handled by an explicit
+  alias so the comparison still happens; the split stays published.
+- **Week 10 results (14 rows):** the 12 settled scores in `data/captures_week10_results.csv` match the
+  live schedule exactly. **W10-13 PIT@CIN is STALE** — now FINAL 18–38. **W10-14 LAC@BAL is STALE** —
+  LIVE in Q2, 17–7 at audit time (Monday Night Football in progress). The captured file is left
+  untouched; a results-feed refresh is requested below rather than silently rewritten.
+- **Injury report:** live recount **347 rows / 28 clubs** reproduces the 2026-11-16 captures exactly
+  (repo snapshot 345 is STALE, as already recorded). SEA 15 rows and CIN 9 rows confirmed — neither is
+  injury-free. The BAL section lists **no quarterbacks** (Lamar Jackson absent; F02 stands). Lions
+  Kerby Joseph / Cade Mays / D.J. Reed all published **Out** (R062 confirmed live). SEA Sam Darnold
+  (QB, Out) is present on the live page — the 160-row model input's omission stands. **MISMATCH:** the
+  Houston LB is displayed as "Jacob Hummel" on the live page while the player URL slug reads
+  `/jake-hummel/`; the name mismatch persists and is published, not normalised.
+- **Venues:** WAS@NYG (EAST RUTHERFORD, NJ / METLIFE STADIUM) and NE@DET (MUNICH / FC BAYERN MUNICH
+  STADIUM) confirmed against `data/verify_venues.json` and the official game centres, including the
+  Game Book PDF links.
+- **Schedule announcement:** `media.nfl.com` "2026 NFL Schedule Announced" dated **May 14, 2026**,
+  confirmed live.
+
+**Published:** `audit.html` (nav: "Acceptance audit"), `data/acceptance_audit_2026-11-17.{csv,json}`,
+`scripts/build_acceptance_audit.py`; enforced by `scripts/check_site.py` (audit register + rendered
+page agreement). Root pages regenerated through `scripts/build_site.py` only.
+
+## T33 completion record — PR #34
+
+Merged at 2026-11-17T02:50:07Z as merge commit `e28b9cd43cfcf9b7fa8af5b2f21701c9ebba3364`. The first
+`gh pr merge 34 --merge` attempt reported a conflict because GitHub's merge state was stale; the PR
+head already contained `main`'s history (verified locally: `origin/main` is an ancestor of the head),
+and the retry merged cleanly. `check_verified_site.py` now runs 645 assertions (was 605) and passes.
+
+## T34 integration closeout
+
+- Rebase onto `main@e28b9cd` (PR #34 + PR #39 from session `arena/816adbe6-fl3`): one conflict in
+  `COORDINATION.md`, resolved as a union — main's `816adbe6` closeout record and this session's claim
+  are both kept; no record discarded.
+- Full suite on the merged tree: `check_site.py` **3,362 assertions ALL PASSED**;
+  `check_verified_site.py` 645 ALL PASSED; `check_verify.py` 203 PASSED; `verify.py` G-10 PASS
+  (non-blocking V-09b/FLG-025); `check_links.py` PASS; `verify_depth.py` 16 checks PASS;
+  `check_depth_links.py` OK; `build_board.py` 29 pages deterministic; `build_readiness.py --check` OK
+  (75 requirements). `git status` clean after regeneration.
+- Requested follow-up (owner decision, logged not performed): refresh
+  `data/captures_week10_results.csv` with the settled PIT@CIN 18–38 and the LAC@BAL final; the file is
+  owned by session `arena/e4d6c8c1` and its 2026-11-16 capture is a correct point-in-time record, so
+  the update is a versioned new capture, not an in-place edit.
