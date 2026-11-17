@@ -1999,3 +1999,40 @@ entries) as one continuous list. `data/requirements_readiness.csv` and generated
 pages resolved by regeneration from the merged generators (`build_readiness.py` unchanged on
 main between the two tips; all sessions' rows present, 75 requirements validation OK). All
 verifiers re-run green on the merged tree. Nothing from any session was discarded.
+
+
+---
+
+# Session `arena/f0d91da4-fl3` — claim, scope and record (2026-11-17 UTC)
+
+**Session ID:** `arena/f0d91da4-fl3` · **Branch:** `arena/f0d91da4-fl3` · **Base:** `main@0e51cf84` (PR #38 merge; working tree clean at claim time)
+
+All numbered tasks of every prior session (T01–T31, V01–V07) are merged. No other session is active and
+`gh pr list` shows a single open PR (#34). This session therefore claims the **final integration +
+acceptance audit** role the protocol reserves for the last session: line-by-line verification of the
+published registers against live official sources, publication of the audit, closeout of the stale
+open PR, and the integration closeout (regenerate, verify, PR, merge, confirm deploy).
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T32 — Acceptance audit: line-by-line live verification of the published registers (standings, Week 10 results, Week 10 injury report, fixture venues, schedule announcement) against official NFL.com / NFL Media sources, with a published audit page and dataset | in progress | `arena/f0d91da4-fl3` | `data/acceptance_audit_2026-11-17.csv` + `.json` (new), `audit.html` (new, via `scripts/build_site.py`), `scripts/check_site.py` (page list + audit checks), `COORDINATION.md` |
+| T33 — Take over and merge stale open PR #34 (session `arena/03e651e0-fl3`, last activity 2026-11-16, >60 min stale with no commits; all three CI checks pass; diff reviewed) | in progress | `arena/f0d91da4-fl3` | none (merge action + this record) |
+| T34 — Integration closeout: regenerate every build, run all suites, PR from this branch to `main`, merge, confirm GitHub Pages deploy | in progress | `arena/f0d91da4-fl3` | `COORDINATION.md`, generated shared outputs via the existing generators |
+
+
+**Scope boundaries.** New files only in `data/` (new names) plus the sanctioned extension points
+(`scripts/build_site.py` nav, `scripts/check_site.py` page list) and this file. Not touched:
+`verified/**`, `scripts/build_verified_site.py`, `scripts/check_verified_site.py`, `board/**` data,
+`docs/**`, `depth/**`, `site-9b181d31/**`, `legacy/**`, `.github/**`, `models/**`, every other
+register or generator. Where the audit finds a defect in another track's output it is **recorded in
+the audit dataset and published**, not silently edited.
+
+**Verification rule.** Only `nfl.com`, `static.www.nfl.com` and `media.nfl.com` count as evidence.
+Every audit row carries the official URL read, the value observed, the value published in the repo,
+and a verdict. A value that cannot be confirmed stays blank and flagged — never inferred.
+
+**PR #34 takeover note (protocol §stale claim).** PR #34 (branch `arena/03e651e0-fl3`) fixes a
+self-contradiction on the live `verified/strategies.html` (0 forecasts vs 13 rendered) and adds a
+tag-balance assertion to `check_verified_site.py`. Its claim is >60 minutes old with no commits, its
+diff was reviewed in full, and all three CI checks pass. Handoff taken; nothing from that session is
+discarded — its record is preserved in the PR body and in this log.
