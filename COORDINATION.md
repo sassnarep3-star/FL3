@@ -1328,6 +1328,32 @@ side were discarded.
 
 ---
 
+# Session `arena/ff321d9c-fl3` — claim, scope and record (2026-11-17 UTC)
+
+**Session ID:** `arena/ff321d9c-fl3` · **Branch:** `arena/ff321d9c-fl3` · **Base:** `main@0e51cf8`
+(merge of PR #38; no prior unmerged work on this branch). Claimed 2026-11-17. Every prior session's
+branch is merged and `gh pr list --state all` showed no open PR at claim time.
+
+**Role:** this session performs a **final acceptance audit and independent official-source
+verification pass** over the merged tree, then the integration closeout the brief requires (PR, merge,
+Pages confirmation, record). It adds no seventh dashboard build — six already coexist and the root
+landing page designates `verified/` as the canonical results track. Scope is verification and the
+shared coordination file only; where it finds a defect in another track's output it logs it here and
+in the flagged register rather than silently rewriting it.
+
+| # | Task | Status | Owner | Files touched |
+|---|---|---|---|---|
+| T32 | Independent official-source verification of the merged snapshot (standings, Week 10 injury report, Week 11 slate, venue transcription spot-check) | in progress | `arena/ff321d9c-fl3` | `data/session_ff321d9c_verification.json`, this file |
+| T33 | Site acceptance audit: every published subsite reachable, suggestions & flagged sections present and source-linked, no broken internal links | in progress | `arena/ff321d9c-fl3` | this file (defects logged, not silently fixed) |
+| T34 | Integration closeout: regenerate, run every suite, commit, PR to `main`, merge, confirm Pages deploy, record result | in progress | `arena/ff321d9c-fl3` | `COORDINATION.md` |
+
+**Explicitly not touched:** every generator (`scripts/build_*.py`, `scripts/*.py`), every dataset owned
+by a prior session (`data/*.csv`, `data/*.json` except the new verification file above), every
+generated page and subsite (`*.html` at root, `board/**`, `docs/**`, `depth/**`, `verified/**`,
+`verify/**`, `site-9b181d31/**`, `legacy/**`, `pages/**`), `.github/**`, `README.md`.
+
+---
+
 # Session `arena/f5117408-fl3` — claim (2026-11-16 UTC)
 
 Branch `arena/f5117408-fl3` (base `main@695e895`). This session is the only one working on this branch.
