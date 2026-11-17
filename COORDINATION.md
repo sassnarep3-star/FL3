@@ -2173,3 +2173,14 @@ cancelled run cannot be re-run. All three `pages.yml` validate steps were theref
 locally on the identical tree and exit 0: root/subsite completeness checks, `check_site.py`
 (3,429 assertions, ALL CHECKS PASSED) and `verify_live.py --check` (15 claims, exit 0). This note is
 the commit that re-triggers CI on the final merge head.
+
+## Follow-up record — PR #51 completion (2026-11-17 UTC, session `arena/bb4f237d-fl3`)
+
+| Item | Value |
+|---|---|
+| PR #51 merge | **MERGED** into `main` at `c6d50d076a1c95e1ce2532a72be61fa3c27349ed` (2026-11-17T03:06:56Z), after a COORDINATION.md union with concurrently-merged PR #44; `gh pr merge 51 --merge`, no `--auto`, no approval waited |
+| Post-merge CI | `Verify data and site` run `44007865526` success · `site` run `44007865445` success · `Deploy static site to GitHub Pages` run `44007865577` success · `pages build and deployment` run `44007864171` success |
+| Pages status | API: `status: built`, legacy source `main:/`, URL https://sassnarep3-star.github.io/FL3/ |
+| Live check | `https://sassnarep3-star.github.io/FL3/index.html?v=pr51-live-fix` fetched after deploy: the readiness table renders clean rows; the committed/served `index.html` contains the corrected frontier table (`<a href='results.html'>Results feed</a></td><td>149 verified games reconciled club-by-club…`) and zero occurrences of the character-split pattern; `spec.html` likewise fixed |
+| Overlap note | Open PRs #43 / #48 (`arena/3b7e0210-fl3`, `arena/4ac55b56-fl3`) are untouched by this session; their owners rebase per protocol. PR #44's merge was reconciled on this branch before #51 merged |
+| Session status | **T40, T41, T42 + production-defect fix done.** Scope closed. |
