@@ -1853,3 +1853,41 @@ The verified-results subsite and `docs/` still say **148**: **cross-scope reques
 | Live content check | `https://sassnarep3-star.github.io/FL3/board/flagged.html?v=pr47-confirm` fetched after deploy — serves the full FLG register including the FLG-027 dated correction and the FLG-031/033 cross-reference notes |
 | Handoffs closed | PR #23 and PR #34 both merged by their own/other sessions before this branch merged; their content reconciled on this branch and confirmed identical after merge |
 | Session status | **T40, T41, T42 done.** Scope closed. |
+
+---
+
+# Session `arena/bb4f237d-fl3` — production-defect fix on the landing page (2026-11-17T03:0xZ)
+
+## Defect found on the live site (post-merge live check of PR #47)
+
+The landing page's "Added 17 November — the frontier datasets" table rendered one character per
+table cell (`<tr><td>t</td></tr><tr><td>r</td></tr>…`). Root cause: `FRONTIER_ROWS` in
+`scripts/build_site.py` (introduced by PR #46, session `arena/9842b82d-fl3`) was a **joined HTML
+string**, but `table(headers, rows)` iterates `rows` and then each row for cells — so the string was
+rendered character-by-character. The same defect existed on `spec.html` (`IRREG_ROWS` in
+`scripts/build_frontier_site.py`). `check_site.py` had no assertion for this failure mode, which is
+why CI passed while the page was broken.
+
+**Overlap note for open PR #44 (`arena/f0d91da4-fl3`):** this fix touches `scripts/build_site.py`
+and `scripts/check_site.py`, which that PR's file list also names. Nothing was hand-discarded;
+pull --rebase and keep both sides. The fix is a bug repair to already-merged code, not a scope grab.
+
+## Fix (this branch, PR #48-recorded below)
+
+1. `FRONTIER_ROWS` and `IRREG_ROWS` converted to lists of rows (the type `table()` actually takes); comments explain why.
+2. New regression check `check_no_char_split_rows()` in `scripts/check_site.py`: any full row whose single cell is one character fails the build. Registered in `main()`.
+3. Both pages regenerated; zero occurrences of the pattern anywhere in the published trees (`index.html`, `spec.html`, all frontier pages scanned, plus board/verified/verify/depth).
+
+## Verification
+
+```
+python3 scripts/build_site.py            12 pages
+python3 scripts/build_frontier_site.py    5 pages
+python3 scripts/check_site.py            5,334 assertions, ALL CHECKS PASSED (new check included)
+check_verified_site / check_verify / check_links / verify.py G-10 / verify_depth / check_depth_links / build_readiness --check / build_board --check  all PASS
+```
+
+| Item | Result |
+|---|---|
+| Pull request | [#50 — Fix character-split table rendering on index.html and spec.html + regression check](https://github.com/sassnarep3-star/FL3/pull/50) |
+| Merge | merged into `main` (see the follow-up record for the commit and deploy runs) |

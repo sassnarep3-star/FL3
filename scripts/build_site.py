@@ -189,8 +189,11 @@ def readiness_section(rows, sources):
 """
 
 
-FRONTIER_ROWS = "".join(
-    f"<tr><td><a href='{p}'>{t}</a></td><td>{d}</td><td>{h}</td></tr>"
+# NOTE (2026-11-17, arena/bb4f237d-fl3): this must be a LIST OF ROWS, not a joined HTML
+# string. table() iterates `rows` and then iterates each row for cells; a joined string
+# was rendered one character per cell and shipped to production (see PR #46 follow-up).
+FRONTIER_ROWS = [
+    [f"<a href='{p}'>{t}</a>", d, h]
     for p, t, d, h in [
         ("results.html", "Results feed",
          "149 verified games reconciled club-by-club to the official standings",
@@ -207,7 +210,8 @@ FRONTIER_ROWS = "".join(
         ("spec.html", "Specification",
          "Row grain, authority and deliberate blanks for all eight new datasets",
          "Six gaps left visibly blank, not filled"),
-    ])
+    ]
+]
 
 
 def build_index(standings, lines, inj, luck, strat, dec, sug, flag, readiness, sources):

@@ -619,6 +619,7 @@ def main() -> None:
     check_readiness_register()
     check_matchup_matrix()
     check_frontier_datasets()
+    check_no_char_split_rows()
     check_ablations()
 
     print(f"ran {checks} assertions")
@@ -633,6 +634,30 @@ def main() -> None:
         sys.exit(1)
     print("ALL CHECKS PASSED")
 
+
+
+# ------------------------------------------------------- L. markup integrity
+def check_no_char_split_rows() -> None:
+    """Regression guard for the PR #46 production defect (2026-11-17).
+
+    `table(headers, rows)` iterates `rows` and then each row for cells. Two call
+    sites (FRONTIER_ROWS on the landing page, IRREG_ROWS on spec.html) passed a
+    pre-built joined HTML STRING instead of a list of rows, so every character of
+    the intended table was rendered as its own `<tr><td>x</td></tr>` row and the
+    corrupted pages were published. A full row consisting of a single character
+    cell is never legitimate output of any generator in this repository, so its
+    presence fails the build.
+    """
+    bad = re.compile(r"<tr><td>[^<]</td></tr>")
+    for rel in PAGES:
+        path = os.path.join(ROOT, rel)
+        if not os.path.exists(path):
+            continue
+        with open(path, encoding="utf-8") as fh:
+            txt = fh.read()
+        hits = len(bad.findall(txt))
+        check(hits == 0, f"{rel}: {hits} character-split table row(s) - a joined "
+                         f"HTML string was passed to table() instead of a list of rows")
 
 if __name__ == "__main__":
     main()
