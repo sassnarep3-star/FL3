@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Injury/availability ablation - chronological holdout</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><a href="index.html"><strong>FL3</strong> <span>NFL line origination board</span></a></div>
+  <div class="stamp">official data read 2026-11-14 UTC</div>
+</header>
+<div class="wrap">
+<nav class="side"><div class="navgroup"><span>Read first</span><a href="executive-summary.html">Executive summary</a><a href="readiness.html">Requirement readiness</a><a href="decision-queue.html">Decision queue</a><a href="questions.html">Questions & gaps</a><a href="suggestions.html">Suggestions</a></div><div class="navgroup"><span>Verified data</span><a href="standings.html">Standings</a><a href="games.html">Game results</a><a href="team-stats.html">Team stats</a><a href="injuries.html">Injuries & availability</a><a href="official-capture.html">Injury capture</a><a href="matchups.html">Matchup matrix</a><a href="league-facts.html">League facts</a><a href="results.html">Results feed</a><a href="depth-evidence.html">Depth evidence</a></div><div class="navgroup"><span>Model & signals</span><a href="model.html">Model</a><a href="parameters.html">Parameter register</a><a href="lines.html">Lines</a><a href="luck.html">Removal of luck</a><a href="ablations.html" class=on>Ablations</a><a href="line-provenance.html">Line provenance</a><a href="signals.html">Signals</a><a href="correlation.html">Correlation</a><a href="validation.html">Validation gates</a><a href="leaderboard.html">Leaderboard</a></div><div class="navgroup"><span>Verification & ops</span><a href="data-freshness.html">Data freshness</a><a href="methodology.html">Methodology</a><a href="verification.html">Verification log</a><a href="sources.html">Sources</a><a href="flagged.html">Flagged for review</a></div>
+  <div class="navgroup"><span>This repo has two published tracks</span>
+    <a href="../index.html" title="the sibling dashboard built from data/*.json by scripts/build_site.py">Sibling dashboard (root)</a>
+    <a href="../docs/index.html" title="the sibling track's documentation section">Sibling docs</a>
+    <a href="../COORDINATION.md" title="shared task board - claims, scopes, source log">Task board</a>
+  </div>
+  <div class="navgroup"><span>Repo</span>
+    <a href="https://github.com/sassnarep3-star/FL3" rel="noopener nofollow" target="_blank">GitHub</a>
+    <a href="https://github.com/sassnarep3-star/FL3/blob/main/COORDINATION.md" rel="noopener nofollow" target="_blank">Coordination board</a>
+  </div>
+</nav>
+<main>
+<h1 id="injury-availability-ablation-chronological-holdout">Injury / availability ablation (chronological holdout)</h1>
+<p>The full ablation study lives on the sibling dashboard: <strong><a href="../ablations.html">Ablations at the site root</a></strong> — the identical originated-line model is run twice on the same Week 10 holdout: once <strong>with</strong> the verified availability features (Week 10 official injury-report game statuses) and once <strong>without</strong> them. This is the brief's requirement to replace fixed injury penalties with <em>measured</em> ablations (readiness <strong>R028 / R029</strong>).</p>
+<h2 id="what-was-compared">What was compared</h2>
+<p><em> <strong>Variant A — availability ON:</strong> the published model, applying the capped availability adjustment built from the official Week 10 injury report (Out / Doubtful / Questionable). </em> <strong>Variant B — availability OFF:</strong> the identical model with the availability adjustment zeroed. * The two variants share the <strong>same</strong> power ratings (calibrated on verified Weeks 1-9 only) and differ <strong>only</strong> in the availability adjustment.</p>
+<h2 id="method-and-uncertainty">Method and uncertainty</h2>
+<p><em> <strong>Chronological split:</strong> ratings are fixed on verified Weeks 1-9; every forecast is scored against the verified Week 10 results played afterwards. </em> <strong>Metrics:</strong> MAE and RMSE for the spread and the total; Brier for the home win probability. * <strong>Uncertainty:</strong> non-parametric bootstrap over the holdout games (seed 20261117, 20,000 reps), 95% percentile intervals, plus a paired difference (ON − OFF) for each metric.</p>
+<h2 id="honest-result">Honest result</h2>
+<p>The head-to-head is on the root page. On the Week 10 holdout the availability features show <strong>no demonstrated spread-MAE or Brier advantage</strong> (both paired 95% CIs span zero). The total-MAE paired difference is negative with a CI that excludes zero, but with only the scored Week 10 games in the holdout the sample is small, so it is reported as a single-window result — <strong>no skill advantage is claimed</strong>. These are model-evaluation numbers and are <strong>not</strong> leaderboard entries; the brief forbids backtest numbers on the leaderboard.</p>
+<h2 id="sources-and-authority">Sources and authority</h2>
+<p><em> Availability: the <a href="https://www.nfl.com/injuries/league/2026/reg10" rel="noopener nofollow" target="_blank">official NFL Week 10 injury report</a> (<code>data/injuries_week10.json</code>), captured 2026-11-14/16. </em> Results: the verified per-game results corpus <code>data/week_results_2026.csv</code> (Weeks 1-10, every row linked to an official <a href="https://www.nfl.com/schedules/2026/REG10" rel="noopener nofollow" target="_blank">NFL.com schedule</a> page). * Ratings: power ratings built from Weeks 1-9 cumulative standings reconstructed from those verified scores.</p>
+<h2 id="exclusions-and-limitations">Exclusions and limitations</h2>
+<p><em> <strong>Depth-tier features are excluded.</strong> The depth-tier source is unverified for most clubs (readiness R042 is BLOCKED), so the brief's own gate forbids building that feature until a route is verified for all 32 clubs. </em> Availability is captured for Week 10 only, so the head-to-head comparison is on the scored Week 10 holdout (small n; wide intervals). * No market price is used and no bet is recommended. Model output only.</p>
+<footer>
+  <p>Every table on this site is generated from <code>data/</code> by <code>scripts/build_site.py</code>;
+  no value is typed into the HTML. Empty cells are deliberate: the value was not confirmable from an
+  official source, so it is left blank and listed on the
+  <a href="flagged.html">Flagged for review</a> page. Nothing here is betting advice.</p>
+</footer>
+</main>
+</div>
+</body></html>

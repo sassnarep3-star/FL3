@@ -1,0 +1,515 @@
+{
+  "meta": {
+    "title": "Injury / availability ablation — chronological holdout (Week 10, 2026)",
+    "brief_requirements": "R028, R029",
+    "method": "Identical originated-line model run twice on the same Week 10 holdout. Ratings are calibrated on verified Weeks 1-9 only (chronological). Variant A applies the capped availability adjustment from the official Week 10 injury report; Variant B zeroes it. The two variants differ ONLY in the availability adjustment. Scored against verified Week 10 results. MAE/RMSE for spread and total; Brier for home win probability. 95% CIs are non-parametric bootstraps over the holdout games (seed 20261117, 20000 reps).",
+    "inputs": {
+      "results": {
+        "src": "https://www.nfl.com/schedules/2026/REG10",
+        "file": "data/week_results_2026.csv",
+        "calibration_window": "Weeks 1-9",
+        "holdout_window": "Week 10"
+      },
+      "availability": {
+        "src": "https://www.nfl.com/injuries/",
+        "file": "data/injuries_week10.json",
+        "features": "injury-report game status (Out/Doubtful/Questionable) only"
+      },
+      "ratings": {
+        "src": "https://www.nfl.com/standings/division/2026/REG",
+        "note": "power ratings built from Weeks 1-9 cumulative standings"
+      }
+    },
+    "exclusions": [
+      "Depth-tier features are NOT modelled: the depth-tier source is unverified for most clubs (R042 BLOCKED), so the brief's gate forbids building that feature.",
+      "No market price is used; no bet is recommended. Model output only.",
+      "These are model-evaluation numbers, NOT leaderboard entries (the brief forbids backtest numbers on the leaderboard)."
+    ],
+    "limitations": [
+      "Availability is captured for Week 10 only, so the head-to-head comparison is on the Week 10 holdout (n=12). The CIs are correspondingly wide.",
+      "The holdout has 12 scored Week 10 games; the full 14-game slate is not yet fully scored in the results corpus."
+    ]
+  },
+  "summary": {
+    "availability_on": {
+      "variant": "availability ON",
+      "n": 12,
+      "spread_mae": 11.648,
+      "spread_mae_ci95": [
+        6.967,
+        16.52
+      ],
+      "spread_rmse": 14.399,
+      "total_mae": 8.877,
+      "total_mae_ci95": [
+        4.37,
+        14.635
+      ],
+      "total_rmse": 12.728,
+      "brier": 0.2197,
+      "brier_ci95": [
+        0.164,
+        0.2812
+      ]
+    },
+    "availability_off": {
+      "variant": "availability OFF",
+      "n": 12,
+      "spread_mae": 11.693,
+      "spread_mae_ci95": [
+        7.174,
+        16.266
+      ],
+      "spread_rmse": 14.227,
+      "total_mae": 9.513,
+      "total_mae_ci95": [
+        4.85,
+        15.312
+      ],
+      "total_rmse": 13.256,
+      "brier": 0.2134,
+      "brier_ci95": [
+        0.1699,
+        0.2611
+      ]
+    },
+    "paired_difference": {
+      "n": 12,
+      "spread_mae": {
+        "diff_on_minus_off": -0.045,
+        "diff_ci95": [
+          -0.808,
+          0.846
+        ],
+        "rmse_diff_on_minus_off": 1.478,
+        "verdict": "The 95% CI on the paired spread MAE difference includes zero: the availability features do not demonstrate a measurable change on this holdout. No skill advantage is claimed."
+      },
+      "total_mae": {
+        "diff_on_minus_off": -0.637,
+        "diff_ci95": [
+          -1.173,
+          -0.221
+        ],
+        "verdict": "The availability features reduce total MAE on this holdout and the paired 95% CI excludes zero. Promising, but n is small; treat as a single-window result."
+      },
+      "brier": {
+        "diff_on_minus_off": 0.0063,
+        "diff_ci95": [
+          -0.0194,
+          0.0361
+        ],
+        "verdict": "The 95% CI on the paired Brier difference includes zero: the availability features do not demonstrate a measurable change on this holdout. No skill advantage is claimed."
+      }
+    }
+  },
+  "games": [
+    {
+      "week": "10",
+      "game_date": "2026-11-12",
+      "away": "WAS",
+      "home": "NYG",
+      "actual_away_pts": 24,
+      "actual_home_pts": 21,
+      "actual_margin": -3,
+      "actual_total": 45,
+      "pred_margin_avail_on": 4.55,
+      "pred_margin_avail_off": 3.9,
+      "pred_total_avail_on": 46.83,
+      "pred_total_avail_off": 47.48,
+      "pred_home_wp_on": 0.6475,
+      "pred_home_wp_off": 0.6272,
+      "away_avail_on": {
+        "off": 0.75,
+        "def": 0.0,
+        "st": 0.0
+      },
+      "home_avail_on": {
+        "off": 0.0,
+        "def": 0.1,
+        "st": 0.0
+      },
+      "spread_err_on": 7.55,
+      "spread_err_off": 6.9,
+      "total_err_on": 1.83,
+      "total_err_off": 2.48,
+      "brier_on": 0.4192,
+      "brier_off": 0.3934,
+      "results_source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+      "injury_source": "https://www.nfl.com/injuries/"
+    },
+    {
+      "week": "10",
+      "game_date": "2026-11-15",
+      "away": "BUF",
+      "home": "NYJ",
+      "actual_away_pts": 31,
+      "actual_home_pts": 12,
+      "actual_margin": -19,
+      "actual_total": 43,
+      "pred_margin_avail_on": -4.02,
+      "pred_margin_avail_off": -3.41,
+      "pred_total_avail_on": 51.73,
+      "pred_total_avail_off": 51.23,
+      "pred_home_wp_on": 0.3689,
+      "pred_home_wp_off": 0.3882,
+      "away_avail_on": {
+        "off": 0.41,
+        "def": 0.36,
+        "st": 0.0
+      },
+      "home_avail_on": {
+        "off": 0.41,
+        "def": 0.97,
+        "st": 0.0
+      },
+      "spread_err_on": 14.98,
+      "spread_err_off": 15.59,
+      "total_err_on": 8.73,
+      "total_err_off": 8.23,
+      "brier_on": 0.1361,
+      "brier_off": 0.1507,
+      "results_source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+      "injury_source": "https://www.nfl.com/injuries/"
+    },
+    {
+      "week": "10",
+      "game_date": "2026-11-15",
+      "away": "CAR",
+      "home": "NO",
+      "actual_away_pts": 20,
+      "actual_home_pts": 17,
+      "actual_margin": -3,
+      "actual_total": 37,
+      "pred_margin_avail_on": 0.83,
+      "pred_margin_avail_off": 1.35,
+      "pred_total_avail_on": 51.57,
+      "pred_total_avail_off": 52.03,
+      "pred_home_wp_on": 0.5275,
+      "pred_home_wp_off": 0.5447,
+      "away_avail_on": {
+        "off": 0.5,
+        "def": 0.92,
+        "st": 0.0
+      },
+      "home_avail_on": {
+        "off": 1.41,
+        "def": 0.53,
+        "st": 0.0
+      },
+      "spread_err_on": 3.83,
+      "spread_err_off": 4.35,
+      "total_err_on": 14.57,
+      "total_err_off": 15.03,
+      "brier_on": 0.2783,
+      "brier_off": 0.2967,
+      "results_source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+      "injury_source": "https://www.nfl.com/injuries/"
+    },
+    {
+      "week": "10",
+      "game_date": "2026-11-15",
+      "away": "HOU",
+      "home": "CLE",
+      "actual_away_pts": 24,
+      "actual_home_pts": 27,
+      "actual_margin": 3,
+      "actual_total": 51,
+      "pred_margin_avail_on": 1.52,
+      "pred_margin_avail_off": -0.54,
+      "pred_total_avail_on": 46.78,
+      "pred_total_avail_off": 46.94,
+      "pred_home_wp_on": 0.5501,
+      "pred_home_wp_off": 0.4819,
+      "away_avail_on": {
+        "off": 1.56,
+        "def": 1.19,
+        "st": 0.0
+      },
+      "home_avail_on": {
+        "off": 0.24,
+        "def": 0.45,
+        "st": 0.0
+      },
+      "spread_err_on": 1.48,
+      "spread_err_off": 3.54,
+      "total_err_on": 4.22,
+      "total_err_off": 4.06,
+      "brier_on": 0.2024,
+      "brier_off": 0.2684,
+      "results_source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+      "injury_source": "https://www.nfl.com/injuries/"
+    },
+    {
+      "week": "10",
+      "game_date": "2026-11-15",
+      "away": "JAX",
+      "home": "TEN",
+      "actual_away_pts": 40,
+      "actual_home_pts": 23,
+      "actual_margin": -17,
+      "actual_total": 63,
+      "pred_margin_avail_on": -6.84,
+      "pred_margin_avail_off": -6.25,
+      "pred_total_avail_on": 46.55,
+      "pred_total_avail_off": 45.73,
+      "pred_home_wp_on": 0.2848,
+      "pred_home_wp_off": 0.3016,
+      "away_avail_on": {
+        "off": 0.1,
+        "def": 1.3,
+        "st": 0.0
+      },
+      "home_avail_on": {
+        "off": 1.01,
+        "def": 0.8,
+        "st": 0.35
+      },
+      "spread_err_on": 10.16,
+      "spread_err_off": 10.75,
+      "total_err_on": 16.45,
+      "total_err_off": 17.27,
+      "brier_on": 0.0811,
+      "brier_off": 0.0909,
+      "results_source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+      "injury_source": "https://www.nfl.com/injuries/"
+    },
+    {
+      "week": "10",
+      "game_date": "2026-11-15",
+      "away": "KC",
+      "home": "ATL",
+      "actual_away_pts": 35,
+      "actual_home_pts": 13,
+      "actual_margin": -22,
+      "actual_total": 48,
+      "pred_margin_avail_on": -2.14,
+      "pred_margin_avail_off": -2.65,
+      "pred_total_avail_on": 46.84,
+      "pred_total_avail_off": 46.59,
+      "pred_home_wp_on": 0.4295,
+      "pred_home_wp_off": 0.4129,
+      "away_avail_on": {
+        "off": 0.68,
+        "def": 0.93,
+        "st": 0.0
+      },
+      "home_avail_on": {
+        "off": 0.55,
+        "def": 0.55,
+        "st": 0.0
+      },
+      "spread_err_on": 19.86,
+      "spread_err_off": 19.35,
+      "total_err_on": 1.16,
+      "total_err_off": 1.41,
+      "brier_on": 0.1845,
+      "brier_off": 0.1705,
+      "results_source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+      "injury_source": "https://www.nfl.com/injuries/"
+    },
+    {
+      "week": "10",
+      "game_date": "2026-11-15",
+      "away": "LA",
+      "home": "AZ",
+      "actual_away_pts": 34,
+      "actual_home_pts": 6,
+      "actual_margin": -28,
+      "actual_total": 40,
+      "pred_margin_avail_on": -3.74,
+      "pred_margin_avail_off": -3.1,
+      "pred_total_avail_on": 47.31,
+      "pred_total_avail_off": 47.89,
+      "pred_home_wp_on": 0.3744,
+      "pred_home_wp_off": 0.3954,
+      "away_avail_on": {
+        "off": 0.79,
+        "def": 0.34,
+        "st": 0.04
+      },
+      "home_avail_on": {
+        "off": 0.95,
+        "def": 0.84,
+        "st": 0.0
+      },
+      "spread_err_on": 24.26,
+      "spread_err_off": 24.9,
+      "total_err_on": 7.31,
+      "total_err_off": 7.89,
+      "brier_on": 0.1402,
+      "brier_off": 0.1563,
+      "results_source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+      "injury_source": "https://www.nfl.com/injuries/"
+    },
+    {
+      "week": "10",
+      "game_date": "2026-11-15",
+      "away": "MIA",
+      "home": "IND",
+      "actual_away_pts": 22,
+      "actual_home_pts": 24,
+      "actual_margin": 2,
+      "actual_total": 46,
+      "pred_margin_avail_on": 1.77,
+      "pred_margin_avail_off": 2.64,
+      "pred_total_avail_on": 45.83,
+      "pred_total_avail_off": 46.64,
+      "pred_home_wp_on": 0.5585,
+      "pred_home_wp_off": 0.5871,
+      "away_avail_on": {
+        "off": 1.28,
+        "def": 0.12,
+        "st": 0.0
+      },
+      "home_avail_on": {
+        "off": 0.89,
+        "def": 1.31,
+        "st": 0.15
+      },
+      "spread_err_on": 0.23,
+      "spread_err_off": 0.64,
+      "total_err_on": 0.17,
+      "total_err_off": 0.64,
+      "brier_on": 0.1949,
+      "brier_off": 0.1705,
+      "results_source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+      "injury_source": "https://www.nfl.com/injuries/"
+    },
+    {
+      "week": "10",
+      "game_date": "2026-11-15",
+      "away": "MIN",
+      "home": "GB",
+      "actual_away_pts": 30,
+      "actual_home_pts": 10,
+      "actual_margin": -20,
+      "actual_total": 40,
+      "pred_margin_avail_on": 3.46,
+      "pred_margin_avail_off": 1.53,
+      "pred_total_avail_on": 39.12,
+      "pred_total_avail_off": 42.27,
+      "pred_home_wp_on": 0.6134,
+      "pred_home_wp_off": 0.5508,
+      "away_avail_on": {
+        "off": 3.5,
+        "def": 1.01,
+        "st": 0.0
+      },
+      "home_avail_on": {
+        "off": 1.62,
+        "def": 0.96,
+        "st": 0.0
+      },
+      "spread_err_on": 23.46,
+      "spread_err_off": 21.53,
+      "total_err_on": 0.88,
+      "total_err_off": 2.27,
+      "brier_on": 0.3763,
+      "brier_off": 0.3034,
+      "results_source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+      "injury_source": "https://www.nfl.com/injuries/"
+    },
+    {
+      "week": "10",
+      "game_date": "2026-11-15",
+      "away": "NE",
+      "home": "DET",
+      "actual_away_pts": 10,
+      "actual_home_pts": 35,
+      "actual_margin": 25,
+      "actual_total": 45,
+      "pred_margin_avail_on": 4.03,
+      "pred_margin_avail_off": 3.37,
+      "pred_total_avail_on": 49.96,
+      "pred_total_avail_off": 50.22,
+      "pred_home_wp_on": 0.6313,
+      "pred_home_wp_off": 0.6104,
+      "away_avail_on": {
+        "off": 1.41,
+        "def": 0.85,
+        "st": 0.0
+      },
+      "home_avail_on": {
+        "off": 0.65,
+        "def": 0.95,
+        "st": 0.0
+      },
+      "spread_err_on": 20.97,
+      "spread_err_off": 21.63,
+      "total_err_on": 4.96,
+      "total_err_off": 5.22,
+      "brier_on": 0.136,
+      "brier_off": 0.1518,
+      "results_source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+      "injury_source": "https://www.nfl.com/injuries/"
+    },
+    {
+      "week": "10",
+      "game_date": "2026-11-15",
+      "away": "SEA",
+      "home": "LV",
+      "actual_away_pts": 21,
+      "actual_home_pts": 13,
+      "actual_margin": -8,
+      "actual_total": 34,
+      "pred_margin_avail_on": 2.28,
+      "pred_margin_avail_off": -1.28,
+      "pred_total_avail_on": 46.76,
+      "pred_total_avail_off": 49.8,
+      "pred_home_wp_on": 0.5774,
+      "pred_home_wp_off": 0.4564,
+      "away_avail_on": {
+        "off": 3.4,
+        "def": 0.4,
+        "st": 0.0
+      },
+      "home_avail_on": {
+        "off": 0.14,
+        "def": 0.1,
+        "st": 0.0
+      },
+      "spread_err_on": 10.28,
+      "spread_err_off": 6.72,
+      "total_err_on": 12.76,
+      "total_err_off": 15.8,
+      "brier_on": 0.3334,
+      "brier_off": 0.2083,
+      "results_source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+      "injury_source": "https://www.nfl.com/injuries/"
+    },
+    {
+      "week": "10",
+      "game_date": "2026-11-15",
+      "away": "SF",
+      "home": "DAL",
+      "actual_away_pts": 46,
+      "actual_home_pts": 40,
+      "actual_margin": -6,
+      "actual_total": 86,
+      "pred_margin_avail_on": -3.3,
+      "pred_margin_avail_off": -1.59,
+      "pred_total_avail_on": 52.52,
+      "pred_total_avail_off": 52.12,
+      "pred_home_wp_on": 0.392,
+      "pred_home_wp_off": 0.4472,
+      "away_avail_on": {
+        "off": 0.66,
+        "def": 0.7,
+        "st": 0.0
+      },
+      "home_avail_on": {
+        "off": 1.35,
+        "def": 1.71,
+        "st": 0.0
+      },
+      "spread_err_on": 2.7,
+      "spread_err_off": 4.41,
+      "total_err_on": 33.48,
+      "total_err_off": 33.88,
+      "brier_on": 0.1537,
+      "brier_off": 0.2,
+      "results_source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+      "injury_source": "https://www.nfl.com/injuries/"
+    }
+  ]
+}

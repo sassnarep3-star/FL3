@@ -76,6 +76,7 @@ PAGES = [
     ("lines", "Origination output - Week 10 slate", "Lines", "model"),
     ("results", "Verified results feed - Week 10", "Results feed", "data"),
     ("luck", "Removal of luck - prospective scoring", "Removal of luck", "model"),
+    ("ablations", "Injury/availability ablation - chronological holdout", "Ablations", "model"),
     ("line-provenance", "Our line - three files, three answers", "Line provenance", "model"),
     ("depth-evidence", "Depth and replacement evidence", "Depth evidence", "data"),
     ("data-freshness", "Data freshness and snapshot staleness", "Data freshness", "ops"),
