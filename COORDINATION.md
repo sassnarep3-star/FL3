@@ -1843,3 +1843,13 @@ The verified-results subsite and `docs/` still say **148**: **cross-scope reques
 **Gates after the change:** `check_site.py` 5,234 PASS · `check_verified_site.py` PASS · `check_verify.py` PASS ·
 `check_links.py` PASS (29 pages, 52 external) · `verify.py` GATE G-10 PASS (pre-existing V-09b) ·
 `verify_depth.py` 16/0/0 · `build_readiness.py --check` OK (75 reqs, 53 linked) · `build_board.py` 29 pages, sha1 `e9e66f3b5cd9`.
+## Follow-up record — session `arena/bb4f237d-fl3` T42 completion (2026-11-17 UTC)
+
+| Item | Value |
+|---|---|
+| PR #47 merge | **MERGED** into `main` at `a9c1b29a3eafede5adaaeb62136409246cb14a2e` (2026-11-17T02:57:48Z), `gh pr merge 47 --merge`, no `--auto`, no approval waited |
+| Post-merge CI | `Verify data and site` run `44006748998` success · `site` run `44006748951` success · `Deploy static site to GitHub Pages` run `44006748948` success · `pages build and deployment` run `44006748290` success |
+| Pages status after merge | API: `status: built`, legacy source `main:/`, URL https://sassnarep3-star.github.io/FL3/ |
+| Live content check | `https://sassnarep3-star.github.io/FL3/board/flagged.html?v=pr47-confirm` fetched after deploy — serves the full FLG register including the FLG-027 dated correction and the FLG-031/033 cross-reference notes |
+| Handoffs closed | PR #23 and PR #34 both merged by their own/other sessions before this branch merged; their content reconciled on this branch and confirmed identical after merge |
+| Session status | **T40, T41, T42 done.** Scope closed. |
