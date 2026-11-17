@@ -1763,7 +1763,7 @@ build_board.py --check   PASS (30 pages, deterministic sha 90ab51d7cfc5)
 
 | Item | Result |
 |---|---|
-| Pull request | [#46 — Integration round: stalled-PR reconciliation, register corrections, review fixes](https://github.com/sassnarep3-star/FL3/pull/46) |
+| Pull request | [#47 — Integration round: stalled-PR reconciliation, register corrections, review fixes](https://github.com/sassnarep3-star/FL3/pull/47) |
 | Merge | merged into `main` (merge commit recorded on the PR), no approval waited, per the brief |
 | Pages deploy | confirmed after merge via the Pages API and the deploy workflow (see the follow-up record below for the run ids) |
 | Flagged items | do not block; published on `flagged.html` (root F-series) and `board/flagged.html` (FLG-series) |
