@@ -2344,3 +2344,49 @@ Do not "fix" it by loosening an assertion without first reading which number it 
 **Explicitly not touched:** every dataset and generator owned by prior sessions, except the claim/completion records in this file and the PR #59 fix adopted under T-902. No dataset value is changed; no page is hand-edited except through the existing generators.
 
 **Protocol notes:** PR #59's claim is >60 minutes old with no commits, so per §stale claim this session takes it over and notes the handoff. `main` is at `968c4c6` (PR #60 merge); PR #59 was branched from an earlier `main` and is `CONFLICTING`, so its fix will be rebased onto this branch before the PR to `main`.
+
+---
+
+# Session `arena/3b7e0210-fl3` — completion record (adopted via PR #59 takeover, 2026-11-18 UTC)
+
+**Branch:** `arena/3b7e0210-fl3` · **PR:** [#43](https://github.com/sassnarep3-star/FL3/pull/43) · **Merged to `main`:** yes, merge commit `a7dc5f8`.
+**Pages:** rebuilt from `main@57346fd` (`pages build and deployment` #44009756207, **success**, status `built`).
+
+## Tasks completed (T26–T29)
+
+| Task | Delivered |
+|---|---|
+| T26 origination comparison engine | `scripts/build_compare.py` — 4 strategies + 4 controls, walk-forward (a week-*w* forecast uses only weeks `< w`), 4,000 game-cluster bootstrap resamples, Bonferroni ledger over 12 comparisons, calibration, luck panel, regime split, three-way total comparison, correlations with *n*, prospective Week 11 slate, per-game ledger |
+| T27 decision registers | `data/compare/questions.csv` (`QO-01`–`QO-16`), `data/compare/suggestions.csv` (`SC-01`–`SC-10`), each with what-we-know / what-we-don't / what-it-blocks / what-would-clear-it and selectable paths |
+| T28 executive summary | `executive-summary.html` (root) — what is established, what is not, the five blockers, the sample-size arithmetic |
+| T29 renderer + wiring + CI | `compare.html` (root, 12 sections), `board/compare.html` + `content/board/compare.md`, `PAGES`/nav in `build_site.py` and `build_board.py`, guard **S** in `check_site.py`, two steps in `verify.yml` |
+
+## Result, stated as the brief requires
+
+**Skill is not established, and no page says otherwise.** Best spread error is S2 at **10.03** points MAE against **10.66** for a pick'em control; Brier skill vs coin is +5.9% to +7.6% across the four arms. Best paired gain z = **2.43** against a Bonferroni critical value of **2.87** for 12 comparisons, so `called_skillful = false` for every arm. Predicted total vs actual total r = **−0.03** (n = 148) and a trailing-league-mean control beats every strategy on total error. Dispersion is 0.26–0.58: the model's opinions are a quarter to a half as wide as reality, which is the mechanical reason no line can beat a price. **No ROI, no CLV, no edge is published** — no licensed price exists (R005/R010 honoured).
+
+## Verification (all re-run on the merge tree, then again on a clean clone of the pushed branch)
+
+```
+build_compare.py --check        reproduces exactly (byte-stable: no clock value is written)
+build_crosscheck.py --check     reproduces exactly
+capture_official_snapshot.py --selftest    8/8 classifier cases
+check_site.py                   6,154 assertions   ALL CHECKS PASSED
+check_links.py                  31 pages, 0 broken links, 0 orphans
+verify.py                       GATE G-10 PASS (V-09b / FLG-025 non-blocking, unchanged)
+check_verify.py / check_verified_site.py / build_board.py --check / verify_live.py --check   PASS
+```
+
+Strongest single check: `data/compare/corpus_identity_32clubs.csv` — games transcribed from the official per-week schedule pages, then every club's W/L/T/PF/PA compared with the official standings page. All 32 clubs match on all five figures; the league balances at 6,824 points each way.
+
+## Irregularities flagged for review
+
+1. **`F01` / official standings disagreement, now quantified.** The brief's "136-game log" is real: weeks 1–9 are exactly **136 games / 6,246 points**. Add the Thursday Week 10 final and you get the board's **137 / 6,291**; add the other 11 finals and you get **148 / 6,824**. Both snapshots reconcile to the official standings club by club, so F01 is a publication-lag on the *division* standings route only, not a data error. Recorded in `data/compare/corpus_reconciliation.json` and QO-08 (which this session corrected — it had wrongly listed the 136-game figure as unresolved).
+2. **Two official NFL.com routes disagree on a stadium name.** IND@HOU: the game centre's Game Info reads `RELIANT STADIUM`; the Week 11 schedule page's venue link resolves to `NRG Stadium`. Published with the conflict flagged plus a non-conflicting control row (MIN@SF / `ESTADIO BANORTE`) in `data/compare/week11_venues.csv`; QO-16.
+3. **`reg11` serves Week 10 data.** `https://www.nfl.com/injuries/league/2026/reg11` returns the final **Week 10** tables. No Week 11 availability is used anywhere in this session's output. The scheduled capture now records this as `redirected:reg10` (three rows today) instead of failing — see the snapshot fix below.
+4. **Duplicate strategies would have been published.** Two of the four arms were algebraically identical to others (a single `pa` table collapses offence-meets-defence to net points; adding ±hfa/2 to the two scores cancels in the margin). Fixed by splitting a defensive rate and replacing the HFA variant with a Pythagorean rating; `total_estimator_comparison` now proves the three total estimators differ.
+5. **Snapshot alarm could not tell "not published yet" from "drift".** The prior run (43974503837) failed on it. Two sessions fixed this in parallel; main's redirect-based fix landed first and this session's `classify()` + `--selftest` was rebased on top as the fallback path, so both mechanisms are covered by the unit test.
+
+## Not changed
+
+`models/**`, `verified/**`, `verify/**`, `docs/**`, `depth/**`, `site-9b181d31/**`, `legacy/**`, `data/flags.csv`, `data/requirements_readiness.csv`, `data/questions.csv`, `data/suggestions.csv`, `data/sources.csv`. New findings are filed in `data/compare/` so no other session's generator validates them. No other session's data was overwritten; every rebase onto `main` resolved conflicts by regeneration, keeping both sides' pages and nav entries.
