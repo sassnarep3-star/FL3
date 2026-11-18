@@ -616,7 +616,7 @@ def check_frontier_datasets() -> None:
     import os as _os
 
     # ---------------------------------------------------------- results feed
-    with open(_os.path.join(DATA, "official", "results_feed.csv"), newline="") as fh:
+    with open(_os.path.join(DATA, "official", "results_feed.csv"), newline="", encoding="utf-8") as fh:
         feed = list(_csv.DictReader(fh))
     check(len(feed) == 149, f"FR: results feed must hold 149 games, has {len(feed)}")
     check(len({r["game_id"] for r in feed}) == len(feed), "FR: duplicate game_id in feed")
@@ -638,7 +638,7 @@ def check_frontier_datasets() -> None:
           f"FR: Week 10 must hold 13 final games, has {games_by_week.get(10)}")
 
     # ------------------------------------------------ club reconciliation
-    with open(_os.path.join(DATA, "official", "club_reconciliation.csv"), newline="") as fh:
+    with open(_os.path.join(DATA, "official", "club_reconciliation.csv"), newline="", encoding="utf-8") as fh:
         recon = list(_csv.DictReader(fh))
     check(len(recon) == 32, f"FR: reconciliation must cover 32 clubs, has {len(recon)}")
     bad = [r["club"] for r in recon if r["verdict"] != "MATCH"]
@@ -652,7 +652,7 @@ def check_frontier_datasets() -> None:
     check(pf == pa, f"FR: league points for ({pf}) != against ({pa})")
 
     # -------------------------------------------------- game book coverage
-    with open(_os.path.join(DATA, "official", "game_books_week10.json")) as fh:
+    with open(_os.path.join(DATA, "official", "game_books_week10.json"), encoding="utf-8") as fh:
         gb = _json.load(fh)
     captured = [g for g in gb["games"] if g["status"] == "CAPTURED"]
     check(len(captured) == 12, f"FR: expected 12 captured Game Books, got {len(captured)}")
@@ -669,7 +669,7 @@ def check_frontier_datasets() -> None:
               f"FR: {g['game_id']} Game Book link is not an official static URL")
 
     # --------------------------------------------------- availability graph
-    with open(_os.path.join(DATA, "availability", "availability_graph.csv"), newline="") as fh:
+    with open(_os.path.join(DATA, "availability", "availability_graph.csv"), newline="", encoding="utf-8") as fh:
         avail = list(_csv.DictReader(fh))
     check(len(avail) > 100, f"FR: availability graph suspiciously small ({len(avail)})")
     states = {"STARTED", "NOT_ACTIVE", "DID_NOT_PLAY", "NOT_LISTED_IN_TRANSCRIBED_BLOCKS",
@@ -695,7 +695,7 @@ def check_frontier_datasets() -> None:
               f"FR: undisclosed report join basis '{r['report_join_basis']}'")
 
     # ------------------------------------------------- designation table
-    with open(_os.path.join(DATA, "availability", "designation_empirical.csv"), newline="") as fh:
+    with open(_os.path.join(DATA, "availability", "designation_empirical.csv"), newline="", encoding="utf-8") as fh:
         cal = list(_csv.DictReader(fh))
     check(len(cal) == 4, f"FR: designation table must cover Out/Doubtful/Questionable/blank, has {len(cal)}")
     for r in cal:
@@ -711,7 +711,7 @@ def check_frontier_datasets() -> None:
           "FR: an 'Out' player cannot be credited with a start")
 
     # ------------------------------------------------- week 11 register
-    with open(_os.path.join(DATA, "official", "week11_fixtures.json")) as fh:
+    with open(_os.path.join(DATA, "official", "week11_fixtures.json"), encoding="utf-8") as fh:
         w11 = _json.load(fh)
     fx = w11["fixtures"]
     check(len(fx) == 13, f"FR: Week 11 must hold 13 fixtures, has {len(fx)}")
@@ -744,7 +744,7 @@ def check_frontier_datasets() -> None:
                   f"FR: {f['game_id']} publishes {club} as {want}, standings say {got}")
 
     # ------------------------------------------------- price snapshots
-    with open(_os.path.join(DATA, "pricing", "snapshot_register.csv"), newline="") as fh:
+    with open(_os.path.join(DATA, "pricing", "snapshot_register.csv"), newline="", encoding="utf-8") as fh:
         reg = list(_csv.DictReader(fh))
     check(len(reg) >= 1, "FR: no price snapshot was captured")
     for r in reg:
@@ -752,7 +752,7 @@ def check_frontier_datasets() -> None:
         check(r["sha256_declared"] == r["sha256_recomputed"],
               f"FR: snapshot {r['snapshot_file']} hash mismatch")
         check(len(r["sha256_declared"]) == 64, "FR: snapshot hash is not sha256")
-    with open(_os.path.join(DATA, "pricing", "current_prices.csv"), newline="") as fh:
+    with open(_os.path.join(DATA, "pricing", "current_prices.csv"), newline="", encoding="utf-8") as fh:
         cp = list(_csv.DictReader(fh))
     check(len(cp) == 13, f"FR: expected 13 originated fixtures, got {len(cp)}")
     for r in cp:
@@ -768,7 +768,7 @@ def check_frontier_datasets() -> None:
             check(r[col] == "", f"FR: {r['game_id']} invented a closing number")
 
     # ---------------------------------------------------- ablation
-    with open(_os.path.join(DATA, "lab", "ablation_summary.csv"), newline="") as fh:
+    with open(_os.path.join(DATA, "lab", "ablation_summary.csv"), newline="", encoding="utf-8") as fh:
         ab = list(_csv.DictReader(fh))
     check(len(ab) == 3, f"FR: ablation must report margin, total and Brier, has {len(ab)}")
     for r in ab:
@@ -782,7 +782,7 @@ def check_frontier_datasets() -> None:
                   f"FR: {r['metric']} interval crosses zero but claims a difference")
 
     # -------------------------------------------------- leaderboard v2
-    with open(_os.path.join(DATA, "lab", "leaderboard_v2.json")) as fh:
+    with open(_os.path.join(DATA, "lab", "leaderboard_v2.json"), encoding="utf-8") as fh:
         lb = _json.load(fh)
     strats = lb["strategies"]
     check(len(strats) == 9, f"FR: leaderboard must hold 9 strategies, got {len(strats)}")
