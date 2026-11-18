@@ -2413,6 +2413,7 @@ Strongest single check: `data/compare/corpus_identity_32clubs.csv` — games tra
 
 **Files touched:** `COORDINATION.md`, `docs/EXECUTIVE_SUMMARY.md`.
 
+<<<<<<< HEAD
 **Closeout.**
 
 | Item | Value |
@@ -2425,6 +2426,7 @@ Strongest single check: `data/compare/corpus_identity_32clubs.csv` — games tra
 | Session status | **Scope closed.** No dataset, page, script or ablation file claimed by another session was touched. |
 
 **Next-session note (from the board, unchanged):** the Week 10 `LAC@BAL` game was in the second quarter at capture and is excluded from all 149 games/ratings/scores; when final, record the correction in `data/official/results_feed.json`, re-run `scripts/build_frontier_data.py`, then the ablation and leaderboard.
+<<<<<<< HEAD
 ---
 
 ## Claim — session `arena/9285d6e9-fl3` (2026-11-18 UTC)
@@ -2476,3 +2478,108 @@ What was tested, all on a fresh depth-1 clone of the committed tree: default loc
 The `validate` gate's cause was the interpreter, not the content. `verify.yml`, `site.yml` and `snapshot.yml` pin Python 3.11. `pages.yml` did not pin any version, so it ran on the runner default (3.12 on ubuntu-latest). The fix pins 3.11 in `pages.yml` (commit `4302b57`). On PR #63 the run with that commit reports **validate pass** (run 44229847344), along with Recompute and verify (pass) and verify-and-build (pass). The earlier "not reproduced locally" note stands: the same tree passes under 3.11 locally, and the failure was specific to the 3.12 runner default. The ASCII-locale encoding fix (`de2710b`) remains a real and separate portability fix.
 
 **PR:** https://github.com/sassnarep3-star/FL3/pull/63
+=======
+=======
+**Closeout:** PR link, merge result and Pages deploy status are recorded below once the PR is merged.
+
+---
+
+# Session `arena/7c189606-fl3` — claim (2026-11-18 UTC)
+
+**Session ID:** `arena/7c189606-fl3` · **Branch:** `arena/7c189606-fl3` (fixed by the session branch note; the
+`session-<id>/<task>` naming in the protocol above is superseded for this session) · **Base:** `main@968c4c6`.
+Open PRs checked before claiming: **#59** (`arena/3b7e0210-fl3`, compare-page wording fix, OPEN) — disjoint
+from this claim and not touched. No other session is active.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T-7C1 — **Live official-source verification of the brief's open starter, depth and roster-turnover claims** (Lock/McCord/Brissett announcements, Baltimore QB depth vs. transactions, Malik Willis reserve-list status, Colts receiver-trade timing, Texans image depth chart, Packers jersey-number prefixes, Seattle shared / Washington empty depth slots). Each claim is fetched from the official page on 2026-11-18 and recorded as CONFIRMED / REFUTED / NOT VERIFIED with the URL read and the observed text. | **in progress** | `arena/7c189606-fl3` | `data/verification/brief_claims_2026-11-18.csv` + `.json` (new) |
+| T-7C2 — Update the readiness rows that depend on T-7C1 (R033, R037, R042, R053, R063–R066) in the generator, regenerate, and keep the coverage audit at 69/69 | **in progress** | `arena/7c189606-fl3` | `scripts/build_readiness.py` (ROWS only), `data/requirements_readiness.csv`, `data/requirement_coverage_audit.csv` |
+| T-7C3 — Publish the verification ledger on a labelled page (`verification-2026-11-18.html`), linked from the verify subsite and the Flagged for Review register | **in progress** | `arena/7c189606-fl3` | new page + `scripts/build_verify.py` (nav entry) only |
+| T-7C4 — Integration closeout: all suites, PR to `main`, merge, Pages check, record here | pending | `arena/7c189606-fl3` | `COORDINATION.md` |
+
+**Scope boundaries.** Not touched: `board/**`, `docs/**`, `depth/**`, `site-9b181d31/**`, `legacy/**`,
+`verified/**`, `models/**`, `.github/**`, and every root `*.html` other than the new page. Defects found in
+other tracks are recorded in the ledger, not silently edited.
+
+**Verification rule.** Only `nfl.com`, `static.www.nfl.com`, `media.nfl.com` and club-operated sites
+(`*.com` team domains) are read as evidence; each row carries the URL read. Anything not readable from the
+page is left blank and marked NOT VERIFIED.
+>>>>>>> b475ee3 (Coordination: claim T-7C1..T-7C4 (session arena/7c189606-fl3))
+
+---
+
+# Session `arena/7c189606-fl3` — claim (2026-11-18 UTC)
+
+**Session ID:** `arena/7c189606-fl3` · **Branch:** `arena/7c189606-fl3` (fixed by the session branch note; the
+`session-<id>/<task>` naming in the protocol above is superseded for this session) · **Base:** `main@968c4c6`.
+Open PRs checked before claiming: **#59** (`arena/3b7e0210-fl3`, compare-page wording fix, OPEN) — disjoint
+from this claim and not touched. No other session is active.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T-7C1 — **Live official-source verification of the brief's open starter, depth and roster-turnover claims** (Lock/McCord/Brissett announcements, Baltimore QB depth vs. transactions, Malik Willis reserve-list status, Colts receiver-trade timing, Texans image depth chart, Packers jersey-number prefixes, Seattle shared / Washington empty depth slots). Each claim is fetched from the official page on 2026-11-18 and recorded as CONFIRMED / REFUTED / NOT VERIFIED with the URL read and the observed text. | **in progress** | `arena/7c189606-fl3` | `data/verification/brief_claims_2026-11-18.csv` + `.json` (new) |
+| T-7C2 — Update the readiness rows that depend on T-7C1 (R033, R037, R042, R053, R063–R066) in the generator, regenerate, and keep the coverage audit at 69/69 | **in progress** | `arena/7c189606-fl3` | `scripts/build_readiness.py` (ROWS only), `data/requirements_readiness.csv`, `data/requirement_coverage_audit.csv` |
+| T-7C3 — Publish the verification ledger on a labelled page (`verification-2026-11-18.html`), linked from the verify subsite and the Flagged for Review register | **in progress** | `arena/7c189606-fl3` | new page + `scripts/build_verify.py` (nav entry) only |
+| T-7C4 — Integration closeout: all suites, PR to `main`, merge, Pages check, record here | pending | `arena/7c189606-fl3` | `COORDINATION.md` |
+
+**Scope boundaries.** Not touched: `board/**`, `docs/**`, `depth/**`, `site-9b181d31/**`, `legacy/**`,
+`verified/**`, `models/**`, `.github/**`, and every root `*.html` other than the new page. Defects found in
+other tracks are recorded in the ledger, not silently edited.
+
+**Verification rule.** Only `nfl.com`, `static.www.nfl.com`, `media.nfl.com` and club-operated sites
+(`*.com` team domains) are read as evidence; each row carries the URL read. Anything not readable from the
+page is left blank and marked NOT VERIFIED.
+>>>>>>> 485dafe (Coordination: claim T-7C1..T-7C4 (session arena/7c189606-fl3))
+<<<<<<< HEAD
+=======
+**Closeout:** PR link, merge result and Pages deploy status are recorded below once the PR is merged.
+
+---
+
+# Session `arena/7c189606-fl3` — claim (2026-11-18 UTC)
+
+**Session ID:** `arena/7c189606-fl3` · **Branch:** `arena/7c189606-fl3` (fixed by the session branch note; the
+`session-<id>/<task>` naming in the protocol above is superseded for this session) · **Base:** `main@968c4c6`.
+Open PRs checked before claiming: **#59** (`arena/3b7e0210-fl3`, compare-page wording fix, OPEN) — disjoint
+from this claim and not touched. No other session is active.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T-7C1 — **Live official-source verification of the brief's open starter, depth and roster-turnover claims** (Lock/McCord/Brissett announcements, Baltimore QB depth vs. transactions, Malik Willis reserve-list status, Colts receiver-trade timing, Texans image depth chart, Packers jersey-number prefixes, Seattle shared / Washington empty depth slots). Each claim is fetched from the official page on 2026-11-18 and recorded as CONFIRMED / REFUTED / NOT VERIFIED with the URL read and the observed text. | **in progress** | `arena/7c189606-fl3` | `data/verification/brief_claims_2026-11-18.csv` `.json` (new) |
+| T-7C2 — Update the readiness rows that depend on T-7C1 (R033, R037, R042, R053, R063–R066) in the generator, regenerate, and keep the coverage audit at 69/69 | **in progress** | `arena/7c189606-fl3` | `scripts/build_readiness.py` (ROWS only), `data/requirements_readiness.csv`, `data/requirement_coverage_audit.csv` |
+| T-7C3 — Publish the verification ledger on a labelled page (`verification-2026-11-18.html`), linked from the verify subsite and the Flagged for Review register | **in progress** | `arena/7c189606-fl3` | new page `scripts/build_verify.py` (nav entry) only |
+| T-7C4 — Integration closeout: all suites, PR to `main`, merge, Pages check, record here | pending | `arena/7c189606-fl3` | `COORDINATION.md` |
+
+**Scope boundaries.** Not touched: `board/**`, `docs/**`, `depth/**`, `site-9b181d31/**`, `legacy/**`,
+`verified/**`, `models/**`, `.github/**`, and every root `*.html` other than the new page. Defects found in
+other tracks are recorded in the ledger, not silently edited.
+
+**Verification rule.** Only `nfl.com`, `static.www.nfl.com`, `media.nfl.com` and club-operated sites
+(`*.com` team domains) are read as evidence; each row carries the URL read. Anything not readable from the
+page is left blank and marked NOT VERIFIED.
+>>>>>>> b475ee3 (Coordination: claim T-7C1..T-7C4 (session arena/7c189606-fl3))
+
+---
+
+# Session `arena/7c189606-fl3` — claim (2026-11-18 UTC)
+
+**Session ID:** `arena/7c189606-fl3` · **Branch:** `arena/7c189606-fl3` (fixed by the session branch note; the
+`session-<id>/<task>` naming in the protocol above is superseded for this session) · **Base:** `main@968c4c6`.
+Open PRs checked before claiming: **#59** (`arena/3b7e0210-fl3`, compare-page wording fix, OPEN) — disjoint
+from this claim and not touched. No other session is active.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T-7C1 — **Live official-source verification of the brief's open starter, depth and roster-turnover claims** (Lock/McCord/Brissett announcements, Baltimore QB depth vs. transactions, Malik Willis reserve-list status, Colts receiver-trade timing, Texans image depth chart, Packers jersey-number prefixes, Seattle shared / Washington empty depth slots). Each claim is fetched from the official page on 2026-11-18 and recorded as CONFIRMED / REFUTED / NOT VERIFIED with the URL read and the observed text. | **in progress** | `arena/7c189606-fl3` | `data/verification/brief_claims_2026-11-18.csv` `.json` (new) |
+| T-7C2 — Update the readiness rows that depend on T-7C1 (R033, R037, R042, R053, R063–R066) in the generator, regenerate, and keep the coverage audit at 69/69 | **in progress** | `arena/7c189606-fl3` | `scripts/build_readiness.py` (ROWS only), `data/requirements_readiness.csv`, `data/requirement_coverage_audit.csv` |
+| T-7C3 — Publish the verification ledger on a labelled page (`verification-2026-11-18.html`), linked from the verify subsite and the Flagged for Review register | **in progress** | `arena/7c189606-fl3` | new page `scripts/build_verify.py` (nav entry) only |
+| T-7C4 — Integration closeout: all suites, PR to `main`, merge, Pages check, record here | pending | `arena/7c189606-fl3` | `COORDINATION.md` |
+
+**Scope boundaries.** Not touched: `board/**`, `docs/**`, `depth/**`, `site-9b181d31/**`, `legacy/**`,
+`verified/**`, `models/**`, `.github/**`, and every root `*.html` other than the new page. Defects found in
+other tracks are recorded in the ledger, not silently edited.
+
+**Verification rule.** Only `nfl.com`, `static.www.nfl.com`, `media.nfl.com` and club-operated sites
+(`*.com` team domains) are read as evidence; each row carries the URL read. Anything not readable from the
+page is left blank and marked NOT VERIFIED.
