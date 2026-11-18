@@ -59,9 +59,6 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Test capture and drift-classification logic offline
-        run: python3 scripts/test_capture_offline.py
-
       - name: Capture the report (fails loudly on drift)
         run: |
           WEEK="${{ inputs.week }}"

@@ -2520,7 +2520,12 @@ expected an earlier-week page at a future-week URL to be drift, while
 I discovered open PR #61 (`arena/9f527e7c-fl3`, updated 2026-11-18T03:13Z) already owns that test
 fix. To respect the non-overlap rule, T44 is handed to PR #61; this branch will not carry the local
 snapshot-test/workflow/classifier edits. The attempted local edits were restored from `origin/main`
-for those paths. The useful follow-up request to PR #61 is to make the `/home/user/FL3` path portable,
+for those paths. The push did trigger the official snapshot workflow; its bot commit `db7a394` was
+preserved (cherry-picked as `8feb436`) because it records an official redirect observation in
+`snapshots/index.csv`: at `2026-11-18T03:14:46Z`, the requested Week 11 URL returned HTTP 200, 402,343
+bytes, SHA-256 `1b54ba1814fdbe46fb25b3ad6402da9e690d796a983257f56ae094004021b5e3`, and
+`redirected:reg10`. No raw body or player rows were stored, so this is a redirect event, not an injury
+report capture. The useful follow-up request to PR #61 is to make the `/home/user/FL3` path portable,
 make the same-second immutability assertion timing-safe, and consider wiring the offline test into the
 scheduled snapshot workflow. This is a coordination request, not a claim that those changes landed.
 
