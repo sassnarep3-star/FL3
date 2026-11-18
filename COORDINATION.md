@@ -2348,4 +2348,15 @@ Do not "fix" it by loosening an assertion without first reading which number it 
 
 **Files touched:** `COORDINATION.md`, `docs/EXECUTIVE_SUMMARY.md`.
 
-**Closeout:** PR link, merge result and Pages deploy status are recorded below once the PR is merged.
+**Closeout.**
+
+| Item | Value |
+|---|---|
+| PR | [#65 — SESSION arena/0c322b0e-fl3: final integration closeout — verified review, Pages deploy record](https://github.com/sassnarep3-star/FL3/pull/65) |
+| Merge result | **MERGED** into `main` at `e2d21ee6e5a05390ed84bbfea0b94084e934d598` on 2026-11-18T03:16:53Z via `gh pr merge 65 --merge`, no `--auto`, no approval waited |
+| Pre-merge CI | `Verify data and site` run 44229297134 success · `site` run 44229297207 success · `pages-build-deployment` run 44229296465 success |
+| Pages status | API `status: built`, `build_type: legacy`, source `main:/`, URL https://sassnarep3-star.github.io/FL3/ |
+| Live check | Homepage fetched after deploy: dashboard renders, readiness table and flagged links present, zero broken local targets (served root matches the verified commit tree) |
+| Session status | **Scope closed.** No dataset, page, script or ablation file claimed by another session was touched. |
+
+**Next-session note (from the board, unchanged):** the Week 10 `LAC@BAL` game was in the second quarter at capture and is excluded from all 149 games/ratings/scores; when final, record the correction in `data/official/results_feed.json`, re-run `scripts/build_frontier_data.py`, then the ablation and leaderboard.
