@@ -2586,3 +2586,25 @@ artifacts. The results count is a dated repository capture, not a claim of curre
 (snapshot test) and PR #66 (verification/readiness) remained open in the latest query. Their work and
 any final Pages/deployment closeout remain separate; this T45 note does not claim the overall project
 integration is finished or the live Pages copy has been updated from this README change.
+
+### T43 post-merge review — outstanding copy/readiness request
+
+After PRs #63 and #64 merged, a read-only check on the combined tree found the distinction is not yet
+fully carried through the public summary surfaces:
+
+- `compare.html` accurately labels its metrics as retrospective and shows n=148, but its heading calls
+  this “148 verified games” without noting that the separate `data/official/results_feed.csv` capture
+  is 149 rows at `2026-11-17T02:47Z`. No comparison score was recomputed on 149. The next shared-output
+  integration owner should add the dated 148/149 distinction; this session did not edit `compare.html`.
+- `data/requirements_readiness.csv` rows R002 and R068 still state that the older corpus has 33/137
+  rows, while the feed capture has 149 final rows; R020 describes the 148-row corpus as current without
+  mentioning the later feed. These are inconsistent with the checked-in artifacts and need an owner
+  update through the readiness generator/PR, not a hand edit here.
+
+The correction result remains linked to the [official Week 10 schedule](https://www.nfl.com/schedules/2026/by-week/week-10),
+the 32-club reconciliation to [official NFL standings](https://www.nfl.com/standings/league/2026/REG),
+and the LAC@BAL exclusion to its [official game centre](https://www.nfl.com/games/chargers-at-ravens-2026-reg-10).
+This is a repository consistency review, not a fresh NFL fetch and not a claim of a later final score.
+A follow-up request was posted to [PR #66](https://github.com/sassnarep3-star/FL3/pull/66#issuecomment-6968117159)
+for the readiness rows. The comparison-copy request is left for the final integration owner because
+shared site outputs must not be edited by this audit session.
