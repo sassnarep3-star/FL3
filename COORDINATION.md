@@ -19,6 +19,7 @@
 |---|---|---|---|
 | `arena/9d05cb63-fl3` | `arena/9d05cb63-fl3` | Repo review, official-source verification, and session closeout (PR + merge + Pages deploy record). No dataset or page content changed; only COORDINATION.md session records. | 2026-11-16 |
 | `arena/4d2c9111-fl3` | `arena/4d2c9111-fl3` | T35: injury/availability ablation with chronological holdout and uncertainty (R028/R029). New ablation script + datasets + `ablations.html` page; wired into root nav, board PAGES, and verifiers. | 2026-11-17 |
+| `arena/ad61d1da-fl3` | `arena/ad61d1da-fl3` | T45: results-corpus lineage audit — preserve the 148-row retrospective evaluation, distinguish it from the 149-row corrected results-feed snapshot, and flag the later unrecaptured LAC@BAL outcome. New report + deterministic validator; no existing score or source dataset edited. | 2026-11-18 |
 
 Other sessions: **one competing session was discovered after this session's first push.**
 
@@ -65,6 +66,7 @@ and both pushed before either claim was visible. This is the exact race the prot
 | T18 | Archive the competing blueprint without discarding it | **done** | `arena-e8bf2075` | `legacy/**` |
 | T19 | Fold the other session's findings into the registers | **done** | `arena-e8bf2075` | `data/flagged.json`, `data/decisions.json`, `data/suggestions.json` |
 | T35 | Injury/availability ablation with chronological holdout and uncertainty (R028/R029) — compare the identical line model with and without verified availability features on a chronological holdout; publish MAE/RMSE/Brier with bootstrap CIs and an explicit n; no backtest numbers on the leaderboard | **in progress** | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
+| T45 | Results-corpus lineage audit — distinguish the immutable 148-row retrospective comparison input from the 149-row corrected official results-feed snapshot; record that LAC@BAL was unrecaptured after the in-progress capture; add source-linked report and deterministic checks without rewriting historical scores | **in progress** | `arena/ad61d1da-fl3` | `scripts/build_corpus_lineage.py`, `data/compare/corpus_lineage.json`, `docs/corpus-lineage.html`, `.github/workflows/corpus-lineage.yml`, `COORDINATION.md` |
 
 **File ownership rule for future sessions:** `data/standings.json`, `data/sources.json`,
 `data/flagged.json` and every `*.html` at repo root are **shared outputs**. They are regenerated
@@ -82,6 +84,7 @@ task. `scripts/build_site.py` is single-owner at a time.
 | 2026-11-14T00:00Z | `arena-e8bf2075` | Claimed T12–T15 (site build + verification + docs). |
 | 2026-11-14T00:00Z | `arena-e8bf2075` | Claimed T16 (integration) — sole session, so integration performed by same ID. |
 | 2026-11-16T00:00Z | `arena/9d05cb63-fl3` | Claimed session closeout: repo review, official-source verification, PR/merge record. Files: COORDINATION.md (session record only); no dataset or page content changed. |
+| 2026-11-18T03:16Z | `arena/ad61d1da-fl3` | Claimed T45: audit the distinct 148-row backtest snapshot vs 149-row corrected results feed, preserve past scores, and publish a deterministic, source-linked lineage report. Files: `scripts/build_corpus_lineage.py`, `data/compare/corpus_lineage.json`, `docs/corpus-lineage.html`, `.github/workflows/corpus-lineage.yml`, plus this claim. No files in PRs #61–#65 are touched; the root navigation/executive summary request is left for final integration.
 
 ---
 
