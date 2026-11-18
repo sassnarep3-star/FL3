@@ -2425,3 +2425,32 @@ Strongest single check: `data/compare/corpus_identity_32clubs.csv` — games tra
 | Session status | **Scope closed.** No dataset, page, script or ablation file claimed by another session was touched. |
 
 **Next-session note (from the board, unchanged):** the Week 10 `LAC@BAL` game was in the second quarter at capture and is excluded from all 149 games/ratings/scores; when final, record the correction in `data/official/results_feed.json`, re-run `scripts/build_frontier_data.py`, then the ablation and leaderboard.
+
+---
+
+# Session `arena/9d6213c4-fl3` — closeout record (T-903, 2026-11-18 UTC)
+
+**Branch:** `arena/9d6213c4-fl3` · **Base:** `main@968c4c6` · **PR:** [#64 — Session arena/9d6213c4-fl3: final acceptance audit, PR #59 compare-page fix, and closeout](https://github.com/sassnarep3-star/FL3/pull/64)
+
+## What was delivered
+
+| Item | Result |
+|---|---|
+| T-901 Final acceptance audit | `scripts/build_site.py` 15 pages built; `scripts/check_site.py` **6,154 assertions ALL CHECKS PASSED** (rerun on final tree); `scripts/verify.py` GATE G-10 PASS (only the known, published, non-blocking V-09b/FLG-025 source-table discrepancy); `scripts/check_links.py` PASS (31 pages, all internal links resolve); `scripts/build_compare.py --check` OK; `scripts/build_board.py --check` OK (75 requirements, 53 official-source links, 22 source-gap flagged) |
+| T-902 Adopted stale PR #59 | PR #59 (`arena/3b7e0210-fl3`, open since 2026-11-17T03:25Z, no commits) taken over per >60-minute stale-claim rule. Fix applied to main's current files: corrected the factually wrong luck/n fine print (all four strategies show n=132) on `compare.html` and `scripts/build_site.py`; capitalised the price-policy note on `compare.html`, `scripts/build_compare.py`, `data/compare/evaluation.json`; made `scripts/check_site.py` price-policy assertion case-insensitive; dropped an accidental double period ("implied.." → "implied.") |
+| Live official-source spot-check | `https://www.nfl.com/schedules/2026/by-week/week-11` confirms the published Week 11 fixtures match the official schedule page |
+
+## PR / merge / deploy record
+
+| Item | Value |
+|---|---|
+| Pull request | [#64](https://github.com/sassnarep3-star/FL3/pull/64) |
+| Merge | **MERGED** into `main` at `153a73d6e562cd18fe6e79592b0a7b6220ae676e` via `gh pr merge 64 --merge`, no `--auto`, no approval waited, per the brief |
+| Pre-merge verification | `check_site.py` 6,154 assertions ALL CHECKS PASSED; `verify.py` GATE G-10 PASS; `check_links.py` PASS; `build_compare.py --check` OK; `build_board.py --check` OK |
+| Pages status | API `status: built`, `build_type: legacy`, source `main:/`, URL https://sassnarep3-star.github.io/FL3/, HTTPS enforced |
+| Flagged irregularities | V-09b/FLG-025 (source-table pass-TD/INT disagreement, published, non-blocking) and compare-lab irregularities (F01 quantification, stadium-name conflict, reg11 serves Week 10) remain published and do not block the merge |
+| Session status | **Scope closed.** No dataset value changed; no page hand-edited except through the existing generators. |
+
+## Handoff note for the next session
+
+No dataset, page, script, or ablation file claimed by another session was touched. The branch `arena/9d6213c4-fl3` is fully merged to `main`; nothing further is pending from this session.
