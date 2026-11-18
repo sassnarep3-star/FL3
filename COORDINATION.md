@@ -2328,3 +2328,13 @@ likely candidates given this session's changes are a count that drifted in a gen
 already caught and asserted this session: Week 10 "twelve" vs "thirteen", and the Week 11 bye
 arithmetic) or an assertion whose threshold assumes a page that another session has since extended.
 Do not "fix" it by loosening an assertion without first reading which number it disagreed with.
+
+---
+
+## Session `arena/17872996-fl3` — task claim (2026-11-18 UTC)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T43 — Reconcile the offline snapshot regression test with the capture classifier's documented older-week behavior; retain a no-storage assertion and rerun the capture test suite | **in progress** | `arena/17872996-fl3` | `scripts/test_capture_offline.py`, `COORDINATION.md` |
+
+Claimed after reading the coordination board. The change is limited to the offline regression test and this session record; it does not touch a claimed dataset, generator, or published page. The registered branch for this session is fixed as `arena/17872996-fl3` by Arena, so work stays on that branch.
