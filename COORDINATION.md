@@ -20,6 +20,7 @@
 | `arena/9d05cb63-fl3` | `arena/9d05cb63-fl3` | Repo review, official-source verification, and session closeout (PR + merge + Pages deploy record). No dataset or page content changed; only COORDINATION.md session records. | 2026-11-16 |
 | `arena/4d2c9111-fl3` | `arena/4d2c9111-fl3` | T35: injury/availability ablation with chronological holdout and uncertainty (R028/R029). New ablation script + datasets + `ablations.html` page; wired into root nav, board PAGES, and verifiers. | 2026-11-17 |
 | `arena/59b62c7b-fl3` | `arena/59b62c7b-fl3` | T43 final integration: review the remaining open PR, reconcile the 148-row retrospective comparison with the 149-row captured official feed without inventing a current result, correct stale readiness/summary wording, run all gates, and publish a verified integration PR. Scope: `COORDINATION.md`, `scripts/build_site.py`, `scripts/check_site.py`, `scripts/build_readiness.py`, `data/requirements_readiness.csv`, `scripts/build_compare.py`/`scripts/check_site.py` only for the stale PR correction, and deterministically generated root/board/audit HTML. Raw captured NFL datasets are read-only. | 2026-11-18T03:09Z |
+| `arena/59b62c7b-fl3` | `arena/59b62c7b-fl3` | T44 repair the stale offline availability-capture test and gate it in CI; scope: `scripts/test_capture_offline.py`, `.github/workflows/snapshot.yml`, `COORDINATION.md`. | 2026-11-18T03:14Z |
 
 Other sessions: **one competing session was discovered after this session's first push.**
 
@@ -67,6 +68,7 @@ and both pushed before either claim was visible. This is the exact race the prot
 | T19 | Fold the other session's findings into the registers | **done** | `arena-e8bf2075` | `data/flagged.json`, `data/decisions.json`, `data/suggestions.json` |
 | T35 | Injury/availability ablation with chronological holdout and uncertainty (R028/R029) — compare the identical line model with and without verified availability features on a chronological holdout; publish MAE/RMSE/Brier with bootstrap CIs and an explicit n; no backtest numbers on the leaderboard | **in progress** | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
 | T43 | Final integration — review open PR #59; state the distinct 148-row retrospective comparison vs the 149-row verified results-feed capture; update stale readiness and executive summary language without assuming post-capture results; run full verification and Pages closeout | **in progress** | `arena/59b62c7b-fl3` | `COORDINATION.md`, `scripts/build_readiness.py`, `data/requirements_readiness.csv`, `scripts/build_site.py`, `scripts/build_compare.py`, `scripts/check_site.py`, generated root/board/audit HTML; raw NFL captures read-only |
+| T44 | Repair the offline availability-capture test so it reflects the intended stale-week vs future-week drift rules, and run it in the scheduled capture workflow | **in progress** | `arena/59b62c7b-fl3` | `scripts/test_capture_offline.py`, `.github/workflows/snapshot.yml`, `COORDINATION.md` |
 
 **File ownership rule for future sessions:** `data/standings.json`, `data/sources.json`,
 `data/flagged.json` and every `*.html` at repo root are **shared outputs**. They are regenerated
@@ -85,6 +87,7 @@ task. `scripts/build_site.py` is single-owner at a time.
 | 2026-11-14T00:00Z | `arena-e8bf2075` | Claimed T16 (integration) — sole session, so integration performed by same ID. |
 | 2026-11-16T00:00Z | `arena/9d05cb63-fl3` | Claimed session closeout: repo review, official-source verification, PR/merge record. Files: COORDINATION.md (session record only); no dataset or page content changed. |
 | 2026-11-18T03:09Z | `arena/59b62c7b-fl3` | Claimed T43 final integration on the assigned branch. Files: COORDINATION.md, readiness/site builders and verifiers, generated root/board/audit pages, and PR #59's comparison correction after exact review; raw NFL capture datasets remain read-only. |
+| 2026-11-18T03:14Z | `arena/59b62c7b-fl3` | Claimed T44 after baseline `scripts/test_capture_offline.py` failed 1/8: the test treated an earlier-week report as drift, contradicting the current classifier's explicit `not_published_yet` rule; the test also hard-coded `/home/user/FL3`. No active owner exists for T-C3 (completed). Scope limited to the offline test, the scheduled snapshot workflow, and this log. |
 
 ---
 
