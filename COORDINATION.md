@@ -2328,3 +2328,60 @@ likely candidates given this session's changes are a count that drifted in a gen
 already caught and asserted this session: Week 10 "twelve" vs "thirteen", and the Week 11 bye
 arithmetic) or an assertion whose threshold assumes a page that another session has since extended.
 Do not "fix" it by loosening an assertion without first reading which number it disagreed with.
+
+---
+
+# Session `arena/05b0f2b7-fl3` — claim, scope, integration and closeout record
+
+**Session ID:** `arena/05b0f2b7-fl3` · **Branch:** `arena/05b0f2b7-fl3` · **Started:** 2026-11-18
+**Base:** `main@968c4c6` (== merge PR #60). One additive commit pushed (`dd455c0`).
+
+## Claimed scope
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| Independent official-source verification re-capture (Week 10 injury report, live nfl.com, 2026-11-18) | **done** | `arena/05b0f2b7-fl3` | `data/verify_log.json` (+2 claims), regenerated `verify/*.html` |
+| Integration closeout: PR, merge without waiting for approval, confirm Pages deploy, record result | **done** | `arena/05b0f2b7-fl3` | PR #67, `COORDINATION.md` (this section) |
+
+**Explicitly not touched:** every other dataset, generator, page, and subsite owned by prior sessions. No data was overwritten or inferred.
+
+## Independent official-source verification (re-capture, 2026-11-18)
+
+Each claim below was re-checked by direct fetch of the official page
+https://www.nfl.com/injuries/league/2026/reg10 on 2026-11-18. Only values read from that page are
+recorded; nothing was inferred.
+
+| ID | Status | Finding (official source link) |
+|---|---|---|
+| `V-BAL-QB-ABSENT` | CONFIRMED | Ravens section has 10 rows and zero quarterbacks; Lamar Jackson absent (consistent with confirmed IR, 6–10 weeks); Calais Campbell and Ronnie Stanley blank game status. The injury table alone does not reveal every starter change. Confirms F02 / FLG-005. |
+| `V-ROSTER-AFFILIATION` | CONFIRMED | Live page lists Kyler Murray under Minnesota, Micah Parsons under Green Bay, J.J. McCarthy under N.Y. Giants, Kyle Dugger and Dexter Lawrence under Cincinnati. Recorded as published, not corrected (flag F03). |
+
+Re-confirmed on re-check: Lions Kerby Joseph / Cade Mays / D.J. Reed all Game Status = Out (R062 — the "blank status" claim does not hold); Seattle lists 15 rows and Cincinnati lists 9 rows, neither injury-free (refutes the injury-free claims).
+
+## Verification run (all green)
+
+| Suite | Result |
+|---|---|
+| `python3 scripts/build_site.py` | 15 root pages built |
+| `python3 scripts/check_site.py` | 6,154 assertions, ALL CHECKS PASSED |
+| `python3 scripts/check_links.py` | 31 pages, PASS, no orphan pages |
+| `python3 scripts/build_verify.py` | verify/ regenerated (VERIFY BUILD: OK) |
+| `python3 scripts/check_verify.py` | 213 assertions, ALL VERIFY CHECKS PASSED |
+| `python3 scripts/verify.py` | GATE G-10 PASS (non-blocking V-09b / FLG-025) |
+| `python3 scripts/verify_depth.py` | 16 checks, 0 failures |
+| `git diff --check` | clean |
+
+## PR / merge / deploy record
+
+| Item | Value |
+|---|---|
+| Pull request | [#67 — FL3: independent official-source verification re-capture (2026-11-18)](https://github.com/sassnarep3-star/FL3/pull/67) |
+| Base / head | `main` ← `arena/05b0f2b7-fl3` |
+| PR checks | `Recompute and verify` SUCCESS · `verify-and-build` (site) SUCCESS · `validate` (deploy job) skipped on PR event, as expected |
+| Merge | **MERGED** into `main` at 2026-11-18T03:18:29Z, merge commit `19b296382da4b53b06e88d4c1d827259a17dbc12` (`gh pr merge 67 --merge`, no `--auto`, no approval waited, per brief) |
+| Post-merge CI | `Verify data and site`, `site` succeed on the merge commit |
+| Deploy | GitHub Pages `build_type: legacy`, source `main:/`; Pages API `status: built` after merge |
+| Live check | https://sassnarep3-star.github.io/FL3/ fetched and confirmed serving the dashboard (landing, nav, all sections) |
+| Irregularities | None new; existing flags (F01–F07, F02/FLG-005, F03, etc.) remain published on Flagged for Review and do not block the merge |
+
+**Status: session closed.** The merge is on `main`, Pages is built and live, and all verifiers are green.
