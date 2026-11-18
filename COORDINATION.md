@@ -2405,3 +2405,9 @@ What was tested, all on a fresh depth-1 clone of the committed tree: default loc
 **Defect found and fixed.** Under an ASCII locale with UTF-8 mode off (`PYTHONUTF8=0`), `check_site.py` crashed in `check_frontier_datasets` with `UnicodeDecodeError`, because ten `open()` calls had no encoding. All ten now declare `encoding="utf-8"` (commit `de2710b`). This is a real portability fix. It did not reproduce the runner failure, so the gate is **not** claimed fixed.
 
 **Status for the owner.** The gate is red on `main` and on every open PR. It is a gate, not the publisher, and the site content is verified by `verify.yml`, which is green. Next step, by owner decision: run the `validate` job's commands on a Python 3.12 runner with `ACTIONS_STEP_DEBUG` (or a `continue-on-error` diagnostic step that uploads `check_site` output as an artifact), which would expose the exact assertion. Logged here rather than loosening the assertion.
+
+### Correction — pages gate fixed (2026-11-18 UTC)
+
+The `validate` gate's cause was the interpreter, not the content. `verify.yml`, `site.yml` and `snapshot.yml` pin Python 3.11. `pages.yml` did not pin any version, so it ran on the runner default (3.12 on ubuntu-latest). The fix pins 3.11 in `pages.yml` (commit `4302b57`). On PR #63 the run with that commit reports **validate pass** (run 44229847344), along with Recompute and verify (pass) and verify-and-build (pass). The earlier "not reproduced locally" note stands: the same tree passes under 3.11 locally, and the failure was specific to the 3.12 runner default. The ASCII-locale encoding fix (`de2710b`) remains a real and separate portability fix.
+
+**PR:** https://github.com/sassnarep3-star/FL3/pull/63
