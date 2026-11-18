@@ -2328,3 +2328,19 @@ likely candidates given this session's changes are a count that drifted in a gen
 already caught and asserted this session: Week 10 "twelve" vs "thirteen", and the Week 11 bye
 arithmetic) or an assertion whose threshold assumes a page that another session has since extended.
 Do not "fix" it by loosening an assertion without first reading which number it disagreed with.
+
+---
+
+# Session `arena/9f527e7c-fl3` — claim and verification fix (2026-11-18 UTC)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T43 — Repair the offline snapshot-capture test whose expected result no longer matches the classifier's documented `not_published_yet` behavior; re-run the relevant test and site verification | **in progress** | `arena/9f527e7c-fl3` | `scripts/test_capture_offline.py`, `COORDINATION.md` |
+
+Scope is limited to the stale test assertion and this session record. No snapshot data or production capture behavior is changed. Existing test evidence: `scripts/capture_official_snapshot.py --selftest` passes; `scripts/test_capture_offline.py` initially failed only because its Week 17 request uses a synthetic Week 11 page and expected a drift error, while the classifier intentionally treats an earlier served week as `not_published_yet`.
+
+| Task | Status | Result |
+|---|---|---|
+| T43 — Offline snapshot-capture test expectation | **done** | Updated the test to assert the documented earlier-week behavior: exit 0, `NOT PUBLISHED YET`, and an index row marked `not_published_yet`. The production capture code is unchanged. Verified `scripts/test_capture_offline.py` (8/8), `scripts/capture_official_snapshot.py --selftest` (8 cases), `scripts/check_site.py` (6,154 assertions), and `scripts/check_links.py` (31 pages; no broken links/orphans). A broader verification pass also ran `check_coverage_audit.py`, `verify_depth.py`, `check_depth_links.py`, `check_verified_site.py`, and `check_verify.py`, all passing. `scripts/verify.py` reports its already-published V-09b discrepancy (official passing-TD / interception table totals do not reconcile); it records FLG-025 and exits with G-10 PASS, rather than claiming the source tables agree. |
+
+**CI follow-up:** PR #61's Pages gate failed at `scripts/check_site.py` on both runs `44228514860` (head `3afdd6a`) and `44228692299` (head `d066981`); on the newer head, `Recompute and verify` and `site` passed. The identical command passes locally on the same tree (`Python 3.11.2`, 6,154 assertions). GitHub's run-log downloads returned EOF, so the failing assertion/output is unavailable. The first run was not rerunnable, and workflow-dispatch requests are denied (HTTP 403). This is now a **repeated, unresolved CI-only failure**, not waived or represented as a pass. Per the no-broken-site rule, PR #61 is left open and unmerged until the Pages gate passes or the failure is diagnosed.
