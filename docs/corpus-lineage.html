@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Results corpus lineage · FL3</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><a href="../index.html">FL3</a><span class="brand-sub">Results corpus lineage</span></div>
+  <div class="topbar-note">Committed snapshots only · no live NFL fetch by this report</div>
+</header>
+<div class="layout">
+  <nav class="sidebar" aria-label="Page links">
+    <div class="nav-cat"><div class="nav-cat-title">Navigate</div>
+      <a class="nav-item" href="../index.html">Main dashboard</a>
+      <a class="nav-item" href="index.html">Documentation dashboard</a>
+      <a class="nav-item" href="../results.html">Results feed</a>
+      <a class="nav-item" href="../compare.html">Strategy comparison</a>
+      <a class="nav-item" href="../flagged.html">Flagged for Review</a>
+    </div>
+  </nav>
+  <main class="content">
+    <h1>Which results count is which?</h1>
+    <p class="lede">This audit compares the repository's preserved 148-row retrospective input with its later
+    149-row corrected results-feed snapshot. It reads committed files only; the builder does not fetch NFL.com.
+    Official links are provided in every row so the underlying schedule, game centre and standings can be
+    reviewed directly. No existing forecast, score or result row was changed to create this report.</p>
+
+    <div class="cards">
+      <div class="card"><div class="stat-num">136</div><div class="stat-label">Weeks 1–9 slice in the original capture</div></div>
+      <div class="card"><div class="stat-num">148</div><div class="stat-label">Rows used by the retrospective comparison</div></div>
+      <div class="card"><div class="stat-num">149</div><div class="stat-label">Rows in the later corrected-feed snapshot</div></div>
+    </div>
+
+    <div class="warn-note"><b>Important limitation.</b> These are versioned counts, not one interchangeable sample.
+    The 148-row comparison predates the PIT@CIN correction. The 149-row feed snapshot is dated
+    <code>2026-11-17T02:47Z</code> and excludes LAC@BAL while the recorded official capture
+    showed it in progress. Its later final result has not been re-captured in this repository snapshot, so
+    <b>149 must not be described as the current complete Week 10 result count</b>.</div>
+
+    <h2>Counts and the evidence behind them</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Version</th><th>Games</th><th>Window / rows</th><th>Capture clock</th><th>What it means</th><th>Official source links</th></tr></thead>
+      <tbody><tr><td><b>136-row Weeks 1–9 slice</b></td><td>136</td><td>Weeks 1–9</td><td>2026-11-16T01:35Z</td><td>The 136 rows are exactly the captured Weeks 1–9 slice. They are not the 148-row comparison input and are not the corrected 149-row results feed.</td><td><a href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">Week 1</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">Week 2</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">Week 3</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">Week 4</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">Week 5</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">Week 6</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">Week 7</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">Week 8</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">Week 9</a></td></tr>
+<tr><td><b>Saved retrospective comparison</b></td><td>148</td><td>Weeks 1–10 (12 Week 10 rows)</td><td>2026-11-16T01:35Z</td><td>The comparison ledger and evaluation both use these 148 captured rows, including 12 Week 10 results. They do not include the later PIT@CIN correction. The existing metrics remain a dated retrospective output, not a rerun on the corrected feed.</td><td><a href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">Week 1</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">Week 2</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">Week 3</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">Week 4</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">Week 5</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">Week 6</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">Week 7</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">Week 8</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">Week 9</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">Week 10</a></td></tr>
+<tr><td><b>Corrected results-feed snapshot</b></td><td>149</td><td>Weeks 1–10 (13 Week 10 rows)</td><td>2026-11-17T02:47Z</td><td>The committed feed contains the 148 original rows plus one officially sourced PIT@CIN Week 10 correction, and all 32 clubs match its linked standings snapshot. It is a dated capture, not a claim that the current Week 10 result feed is complete.</td><td><a href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">Week 10 schedule: PIT@CIN correction</a> · <a href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">Official standings reconciliation</a></td></tr>
+<tr><td><b>LAC@BAL after the capture</b></td><td><span class="badge badge-warn">blank</span></td><td>Not re-captured here</td><td>2026-11-17T02:47Z capture excluded it while in progress</td><td>The current final score is deliberately blank: this repository snapshot contains no later official result row. Re-capture before calling the feed current or changing the count.</td><td><a href="https://www.nfl.com/games/chargers-at-ravens-2026-reg-10" target="_blank" rel="noopener">Official game centre</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">Week 10 schedule</a></td></tr></tbody>
+    </table></div>
+
+    <h2>Flagged for Review — what does “136-game log” mean?</h2>
+    <div class="warn-note"><span class="badge badge-warn">FLAGGED FOR REVIEW</span>
+      <p>The committed schedule transcript has <b>136</b> rows across Weeks 1–9, and the earlier comparison reconciliation labels that slice as matching the brief's “136-game log”. The later results-feed metadata says: <q>The brief asks to &#x27;turn the 136-game log into the pre-registered backtest corpus&#x27;. The verified count is not 136. It is 149 after adding the one missing official game to the 148 already transcribed. 136 is not reproducible from any official page and is not used anywhere. This is recorded as a corrected number, not as a discrepancy that blocks work.</q></p>
+      <p>Those statements conflict if the latter is read as saying that 136 cannot be reproduced at all. The saved rows establish 136 as a Weeks 1–9 slice; they do <b>not</b> establish whether that is the exact historical file or time window the brief intended. Do not treat 136 as the full Week 10 count or silently substitute 148/149.</p>
+      <p><b>Decision needed:</b> identify the intended 136-game source/window, or explicitly register the dated 148/149 snapshots as separate corpora. Until then, retain each version and its timestamps.</p>
+      <p class="src-links"><a href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">Week 1</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">Week 2</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">Week 3</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">Week 4</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">Week 5</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">Week 6</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">Week 7</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">Week 8</a> · <a href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">Week 9</a></p>
+    </div>
+
+    <h2>Correction recorded after the 148-row capture</h2>
+    <div class="card">
+      <p><b>REG10-PIT-CIN</b> — Week 10,
+      PIT 18,
+      CIN 38.
+      The feed records it as <code>correction_2026-11-17</code>; the linked official Week 10
+      schedule is the cited evidence. The 149-row feed then reconciles all 32 club records to the linked
+      official standings snapshot (32/32 MATCH; league PF = PA =
+      6,880).</p>
+      <p class="src-links"><a href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">Official Week 10 schedule</a> · <a href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">Official league standings</a></p>
+    </div>
+
+    <h2>What the comparison does and does not score</h2>
+    <ul>
+      <li>The retrospective comparison ledger has <b>148</b> rows and is labelled
+      <code>retrospective</code>. Its score metrics must be read as the
+      saved 148-row version, not as results computed on the later corrected feed.</li>
+      <li>The Week 10 PIT@CIN correction is <b>not</b> in that old ledger. This report preserves the existing
+      scores rather than silently adding a game after evaluation.</li>
+      <li>The official results-feed metadata records LAC@BAL as excluded at the 2026-11-17 capture because
+      the game was not final then. The current official final score is intentionally blank here until a
+      later source read is captured and hashed.</li>
+      <li>Any new evaluation should be a separately versioned run: freeze its corpus, preserve its source
+      timestamps/hashes, use chronological holdouts, and publish an explicit <code>n</code> for each metric.</li>
+    </ul>
+
+    <div class="note"><b>Next clearing evidence.</b> Re-read the official LAC@BAL game centre and, where available,
+    the NFL Game Book; capture a timestamp and raw-file hash; then add a new results-feed version. Only after
+    that should a new, separately identified evaluation be generated. Until then the current-score field stays
+    blank and no present-day final count is asserted.</div>
+
+    <h2>Integrity fingerprints</h2>
+    <p>The SHA-256 values below identify the exact committed files audited by this page. They are not hashes
+    of the NFL pages themselves; the report did not fetch or archive those pages in this turn.</p>
+    <div class="card"><pre>data/week_results_2026.csv: fb1fee7ae25a409ae6d896340457a666268608becbd9d9b6760cc8b4239bdb8a
+data/compare/forecast_ledger.csv: 71e30c563693cde50bd22f206c39c749eb7b2a2306f466e803bfd9b96e736508
+data/compare/evaluation.json: 6067edc96e3fd129cbe0cc4b92e651b2a1e12eaa03e394a84d7c61623861d2d1
+data/official/results_feed.csv: b3c6a8aebf71f18bd48571ed7117263f6fad83d1419982f03fc8323b77a4b849
+data/official/results_feed.json: c049e5ae57ed5da46fbf8e77f29e5111281bb703f16b1db410416c8fcf79b81e
+data/official/club_reconciliation.csv: b28db721ec130697ac0544476a3b0f01a6202712e9e6d8d9bcc1307cacfc222b</pre></div>
+
+    <details class="card">
+      <summary>Machine-readable lineage manifest</summary>
+      <pre>{
+  &quot;schema&quot;: &quot;fl3.results-corpus-lineage.v1&quot;,
+  &quot;title&quot;: &quot;Results corpus lineage — captured comparison vs corrected results feed&quot;,
+  &quot;basis&quot;: &quot;committed repository captures only; no live NFL page fetched by this builder&quot;,
+  &quot;updated_from_current_sources&quot;: false,
+  &quot;decision&quot;: &quot;Preserve the existing 148-row retrospective comparison output as its own version. Do not silently overwrite its scores with the later corrected feed. The feed snapshot is 149 rows as of its recorded capture, while LAC@BAL was excluded in progress; re-capture the official final result before describing this as the current complete Week 10 count.&quot;,
+  &quot;versions&quot;: [
+    {
+      &quot;id&quot;: &quot;brief-weeks-1-9&quot;,
+      &quot;label&quot;: &quot;136-row Weeks 1–9 slice (labelled by the repo as the brief&#x27;s 136-game log)&quot;,
+      &quot;games&quot;: 136,
+      &quot;weeks&quot;: [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      &quot;input_file&quot;: &quot;data/week_results_2026.csv&quot;,
+      &quot;capture_utc&quot;: &quot;2026-11-16T01:35Z&quot;,
+      &quot;official_source_urls&quot;: [
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-1&quot;,
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-2&quot;,
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-3&quot;,
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-4&quot;,
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-5&quot;,
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-6&quot;,
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-7&quot;,
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-8&quot;,
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-9&quot;
+      ],
+      &quot;meaning&quot;: &quot;The 136 rows are exactly the captured Weeks 1–9 slice. They are not the 148-row comparison input and are not the corrected 149-row results feed.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;comparison-snapshot-148&quot;,
+      &quot;label&quot;: &quot;Saved retrospective comparison input&quot;,
+      &quot;games&quot;: 148,
+      &quot;weeks&quot;: [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      &quot;input_file&quot;: &quot;data/week_results_2026.csv&quot;,
+      &quot;ledger_file&quot;: &quot;data/compare/forecast_ledger.csv&quot;,
+      &quot;evaluation_file&quot;: &quot;data/compare/evaluation.json&quot;,
+      &quot;capture_utc&quot;: &quot;2026-11-16T01:35Z&quot;,
+      &quot;official_source_urls&quot;: [
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-1&quot;,
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-2&quot;,
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-3&quot;,
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-4&quot;,
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-5&quot;,
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-6&quot;,
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-7&quot;,
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-8&quot;,
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-9&quot;,
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-10&quot;
+      ],
+      &quot;meaning&quot;: &quot;The comparison ledger and evaluation both use these 148 captured rows, including 12 Week 10 results. They do not include the later PIT@CIN correction. The existing metrics remain a dated retrospective output, not a rerun on the corrected feed.&quot;
+    },
+    {
+      &quot;id&quot;: &quot;corrected-results-feed-149&quot;,
+      &quot;label&quot;: &quot;Corrected official results-feed snapshot&quot;,
+      &quot;games&quot;: 149,
+      &quot;weeks&quot;: [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      &quot;input_file&quot;: &quot;data/official/results_feed.csv&quot;,
+      &quot;metadata_file&quot;: &quot;data/official/results_feed.json&quot;,
+      &quot;capture_utc&quot;: &quot;2026-11-17T02:47Z&quot;,
+      &quot;official_source_urls&quot;: [
+        &quot;https://www.nfl.com/schedules/2026/by-week/week-10&quot;,
+        &quot;https://www.nfl.com/standings/league/2026/REG&quot;
+      ],
+      &quot;meaning&quot;: &quot;The committed feed contains the 148 original rows plus one officially sourced PIT@CIN Week 10 correction, and all 32 clubs match its linked standings snapshot. It is a dated capture, not a claim that the current Week 10 result feed is complete.&quot;
+    }
+  ],
+  &quot;brief_136_review&quot;: {
+    &quot;status&quot;: &quot;FLAGGED_FOR_REVIEW&quot;,
+    &quot;captured_weeks_1_9_rows&quot;: 136,
+    &quot;comparison_reconciliation_label&quot;: &quot;the brief&#x27;s &#x27;136-game log&#x27;&quot;,
+    &quot;corrected_feed_metadata_note&quot;: &quot;The brief asks to &#x27;turn the 136-game log into the pre-registered backtest corpus&#x27;. The verified count is not 136. It is 149 after adding the one missing official game to the 148 already transcribed. 136 is not reproducible from any official page and is not used anywhere. This is recorded as a corrected number, not as a discrepancy that blocks work.&quot;,
+    &quot;finding&quot;: &quot;The committed schedule transcript contains exactly 136 rows in Weeks 1-9, and the comparison reconciliation labels that slice as matching the brief&#x27;s &#x27;136-game log&#x27;. The later results-feed metadata says 136 is not reproducible from an official page. These statements conflict if read as a blanket claim; the local evidence confirms 136 as a Weeks 1-9 slice, but does not establish whether that is the exact historical log the brief meant.&quot;,
+    &quot;decision_needed&quot;: &quot;Confirm the intended 136-game source/window or explicitly designate the dated 148/149 snapshots as separate corpora. Do not silently reinterpret 136 as a full-season count.&quot;,
+    &quot;official_source_urls&quot;: [
+      &quot;https://www.nfl.com/schedules/2026/by-week/week-1&quot;,
+      &quot;https://www.nfl.com/schedules/2026/by-week/week-2&quot;,
+      &quot;https://www.nfl.com/schedules/2026/by-week/week-3&quot;,
+      &quot;https://www.nfl.com/schedules/2026/by-week/week-4&quot;,
+      &quot;https://www.nfl.com/schedules/2026/by-week/week-5&quot;,
+      &quot;https://www.nfl.com/schedules/2026/by-week/week-6&quot;,
+      &quot;https://www.nfl.com/schedules/2026/by-week/week-7&quot;,
+      &quot;https://www.nfl.com/schedules/2026/by-week/week-8&quot;,
+      &quot;https://www.nfl.com/schedules/2026/by-week/week-9&quot;
+    ]
+  },
+  &quot;correction&quot;: {
+    &quot;game_id&quot;: &quot;REG10-PIT-CIN&quot;,
+    &quot;week&quot;: 10,
+    &quot;date&quot;: &quot;2026-11-15&quot;,
+    &quot;away&quot;: &quot;PIT&quot;,
+    &quot;away_points&quot;: 18,
+    &quot;home&quot;: &quot;CIN&quot;,
+    &quot;home_points&quot;: 38,
+    &quot;origin&quot;: &quot;correction_2026-11-17&quot;,
+    &quot;source_url&quot;: &quot;https://www.nfl.com/schedules/2026/by-week/week-10&quot;,
+    &quot;evidence_text&quot;: &quot;The Week 10 schedule page states &#x27;Steelers 18, Bengals 38, FINAL, Sunday, November 15th&#x27;. The official standings page gives CIN 7-2 with PF 278 / PA 193 and PIT 6-3 with PF 198 / PA 182, which is exactly the 148-game corpus plus this one game.&quot;
+  },
+  &quot;unresolved_capture&quot;: {
+    &quot;game_id&quot;: &quot;REG10-LAC-BAL&quot;,
+    &quot;fixture&quot;: &quot;LAC@BAL&quot;,
+    &quot;capture_state&quot;: &quot;excluded from the 2026-11-17T02:47Z results-feed snapshot&quot;,
+    &quot;captured_reason&quot;: &quot;Not final. The official Week 10 schedule page and the official game centre both show LAC 17 - BAL 7 at Q2 01:05 at capture time 2026-11-17T02:47Z. No final score exists, so no result row and no forecast scoring is permitted.&quot;,
+    &quot;source_url&quot;: &quot;https://www.nfl.com/games/chargers-at-ravens-2026-reg-10&quot;,
+    &quot;current_official_final&quot;: null,
+    &quot;current_official_final_status&quot;: &quot;NOT RECAPTURED IN THIS REPOSITORY SNAPSHOT&quot;,
+    &quot;what_clears_it&quot;: &quot;Re-read the official game centre and, where available, the NFL Game Book; record a timestamped final score and source hash in a new feed version. Do not infer a score from the in-progress capture.&quot;
+  },
+  &quot;evaluation_guard&quot;: {
+    &quot;comparison_games&quot;: 148,
+    &quot;comparison_dataset_type&quot;: &quot;retrospective&quot;,
+    &quot;correction_in_old_ledger&quot;: false,
+    &quot;historical_scores_rewritten&quot;: false,
+    &quot;next_step&quot;: &quot;After an authorized official re-capture, create a new versioned result/evaluation snapshot; preserve the current 148-row outputs for audit, and disclose the n and chronological holdout used by any new score.&quot;
+  },
+  &quot;reconciliation&quot;: {
+    &quot;club_rows&quot;: 32,
+    &quot;clubs_matching&quot;: 32,
+    &quot;league_points_for&quot;: 6880,
+    &quot;league_points_against&quot;: 6880,
+    &quot;official_standings_url&quot;: &quot;https://www.nfl.com/standings/league/2026/REG&quot;
+  },
+  &quot;hashes_sha256&quot;: {
+    &quot;data/week_results_2026.csv&quot;: &quot;fb1fee7ae25a409ae6d896340457a666268608becbd9d9b6760cc8b4239bdb8a&quot;,
+    &quot;data/compare/forecast_ledger.csv&quot;: &quot;71e30c563693cde50bd22f206c39c749eb7b2a2306f466e803bfd9b96e736508&quot;,
+    &quot;data/compare/evaluation.json&quot;: &quot;6067edc96e3fd129cbe0cc4b92e651b2a1e12eaa03e394a84d7c61623861d2d1&quot;,
+    &quot;data/official/results_feed.csv&quot;: &quot;b3c6a8aebf71f18bd48571ed7117263f6fad83d1419982f03fc8323b77a4b849&quot;,
+    &quot;data/official/results_feed.json&quot;: &quot;c049e5ae57ed5da46fbf8e77f29e5111281bb703f16b1db410416c8fcf79b81e&quot;,
+    &quot;data/official/club_reconciliation.csv&quot;: &quot;b28db721ec130697ac0544476a3b0f01a6202712e9e6d8d9bcc1307cacfc222b&quot;
+  },
+  &quot;official_sources&quot;: [
+    &quot;https://www.nfl.com/schedules/2026/by-week/week-1&quot;,
+    &quot;https://www.nfl.com/schedules/2026/by-week/week-2&quot;,
+    &quot;https://www.nfl.com/schedules/2026/by-week/week-3&quot;,
+    &quot;https://www.nfl.com/schedules/2026/by-week/week-4&quot;,
+    &quot;https://www.nfl.com/schedules/2026/by-week/week-5&quot;,
+    &quot;https://www.nfl.com/schedules/2026/by-week/week-6&quot;,
+    &quot;https://www.nfl.com/schedules/2026/by-week/week-7&quot;,
+    &quot;https://www.nfl.com/schedules/2026/by-week/week-8&quot;,
+    &quot;https://www.nfl.com/schedules/2026/by-week/week-9&quot;,
+    &quot;https://www.nfl.com/schedules/2026/by-week/week-10&quot;,
+    &quot;https://www.nfl.com/games/chargers-at-ravens-2026-reg-10&quot;,
+    &quot;https://www.nfl.com/standings/league/2026/REG&quot;
+  ]
+}</pre>
+    </details>
+
+    <h2>Registered official source list</h2>
+    <ul><li><a href="https://www.nfl.com/schedules/2026/by-week/week-1" target="_blank" rel="noopener">https://www.nfl.com/schedules/2026/by-week/week-1</a></li>
+<li><a href="https://www.nfl.com/schedules/2026/by-week/week-2" target="_blank" rel="noopener">https://www.nfl.com/schedules/2026/by-week/week-2</a></li>
+<li><a href="https://www.nfl.com/schedules/2026/by-week/week-3" target="_blank" rel="noopener">https://www.nfl.com/schedules/2026/by-week/week-3</a></li>
+<li><a href="https://www.nfl.com/schedules/2026/by-week/week-4" target="_blank" rel="noopener">https://www.nfl.com/schedules/2026/by-week/week-4</a></li>
+<li><a href="https://www.nfl.com/schedules/2026/by-week/week-5" target="_blank" rel="noopener">https://www.nfl.com/schedules/2026/by-week/week-5</a></li>
+<li><a href="https://www.nfl.com/schedules/2026/by-week/week-6" target="_blank" rel="noopener">https://www.nfl.com/schedules/2026/by-week/week-6</a></li>
+<li><a href="https://www.nfl.com/schedules/2026/by-week/week-7" target="_blank" rel="noopener">https://www.nfl.com/schedules/2026/by-week/week-7</a></li>
+<li><a href="https://www.nfl.com/schedules/2026/by-week/week-8" target="_blank" rel="noopener">https://www.nfl.com/schedules/2026/by-week/week-8</a></li>
+<li><a href="https://www.nfl.com/schedules/2026/by-week/week-9" target="_blank" rel="noopener">https://www.nfl.com/schedules/2026/by-week/week-9</a></li>
+<li><a href="https://www.nfl.com/schedules/2026/by-week/week-10" target="_blank" rel="noopener">https://www.nfl.com/schedules/2026/by-week/week-10</a></li>
+<li><a href="https://www.nfl.com/games/chargers-at-ravens-2026-reg-10" target="_blank" rel="noopener">https://www.nfl.com/games/chargers-at-ravens-2026-reg-10</a></li>
+<li><a href="https://www.nfl.com/standings/league/2026/REG" target="_blank" rel="noopener">https://www.nfl.com/standings/league/2026/REG</a></li></ul>
+  </main>
+</div>
+<footer class="footer">FL3 · sourced from repository snapshots; no new NFL values inferred. A blank means the current official outcome was not re-captured in this report.</footer>
+</body>
+</html>

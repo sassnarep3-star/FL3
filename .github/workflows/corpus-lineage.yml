@@ -1,0 +1,23 @@
+name: Verify results corpus lineage
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lineage:
+    name: Verify dated results snapshots
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Verify corpus counts, source links, identities and generated report
+        run: python3 scripts/build_corpus_lineage.py --check

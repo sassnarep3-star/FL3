@@ -1,0 +1,175 @@
+{
+  "schema": "fl3.results-corpus-lineage.v1",
+  "title": "Results corpus lineage — captured comparison vs corrected results feed",
+  "basis": "committed repository captures only; no live NFL page fetched by this builder",
+  "updated_from_current_sources": false,
+  "decision": "Preserve the existing 148-row retrospective comparison output as its own version. Do not silently overwrite its scores with the later corrected feed. The feed snapshot is 149 rows as of its recorded capture, while LAC@BAL was excluded in progress; re-capture the official final result before describing this as the current complete Week 10 count.",
+  "versions": [
+    {
+      "id": "brief-weeks-1-9",
+      "label": "136-row Weeks 1–9 slice (labelled by the repo as the brief's 136-game log)",
+      "games": 136,
+      "weeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "input_file": "data/week_results_2026.csv",
+      "capture_utc": "2026-11-16T01:35Z",
+      "official_source_urls": [
+        "https://www.nfl.com/schedules/2026/by-week/week-1",
+        "https://www.nfl.com/schedules/2026/by-week/week-2",
+        "https://www.nfl.com/schedules/2026/by-week/week-3",
+        "https://www.nfl.com/schedules/2026/by-week/week-4",
+        "https://www.nfl.com/schedules/2026/by-week/week-5",
+        "https://www.nfl.com/schedules/2026/by-week/week-6",
+        "https://www.nfl.com/schedules/2026/by-week/week-7",
+        "https://www.nfl.com/schedules/2026/by-week/week-8",
+        "https://www.nfl.com/schedules/2026/by-week/week-9"
+      ],
+      "meaning": "The 136 rows are exactly the captured Weeks 1–9 slice. They are not the 148-row comparison input and are not the corrected 149-row results feed."
+    },
+    {
+      "id": "comparison-snapshot-148",
+      "label": "Saved retrospective comparison input",
+      "games": 148,
+      "weeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "input_file": "data/week_results_2026.csv",
+      "ledger_file": "data/compare/forecast_ledger.csv",
+      "evaluation_file": "data/compare/evaluation.json",
+      "capture_utc": "2026-11-16T01:35Z",
+      "official_source_urls": [
+        "https://www.nfl.com/schedules/2026/by-week/week-1",
+        "https://www.nfl.com/schedules/2026/by-week/week-2",
+        "https://www.nfl.com/schedules/2026/by-week/week-3",
+        "https://www.nfl.com/schedules/2026/by-week/week-4",
+        "https://www.nfl.com/schedules/2026/by-week/week-5",
+        "https://www.nfl.com/schedules/2026/by-week/week-6",
+        "https://www.nfl.com/schedules/2026/by-week/week-7",
+        "https://www.nfl.com/schedules/2026/by-week/week-8",
+        "https://www.nfl.com/schedules/2026/by-week/week-9",
+        "https://www.nfl.com/schedules/2026/by-week/week-10"
+      ],
+      "meaning": "The comparison ledger and evaluation both use these 148 captured rows, including 12 Week 10 results. They do not include the later PIT@CIN correction. The existing metrics remain a dated retrospective output, not a rerun on the corrected feed."
+    },
+    {
+      "id": "corrected-results-feed-149",
+      "label": "Corrected official results-feed snapshot",
+      "games": 149,
+      "weeks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "input_file": "data/official/results_feed.csv",
+      "metadata_file": "data/official/results_feed.json",
+      "capture_utc": "2026-11-17T02:47Z",
+      "official_source_urls": [
+        "https://www.nfl.com/schedules/2026/by-week/week-10",
+        "https://www.nfl.com/standings/league/2026/REG"
+      ],
+      "meaning": "The committed feed contains the 148 original rows plus one officially sourced PIT@CIN Week 10 correction, and all 32 clubs match its linked standings snapshot. It is a dated capture, not a claim that the current Week 10 result feed is complete."
+    }
+  ],
+  "brief_136_review": {
+    "status": "FLAGGED_FOR_REVIEW",
+    "captured_weeks_1_9_rows": 136,
+    "comparison_reconciliation_label": "the brief's '136-game log'",
+    "corrected_feed_metadata_note": "The brief asks to 'turn the 136-game log into the pre-registered backtest corpus'. The verified count is not 136. It is 149 after adding the one missing official game to the 148 already transcribed. 136 is not reproducible from any official page and is not used anywhere. This is recorded as a corrected number, not as a discrepancy that blocks work.",
+    "finding": "The committed schedule transcript contains exactly 136 rows in Weeks 1-9, and the comparison reconciliation labels that slice as matching the brief's '136-game log'. The later results-feed metadata says 136 is not reproducible from an official page. These statements conflict if read as a blanket claim; the local evidence confirms 136 as a Weeks 1-9 slice, but does not establish whether that is the exact historical log the brief meant.",
+    "decision_needed": "Confirm the intended 136-game source/window or explicitly designate the dated 148/149 snapshots as separate corpora. Do not silently reinterpret 136 as a full-season count.",
+    "official_source_urls": [
+      "https://www.nfl.com/schedules/2026/by-week/week-1",
+      "https://www.nfl.com/schedules/2026/by-week/week-2",
+      "https://www.nfl.com/schedules/2026/by-week/week-3",
+      "https://www.nfl.com/schedules/2026/by-week/week-4",
+      "https://www.nfl.com/schedules/2026/by-week/week-5",
+      "https://www.nfl.com/schedules/2026/by-week/week-6",
+      "https://www.nfl.com/schedules/2026/by-week/week-7",
+      "https://www.nfl.com/schedules/2026/by-week/week-8",
+      "https://www.nfl.com/schedules/2026/by-week/week-9"
+    ]
+  },
+  "correction": {
+    "game_id": "REG10-PIT-CIN",
+    "week": 10,
+    "date": "2026-11-15",
+    "away": "PIT",
+    "away_points": 18,
+    "home": "CIN",
+    "home_points": 38,
+    "origin": "correction_2026-11-17",
+    "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+    "evidence_text": "The Week 10 schedule page states 'Steelers 18, Bengals 38, FINAL, Sunday, November 15th'. The official standings page gives CIN 7-2 with PF 278 / PA 193 and PIT 6-3 with PF 198 / PA 182, which is exactly the 148-game corpus plus this one game."
+  },
+  "unresolved_capture": {
+    "game_id": "REG10-LAC-BAL",
+    "fixture": "LAC@BAL",
+    "capture_state": "excluded from the 2026-11-17T02:47Z results-feed snapshot",
+    "captured_reason": "Not final. The official Week 10 schedule page and the official game centre both show LAC 17 - BAL 7 at Q2 01:05 at capture time 2026-11-17T02:47Z. No final score exists, so no result row and no forecast scoring is permitted.",
+    "source_url": "https://www.nfl.com/games/chargers-at-ravens-2026-reg-10",
+    "current_official_final": null,
+    "current_official_final_status": "NOT RECAPTURED IN THIS REPOSITORY SNAPSHOT",
+    "what_clears_it": "Re-read the official game centre and, where available, the NFL Game Book; record a timestamped final score and source hash in a new feed version. Do not infer a score from the in-progress capture."
+  },
+  "evaluation_guard": {
+    "comparison_games": 148,
+    "comparison_dataset_type": "retrospective",
+    "correction_in_old_ledger": false,
+    "historical_scores_rewritten": false,
+    "next_step": "After an authorized official re-capture, create a new versioned result/evaluation snapshot; preserve the current 148-row outputs for audit, and disclose the n and chronological holdout used by any new score."
+  },
+  "reconciliation": {
+    "club_rows": 32,
+    "clubs_matching": 32,
+    "league_points_for": 6880,
+    "league_points_against": 6880,
+    "official_standings_url": "https://www.nfl.com/standings/league/2026/REG"
+  },
+  "hashes_sha256": {
+    "data/week_results_2026.csv": "fb1fee7ae25a409ae6d896340457a666268608becbd9d9b6760cc8b4239bdb8a",
+    "data/compare/forecast_ledger.csv": "71e30c563693cde50bd22f206c39c749eb7b2a2306f466e803bfd9b96e736508",
+    "data/compare/evaluation.json": "6067edc96e3fd129cbe0cc4b92e651b2a1e12eaa03e394a84d7c61623861d2d1",
+    "data/official/results_feed.csv": "b3c6a8aebf71f18bd48571ed7117263f6fad83d1419982f03fc8323b77a4b849",
+    "data/official/results_feed.json": "c049e5ae57ed5da46fbf8e77f29e5111281bb703f16b1db410416c8fcf79b81e",
+    "data/official/club_reconciliation.csv": "b28db721ec130697ac0544476a3b0f01a6202712e9e6d8d9bcc1307cacfc222b"
+  },
+  "official_sources": [
+    "https://www.nfl.com/schedules/2026/by-week/week-1",
+    "https://www.nfl.com/schedules/2026/by-week/week-2",
+    "https://www.nfl.com/schedules/2026/by-week/week-3",
+    "https://www.nfl.com/schedules/2026/by-week/week-4",
+    "https://www.nfl.com/schedules/2026/by-week/week-5",
+    "https://www.nfl.com/schedules/2026/by-week/week-6",
+    "https://www.nfl.com/schedules/2026/by-week/week-7",
+    "https://www.nfl.com/schedules/2026/by-week/week-8",
+    "https://www.nfl.com/schedules/2026/by-week/week-9",
+    "https://www.nfl.com/schedules/2026/by-week/week-10",
+    "https://www.nfl.com/games/chargers-at-ravens-2026-reg-10",
+    "https://www.nfl.com/standings/league/2026/REG"
+  ]
+}

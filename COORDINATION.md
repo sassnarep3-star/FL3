@@ -66,7 +66,7 @@ and both pushed before either claim was visible. This is the exact race the prot
 | T18 | Archive the competing blueprint without discarding it | **done** | `arena-e8bf2075` | `legacy/**` |
 | T19 | Fold the other session's findings into the registers | **done** | `arena-e8bf2075` | `data/flagged.json`, `data/decisions.json`, `data/suggestions.json` |
 | T35 | Injury/availability ablation with chronological holdout and uncertainty (R028/R029) — compare the identical line model with and without verified availability features on a chronological holdout; publish MAE/RMSE/Brier with bootstrap CIs and an explicit n; no backtest numbers on the leaderboard | **in progress** | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
-| T45 | Results-corpus lineage audit — distinguish the immutable 148-row retrospective comparison input from the 149-row corrected official results-feed snapshot; record that LAC@BAL was unrecaptured after the in-progress capture; add source-linked report and deterministic checks without rewriting historical scores | **in progress** | `arena/ad61d1da-fl3` | `scripts/build_corpus_lineage.py`, `data/compare/corpus_lineage.json`, `docs/corpus-lineage.html`, `.github/workflows/corpus-lineage.yml`, `COORDINATION.md` |
+| T45 | Results-corpus lineage audit — distinguish the committed 148-row retrospective comparison input from the 149-row corrected official results-feed snapshot; record that LAC@BAL was unrecaptured after the in-progress capture; add source-linked report and deterministic checks without rewriting historical scores | **in progress** | `arena/ad61d1da-fl3` | `scripts/build_corpus_lineage.py`, `data/compare/corpus_lineage.json`, `docs/corpus-lineage.html`, `.github/workflows/corpus-lineage.yml`, `COORDINATION.md` |
 
 **File ownership rule for future sessions:** `data/standings.json`, `data/sources.json`,
 `data/flagged.json` and every `*.html` at repo root are **shared outputs**. They are regenerated
@@ -2352,3 +2352,22 @@ Do not "fix" it by loosening an assertion without first reading which number it 
 **Files touched:** `COORDINATION.md`, `docs/EXECUTIVE_SUMMARY.md`.
 
 **Closeout:** PR link, merge result and Pages deploy status are recorded below once the PR is merged.
+
+---
+
+## T45 progress — corpus lineage report and gate (2026-11-18 UTC)
+
+**Scope delivered so far.** Added `scripts/build_corpus_lineage.py`, its generated `data/compare/corpus_lineage.json` manifest and `docs/corpus-lineage.html`, plus `.github/workflows/corpus-lineage.yml`. The report reads committed files only. It does not fetch nfl.com, change the original result rows, or recompute historical strategy scores. The HTML is directly publishable at `/docs/corpus-lineage.html`; the root/docs navigation is deliberately left for the final integration owner while other PRs are active.
+
+**Lineage findings (repository snapshot, not a live NFL re-check).**
+
+| Item | Observed in committed data | Evidence / official source |
+|---|---|---|
+| Brief's 136 reference | `data/week_results_2026.csv` has 136 rows in Weeks 1–9; the local comparison reconciliation labels this slice as matching the brief's “136-game log”. The later `data/official/results_feed.json` prose says 136 is “not reproducible from any official page”. The exact intended historical file/window remains unresolved, so the report flags this wording conflict instead of choosing one interpretation. | NFL official schedule pages: [Week 1](https://www.nfl.com/schedules/2026/by-week/week-1) through [Week 9](https://www.nfl.com/schedules/2026/by-week/week-9) |
+| Saved comparison | `data/compare/forecast_ledger.csv` and `data/compare/evaluation.json` both use the dated 148-row `week_results_2026.csv` capture from `2026-11-16T01:35Z`; it has 12 Week 10 rows and no PIT@CIN correction. These scores are preserved as their original version. | NFL official [Weeks 1–10 schedule pages](https://www.nfl.com/schedules/2026/by-week/week-10) (one source URL per captured week) |
+| Corrected-feed snapshot | `data/official/results_feed.csv` has 149 rows: 148 `corpus_148` rows plus the `REG10-PIT-CIN` correction (PIT 18, CIN 38), captured `2026-11-17T02:47Z`. Its stored club reconciliation is 32/32 `MATCH`, with league PF=PA=6,880. | NFL [Week 10 schedule](https://www.nfl.com/schedules/2026/by-week/week-10) and [league standings](https://www.nfl.com/standings/league/2026/REG) |
+| LAC@BAL freshness | The same 2026-11-17 feed metadata says LAC@BAL was 17–7 at Q2 01:05 and excludes it; no final row is present in this repository snapshot. The current official outcome is left blank and flagged for a new capture. | NFL [LAC@BAL game centre](https://www.nfl.com/games/chargers-at-ravens-2026-reg-10) |
+
+**Verification:** `python3 scripts/build_corpus_lineage.py` and `--check` pass (807 deterministic assertions); `scripts/check_links.py` passes (31 pages, 59 distinct external links); a local HTML parse found four data rows, each with official NFL links (all 46 external links in the report are on `www.nfl.com`). Internal page and stylesheet targets are required to exist by the new checker. `git diff --check` passes.
+
+**Integration request:** once the shared-output owner is ready, link `docs/corpus-lineage.html` from `docs/index.html` and the root dashboard; update the executive/compare text so 148 is clearly the saved retrospective run and 149 is the dated corrected-feed snapshot, not a current complete count; keep the LAC@BAL current score blank until an official re-capture is captured and hashed. No source row is marked live-verified by this session.
