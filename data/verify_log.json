@@ -131,6 +131,26 @@
       "source_url": "https://www.nfl.com/standings/league/2026/reg",
       "source_title": "2026 NFL League Standings (live, 2026-11-16)",
       "note": "Surfaces a real weekly change. A full re-ingestion of standings is a separate task; this log records the delta and the source."
+    },
+    {
+      "id": "V-BAL-QB-ABSENT",
+      "requirement": "F02/FLG-005",
+      "claim": "No Baltimore Ravens quarterback appears on the Week 10 injury report despite Lamar Jackson being ruled out 6–10 weeks.",
+      "status": "CONFIRMED",
+      "finding": "Re-checked 2026-11-18 against the official Week 10 injury report: the Baltimore Ravens section contains 10 player rows and zero quarterbacks (Rasheen Ali, Rashod Bateman, Calais Campbell [DNP, blank game status], Kyle Hamilton, Jaylinn Hawkins [Knee, Out], Matthew Hibner, Olaivavega Ioane, Adam Randall [Questionable], Ronnie Stanley [DNP, blank game status], Nate Wiggins). Lamar Jackson is absent from the report, consistent with his confirmed injured-reserve placement; Calais Campbell and Ronnie Stanley appear with blank game status. The injury table alone does not reveal every starter change.",
+      "source_url": "https://www.nfl.com/injuries/league/2026/reg10",
+      "source_title": "Official NFL Injury Report - Week 10 (Baltimore Ravens section)",
+      "note": "Confirms F02 / FLG-005. Independent re-capture 2026-11-18."
+    },
+    {
+      "id": "V-ROSTER-AFFILIATION",
+      "requirement": "F03",
+      "claim": "The live Week 10 injury report lists players under clubs they are not on, including Kyler Murray under Minnesota, Micah Parsons under Green Bay, J.J. McCarthy under the N.Y. Giants, and Kyle Dugger and Dexter Lawrence under Cincinnati.",
+      "status": "CONFIRMED",
+      "finding": "Re-checked 2026-11-18 against the official Week 10 injury report: Kyler Murray (QB, Hamstring, Out) appears in the Minnesota section; Micah Parsons (LB, Knee/Illness, Out) appears in the Green Bay section; J.J. McCarthy (QB) appears in the N.Y. Giants section; Kyle Dugger (S, Quadricep, Out) and Dexter Lawrence (DT) appear in the Cincinnati section. These are how the official page publishes them; they are recorded as published, not corrected (flag F03).",
+      "source_url": "https://www.nfl.com/injuries/league/2026/reg10",
+      "source_title": "Official NFL Injury Report - Week 10 (multiple club sections)",
+      "note": "Confirms F03 roster-affiliation anomalies observed on the live official page. Independent re-capture 2026-11-18."
     }
   ]
 }
