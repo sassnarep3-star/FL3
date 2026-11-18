@@ -48,6 +48,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Pin the interpreter. Every other workflow in this repo runs on Python 3.11
+      # (verify.yml, site.yml, snapshot.yml). Without this pin this gate ran on the runner's
+      # default Python, which is 3.12 on ubuntu-latest, and it has been red on main since a7dc5f8.
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
       - name: Root site is complete and self-contained
         run: |
           set -eu
