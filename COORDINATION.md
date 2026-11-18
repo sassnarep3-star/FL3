@@ -19,8 +19,8 @@
 |---|---|---|---|
 | `arena/9d05cb63-fl3` | `arena/9d05cb63-fl3` | Repo review, official-source verification, and session closeout (PR + merge + Pages deploy record). No dataset or page content changed; only COORDINATION.md session records. | 2026-11-16 |
 | `arena/4d2c9111-fl3` | `arena/4d2c9111-fl3` | T35: injury/availability ablation with chronological holdout and uncertainty (R028/R029). New ablation script + datasets + `ablations.html` page; wired into root nav, board PAGES, and verifiers. | 2026-11-17 |
-| `arena/59b62c7b-fl3` | `arena/59b62c7b-fl3` | T43 final integration: review the remaining open PR, reconcile the 148-row retrospective comparison with the 149-row captured official feed without inventing a current result, correct stale readiness/summary wording, run all gates, and publish a verified integration PR. Scope: `COORDINATION.md`, `scripts/build_site.py`, `scripts/check_site.py`, `scripts/build_readiness.py`, `data/requirements_readiness.csv`, `scripts/build_compare.py`/`scripts/check_site.py` only for the stale PR correction, and deterministically generated root/board/audit HTML. Raw captured NFL datasets are read-only. | 2026-11-18T03:09Z |
-| `arena/59b62c7b-fl3` | `arena/59b62c7b-fl3` | T44 repair the stale offline availability-capture test, report a later-week mismatch explicitly, and gate it in CI; scope: `scripts/test_capture_offline.py`, `scripts/capture_official_snapshot.py`, `.github/workflows/snapshot.yml`, `COORDINATION.md`. | 2026-11-18T03:14Z |
+| `arena/59b62c7b-fl3` | `arena/59b62c7b-fl3` | T43 independent acceptance review: document the 148-row retrospective corpus vs the 149-row dated official-feed capture, and send source-backed, non-overlapping requests to active PR owners. Current scope: `COORDINATION.md` only; no dataset, readiness, generator, or page files while PRs #61/#63/#64/#65 are active. | 2026-11-18T03:09Z |
+| `arena/59b62c7b-fl3` | `arena/59b62c7b-fl3` | T45 add a source-linked current-data-cutoff note to the README without editing any active PR's files; scope: `README.md`, `COORDINATION.md`. | 2026-11-18T03:17Z |
 
 Other sessions: **one competing session was discovered after this session's first push.**
 
@@ -67,8 +67,9 @@ and both pushed before either claim was visible. This is the exact race the prot
 | T18 | Archive the competing blueprint without discarding it | **done** | `arena-e8bf2075` | `legacy/**` |
 | T19 | Fold the other session's findings into the registers | **done** | `arena-e8bf2075` | `data/flagged.json`, `data/decisions.json`, `data/suggestions.json` |
 | T35 | Injury/availability ablation with chronological holdout and uncertainty (R028/R029) — compare the identical line model with and without verified availability features on a chronological holdout; publish MAE/RMSE/Brier with bootstrap CIs and an explicit n; no backtest numbers on the leaderboard | **in progress** | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
-| T43 | Final integration — review open PR #59; state the distinct 148-row retrospective comparison vs the 149-row verified results-feed capture; update stale readiness and executive summary language without assuming post-capture results; run full verification and Pages closeout | **in progress** | `arena/59b62c7b-fl3` | `COORDINATION.md`, `scripts/build_readiness.py`, `data/requirements_readiness.csv`, `scripts/build_site.py`, `scripts/build_compare.py`, `scripts/check_site.py`, generated root/board/audit HTML; raw NFL captures read-only |
-| T44 | Repair the offline availability-capture test so it reflects the intended stale-week vs future-week drift rules, make later-week drift explicit in diagnostics, and run it in the scheduled capture workflow | **in progress** | `arena/59b62c7b-fl3` | `scripts/test_capture_offline.py`, `scripts/capture_official_snapshot.py`, `.github/workflows/snapshot.yml`, `COORDINATION.md` |
+| T43 | Independent acceptance review of concurrent PRs; document the 148-row retrospective corpus vs the 149-row dated official-feed capture and send exact, source-backed requests to active owners without editing their files | **in progress** | `arena/59b62c7b-fl3` | `COORDINATION.md` |
+| T44 | Repair the offline availability-capture test — **handed off to PR #61 (`arena/9f527e7c-fl3`) after a concurrent claim was discovered; this branch will not carry duplicate edits** | **handed off** | `arena/9f527e7c-fl3` | `scripts/test_capture_offline.py` (owned by PR #61); handoff request in this file |
+| T45 | Add a dated, source-linked current-data-cutoff note to README so the 148-row retrospective comparison is not conflated with the later 149-row official-feed capture | **in progress** | `arena/59b62c7b-fl3` | `README.md`, `COORDINATION.md` |
 
 **File ownership rule for future sessions:** `data/standings.json`, `data/sources.json`,
 `data/flagged.json` and every `*.html` at repo root are **shared outputs**. They are regenerated
@@ -87,7 +88,8 @@ task. `scripts/build_site.py` is single-owner at a time.
 | 2026-11-14T00:00Z | `arena-e8bf2075` | Claimed T16 (integration) — sole session, so integration performed by same ID. |
 | 2026-11-16T00:00Z | `arena/9d05cb63-fl3` | Claimed session closeout: repo review, official-source verification, PR/merge record. Files: COORDINATION.md (session record only); no dataset or page content changed. |
 | 2026-11-18T03:09Z | `arena/59b62c7b-fl3` | Claimed T43 final integration on the assigned branch. Files: COORDINATION.md, readiness/site builders and verifiers, generated root/board/audit pages, and PR #59's comparison correction after exact review; raw NFL capture datasets remain read-only. |
-| 2026-11-18T03:14Z | `arena/59b62c7b-fl3` | Claimed T44 after baseline `scripts/test_capture_offline.py` failed 1/8: the test treated an earlier-week report as drift, contradicting the current classifier's explicit `not_published_yet` rule; the test also hard-coded `/home/user/FL3`. No active owner exists for T-C3 (completed). Expanded scope, before editing the scraper: emit an explicit later-week diagnostic in `scripts/capture_official_snapshot.py`; also add the offline test to the scheduled snapshot workflow. |
+| 2026-11-18T03:14Z | `arena/59b62c7b-fl3` | Claimed T44 after baseline `scripts/test_capture_offline.py` failed 1/8: the test treated an earlier-week report as drift, contradicting the current classifier's explicit `not_published_yet` rule; the test also hard-coded `/home/user/FL3`. No active owner exists for T-C3 (completed). Expanded scope before editing; then handed off when PR #61 was discovered. The local test/scraper/workflow edits were restored rather than duplicated; full note below. |
+| 2026-11-18T03:17Z | `arena/59b62c7b-fl3` | Claimed T45: add a README current-data-cutoff note, sourced only to committed NFL captures, and distinguish the 148-row retrospective evaluation from the 149-row later feed without inferring post-capture results. Files: `README.md`, `COORDINATION.md`. |
 
 ---
 
@@ -2431,6 +2433,7 @@ Strongest single check: `data/compare/corpus_identity_32clubs.csv` — games tra
 | Session status | **Scope closed.** No dataset, page, script or ablation file claimed by another session was touched. |
 
 **Next-session note (from the board, unchanged):** the Week 10 `LAC@BAL` game was in the second quarter at capture and is excluded from all 149 games/ratings/scores; when final, record the correction in `data/official/results_feed.json`, re-run `scripts/build_frontier_data.py`, then the ablation and leaderboard.
+
 ---
 
 ## Claim — session `arena/9285d6e9-fl3` (2026-11-18 UTC)
@@ -2483,6 +2486,7 @@ The `validate` gate's cause was the interpreter, not the content. `verify.yml`, 
 
 **PR:** https://github.com/sassnarep3-star/FL3/pull/63
 
+
 ## PR / merge / deploy record — `arena/9285d6e9-fl3` (2026-11-18 UTC)
 
 | Item | Result |
@@ -2494,3 +2498,54 @@ The `validate` gate's cause was the interpreter, not the content. `verify.yml`, 
 | Pages | API status `built`, legacy source `main:/`, https://sassnarep3-star.github.io/FL3/ |
 | Live check | https://sassnarep3-star.github.io/FL3/lab.html shows the RETROSPECTIVE BACKTEST banner and the guarded table (fetched after deploy). The live CSV `data/official/rules_2026_kickoff.csv` fetch returned HTTP 500 through the fetch tool; not counted as a live check. |
 | Session status | T-9285-A and T-9285-B **done**. Blocked items in the brief are unchanged and remain on the readiness register. |
+
+
+---
+
+
+---
+
+
+---
+
+---
+
+## Cross-session integration review and handoff — 2026-11-18T03:17Z (`arena/59b62c7b-fl3`)
+
+### T44 handoff — avoid duplicate work with PR #61
+
+The baseline `scripts/test_capture_offline.py` on `main@968c4c6` returned 7/8: the stale test
+expected an earlier-week page at a future-week URL to be drift, while
+`scripts/capture_official_snapshot.py` documents and implements `not_published_yet`. Before editing,
+I discovered open PR #61 (`arena/9f527e7c-fl3`, updated 2026-11-18T03:13Z) already owns that test
+fix. To respect the non-overlap rule, T44 is handed to PR #61; this branch will not carry the local
+snapshot-test/workflow/classifier edits. The attempted local edits were restored from `origin/main`
+for those paths. The useful follow-up request to PR #61 is to make the `/home/user/FL3` path portable,
+make the same-second immutability assertion timing-safe, and consider wiring the offline test into the
+scheduled snapshot workflow. This is a coordination request, not a claim that those changes landed.
+
+### T43 evidence note — two different result artifacts, two different cutoffs
+
+This is a read-only audit of committed files and their recorded official-source URLs; it is **not** a
+fresh NFL fetch on 2026-11-18.
+
+| Artifact | Observed in repo | Source / cutoff | Interpretation |
+|---|---|---|---|
+| Retrospective comparison input `data/week_results_2026.csv` and `data/compare/forecast_ledger.csv` | 148 rows; `data/compare/evaluation.json` sets `meta.games` to 148. The Week 10 PIT@CIN game added by the later capture is absent from the comparison input. | Per-row NFL schedule URL; the corpus rows record `accessed_utc=2026-11-16T01:35Z`. [Official Week 10 schedule](https://www.nfl.com/schedules/2026/by-week/week-10) | The 148-game scores apply only to this retrospective, time-bounded comparison. They are not the later 149-row feed and must not be described as matching the later standings without qualification. |
+| Verified-results-feed capture `data/official/results_feed.csv` + `data/official/results_feed.json` | 149 `FINAL_VERIFIED` rows; includes `REG10-PIT-CIN` 18–38. `data/official/club_reconciliation.csv` has 32 `MATCH` rows. | Capture timestamp `2026-11-17T02:47Z`; correction row links [NFL Week 10 schedule](https://www.nfl.com/schedules/2026/by-week/week-10); reconciliation rows link [NFL standings](https://www.nfl.com/standings/league/2026/REG). | This is a later capture than the comparison input. It should be reported with its capture time, not as an unqualified current count. |
+| Exclusion from that capture | `REG10-LAC-BAL` was explicitly excluded because the stored capture says the game was LIVE in Q2 at `2026-11-17T02:47Z`; no later result capture is present in the checked-in feed. | [Official LAC@BAL game centre](https://www.nfl.com/games/chargers-at-ravens-2026-reg-10) | Do not infer a final score or claim the repository now contains 150 current results. A new official capture is required. |
+
+**Non-overlapping requests to active owners (files not edited here):**
+
+- PR #64 owns comparison-page integration. Keep the 148-row result explicitly dated as retrospective and
+  distinguish it from the later 149-row feed; do not claim the backtest was recomputed on 149.
+- PR #65 owns the docs executive-summary refresh. Include the same two cutoffs and state that the later
+  feed omitted LAC@BAL at its recorded capture time; leave its later status blank until re-fetched.
+- PR #63 owns `scripts/build_readiness.py` and the readiness data. R002/R068 still describe only 33 of
+  137 old result rows, while R020 describes the 148-row corpus as latest. Please align those rows to the
+  separate 148/149 artifacts and keep the current status `PARTIAL` until a later official capture and
+  walk-forward recomputation are actually present.
+
+No NFL value was edited or inferred in this review. The cited URLs are the official source URLs already
+stored in the repo; the integrity note is a request for the active integration PRs, not a claim that their
+pages have been refreshed.
