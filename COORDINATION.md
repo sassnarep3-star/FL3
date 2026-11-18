@@ -2476,3 +2476,15 @@ What was tested, all on a fresh depth-1 clone of the committed tree: default loc
 The `validate` gate's cause was the interpreter, not the content. `verify.yml`, `site.yml` and `snapshot.yml` pin Python 3.11. `pages.yml` did not pin any version, so it ran on the runner default (3.12 on ubuntu-latest). The fix pins 3.11 in `pages.yml` (commit `4302b57`). On PR #63 the run with that commit reports **validate pass** (run 44229847344), along with Recompute and verify (pass) and verify-and-build (pass). The earlier "not reproduced locally" note stands: the same tree passes under 3.11 locally, and the failure was specific to the 3.12 runner default. The ASCII-locale encoding fix (`de2710b`) remains a real and separate portability fix.
 
 **PR:** https://github.com/sassnarep3-star/FL3/pull/63
+
+## PR / merge / deploy record — `arena/9285d6e9-fl3` (2026-11-18 UTC)
+
+| Item | Result |
+|---|---|
+| Pull request | [#63 — R067 official kickoff/onside rule text; R010 backtest-leaderboard governance guard; pages-gate fix](https://github.com/sassnarep3-star/FL3/pull/63) |
+| Merge | **MERGED** into `main` at 2026-11-18T03:24:38Z as merge commit `55d8224072905031fa9179819f5b89ad4a8c8d38`, via `gh pr merge 63 --merge` (no `--auto`, no approval waited for). Head at merge: `10b5c9c`, checks green. |
+| Checks on PR head | `Recompute and verify` pass · `validate` pass · `verify-and-build` pass |
+| Post-merge on `main` | `Deploy static site to GitHub Pages` success (first success on `main` since `a7dc5f8`) · `Verify data and site` success · `site` success · `pages-build-deployment` success |
+| Pages | API status `built`, legacy source `main:/`, https://sassnarep3-star.github.io/FL3/ |
+| Live check | https://sassnarep3-star.github.io/FL3/lab.html shows the RETROSPECTIVE BACKTEST banner and the guarded table (fetched after deploy). The live CSV `data/official/rules_2026_kickoff.csv` fetch returned HTTP 500 through the fetch tool; not counted as a live check. |
+| Session status | T-9285-A and T-9285-B **done**. Blocked items in the brief are unchanged and remain on the readiness register. |
