@@ -492,7 +492,7 @@ def check_compare_lab():
           "S: the published comparison count does not match the arms evaluated")
     check(abs(meta["bonferroni_alpha"] - meta["alpha"] / meta["comparisons"]) < 1e-12,
           "S: the adjusted alpha is not alpha / comparisons")
-    check("no licensed price" in meta["price_policy"],
+    check("no licensed price" in meta["price_policy"].lower(),
           "S: the price policy note does not state that no price is held")
     check(meta["dataset"] == "retrospective",
           "S: the retrospective dataset label is missing")

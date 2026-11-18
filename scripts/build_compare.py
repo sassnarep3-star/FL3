@@ -711,7 +711,7 @@ def build():
         "zero_inside_interval_rule": "materially-zero: a 95% interval that contains 0 cannot "
                                      "establish skill, and this page will not call it skill",
         "bootstrap": f"{BOOT} game-cluster resamples, seed {SEED}",
-        "price_policy": "no licensed price is held, so ROI and CLV are not computed and not implied",
+        "price_policy": "No licensed price is held, so ROI and CLV are not computed and not implied",
         "dataset": "retrospective",
         "estimator_families": "A = pace (mean of both clubs' game totals). "
                               "B = offence only (league total plus each club's scoring deviation). "
