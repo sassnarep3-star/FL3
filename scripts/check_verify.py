@@ -13,7 +13,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
 OUT = os.path.join(ROOT, "verify")
 
-PAGES = ["index.html", "verification.html", "venues.html", "gamebooks.html", "sources.html"]
+PAGES = ["index.html", "verification.html", "venues.html", "gamebooks.html", "sources.html", "brief-claims.html"]
 STATUSES = {"CONFIRMED", "PARTIALLY CONFIRMED", "REFUTED", "RECONCILED", "NOT VERIFIED"}
 
 errors = []
@@ -120,6 +120,34 @@ def main():
           f"V: status counters sum to {status_sum} but there are {len(claims)} claims")
     check(f'<div class="n">{len(claims)}</div><div class="l">claims re-checked</div>' in ibody,
           "V: index.html total-claims counter does not match the data")
+
+    # --- brief-claims ledger (2026-11-18): data, CSV export and rendered page agree ---
+    import csv as _csv
+    ledger = load("verification/brief_claims_2026-11-18.json")
+    lclaims = ledger["claims"]
+    check(len(lclaims) >= 15, f"V: brief ledger expected >= 15 rows, got {len(lclaims)}")
+    lids = [c["id"] for c in lclaims]
+    check(len(lids) == len(set(lids)), "V: brief ledger ids are not unique")
+    verdicts = {"CONFIRMED", "REFUTED", "STALE", "OBSERVED", "CARRIED", "NOT VERIFIED"}
+    for c in lclaims:
+        check(c["verdict"] in verdicts, f"V: brief {c['id']} has invalid verdict {c['verdict']!r}")
+        check(bool(c["urls"]), f"V: brief {c['id']} has no source URL")
+        for u in c["urls"]:
+            check(is_url(u), f"V: brief {c['id']} source is not https: {u!r}")
+        if c["verdict"] in {"CONFIRMED", "REFUTED", "STALE"}:
+            check(bool(c["observed"].strip()), f"V: brief {c['id']} verdict without observed text")
+    csv_path = os.path.join(DATA, "verification", "brief_claims_2026-11-18.csv")
+    check(os.path.exists(csv_path), "V: brief ledger CSV missing")
+    if os.path.exists(csv_path):
+        with open(csv_path, encoding="utf-8", newline="") as fh:
+            crow = list(_csv.DictReader(fh))
+        check([r["id"] for r in crow] == lids, "V: brief ledger CSV is not generated from the JSON (ids differ)")
+    bbody = open(os.path.join(OUT, "brief-claims.html"), encoding="utf-8").read()
+    for c in lclaims:
+        check(c["id"] in bbody, f"V: brief-claims.html does not render {c['id']}")
+    check("Flagged for Review" in bbody, "V: brief-claims.html lacks the Flagged for Review section")
+    check("2026-11-16" not in bbody.split("<main>")[0].split("<header>")[1] if "<header>" in bbody else True,
+          "V: brief-claims.html header still states the 2026-11-16 date")
 
     print(f"ran {checks} assertions")
     if errors:

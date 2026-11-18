@@ -42,6 +42,10 @@ a:hover { text-decoration:underline; }
 .chip.REFUTED { background:#fbe3e1; color:var(--bad); }
 .chip.RECONCILED { background:#e6effd; color:var(--acc); }
 .chip.NOT_VERIFIED { background:#eceff3; color:var(--mut); }
+.chip.STALE { background:#fbe3e1; color:var(--bad); }
+.chip.OBSERVED { background:#e6effd; color:var(--acc); }
+.chip.CARRIED { background:#eceff3; color:var(--mut); }
+.chip.VERIFIED { background:#e3f5ea; color:var(--ok); }
 .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px; margin:14px 0; }
 .card { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px 16px; }
 .card .n { font-size:24px; font-weight:700; }
@@ -56,6 +60,7 @@ NAV = [
     ("venues.html", "Venues"),
     ("gamebooks.html", "Game Books"),
     ("sources.html", "Sources"),
+    ("brief-claims.html", "Brief claims 2026-11-18"),
 ]
 
 
@@ -68,7 +73,7 @@ def esc(x):
     return html.escape("" if x is None else str(x))
 
 
-def page(title, active, body):
+def page(title, active, body, lede=None):
     nav = "".join(
         f'<a href="{href}" class="{"active" if href == active else ""}">{esc(label)}</a>'
         for href, label in NAV
@@ -80,7 +85,7 @@ def page(title, active, body):
 <style>{CSS}</style></head>
 <body>
 <header><h1>FL3 &mdash; Independent Official-Source Verification</h1>
-<p>Every claim re-checked against live NFL.com / NFL Media pages on 2026-11-16. Values not confirmed are left blank and flagged.</p></header>
+<p>{esc(lede) if lede else "Every claim re-checked against live NFL.com / NFL Media pages on 2026-11-16. Values not confirmed are left blank and flagged."}</p></header>
 <nav>{nav}</nav>
 <main>{body}</main>
 </body></html>"""
@@ -257,6 +262,108 @@ def build_sources(log, venues):
     return page("Sources", "sources.html", body)
 
 
+LEDGER_JSON = "verification/brief_claims_2026-11-18.json"
+LEDGER_CSV = os.path.join(DATA, "verification", "brief_claims_2026-11-18.csv")
+LEDGER_FIELDS = ["id", "brief_ref", "readiness_id", "claim", "verdict", "observed", "urls", "note"]
+LEDGER_VERDICTS = {"CONFIRMED", "REFUTED", "STALE", "OBSERVED", "CARRIED", "NOT VERIFIED"}
+FLAG_IDS = ["BC-07", "BC-08", "BC-09", "BC-11", "BC-14", "BC-15", "BC-16", "BC-17", "BC-18"]
+
+
+def load_ledger():
+    with open(os.path.join(DATA, LEDGER_JSON), encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+def ledger_csv_text(ledger):
+    import csv, io
+    buf = io.StringIO()
+    w = csv.writer(buf, lineterminator="\n")
+    w.writerow(LEDGER_FIELDS)
+    for c in ledger["claims"]:
+        w.writerow([c["id"], c["brief_ref"], c["readiness_id"], c["claim"], c["verdict"],
+                    c["observed"], " ; ".join(c["urls"]), c["note"]])
+    return buf.getvalue()
+
+
+def build_brief_claims(ledger):
+    claims = ledger["claims"]
+    meta = ledger["_meta"]
+    counts = {}
+    for c in claims:
+        counts[c["verdict"]] = counts.get(c["verdict"], 0) + 1
+    summary = " &middot; ".join(f"{esc(k)}: <strong>{v}</strong>" for k, v in sorted(counts.items()))
+    legend = "".join(f"<li>{status_chip(k)} {esc(v)}</li>" for k, v in meta["verdict_legend"].items())
+    rows = []
+    for c in claims:
+        links = " ".join(
+            f'<a href="{esc(u)}" target="_blank" rel="noopener">source {i + 1}</a>'
+            for i, u in enumerate(c["urls"]))
+        rows.append(
+            "<tr>"
+            f'<td class="mono">{esc(c["id"])}</td>'
+            f'<td>{esc(c["brief_ref"])}<br><span class="mut">{esc(c["readiness_id"])}</span></td>'
+            f'<td>{esc(c["claim"])}</td>'
+            f'<td>{status_chip(c["verdict"])}</td>'
+            f'<td>{esc(c["observed"])}</td>'
+            f'<td>{links}</td>'
+            f'<td>{esc(c["note"])}</td>'
+            "</tr>")
+    flagged = [c for c in claims if c["id"] in FLAG_IDS]
+    flag_rows = "".join(
+        f'<li><strong>{esc(c["id"])}</strong> &mdash; {esc(c["claim"])} '
+        f'<span class="mut">({esc(c["verdict"])})</span> &mdash; {esc(c["note"])}</li>'
+        for c in flagged)
+    body = f"""
+<section>
+<h2>Brief claims, checked on 2026-11-18</h2>
+<p class="lede">Each row is one claim from the brief, read against an official page on 2026-11-18.
+Every row links its source. A claim that no official page supports is shown as <strong>NOT VERIFIED</strong>
+and left unfilled. Third-party reports are leads only and are never counted as evidence.
+Verdicts: {summary}.</p>
+<ul>{legend}</ul>
+</section>
+<section>
+<h2>Claim ledger</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>ID</th><th>Brief item</th><th>Claim</th><th>Verdict</th><th>What the official page shows</th><th>Source</th><th>Note</th></tr></thead>
+<tbody>{''.join(rows)}</tbody></table></div>
+</section>
+<section id="flagged-for-review">
+<h2>Flagged for Review</h2>
+<p>Irregularities and open items from this check. They do not block publication. Each carries the source
+link in the ledger above. Requests for change should cite the ID.</p>
+<ul>{flag_rows}</ul>
+</section>
+<p class="mut">Data: <code>data/verification/brief_claims_2026-11-18.json</code> (source of truth) and
+<code>data/verification/brief_claims_2026-11-18.csv</code> (generated). Readiness rows: R033, R037, R042, R053, R063&ndash;R066 in <code>data/requirements_readiness.csv</code>.</p>
+"""
+    return page("Brief claims 2026-11-18", "brief-claims.html", body,
+                lede="Live official-source verification of the brief's starter, depth and roster-turnover claims, read 2026-11-18. Unverified values are left blank and flagged.")
+
+
+def validate_ledger(ledger):
+    problems = []
+    seen = set()
+    for c in ledger["claims"]:
+        if c["id"] in seen:
+            problems.append(f"duplicate {c['id']}")
+        seen.add(c["id"])
+        if c["verdict"] not in LEDGER_VERDICTS:
+            problems.append(f"{c['id']}: unknown verdict {c['verdict']}")
+        if not c["urls"]:
+            problems.append(f"{c['id']}: no source URL")
+        for u in c["urls"]:
+            if not is_https(u):
+                problems.append(f"{c['id']}: non-https URL {u}")
+        if c["verdict"] in {"CONFIRMED", "REFUTED", "STALE"} and not c["observed"].strip():
+            problems.append(f"{c['id']}: verdict without observed text")
+    return problems
+
+
+def is_https(u):
+    return isinstance(u, str) and u.startswith("https://")
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     log = load("verify_log.json")
@@ -267,7 +374,18 @@ def main():
         "venues.html": build_venues(venues),
         "gamebooks.html": build_gamebooks(venues),
         "sources.html": build_sources(log, venues),
+        "brief-claims.html": None,
     }
+    ledger = load_ledger()
+    problems = validate_ledger(ledger)
+    if problems:
+        raise SystemExit("LEDGER INVALID: " + "; ".join(problems))
+    pages["brief-claims.html"] = build_brief_claims(ledger)
+    os.makedirs(os.path.dirname(LEDGER_CSV), exist_ok=True)
+    with open(LEDGER_CSV, "w", encoding="utf-8", newline="") as fh:
+        fh.write(ledger_csv_text(ledger))
+    n_rows = len(ledger["claims"])
+    print("wrote data/verification/" + os.path.basename(LEDGER_CSV) + " (" + str(n_rows) + " rows)")
     for name, content in pages.items():
         with open(os.path.join(OUT, name), "w", encoding="utf-8") as fh:
             fh.write(content)

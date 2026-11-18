@@ -1,0 +1,217 @@
+{
+  "_meta": {
+    "title": "Brief claims - live official-source verification ledger",
+    "session": "arena/7c189606-fl3",
+    "date_observed": "2026-11-18",
+    "method": "Each starter, depth, roster-turnover and injury-report claim named in the brief was checked against a page read on 2026-11-18: NFL.com articles, NFL Game Summary PDFs linked from NFL.com game centres, and official club sites. A claim is recorded CONFIRMED or REFUTED only when the page text supports or contradicts it. Items that could not be read from an official page are NOT VERIFIED and are left unfilled. Third-party reports are recorded only as leads, never as evidence.",
+    "verdict_legend": {
+      "CONFIRMED": "The official page states what the claim says.",
+      "REFUTED": "The official page contradicts the claim as stated.",
+      "STALE": "The page is undated and disagrees with a dated official record (Game Book) for the same game.",
+      "OBSERVED": "The layout fact is visible on the page, but whether it means what the brief says is not established.",
+      "CARRIED": "Taken from a prior session's recorded live check (named in the row). Not re-read on 2026-11-18.",
+      "NOT VERIFIED": "No official page read on 2026-11-18 supports or refutes the claim."
+    },
+    "scope_note": "Claims verified here are checks of named facts. They are not a built feature. Items that remain open are listed on the readiness register with the gate that blocks them."
+  },
+  "claims": [
+    {
+      "id": "BC-01",
+      "brief_ref": "VR-08, VR-12",
+      "readiness_id": "R062",
+      "claim": "Kerby Joseph, Cade Mays and D.J. Reed have a blank game-status cell on the Week 10 injury report.",
+      "verdict": "REFUTED",
+      "observed": "Lions section, Week 10 report: Kerby Joseph (S, Knee) 'Did Not Participate In Practice' / Game Status 'Out'; Cade Mays (C, Ankle) 'Did Not Participate In Practice' / 'Out'; D.J. Reed (CB, Hip) 'Did Not Participate In Practice' / 'Out'.",
+      "urls": ["https://www.nfl.com/injuries/league/2026/reg10"],
+      "source_ids": ["SRC-018"],
+      "note": "The repo's published Week 10 rows (data/injuries_2026_w10.csv) also read Out, so the blank-cell claim does not describe the current data."
+    },
+    {
+      "id": "BC-02",
+      "brief_ref": "VR-24",
+      "readiness_id": "R033; R066",
+      "claim": "Drew Lock is the announced Seattle starter after Sam Darnold's absence.",
+      "verdict": "CONFIRMED",
+      "observed": "NFL.com: 'Drew Lock has no injury designation and will start Sunday for the Seahawks against the host Las Vegas Raiders, coach Mike Macdonald said Friday.' Game Book, Sunday 11/15/2026, Seattle lineup: 'QB 2 D.Lock'. Not Active: 'QB 14 S.Darnold'.",
+      "urls": ["https://www.nfl.com/news/drew-lock-no-injury-designation-seahawks-raiders", "https://static.www.nfl.com/image/upload/v1794787399/gamecenter/ab78a43c-4feb-11f1-abca-2c54536568a9.pdf"],
+      "source_ids": ["SRC-024", "SRC-026"],
+      "note": "The article is dated by its 'said Friday' text, the Friday before the 11/15 game. The Game Book is the primary record of the starter."
+    },
+    {
+      "id": "BC-03",
+      "brief_ref": "VQ-05",
+      "readiness_id": "R033; R066",
+      "claim": "Kyle McCord starts for Miami after Malik Willis goes on injured reserve.",
+      "verdict": "CONFIRMED",
+      "observed": "Game Book, Sunday 11/15/2026, Miami at Indianapolis, Miami lineup: 'QB 14 K.McCord'. NFL.com (Willis article): 'With Willis shelved, second-year quarterback Kyle McCord will fill in, beginning Sunday on the road against the Indianapolis Colts.'",
+      "urls": ["https://static.www.nfl.com/image/upload/v1794777736/gamecenter/ab789365-4feb-11f1-abca-2c54536568a9.pdf", "https://www.nfl.com/news/dolphins-place-qb-malik-willis-groin-on-injured-reserve-kyle-mccord-in-line-for-first-start"],
+      "source_ids": ["SRC-027", "SRC-025"],
+      "note": "The Game Book confirms the start. The article's 'will fill in' wording is reporting, not a club transaction."
+    },
+    {
+      "id": "BC-04",
+      "brief_ref": "VR-25 (Brissett announcement)",
+      "readiness_id": "R066; R033",
+      "claim": "Jacoby Brissett was acquired and is the Baltimore starter.",
+      "verdict": "CONFIRMED",
+      "observed": "Ravens.com, Nov 06 2026: 'The Ravens have finalized their trade for ... Jacoby Brissett' and 'Brissett will be slated to start next Monday's game against the Los Angeles Chargers.' Game Book, Monday 11/16/2026, Baltimore lineup: 'QB 11 J.Brissett'.",
+      "urls": ["https://www.baltimoreravens.com/news/jacoby-brissett-ravens-trade-cardinals-finalize-2026", "https://static.www.nfl.com/image/upload/v1794916121/gamecenter/ab78ad5a-4feb-11f1-abca-2c54536568a9.pdf", "https://www.nfl.com/games/chargers-at-ravens-2026-reg-10"],
+      "source_ids": ["SRC-030", "SRC-028", "SRC-029"],
+      "note": "The Ravens article is the club's announcement. The Game Book is the game-day record."
+    },
+    {
+      "id": "BC-05",
+      "brief_ref": "VR-25, VQ-06 (Malik Willis)",
+      "readiness_id": "R053; R065",
+      "claim": "Malik Willis is on injured reserve and therefore absent from the weekly report.",
+      "verdict": "CONFIRMED",
+      "observed": "NFL.com: 'Willis was placed on injured reserve Tuesday due to a groin injury.' and 'Willis will miss games at the Colts, at the Buffalo Bills, versus the New York Jets and at the Denver Broncos from Weeks 10-13.' Absence from the report: CARRIED from the 2026-11-17 live recount (BC-17); not re-read today.",
+      "urls": ["https://www.nfl.com/news/dolphins-place-qb-malik-willis-groin-on-injured-reserve-kyle-mccord-in-line-for-first-start"],
+      "source_ids": ["SRC-025"],
+      "note": "The IR placement is confirmed. Absence from the report is carried, not re-read."
+    },
+    {
+      "id": "BC-06",
+      "brief_ref": "Colts Week 10 release (brief item)",
+      "readiness_id": "R065; R066",
+      "claim": "The Colts traded two starting wide receivers, documented in the same article as their depth chart.",
+      "verdict": "CONFIRMED",
+      "observed": "Colts.com, Nov 10 2026: 'The Colts on Tuesday traded two starting wide receivers prior to the NFL's 4 p.m. trade deadline, sending Keenan Allen to the San Francisco 49ers and Josh Downs to the Kansas City Chiefs.' The same article is titled 'Colts release unofficial depth chart for Week 10' and carries the WR, QB and other chart rows.",
+      "urls": ["https://www.colts.com/news/colts-release-unofficial-depth-chart-for-week-10"],
+      "source_ids": ["SRC-036"],
+      "note": "The club labels its own chart 'unofficial' (see BC-15)."
+    },
+    {
+      "id": "BC-07",
+      "brief_ref": "VR-17, VR-26, VQ-07",
+      "readiness_id": "R037; R065",
+      "claim": "Baltimore still publishes Lamar Jackson and Tyler Huntley at QB.",
+      "verdict": "REFUTED",
+      "observed": "Ravens depth chart, Offense, QB row: 'Jacoby Brissett | Joe Fagnano | Kedon Slovis'. Neither Lamar Jackson nor Tyler Huntley appears in any QB row. Game Book 11/16 lineup likewise has Brissett, not Jackson or Huntley.",
+      "urls": ["https://www.baltimoreravens.com/team/depth-chart/", "https://static.www.nfl.com/image/upload/v1794916121/gamecenter/ab78ad5a-4feb-11f1-abca-2c54536568a9.pdf"],
+      "source_ids": ["SRC-031", "SRC-028"],
+      "note": "The club depth page carries no visible capture date. It agrees with the dated Game Book, so no stale QB row is observed for Baltimore."
+    },
+    {
+      "id": "BC-08",
+      "brief_ref": "VR-17, VR-26 (injured reserve)",
+      "readiness_id": "R065",
+      "claim": "Lamar Jackson and Tyler Huntley were placed on injured reserve.",
+      "verdict": "NOT VERIFIED",
+      "observed": "No NFL.com or Ravens page read on 2026-11-18 states an injured-reserve designation for either player. The Ravens article of Nov 06 says Jackson's return is 'not closing the door' and that Huntley 'will reportedly miss the rest of the year'. Third-party outlets report the IR moves; they are not used as evidence.",
+      "urls": ["https://www.baltimoreravens.com/news/jacoby-brissett-ravens-trade-cardinals-finalize-2026"],
+      "source_ids": ["SRC-030"],
+      "note": "Left unfilled in every dataset. The IR status needs a transactions-log page from NFL.com or the Ravens."
+    },
+    {
+      "id": "BC-09",
+      "brief_ref": "New finding (stale depth row)",
+      "readiness_id": "R037",
+      "claim": "A Seattle depth row is stale against the Week 10 Game Book.",
+      "verdict": "STALE",
+      "observed": "Seahawks depth chart (undated), QB row: 'Sam Darnold | Drew Lock | Jalen Milroe'. Game Book, Sunday 11/15/2026: Darnold is 'Not Active'; Lock is the starting 'QB 2 D.Lock'. NFL.com (Nov 09) headlines Darnold as ruled out for the Week 10 game.",
+      "urls": ["https://www.seahawks.com/team/depth-chart/", "https://static.www.nfl.com/image/upload/v1794787399/gamecenter/ab78a43c-4feb-11f1-abca-2c54536568a9.pdf"],
+      "source_ids": ["SRC-032", "SRC-026"],
+      "note": "The chart's undated capture still lists Darnold first. This is the staleness pattern the brief asks the register to flag."
+    },
+    {
+      "id": "BC-10",
+      "brief_ref": "VR-21",
+      "readiness_id": "R064",
+      "claim": "Seattle puts two players in one depth slot.",
+      "verdict": "CONFIRMED",
+      "observed": "Seahawks depth chart, Offense, WR row: the first cell contains 'Cooper Kupp' and 'Rashid Shaheed' together, followed by 'Irvin Charles' in the next cell.",
+      "urls": ["https://www.seahawks.com/team/depth-chart/"],
+      "source_ids": ["SRC-032"],
+      "note": "Stored as a shared slot, not split into a ranked list."
+    },
+    {
+      "id": "BC-11",
+      "brief_ref": "VR-23",
+      "readiness_id": "R064",
+      "claim": "Washington leaves a depth slot empty.",
+      "verdict": "OBSERVED",
+      "observed": "Commanders depth chart, Offense, WR row with 'Antonio Williams' has no second entry; the rank-2 cell is blank.",
+      "urls": ["https://www.commanders.com/team/depth-chart/"],
+      "source_ids": ["SRC-033"],
+      "note": "The blank cell is visible. Whether the club means it as an empty slot is not established. The brief's own wording is not verified."
+    },
+    {
+      "id": "BC-12",
+      "brief_ref": "Texans image chart (brief item)",
+      "readiness_id": "R063",
+      "claim": "The Texans publish their depth chart as an image.",
+      "verdict": "CONFIRMED",
+      "observed": "Houston Texans depth chart page: under the heading 'Unofficial Depth Chart' the content is an image with no text rows.",
+      "urls": ["https://www.houstontexans.com/team/depth-chart/"],
+      "source_ids": ["SRC-034"],
+      "note": "The image is not transcribed. The depth rows stay blank until an authorized structured source is found."
+    },
+    {
+      "id": "BC-13",
+      "brief_ref": "Packers jersey-number prefix (brief item)",
+      "readiness_id": "R063",
+      "claim": "The Packers prepend jersey numbers to player names.",
+      "verdict": "CONFIRMED",
+      "observed": "Packers depth chart rows such as '9 Christian Watson', '10 Jordan Love', '0 Matthew Golden'. Page footer: 'Unofficial, Nov. 10, 2026'.",
+      "urls": ["https://www.packers.com/team/depth-chart/"],
+      "source_ids": ["SRC-035"],
+      "note": "A parser that strips only a leading number and keeps the raw string matches what the page shows."
+    },
+    {
+      "id": "BC-14",
+      "brief_ref": "New finding (duplicate row)",
+      "readiness_id": "R063; R064",
+      "claim": "A Packers player appears in two safety rows.",
+      "verdict": "OBSERVED",
+      "observed": "Packers depth chart, Defense: 'S | 29 Xavier McKinney | 27 Kitan Oladapo' and 'S | 33 Evan Williams | 27 Kitan Oladapo'.",
+      "urls": ["https://www.packers.com/team/depth-chart/"],
+      "source_ids": ["SRC-035"],
+      "note": "Flagged, not resolved. The same player is listed in two rows of the same unit."
+    },
+    {
+      "id": "BC-15",
+      "brief_ref": "Club chart labels (new finding)",
+      "readiness_id": "R042",
+      "claim": "Club depth charts carry a club-applied 'unofficial' label.",
+      "verdict": "CONFIRMED",
+      "observed": "Texans: 'Unofficial Depth Chart'. Packers: 'Unofficial, Nov. 10, 2026'. Colts: 'Colts release unofficial depth chart for Week 10'.",
+      "urls": ["https://www.houstontexans.com/team/depth-chart/", "https://www.packers.com/team/depth-chart/", "https://www.colts.com/news/colts-release-unofficial-depth-chart-for-week-10"],
+      "source_ids": ["SRC-034", "SRC-035", "SRC-036"],
+      "note": "Whether a club-labelled 'unofficial' chart is an admissible depth-order source is an open owner decision (see the readiness register R042)."
+    },
+    {
+      "id": "BC-16",
+      "brief_ref": "Multi-slot players (new finding)",
+      "readiness_id": "R041; R075",
+      "claim": "The same player appears in more than one depth slot on the Baltimore chart.",
+      "verdict": "OBSERVED",
+      "observed": "Ravens depth chart: Ryan Neuzil is 2nd at LG and 2nd at C; Carson Vinson is 2nd at LT and 2nd at RT; Mike Green is 2nd at RUSH and 1st at SAM.",
+      "urls": ["https://www.baltimoreravens.com/team/depth-chart/"],
+      "source_ids": ["SRC-031"],
+      "note": "Stored as-is. A player can appear in several position grids; the chart does not rank across them."
+    },
+    {
+      "id": "BC-17",
+      "brief_ref": "VR-04, VR-05, VR-06, VR-07 (Week 10 injury table counts)",
+      "readiness_id": "R039; R061",
+      "claim": "The published Week 10 injury tables are stale: 254 rows vs 279 live, and Seattle and Cincinnati are shown as injury-free.",
+      "verdict": "CARRIED",
+      "observed": "The 2026-11-17 live recount (COORDINATION.md, session arena/f0d91da4-fl3, T32) recorded 347 rows across 28 clubs, with Seattle 15 rows and Cincinnati 9. Not re-counted on 2026-11-18.",
+      "urls": ["https://www.nfl.com/injuries/league/2026/reg10"],
+      "source_ids": ["SRC-018"],
+      "note": "The brief's 254 / 279 figures were not reproduced in any read. The current count is a carried record, pending a fresh capture."
+    },
+    {
+      "id": "BC-18",
+      "brief_ref": "Texans and Packers: structured source (brief item)",
+      "readiness_id": "R063",
+      "claim": "An authorized structured source exists for the Texans depth chart.",
+      "verdict": "NOT VERIFIED",
+      "observed": "No structured, machine-readable Texans depth source was found on houstontexans.com in the 2026-11-18 read. The page exposes only the image.",
+      "urls": ["https://www.houstontexans.com/team/depth-chart/"],
+      "source_ids": ["SRC-034"],
+      "note": "Left blank. Transcribing the image by eye is not permitted by the brief."
+    }
+  ]
+}
