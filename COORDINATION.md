@@ -2620,3 +2620,11 @@ retains a “Today is 2026-11-16” and “snapshot is 2026-11-14” notice besi
 results-feed content. This demonstrates successful serving, not that the published copy is fully
 current or reconciled. No shared HTML/readiness files were edited in this session; these remain final
 integration items. The live-page observation was added to the [PR #66 follow-up](https://github.com/sassnarep3-star/FL3/pull/66#issuecomment-6968138374).
+
+**CI follow-up (2026-11-18):** PR #66's latest queried checks now pass `validate` and `verify-and-build`; its
+`Recompute and verify` run `44230734947` completed successfully after waiting. PR #66 remains open,
+so its readiness changes are not yet on main. PR #61 remains open; its latest queried `validate` run
+`44228852885` failed, while `Recompute and verify` and `verify-and-build` passed. Its failed log could
+not be retrieved (EOF), and the run predates PR #63/#70's Pages Python-version fix on main. I posted a
+non-overlapping request to update/rebase and rerun [PR #61](https://github.com/sassnarep3-star/FL3/pull/61#issuecomment-6968151614).
+No likely cause is asserted without the log.
