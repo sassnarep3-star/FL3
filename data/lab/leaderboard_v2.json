@@ -1,6 +1,10 @@
 {
   "_meta": {
-    "title": "FL3 strategy leaderboard v2 \u2014 proper-score ranking",
+    "title": "FL3 strategy leaderboard v2 \u2014 proper-score ranking (RETROSPECTIVE, not prospective)",
+    "dataset_type": "RETROSPECTIVE_BACKTEST",
+    "prospective": false,
+    "eligible_for_prospective_leaderboard": false,
+    "governance": "R010: backtest-origin numbers may not appear on the prospective leaderboard. Games scored here were all played before this ranking was computed.",
     "generated_utc": "2026-11-17T02:47Z",
     "n_games": 85,
     "seasons": [
@@ -44,7 +48,9 @@
       "what_would_falsify_it": [
         "A bootstrap interval that includes zero once a second season is added.",
         "Skill that flips sign between Weeks 5-7 and Weeks 8-10."
-      ]
+      ],
+      "dataset_type": "RETROSPECTIVE_BACKTEST",
+      "prospective": false
     },
     {
       "rank": 2,
@@ -66,7 +72,9 @@
       "what_would_falsify_it": [
         "A bootstrap interval that includes zero once a second season is added.",
         "Skill that flips sign between Weeks 5-7 and Weeks 8-10."
-      ]
+      ],
+      "dataset_type": "RETROSPECTIVE_BACKTEST",
+      "prospective": false
     },
     {
       "rank": 3,
@@ -88,7 +96,9 @@
       "what_would_falsify_it": [
         "A bootstrap interval that includes zero once a second season is added.",
         "Skill that flips sign between Weeks 5-7 and Weeks 8-10."
-      ]
+      ],
+      "dataset_type": "RETROSPECTIVE_BACKTEST",
+      "prospective": false
     },
     {
       "rank": 4,
@@ -110,7 +120,9 @@
       "what_would_falsify_it": [
         "A bootstrap interval that includes zero once a second season is added.",
         "Skill that flips sign between Weeks 5-7 and Weeks 8-10."
-      ]
+      ],
+      "dataset_type": "RETROSPECTIVE_BACKTEST",
+      "prospective": false
     },
     {
       "rank": 5,
@@ -132,7 +144,9 @@
       "what_would_falsify_it": [
         "A bootstrap interval that includes zero once a second season is added.",
         "Skill that flips sign between Weeks 5-7 and Weeks 8-10."
-      ]
+      ],
+      "dataset_type": "RETROSPECTIVE_BACKTEST",
+      "prospective": false
     },
     {
       "rank": 6,
@@ -152,7 +166,9 @@
       ],
       "what_would_falsify_it": [
         "A model that fails to beat it."
-      ]
+      ],
+      "dataset_type": "RETROSPECTIVE_BACKTEST",
+      "prospective": false
     },
     {
       "rank": 7,
@@ -172,7 +188,9 @@
       ],
       "what_would_falsify_it": [
         "A model that fails to beat it."
-      ]
+      ],
+      "dataset_type": "RETROSPECTIVE_BACKTEST",
+      "prospective": false
     },
     {
       "rank": 8,
@@ -192,7 +210,9 @@
       ],
       "what_would_falsify_it": [
         "A model that fails to beat it."
-      ]
+      ],
+      "dataset_type": "RETROSPECTIVE_BACKTEST",
+      "prospective": false
     },
     {
       "rank": 9,
@@ -212,7 +232,9 @@
       ],
       "what_would_falsify_it": [
         "A model that fails to beat it."
-      ]
+      ],
+      "dataset_type": "RETROSPECTIVE_BACKTEST",
+      "prospective": false
     }
   ]
 }

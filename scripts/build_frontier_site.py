@@ -594,6 +594,7 @@ def build_lab():
 
 <section>
   <h2>2 · Leaderboard v2 — proper score, not ROI</h2>
+  <div class="callout bad"><b>RETROSPECTIVE BACKTEST — not the prospective leaderboard.</b> Every number in this table is scored on games already played (Weeks 5–10, in-sample). By rule R010 these rows are <b>not eligible</b> for the prospective leaderboard. Machine-readable: <code>dataset_type=RETROSPECTIVE_BACKTEST</code>, <code>prospective=false</code> on every row (<code>data/lab/leaderboard_v2.json</code>). Guard: <code>scripts/check_leaderboard_governance.py</code>.</div>
   <p class="lede">{lb['_meta']['n_games']} games, nine strategies scored on the same fixtures.
   Skill is 1 − Brier ÷ Brier(coin). The interval is a game-cluster bootstrap. The
   p-value is Holm-adjusted across the five non-baseline strategies. A strategy clears the gate

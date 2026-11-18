@@ -17,7 +17,7 @@
 
 <h1>Flagged for Review</h1>
 <p class="lede">Every irregularity, open question and unverified item, with the link to check it.
-24 open. Nothing on this page blocks the site: it is the list you asked to review after
+28 open. Nothing on this page blocks the site: it is the list you asked to review after
 publication.</p>
 
 <div class="note">
@@ -445,6 +445,62 @@ publication.</p>
             <dt>Action needed</dt><dd>Owner decision: point each row to the week-specific page and its capture date.</dd>
           </dl>
           <ul class="evid"><li><a class="src" href="https://www.nfl.com/injuries/league/2026/reg10" target="_blank" rel="noopener">Official Week 10 injury report</a></li></ul>
+        </article>
+        <article class="flag" id="F31">
+          <header>
+            <h3><span class="sid">F31</span> Leaderboard design cites four non-official sources, breaching the nfl.com-only source policy</h3>
+            <div><span class="badge bad">high severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>data/dashboard/leaderboard.json cites sharkbetting.com (CLV definition), github.com/jcollins901/nfl-edge (edge %), sharppicks.ai (edge calculator) and unexpectedpoints.com (luck-adjusted efficiency) as the sources of its scoring metrics. The README source policy says only nfl.com and operations.nfl.com count as evidence.</dd>
+            <dt>Why it matters</dt><dd>A reader can read the metric definitions as settled by these sites. They are third-party, not league facts, and none of them is verified here.</dd>
+            <dt>Could not confirm</dt><dd>Whether these definitions are used in any computed output. The URLs are kept unchanged, pending the owner&#x27;s decision.</dd>
+            <dt>Effect on the lines</dt><dd>None. No line or result is computed from these sites.</dd>
+            <dt>Action needed</dt><dd>Owner decision: replace each metric definition with an nfl.com-sourced reference, or mark the metric as an internal definition with no external citation.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://www.sharkbetting.com/blog/closing-line-value-clv-explained" target="_blank" rel="noopener">Non-official source 1 (for review only)</a></li><li><a class="src" href="https://github.com/jcollins901/nfl-edge" target="_blank" rel="noopener">Non-official source 2 (for review only)</a></li><li><a class="src" href="https://sharppicks.ai/tools/edge-calculator" target="_blank" rel="noopener">Non-official source 3 (for review only)</a></li><li><a class="src" href="https://www.unexpectedpoints.com/p/luck-adjusted-quarterback-efficiency" target="_blank" rel="noopener">Non-official source 4 (for review only)</a></li><li><a class="src" href="https://github.com/sassnarep3-star/FL3/blob/main/README.md" target="_blank" rel="noopener">Official source policy (repo README)</a></li></ul>
+        </article>
+        <article class="flag" id="F32">
+          <header>
+            <h3><span class="sid">F32</span> A backtest ranking is titled &#x27;leaderboard&#x27; (R010); now labelled and machine-guarded, owner to confirm the name</h3>
+            <div><span class="badge warn">medium severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>lab.html ranks nine strategies on Weeks 5-10 (n=85, in-sample). The brief forbids backtest numbers on the leaderboard. The ranking is now labelled RETROSPECTIVE BACKTEST on the page and in every row (dataset_type=RETROSPECTIVE_BACKTEST, prospective=false), and scripts/check_leaderboard_governance.py fails the build if those labels or the prospective-board separation fail.</dd>
+            <dt>Why it matters</dt><dd>The name &#x27;leaderboard&#x27; on a backtest table is the exact thing the brief forbids. The label and guard reduce the risk but do not remove the naming question.</dd>
+            <dt>Could not confirm</dt><dd>Whether the owner wants the retrospective table renamed (for example &#x27;retrospective ranking&#x27;) or moved off the leaderboard path entirely.</dd>
+            <dt>Effect on the lines</dt><dd>None. No backtest number feeds a line or a prospective record.</dd>
+            <dt>Action needed</dt><dd>Owner decision: keep the name with the label, or rename the table to &#x27;retrospective ranking&#x27; in the next integration.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://sassnarep3-star.github.io/FL3/lab.html" target="_blank" rel="noopener">Retrospective ranking page</a></li><li><a class="src" href="https://github.com/sassnarep3-star/FL3/blob/main/scripts/check_leaderboard_governance.py" target="_blank" rel="noopener">Governance guard (repo)</a></li></ul>
+        </article>
+        <article class="flag" id="F33">
+          <header>
+            <h3><span class="sid">F33</span> scripts/build_flagged.py writes data/flagged.json with a different ID scheme and would replace this register</h3>
+            <div><span class="badge warn">medium severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>build_flagged.py ends with json.dump(out, open(&#x27;data/flagged.json&#x27;,&#x27;w&#x27;)) and its items use IDs F-01, F-02, F-CONF-... The live register uses F01-F33 (no hyphen). It is not in CI, and this session did not run it.</dd>
+            <dt>Why it matters</dt><dd>Running it would replace the Flagged for Review register rather than append to it, which would drop published items with their evidence links.</dd>
+            <dt>Could not confirm</dt><dd>Whether any other workflow runs build_flagged.py. None was found in .github/workflows.</dd>
+            <dt>Effect on the lines</dt><dd>None.</dd>
+            <dt>Action needed</dt><dd>Owner decision: retire build_flagged.py or make it append-only with the F01 scheme.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://github.com/sassnarep3-star/FL3/blob/main/scripts/build_flagged.py" target="_blank" rel="noopener">Generator source (repo)</a></li><li><a class="src" href="https://github.com/sassnarep3-star/FL3/blob/main/data/flagged.json" target="_blank" rel="noopener">Live register (repo)</a></li></ul>
+        </article>
+        <article class="flag" id="F34">
+          <header>
+            <h3><span class="sid">F34</span> Offline snapshot-capture test fails on the base commit (7 of 8), contrary to the recorded 8/8 PASS</h3>
+            <div><span class="badge warn">medium severity</span> <span class="badge warn">open</span></div>
+          </header>
+          <dl>
+            <dt>Observed</dt><dd>scripts/test_capture_offline.py reports &#x27;FAIL wrong-week needle -&gt; rc2&#x27; and &#x27;SOME TESTS FAILED&#x27; on main@968c4c6 before any change in this session; the same test is recorded as &#x27;8/8 PASS&#x27; in the completion record of session arena/6c7144be-fl3 (COORDINATION.md).</dd>
+            <dt>Why it matters</dt><dd>The scheduled capture guard relies on this test&#x27;s needle logic. A failing offline test means the wrong-week branch is not proven, even though the live capture was recorded as working.</dd>
+            <dt>Could not confirm</dt><dd>Whether the failure is caused by the test&#x27;s fixture or by the capture script, and which of the two is the intended behaviour.</dd>
+            <dt>Effect on the lines</dt><dd>None. The test covers capture logic only; no line, score or published number depends on it.</dd>
+            <dt>Action needed</dt><dd>Owner decision: fix the test fixture or the capture branch, then re-record the result in COORDINATION.md.</dd>
+          </dl>
+          <ul class="evid"><li><a class="src" href="https://github.com/sassnarep3-star/FL3/blob/main/scripts/test_capture_offline.py" target="_blank" rel="noopener">Failing test (repo)</a></li><li><a class="src" href="https://www.nfl.com/injuries/league/2026/reg10" target="_blank" rel="noopener">Official Week 10 injury report (capture target)</a></li></ul>
         </article>
 
 </main>
