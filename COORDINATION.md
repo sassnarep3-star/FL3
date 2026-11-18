@@ -2328,3 +2328,13 @@ likely candidates given this session's changes are a count that drifted in a gen
 already caught and asserted this session: Week 10 "twelve" vs "thirteen", and the Week 11 bye
 arithmetic) or an assertion whose threshold assumes a page that another session has since extended.
 Do not "fix" it by loosening an assertion without first reading which number it disagreed with.
+
+---
+
+# Session `arena/9f527e7c-fl3` — claim and verification fix (2026-11-18 UTC)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T43 — Repair the offline snapshot-capture test whose expected result no longer matches the classifier's documented `not_published_yet` behavior; re-run the relevant test and site verification | **in progress** | `arena/9f527e7c-fl3` | `scripts/test_capture_offline.py`, `COORDINATION.md` |
+
+Scope is limited to the stale test assertion and this session record. No snapshot data or production capture behavior is changed. Existing test evidence: `scripts/capture_official_snapshot.py --selftest` passes; `scripts/test_capture_offline.py` fails only because its Week 17 request uses a synthetic Week 11 page and expects a drift error, while the classifier intentionally treats an earlier served week as `not_published_yet`.
