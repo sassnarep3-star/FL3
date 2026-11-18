@@ -2572,9 +2572,10 @@ review. Historical build-inventory prose is explicitly labeled historical rather
   32/32 club reconciliation rows `MATCH`; LAC@BAL present in the explicit exclusion list.
 - Snapshot ledger row at `2026-11-18T03:14:46Z`: `redirected:reg10`, 402,343 bytes; source body and
   player rows are not stored. This records a redirect event only, not a fresh Week 11 injury report.
-- `python3 scripts/check_site.py`: 6,154 assertions, ALL CHECKS PASSED.
+- On the rebased combined tree, `python3 scripts/check_site.py`: 6,180 assertions, ALL CHECKS PASSED.
 - `python3 scripts/check_links.py`: 31 pages, 59 distinct external links; all internal links and
   anchors resolve, no orphan pages.
+- `python3 scripts/check_leaderboard_governance.py`: all 10 R010 governance checks passed.
 - `git diff --check`: passed.
 
 **Source limitation / irregularity:** no fresh NFL page fetch was performed for this README-only
