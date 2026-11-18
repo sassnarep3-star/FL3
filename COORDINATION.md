@@ -2390,3 +2390,38 @@ Strongest single check: `data/compare/corpus_identity_32clubs.csv` — games tra
 ## Not changed
 
 `models/**`, `verified/**`, `verify/**`, `docs/**`, `depth/**`, `site-9b181d31/**`, `legacy/**`, `data/flags.csv`, `data/requirements_readiness.csv`, `data/questions.csv`, `data/suggestions.csv`, `data/sources.csv`. New findings are filed in `data/compare/` so no other session's generator validates them. No other session's data was overwritten; every rebase onto `main` resolved conflicts by regeneration, keeping both sides' pages and nav entries.
+
+---
+
+
+## Session `arena/0c322b0e-fl3` — claim and closeout record
+
+**Branch:** `arena/0c322b0e-fl3`, base `main` @ `968c4c67eda04a0ffcb401f9bbb1556e0757db04` (identical to `main`/`origin/main` at session start).
+**Session ID:** `arena/0c322b0e-fl3`
+**Started:** 2026-11-18
+
+**Claim (shared-output rule respected):** This session touches only `COORDINATION.md` (this record) and `docs/EXECUTIVE_SUMMARY.md` (verification figures only). It does not touch `data/*`, root `*.html`, `scripts/*`, or any file claimed by another session. T35 (availability ablation) remains with `arena/4d2c9111-fl3`; no ablation file is read as evidence or changed here.
+
+**Scope:** final integration closeout — repo review against registered official sources, verification re-run, executive-summary refresh, build + verifier, PR from this branch to `main`, merge, GitHub Pages deploy confirmation, and this record.
+
+| Check | Result |
+|---|---|
+| `python3 scripts/check_site.py` | **6,154 assertions, ALL CHECKS PASSED** (rerun 2026-11-18) |
+| Official-source spot check | `https://www.nfl.com/standings/` read successfully; every checked-in dataset row carries a registered `https://` source (enforced by check D) |
+| Irregularities | 30 flagged items on `flagged.html` (open / resolved / accepted-risk), each with evidence links — none block merge |
+| Executive summary | `docs/EXECUTIVE_SUMMARY.md` refreshed with this session's assertion count |
+
+**Files touched:** `COORDINATION.md`, `docs/EXECUTIVE_SUMMARY.md`.
+
+**Closeout.**
+
+| Item | Value |
+|---|---|
+| PR | [#65 — SESSION arena/0c322b0e-fl3: final integration closeout — verified review, Pages deploy record](https://github.com/sassnarep3-star/FL3/pull/65) |
+| Merge result | **MERGED** into `main` at `e2d21ee6e5a05390ed84bbfea0b94084e934d598` on 2026-11-18T03:16:53Z via `gh pr merge 65 --merge`, no `--auto`, no approval waited |
+| Pre-merge CI | `Verify data and site` run 44229297134 success · `site` run 44229297207 success · `pages-build-deployment` run 44229296465 success |
+| Pages status | API `status: built`, `build_type: legacy`, source `main:/`, URL https://sassnarep3-star.github.io/FL3/ |
+| Live check | Homepage fetched after deploy: dashboard renders, readiness table and flagged links present, zero broken local targets (served root matches the verified commit tree) |
+| Session status | **Scope closed.** No dataset, page, script or ablation file claimed by another session was touched. |
+
+**Next-session note (from the board, unchanged):** the Week 10 `LAC@BAL` game was in the second quarter at capture and is excluded from all 149 games/ratings/scores; when final, record the correction in `data/official/results_feed.json`, re-run `scripts/build_frontier_data.py`, then the ablation and leaderboard.
