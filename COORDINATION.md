@@ -2360,3 +2360,17 @@ Do not "fix" it by loosening an assertion without first reading which number it 
 | Session status | **Scope closed.** No dataset, page, script or ablation file claimed by another session was touched. |
 
 **Next-session note (from the board, unchanged):** the Week 10 `LAC@BAL` game was in the second quarter at capture and is excluded from all 149 games/ratings/scores; when final, record the correction in `data/official/results_feed.json`, re-run `scripts/build_frontier_data.py`, then the ablation and leaderboard.
+---
+
+## Claim — session `arena/9285d6e9-fl3` (2026-11-18 UTC)
+
+Branch: `arena/9285d6e9-fl3` (fixed for this session; the `session-<id>/<task>` naming in the protocol is superseded by the branch note for this session). Base: `main@968c4c6`.
+
+Scope is deliberately small. The brief is larger than one session can verify; most items are blocked on data that this sandbox cannot license or fetch (market prices, the Texans depth image, authorised structured depth/transaction feeds). The two tasks below are bounded, checkable against official sources, and do not touch another claimed scope.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T-9285-A — R067: parse the official 2026 NFL rulebook for the kickoff / onside-kick rule text (verbatim quotes with page locations) and move R067 from UNVERIFIED to PARTIAL (rule text verified; regime prior still has no data and stays blank) | in progress | `arena/9285d6e9-fl3` | `data/official/rules_2026_kickoff.csv` (new), `data/requirements_readiness.csv` (R067 row), `scripts/build_readiness.py` (R067 row), `data/flags.csv` + `board/data/flags.csv` (appended FLG-067 only) |
+| T-9285-B — R010: machine-enforced governance guard. Every row of the retrospective ranking carries `dataset_type=RETROSPECTIVE_BACKTEST`; a new check fails the build if any backtest-origin row appears in a prospective leaderboard file | in progress | `arena/9285d6e9-fl3` | `scripts/build_leaderboard_v2.py`, `data/lab/leaderboard_v2.{csv,json}`, `scripts/check_leaderboard_governance.py` (new), `.github/workflows/verify.yml` (one step), `data/flags.csv` + `board/data/flags.csv` (appended FLG-068 only) |
+
+Sources: the 2026 rulebook landing page <https://operations.nfl.com/rules-officiating/2026-nfl-rulebook> and its PDF <https://static.www.nfl.com/image/upload/fl_attachment/league/tqivdkzt9mu6wdgsh1ku.pdf> (SRC-010, the registered official source).
