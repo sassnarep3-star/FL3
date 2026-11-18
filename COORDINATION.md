@@ -2413,7 +2413,6 @@ Strongest single check: `data/compare/corpus_identity_32clubs.csv` — games tra
 
 **Files touched:** `COORDINATION.md`, `docs/EXECUTIVE_SUMMARY.md`.
 
-<<<<<<< HEAD
 **Closeout.**
 
 | Item | Value |
@@ -2426,7 +2425,6 @@ Strongest single check: `data/compare/corpus_identity_32clubs.csv` — games tra
 | Session status | **Scope closed.** No dataset, page, script or ablation file claimed by another session was touched. |
 
 **Next-session note (from the board, unchanged):** the Week 10 `LAC@BAL` game was in the second quarter at capture and is excluded from all 149 games/ratings/scores; when final, record the correction in `data/official/results_feed.json`, re-run `scripts/build_frontier_data.py`, then the ablation and leaderboard.
-<<<<<<< HEAD
 ---
 
 ## Claim — session `arena/9285d6e9-fl3` (2026-11-18 UTC)
@@ -2478,9 +2476,6 @@ What was tested, all on a fresh depth-1 clone of the committed tree: default loc
 The `validate` gate's cause was the interpreter, not the content. `verify.yml`, `site.yml` and `snapshot.yml` pin Python 3.11. `pages.yml` did not pin any version, so it ran on the runner default (3.12 on ubuntu-latest). The fix pins 3.11 in `pages.yml` (commit `4302b57`). On PR #63 the run with that commit reports **validate pass** (run 44229847344), along with Recompute and verify (pass) and verify-and-build (pass). The earlier "not reproduced locally" note stands: the same tree passes under 3.11 locally, and the failure was specific to the 3.12 runner default. The ASCII-locale encoding fix (`de2710b`) remains a real and separate portability fix.
 
 **PR:** https://github.com/sassnarep3-star/FL3/pull/63
-=======
-=======
-**Closeout:** PR link, merge result and Pages deploy status are recorded below once the PR is merged.
 
 ---
 
@@ -2505,88 +2500,6 @@ other tracks are recorded in the ledger, not silently edited.
 **Verification rule.** Only `nfl.com`, `static.www.nfl.com`, `media.nfl.com` and club-operated sites
 (`*.com` team domains) are read as evidence; each row carries the URL read. Anything not readable from the
 page is left blank and marked NOT VERIFIED.
-<<<<<<< HEAD
->>>>>>> b475ee3 (Coordination: claim T-7C1..T-7C4 (session arena/7c189606-fl3))
-
----
-
-# Session `arena/7c189606-fl3` — claim (2026-11-18 UTC)
-
-**Session ID:** `arena/7c189606-fl3` · **Branch:** `arena/7c189606-fl3` (fixed by the session branch note; the
-`session-<id>/<task>` naming in the protocol above is superseded for this session) · **Base:** `main@968c4c6`.
-Open PRs checked before claiming: **#59** (`arena/3b7e0210-fl3`, compare-page wording fix, OPEN) — disjoint
-from this claim and not touched. No other session is active.
-
-| Task | Status | Owner | Files |
-|---|---|---|---|
-| T-7C1 — **Live official-source verification of the brief's open starter, depth and roster-turnover claims** (Lock/McCord/Brissett announcements, Baltimore QB depth vs. transactions, Malik Willis reserve-list status, Colts receiver-trade timing, Texans image depth chart, Packers jersey-number prefixes, Seattle shared / Washington empty depth slots). Each claim is fetched from the official page on 2026-11-18 and recorded as CONFIRMED / REFUTED / NOT VERIFIED with the URL read and the observed text. | **in progress** | `arena/7c189606-fl3` | `data/verification/brief_claims_2026-11-18.csv` + `.json` (new) |
-| T-7C2 — Update the readiness rows that depend on T-7C1 (R033, R037, R042, R053, R063–R066) in the generator, regenerate, and keep the coverage audit at 69/69 | **in progress** | `arena/7c189606-fl3` | `scripts/build_readiness.py` (ROWS only), `data/requirements_readiness.csv`, `data/requirement_coverage_audit.csv` |
-| T-7C3 — Publish the verification ledger on a labelled page (`verification-2026-11-18.html`), linked from the verify subsite and the Flagged for Review register | **in progress** | `arena/7c189606-fl3` | new page + `scripts/build_verify.py` (nav entry) only |
-| T-7C4 — Integration closeout: all suites, PR to `main`, merge, Pages check, record here | pending | `arena/7c189606-fl3` | `COORDINATION.md` |
-
-**Scope boundaries.** Not touched: `board/**`, `docs/**`, `depth/**`, `site-9b181d31/**`, `legacy/**`,
-`verified/**`, `models/**`, `.github/**`, and every root `*.html` other than the new page. Defects found in
-other tracks are recorded in the ledger, not silently edited.
-
-**Verification rule.** Only `nfl.com`, `static.www.nfl.com`, `media.nfl.com` and club-operated sites
-(`*.com` team domains) are read as evidence; each row carries the URL read. Anything not readable from the
-page is left blank and marked NOT VERIFIED.
-<<<<<<< HEAD
->>>>>>> 485dafe (Coordination: claim T-7C1..T-7C4 (session arena/7c189606-fl3))
-<<<<<<< HEAD
-=======
-**Closeout:** PR link, merge result and Pages deploy status are recorded below once the PR is merged.
-
----
-
-# Session `arena/7c189606-fl3` — claim (2026-11-18 UTC)
-
-**Session ID:** `arena/7c189606-fl3` · **Branch:** `arena/7c189606-fl3` (fixed by the session branch note; the
-`session-<id>/<task>` naming in the protocol above is superseded for this session) · **Base:** `main@968c4c6`.
-Open PRs checked before claiming: **#59** (`arena/3b7e0210-fl3`, compare-page wording fix, OPEN) — disjoint
-from this claim and not touched. No other session is active.
-
-| Task | Status | Owner | Files |
-|---|---|---|---|
-| T-7C1 — **Live official-source verification of the brief's open starter, depth and roster-turnover claims** (Lock/McCord/Brissett announcements, Baltimore QB depth vs. transactions, Malik Willis reserve-list status, Colts receiver-trade timing, Texans image depth chart, Packers jersey-number prefixes, Seattle shared / Washington empty depth slots). Each claim is fetched from the official page on 2026-11-18 and recorded as CONFIRMED / REFUTED / NOT VERIFIED with the URL read and the observed text. | **in progress** | `arena/7c189606-fl3` | `data/verification/brief_claims_2026-11-18.csv` `.json` (new) |
-| T-7C2 — Update the readiness rows that depend on T-7C1 (R033, R037, R042, R053, R063–R066) in the generator, regenerate, and keep the coverage audit at 69/69 | **in progress** | `arena/7c189606-fl3` | `scripts/build_readiness.py` (ROWS only), `data/requirements_readiness.csv`, `data/requirement_coverage_audit.csv` |
-| T-7C3 — Publish the verification ledger on a labelled page (`verification-2026-11-18.html`), linked from the verify subsite and the Flagged for Review register | **in progress** | `arena/7c189606-fl3` | new page `scripts/build_verify.py` (nav entry) only |
-| T-7C4 — Integration closeout: all suites, PR to `main`, merge, Pages check, record here | pending | `arena/7c189606-fl3` | `COORDINATION.md` |
-
-**Scope boundaries.** Not touched: `board/**`, `docs/**`, `depth/**`, `site-9b181d31/**`, `legacy/**`,
-`verified/**`, `models/**`, `.github/**`, and every root `*.html` other than the new page. Defects found in
-other tracks are recorded in the ledger, not silently edited.
-
-**Verification rule.** Only `nfl.com`, `static.www.nfl.com`, `media.nfl.com` and club-operated sites
-(`*.com` team domains) are read as evidence; each row carries the URL read. Anything not readable from the
-page is left blank and marked NOT VERIFIED.
->>>>>>> b475ee3 (Coordination: claim T-7C1..T-7C4 (session arena/7c189606-fl3))
-
----
-
-# Session `arena/7c189606-fl3` — claim (2026-11-18 UTC)
-
-**Session ID:** `arena/7c189606-fl3` · **Branch:** `arena/7c189606-fl3` (fixed by the session branch note; the
-`session-<id>/<task>` naming in the protocol above is superseded for this session) · **Base:** `main@968c4c6`.
-Open PRs checked before claiming: **#59** (`arena/3b7e0210-fl3`, compare-page wording fix, OPEN) — disjoint
-from this claim and not touched. No other session is active.
-
-| Task | Status | Owner | Files |
-|---|---|---|---|
-| T-7C1 — **Live official-source verification of the brief's open starter, depth and roster-turnover claims** (Lock/McCord/Brissett announcements, Baltimore QB depth vs. transactions, Malik Willis reserve-list status, Colts receiver-trade timing, Texans image depth chart, Packers jersey-number prefixes, Seattle shared / Washington empty depth slots). Each claim is fetched from the official page on 2026-11-18 and recorded as CONFIRMED / REFUTED / NOT VERIFIED with the URL read and the observed text. | **in progress** | `arena/7c189606-fl3` | `data/verification/brief_claims_2026-11-18.csv` `.json` (new) |
-| T-7C2 — Update the readiness rows that depend on T-7C1 (R033, R037, R042, R053, R063–R066) in the generator, regenerate, and keep the coverage audit at 69/69 | **in progress** | `arena/7c189606-fl3` | `scripts/build_readiness.py` (ROWS only), `data/requirements_readiness.csv`, `data/requirement_coverage_audit.csv` |
-| T-7C3 — Publish the verification ledger on a labelled page (`verification-2026-11-18.html`), linked from the verify subsite and the Flagged for Review register | **in progress** | `arena/7c189606-fl3` | new page `scripts/build_verify.py` (nav entry) only |
-| T-7C4 — Integration closeout: all suites, PR to `main`, merge, Pages check, record here | pending | `arena/7c189606-fl3` | `COORDINATION.md` |
-
-**Scope boundaries.** Not touched: `board/**`, `docs/**`, `depth/**`, `site-9b181d31/**`, `legacy/**`,
-`verified/**`, `models/**`, `.github/**`, and every root `*.html` other than the new page. Defects found in
-other tracks are recorded in the ledger, not silently edited.
-
-**Verification rule.** Only `nfl.com`, `static.www.nfl.com`, `media.nfl.com` and club-operated sites
-(`*.com` team domains) are read as evidence; each row carries the URL read. Anything not readable from the
-page is left blank and marked NOT VERIFIED.
-=======
-=======
 
 ## Completion record — `arena/7c189606-fl3` (2026-11-18 UTC)
 
@@ -2633,171 +2546,13 @@ page is left blank and marked NOT VERIFIED.
 ### Branch note
 
 This session worked on the branch named by its branch note (`arena/7c189606-fl3`), not on `session-<id>/<task>` branches, as the Arena branch rule requires. Protocol references to `session-*` names are read as the same rule.
->>>>>>> e90912e (Brief claims: live official-source verification ledger (18 rows), readiness overlay for R033/R037/R042/R053/R063-R066, verify/brief-claims.html with Flagged for Review; regenerated outputs)
 
-## Completion record — `arena/7c189606-fl3` (2026-11-18 UTC)
-
-| Task | Status | Result |
-|---|---|---|
-| T-7C1 — Live official-source verification of the brief's starter, depth and roster-turnover claims | **done** | 18 ledger rows in `data/verification/brief_claims_2026-11-18.{json,csv}`: **9 CONFIRMED, 2 REFUTED, 1 STALE, 3 OBSERVED, 1 CARRIED, 2 NOT VERIFIED**. Every row carries its source URL(s). |
-| T-7C2 — Readiness rows that depend on T-7C1 | **done** | `scripts/build_readiness.py` OVERLAY updated for R033, R037, R042, R053, R063, R064, R065, R066 (R066 → VERIFIED for the claim check; the feature itself stays open). Coverage audit still 69/69 (`check_coverage_audit.py` PASS). |
-| T-7C3 — Labelled ledger page with a Flagged for Review section | **done** | `verify/brief-claims.html` (new), generated by `scripts/build_verify.py` (nav entry added to every verify page); `scripts/check_verify.py` 313 assertions PASS. |
-| T-7C4 — Integration closeout | **in progress** (PR and merge record below) | — |
-
-### Sources (all read on 2026-11-18; registered as SRC-024 … SRC-036 in `data/sources.csv`)
-
-- NFL.com: Lock article [SRC-024](https://www.nfl.com/news/drew-lock-no-injury-designation-seahawks-raiders); Willis / McCord article [SRC-025](https://www.nfl.com/news/dolphins-place-qb-malik-willis-groin-on-injured-reserve-kyle-mccord-in-line-for-first-start); Week 10 injury report [SRC-018](https://www.nfl.com/injuries/league/2026/reg10); LAC@BAL game centre [SRC-029](https://www.nfl.com/games/chargers-at-ravens-2026-reg-10).
-- NFL Game Summary PDFs (linked from the game centres): SEA@LV 11/15 [SRC-026](https://static.www.nfl.com/image/upload/v1794787399/gamecenter/ab78a43c-4feb-11f1-abca-2c54536568a9.pdf); MIA@IND 11/15 [SRC-027](https://static.www.nfl.com/image/upload/v1794777736/gamecenter/ab789365-4feb-11f1-abca-2c54536568a9.pdf); LAC@BAL 11/16 [SRC-028](https://static.www.nfl.com/image/upload/v1794916121/gamecenter/ab78ad5a-4feb-11f1-abca-2c54536568a9.pdf).
-- Club sites (official team sites): Ravens article [SRC-030](https://www.baltimoreravens.com/news/jacoby-brissett-ravens-trade-cardinals-finalize-2026); depth charts for Ravens [SRC-031](https://www.baltimoreravens.com/team/depth-chart/), Seahawks [SRC-032](https://www.seahawks.com/team/depth-chart/), Commanders [SRC-033](https://www.commanders.com/team/depth-chart/), Texans [SRC-034](https://www.houstontexans.com/team/depth-chart/), Packers [SRC-035](https://www.packers.com/team/depth-chart/); Colts Week 10 article [SRC-036](https://www.colts.com/news/colts-release-unofficial-depth-chart-for-week-10).
-- Third-party reporting was used only to find the pages above, and is not counted as evidence (BC-08).
-
-### Verification performed
-
-- Each NFL.com article and each club page was fetched and its text compared with the claim. Quoted text in the ledger is verbatim from the fetched page.
-- Starter claims were checked against the Game Book lineup for the same game (SEA@LV, MIA@IND, LAC@BAL), not against headlines.
-- Lions game statuses (BC-01) were re-read on the live Week 10 page and compared with the repo's published rows (both read Out).
-- **Not re-verified today:** the Week 10 injury-table row counts (BC-17, carried from the 2026-11-17 recount), and the absence of Malik Willis from the report (carried in BC-05).
-- Suites on the branch, after regeneration: `build_site.py`, `check_site.py` (6,190 assertions PASS), `build_verified_site.py` + `check_verified_site.py` (645 PASS), `build_verify.py` + `check_verify.py` (313 PASS), `build_coverage_audit.py` + `check_coverage_audit.py` (PASS), `build_readiness.py --check` (OK, 75), `build_board.py --check` (31 pages), `check_links.py` (PASS), `verify_live.py --check` (no diff), `verify.py` (G-10 PASS, the existing V-09b non-blocking note), `build_compare.py` + `build_crosscheck.py` (identities hold).
-
-### Irregularities (published on `verify/brief-claims.html`, Flagged for Review section; do not block)
-
-1. **BC-09 — stale depth row.** The Seahawks depth chart (undated) lists Darnold QB1. The 11/15 Game Book shows Darnold Not Active and Lock starting.
-2. **BC-07 — brief claim refuted.** The Ravens depth chart does not list Lamar Jackson or Tyler Huntley at QB.
-3. **BC-08 — not verified.** No official page read today states an injured-reserve designation for Jackson or Huntley.
-4. **BC-15 — club labels.** The Texans chart is headed "Unofficial Depth Chart", the Packers chart "Unofficial, Nov. 10, 2026", and the Colts chart "unofficial". Whether a club-labelled "unofficial" chart is admissible for route (a) of R042 is an owner decision (SG-17).
-5. **BC-12 / BC-18 — Texans image.** The depth chart is an image with no text. No structured source was found, so no rows are transcribed.
-6. **BC-14 — duplicate entry.** The Packers chart lists 27 Kitan Oladapo in both S rows.
-7. **BC-16 — multi-slot players.** The Ravens chart lists Ryan Neuzil twice (LG, C), Carson Vinson twice (LT, RT), and Mike Green twice (RUSH, SAM).
-8. **BC-11 — blank cell.** The Commanders WR row for Antonio Williams has a blank second cell. Whether the club intends it as an empty slot is not established.
-9. **BC-01 — brief claim refuted.** The Lions' three game statuses are not blank: all three read Out on the live page.
-
-### Request for the integration session (not performed here — shared outputs)
-
-- Add the Flagged for Review items above to the root `flagged.html` (generated from the shared flag register). This session kept `data/flags.csv` (board track) untouched.
-- Link `verify/brief-claims.html` from the root landing page's decision-readiness table if the owner wants it there (the register rows point to it).
-- Refresh the Week 10 injury-table counts with a fresh capture (BC-17 is still carried, not re-counted).
-
-### Branch note
-
-This session worked on the branch named by its branch note (`arena/7c189606-fl3`), not on `session-<id>/<task>` branches, as the Arena branch rule requires. Protocol references to `session-*` names are read as the same rule.
-<<<<<<< HEAD
->>>>>>> 13a6e07 (Brief claims: live official-source verification ledger (18 rows), readiness overlay for R033/R037/R042/R053/R063-R066, verify/brief-claims.html with Flagged for Review; regenerated outputs)
-<<<<<<< HEAD
-=======
-
-## Completion record — `arena/7c189606-fl3` (2026-11-18 UTC)
-
-| Task | Status | Result |
-|---|---|---|
-| T-7C1 — Live official-source verification of the brief's starter, depth and roster-turnover claims | **done** | 18 ledger rows in `data/verification/brief_claims_2026-11-18.{json,csv}`: **9 CONFIRMED, 2 REFUTED, 1 STALE, 3 OBSERVED, 1 CARRIED, 2 NOT VERIFIED**. Every row carries its source URL(s). |
-| T-7C2 — Readiness rows that depend on T-7C1 | **done** | `scripts/build_readiness.py` OVERLAY updated for R033, R037, R042, R053, R063, R064, R065, R066 (R066 → VERIFIED for the claim check; the feature itself stays open). Coverage audit still 69/69 (`check_coverage_audit.py` PASS). |
-| T-7C3 — Labelled ledger page with a Flagged for Review section | **done** | `verify/brief-claims.html` (new), generated by `scripts/build_verify.py` (nav entry added to every verify page); `scripts/check_verify.py` 313 assertions PASS. |
-| T-7C4 — Integration closeout | **in progress** (PR and merge record below) | — |
-
-### Sources (all read on 2026-11-18; registered as SRC-024 … SRC-036 in `data/sources.csv`)
-
-- NFL.com: Lock article [SRC-024](https://www.nfl.com/news/drew-lock-no-injury-designation-seahawks-raiders); Willis / McCord article [SRC-025](https://www.nfl.com/news/dolphins-place-qb-malik-willis-groin-on-injured-reserve-kyle-mccord-in-line-for-first-start); Week 10 injury report [SRC-018](https://www.nfl.com/injuries/league/2026/reg10); LAC@BAL game centre [SRC-029](https://www.nfl.com/games/chargers-at-ravens-2026-reg-10).
-- NFL Game Summary PDFs (linked from the game centres): SEA@LV 11/15 [SRC-026](https://static.www.nfl.com/image/upload/v1794787399/gamecenter/ab78a43c-4feb-11f1-abca-2c54536568a9.pdf); MIA@IND 11/15 [SRC-027](https://static.www.nfl.com/image/upload/v1794777736/gamecenter/ab789365-4feb-11f1-abca-2c54536568a9.pdf); LAC@BAL 11/16 [SRC-028](https://static.www.nfl.com/image/upload/v1794916121/gamecenter/ab78ad5a-4feb-11f1-abca-2c54536568a9.pdf).
-- Club sites (official team sites): Ravens article [SRC-030](https://www.baltimoreravens.com/news/jacoby-brissett-ravens-trade-cardinals-finalize-2026); depth charts for Ravens [SRC-031](https://www.baltimoreravens.com/team/depth-chart/), Seahawks [SRC-032](https://www.seahawks.com/team/depth-chart/), Commanders [SRC-033](https://www.commanders.com/team/depth-chart/), Texans [SRC-034](https://www.houstontexans.com/team/depth-chart/), Packers [SRC-035](https://www.packers.com/team/depth-chart/); Colts Week 10 article [SRC-036](https://www.colts.com/news/colts-release-unofficial-depth-chart-for-week-10).
-- Third-party reporting was used only to find the pages above, and is not counted as evidence (BC-08).
-
-### Verification performed
-
-- Each NFL.com article and each club page was fetched and its text compared with the claim. Quoted text in the ledger is verbatim from the fetched page.
-- Starter claims were checked against the Game Book lineup for the same game (SEA@LV, MIA@IND, LAC@BAL), not against headlines.
-- Lions game statuses (BC-01) were re-read on the live Week 10 page and compared with the repo's published rows (both read Out).
-- **Not re-verified today:** the Week 10 injury-table row counts (BC-17, carried from the 2026-11-17 recount), and the absence of Malik Willis from the report (carried in BC-05).
-- Suites on the branch, after regeneration: `build_site.py`, `check_site.py` (6,190 assertions PASS), `build_verified_site.py` `check_verified_site.py` (645 PASS), `build_verify.py` `check_verify.py` (313 PASS), `build_coverage_audit.py` `check_coverage_audit.py` (PASS), `build_readiness.py --check` (OK, 75), `build_board.py --check` (31 pages), `check_links.py` (PASS), `verify_live.py --check` (no diff), `verify.py` (G-10 PASS, the existing V-09b non-blocking note), `build_compare.py` `build_crosscheck.py` (identities hold).
-
-### Irregularities (published on `verify/brief-claims.html`, Flagged for Review section; do not block)
-
-1. **BC-09 — stale depth row.** The Seahawks depth chart (undated) lists Darnold QB1. The 11/15 Game Book shows Darnold Not Active and Lock starting.
-2. **BC-07 — brief claim refuted.** The Ravens depth chart does not list Lamar Jackson or Tyler Huntley at QB.
-3. **BC-08 — not verified.** No official page read today states an injured-reserve designation for Jackson or Huntley.
-4. **BC-15 — club labels.** The Texans chart is headed "Unofficial Depth Chart", the Packers chart "Unofficial, Nov. 10, 2026", and the Colts chart "unofficial". Whether a club-labelled "unofficial" chart is admissible for route (a) of R042 is an owner decision (SG-17).
-5. **BC-12 / BC-18 — Texans image.** The depth chart is an image with no text. No structured source was found, so no rows are transcribed.
-6. **BC-14 — duplicate entry.** The Packers chart lists 27 Kitan Oladapo in both S rows.
-7. **BC-16 — multi-slot players.** The Ravens chart lists Ryan Neuzil twice (LG, C), Carson Vinson twice (LT, RT), and Mike Green twice (RUSH, SAM).
-8. **BC-11 — blank cell.** The Commanders WR row for Antonio Williams has a blank second cell. Whether the club intends it as an empty slot is not established.
-9. **BC-01 — brief claim refuted.** The Lions' three game statuses are not blank: all three read Out on the live page.
-
-### Request for the integration session (not performed here — shared outputs)
-
-- Add the Flagged for Review items above to the root `flagged.html` (generated from the shared flag register). This session kept `data/flags.csv` (board track) untouched.
-- Link `verify/brief-claims.html` from the root landing page's decision-readiness table if the owner wants it there (the register rows point to it).
-- Refresh the Week 10 injury-table counts with a fresh capture (BC-17 is still carried, not re-counted).
-
-### Branch note
-
-This session worked on the branch named by its branch note (`arena/7c189606-fl3`), not on `session-<id>/<task>` branches, as the Arena branch rule requires. Protocol references to `session-*` names are read as the same rule.
->>>>>>> e90912e (Brief claims: live official-source verification ledger (18 rows), readiness overlay for R033/R037/R042/R053/R063-R066, verify/brief-claims.html with Flagged for Review; regenerated outputs)
-
-## Completion record — `arena/7c189606-fl3` (2026-11-18 UTC)
-
-| Task | Status | Result |
-|---|---|---|
-| T-7C1 — Live official-source verification of the brief's starter, depth and roster-turnover claims | **done** | 18 ledger rows in `data/verification/brief_claims_2026-11-18.{json,csv}`: **9 CONFIRMED, 2 REFUTED, 1 STALE, 3 OBSERVED, 1 CARRIED, 2 NOT VERIFIED**. Every row carries its source URL(s). |
-| T-7C2 — Readiness rows that depend on T-7C1 | **done** | `scripts/build_readiness.py` OVERLAY updated for R033, R037, R042, R053, R063, R064, R065, R066 (R066 → VERIFIED for the claim check; the feature itself stays open). Coverage audit still 69/69 (`check_coverage_audit.py` PASS). |
-| T-7C3 — Labelled ledger page with a Flagged for Review section | **done** | `verify/brief-claims.html` (new), generated by `scripts/build_verify.py` (nav entry added to every verify page); `scripts/check_verify.py` 313 assertions PASS. |
-| T-7C4 — Integration closeout | **in progress** (PR and merge record below) | — |
-
-### Sources (all read on 2026-11-18; registered as SRC-024 … SRC-036 in `data/sources.csv`)
-
-- NFL.com: Lock article [SRC-024](https://www.nfl.com/news/drew-lock-no-injury-designation-seahawks-raiders); Willis / McCord article [SRC-025](https://www.nfl.com/news/dolphins-place-qb-malik-willis-groin-on-injured-reserve-kyle-mccord-in-line-for-first-start); Week 10 injury report [SRC-018](https://www.nfl.com/injuries/league/2026/reg10); LAC@BAL game centre [SRC-029](https://www.nfl.com/games/chargers-at-ravens-2026-reg-10).
-- NFL Game Summary PDFs (linked from the game centres): SEA@LV 11/15 [SRC-026](https://static.www.nfl.com/image/upload/v1794787399/gamecenter/ab78a43c-4feb-11f1-abca-2c54536568a9.pdf); MIA@IND 11/15 [SRC-027](https://static.www.nfl.com/image/upload/v1794777736/gamecenter/ab789365-4feb-11f1-abca-2c54536568a9.pdf); LAC@BAL 11/16 [SRC-028](https://static.www.nfl.com/image/upload/v1794916121/gamecenter/ab78ad5a-4feb-11f1-abca-2c54536568a9.pdf).
-- Club sites (official team sites): Ravens article [SRC-030](https://www.baltimoreravens.com/news/jacoby-brissett-ravens-trade-cardinals-finalize-2026); depth charts for Ravens [SRC-031](https://www.baltimoreravens.com/team/depth-chart/), Seahawks [SRC-032](https://www.seahawks.com/team/depth-chart/), Commanders [SRC-033](https://www.commanders.com/team/depth-chart/), Texans [SRC-034](https://www.houstontexans.com/team/depth-chart/), Packers [SRC-035](https://www.packers.com/team/depth-chart/); Colts Week 10 article [SRC-036](https://www.colts.com/news/colts-release-unofficial-depth-chart-for-week-10).
-- Third-party reporting was used only to find the pages above, and is not counted as evidence (BC-08).
-
-### Verification performed
-
-- Each NFL.com article and each club page was fetched and its text compared with the claim. Quoted text in the ledger is verbatim from the fetched page.
-- Starter claims were checked against the Game Book lineup for the same game (SEA@LV, MIA@IND, LAC@BAL), not against headlines.
-- Lions game statuses (BC-01) were re-read on the live Week 10 page and compared with the repo's published rows (both read Out).
-- **Not re-verified today:** the Week 10 injury-table row counts (BC-17, carried from the 2026-11-17 recount), and the absence of Malik Willis from the report (carried in BC-05).
-- Suites on the branch, after regeneration: `build_site.py`, `check_site.py` (6,190 assertions PASS), `build_verified_site.py` `check_verified_site.py` (645 PASS), `build_verify.py` `check_verify.py` (313 PASS), `build_coverage_audit.py` `check_coverage_audit.py` (PASS), `build_readiness.py --check` (OK, 75), `build_board.py --check` (31 pages), `check_links.py` (PASS), `verify_live.py --check` (no diff), `verify.py` (G-10 PASS, the existing V-09b non-blocking note), `build_compare.py` `build_crosscheck.py` (identities hold).
-
-### Irregularities (published on `verify/brief-claims.html`, Flagged for Review section; do not block)
-
-1. **BC-09 — stale depth row.** The Seahawks depth chart (undated) lists Darnold QB1. The 11/15 Game Book shows Darnold Not Active and Lock starting.
-2. **BC-07 — brief claim refuted.** The Ravens depth chart does not list Lamar Jackson or Tyler Huntley at QB.
-3. **BC-08 — not verified.** No official page read today states an injured-reserve designation for Jackson or Huntley.
-4. **BC-15 — club labels.** The Texans chart is headed "Unofficial Depth Chart", the Packers chart "Unofficial, Nov. 10, 2026", and the Colts chart "unofficial". Whether a club-labelled "unofficial" chart is admissible for route (a) of R042 is an owner decision (SG-17).
-5. **BC-12 / BC-18 — Texans image.** The depth chart is an image with no text. No structured source was found, so no rows are transcribed.
-6. **BC-14 — duplicate entry.** The Packers chart lists 27 Kitan Oladapo in both S rows.
-7. **BC-16 — multi-slot players.** The Ravens chart lists Ryan Neuzil twice (LG, C), Carson Vinson twice (LT, RT), and Mike Green twice (RUSH, SAM).
-8. **BC-11 — blank cell.** The Commanders WR row for Antonio Williams has a blank second cell. Whether the club intends it as an empty slot is not established.
-9. **BC-01 — brief claim refuted.** The Lions' three game statuses are not blank: all three read Out on the live page.
-
-### Request for the integration session (not performed here — shared outputs)
-
-- Add the Flagged for Review items above to the root `flagged.html` (generated from the shared flag register). This session kept `data/flags.csv` (board track) untouched.
-- Link `verify/brief-claims.html` from the root landing page's decision-readiness table if the owner wants it there (the register rows point to it).
-- Refresh the Week 10 injury-table counts with a fresh capture (BC-17 is still carried, not re-counted).
-
-### Branch note
-
-This session worked on the branch named by its branch note (`arena/7c189606-fl3`), not on `session-<id>/<task>` branches, as the Arena branch rule requires. Protocol references to `session-*` names are read as the same rule.
-=======
 
 ### Progress update — `arena/7c189606-fl3` (T-7C1..T-7C4), 2026-11-18
 
-- Rebase onto `origin/main` `0a1f836` completed (conflict in COORDINATION.md resolved as a union; no other session's work discarded).
-- Full local check set re-run on the rebased tree: build_readiness --check OK (75 / 53 linked / 22 source-gap); build_verify OK; check_verify PASS; build_coverage_audit + check_coverage_audit PASS (69/69, 89 internal links); build_site, build_board, check_site, check_verified_site, check_links, verify_live --check (no diff), verify.py, build_compare, build_crosscheck: no diffs and all checks passed.
-- SRC-027 (Dolphins @ Colts Game Book): URL cross-checked against `data/official/game_books_week10.json` (`gamebook_pdf`, `…ab789365….pdf`). Match; no correction needed.
-- BC-14 (Packers duplicate S, Oladapo #27 in both S rows) re-checked on packers.com depth chart (Unofficial, Nov. 10, 2026). Confirmed; stays OBSERVED.
-- BC-16 (Ravens multi-slot: Mike Green at RUSH and SAM; Ryan Neuzil at LG and C) re-checked on baltimoreravens.com depth chart chunk 0. Confirmed; stays OBSERVED.
-- Colts Week 11 (vs HOU, Thu Nov 19): colts.com "Colts release unofficial depth chart for Week 11" (Nov 16, 2026) lists QB order Daniel Jones, Anthony Richardson Sr., Riley Leonard. This is a club depth-chart order, not an announced starter; the game has not been played. Not treated as starter evidence. R066 VERIFIED stays scoped to the four named items (Lock, McCord, Brissett, Colts Week 10 trades). Colts Week 11 starter: NOT VERIFIED.
-- Handoff note for integration: Colts Week 11 starter should be re-checked after the Game Book for CLE/HOU Week 11 is published.
->>>>>>> 3d4f128 (Coordination: progress update after rebase; re-check SRC-027, BC-14, BC-16; Colts Week 11 depth chart logged as not a starter)
-
-### Progress update — `arena/7c189606-fl3` (T-7C1..T-7C4), 2026-11-18
-
-- Rebase onto `origin/main` `0a1f836` completed (conflict in COORDINATION.md resolved as a union; no other session's work discarded).
-- Full local check set re-run on the rebased tree: build_readiness --check OK (75 / 53 linked / 22 source-gap); build_verify OK; check_verify PASS; build_coverage_audit + check_coverage_audit PASS (69/69, 89 internal links); build_site, build_board, check_site, check_verified_site, check_links, verify_live --check (no diff), verify.py, build_compare, build_crosscheck: no diffs and all checks passed.
-- SRC-027 (Dolphins @ Colts Game Book): URL cross-checked against `data/official/game_books_week10.json` (`gamebook_pdf`, `…ab789365….pdf`). Match; no correction needed.
-- BC-14 (Packers duplicate S, Oladapo #27 in both S rows) re-checked on packers.com depth chart (Unofficial, Nov. 10, 2026). Confirmed; stays OBSERVED.
-- BC-16 (Ravens multi-slot: Mike Green at RUSH and SAM; Ryan Neuzil at LG and C) re-checked on baltimoreravens.com depth chart chunk 0. Confirmed; stays OBSERVED.
-- Colts Week 11 (vs HOU, Thu Nov 19): colts.com "Colts release unofficial depth chart for Week 11" (Nov 16, 2026) lists QB order Daniel Jones, Anthony Richardson Sr., Riley Leonard. This is a club depth-chart order, not an announced starter; the game has not been played. Not treated as starter evidence. R066 VERIFIED stays scoped to the four named items (Lock, McCord, Brissett, Colts Week 10 trades). Colts Week 11 starter: NOT VERIFIED.
-- Handoff note for integration: Colts Week 11 starter should be re-checked after the Game Book for CLE/HOU Week 11 is published.
-- PR #66 `validate` (run 44229795510, head `7f9abc6`) failed at "Verify the root site" (`check_site.py`). Same commit passed `verify.yml` (python 3.11). Cause: `pages.yml` validate ran on the runner default `python3`, not 3.11. Fix: `actions/setup-python@v5` pinned to 3.11 in the `validate` job (matches `verify.yml`/`site.yml`). Logged as a handoff; no site content changed.
-- PR #66 `validate` (run 44229795510, head `7f9abc6`) failed at "Verify the root site" (`check_site.py`). Same commit passed `verify.yml` (python 3.11). Cause: `pages.yml` validate ran on the runner default `python3`, not 3.11. Fix: `actions/setup-python@v5` pinned to 3.11 in the `validate` job (matches `verify.yml`/`site.yml`). Logged as a handoff; no site content changed.
+- Rebased onto `origin/main` (now at `55d8224`, after PRs #63, #64, #68). COORDINATION.md conflicts resolved by keeping `main`'s content and appending this session's sections once; no other session's record was dropped.
+- Local suites re-run on the rebased tree and passing: `build_readiness.py --check` (75 requirements; 53 linked; 22 source-gap), `build_verify.py`, `check_verify.py`, `build_coverage_audit.py` + `check_coverage_audit.py` (69/69), `build_site.py`, `check_site.py`, `build_board.py --check`, `check_links.py`, `build_verified_site.py`, `check_verified_site.py`, `verify_live.py --check`, `verify.py`, `build_compare.py`, `build_crosscheck.py`.
+- SRC-027 (Dolphins @ Colts Game Book): URL cross-checked against `data/official/game_books_week10.json` (`gamebook_pdf`, `ab789365…pdf`). Match; no correction needed.
+- BC-14 (Packers duplicate S: #27 Kitan Oladapo in both S rows) and BC-16 (Ravens multi-slot: Mike Green at RUSH and SAM; Ryan Neuzil at LG and C) re-checked on the club depth-chart pages. Both confirmed; both stay OBSERVED and flagged.
+- Colts Week 11 (vs HOU, Thu Nov 19): colts.com "Colts release unofficial depth chart for Week 11" (Nov 16, 2026) lists QB order Daniel Jones, Anthony Richardson Sr., Riley Leonard. This is a club depth-chart order, not an announced starter, and the game is not yet played. Not used as starter evidence. R066 `VERIFIED` stays scoped to the four named items (Lock, McCord, Brissett, Colts Week 10 trades). Colts Week 11 starter: NOT VERIFIED. Re-check after the CLE/HOU Week 11 Game Book is published.
+- PR #66 `validate` run 44229795510 (head `7f9abc6`) failed at "Verify the root site" (`check_site.py`). The same commit passed `verify.yml` (Python 3.11). Cause: `pages.yml` validate ran on the runner default `python3`. `main` already pinned Python 3.11 in `pages.yml` (`4302b57`); this branch takes `main`'s version, so no second change is made here.
