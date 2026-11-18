@@ -19,7 +19,7 @@
 |---|---|---|---|
 | `arena/9d05cb63-fl3` | `arena/9d05cb63-fl3` | Repo review, official-source verification, and session closeout (PR + merge + Pages deploy record). No dataset or page content changed; only COORDINATION.md session records. | 2026-11-16 |
 | `arena/4d2c9111-fl3` | `arena/4d2c9111-fl3` | T35: injury/availability ablation with chronological holdout and uncertainty (R028/R029). New ablation script + datasets + `ablations.html` page; wired into root nav, board PAGES, and verifiers. | 2026-11-17 |
-| `arena/ce068000-fl3` | `arena/ce068000-fl3` | T43: independent acceptance verification of the current tree, existing validation suites, and published-site/deploy status; read-only except this coordination record. No dataset or generated-site edits. | 2026-11-18 |
+| `arena/ce068000-fl3` | `arena/ce068000-fl3` | T44: independent acceptance verification of the current tree, validation suites, and published-site/deploy status; read-only except this coordination record. No dataset or generated-site edits. | 2026-11-18 |
 
 Other sessions: **one competing session was discovered after this session's first push.**
 
@@ -66,12 +66,37 @@ and both pushed before either claim was visible. This is the exact race the prot
 | T18 | Archive the competing blueprint without discarding it | **done** | `arena-e8bf2075` | `legacy/**` |
 | T19 | Fold the other session's findings into the registers | **done** | `arena-e8bf2075` | `data/flagged.json`, `data/decisions.json`, `data/suggestions.json` |
 | T35 | Injury/availability ablation with chronological holdout and uncertainty (R028/R029) — compare the identical line model with and without verified availability features on a chronological holdout; publish MAE/RMSE/Brier with bootstrap CIs and an explicit n; no backtest numbers on the leaderboard | **in progress** | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
-| T43 | Independent acceptance verification of the current tree, validation suites, and published-site/deploy status; read-only audit, findings recorded here | **in progress** | `arena/ce068000-fl3` | `COORDINATION.md` only |
+| T44 | Independent acceptance verification of the current tree, validation suites, and published-site/deploy status; read-only audit, findings recorded here | **done** | `arena/ce068000-fl3` | `COORDINATION.md` only |
 
 **File ownership rule for future sessions:** `data/standings.json`, `data/sources.json`,
 `data/flagged.json` and every `*.html` at repo root are **shared outputs**. They are regenerated
 by `scripts/build_site.py`; change them only through the generator, and only in an integration
 task. `scripts/build_site.py` is single-owner at a time.
+
+---
+
+## T44 independent acceptance verification (2026-11-18 UTC)
+
+**Scope and rule.** Read-only audit of the repository's existing artefacts and validators, plus GitHub Pages/Actions metadata. No NFL dataset was changed and no live nfl.com fetch was performed; therefore this session does not make a new claim that any 2026 player, game, injury, line, or result fact is currently up to date. Existing point-in-time claims remain governed by their cited source captures and dated acceptance audit.
+
+**Results on the checked-out tree:**
+
+| Check | Result |
+|---|---|
+| `scripts/check_site.py` | PASS — 6,154 assertions |
+| `scripts/check_verified_site.py` | PASS — 645 assertions |
+| `scripts/check_verify.py` | PASS — 203 assertions |
+| `scripts/check_links.py` | PASS — 31 pages, 59 distinct external links, no broken links or orphans |
+| `scripts/verify_depth.py` + `scripts/check_depth_links.py` | PASS — 16 checks, 0 warnings, 0 failures; links pass |
+| `scripts/verify_live.py --check` + `scripts/check_coverage_audit.py` | PASS — 15 claims classified; 69 requirements mapped, 89 internal links, 3 NFL external links |
+| `scripts/verify.py` + `scripts/build_readiness.py --check` | G-10 PASS / readiness OK (75 requirements); V-09b remains a disclosed source discrepancy: pass TD 414 vs opp pass TD 415 and interceptions 202 vs opp INT 200, recorded as FLG-025 and pricing-ineligible |
+| `scripts/test_capture_offline.py` | FAIL on this run: same-second duplicate-capture assertion and earlier-week expectation. The earlier-week expectation is already being corrected by PR #61 (`arena/9f527e7c-fl3`, T43); see follow-up below. The same-second assertion is timing-sensitive because two separate script invocations may straddle a UTC-second filename boundary despite no explicit delay. No production snapshot data was written by this test. |
+| GitHub Pages API | `status: built`, legacy source `main:/`, URL https://sassnarep3-star.github.io/FL3/ |
+| GitHub Actions at audit time | PR #61 validation/deploy workflows were in progress; the most recent completed `pages build and deployment` was successful for the existing main commit. This audit does not claim a new deploy from this branch. |
+
+**Parallel-task coordination.** After claiming T43, inspection found PR #61 already owns T43 and changes only its stale earlier-week assertion, so this session renumbered its independent, non-overlapping audit to T44. No files owned by PR #61 were touched. Follow-up requested: make the duplicate-capture test deterministic (inject/freeze the clock or assert immutable collision only when timestamps actually collide), then re-run the offline suite. This is a test reliability issue, not evidence of a bad NFL capture.
+
+**Disposition.** T44 is complete as an independent audit, with the failing offline test reported rather than hidden. Source-table discrepancy FLG-025 and missing/uncertain official data remain explicitly flagged; no gate or model result was upgraded.
 
 ---
 
@@ -84,6 +109,7 @@ task. `scripts/build_site.py` is single-owner at a time.
 | 2026-11-14T00:00Z | `arena-e8bf2075` | Claimed T12–T15 (site build + verification + docs). |
 | 2026-11-14T00:00Z | `arena-e8bf2075` | Claimed T16 (integration) — sole session, so integration performed by same ID. |
 | 2026-11-16T00:00Z | `arena/9d05cb63-fl3` | Claimed session closeout: repo review, official-source verification, PR/merge record. Files: COORDINATION.md (session record only); no dataset or page content changed. |
+| 2026-11-18T03:09Z | `arena/ce068000-fl3` | Claimed T44, independent acceptance verification; read-only aside from `COORDINATION.md`. Initial overlap with PR #61's T43 was detected and avoided by renumbering; findings and test discrepancy recorded in the T44 completion report. |
 
 ---
 
