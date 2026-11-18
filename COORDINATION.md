@@ -2608,3 +2608,15 @@ This is a repository consistency review, not a fresh NFL fetch and not a claim o
 A follow-up request was posted to [PR #66](https://github.com/sassnarep3-star/FL3/pull/66#issuecomment-6968117159)
 for the readiness rows. The comparison-copy request is left for the final integration owner because
 shared site outputs must not be edited by this audit session.
+
+**Live Pages check after the 2026-11-18 main deployment:** the Pages build and data/site workflow
+completed successfully (Actions runs `44230574637` and `44230575215`). Fetching the published pages
+then showed that the copy/readiness mismatch remains visible: [compare](https://sassnarep3-star.github.io/FL3/compare.html)
+still labels the retrospective table as 148 verified games and does not mention the later 149-row
+capture; [requirement readiness](https://sassnarep3-star.github.io/FL3/board/readiness.html) still
+says R002/R068 are 33/137; the [results page](https://sassnarep3-star.github.io/FL3/results.html)
+shows 149 and excludes LAC@BAL. The [landing page](https://sassnarep3-star.github.io/FL3/) also
+retains a “Today is 2026-11-16” and “snapshot is 2026-11-14” notice beside later 17 November
+results-feed content. This demonstrates successful serving, not that the published copy is fully
+current or reconciled. No shared HTML/readiness files were edited in this session; these remain final
+integration items. The live-page observation was added to the [PR #66 follow-up](https://github.com/sassnarep3-star/FL3/pull/66#issuecomment-6968138374).
