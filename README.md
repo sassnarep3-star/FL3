@@ -4,7 +4,20 @@ A verified-data dashboard for originating NFL lines, grading strategies against 
 tracking availability risk — with every league value linked to an official NFL.com source.
 
 **Live site:** https://sassnarep3-star.github.io/FL3/
-**Snapshot:** 2026-11-14 · 2026 regular season, through Week 10
+**Last committed official results-feed capture:** 2026-11-17T02:47Z · the repository is not a live feed.
+
+## Current evidence cutoffs (reviewed 2026-11-18)
+
+The repository contains **two different results artifacts**; their counts must not be combined:
+
+- The retrospective comparison uses `data/week_results_2026.csv` and `data/compare/forecast_ledger.csv` (**148 rows**, with source rows stamped `2026-11-16T01:35Z`). It is the dataset used by `data/compare/evaluation.json` (`meta.games = 148`), not the later official-results-feed capture. The Week 10 `PIT@CIN` result is absent from this comparison input.
+- The later verified-results-feed capture, `data/official/results_feed.csv`, has **149 `FINAL_VERIFIED` rows** at `2026-11-17T02:47Z`. It adds the Week 10 `PIT@CIN` result (18–38) and its 32-club reconciliation is in `data/official/club_reconciliation.csv`. The correction is documented in `data/official/results_feed.json`; it cites the [official NFL Week 10 schedule](https://www.nfl.com/schedules/2026/by-week/week-10) and [official NFL standings](https://www.nfl.com/standings/league/2026/REG).
+- That feed capture explicitly excluded `LAC@BAL` because the [official game centre](https://www.nfl.com/games/chargers-at-ravens-2026-reg-10) showed it live in Q2 at the capture time. The checked-in results feed does not contain a later result row for that game. **No current 150-game count or re-scored 149/150-game comparison is claimed here.**
+- A scheduled read of the [Week 11 injury-report URL](https://www.nfl.com/injuries/league/2026/reg11) at `2026-11-18T03:14:46Z` returned `redirected:reg10`; see `snapshots/index.csv`. The event records a timestamp, byte count and hash, but stores no raw body or player rows, so it is **not** a Week 11 availability snapshot.
+
+No licensed market-price source is held; under policy PD-01, ROI and CLV are unavailable and market-price cells remain blank. Start with the [executive summary](executive-summary.html), [decision register](decisions.html), [suggestions for review](suggestions.html), [requirement readiness table](board/readiness.html), and [Flagged for Review](flagged.html).
+
+> **Historical repository notes below:** the original “What this is”, “What this is not”, and initial-build counts are retained for provenance from earlier snapshots. They are not a current inventory of the 2026 site or datasets; use the dated cutoffs above and the live dashboard instead.
 
 ---
 

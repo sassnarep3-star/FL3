@@ -19,8 +19,7 @@
 |---|---|---|---|
 | `arena/9d05cb63-fl3` | `arena/9d05cb63-fl3` | Repo review, official-source verification, and session closeout (PR + merge + Pages deploy record). No dataset or page content changed; only COORDINATION.md session records. | 2026-11-16 |
 | `arena/4d2c9111-fl3` | `arena/4d2c9111-fl3` | T35: injury/availability ablation with chronological holdout and uncertainty (R028/R029). New ablation script + datasets + `ablations.html` page; wired into root nav, board PAGES, and verifiers. | 2026-11-17 |
-| `arena/59b62c7b-fl3` | `arena/59b62c7b-fl3` | T43 independent acceptance review: document the 148-row retrospective corpus vs the 149-row dated official-feed capture, and send source-backed, non-overlapping requests to active PR owners. Current scope: `COORDINATION.md` only; no dataset, readiness, generator, or page files while PRs #61/#63/#64/#65 are active. | 2026-11-18T03:09Z |
-| `arena/59b62c7b-fl3` | `arena/59b62c7b-fl3` | T45 add a source-linked current-data-cutoff note to the README without editing any active PR's files; scope: `README.md`, `COORDINATION.md`. | 2026-11-18T03:17Z |
+| `arena/59b62c7b-fl3` | `arena/59b62c7b-fl3` | T43/T45 source-based acceptance review and README cutoff note complete; T44 handed off to PR #61. No files owned by active PRs #61/#63/#64/#66 were edited. Branch closeout remains pending. | 2026-11-18T03:09Z |
 
 Other sessions: **one competing session was discovered after this session's first push.**
 
@@ -2554,3 +2553,35 @@ fresh NFL fetch on 2026-11-18.
 No NFL value was edited or inferred in this review. The cited URLs are the official source URLs already
 stored in the repo; the integrity note is a request for the active integration PRs, not a claim that their
 pages have been refreshed.
+
+### T45 closeout — README cutoff note (2026-11-18)
+
+**Scope claimed:** `README.md`, `COORDINATION.md`; no generated site, dataset, build script, readiness
+file, or file owned by another active session was changed. The README now dates the evidence cutoffs,
+separates the 148-row retrospective comparison from the later 149-row captured feed, identifies the
+excluded in-progress LAC@BAL game without inventing its later score, and states that the Week 11 report
+URL returned a Week 10 redirect rather than treating it as an availability capture. It links to the
+NFL Week 10 schedule, NFL standings, and NFL game centre; the underlying local artifacts are named for
+review. Historical build-inventory prose is explicitly labeled historical rather than current.
+
+**Verification performed:**
+
+- Assertions over local CSV/JSON: comparison CSV and ledger both 148 rows, all comparison timestamps
+  `2026-11-16T01:35Z`, `evaluation.json` games 148, and PIT@CIN absent; results feed 149 rows all
+  `FINAL_VERIFIED`, capture `2026-11-17T02:47Z`, PIT 18–CIN 38 linked to the NFL schedule, and
+  32/32 club reconciliation rows `MATCH`; LAC@BAL present in the explicit exclusion list.
+- Snapshot ledger row at `2026-11-18T03:14:46Z`: `redirected:reg10`, 402,343 bytes; source body and
+  player rows are not stored. This records a redirect event only, not a fresh Week 11 injury report.
+- `python3 scripts/check_site.py`: 6,154 assertions, ALL CHECKS PASSED.
+- `python3 scripts/check_links.py`: 31 pages, 59 distinct external links; all internal links and
+  anchors resolve, no orphan pages.
+- `git diff --check`: passed.
+
+**Source limitation / irregularity:** no fresh NFL page fetch was performed for this README-only
+update; official URLs are the source links already recorded with the checked-in capture and result
+artifacts. The results count is a dated repository capture, not a claim of current league completeness.
+
+**Integration status at review:** PR #63 merged at `55d8224` and PR #64 merged at `153a73d`; PR #61
+(snapshot test) and PR #66 (verification/readiness) remained open in the latest query. Their work and
+any final Pages/deployment closeout remain separate; this T45 note does not claim the overall project
+integration is finished or the live Pages copy has been updated from this README change.
