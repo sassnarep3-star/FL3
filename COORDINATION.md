@@ -2328,3 +2328,24 @@ likely candidates given this session's changes are a count that drifted in a gen
 already caught and asserted this session: Week 10 "twelve" vs "thirteen", and the Week 11 bye
 arithmetic) or an assertion whose threshold assumes a page that another session has since extended.
 Do not "fix" it by loosening an assertion without first reading which number it disagreed with.
+
+## Session `arena/0c322b0e-fl3` — claim and closeout record
+
+**Branch:** `arena/0c322b0e-fl3`, base `main` @ `968c4c67eda04a0ffcb401f9bbb1556e0757db04` (identical to `main`/`origin/main` at session start).
+**Session ID:** `arena/0c322b0e-fl3`
+**Started:** 2026-11-18
+
+**Claim (shared-output rule respected):** This session touches only `COORDINATION.md` (this record) and `docs/EXECUTIVE_SUMMARY.md` (verification figures only). It does not touch `data/*`, root `*.html`, `scripts/*`, or any file claimed by another session. T35 (availability ablation) remains with `arena/4d2c9111-fl3`; no ablation file is read as evidence or changed here.
+
+**Scope:** final integration closeout — repo review against registered official sources, verification re-run, executive-summary refresh, build + verifier, PR from this branch to `main`, merge, GitHub Pages deploy confirmation, and this record.
+
+| Check | Result |
+|---|---|
+| `python3 scripts/check_site.py` | **6,154 assertions, ALL CHECKS PASSED** (rerun 2026-11-18) |
+| Official-source spot check | `https://www.nfl.com/standings/` read successfully; every checked-in dataset row carries a registered `https://` source (enforced by check D) |
+| Irregularities | 30 flagged items on `flagged.html` (open / resolved / accepted-risk), each with evidence links — none block merge |
+| Executive summary | `docs/EXECUTIVE_SUMMARY.md` refreshed with this session's assertion count |
+
+**Files touched:** `COORDINATION.md`, `docs/EXECUTIVE_SUMMARY.md`.
+
+**Closeout:** PR link, merge result and Pages deploy status are recorded below once the PR is merged.
