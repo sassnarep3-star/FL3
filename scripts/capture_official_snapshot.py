@@ -107,6 +107,9 @@ def classify(body: bytes, week: int, status: int, final_url: str = ""):
         if got is not None and got < week:
             return "not_published_yet", problems + [
                 f"requested week {week}, page still serves week {got}"]
+        if got is not None and got > week:
+            return "drift", problems + [
+                f"requested week {week}, page serves a LATER week {got}"]
         return "drift", problems
     text = body.decode("utf-8", errors="replace")
     got = reported_week(text)
