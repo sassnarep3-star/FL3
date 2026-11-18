@@ -19,6 +19,7 @@
 |---|---|---|---|
 | `arena/9d05cb63-fl3` | `arena/9d05cb63-fl3` | Repo review, official-source verification, and session closeout (PR + merge + Pages deploy record). No dataset or page content changed; only COORDINATION.md session records. | 2026-11-16 |
 | `arena/4d2c9111-fl3` | `arena/4d2c9111-fl3` | T35: injury/availability ablation with chronological holdout and uncertainty (R028/R029). New ablation script + datasets + `ablations.html` page; wired into root nav, board PAGES, and verifiers. | 2026-11-17 |
+| `arena/ce068000-fl3` | `arena/ce068000-fl3` | T43: independent acceptance verification of the current tree, existing validation suites, and published-site/deploy status; read-only except this coordination record. No dataset or generated-site edits. | 2026-11-18 |
 
 Other sessions: **one competing session was discovered after this session's first push.**
 
@@ -65,6 +66,7 @@ and both pushed before either claim was visible. This is the exact race the prot
 | T18 | Archive the competing blueprint without discarding it | **done** | `arena-e8bf2075` | `legacy/**` |
 | T19 | Fold the other session's findings into the registers | **done** | `arena-e8bf2075` | `data/flagged.json`, `data/decisions.json`, `data/suggestions.json` |
 | T35 | Injury/availability ablation with chronological holdout and uncertainty (R028/R029) — compare the identical line model with and without verified availability features on a chronological holdout; publish MAE/RMSE/Brier with bootstrap CIs and an explicit n; no backtest numbers on the leaderboard | **in progress** | `arena/4d2c9111-fl3` | `scripts/run_ablations.py`, `data/ablations_week10.json`, `data/ablations_week10.csv`, `ablations.html`, `content/board/ablations.md`, `scripts/build_site.py` (nav), `scripts/build_board.py` (PAGES), `scripts/check_site.py`, `scripts/check_links.py`, `COORDINATION.md` |
+| T43 | Independent acceptance verification of the current tree, validation suites, and published-site/deploy status; read-only audit, findings recorded here | **in progress** | `arena/ce068000-fl3` | `COORDINATION.md` only |
 
 **File ownership rule for future sessions:** `data/standings.json`, `data/sources.json`,
 `data/flagged.json` and every `*.html` at repo root are **shared outputs**. They are regenerated
