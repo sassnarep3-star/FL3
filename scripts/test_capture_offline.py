@@ -59,7 +59,13 @@ r4 = run(DRIFT)
 results.append(("drift body -> rc2 with body snippet", r4.returncode == 2 and "Access Denied" in r4.stderr))
 
 r5 = run(POPULATED, week=17)
-results.append(("wrong-week needle -> rc2", r5.returncode == 2 and "reg17" in r5.stderr))
+results.append((
+    "older week served for future request -> recorded as not published, no raw capture",
+    r5.returncode == 0
+    and "NOT PUBLISHED YET" in r5.stdout
+    and "week 11" in r5.stdout
+    and not (ROOT / "snapshots/raw/injuries/reg17").exists(),
+))
 
 SMALL_CHALLENGE = '<html><body><th>Practice Status</th><th>Game Status</th><a href="https://www.nfl.com/injuries/league/2026/reg11">w</a>Access Denied</body></html>'
 r7 = run(SMALL_CHALLENGE)
