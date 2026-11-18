@@ -2328,3 +2328,19 @@ likely candidates given this session's changes are a count that drifted in a gen
 already caught and asserted this session: Week 10 "twelve" vs "thirteen", and the Week 11 bye
 arithmetic) or an assertion whose threshold assumes a page that another session has since extended.
 Do not "fix" it by loosening an assertion without first reading which number it disagreed with.
+
+# Session `arena/9d6213c4-fl3` — claim, scope and record (2026-11-18 UTC)
+
+**Session ID:** `arena/9d6213c4-fl3` · **Branch:** `arena/9d6213c4-fl3` · **Base:** `main@968c4c6` (== branch tip; working tree clean). Sole session on this branch.
+
+## Claimed scope
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T-901 — Final acceptance audit: re-run every verifier suite on the merged tree, confirm the site builds and deploys green, and spot-check published registers against live official sources | in progress | `arena/9d6213c4-fl3` | `scripts/check_site.py`, `scripts/verify.py`, `scripts/check_links.py`, `scripts/build_site.py` + generated root pages |
+| T-902 — Take over and merge stale open PR #59 ("Compare page: fix a wrong sentence about luck and n, and the price-note capitalisation", `arena/3b7e0210-fl3`, open since 2026-11-17T03:25Z with no commits, mergeable=CONFLICTING against `main@968c4c6`) | in progress | `arena/9d6213c4-fl3` | branch `arena/3b7e0210-fl3` (adopted), `compare.html`, `spec.html`, `scripts/build_site.py`, `scripts/check_site.py` |
+| T-903 — Integration closeout: PR from this branch to `main`, merge without waiting for approval, confirm GitHub Pages deploy, record PR link and merge result here | in progress | `arena/9d6213c4-fl3` | `COORDINATION.md` (this section) |
+
+**Explicitly not touched:** every dataset and generator owned by prior sessions, except the claim/completion records in this file and the PR #59 fix adopted under T-902. No dataset value is changed; no page is hand-edited except through the existing generators.
+
+**Protocol notes:** PR #59's claim is >60 minutes old with no commits, so per §stale claim this session takes it over and notes the handoff. `main` is at `968c4c6` (PR #60 merge); PR #59 was branched from an earlier `main` and is `CONFLICTING`, so its fix will be rebased onto this branch before the PR to `main`.
