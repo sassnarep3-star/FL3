@@ -32,6 +32,10 @@ a:hover { text-decoration:underline; }
 .chip.REFUTED { background:#fbe3e1; color:var(--bad); }
 .chip.RECONCILED { background:#e6effd; color:var(--acc); }
 .chip.NOT_VERIFIED { background:#eceff3; color:var(--mut); }
+.chip.STALE { background:#fbe3e1; color:var(--bad); }
+.chip.OBSERVED { background:#e6effd; color:var(--acc); }
+.chip.CARRIED { background:#eceff3; color:var(--mut); }
+.chip.VERIFIED { background:#e3f5ea; color:var(--ok); }
 .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px; margin:14px 0; }
 .card { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px 16px; }
 .card .n { font-size:24px; font-weight:700; }
@@ -42,7 +46,7 @@ code { background:#eef1f5; padding:1px 5px; border-radius:4px; font-size:13px; }
 <body>
 <header><h1>FL3 &mdash; Independent Official-Source Verification</h1>
 <p>Every claim re-checked against live NFL.com / NFL Media pages on 2026-11-16. Values not confirmed are left blank and flagged.</p></header>
-<nav><a href="index.html" class="">Verification</a><a href="verification.html" class="">Claims log</a><a href="venues.html" class="active">Venues</a><a href="gamebooks.html" class="">Game Books</a><a href="sources.html" class="">Sources</a></nav>
+<nav><a href="index.html" class="">Verification</a><a href="verification.html" class="">Claims log</a><a href="venues.html" class="active">Venues</a><a href="gamebooks.html" class="">Game Books</a><a href="sources.html" class="">Sources</a><a href="brief-claims.html" class="">Brief claims 2026-11-18</a></nav>
 <main>
 <h2>Week 10 fixture venues</h2>
 <p class="lede">Every row transcribed from the official NFL.com game-centre page for that fixture. Location and Stadium are the exact strings published under &#x27;Game Info&#x27;. Game Book PDF is the &#x27;Download Game Book (PDF)&#x27; link on the same page. Values that were not published are left blank and flagged, never inferred.</p>
