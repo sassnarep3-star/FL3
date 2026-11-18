@@ -2425,3 +2425,54 @@ Strongest single check: `data/compare/corpus_identity_32clubs.csv` — games tra
 | Session status | **Scope closed.** No dataset, page, script or ablation file claimed by another session was touched. |
 
 **Next-session note (from the board, unchanged):** the Week 10 `LAC@BAL` game was in the second quarter at capture and is excluded from all 149 games/ratings/scores; when final, record the correction in `data/official/results_feed.json`, re-run `scripts/build_frontier_data.py`, then the ablation and leaderboard.
+---
+
+## Claim — session `arena/9285d6e9-fl3` (2026-11-18 UTC)
+
+Branch: `arena/9285d6e9-fl3` (fixed for this session; the `session-<id>/<task>` naming in the protocol is superseded by the branch note for this session). Base: `main@968c4c6`.
+
+Scope is deliberately small. The brief is larger than one session can verify; most items are blocked on data that this sandbox cannot license or fetch (market prices, the Texans depth image, authorised structured depth/transaction feeds). The two tasks below are bounded, checkable against official sources, and do not touch another claimed scope.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T-9285-A — R067: parse the official 2026 NFL rulebook for the kickoff / onside-kick rule text (verbatim quotes with page locations) and move R067 from UNVERIFIED to PARTIAL (rule text verified; regime prior still has no data and stays blank) | in progress | `arena/9285d6e9-fl3` | `data/official/rules_2026_kickoff.csv` (new), `data/requirements_readiness.csv` (R067 row), `scripts/build_readiness.py` (R067 row), `data/flags.csv` + `board/data/flags.csv` (appended FLG-067 only) |
+| T-9285-B — R010: machine-enforced governance guard. Every row of the retrospective ranking carries `dataset_type=RETROSPECTIVE_BACKTEST`; a new check fails the build if any backtest-origin row appears in a prospective leaderboard file | in progress | `arena/9285d6e9-fl3` | `scripts/build_leaderboard_v2.py`, `data/lab/leaderboard_v2.{csv,json}`, `scripts/check_leaderboard_governance.py` (new), `.github/workflows/verify.yml` (one step), `data/flags.csv` + `board/data/flags.csv` (appended FLG-068 only) |
+
+Sources: the 2026 rulebook landing page <https://operations.nfl.com/rules-officiating/2026-nfl-rulebook> and its PDF <https://static.www.nfl.com/image/upload/fl_attachment/league/tqivdkzt9mu6wdgsh1ku.pdf> (SRC-010, the registered official source).
+
+### Completion record — `arena/9285d6e9-fl3` (2026-11-18 UTC)
+
+| Task | Status | Result | Sources (official unless marked) | Verification performed | Irregularities / notes |
+|---|---|---|---|---|---|
+| T-9285-A — R067 rulebook text | **done** | R067 moved **UNVERIFIED → PARTIAL**. Rule text verified: 10 verbatim rows in `data/official/rules_2026_kickoff.csv` (K01–K10). The regime prior is **not** created: no official source gives a numeric effect of the 6-1-6 change, so 0 adjustments are applied. | 2026 rulebook landing page <https://operations.nfl.com/rules-officiating/2026-nfl-rulebook> and PDF <https://static.www.nfl.com/image/upload/fl_attachment/league/tqivdkzt9mu6wdgsh1ku.pdf> (SRC-010) | PDF read in 17 fetch chunks on 2026-11-18. Cover-page rule-change table, Rule 3 definition (Section 17 Art. 5 Item 3), Rule 6 Section 1 Articles 1(a), 1(c), 2(d), 6, 6(a), 6(b) read and transcribed. Quotes normalised only for curly quotes and whitespace. | Quotes are page-located by Rule/Section/Article, not by PDF page, except Rule 6 (PDF p.22 per the Order of the Rules). |
+| T-9285-B — R010 governance guard | **done** | R010 moved **DESIGN ONLY → PARTIAL**. Retrospective ranking labelled `dataset_type=RETROSPECTIVE_BACKTEST`, `prospective=false` on file and every row; `lab.html` shows a RETROSPECTIVE BACKTEST banner; new `scripts/check_leaderboard_governance.py` (10 checks, wired into `.github/workflows/verify.yml`). | Internal governance rule (R010); no official NFL source defines it. | Guard passes on the tree. Two injected faults in a scratch copy were both caught: a numeric backtest cell in `data/leaderboard.csv`, and a relabelled retrospective row. Rebuild of all generators reproduces identical hashes. | Prospective ledger still does not exist, so the timestamp rule (R010-4) asserts 0 rows. |
+
+**Flag IDs used.** The claim listed FLG-067/068 in `flags.csv`. Those were **not** used. The root Flagged for Review page is built from `data/flagged.json`, so the new items are **F31–F34** there, and `flags.csv` is untouched.
+
+**Irregularities published (F31–F34 on the Flagged page, none blocking):**
+- **F31** — `data/dashboard/leaderboard.json` cites four non-official sites (sharkbetting.com, github.com/jcollins901/nfl-edge, sharppicks.ai, unexpectedpoints.com) for its metric definitions. This breaches the repo's nfl.com-only source policy. URLs left unchanged pending the owner.
+- **F32** — the backtest table on `lab.html` is named "leaderboard", which the brief forbids for backtest numbers. It is now labelled and guarded; the owner decides on the name.
+- **F33** — `scripts/build_flagged.py` writes `data/flagged.json` with a different ID scheme and would replace the register. Not in CI; not run.
+- **F34** — `scripts/test_capture_offline.py` fails 7 of 8 on the **base commit** (`wrong-week needle -> rc2`), contradicting the 8/8 PASS recorded for `arena/6c7144be-fl3`.
+
+**Suites run on the final tree:** `check_site.py` 6,175 assertions ALL PASSED · `check_links.py` PASS · `check_leaderboard_governance.py` 10/10 · `build_readiness.py --check` OK (75 rows) · `check_coverage_audit.py` 69/69 · `check_verified_site.py` PASS · `check_verify.py` PASS · `verify.py` G-10 PASS (pre-existing V-09b/FLG-025) · `check_depth_links.py` PASS · `test_capture_offline.py` 7/8 (F34, pre-existing).
+
+**Scope not attempted this session (blocked, see readiness register).** Market prices and closing lines (R001, R019, R021, R049), official depth-order source for 32 clubs (R042), Texans depth image and authorised structured source (R063), Game Book starter evidence (R026), the Baltimore/Colts/Lions transaction and status items (R065, R066, Lions statuses), and the decision-readiness table on the landing page already exists. Those remain as recorded in `data/requirements_readiness.csv`.
+
+### Rebase and pages-gate investigation — `arena/9285d6e9-fl3` (2026-11-18 UTC)
+
+**Rebase.** `main` advanced from `968c4c6` to `0a1f836` (PR #68) while this branch was open. The one conflict (`COORDINATION.md`, both sides appended) was resolved by keeping both sides, with no lines dropped. All generated outputs were then regenerated; a second regeneration reproduces them byte-for-byte. All suites pass on the rebased tree (`check_site` 6,180 assertions, `check_leaderboard_governance` 10/10, `check_links`, `check_coverage_audit` 69/69, `check_verified_site`, `check_verify`, `verify.py` G-10, `check_depth_links`, `verify_live --check` rc=0). No duplicate Flagged IDs (F01–F34).
+
+**The `Deploy static site to GitHub Pages` → `validate` gate.** This job runs `scripts/check_site.py` and `verify_live.py --check` on a bare checkout. It has failed on **every** `main` push since `a7dc5f8` (2026-11-17 03:22Z) — `a7dc5f8`, `03f7868`, `968c4c6` — while `Verify data and site` passed on the same commits. The live Pages build (`pages-build-deployment`) still succeeded, because the legacy builder does not depend on this gate. The failing step is step 4 (`Verify the root site`); the log is unavailable (the results-receiver and blob endpoints return EOF for every run tried).
+
+What was tested, all on a fresh depth-1 clone of the committed tree: default locale → 6,180 PASS; `LC_ALL=C LANG=C` → PASS; `PYTHONHASHSEED` 0–7 → 8/8 PASS; `verify_live.py --check` → rc 0 and no working-tree diff. Python 3.12 (the runner's interpreter) could not be installed in this sandbox, so **that remains the one untested condition**.
+
+**Defect found and fixed.** Under an ASCII locale with UTF-8 mode off (`PYTHONUTF8=0`), `check_site.py` crashed in `check_frontier_datasets` with `UnicodeDecodeError`, because ten `open()` calls had no encoding. All ten now declare `encoding="utf-8"` (commit `de2710b`). This is a real portability fix. It did not reproduce the runner failure, so the gate is **not** claimed fixed.
+
+**Status for the owner.** The gate is red on `main` and on every open PR. It is a gate, not the publisher, and the site content is verified by `verify.yml`, which is green. Next step, by owner decision: run the `validate` job's commands on a Python 3.12 runner with `ACTIONS_STEP_DEBUG` (or a `continue-on-error` diagnostic step that uploads `check_site` output as an artifact), which would expose the exact assertion. Logged here rather than loosening the assertion.
+
+### Correction — pages gate fixed (2026-11-18 UTC)
+
+The `validate` gate's cause was the interpreter, not the content. `verify.yml`, `site.yml` and `snapshot.yml` pin Python 3.11. `pages.yml` did not pin any version, so it ran on the runner default (3.12 on ubuntu-latest). The fix pins 3.11 in `pages.yml` (commit `4302b57`). On PR #63 the run with that commit reports **validate pass** (run 44229847344), along with Recompute and verify (pass) and verify-and-build (pass). The earlier "not reproduced locally" note stands: the same tree passes under 3.11 locally, and the failure was specific to the 3.12 runner default. The ASCII-locale encoding fix (`de2710b`) remains a real and separate portability fix.
+
+**PR:** https://github.com/sassnarep3-star/FL3/pull/63

@@ -42,6 +42,13 @@ N_BOOT = 4000
 LEAGUE_POINTS, HFA, SIGMA, LOGIT, K_SHRINK = 22.0, 1.9, 8.5, 0.55, 4.0
 DEMOTION_LOWER_BOUND = 0.0
 
+# R010 (governance): every row this script writes is a RETROSPECTIVE backtest over games that were
+# already played when the ranking was computed. It is never a prospective record, so it may never
+# be copied into the prospective leaderboard (data/leaderboard.csv, board/data/leaderboard.csv,
+# data/dashboard/leaderboard.json). scripts/check_leaderboard_governance.py enforces this.
+DATASET_TYPE = "RETROSPECTIVE_BACKTEST"
+PROSPECTIVE = False
+
 
 def read_csv(rel):
     with open(os.path.join(DATA, rel), newline="", encoding="utf-8") as fh:
@@ -253,17 +260,23 @@ def main():
             "" if r["p_holm"] == "" else round(r["p_holm"], 5),
             "UNAVAILABLE (PD-01: no licensed price)" if not r["name"].startswith("BASELINE") else "n/a baseline",
             r["verdict"],
+            DATASET_TYPE, "false",
         ])
     write_csv("lab/leaderboard_v2.csv",
               ["rank", "strategy", "scored_field", "n_games",
                "brier", "brier_benchmark", "brier_skill_vs_coin",
                "boot_lo95", "boot_hi95", "cluster_lower_bound",
-               "p_skill_gt_0", "p_holm_adjusted", "roi", "verdict"], rows)
+               "p_skill_gt_0", "p_holm_adjusted", "roi", "verdict",
+               "dataset_type", "prospective"], rows)
 
     # JSON with the full detail the page renders
     out = {
         "_meta": {
-            "title": "FL3 strategy leaderboard v2 — proper-score ranking",
+            "title": "FL3 strategy leaderboard v2 — proper-score ranking (RETROSPECTIVE, not prospective)",
+            "dataset_type": DATASET_TYPE,
+            "prospective": PROSPECTIVE,
+            "eligible_for_prospective_leaderboard": False,
+            "governance": "R010: backtest-origin numbers may not appear on the prospective leaderboard. Games scored here were all played before this ranking was computed.",
             "generated_utc": "2026-11-17T02:47Z",
             "n_games": n,
             "seasons": ["2026"],
@@ -283,6 +296,9 @@ def main():
         "benchmark_brier": round(sum(brier(0.5, r["y"]) for r in per_game) / n, 5),
         "strategies": build_strategy_payload(results),
     }
+    for row in out["strategies"]:
+        row["dataset_type"] = DATASET_TYPE
+        row["prospective"] = PROSPECTIVE
     path = os.path.join(DATA, "lab", "leaderboard_v2.json")
     with open(path, "w", encoding="utf-8") as fh:
         json.dump(out, fh, indent=2)

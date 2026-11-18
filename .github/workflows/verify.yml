@@ -53,6 +53,10 @@ jobs:
       - name: Verify data, links and arithmetic (root site + comparison lab)
         run: python3 scripts/check_site.py
 
+      # R010: backtest-origin numbers may never appear on the prospective leaderboard.
+      - name: Enforce leaderboard governance (no backtest numbers on the prospective board)
+        run: python3 scripts/check_leaderboard_governance.py
+
       - name: Verify the canonical verified dashboard
         run: python3 scripts/check_verified_site.py
 

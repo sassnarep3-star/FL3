@@ -7,7 +7,7 @@ B05,Separate 'signal' from 'staking' in the leaderboard so a lucky staking run c
 B06,"Track the depth of the replacement, not just the fact of a replacement",R006,PARTIAL,PARTIAL,board/injuries.html
 B07,Compute correlations only from officially sourced numbers and publish n with each value,R007,PARTIAL,PARTIAL,board/correlation.html
 B08,Define a demotion gate that sends a live strategy back to paper,R008,DESIGN ONLY,DESIGN ONLY,board/validation.html
-B09,Pre-register every strategy; forbid backtest numbers from ever appearing on the leaderboard,R009;R010,PARTIAL;DESIGN ONLY,DESIGN ONLY,board/leaderboard.html;board/signals.html
+B09,Pre-register every strategy; forbid backtest numbers from ever appearing on the leaderboard,R009;R010,PARTIAL;PARTIAL,PARTIAL,board/leaderboard.html;board/signals.html
 B10,"Build the availability graph as a first-class dataset (who was expected to start, who actually did)",R011,PARTIAL,PARTIAL,board/injuries.html
 B11,Do not model depth from jersey order; model it from playing time,R012,REJECT SHORTCUT,REJECT SHORTCUT,board/injuries.html
 B12,"Make the injury signal a surprise, never a level",R013,PARTIAL,PARTIAL,board/injuries.html
@@ -65,6 +65,6 @@ B63,Capture the reserve list so 'not listed' never means 'available',R053,PARTIA
 B64,Reject: ranking strategies by season-long ROI,R074,REJECT SHORTCUT,REJECT SHORTCUT,board/readiness.html
 B65,Archive weekly injury reports for past seasons,R054,PARTIAL,PARTIAL,availability.html
 B66,Pre-register each strategy (definition frozen before results are seen),R009;R055,PARTIAL;PARTIAL,PARTIAL,board/signals.html
-B67,2026 Kickoff & Declared Onside-Kick Regime Priors Filter,R067,UNVERIFIED,UNVERIFIED,board/league-facts.html
+B67,2026 Kickoff & Declared Onside-Kick Regime Priors Filter,R067,PARTIAL,PARTIAL,board/league-facts.html
 B68,Freeze a rule before it sees data (pre-registration; the commit hash is the registration),R055,PARTIAL,PARTIAL,board/signals.html
 B69,"Split data into train, validation and final holdout seasons",R056,DESIGN ONLY,DESIGN ONLY,board/validation.html

@@ -1,10 +1,10 @@
-rank,strategy,scored_field,n_games,brier,brier_benchmark,brier_skill_vs_coin,boot_lo95,boot_hi95,cluster_lower_bound,p_skill_gt_0,p_holm_adjusted,roi,verdict
-1,"FL3 ratings, no home edge",PROBABILITY_OF_HOME_WIN,85,0.21738,0.21738,0.1305,-0.0367,0.2953,-0.0367,0.06975,0.20925,UNAVAILABLE (PD-01: no licensed price),DEMOTED_TO_PAPER
-2,Record-only (no points),PROBABILITY_OF_HOME_WIN,85,0.22008,0.22008,0.1197,-0.0135,0.2504,-0.0135,0.0365,0.1825,UNAVAILABLE (PD-01: no licensed price),DEMOTED_TO_PAPER
-3,"Rating differential, cautious",PROBABILITY_OF_HOME_WIN,85,0.22794,0.22794,0.0882,-0.0105,0.1839,-0.0105,0.0405,0.1825,UNAVAILABLE (PD-01: no licensed price),DEMOTED_TO_PAPER
-4,FL3-SHADOW-1 (ratings),PROBABILITY_OF_HOME_WIN,85,0.23411,0.23411,0.0636,-0.1086,0.2302,-0.1086,0.23975,0.4795,UNAVAILABLE (PD-01: no licensed price),DEMOTED_TO_PAPER
-5,"Rating differential, overconfident",PROBABILITY_OF_HOME_WIN,85,0.24829,0.24829,0.0068,-0.219,0.2212,-0.219,0.4675,0.4795,UNAVAILABLE (PD-01: no licensed price),DEMOTED_TO_PAPER
-6,BASELINE coin 0.5,PROBABILITY_OF_HOME_WIN,85,0.25,0.25,0.0,0.0,0.0,0.0,1.0,,n/a baseline,"BASELINE (reference, not a claim)"
-7,BASELINE always favourite,PROBABILITY_OF_HOME_WIN,85,0.32941,0.32941,-0.3176,-0.7412,0.0588,-0.7412,0.93575,,n/a baseline,"BASELINE (reference, not a claim)"
-8,BASELINE always away,PROBABILITY_OF_HOME_WIN,85,0.41176,0.41176,-0.6471,-1.0706,-0.2235,-1.0706,0.99825,,n/a baseline,"BASELINE (reference, not a claim)"
-9,BASELINE always home,PROBABILITY_OF_HOME_WIN,85,0.58824,0.58824,-1.3529,-1.7765,-0.9294,-1.7765,1.0,,n/a baseline,"BASELINE (reference, not a claim)"
+rank,strategy,scored_field,n_games,brier,brier_benchmark,brier_skill_vs_coin,boot_lo95,boot_hi95,cluster_lower_bound,p_skill_gt_0,p_holm_adjusted,roi,verdict,dataset_type,prospective
+1,"FL3 ratings, no home edge",PROBABILITY_OF_HOME_WIN,85,0.21738,0.21738,0.1305,-0.0367,0.2953,-0.0367,0.06975,0.20925,UNAVAILABLE (PD-01: no licensed price),DEMOTED_TO_PAPER,RETROSPECTIVE_BACKTEST,false
+2,Record-only (no points),PROBABILITY_OF_HOME_WIN,85,0.22008,0.22008,0.1197,-0.0135,0.2504,-0.0135,0.0365,0.1825,UNAVAILABLE (PD-01: no licensed price),DEMOTED_TO_PAPER,RETROSPECTIVE_BACKTEST,false
+3,"Rating differential, cautious",PROBABILITY_OF_HOME_WIN,85,0.22794,0.22794,0.0882,-0.0105,0.1839,-0.0105,0.0405,0.1825,UNAVAILABLE (PD-01: no licensed price),DEMOTED_TO_PAPER,RETROSPECTIVE_BACKTEST,false
+4,FL3-SHADOW-1 (ratings),PROBABILITY_OF_HOME_WIN,85,0.23411,0.23411,0.0636,-0.1086,0.2302,-0.1086,0.23975,0.4795,UNAVAILABLE (PD-01: no licensed price),DEMOTED_TO_PAPER,RETROSPECTIVE_BACKTEST,false
+5,"Rating differential, overconfident",PROBABILITY_OF_HOME_WIN,85,0.24829,0.24829,0.0068,-0.219,0.2212,-0.219,0.4675,0.4795,UNAVAILABLE (PD-01: no licensed price),DEMOTED_TO_PAPER,RETROSPECTIVE_BACKTEST,false
+6,BASELINE coin 0.5,PROBABILITY_OF_HOME_WIN,85,0.25,0.25,0.0,0.0,0.0,0.0,1.0,,n/a baseline,"BASELINE (reference, not a claim)",RETROSPECTIVE_BACKTEST,false
+7,BASELINE always favourite,PROBABILITY_OF_HOME_WIN,85,0.32941,0.32941,-0.3176,-0.7412,0.0588,-0.7412,0.93575,,n/a baseline,"BASELINE (reference, not a claim)",RETROSPECTIVE_BACKTEST,false
+8,BASELINE always away,PROBABILITY_OF_HOME_WIN,85,0.41176,0.41176,-0.6471,-1.0706,-0.2235,-1.0706,0.99825,,n/a baseline,"BASELINE (reference, not a claim)",RETROSPECTIVE_BACKTEST,false
+9,BASELINE always home,PROBABILITY_OF_HOME_WIN,85,0.58824,0.58824,-1.3529,-1.7765,-0.9294,-1.7765,1.0,,n/a baseline,"BASELINE (reference, not a claim)",RETROSPECTIVE_BACKTEST,false
