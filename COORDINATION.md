@@ -2680,6 +2680,7 @@ This session worked on the branch named by its branch note (`arena/7c189606-fl3`
 ### Branch note
 
 This session worked on the branch named by its branch note (`arena/7c189606-fl3`), not on `session-<id>/<task>` branches, as the Arena branch rule requires. Protocol references to `session-*` names are read as the same rule.
+<<<<<<< HEAD
 >>>>>>> 13a6e07 (Brief claims: live official-source verification ledger (18 rows), readiness overlay for R033/R037/R042/R053/R063-R066, verify/brief-claims.html with Flagged for Review; regenerated outputs)
 <<<<<<< HEAD
 =======
@@ -2776,3 +2777,25 @@ This session worked on the branch named by its branch note (`arena/7c189606-fl3`
 ### Branch note
 
 This session worked on the branch named by its branch note (`arena/7c189606-fl3`), not on `session-<id>/<task>` branches, as the Arena branch rule requires. Protocol references to `session-*` names are read as the same rule.
+=======
+
+### Progress update — `arena/7c189606-fl3` (T-7C1..T-7C4), 2026-11-18
+
+- Rebase onto `origin/main` `0a1f836` completed (conflict in COORDINATION.md resolved as a union; no other session's work discarded).
+- Full local check set re-run on the rebased tree: build_readiness --check OK (75 / 53 linked / 22 source-gap); build_verify OK; check_verify PASS; build_coverage_audit + check_coverage_audit PASS (69/69, 89 internal links); build_site, build_board, check_site, check_verified_site, check_links, verify_live --check (no diff), verify.py, build_compare, build_crosscheck: no diffs and all checks passed.
+- SRC-027 (Dolphins @ Colts Game Book): URL cross-checked against `data/official/game_books_week10.json` (`gamebook_pdf`, `…ab789365….pdf`). Match; no correction needed.
+- BC-14 (Packers duplicate S, Oladapo #27 in both S rows) re-checked on packers.com depth chart (Unofficial, Nov. 10, 2026). Confirmed; stays OBSERVED.
+- BC-16 (Ravens multi-slot: Mike Green at RUSH and SAM; Ryan Neuzil at LG and C) re-checked on baltimoreravens.com depth chart chunk 0. Confirmed; stays OBSERVED.
+- Colts Week 11 (vs HOU, Thu Nov 19): colts.com "Colts release unofficial depth chart for Week 11" (Nov 16, 2026) lists QB order Daniel Jones, Anthony Richardson Sr., Riley Leonard. This is a club depth-chart order, not an announced starter; the game has not been played. Not treated as starter evidence. R066 VERIFIED stays scoped to the four named items (Lock, McCord, Brissett, Colts Week 10 trades). Colts Week 11 starter: NOT VERIFIED.
+- Handoff note for integration: Colts Week 11 starter should be re-checked after the Game Book for CLE/HOU Week 11 is published.
+>>>>>>> 3d4f128 (Coordination: progress update after rebase; re-check SRC-027, BC-14, BC-16; Colts Week 11 depth chart logged as not a starter)
+
+### Progress update — `arena/7c189606-fl3` (T-7C1..T-7C4), 2026-11-18
+
+- Rebase onto `origin/main` `0a1f836` completed (conflict in COORDINATION.md resolved as a union; no other session's work discarded).
+- Full local check set re-run on the rebased tree: build_readiness --check OK (75 / 53 linked / 22 source-gap); build_verify OK; check_verify PASS; build_coverage_audit + check_coverage_audit PASS (69/69, 89 internal links); build_site, build_board, check_site, check_verified_site, check_links, verify_live --check (no diff), verify.py, build_compare, build_crosscheck: no diffs and all checks passed.
+- SRC-027 (Dolphins @ Colts Game Book): URL cross-checked against `data/official/game_books_week10.json` (`gamebook_pdf`, `…ab789365….pdf`). Match; no correction needed.
+- BC-14 (Packers duplicate S, Oladapo #27 in both S rows) re-checked on packers.com depth chart (Unofficial, Nov. 10, 2026). Confirmed; stays OBSERVED.
+- BC-16 (Ravens multi-slot: Mike Green at RUSH and SAM; Ryan Neuzil at LG and C) re-checked on baltimoreravens.com depth chart chunk 0. Confirmed; stays OBSERVED.
+- Colts Week 11 (vs HOU, Thu Nov 19): colts.com "Colts release unofficial depth chart for Week 11" (Nov 16, 2026) lists QB order Daniel Jones, Anthony Richardson Sr., Riley Leonard. This is a club depth-chart order, not an announced starter; the game has not been played. Not treated as starter evidence. R066 VERIFIED stays scoped to the four named items (Lock, McCord, Brissett, Colts Week 10 trades). Colts Week 11 starter: NOT VERIFIED.
+- Handoff note for integration: Colts Week 11 starter should be re-checked after the Game Book for CLE/HOU Week 11 is published.
