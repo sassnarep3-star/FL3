@@ -54,7 +54,7 @@ BOARD_DATA = [
     "snapshot_delta.csv", "injury_crosscheck.csv", "depth_blocks.csv",
     "depth_grammar_findings.csv", "depth_starter_out.csv", "decisions_queue.csv",
     "official_injury_capture_wk10_2026.csv", "official_injury_reconciliation_wk10_2026.csv",
-    "official_injury_copy_audit_wk10_2026.csv",
+    "official_injury_copy_audit_wk10_2026.csv", "official_injury_capture_wk11_2026.csv",
 ]
 
 # slug -> (title, nav label, group)
@@ -753,6 +753,10 @@ def build(check_only: bool = False) -> int:
                 ["game_date", "game_pair_as_printed", "team", "player", "position", "injuries",
                  "practice_status", "game_status", "source_id"],
                 caption=f"Canonical capture: {len(read_rows('official_injury_capture_wk10_2026.csv'))} listed players, 14 game sections, 28 clubs. Blank = blank on the official page.")
+            body += render_table(
+                "official_injury_capture_wk11_2026.csv",
+                ["game_pair_as_printed", "club_abbr", "player", "position", "injuries", "practice_status", "game_status", "source_id"],
+                caption=f"Week 11 official capture (immutable, sha256 f58ecb73ed91, read 2026-11-19 05:27Z): {len(read_rows('official_injury_capture_wk11_2026.csv'))} listed players, 13 game pairs, 26 clubs. Parsed by machine from the stored raw body; 51 rows checked line by line against the live page. Blank = blank on the official page.")
             body += render_table(
                 "official_injury_reconciliation_wk10_2026.csv",
                 ["team", "player", "field", "official_nfl_com", "repo_table_345", "issue", "source_id"],
