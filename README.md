@@ -1,245 +1,82 @@
-# FL3 — NFL Decision System
+# FL3 — NFL line-origination research dashboard
 
-A verified-data dashboard for originating NFL lines, grading strategies against validation gates, and
-tracking availability risk — with every league value linked to an official NFL.com source.
+**Status reviewed:** 2026-11-19 UTC
+**Live site:** [sassnarep3-star.github.io/FL3](https://sassnarep3-star.github.io/FL3/)
+**Purpose:** collect sourced NFL facts, originate model forecasts, and evaluate strategies only after the required data and validation gates are met. This is research software, not betting advice.
 
-**Live site:** https://sassnarep3-star.github.io/FL3/
-**Snapshot:** 2026-11-14 · 2026 regular season, through Week 10
+## Executive state
 
----
+The repository contains several dashboard tracks and substantial research infrastructure, but it is **not yet a decision-ready betting system**. Passing a page/data check does not make a forecast profitable, prospective, or fully verified.
 
-## What this is
+| Area | Current evidence in this checkout | Decision status | Official source / evidence |
+|---|---|---|---|
+| Requirements and gates | 75 unique readiness rows; 53 have official source links and 22 explicitly identify a source gap (`scripts/build_readiness.py --check`) | Useful for triage; source gaps remain open | [NFL schedule](https://www.nfl.com/schedules/2026/by-week/week-11), [NFL injury report](https://www.nfl.com/injuries/league/2026/reg11); row-by-row register: `data/requirements_readiness.csv` |
+| Week 11 originated prices | `data/pricing/current_prices.csv` has 13 model originations. Opening model values are timestamped 2026-11-17; close columns and market-price columns are empty. | Model outputs only; no closing-line value, market edge, or ROI claim | [Official Week 11 schedule](https://www.nfl.com/schedules/2026/by-week/week-11); `data/pricing/` |
+| Results corpus | `data/week_results_2026.csv` has 148 rows. `data/official/results_feed.json` describes a 149-game corrected corpus, so the declared count and the CSV do not agree. | Do not treat the corpus as complete until reconciled | [Official Week 10 schedule/results](https://www.nfl.com/schedules/2026/by-week/week-10); `data/week_results_2026.csv`, `data/official/results_feed.json` |
+| Injury evidence | The Week 10 capture manifest reports 347 official rows and 36 field differences against the 345-row main table. The latest capture-log entry is 2026-11-19 04:10Z, but its raw path is blank; the logged hash alone cannot replay the page. | Point-in-time integrity and reconciliation are incomplete | [NFL Week 10 injury report](https://www.nfl.com/injuries/league/2026/reg10), [NFL Week 11 injury report](https://www.nfl.com/injuries/league/2026/reg11); `data/official_capture/manifest-2026-reg10.json`, `snapshots/index.csv` |
+| Strategy ranking | The ranked comparison file is explicitly `RETROSPECTIVE_BACKTEST`; the governance check prevents it being represented as a prospective leaderboard. | Research only; no prospective winner or reward eligibility | `data/lab/leaderboard_v2.json`, `scripts/check_leaderboard_governance.py` |
+| Market price policy | PD-01 says no licensed price is held; market fields remain blank and ROI is unavailable (not zero). | ROI, CLV and vig-free consensus are blocked | `data/official/results_feed.json` (PD-01), `data/pricing/current_prices.csv` |
 
-| | |
-|---|---|
-| **Data** | 32 clubs' 2026 records, the full Week 10 slate, and 345 official injury-report rows — all read from NFL.com and reconciled |
-| **Lines** | 14 originated spreads and totals with explicit uncertainty bands. Not copied from a sportsbook |
-| **Strategies** | 8 specs, 8 validation gates, 5 reward tiers, and an honest empty leaderboard |
-| **Decisions** | 12 questions with what is known, what is not, and what unblocks each |
-| **Suggestions** | 17 suggestions, each with 2–3 selectable paths and a recommendation |
-| **Flags** | 13 irregularities on a dedicated review page, each with its evidence link |
+The NFL pages linked above are official source pages. Values produced by FL3 (ratings, fair lines, probabilities, correlations, and skill scores) are model calculations, not NFL facts. Read the source register and flagged findings before relying on any result.
 
-## What this is not
+## Start here
 
-Not betting advice. Not a sportsbook quote. Not a track record — **zero strategies have graded
-results**, and the site says so on every relevant page. Where a value could not be confirmed against
-an official source, the cell is blank and the gap is listed on the Flagged for Review page.
+- [Dashboard](index.html) — overview and readiness.
+- [Executive summary](executive-summary.html) — current decision status, blockers and next steps.
+- [Decision questions](decisions.html) — knowns, unknowns and clearance metrics.
+- [Suggestions](suggestions.html) — reviewable paths and recommendations before implementation.
+- [Lines](lines.html) and [strategies](strategies.html) — model output and validation gates.
+- [Availability](availability.html), [depth evidence](depth/), and [matchups](matchups.html) — injury and personnel evidence, with gaps distinguished from verified facts.
+- [Results](results.html), [correlations](correlation.html), and [ablations](ablations.html) — evaluation methods and current limitations.
+- [Flagged for Review](flagged.html) — irregularities and unverified claims.
+- [Sources](sources.html) and [methodology](methodology.html) — provenance and checks.
 
----
+There are also separate builds under [`board/`](board/), [`docs/`](docs/), [`verified/`](verified/), [`depth/`](depth/), and [`site-9b181d31/`](site-9b181d31/). They are companion/historical tracks, not one automatically reconciled database. When values disagree, use the readiness and flagged registers; do not silently choose one copy.
+
+## Hard limits before decisions
+
+1. **No licensed market prices.** The system can publish its own fair-line estimates, but cannot claim an edge, ROI, CLV, or vig-free consensus. The written policy is PD-01; market columns must stay blank until a permitted source, terms, capture timestamps, and settlement mapping are established.
+2. **Results feed is inconsistent.** The CSV has 148 data rows while the canonical JSON says the corrected corpus has 149. A repeated or absent fixture cannot be assumed away; reconcile each game ID to an official NFL schedule/game centre before backtest outputs are used.
+3. **Availability capture is not yet replayable end-to-end.** A hash for a capture without its retained raw body does not recreate the source as it appeared at that time. The Week 10 audit also records a 347-versus-345 row discrepancy and 36 field differences between the capture and the main table.
+4. **Depth is not jersey order.** Do not infer a replacement rank from jersey number, experience, salary, or a depth-chart row label. Require an admissible club source or validated official participation data; preserve shared/empty slots and roster events.
+5. **A retrospective ranking is not a leaderboard win.** Keep signal skill separate from staking; qualify with proper scores, game-cluster uncertainty, controls, multiplicity adjustment, and prospective validation. ROI stays unavailable without licensed prices.
+6. **The current data span is not enough to establish durable skill.** Backtests are retrospective and single-season. Do not advertise a strategy as proven or reward-eligible from these results.
+
+## Verification
+
+The following checks were run on this checkout on 2026-11-19:
+
+- `python3 scripts/check_site.py` — 6,216 assertions, pass.
+- `python3 scripts/check_verified_site.py` — 645 assertions, pass.
+- `python3 scripts/check_links.py` — 31 pages, internal links/anchors resolved, pass.
+- `python3 scripts/check_verify.py` — 323 assertions, pass.
+- `python3 scripts/check_coverage_audit.py` — 69 bullets, pass.
+- `python3 scripts/check_depth_links.py` — internal links resolved, pass.
+- `python3 scripts/check_leaderboard_governance.py` — 10 governance checks, pass.
+- `python3 scripts/verify.py` — G-10 pass with the already recorded FLG-025 source-level discrepancy; its V-09b scoring/turnover identity does **not** pass.
+- `python3 scripts/build_readiness.py --check` — 75 rows, 53 linked / 22 source-gap, pass.
+
+These checks validate repository structure, constraints, and reproducibility. They do not resolve the result-feed or injury-capture discrepancies above, nor do they show predictive skill.
 
 ## Repository map
 
-```
-index.html … methodology.html     generated site (11 pages, no JS, no framework)
-assets/site.css                   the only stylesheet
-data/
-  standings.json                  32 clubs, official 2026 figures, each row sourced
-  injuries_week10.json            345 official injury rows across 14 games
-  lines_week10.json               originated lines + uncertainty
-  team_power.json                 the ratings behind the lines
-  luck.json                       Pythagorean luck decomposition
-  correlations.json               4 measured r values + 6 declared assumptions
-  strategies.json                 8 specs, 8 gates, 5 tiers
-  decisions.json                  12 questions, facts, and 10 information gaps
-  suggestions.json                16 suggestions with selectable paths
-  flagged.json                    10 review items with evidence
-  sources.json                    every source used, plus the ones rejected
-scripts/
-  compute_lines.py                ratings + originated lines (deterministic)
-  compute_luck.py                 Pythagorean luck
-  compute_correlation.py          measured correlations, drift-checked
-  build_site.py                   renders the 11 pages
-  check_site.py                   1124 assertions; exit 1 on any failure
-  fetch_official.py               optional refresh: reports changes, never auto-writes
-docs/
-  EXECUTIVE_SUMMARY.md            the summary
-  METHODOLOGY.md                  verification record, constant by constant
-legacy/                           archived data-free blueprint from a parallel session
-COORDINATION.md                   shared task board + merge/collision record
-```
+- `data/` — registers, source-linked tables, model outputs, capture logs and audit results.
+- `data/requirements_readiness.csv` — requirement-by-requirement status, blocking gate, missing information and clearance metric.
+- `data/official/` — official-source-derived fixture, results and rulebook artifacts, with capture metadata.
+- `data/pricing/` — immutable model-originated snapshots and the separate market fields (currently blank under PD-01).
+- `scripts/` — data builders, deterministic model code, page builders and verifiers.
+- `docs/` — executive summary and methodology material.
+- `COORDINATION.md` — task claims, scopes, verification records and handoffs.
 
-## Build and verify
+## Local verification
 
 ```bash
-python3 scripts/compute_lines.py
-python3 scripts/compute_luck.py
-python3 scripts/compute_correlation.py
-python3 scripts/build_site.py
-python3 scripts/check_site.py      # must print ALL CHECKS PASSED
-```
-
-Deterministic: no randomness anywhere, so a re-run must produce identical files. CI enforces this
-and fails on any diff.
-
-## Source policy
-
-Only `nfl.com` and `operations.nfl.com` count as evidence. Third-party aggregators, DFS projections
-and public consensus lines are explicitly rejected in `data/sources.json` with the reason recorded.
-A model output is always labelled as model output and never phrased as a league fact.
-
-## Known constraints
-
-- 8–9 games per club, so every rating is provisional and the bands are wide on purpose.
-- League aggregates only — no opponent adjustment.
-- One captured week — no calibration or backtest.
-- **No licensed market price**, so edge, closing-line value and the top two reward tiers are out of
-  scope until that is resolved (flag F07/suggestion SG-06).
-- No official depth-chart ordinal exists, so "2nd/3rd/4th string" is a model estimate, not a fact
-  (flag F05/suggestion SG-05).
-
-All of these are on the live Flagged for Review page with links.
-
-## Parallel sessions
-
-Read `COORDINATION.md` before editing anything. Claim a task, keep scopes non-overlapping, and never
-mark something verified without an official source link.
-
----
-
-## Complementary dashboard build (`docs/`)
-
-Session `576c1890` (branch `arena/576c1890-fl3`, merged via PR #8) built an independent,
-complementary dashboard in `docs/`, generated by `build.py` from `data/dashboard/*.json`.
-It carries the same verification policy (every table row links an official source; values
-that cannot be confirmed from an official source are left blank and flagged unverified).
-
-- **Landing page:** `docs/index.html` — dashboard hub with verified-data counts and category navigation.
-- **Subpages by category:** Overview (Executive Summary), Decisions (Questions & Answers,
-  Suggestions), NFL Lines (Strategies & Signals, Validation Gates, Leaderboard, Market Data),
-  Injuries (Injury Report, Depth Charts), League Data (2026 Standings), Review (Repo Review,
-  Flagged for Review).
-- **Served at:** https://sassnarep3-star.github.io/FL3/docs/
-
-It coexists with the root-level build (the live site); neither replaced the other, and no
-file from either build was deleted during integration.
-
----
-## Verified data snapshots (session `arena/60ee336e-fl3`, Nov 14, 2026)
-
-Independent point-in-time transcriptions of official NFL.com pages, kept as separately named
-files (CSV + JSON) alongside the dashboard datasets above:
-
-| Dataset | File(s) | Official source |
-|---|---|---|
-| Standings through Week 9 (32 teams) | `data/standings_2026_wk9.csv` / `.json` | [NFL.com league standings](https://www.nfl.com/standings/league/2026/reg) |
-| Week 10 schedule (14 games + 4 byes) | `data/schedule_2026_wk10.csv` / `.json`, `data/bye_teams_2026_wk10.csv` | [NFL.com Week 10 schedule](https://www.nfl.com/schedules/2026/REG10) |
-| Week 10 league injury report (345 rows, 28 teams) | `data/injuries_2026_wk10.csv` / `.json` | [NFL.com league injury report](https://www.nfl.com/injuries/league/2026/reg10) |
-| Injury news register (12 official headlines) | `data/injury_news_2026_wk10.csv` | same page, news section |
-
-- `scripts/build_data.py` re-asserts internal consistency (PF−PA = net points; home+road =
-  games played) on every run; the standings source was re-fetched and re-compared line by line.
-- Rendered at root as `data-snapshots.html`, `data-standings.html`, `data-schedule.html`,
-  `data-injuries.html` (linked from the shared nav; validated by `scripts/check_site.py`).
-- Decision-support registers: `docs/executive_summary.md`, `docs/questions_and_gaps.md`,
-  `docs/suggestions.md` (review-before-implement register), `docs/injury-depth-deficiency.md`,
-  and `docs/strategy/` (line origination, signals & validation, leaderboard & governance).
-
-
----
-
-## Second track: `board/` (session `S1-b37bd750`)
-
-A parallel implementation of the same brief lives in this repo side by side, on purpose. It is
-CSV-first instead of JSON-first, it publishes to **`board/`** (live at
-<https://sassnarep3-star.github.io/FL3/board/>), and it shares no output file with the pages above.
-
-| | the track above | the `board/` track |
-|---|---|---|
-| data store | `data/*.json` | `data/*.csv` (23 tables this track owns) |
-| generator | `scripts/build_site.py` | `scripts/build_board.py` |
-| verifier | `scripts/check_site.py` (1,124 assertions over its own pages) | `scripts/verify.py` (V-01…V-11 identities + I-01…I-07 integrity) |
-| unique inputs | 345 injury rows, Week-10 slate, Pythagorean luck split | identity-proven team-stat columns, per-club availability load, fitted calibration constants, closed-form decision math |
-| model | originated lines with uncertainty bands | same goal; constants (`beta`, `alpha`, `sigma_margin`, `gamma`, Pythagoras `k`) **fitted** on the verified games and published with their standard errors |
-
-Two things only the `board/` track does, and both are worth reading:
-
-1. **Column-label proof.** nfl.com renders team-stat tables with no header row, so a column is only
-   published when a league-wide identity proves the mapping (`attempts 9037 = 9037`, `sacks 643 = 643` …).
-   That proof is also what exposed **`FLG-025`: the league's own offense and defense tables disagree** —
-   414 TDs thrown vs 415 allowed, 202 INTs vs 200 forced — so those four columns are published as read and
-   marked pricing-ineligible.
-2. **A gate that refuses to guess.** `models/line_model.yaml` forbids a hand-filled parameter, so ten
-   parameters are `null` (lineups, IR, vig, schedule adjustment). `verify.py` check **I-07** fails the
-   build when any CSV row does not parse with exactly its header's field count — a bug it caught in
-   29 rows of this repo's own hand-written tables.
-
-Nothing in `board/` claims an edge. Its own leaderboard is empty by construction, its market columns are
-blank because no official source publishes odds, and its abstain rule currently says "no bet" for every
-game on the slate.
-
----
-
-## Session `arena/9b181d31` subsite (`site-9b181d31/`) and data/model layer
-
-A parallel session built a self-contained dashboard under `site-9b181d31/` plus a
-deterministic line-origination engine and CSV datasets (published at
-`/FL3/site-9b181d31/` on Pages). It coexists with the root site and the other
-subsites (`docs/`, `depth/`, `legacy/`).
-
-- `site-9b181d31/` — 12-page dashboard: landing, executive summary, requirements
-  register (Q1–Q14), suggestions board (S1–S8 with options + recommended path),
-  originated lines vs the market (Week 10), injuries & depth-deficiency tracker
-  (generated from the CSVs), strategy catalog behind validation gates G0–G8,
-  leaderboard design, methodology, data hub, source registry, flagged-for-review
-  (F1–F16).
-- `data/*.csv` — machine-readable datasets with per-row source links (162 tracked
-  injury rows = 160 official report + 2 IR rows; 78 deficiency rows; 32-team
-  standings; W10/W11 slates; originated lines; correlation matrix). Unverified
-  cells are **blank + flagged**, never inferred.
-- `models/originate_lines.py` — deterministic engine (stdlib only): net-points
-  ratings + HFA + transparent injury weights + QB-room cap. `models/build_pages.py`
-  renders the CSV-driven pages and syncs `site-9b181d31/data`, `.../models`, `.../research`.
-- `research/sources.md` (fetch log, 23 sources + cross-session fold-ins) and
-  `research/verification-log.md` (checks: sum PF = sum PA = 6,291 ✓; 274 team-games
-  even ✓; every row sourced ✓).
-
-Market references (ESPN, SBR/bet365, CBS, betus, BetMGM) are labeled **trusted
-market** — never "official" — and used only as the comparison column for our own
-originated lines. Model output is badged as model output everywhere.
-
----
-
-## Injury-report snapshots (session `arena/a8c1189d`, 2026-11-16)
-
-- **Official capture and reconciliation:** see `board/official-capture.html` and `data/official_injury_*_wk10_2026.csv` (PR #27). This session cross-checked that capture against an independent transcription of the same page: 347 rows, 0 differences on club, player, position, injury, practice status and game status.
-- **Scheduled snapshots:** `.github/workflows/snapshot.yml` (Wednesday to Monday, 13:17 and 23:17 UTC) stores one gzip-compressed copy of the official injury page per run under `snapshots/raw/`, with SHA-256 and a line in `snapshots/index.csv`. It refuses to store on drift and fails loudly. Not yet observed live.
-- **Open items:** the published injury copies that feed the model still differ from the official page (flags F25–F30 on the Flagged for Review page).
-
----
-
-## Strategy comparison lab (session `arena/3b7e0210`, 2026-11-17)
-
-The repo could originate a line five ways and could not say which way was better. It can now.
-
-**Live:** <https://sassnarep3-star.github.io/FL3/compare.html> ·
-**Summary:** <https://sassnarep3-star.github.io/FL3/executive-summary.html>
-
-| | |
-|---|---|
-| Input | `data/week_results_2026.csv` — 148 verified games, reconciled club by club to the official standings |
-| Arms | 4 origination strategies (net points, offence-meets-defence, opponent-aware least squares, Pythagorean) + 4 controls (coin, home-always, pick'em, trailing league mean total) |
-| Method | walk-forward: a week-*w* forecast may use only weeks `< w`; 4,000 game-cluster bootstrap resamples; Bonferroni ledger over 12 comparisons |
-| Headline | every strategy beats a coin flip on Brier score; the best beats pick'em on spread error by 0.63 points; **nothing survives the multiplicity threshold** (best |z| = 2.43 vs 2.87) |
-| Totals | predicted total vs actual total r = −0.03 (n = 148); a trailing-mean control beats every strategy |
-| Dispersion | 0.26–0.58 — the model's opinions are a quarter to a half as wide as reality, which is why no line can beat a price yet |
-| Money columns | **blank**. No licensed price exists, so no ROI and no CLV are computed anywhere |
-
-Two supporting artefacts, both deterministic and both `--check`-able:
-
-- `scripts/build_compare.py` → `data/compare/{evaluation.json,evaluation.csv,forecast_ledger.csv,slate_week11_forecasts.csv,questions.csv,suggestions.csv}`.
-  The per-game ledger lets anyone re-score every number without trusting the page.
-- `scripts/build_crosscheck.py` → proves how every game count in the repo relates:
-  **136** (weeks 1–9, 6,246 pts — the brief's "136-game log") → **137** (+ the Thursday W10 final,
-  6,291 pts — the board's snapshot) → **148** (+ the other 11 W10 finals, 6,824 pts — the verified
-  snapshot). All 32 clubs' W/L/T/PF/PA match the official standings on both snapshots.
-
-Also in this session: the scheduled availability capture's only run had failed because it could not
-tell "the league has not published this week yet" from "our parser is broken". `classify()` now
-separates the two (`not_published_yet` is recorded, drift still fails the build), unit-tested with
-`--selftest`. Full detail, including eight defects found and four left open, is in
-[compare.html §11](https://sassnarep3-star.github.io/FL3/compare.html).
-
-```bash
-python3 scripts/build_compare.py && python3 scripts/build_crosscheck.py
-python3 scripts/build_site.py && python3 scripts/check_site.py   # 3,450 assertions
+python3 scripts/build_readiness.py --check
+python3 scripts/check_site.py
+python3 scripts/check_verified_site.py
+python3 scripts/check_links.py
+python3 scripts/check_verify.py
+python3 scripts/check_coverage_audit.py
+python3 scripts/check_depth_links.py
+python3 scripts/check_leaderboard_governance.py
 ```

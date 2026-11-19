@@ -1,128 +1,70 @@
-# FL3 — Executive Summary
+# FL3 — Executive summary and decision-readiness
 
-**Snapshot:** 2026-11-14 · **Season:** 2026 regular season, through Week 10
-**Live site:** https://sassnarep3-star.github.io/FL3/
+**Review date:** 2026-11-19 UTC
+**Site:** https://sassnarep3-star.github.io/FL3/
+**Use:** NFL line-origination research and validation. This is not betting advice. A page/build passing its checks is not evidence of a profitable strategy.
 
----
+## Executive conclusion
 
-## 1. What was asked for, and what exists now
+The repository contains useful research infrastructure: an itemized readiness register, model-originated Week 11 forecasts, a price snapshot ledger, strategy validation rules, an injury-capture audit, result records and multiple public dashboards. It is **not decision-ready for wagering or strategy rewards**.
 
-| Requirement | Status | Where |
-|---|---|---|
-| Collect and organise a full list of requirements | **Done** — 12 numbered decisions, 16 suggestions, 10 information gaps | `data/decisions.json`, `data/suggestions.json`, `decisions.html`, `suggestions.html` |
-| Suggestions to improve decision-making, in a reviewable section | **Done** — every suggestion has 2–3 selectable paths, effort, cost, pros/cons and a recommendation | `suggestions.html` |
-| A clear list of questions, knowns, unknowns before any decision | **Done** — 12 questions, 9 of them blocking, each with a "what discovers it" column | `decisions.html` |
-| Suggestions that discover missing information | **Done** — all 10 gaps map to at least one suggestion | `decisions.html` ↔ `suggestions.html` |
-| Originate our own NFL lines | **Done** — 14 Week 10 games, spread + total + win probability, each with a 90% band | `data/lines_week10.json`, `lines.html` |
-| Strategies as a leaderboard with rewards | **Built, deliberately empty** — 8 specs, 8 gates, 5 tiers. Zero graded results, and the site says why | `strategies.html` |
-| Single bet, parlay, player-prop combos | **Single + cross-game parlay specced; props blocked** with the exact missing input named | `data/strategies.json` |
-| Every strategy passes validation gates | **Enforced** — 8 gates, machine-checked where possible; a gate that cannot run is a fail | `data/strategies.json` |
-| Correlation values | **4 measured from verified data; 6 declared as assumptions with direction only** | `correlation.html` |
-| Remove luck; be selectively skill-based | **Luck measured per club** (Pythagorean, ±2.17 wins range) and **a luck penalty in the score** | `standings.html`, `strategies.html` |
-| Track injuries and defensive/offensive depth deficiencies | **Injuries done** (345 official rows, split by side of ball). **Depth ordinal is honestly blocked** — no official source exists | `injuries.html`, flag F05 |
-| Executive summary | **This document**, plus the site dashboard | `docs/EXECUTIVE_SUMMARY.md`, `index.html` |
-| No manual input; verification with source links | **6,154 automated assertions pass** (re-verified 2026-11-18 on branch `arena/0c322b0e-fl3`); every table row carries an official link | `scripts/check_site.py`, `sources.html` |
-| GitHub Pages live site | **Done** | https://sassnarep3-star.github.io/FL3/ |
+The immediate blockers are concrete and testable:
 
----
+1. No licensed market-price feed is held. PD-01 correctly leaves market lines, CLV, vig-free consensus and ROI blank/unavailable.
+2. The results JSON describes a corrected 149-game corpus, while the corresponding CSV currently has 148 rows. Reconcile the game-by-game feed before using it for scoring or backtests.
+3. The Week 10 injury manifest reports 347 official rows and 36 field differences from the main 345-row table. The latest capture-log entry has a SHA-256 but no retained raw-path value, so a hash alone cannot support replay.
+4. Strategy rankings are retrospective, not prospective. They cannot qualify for rewards. A single-season backtest is not a substitute for future forecasts recorded before kickoff.
+5. NFL reporting establishes practice/game designations, not an objective universal "second/third/fourth string" order. Do not fill replacement rank by jersey number, salary, experience, or guesswork.
 
-## 2. The five things that matter
+**Decision recommendation:** keep the system in shadow/paper mode. Resolve source and data-integrity gates first, then run a frozen prospective baseline. Do not place or reward bets based on the current backtest ranking.
 
-**1. The data is real and it reconciles.**
-All 32 clubs' 2026 records were read off NFL.com and cross-checked against a second official page.
-`PF − PA = Net` holds for all 32. Every club's printed win percentage matches `(W + ½T) / games`.
-The half-win tie rule itself is quoted from the official tie-breaking page, not from memory.
+## Current evidence and caveats
 
-**2. We originate lines rather than import them.**
-Each of the 14 Week 10 games gets an expected score for both clubs, derived from shrunk
-offence/defence ratings, a 1.9-point home-field term, and a side-of-the-ball availability adjustment
-(from the official injury report). Margin and total are the difference and sum of those two
-expected scores — one coherent scoring model, not two unrelated formulas. Uncertainty widens as
-evidence thins.
+| Area | What the repository currently says | What is established / not established | Official source and local evidence |
+|---|---|---|---|
+| Requirements | 75 unique rows; 53 source-linked and 22 explicitly marked source-gap by `build_readiness.py --check` | The requirements are organized, but a source link does not by itself establish that a model feature is valid. | [NFL Week 11 schedule](https://www.nfl.com/schedules/2026/by-week/week-11); [NFL Week 11 injury report](https://www.nfl.com/injuries/league/2026/reg11); `data/requirements_readiness.csv` |
+| Week 11 slate | 13 fixtures and six bye clubs in the source register | Schedule facts (day, time, network, location) are sourced; venue facts should still be treated as source text, not as a model's inferred travel/weather features. | [Official NFL Week 11 schedule](https://www.nfl.com/schedules/2026/by-week/week-11); `data/official/week11_fixtures.json` |
+| Model origination | 13 Week 11 rows in `data/pricing/current_prices.csv`; opening model fields are timestamped 2026-11-17T02:47Z | These are model outputs, not market quotes. Closing values are blank; the file has no licensed market lines. | [Official NFL Week 11 schedule](https://www.nfl.com/schedules/2026/by-week/week-11); `data/pricing/current_prices.csv`, `data/pricing/snapshots/20261117T0247Z.json` |
+| Price policy | PD-01: no licensed odds source is acquired; ROI is unavailable, not zero | No edge, ROI, CLV, or vig-free consensus can be computed without permitted timestamped prices and settlement rules. | `data/official/results_feed.json` (PD-01); [NFL schedule](https://www.nfl.com/schedules/2026/by-week/week-11) is a fixture source, **not** an odds source |
+| Results | `data/week_results_2026.csv` has 148 rows; `data/official/results_feed.json` describes 149 after a stated correction | Internal conflict. The feed must be regenerated/reconciled against each official game centre and standings before use. The 149 count is not treated as verified by this summary. | [NFL Week 10 schedule/results](https://www.nfl.com/schedules/2026/by-week/week-10); [NFL standings](https://www.nfl.com/standings/league/2026/REG); `data/week_results_2026.csv`, `data/official/results_feed.json` |
+| Week 10 injuries | Manifest: 347 listed rows, 345 rows in the main data table, 36 field differences | The independent comparison itself shows unresolved data disagreement. Current NFL reporting is live and can change; do not substitute today's page for a past point-in-time capture. | [NFL Week 10 report](https://www.nfl.com/injuries/league/2026/reg10); `data/official_capture/manifest-2026-reg10.json`, `data/official_capture/nfl-injury-report-2026-reg10.psv` |
+| Latest capture retention | `snapshots/index.csv` records a 2026-11-19T04:10:03Z HTTP 200 response, 374,013 bytes and SHA-256; `raw_path` is empty and result is `empty` | The index records a fetch/hash but does not contain the retained raw response. It cannot alone reproduce what was seen then. | [NFL Week 11 report](https://www.nfl.com/injuries/league/2026/reg11); `snapshots/index.csv` |
+| Leaderboard | `data/lab/leaderboard_v2.json` is labelled `RETROSPECTIVE_BACKTEST`, `prospective=false`, with 85 games and ROI unavailable | Retrospective ranking is research only; governance checks prohibit it from becoming a prospective results table. It does not prove future performance. | [Official Week 10 results](https://www.nfl.com/schedules/2026/by-week/week-10); `data/lab/leaderboard_v2.json`; `scripts/check_leaderboard_governance.py` |
+| Source-level aggregate integrity | The verifier records `pass_td=414` vs `opp_pass_td=415`, and `pass_int=202` vs `opp_int_forced=200` | Explicit unresolved NFL aggregate discrepancy FLG-025; those inputs remain pricing-ineligible. The verifier's G-10 status does not erase its V-09b failure. | NFL official stats sources registered in `data/sources.csv`; `scripts/verify.py`, `data/verification_report.csv`, `data/flagged.json` |
 
-**3. Almost nothing can yet be called "good", and the site says so.**
-Zero bets have been graded. The leaderboard is live and empty. Every strategy is a *spec*. The
-Champion and Proven tiers are unreachable because **no licensed market price exists** (flag F07).
-This is the single largest constraint in the project, and no amount of modelling fixes it.
+## Questions that must be answered before a decision
 
-**4. The depth-chart request cannot be answered from official data — so it is flagged, not faked.**
-No NFL source publishes a 2nd/3rd/4th-string ordinal (flag F05). The line engine therefore applies a
-per-position availability penalty with separate offence/defence caps, and labels it a model constant.
-Suggestion SG-05 proposes participation counts as the honest substitute.
+| Question | Current answer | Missing information | Gate / number that clears it | Source / review location |
+|---|---|---|---|---|
+| Can we compare an originated fair line to an external market line? | No market feed is present; market fields are blank under PD-01. | Licensed source terms, supported markets, book/consensus policy, exact capture time, and line/push/void settlement rules. | Legal/data approval; every quote has source, book, timestamp, market key and retained raw evidence; zero missing opening/closing values during the evaluation window. | `data/requirements_readiness.csv` R001/R004; [NFL schedule](https://www.nfl.com/schedules/2026/by-week/week-11) confirms fixtures only, not prices. |
+| Is there a complete verified results feed? | Not yet: 148 CSV rows vs 149 in the canonical JSON declaration. | Exact game IDs and corrected final scores, reconciliation of every row, corrections log, postponed/cancelled/forfeit settlement handling. | CSV and JSON agree exactly on game IDs/count; 100% of the evaluation slate matches official game centres and standings. | [NFL Week 10 schedule/results](https://www.nfl.com/schedules/2026/by-week/week-10); [standings](https://www.nfl.com/standings/league/2026/REG). |
+| Can availability be reconstructed as known before kickoff? | Not reliably from the records shown here: a capture has no retained raw body, and the Week 10 audit has row/field differences. | Immutable daily captures from Wednesday through kickoff, clock time/time zone, raw bytes, hash, parser version, and conflict resolution. | At least one immutable, source-replayable capture for each scheduled reporting time; drift tests pass and no required fields are silently blanked. | [NFL injury reports](https://www.nfl.com/injuries/league/2026/reg11); `snapshots/index.csv`, `data/official_capture/manifest-2026-reg10.json`. |
+| Who was expected to start, and who actually started? | Some club depth pages and official Game Books exist; broad, dated, 32-club coverage is not proven by the current checks. | Club-by-club accepted depth source or official participation proxy; active/inactive evidence; Game Book starter rows; roster transaction events. | Source path verified for all 32 clubs; actual starter evidence linked to the corresponding official Game Book; unresolved clubs remain blank, not inferred. | [NFL Game Books / game centres](https://www.nfl.com/schedules/2026/by-week/week-10); team-specific source register under `data/verification/`. |
+| Does a missing/questionable player reliably predict availability or performance? | Not established. The NFL designation is a categorical report, not an official probability. | Multiple seasons joined to final inactive lists and official snaps; calibration by designation, position and reporting time. | Report play-rate and confidence intervals with n; only add a feature after a pre-registered test shows improvement on chronological holdouts. | [NFL injury report](https://www.nfl.com/injuries/league/2026/reg11); readiness R028/R029 and `ablations.html`. |
+| Is a strategy skilled rather than lucky or stake-sized? | Current ranking is retrospective; no prospective evidence qualifies a strategy for rewards. | Frozen forecasts before kickoff, benchmark control runs, stake ledger kept separately, sufficient seasons/games, uncertainty and multiple-testing adjustment. | Positive benchmark-relative proper-score skill with a game-cluster lower bound above zero after multiplicity adjustment, then a separate prospective sample; staking never substitutes for signal qualification. | [Official results](https://www.nfl.com/schedules/2026/by-week/week-10); `strategies.html`, `lab.html`, `data/lab/leaderboard_v2.json`. |
+| Are parlays and player-prop combos rankable? | Not unless the joint probability is directly validated and operator settlement/void rules are known. | Joint outcome data, player-game stats, dependence calibration, market rules. | A validated joint-probability model and published operator rules; marginal probabilities must not simply be multiplied. | [NFL official schedule](https://www.nfl.com/schedules/2026/by-week/week-10) is fixture evidence only; R058 in `data/requirements_readiness.csv`. |
 
-**5. Two official page contradictions were found, not smoothed over.**
-The standings page does not yet include a game the schedule page marks FINAL (flag F01). And the
-Week 10 injury table lists no Ravens quarterback, while NFL.com's own news module on the same page
-reports Lamar Jackson out 6–10 weeks (flag F02). An engine reading only the injury table would miss
-a starting-QB absence entirely. Both are published with links.
+## Recommended path, in order
 
----
+1. **Reconcile results before further backtesting.** Compare each row in `data/week_results_2026.csv` with the relevant official game centre; make the JSON declaration, CSV, and derived metrics agree. Keep prior versions and write a correction record rather than silently replacing values.
+2. **Make captures replayable.** For each scheduled official injury report, store raw bytes outside the static site (subject to source terms), fetch time, SHA-256, parser version, parsed rows, and schema/count checks. A failed required-field or count check should fail publishing and create a review item.
+3. **Keep public/private data separation.** Publish derived rows, source links, hashes, and totals that terms permit. Keep restricted raw rows and licensed market data in a private durable store; do not publish them to GitHub Pages by default.
+4. **Freeze a singles-only shadow baseline.** Pre-register model version, inputs, sample window, timestamp rules, benchmarks, proper scores, uncertainty method and gates before the first forecast. Record side first, total second, moneyline third; each output includes probability and the complete as-of inputs.
+5. **Validate availability and personnel by ablation.** Compare identical models with/without timestamped, verified availability features on chronological holdouts. Report sample n, effect and clustered uncertainty. Do not apply fixed point penalties without evidence.
+6. **Gate higher-complexity bets.** Keep game parlays, same-game parlays and prop combinations in separate divisions. Require direct joint-probability validation and operator-specific push/void rules before ranking.
+7. **Reward only prospective skill.** First qualify with benchmark-relative Brier skill (and a second proper score) plus a game-cluster lower confidence bound and multiplicity correction; only then evaluate prospective CLV/ROI escrow if a permitted market-price source exists. Publish a demotion-to-paper rule and keep staking results separate.
 
-## 3. Measured facts worth acting on
+The detailed alternatives and review choices are in [Suggestions](../suggestions.html); the gate-by-gate status is in [Decision readiness](../board/readiness.html) and `data/requirements_readiness.csv`. No user choice is silently assumed by this summary.
 
-| Finding | Value | Consequence |
-|---|---|---|
-| Win% vs point differential per game | **r = 0.878** (n=32, t=10.05, r²=0.771) | Scoring margin is the right primary rating input |
-| Offence vs defence independence | **r = −0.204** (r²=0.042) | "Good offence + bad defence" is **not** a hedge; the intuition is wrong |
-| Offence alone vs win% | **r = 0.698** (r²=0.487) | Offence-only signals need a wider band |
-| Defence alone vs win% | **r = −0.664** (r²=0.441) | Defence-only signals need a wider band too |
-| Luck range across the league | **+2.17 (DEN) to −2.17 (TB)** | Up to ~2 wins of a 9-game record are margin-unexplained |
-| Week 10 injury rows with **no** game status | **185 of 345** | Availability signal is structurally incomplete |
+## What is safe to conclude today
 
----
+- The site and multiple independent verifiers exist. On this checkout, the root checker passed 6,216 assertions, verified-site checker 645, link checker 31 pages, verifier checker 323, coverage audit 69 bullets, depth-link check, and ten leaderboard-governance checks.
+- Those tests support structural claims (links, schemas, identities, and guardrails), **not** predictive edge.
+- The current model lines and probabilities are estimates. There is no licensed market comparison, no ROI result, no proven prospective winner, and unresolved source/data discrepancies remain on the review list.
+- Do not infer starter order, injury probability, weather, roof status, travel effect, or prop dependence where official evidence is not present. Leave the value blank and mark it unverified.
 
-## 4. What has to be decided before this becomes useful
+## Verification record and irregularities
 
-In priority order — full detail on `suggestions.html`:
+Verified on 2026-11-19 against the repository data and the official NFL report pages linked above. Automated checks run: `check_site.py` (6,216), `check_verified_site.py` (645), `check_links.py` (31 pages), `check_verify.py` (323), `check_coverage_audit.py` (69 bullets), `check_depth_links.py`, `check_leaderboard_governance.py` (10), `build_readiness.py --check` (75 rows), and `verify_live.py --check` (15 recorded claims). `verify.py` reports the existing FLG-025 aggregate mismatch; V-09b remains a failed identity even though G-10 is reported as pass with that discrepancy non-blocking.
 
-1. **SG-13** Capture game-by-game results. Without it nothing can ever be graded or calibrated.
-2. **SG-02** Freeze each week's line at kickoff. Otherwise no future grade means anything.
-3. **SG-06** Decide the market-price question. This decides whether "edge" is in scope at all.
-4. **SG-10** Capture official player-game stats. Unblocks every player-prop correlation.
-5. **SG-05** Adopt participation counts as the depth ordinal (the honest version of your request).
-
-Each has 2–3 paths with costs written down. Nothing beyond what you see here was implemented
-without a path already chosen.
-
----
-
-## 5. Honest limitations of this build
-
-- **8–9 games per club.** Every rating is provisional and the bands are wide on purpose.
-- **League aggregates only.** No opponent adjustment, so a club that has played strong teams looks
-  worse than it is.
-- **One captured week.** No calibration, no backtest, no leaderboard entries.
-- **No price.** No edge, no closing-line value, no top-tier strategies.
-- **No player-level data.** Props stay blocked.
-- **The Munich game** (NE @ DET) is at a neutral site but receives a full home-field advantage
-  (flag F09) — worth up to ~1.9 points of error.
-- **The local shell has no internet.** Refreshing data must run in CI (flag F08).
-
-None of these are hidden. Each is a row on `flagged.html` with a link.
-
----
-
-## 6. Verification
-
-`python3 scripts/check_site.py` runs **6,154 assertions** and passes with zero warnings, covering:
-Re-verified 2026-11-18 on branch `arena/0c322b0e-fl3`: ALL CHECKS PASSED, zero warnings. The count grew from 3,064 as sessions added the readiness register, matchup matrix, ablations, acceptance audit, comparison lab and character-split regression guards.
-
-- arithmetic on official figures, for all 32 clubs
-- completeness (32 clubs / 8 divisions × 4 / 14 games / 28 clubs on the slate / no club twice)
-- source coverage (every dataset row has an absolute https source)
-- link integrity (every internal href resolves, every anchor exists, no broken local targets)
-- recomputation (the line, luck and correlation engines must reproduce the committed numbers)
-- blank honesty (reported blank counts must match the actual data)
-- flag publication (every flag is on the page with its evidence link)
-
-Run it yourself:
-
-```bash
-python3 scripts/compute_lines.py
-python3 scripts/compute_luck.py
-python3 scripts/compute_correlation.py
-python3 scripts/build_site.py
-python3 scripts/check_site.py
-```
-
-Any number that changes is a bug, not an opinion.
+**Flagged for review:** results declaration/CSV count mismatch; Week 10 injury capture/table discrepancies; missing raw body for the latest logged capture; FLG-025; and any unresolved depth/availability rows in the readiness register. These are not silently repaired here and should remain visible on [Flagged for Review](../flagged.html).

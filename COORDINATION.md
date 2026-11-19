@@ -2639,3 +2639,20 @@ PR from `arena/c6095b01-fl3` to `main` opened after the audit; merge without wai
 | T-C1 — Refresh top-level documentation that predates the 2026-11-19 snapshot; distinguish current verified status from historical/stale snapshots and describe evidence gaps without filling them | in progress | `README.md`, `docs/EXECUTIVE_SUMMARY.md`, this coordination record only |
 
 This scope does not touch datasets, generators, root pages, or files claimed by T35. Initial checks on the base tree: `check_site.py` (6,216 assertions), `check_verified_site.py` (645), `check_links.py` (31 pages), `check_verify.py` (323), `check_coverage_audit.py` (69 bullets), `check_depth_links.py`, and `check_leaderboard_governance.py` (10) pass. `verify.py` reports the pre-existing FLG-025 NFL offensive/defensive aggregate discrepancy; `verify_live.py --check` reports legacy claims stale or not reproducible (LV-02, LV-03, LV-05, LV-06, LV-07) and rewrites its generated ledger deterministically without a diff.
+
+### Completion — T-C1, session `arena/c1a049b2-fl3` (2026-11-19 UTC)
+
+**Status: done (documentation scope only).** Refreshed `README.md` and `docs/EXECUTIVE_SUMMARY.md` to replace stale Nov 14 status statements with the inspected Nov 19 repository state. The docs distinguish NFL facts from FL3 model outputs, explain that market prices/ROI are unavailable, and list the corpus/capture integrity conflicts as blockers rather than smoothing them over. The recommendation is shadow/paper only.
+
+**Official pages fetched and checked on 2026-11-19:**
+- NFL Week 10 injury report: https://www.nfl.com/injuries/league/2026/reg10 (the page renders Week 10; checked against the preserved transcription and manifest).
+- NFL Week 11 injury report: https://www.nfl.com/injuries/league/2026/reg11 (page title and body identify Week 11; checked against the report route recorded in the capture log).
+- NFL Week 10 schedule/results: https://www.nfl.com/schedules/2026/by-week/week-10 (official final game entries checked; used as source route, not as a claim that the repository result feed is complete).
+
+**Repository verification:** root site 6,216 assertions PASS; verified site 645 PASS; links 31 pages PASS; verifier 323 assertions PASS; coverage audit 69 bullets PASS; depth-link validation PASS; leaderboard governance 10 checks PASS; readiness 75 unique rows (53 source-linked / 22 source-gap) PASS. `verify.py` still reports V-09b failure (414 vs 415 pass TD, 202 vs 200 interceptions) under existing FLG-025 while G-10 is non-blocking PASS. `verify_live.py --check` records 15 claims, including stale/not-reproducible claims; it does not certify all underlying datasets.
+
+**Irregularities documented, not silently fixed:** `data/week_results_2026.csv` has 148 rows while `data/official/results_feed.json` declares 149 after its correction; Week 10 injury manifest says 347 rows and 36 field differences against a 345-row table; the 2026-11-19T04:10:03Z capture-log row has hash/byte count but empty `raw_path`; price ledger has 13 openings and no closes or licensed market prices. These are clearly described in the refreshed docs with NFL source links. They should also be reviewed for addition to the generated Flagged for Review register by the integration owner; this task did not touch shared data/page outputs.
+
+**Integration handoff:** root `executive-summary.html` and other generated root pages are shared outputs and were not edited under this claim. The final integration owner should decide whether to update the generated summary from its canonical builder input and add the newly described discrepancies to `data/flagged.json` / `flagged.html`. No underlying data rows were changed.
+
+**Files changed:** `README.md`, `docs/EXECUTIVE_SUMMARY.md`, `COORDINATION.md` only. Claim commit `a31aa84` was pushed to `arena/c1a049b2-fl3` after `git pull --rebase origin main`; documentation changes follow on this same branch.
