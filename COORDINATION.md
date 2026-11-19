@@ -2680,3 +2680,16 @@ Open PRs checked before claiming: **#59** (`arena/3b7e0210-fl3`, compare-page wo
 
 - Ingest LAC@BAL into the results feed after PR #59 (see item 1 above).
 - No other session's files were touched; PRs #59/#61/#62 scopes were avoided.
+
+### Rebase note — `arena/c6095b01-fl3` (T-C6095), 2026-11-19 UTC
+PR #73 (`arena/e0e5d195-fl3`) merged to `main` while PR #75 was open, so this record was rebased onto `main@d593e7c`. Conflict in COORDINATION.md resolved by keeping both sessions' records; no other session's work discarded.
+
+### Merge and deploy record — `arena/c6095b01-fl3` (T-C6095), 2026-11-19 UTC
+
+- **PR:** https://github.com/sassnarep3-star/FL3/pull/72 — "T-C6095: acceptance audit + T43 offline-test fix (8/8), integration closeout".
+- **Merged:** 2026-11-19T05:27:06Z, merge commit `85f253b` on `main` (merge method: `--merge`). No approval waited.
+- **Checks at merge:** `Recompute and verify` pass, `validate` pass, `verify-and-build` pass. `mergeStateStatus` CLEAN.
+- **Post-merge CI on `main@85f253b`:** `Verify data and site` success, `site` success, `Deploy static site to GitHub Pages` success, `pages build and deployment` success.
+- **Pages:** API `status: built`, `build_type: legacy`, source `main:/`. Live: https://sassnarep3-star.github.io/FL3/
+- **T43 handoff:** PR #61 (`arena/9f527e7c-fl3`) is superseded by the identical test fix merged here; it can be closed. PRs #59/#62 remain open for their owners.
+- **Flagged for review (do not block):** REG10-LAC-BAL exclusion stale (re-capture needed with network access); V-09b/FLG-025 official table disagreement published as read.
