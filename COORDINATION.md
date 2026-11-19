@@ -2631,3 +2631,52 @@ PR #61 (`arena/9f527e7c-fl3`) fixed the same stale assertion but is CONFLICTING 
 ### Integration
 
 PR from `arena/c6095b01-fl3` to `main` opened after the audit; merge without waiting for approval; Pages deploy confirmed via API + live fetch; PR link and merge result recorded here after merge.
+# Session `arena/e0e5d195-fl3` — claim (2026-11-19 UTC)
+
+**Session ID:** `arena/e0e5d195-fl3` · **Branch:** `arena/e0e5d195-fl3` (fixed by the session branch note) · **Base:** `main@233438d`.
+Open PRs checked before claiming: **#59** (`arena/3b7e0210-fl3`, compare-page wording — touches `scripts/build_site.py`, `scripts/check_site.py`, `compare.html`, `data/compare/evaluation.json`, `scripts/build_compare.py`), **#61** (`arena/9f527e7c-fl3`, touches `scripts/test_capture_offline.py`), **#62** (`arena/ce068000-fl3`, touches `COORDINATION.md` only). None of those files are in this claim's scope.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T-E01 — **Line-by-line verification audit of root datasets vs live official sources** (standings snapshot arithmetic + source links; Week 10 injury rows incl. Lions designations; Week 10 schedule finals vs results feed; correlations n; lines recomputation via existing suites). Each row recorded CONFIRMED / STALE-BY-DESIGN / MISMATCH / NOT VERIFIED with the URL read on 2026-11-19. No dataset value is overwritten; gaps are flagged, never filled. | **in progress** | `arena/e0e5d195-fl3` | `data/verification/session_e0e5d195_2026-11-19.csv` + `.json` (new) |
+| T-E02 — Refresh `docs/EXECUTIVE_SUMMARY.md` counts to the current registers (13 questions, 22 suggestions, 34 flags, 75 requirements, 149-game feed). Docs only; no generated page is touched. | **in progress** | `arena/e0e5d195-fl3` | `docs/EXECUTIVE_SUMMARY.md` |
+| T-E03 — Integration closeout: full suites, PR to `main`, merge, Pages check, record here. | pending | `arena/e0e5d195-fl3` | `COORDINATION.md` |
+
+**Scope boundaries.** Not touched: `scripts/build_site.py`, `scripts/check_site.py`, `compare.html`, `data/compare/*`, `scripts/build_compare.py`, `scripts/test_capture_offline.py`, `board/**`, `verified/**`, `verify/**`, `depth/**`, `site-9b181d31/**`, `legacy/**`, any root `*.html`, any `data/*.json` shared output. Defects found in other tracks are recorded in the audit dataset, not silently edited.
+
+**Verification rule.** Only `nfl.com` / `static.www.nfl.com` / club-operated sites are read as evidence; each row carries the URL read. Anything not readable from the page is left blank and marked NOT VERIFIED.
+
+## Completion record — `arena/e0e5d195-fl3` (2026-11-19 UTC)
+
+| Task | Status | Result |
+|---|---|---|
+| T-E01 — Line-by-line verification audit vs live official sources | **done** | 18 checks in `data/verification/session_e0e5d195_2026-11-19.{csv,json}`: **15 CONFIRMED, 1 STALE-BY-DESIGN, 1 MISMATCH, 1 NOT VERIFIED**. Every row carries the URL read on 2026-11-19. No dataset value overwritten. |
+| T-E02 — Executive summary counts refresh (docs only) | **done** | `docs/EXECUTIVE_SUMMARY.md`: 13 decisions / 22 suggestions / 75 requirements / 149-game feed / 6,216 assertions; §5 corrected (backtest corpus + walk-forward now exist; still no leaderboard entries). |
+| T-E03 — Integration closeout | **in progress** (PR and merge record below) | — |
+
+### Sources (all read on 2026-11-19 via the page reader)
+
+- Standings: https://www.nfl.com/standings/division/2026/REG (both chunks read; all 32 clubs).
+- Week 10 injury report: https://www.nfl.com/injuries/league/2026/reg10 (chunk 0 read; WAS/NYG, NE/DET, KC/ATL tables; page title says "Week 11" while content is Week 10 — re-observes F11).
+- Week 10 schedule: https://www.nfl.com/schedules/2026/by-week/week-10 (both chunks read; all 14 finals + bye clubs CHI/DEN/PHI/TB).
+- Live site: https://sassnarep3-star.github.io/FL3/ (Pages `built`, legacy `main:/`).
+
+### Verification performed
+
+- Standings arithmetic recomputed locally over `data/standings.json`: PF−PA=Net and PCT identities hold for all 32 clubs, 0 mismatches; every row carries an https `src`.
+- Injury counts recomputed locally: 345 players / 185 blank game statuses (matches F04). Lions Joseph/Mays/Reed all Out in both repo rows and the live page (R062 holds). WAS Patrick/Yankoff Out and NE Ben Brown Out confirmed on the live page.
+- Results feed arithmetic recomputed: 149 rows, 0 bad margin/total rows. All 13 Week 10 finals in the feed match the live schedule page exactly; WAS@NYG final matches the lines file `status_line`.
+- Correlations: 4 measured (n=32) + 6 declared assumptions; recomputation passes inside `check_site.py`.
+- Suites on the branch: `check_site.py` (6,216 assertions PASS), `check_links.py` (PASS, 31 pages / 68 external links), `build_readiness.py --check` (OK, 75), `verify_live.py --check` (no diff), `build_board.py --check` (31 pages, deterministic), `verify.py` (G-10 PASS, existing V-09b non-blocking note).
+
+### Irregularities (do not block; flagged for review)
+
+1. **V12 MISMATCH — LAC@BAL final not yet ingested.** Live page reports LAC 23 @ BAL 20 FINAL (Mon Nov 16); the feed still holds 149 rows because the game was in progress (Q2) at capture (2026-11-17T02:47Z) and was correctly excluded then. Ingestion makes the feed 150 and requires updating the hard 149 assertion in `scripts/check_site.py` plus the corpus chain — owned by the PR #59 track, so this session flagged it instead of editing that file. Integration session: ingest `REG10-LAC-BAL` (LAC 23 @ BAL 20, source https://www.nfl.com/schedules/2026/by-week/week-10) once PR #59 lands.
+2. **V03 STALE-BY-DESIGN — standings snapshot predates Week 10 finals** (BUF 7-1 in repo vs 8-1 live). Correct for line origination; must not be overwritten (flag F15).
+3. **V08 — injury page title says "Week 11"** while the table is Week 10 (re-observes F11).
+4. **V18 NOT VERIFIED — no licensed market price** (F07). Market/residual columns stay blank by policy PD-01.
+
+### Request for the integration session (not performed here — shared outputs)
+
+- Ingest LAC@BAL into the results feed after PR #59 (see item 1 above).
+- No other session's files were touched; PRs #59/#61/#62 scopes were avoided.
