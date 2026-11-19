@@ -2693,3 +2693,33 @@ PR #73 (`arena/e0e5d195-fl3`) merged to `main` while PR #75 was open, so this re
 - **Pages:** API `status: built`, `build_type: legacy`, source `main:/`. Live: https://sassnarep3-star.github.io/FL3/
 - **T43 handoff:** PR #61 (`arena/9f527e7c-fl3`) is superseded by the identical test fix merged here; it can be closed. PRs #59/#62 remain open for their owners.
 - **Flagged for review (do not block):** REG10-LAC-BAL exclusion stale (re-capture needed with network access); V-09b/FLG-025 official table disagreement published as read.
+
+### Merge and deploy record — `arena/47333765-fl3` (final closeout), 2026-11-19 UTC
+
+**Branch:** `arena/47333765-fl3` (base `main@233438d`, == branch note). Sole session on this branch.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| Final closeout: refresh stale headline counts, fix capture-test wrong-week classification (F34), re-verify whole tree, PR + merge + Pages confirmation | **done** | `arena/47333765-fl3` | `scripts/build_site.py`, `scripts/test_capture_offline.py`, `index.html`, `README.md`, `docs/EXECUTIVE_SUMMARY.md`, `COORDINATION.md` (this section) |
+
+**Changes on this branch:**
+- `scripts/build_site.py` — `RECAPTURED` advanced `2026-11-16` → `2026-11-19` so the landing-page staleness disclosure states today's date; dashboard decisions count 12 → 13 to match `data/decisions.json` (13 questions, 9 blocking).
+- `scripts/test_capture_offline.py` — wrong-week (earlier body) case now asserts `not_published_yet`/rc0 per the documented classifier spec; resolves irregularity F34 (offline capture tests 8/8).
+- `index.html` — regenerated ("Today is 2026-11-19", decisions count corrected).
+- `README.md`, `docs/EXECUTIVE_SUMMARY.md` — headline counts refreshed: 25 pages, 6,216 assertions, 13 questions, 22 suggestions, 34 flags.
+- No dataset or strategy values changed; no other session's files touched.
+
+**Verification on the merged tree:**
+- `scripts/check_site.py` — 6,216 assertions, ALL CHECKS PASSED (every row sourced, no invented market values, CSV field-count integrity).
+- `check_links.py` PASS · `verify.py` GATE G-10 PASS (non-blocking V-09b/FLG-025) · `build_board.py --check` 31 pages PASS · `build_readiness.py --check` 75 requirements PASS · `verify_depth.py` 16/0/0 · `check_verified_site.py` 645 PASS · `check_verify.py` 323 PASS · `check_depth_links.py` PASS · `check_coverage_audit.py` PASS · `build_compare.py --check` OK · `build_crosscheck.py` OK · `test_capture_offline.py` 8/8 PASS.
+- Official source re-check (2026-11-19): NFL.com Week 10 injury report — Lions Kerby Joseph / Cade Mays / D.J. Reed all published **Out** (re-confirms R062; the brief's "blank status" claim does not hold); page serves pre-game Week 10 records, consistent with documented snapshot staleness (F01/R073).
+- Live site fetched after deploy: https://sassnarep3-star.github.io/FL3/ serves the dashboard with "Today is 2026-11-19".
+
+**PR / merge / deploy record:**
+- **Pull request:** https://github.com/sassnarep3-star/FL3/pull/78 — "FL3 closeout: verified refresh — 6,216 assertions green, capture-test F34 fixed, site live".
+- **Merged:** 2026-11-19T05:33:37Z, merge commit `e685e5d27bdae6074c13d17dc6afd06d00ab9553` on `main` (`gh pr merge 78 --merge`, no `--auto`, no approval waited, per brief).
+- **Post-merge CI on `main@e685e5d`:** `Verify data and site` success, `site` success, `Deploy static site to GitHub Pages` success, `pages build and deployment` success.
+- **Pages:** API `status: built`, `build_type: legacy`, source `main:/`, URL https://sassnarep3-star.github.io/FL3/; latest Pages build (commit e685e5d) status **built**, duration 23s.
+- **Irregularities:** no new irregularities; open flags (F01–F34 etc., V-09b/FLG-025) remain published on the Flagged for Review page and do not block; market/residual columns stay blank by policy PD-01 pending a licensed price feed — no value inferred.
+
+Session `arena/47333765-fl3` scope closed.
