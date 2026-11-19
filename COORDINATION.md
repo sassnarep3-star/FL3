@@ -2680,3 +2680,12 @@ Open PRs checked before claiming: **#59** (`arena/3b7e0210-fl3`, compare-page wo
 
 - Ingest LAC@BAL into the results feed after PR #59 (see item 1 above).
 - No other session's files were touched; PRs #59/#61/#62 scopes were avoided.
+
+### Merge and deploy record — `arena/e0e5d195-fl3` (T-E03), 2026-11-19 UTC
+
+- **PR:** https://github.com/sassnarep3-star/FL3/pull/73 — "Verification audit vs live NFL.com (18 checks) + executive summary refresh (2026-11-19)".
+- **Merged:** 2026-11-19T05:29:18Z as merge commit `d593e7c` on `main` (merge method: `--merge`). Head at merge: `b28c2b4`, checks green (`Recompute and verify`, `validate`, `verify-and-build` all pass).
+- **Rebase note:** `main` advanced during review (PR #72, session `arena/c6095b01-fl3`). The one conflict (`COORDINATION.md`, both sides appended) was resolved by keeping both sessions' records with no lines dropped. That session's audit independently flagged the same LAC@BAL staleness (its item 1); this session's V12 corroborates it with the live final score.
+- **Pages:** `pages build and deployment` success on `d593e7c`; Pages API status `built`, legacy source `main:/`, https://sassnarep3-star.github.io/FL3/ . `Deploy static site to GitHub Pages` and `site` workflows success on `main`.
+- **Flagged for review (do not block):** V12 LAC@BAL ingestion (needs `results_feed.json` + frontier rebuild + `check_site.py` 149-assertion update — integration session), V03 snapshot staleness by design (F15), V08 injury-page title mismatch (F11), V18 no licensed market price (F07).
+- **Handoff:** integration session to ingest LAC@BAL (LAC 23 @ BAL 20, source https://www.nfl.com/schedules/2026/by-week/week-10) via `data/official/results_feed.json` (never hand-edit the CSV), re-run `scripts/build_frontier_data.py`, then re-run ablation + leaderboard. PRs #59/#62 remain for their owners (see `arena/c6095b01-fl3` audit).
