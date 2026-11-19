@@ -2770,7 +2770,8 @@ therefore behind the source until a new capture is recorded.
 - `scripts/check_official_readings.py` (new) + `snapshots/parsed/readings_wk11_IND-HOU_PIT-PHI_2026-11-19.csv`: 51 rows read again from the live page, compared field by field: **all match**. A mutated copy of one value is caught (exit 2).
 - Board: `official-capture` page renders the Week 11 table and a Week 11 section; `BOARD_DATA` declares the new CSV; SRC-037 registered in `data/sources.csv` (board copy regenerated).
 - `.github/workflows/verify.yml`: one step runs the offline capture tests, the selftest, the parser and the readings check.
-- `data/flags.csv` (append-only, CRLF preserved): FLG-067 (resolved on this branch, pending merge), FLG-068 (open: not yet wired into the scheduled workflow), FLG-069 (info: blank game status), FLG-070 (low: broadcaster label).
+- `data/flags.csv` (append-only, CRLF preserved): FLG-067 (resolved on this branch, pending merge), FLG-068 (open: not yet wired into the scheduled workflow), FLG-069 (info: blank game status), FLG-070 (low: broadcaster label), FLG-071 (info: a byte-level 'changed' flag with identical designations).
+- **Second capture.** The scheduled run at 05:34:15Z stored `ca5e75d6b8e3…` (373,511 bytes). That commit lived on the branch tip that was replaced by the force-push, so its index row and raw file were restored from the old commit object (nothing discarded). Parsing both captures gives 253 identical designation rows. `scripts/parse_official_snapshot.py` now takes `--sha12` to choose a capture; the published table is pinned to `f58ecb73ed91…`, and the readings check reads the hash from that table.
 
 **Sources (all read 2026-11-19 UTC).**
 

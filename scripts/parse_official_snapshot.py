@@ -54,14 +54,17 @@ class Fail(Exception):
     pass
 
 
-def latest_capture(week: int):
+def latest_capture(week: int, sha12: str = None):
+    """Newest captured row for the week, or the one whose SHA-256 starts with sha12."""
     rows = []
     with INDEX.open(encoding="utf-8", newline="") as fh:
         for r in csv.DictReader(fh):
             if r["report"] == "injuries" and r["week"] == str(week) and r["result"] == "captured":
-                rows.append(r)
+                if sha12 is None or r["sha256"].startswith(sha12):
+                    rows.append(r)
     if not rows:
-        raise Fail(f"no captured injuries/week {week} row in {INDEX.relative_to(ROOT)}")
+        raise Fail(f"no captured injuries/week {week} row" + (f" with sha256 {sha12}" if sha12 else "")
+                   + f" in {INDEX.relative_to(ROOT)}")
     return rows[-1]
 
 
@@ -112,9 +115,11 @@ def main(argv=None):
     import argparse
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[1])
     ap.add_argument("--week", type=int, required=True)
+    ap.add_argument("--sha12", help="parse the capture whose SHA-256 starts with this (default: newest)")
+    ap.add_argument("--out", help="write the table here instead of the canonical data/ path (comparisons)")
     args = ap.parse_args(argv)
     try:
-        cap = latest_capture(args.week)
+        cap = latest_capture(args.week, args.sha12)
         src_id = SOURCE_ID_TMPL.get(args.week)
         registered = {r["source_id"]: r for r in csv.DictReader(open(ROOT / "board/data/sources.csv", encoding="utf-8", newline=""))}
         if src_id not in registered or registered[src_id]["url"] != cap["url"]:
@@ -150,7 +155,7 @@ def main(argv=None):
             "capture_utc": cap["capture_utc"], "raw_sha256": cap["sha256"], "raw_path": cap["raw_path"],
             "source_id": src_id, "source_url": cap["url"], **r,
         })
-    out = ROOT / OUT_TABLE_TMPL.format(week=args.week)
+    out = Path(args.out) if args.out else ROOT / OUT_TABLE_TMPL.format(week=args.week)
     with out.open("w", encoding="utf-8", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=COLUMNS, lineterminator="\n")
         w.writeheader()
@@ -175,14 +180,15 @@ def main(argv=None):
         "rows_missing_game_status": sum(1 for r in rows if not r["game_status"]),
         "game_status_counts": {k: sum(1 for r in rows if r["game_status"] == k)
                                for k in sorted({r["game_status"] for r in rows})},
-        "output_table": OUT_TABLE_TMPL.format(week=args.week),
+        "output_table": OUT_TABLE_TMPL.format(week=args.week) if not args.out else str(args.out),
         "checks": "all pinned checks passed",
     }
-    (PARSED_DIR / f"injuries_reg{args.week}_{stamp}.summary.json").write_text(
+    if not args.out:
+        (PARSED_DIR / f"injuries_reg{args.week}_{stamp}.summary.json").write_text(
         json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     print(f"parsed {len(rows)} rows from {cap['raw_path']} (sha256 {cap['sha256'][:12]})")
     print(f"clubs: {len(clubs)} on strips, {len(with_table)} with a table, {len(no_inj)} 'No Injuries Reported'")
-    print(f"wrote {OUT_TABLE_TMPL.format(week=args.week)}")
+    print(f"wrote {out.relative_to(ROOT) if out.is_relative_to(ROOT) else out}")
     return 0
 
 

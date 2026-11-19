@@ -16,11 +16,9 @@ FIELDS = ["position", "injuries", "practice_status", "game_status"]
 
 
 def capture_sha12(week: int) -> str:
-    """First 12 hex chars of the SHA-256 of the newest captured raw body for this week."""
-    import sys as _s
-    _s.path.insert(0, str(ROOT / "scripts"))
-    from parse_official_snapshot import latest_capture
-    return latest_capture(week)["sha256"][:12]
+    """The capture the PUBLISHED table was parsed from (its raw_sha256 column), first 12 hex chars."""
+    with open(ROOT / f"data/official_injury_capture_wk{week}_2026.csv", encoding="utf-8", newline="") as fh:
+        return next(csv.DictReader(fh))["raw_sha256"][:12]
 
 
 def main(week=11):
