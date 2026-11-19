@@ -2577,3 +2577,25 @@ This session worked on the branch named by its branch note (`arena/7c189606-fl3`
 - **Pages:** `pages build and deployment` success on `643e25b`; Pages status `built`, source `main /`. Live check: `https://sassnarep3-star.github.io/FL3/verify/brief-claims.html` serves the ledger with the verdict counts (CARRIED 1, CONFIRMED 9, NOT VERIFIED 2, OBSERVED 3, REFUTED 2, STALE 1).
 - **Flagged for review (do not block):** BC-01 (refuted), BC-07 (refuted), BC-08 (not verified), BC-09 (stale Seattle depth row), BC-11, BC-12/BC-18 (Texans image, no structured source), BC-14, BC-15, BC-16, BC-17 (carried count). Colts Week 11 starter: NOT VERIFIED (club depth-chart order only).
 - **Handoff:** integration session to add the Flagged for Review items to root `flagged.html` (shared register), and to re-read the Week 11 injury report and Colts Week 11 starter after the game is published.
+
+## Session `arena/32da553e-fl3` — claim (2026-11-19 UTC)
+
+Branch note for this session: the only branch this session may use is `arena/32da553e-fl3`
+(branched from `main` at `233438d`). The brief's `session-<id>/<task>` branch names are read as
+the same rule (see the `arena/7c189606-fl3` branch note above). No other branch is created or pushed.
+
+| Task | Status | Owner | Files touched |
+|---|---|---|---|
+| T-32A Week 11 official injury-report capture (immutable, hashed, timestamped) through the existing snapshot pipeline | in progress | `arena/32da553e-fl3` | `snapshots/index.csv`, `snapshots/raw/**` |
+| T-32B Brief status register: every item of the 2026-11-19 brief mapped to repo evidence, blocking gate, and clearance metric | in progress | `arena/32da553e-fl3` | `board/data/brief_status.csv`, `content/board/brief-status.md`, `scripts/build_board.py` (PAGES only) |
+| T-32C Coordination record and PR/merge record | in progress | `arena/32da553e-fl3` | `COORDINATION.md` |
+
+Baseline before edits (all green on this branch, 2026-11-19): `verify.py` (G-10 PASS, 1 non-blocking
+discrepancy V-09b/FLG-025), `check_site.py` (6216 assertions), `check_leaderboard_governance.py`
+(10 checks), `check_verified_site.py` (645), `check_verify.py` (323), `check_coverage_audit.py`,
+`check_links.py` (31 pages), `build_board.py --check` (75 requirements; 53 linked; 22 source-gap).
+
+Observed before the capture: `snapshots/index.csv` rows dated 2026-11-18T21:27Z and
+2026-11-19T04:10Z read `empty`, while the official Week 11 page (fetched 2026-11-19) lists
+player rows (e.g. Colts: Will Mallory TE, Hamstring, Did Not Participate, Out). The store is
+therefore behind the source until a new capture is recorded.
