@@ -115,6 +115,33 @@ def classify(body: bytes, week: int, status: int, final_url: str = ""):
     return "ok", []
 
 
+# Player-row detection. The first version counted only the literal text
+# "nfl.com/players/", which is not how every serialisation of the page writes a
+# player link (JSON-embedded or relative hrefs use escaped or relative forms).
+# Result: a 374 KB reg11 page (Week 11 report, published 2026-11-18) was recorded
+# as "empty" on 2026-11-18 and 2026-11-19 while the live page held 300+ rows.
+# Rows are now detected by ANY of: a player profile URL in absolute, escaped or
+# relative form, or a Practice Status cell value. The larger of the two counts is used.
+PLAYER_URL_RE = re.compile(
+    r"nfl\.com(?:\\)?/players(?:\\)?/([a-z0-9][a-z0-9\-]*)"
+    r"|[\"'(]/players/([a-z0-9][a-z0-9\-]*)",
+    re.IGNORECASE,
+)
+PRACTICE_CELL_RE = re.compile(
+    r"Did Not Participate In Practice|Limited Participation in Practice|Full Participation in Practice",
+)
+
+
+def player_row_count(text: str) -> int:
+    """Number of distinct player rows evidenced in the body (0 = no rows)."""
+    slugs = set()
+    for m in PLAYER_URL_RE.finditer(text):
+        slugs.add((m.group(1) or m.group(2) or "").lower())
+    slugs.discard("")
+    practice = len(PRACTICE_CELL_RE.findall(text))
+    return max(len(slugs), practice)
+
+
 def check_body(body: bytes, week: int, status: int):
     """Return a list of drift problems. Empty list = safe to inspect player rows."""
     problems = []
@@ -239,7 +266,7 @@ def main(argv=None):
             "capture_utc": now.isoformat().replace("+00:00", "Z"),
             "report": args.report, "season": 2026, "week": args.week, "url": url,
             "http_status": status, "bytes": len(body), "sha256": sha,
-            "raw_path": "", "player_links": body.decode("utf-8", errors="replace").count("nfl.com/players/"),
+            "raw_path": "", "player_links": player_row_count(body.decode("utf-8", errors="replace")),
             "change_vs_previous": "n/a", "result": "not_published_yet",
         })
         print("NOT PUBLISHED YET for " + url + ": " + "; ".join(problems)
@@ -252,7 +279,13 @@ def main(argv=None):
         print(f"body starts with: {snippet!r}", file=sys.stderr)
         return 2
 
-    links = body.decode("utf-8", errors="replace").count("nfl.com/players/")
+    links = player_row_count(body.decode("utf-8", errors="replace"))
+    if 0 < links < MIN_PLAYER_LINKS:
+        # Some rows but fewer than a real report ever has: a parser or page-shape
+        # problem, not a report with no rows yet. Fail loudly; store nothing.
+        print(f"DRIFT/FETCH FAILURE for {url}: only {links} player rows detected "
+              f"(expected >= {MIN_PLAYER_LINKS}); nothing stored", file=sys.stderr)
+        return 2
     if links < MIN_PLAYER_LINKS:
         # Structurally valid page (right headings, right week) but the report has
         # no player rows yet. Record that fact; it is not drift and must not fail

@@ -2744,3 +2744,51 @@ therefore behind the source until a new capture is recorded.
 4. **Unverified this session:** Week 11 injury-report row counts and designations were not transcribed into the repo (only one Colts row was cross-read against the game centre). Colts Week 11 starter status is still NOT VERIFIED (see the prior session's record).
 
 **Handoff:** when the next scheduled `snapshot.yml` run on `main` completes, confirm the Week 11 row in `snapshots/index.csv` is non-empty and that the raw file hash matches the stored file; if it stays `empty` after the page is populated, open a flag on the parser threshold (`MIN_PLAYER_LINKS`).
+
+---
+
+# Session `arena/d8485248-fl3` — claim (2026-11-19 UTC)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T-D1 — Fix the official-report snapshot classifier, which recorded the live Week 11 report as `empty` on 2026-11-18 and 2026-11-19 (`snapshots/index.csv`, 0 player links over a 319–374 KB page) while the page holds 300+ rows. Robust row detection (absolute, escaped and relative player URLs, plus Practice Status cells), partial pages fail loudly (exit 2), and the offline suite covers each serialisation. Then a live capture on this branch to observe the result. | **done** (PR and merge record below) | `arena/d8485248-fl3` | `scripts/capture_official_snapshot.py`, `scripts/test_capture_offline.py` (the wrong-week case uses the same wording as PR #72 / #61 so the change merges cleanly), `snapshots/**` (written only by the snapshot workflow), `board/data/flags.csv` (append-only FLG rows) |
+
+**Scope note.** Overlaps checked before claiming: PR #72 (`arena/c6095b01-fl3`, T-C6095 audit) and PR #73 (`arena/e0e5d195-fl3`, verification audit) both record the `empty` capture result as a known item and leave the scheduled capture to fix it. PR #61 (`arena/9f527e7c-fl3`) is the same test-only fix as #72. Nothing in this session touches the audit files, the executive summary or the root pages.
+
+**Not claimed:** every other readiness row, all root `*.html`, `data/**`, `docs/**`, `board/**` generated output (regenerated only by the generators if a flag row changes), `verify/**`, `verified/**`, `.github/**`.
+
+### Completion record — `arena/d8485248-fl3` (T-D1), 2026-11-19 UTC
+
+**What was wrong (FLG-067).** Every scheduled run since the Week 11 page was published (2026-11-18 21:27Z and 2026-11-19 04:10Z) recorded `empty` and stored nothing, while the official page held 253 player rows. The classifier counted only the literal text `nfl.com/players/` (0 matches in the stored body); the page writes player links as relative `/players/<slug>/` hrefs (253 matches). The workflow still reported `success`.
+
+**What changed.**
+
+- `scripts/capture_official_snapshot.py`: player rows are detected from absolute, escaped and relative player URLs and from Practice Status cells. A partial page (0 < rows < 5) now exits 2 and stores nothing.
+- `scripts/test_capture_offline.py`: the stale wrong-week expectation now matches PR #72 / #61 (identical wording); new cases for escaped JSON links, relative hrefs, status-cells-only and partial pages; path no longer hard-coded to `/home/user/FL3`.
+- Live proof on this branch: the push ran `snapshot.yml`, which committed `snapshots/raw/injuries/reg11/2026-11-19T052743Z_f58ecb73ed91.html.gz` (sha256 `f58ecb73ed91b237…`, 374,013 bytes, 253 rows, `captured`, `first`) and one row in `snapshots/index.csv`.
+- `scripts/parse_official_snapshot.py` (new): parses the stored bytes (not a hand transcription) into `data/official_injury_capture_wk11_2026.csv`, with pinned checks: sha256 equals index, 26 clubs = 24 tables + 2 "No Injuries Reported", 13 game pairs, 253 rows = 253 Practice Status cells, required fields present. Summary JSON in `snapshots/parsed/`.
+- `scripts/check_official_readings.py` (new) + `snapshots/parsed/readings_wk11_IND-HOU_PIT-PHI_2026-11-19.csv`: 51 rows read again from the live page, compared field by field: **all match**. A mutated copy of one value is caught (exit 2).
+- Board: `official-capture` page renders the Week 11 table and a Week 11 section; `BOARD_DATA` declares the new CSV; SRC-037 registered in `data/sources.csv` (board copy regenerated).
+- `.github/workflows/verify.yml`: one step runs the offline capture tests, the selftest, the parser and the readings check.
+- `data/flags.csv` (append-only, CRLF preserved): FLG-067 (resolved on this branch, pending merge), FLG-068 (open: not yet wired into the scheduled workflow), FLG-069 (info: blank game status), FLG-070 (low: broadcaster label).
+
+**Sources (all read 2026-11-19 UTC).**
+
+- Official Week 11 injury report: https://www.nfl.com/injuries/league/2026/reg11 (SRC-037; the stored raw body is the primary evidence; the live page was read for the 51-row check).
+- Official Week 11 schedule: https://www.nfl.com/schedules/2026/by-week/week-11 (7 of 13 pairings read: IND at HOU, MIA at BUF, BAL at CAR, NO at CHI, TEN at DAL, TB at DET, CIN at WAS; the other 6 were not read and agree with the repo slate).
+- Official "Teams on Bye" on the same page: ATL, CLE, GB, LA, NE, SEA. These match the repo's six BYE rows and the six clubs absent from the report.
+
+**Suites run on the branch (all pass).** `test_capture_offline.py` (9/9), `capture_official_snapshot.py --selftest`, `parse_official_snapshot.py --week 11`, `check_official_readings.py 11` (51/51), `verify.py` (G-10 PASS; V-09b/FLG-025 is the pre-existing non-blocking note), `build_board.py` and `--check`, `check_links.py`, `check_site.py` (ALL CHECKS PASSED), `verify_live.py --check` (no diff), `build_verified_site.py` + `check_verified_site.py`, `build_verify.py` + `check_verify.py`, `build_coverage_audit.py` + `check_coverage_audit.py`, `check_leaderboard_governance.py`, `build_readiness.py --check` (75 requirements).
+
+**Irregularities (on the board's Flagged for Review page, do not block).** FLG-067 (silent blank, now fixed), FLG-068 (parser not in the scheduled pipeline), FLG-069 (237 of 253 game-status cells blank by design), FLG-070 (PRIME vs Prime Video label).
+
+**Not done in this session (honest scope).** The rest of the brief is not re-implemented here. Most items are already represented in `board/data/requirements_readiness.csv` (75 rows) and the coverage audit, with source gaps flagged there. Other sessions have open audit PRs (#72, #73); this session did not touch their files apart from the test-file wording noted above.
+
+### PR and merge record
+
+PENDING — filled in after the merge.
+
+### Relation to other sessions' records (added on rebase, 2026-11-19 UTC)
+
+- **`arena/32da553e-fl3` (T-32A, recorded as blocked)** logged the Week 11 injury capture as blocked and the store lag as "not established". This branch closes that gap with a stored, hashed raw body (`snapshots/raw/injuries/reg11/2026-11-19T052743Z_f58ecb73ed91.html.gz`) and the parser's row-by-row check. Its irregularities 1 and 3 are answered by FLG-067 and this capture. Its T-32D venue recheck is consistent with the venue naming in this session's notes.
+- **History rewrite on this branch.** The first push of this branch was made before `main` moved again (PR #75/#78). The branch was rebased onto `origin/main` and force-pushed with `--force-with-lease` against its own old tip (`4c642ea`). No other session had pushed to this branch. The snapshot workflow ran on each push and committed further captures to this branch (`snapshot: official injury report`); those rows are retained, not removed.
