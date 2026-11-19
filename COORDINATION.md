@@ -2631,3 +2631,17 @@ PR #61 (`arena/9f527e7c-fl3`) fixed the same stale assertion but is CONFLICTING 
 ### Integration
 
 PR from `arena/c6095b01-fl3` to `main` opened after the audit; merge without waiting for approval; Pages deploy confirmed via API + live fetch; PR link and merge result recorded here after merge.
+# Session `arena/e0e5d195-fl3` — claim (2026-11-19 UTC)
+
+**Session ID:** `arena/e0e5d195-fl3` · **Branch:** `arena/e0e5d195-fl3` (fixed by the session branch note) · **Base:** `main@233438d`.
+Open PRs checked before claiming: **#59** (`arena/3b7e0210-fl3`, compare-page wording — touches `scripts/build_site.py`, `scripts/check_site.py`, `compare.html`, `data/compare/evaluation.json`, `scripts/build_compare.py`), **#61** (`arena/9f527e7c-fl3`, touches `scripts/test_capture_offline.py`), **#62** (`arena/ce068000-fl3`, touches `COORDINATION.md` only). None of those files are in this claim's scope.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T-E01 — **Line-by-line verification audit of root datasets vs live official sources** (standings snapshot arithmetic + source links; Week 10 injury rows incl. Lions designations; Week 10 schedule finals vs results feed; correlations n; lines recomputation via existing suites). Each row recorded CONFIRMED / STALE-BY-DESIGN / MISMATCH / NOT VERIFIED with the URL read on 2026-11-19. No dataset value is overwritten; gaps are flagged, never filled. | **in progress** | `arena/e0e5d195-fl3` | `data/verification/session_e0e5d195_2026-11-19.csv` + `.json` (new) |
+| T-E02 — Refresh `docs/EXECUTIVE_SUMMARY.md` counts to the current registers (13 questions, 22 suggestions, 34 flags, 75 requirements, 149-game feed). Docs only; no generated page is touched. | **in progress** | `arena/e0e5d195-fl3` | `docs/EXECUTIVE_SUMMARY.md` |
+| T-E03 — Integration closeout: full suites, PR to `main`, merge, Pages check, record here. | pending | `arena/e0e5d195-fl3` | `COORDINATION.md` |
+
+**Scope boundaries.** Not touched: `scripts/build_site.py`, `scripts/check_site.py`, `compare.html`, `data/compare/*`, `scripts/build_compare.py`, `scripts/test_capture_offline.py`, `board/**`, `verified/**`, `verify/**`, `depth/**`, `site-9b181d31/**`, `legacy/**`, any root `*.html`, any `data/*.json` shared output. Defects found in other tracks are recorded in the audit dataset, not silently edited.
+
+**Verification rule.** Only `nfl.com` / `static.www.nfl.com` / club-operated sites are read as evidence; each row carries the URL read. Anything not readable from the page is left blank and marked NOT VERIFIED.
