@@ -2636,7 +2636,7 @@ PR from `arena/c6095b01-fl3` to `main` opened after the audit; merge without wai
 
 | Task | Status | Scope |
 |---|---|---|
-| T-C1 — Refresh top-level documentation that predates the 2026-11-19 snapshot; distinguish current verified status from historical/stale snapshots and describe evidence gaps without filling them | in progress | `README.md`, `docs/EXECUTIVE_SUMMARY.md`, this coordination record only |
+| T-C1 — Refresh top-level documentation that predates the 2026-11-19 snapshot; distinguish current verified status from historical/stale snapshots and describe evidence gaps without filling them | **done** | `README.md`, `docs/EXECUTIVE_SUMMARY.md`, this coordination record only |
 
 This scope does not touch datasets, generators, root pages, or files claimed by T35. Initial checks on the base tree: `check_site.py` (6,216 assertions), `check_verified_site.py` (645), `check_links.py` (31 pages), `check_verify.py` (323), `check_coverage_audit.py` (69 bullets), `check_depth_links.py`, and `check_leaderboard_governance.py` (10) pass. `verify.py` reports the pre-existing FLG-025 NFL offensive/defensive aggregate discrepancy; `verify_live.py --check` reports legacy claims stale or not reproducible (LV-02, LV-03, LV-05, LV-06, LV-07) and rewrites its generated ledger deterministically without a diff.
 
@@ -2655,4 +2655,4 @@ This scope does not touch datasets, generators, root pages, or files claimed by 
 
 **Integration handoff:** root `executive-summary.html` and other generated root pages are shared outputs and were not edited under this claim. The final integration owner should decide whether to update the generated summary from its canonical builder input and add the newly described discrepancies to `data/flagged.json` / `flagged.html`. No underlying data rows were changed.
 
-**Files changed:** `README.md`, `docs/EXECUTIVE_SUMMARY.md`, `COORDINATION.md` only. Claim commit `a31aa84` was pushed to `arena/c1a049b2-fl3` after `git pull --rebase origin main`; documentation changes follow on this same branch.
+**Files changed:** `README.md`, `docs/EXECUTIVE_SUMMARY.md`, `COORDINATION.md` only. The claim commit `a31aa84` was pushed before the latest main update. `origin/main` then advanced to `85f253b`; `git pull --rebase origin main` exposed a COORDINATION.md append conflict with session `arena/c6095b01-fl3`. Resolution retained that session's complete record and appended this claim/completion record; no other work was discarded. Rebased commits are `a41dc48` (claim) and `a3e3ff5` (documentation); the rebased commits are pending push.
