@@ -2744,3 +2744,14 @@ therefore behind the source until a new capture is recorded.
 4. **Unverified this session:** Week 11 injury-report row counts and designations were not transcribed into the repo (only one Colts row was cross-read against the game centre). Colts Week 11 starter status is still NOT VERIFIED (see the prior session's record).
 
 **Handoff:** when the next scheduled `snapshot.yml` run on `main` completes, confirm the Week 11 row in `snapshots/index.csv` is non-empty and that the raw file hash matches the stored file; if it stays `empty` after the page is populated, open a flag on the parser threshold (`MIN_PLAYER_LINKS`).
+
+### PR / merge / deploy record — `arena/32da553e-fl3` (2026-11-19 UTC)
+
+- **PR:** https://github.com/sassnarep3-star/FL3/pull/76 — "Week 11 official schedule + 13-venue game-centre recheck; brief coverage confirmed; Week 11 capture recorded as blocked (2026-11-19)".
+- **Conflict handled:** the first PR attempt was `CONFLICTING` after `main` advanced (PR #75). The branch was merged with `origin/main`; the only conflict was `COORDINATION.md`, resolved by keeping `origin/main`'s full log and appending this session's sections (no other session's entry dropped; zero conflict markers left). Gates re-run on the merged tree: all green.
+- **Checks at merge:** `Recompute and verify` pass, `validate` pass, `verify-and-build` pass; `mergeStateStatus` CLEAN, `MERGEABLE`.
+- **Merged:** 2026-11-19 05:33:23 UTC, `--merge`, merge commit `8738e6a` on `main`.
+- **Pages:** the Pages runs triggered by `8738e6a` were cancelled by the `pages-gate`/`site` concurrency rule when PR #78 (another session) merged after it; that is the expected supersede behaviour. `8738e6a` is an ancestor of `origin/main` (now `e685e5d`), and the legacy Pages build (`main` / `/`) reports `built` with `pages build and deployment` success on `e685e5d`.
+- **Live cross-check:** `https://sassnarep3-star.github.io/FL3/week11.html` shows the same 13 venue strings as `data/compare/week11_recheck_2026-11-19.csv` (RELIANT, HIGHMARK, BANK OF AMERICA, SOLDIER FIELD, AT&T, FORD, ARROWHEAD, LINCOLN FINANCIAL, SOFI, METLIFE, EMPOWER, ESTADIO BANORTE, NORTHWEST). The fetch tool returns HTTP 500 for `.csv` URLs on Pages, including the pre-existing `week11_venues.csv`, so the CSV's live reachability is **not verified** by that tool.
+- **Flagged for review (do not block):** irregularities 1–4 above; plus the CSV live-fetch limitation.
+- **Still open for a future session:** the Week 11 hashed injury capture (next scheduled run on `main`), and every brief item the readiness register lists as BLOCKED or NOT STARTED (see `board/data/requirements_readiness.csv`).
