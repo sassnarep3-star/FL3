@@ -2631,3 +2631,11 @@ PR #61 (`arena/9f527e7c-fl3`) fixed the same stale assertion but is CONFLICTING 
 ### Integration
 
 PR from `arena/c6095b01-fl3` to `main` opened after the audit; merge without waiting for approval; Pages deploy confirmed via API + live fetch; PR link and merge result recorded here after merge.
+
+## Claim — session `arena/c1a049b2-fl3` (2026-11-19 UTC)
+
+| Task | Status | Scope |
+|---|---|---|
+| T-C1 — Refresh top-level documentation that predates the 2026-11-19 snapshot; distinguish current verified status from historical/stale snapshots and describe evidence gaps without filling them | in progress | `README.md`, `docs/EXECUTIVE_SUMMARY.md`, this coordination record only |
+
+This scope does not touch datasets, generators, root pages, or files claimed by T35. Initial checks on the base tree: `check_site.py` (6,216 assertions), `check_verified_site.py` (645), `check_links.py` (31 pages), `check_verify.py` (323), `check_coverage_audit.py` (69 bullets), `check_depth_links.py`, and `check_leaderboard_governance.py` (10) pass. `verify.py` reports the pre-existing FLG-025 NFL offensive/defensive aggregate discrepancy; `verify_live.py --check` reports legacy claims stale or not reproducible (LV-02, LV-03, LV-05, LV-06, LV-07) and rewrites its generated ledger deterministically without a diff.
