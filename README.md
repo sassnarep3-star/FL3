@@ -15,9 +15,9 @@ tracking availability risk — with every league value linked to an official NFL
 | **Data** | 32 clubs' 2026 records, the full Week 10 slate, and 345 official injury-report rows — all read from NFL.com and reconciled |
 | **Lines** | 14 originated spreads and totals with explicit uncertainty bands. Not copied from a sportsbook |
 | **Strategies** | 8 specs, 8 validation gates, 5 reward tiers, and an honest empty leaderboard |
-| **Decisions** | 12 questions with what is known, what is not, and what unblocks each |
-| **Suggestions** | 17 suggestions, each with 2–3 selectable paths and a recommendation |
-| **Flags** | 13 irregularities on a dedicated review page, each with its evidence link |
+| **Decisions** | 13 questions with what is known, what is not, and what unblocks each |
+| **Suggestions** | 22 suggestions, each with 2–3 selectable paths and a recommendation |
+| **Flags** | 34 irregularities on a dedicated review page, each with its evidence link |
 
 ## What this is not
 
@@ -30,7 +30,7 @@ an official source, the cell is blank and the gap is listed on the Flagged for R
 ## Repository map
 
 ```
-index.html … methodology.html     generated site (11 pages, no JS, no framework)
+index.html … audit.html           generated site (25 pages, no JS, no framework)
 assets/site.css                   the only stylesheet
 data/
   standings.json                  32 clubs, official 2026 figures, each row sourced
@@ -40,16 +40,16 @@ data/
   luck.json                       Pythagorean luck decomposition
   correlations.json               4 measured r values + 6 declared assumptions
   strategies.json                 8 specs, 8 gates, 5 tiers
-  decisions.json                  12 questions, facts, and 10 information gaps
-  suggestions.json                16 suggestions with selectable paths
-  flagged.json                    10 review items with evidence
+  decisions.json                  13 questions, facts, and 10 information gaps
+  suggestions.json                22 suggestions with selectable paths
+  flagged.json                    34 review items with evidence
   sources.json                    every source used, plus the ones rejected
 scripts/
   compute_lines.py                ratings + originated lines (deterministic)
   compute_luck.py                 Pythagorean luck
   compute_correlation.py          measured correlations, drift-checked
-  build_site.py                   renders the 11 pages
-  check_site.py                   1124 assertions; exit 1 on any failure
+  build_site.py                   renders 25 pages
+  check_site.py                   6,216 assertions; exit 1 on any failure
   fetch_official.py               optional refresh: reports changes, never auto-writes
 docs/
   EXECUTIVE_SUMMARY.md            the summary
@@ -147,7 +147,7 @@ CSV-first instead of JSON-first, it publishes to **`board/`** (live at
 |---|---|---|
 | data store | `data/*.json` | `data/*.csv` (23 tables this track owns) |
 | generator | `scripts/build_site.py` | `scripts/build_board.py` |
-| verifier | `scripts/check_site.py` (1,124 assertions over its own pages) | `scripts/verify.py` (V-01…V-11 identities + I-01…I-07 integrity) |
+| verifier | `scripts/check_links.py` (31 board pages, no broken links) | `scripts/verify.py` (GATE G-10 identities V-01…V-11 + integrity I-01…I-07) |
 | unique inputs | 345 injury rows, Week-10 slate, Pythagorean luck split | identity-proven team-stat columns, per-club availability load, fitted calibration constants, closed-form decision math |
 | model | originated lines with uncertainty bands | same goal; constants (`beta`, `alpha`, `sigma_margin`, `gamma`, Pythagoras `k`) **fitted** on the verified games and published with their standard errors |
 

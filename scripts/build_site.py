@@ -55,7 +55,7 @@ PAGES = {
 }
 
 CAPTURED = "2026-11-14"
-RECAPTURED = "2026-11-16"
+RECAPTURED = "2026-11-19"
 
 
 # ---------------------------------------------------------------------------
@@ -367,7 +367,7 @@ def build_index(standings, lines, inj, luck, strat, dec, sug, flag, readiness, s
 <section>
   <h2>Where to go next</h2>
   {table(["Page", "What is on it", "Decide first?"],
-    [["<a href='decisions.html'>Decisions</a>", "12 questions with what is known, what is not, and what unblocks each one", "Start here"],
+    [["<a href='decisions.html'>Decisions</a>", "13 questions with what is known, what is not, and what unblocks each one", "Start here"],
      ["<a href='suggestions.html'>Suggestions</a>", f"{n_sug} suggestions, each with 2–3 selectable paths and a recommendation", "Yes — pick a path"],
      ["<a href='lines.html'>Our Lines</a>", f"{n_games} originated lines with uncertainty bands", "No"],
      ["<a href='injuries.html'>Injuries</a>", "Official Week 10 report, with availability broken out by side of the ball", "No"],
