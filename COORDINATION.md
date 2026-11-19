@@ -2577,3 +2577,13 @@ This session worked on the branch named by its branch note (`arena/7c189606-fl3`
 - **Pages:** `pages build and deployment` success on `643e25b`; Pages status `built`, source `main /`. Live check: `https://sassnarep3-star.github.io/FL3/verify/brief-claims.html` serves the ledger with the verdict counts (CARRIED 1, CONFIRMED 9, NOT VERIFIED 2, OBSERVED 3, REFUTED 2, STALE 1).
 - **Flagged for review (do not block):** BC-01 (refuted), BC-07 (refuted), BC-08 (not verified), BC-09 (stale Seattle depth row), BC-11, BC-12/BC-18 (Texans image, no structured source), BC-14, BC-15, BC-16, BC-17 (carried count). Colts Week 11 starter: NOT VERIFIED (club depth-chart order only).
 - **Handoff:** integration session to add the Flagged for Review items to root `flagged.html` (shared register), and to re-read the Week 11 injury report and Colts Week 11 starter after the game is published.
+
+---
+
+# Session `arena/c6095b01-fl3` — claim (2026-11-19 UTC)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T-C6095 — Independent acceptance audit + integration closeout: re-run every verifier suite on the merged tree, spot-check published rows against committed official captures, take over stale T43 (PR #61) offline-test fix, then PR + merge + Pages confirmation | **in progress** | `arena/c6095b01-fl3` | `COORDINATION.md`, `scripts/test_capture_offline.py` (T43 takeover) |
+
+Scope is limited to the audit record, the stale test assertion, and the integration record. No dataset value, model output, or generated page content is changed. PR #61 (`arena/9f527e7c-fl3`, T43) is CONFLICTING and its claim is >24h old with no commits, so per the stale-claim rule this session takes over the test fix and notes the handoff here. PR #62 (record-only, MERGEABLE) and PR #59 (CONFLICTING) are left for their owners; their status is recorded in the audit below.
