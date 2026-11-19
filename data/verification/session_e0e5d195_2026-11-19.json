@@ -1,0 +1,205 @@
+{
+ "session": "arena/e0e5d195-fl3",
+ "read_utc": "2026-11-19",
+ "source_policy": "nfl.com / static.www.nfl.com / club sites only; blank stays blank",
+ "checks": [
+  {
+   "check_id": "V01",
+   "area": "Standings",
+   "claim_checked": "32 clubs in 8 divisions of 4",
+   "repo_value": "32 teams / 8 divisions in data/standings.json",
+   "observed_on_official_page": "Live division page lists all 32 clubs across AFC/NFC divisions",
+   "verdict": "CONFIRMED",
+   "source_url": "https://www.nfl.com/standings/division/2026/REG",
+   "read_utc": "2026-11-19",
+   "notes": "Completeness holds; every repo row carries an https src (local check)."
+  },
+  {
+   "check_id": "V02",
+   "area": "Standings",
+   "claim_checked": "PF-PA=Net and PCT=(W+0.5T)/games for all 32 clubs",
+   "repo_value": "data/standings.json teams[]",
+   "observed_on_official_page": "Local recomputation over repo values: 0 mismatches (live page prints the same identities)",
+   "verdict": "CONFIRMED",
+   "source_url": "https://www.nfl.com/standings/division/2026/REG",
+   "read_utc": "2026-11-19",
+   "notes": "Arithmetic verified on repo snapshot; live page values differ only because Week 10 is now final (see V03)."
+  },
+  {
+   "check_id": "V03",
+   "area": "Standings",
+   "claim_checked": "Snapshot values equal current live standings",
+   "repo_value": "BUF 7-1 PF256 PA187 (snapshot 2026-11-14)",
+   "observed_on_official_page": "Live page now reads BUF 8-1 PF287 PA199; NE 5-5; CIN 7-2 PF278 PA193",
+   "verdict": "STALE-BY-DESIGN",
+   "source_url": "https://www.nfl.com/standings/division/2026/REG",
+   "read_utc": "2026-11-19",
+   "notes": "Snapshot predates Week 10 finals by design (flag F15). Lines were originated from this snapshot; overwriting it would falsify the origination record. Not updated."
+  },
+  {
+   "check_id": "V04",
+   "area": "Standings",
+   "claim_checked": "CIN/PIT correction evidence in results_feed.json",
+   "repo_value": "CIN 7-2 PF278 PA193; PIT 6-3 PF198 PA182",
+   "observed_on_official_page": "Live page reads CIN 7-2 PF278 PA193 and PIT 6-3 PF198 PA182 exactly",
+   "verdict": "CONFIRMED",
+   "source_url": "https://www.nfl.com/standings/division/2026/REG",
+   "read_utc": "2026-11-19",
+   "notes": "Confirms the PIT@CIN correction (REG10-PIT-CIN 18-38) that took the corpus 148->149."
+  },
+  {
+   "check_id": "V05",
+   "area": "Injuries",
+   "claim_checked": "Week 10 injury report holds 345 rows with 185 blank game statuses",
+   "repo_value": "345 players / 185 blank in data/injuries_week10.json",
+   "observed_on_official_page": "Live Week 10 page shows the same table structure; local count over repo rows: 345 total / 185 blank",
+   "verdict": "CONFIRMED",
+   "source_url": "https://www.nfl.com/injuries/league/2026/reg10",
+   "read_utc": "2026-11-19",
+   "notes": "Matches flag F04. Blank means NFL.com prints no game status; never inferred."
+  },
+  {
+   "check_id": "V06",
+   "area": "Injuries",
+   "claim_checked": "Lions Kerby Joseph / Cade Mays / D.J. Reed game statuses",
+   "repo_value": "All three Out in repo rows",
+   "observed_on_official_page": "Live page: Joseph (S Knee DNP) Out; Mays (C Ankle DNP) Out; Reed (CB Hip DNP) Out",
+   "verdict": "CONFIRMED",
+   "source_url": "https://www.nfl.com/injuries/league/2026/reg10",
+   "read_utc": "2026-11-19",
+   "notes": "R062 VERIFIED holds; brief claim of blank cells refuted (BC-01)."
+  },
+  {
+   "check_id": "V07",
+   "area": "Injuries",
+   "claim_checked": "WAS Lucas Patrick and Colson Yankoff statuses",
+   "repo_value": "Patrick Out (Concussion DNP); Yankoff Out (Knee DNP)",
+   "observed_on_official_page": "Live page reads identically: Patrick Out; Yankoff Out",
+   "verdict": "CONFIRMED",
+   "source_url": "https://www.nfl.com/injuries/league/2026/reg10",
+   "read_utc": "2026-11-19",
+   "notes": "Sample row check; full 345-row transcription was verified by earlier sessions (BC-17 carried)."
+  },
+  {
+   "check_id": "V08",
+   "area": "Injuries",
+   "claim_checked": "Injury URL week number matches content",
+   "repo_value": "Repo cites reg10 as Week 10",
+   "observed_on_official_page": "Live page title reads 'Week 11 of the 2026 Season' while the table is headed 'Injuries - WEEK 10'",
+   "verdict": "CONFIRMED",
+   "source_url": "https://www.nfl.com/injuries/league/2026/reg10",
+   "read_utc": "2026-11-19",
+   "notes": "Re-observes flag F11 (week-number mismatch). Content is Week 10; title is wrong on the official page."
+  },
+  {
+   "check_id": "V09",
+   "area": "Injuries",
+   "claim_checked": "NE Ben Brown status",
+   "repo_value": "Out (Knee DNP) in repo rows",
+   "observed_on_official_page": "Live page: Ben Brown (C Knee DNP) Out",
+   "verdict": "CONFIRMED",
+   "source_url": "https://www.nfl.com/injuries/league/2026/reg10",
+   "read_utc": "2026-11-19",
+   "notes": "Additional sample row; Munich game table (NE/DET) read in full."
+  },
+  {
+   "check_id": "V10",
+   "area": "Schedule",
+   "claim_checked": "Week 10 slate is 14 games; bye clubs CHI DEN PHI TB",
+   "repo_value": "data/schedule_2026_w10.json + standings note",
+   "observed_on_official_page": "Live by-week page lists 14 finals and 'Teams on Bye: CHI DEN PHI TB'",
+   "verdict": "CONFIRMED",
+   "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+   "read_utc": "2026-11-19",
+   "notes": "Bye derivation (F10) holds."
+  },
+  {
+   "check_id": "V11",
+   "area": "Results",
+   "claim_checked": "13 Week 10 finals in results_feed.csv match the official page",
+   "repo_value": "13 rows REG10-* in data/official/results_feed.csv",
+   "observed_on_official_page": "All 13 read identically live: WAS24-NYG21; NE10-DET35; KC35-ATL13; HOU24-CLE27; MIN30-GB10; MIA22-IND24; CAR20-NO17; BUF31-NYJ12; JAX40-TEN23; LA34-AZ6; SEA21-LV13; SF46-DAL40; PIT18-CIN38",
+   "verdict": "CONFIRMED",
+   "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+   "read_utc": "2026-11-19",
+   "notes": "Feed arithmetic (margin_home/total) verified: 0 bad rows over 149."
+  },
+  {
+   "check_id": "V12",
+   "area": "Results",
+   "claim_checked": "Results feed is complete through Week 10",
+   "repo_value": "149 rows; REG10-LAC-BAL excluded as not-final at capture",
+   "observed_on_official_page": "Live page now reports LAC 23 @ BAL 20 FINAL (Mon Nov 16)",
+   "verdict": "MISMATCH",
+   "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+   "read_utc": "2026-11-19",
+   "notes": "GAP: feed is now 1 game short of complete Week 10. Ingestion requires updating the hard 149 assertion in scripts/check_site.py (owned by PR #59 track) plus corpus chain 137->148. Flagged for integration; not filled here."
+  },
+  {
+   "check_id": "V13",
+   "area": "Schedule",
+   "claim_checked": "WAS @ NYG final in lines file",
+   "repo_value": "'FINAL - Commanders 24 Giants 21' in data/lines_week10.json",
+   "observed_on_official_page": "Live page: Commanders 24 Giants 21 FINAL Thu Nov 12",
+   "verdict": "CONFIRMED",
+   "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+   "read_utc": "2026-11-19",
+   "notes": "Lines file status_line matches official final."
+  },
+  {
+   "check_id": "V14",
+   "area": "Correlations",
+   "claim_checked": "4 measured r values with n; 6 assumptions declared",
+   "repo_value": "COR-01..04 with n=32; COR-A1..A6 direction-only",
+   "observed_on_official_page": "Local recomputation via check_site.py passes (6216 assertions); no market-price correlations exist",
+   "verdict": "CONFIRMED",
+   "source_url": "https://www.nfl.com/standings/division/2026/REG",
+   "read_utc": "2026-11-19",
+   "notes": "Correlations computed only from official standings values; n published with each value (R007)."
+  },
+  {
+   "check_id": "V15",
+   "area": "Lines",
+   "claim_checked": "14 originated Week 10 lines recompute deterministically",
+   "repo_value": "data/lines_week10.json 14 games",
+   "observed_on_official_page": "check_site.py recomputation passes; model outputs labelled model, never league facts",
+   "verdict": "CONFIRMED",
+   "source_url": "https://www.nfl.com/standings/division/2026/REG",
+   "read_utc": "2026-11-19",
+   "notes": "No market comparison column is populated (F07); fair/market/residual stay separate with market blank (R004)."
+  },
+  {
+   "check_id": "V16",
+   "area": "Readiness",
+   "claim_checked": "75 requirements; 53 linked; 22 source-gap",
+   "repo_value": "data/requirements_readiness.csv 75 rows",
+   "observed_on_official_page": "build_readiness.py --check: OK 75 unique; 53 official links; 22 explicitly source-gap",
+   "verdict": "CONFIRMED",
+   "source_url": "https://www.nfl.com/standings/division/2026/REG",
+   "read_utc": "2026-11-19",
+   "notes": "Landing-page readiness table (R023) renders from this register."
+  },
+  {
+   "check_id": "V17",
+   "area": "Site",
+   "claim_checked": "Internal links resolve; no orphan pages",
+   "repo_value": "31 pages / 68 external links",
+   "observed_on_official_page": "check_links.py: PASS",
+   "verdict": "CONFIRMED",
+   "source_url": "https://sassnarep3-star.github.io/FL3/",
+   "read_utc": "2026-11-19",
+   "notes": "Live site URL checked; Pages source main:/ legacy."
+  },
+  {
+   "check_id": "V18",
+   "area": "Market prices",
+   "claim_checked": "Licensed market price / closing line available",
+   "repo_value": "Blank everywhere by policy PD-01 (flag F07)",
+   "observed_on_official_page": "No official NFL page publishes betting prices; nothing to read",
+   "verdict": "NOT VERIFIED",
+   "source_url": "https://www.nfl.com/standings/division/2026/REG",
+   "read_utc": "2026-11-19",
+   "notes": "Blank policy holds. Edge/CLV claims remain out of scope (R019/R021/R049 BLOCKED)."
+  }
+ ]
+}

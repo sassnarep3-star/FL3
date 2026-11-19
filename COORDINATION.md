@@ -2577,3 +2577,119 @@ This session worked on the branch named by its branch note (`arena/7c189606-fl3`
 - **Pages:** `pages build and deployment` success on `643e25b`; Pages status `built`, source `main /`. Live check: `https://sassnarep3-star.github.io/FL3/verify/brief-claims.html` serves the ledger with the verdict counts (CARRIED 1, CONFIRMED 9, NOT VERIFIED 2, OBSERVED 3, REFUTED 2, STALE 1).
 - **Flagged for review (do not block):** BC-01 (refuted), BC-07 (refuted), BC-08 (not verified), BC-09 (stale Seattle depth row), BC-11, BC-12/BC-18 (Texans image, no structured source), BC-14, BC-15, BC-16, BC-17 (carried count). Colts Week 11 starter: NOT VERIFIED (club depth-chart order only).
 - **Handoff:** integration session to add the Flagged for Review items to root `flagged.html` (shared register), and to re-read the Week 11 injury report and Colts Week 11 starter after the game is published.
+
+---
+
+# Session `arena/c6095b01-fl3` — claim (2026-11-19 UTC)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T-C6095 — Independent acceptance audit + integration closeout: re-run every verifier suite on the merged tree, spot-check published rows against committed official captures, take over stale T43 (PR #61) offline-test fix, then PR + merge + Pages confirmation | **in progress** | `arena/c6095b01-fl3` | `COORDINATION.md`, `scripts/test_capture_offline.py` (T43 takeover) |
+
+Scope is limited to the audit record, the stale test assertion, and the integration record. No dataset value, model output, or generated page content is changed. PR #61 (`arena/9f527e7c-fl3`, T43) is CONFLICTING and its claim is >24h old with no commits, so per the stale-claim rule this session takes over the test fix and notes the handoff here. PR #62 (record-only, MERGEABLE) and PR #59 (CONFLICTING) are left for their owners; their status is recorded in the audit below.
+
+## T-C6095 audit results (2026-11-19 UTC, session `arena/c6095b01-fl3`)
+
+### Verifier suite (re-run on this branch, base `main@233438d`)
+
+| Suite | Result |
+|---|---|
+| `scripts/test_capture_offline.py` | **8/8 PASS** after T43 fix (was 7/8: "wrong-week needle" FAIL) |
+| `scripts/capture_official_snapshot.py --selftest` | PASS (not-published-yet distinguished from drift) |
+| `scripts/check_site.py` | **6,216 assertions, ALL CHECKS PASSED** |
+| `scripts/check_links.py` | 31 pages, 68 external links, PASS (no broken links/orphans) |
+| `scripts/check_verify.py` | 323 assertions, ALL CHECKS PASSED |
+| `scripts/check_verified_site.py` | 645 assertions, ALL CHECKS PASSED |
+| `scripts/verify_live.py --check` | reproduces exactly (no diff) |
+| `scripts/build_readiness.py --check` | 75 requirements OK (53 sourced, 22 source-gap flagged) |
+| `scripts/build_board.py --check` | deterministic, sha1 `3f3265517e7d` |
+| `scripts/build_compare.py --check` | reproduces exactly |
+| `scripts/build_crosscheck.py --check` | 136 → 137 → 148 games; 12/12 Week 10 finals agree; all identities hold |
+| `scripts/check_coverage_audit.py` | 69 bullets, ALL CHECKS PASSED |
+| `scripts/check_leaderboard_governance.py` | ALL 10 CHECKS PASSED (R010: no backtest numbers on prospective board) |
+| `scripts/check_freshness.py` | 107 checks, ALL CHECKS PASSED |
+| `scripts/verify.py` | GATE G-10 PASS; V-09b/FLG-025 non-blocking source discrepancy (official passing-TD 414 vs 415 allowed, INT 202 vs 200 forced — published as read, pricing-ineligible) |
+
+### Offline spot-checks against committed official captures
+
+- **Standings arithmetic** (`data/2026-standings.csv`, 32 clubs, source `https://www.nfl.com/standings/league/2026/REG`): ΣPF = ΣPA = 6,291; every club's PF−PA = net_pts; all rows sourced to nfl.com. PASS.
+- **Results corpus** (`data/week_results_2026.csv` 148 rows + `REG10-PIT-CIN` correction in `data/official/results_feed.json` = 149 games): reconciles 32/32 clubs to official standings per the committed reconciliation. PASS.
+- **Week 11 venues** (`data/compare/week11_venues.csv`): IND@HOU conflict (game centre `RELIANT STADIUM` vs schedule-page `NRG Stadium`) published as read with conflict flag; MIN@SF control agrees. PASS (flagged, not corrected).
+- **Pages**: `gh api repos/sassnarep3-star/FL3/pages` → `status: built`, `build_type: legacy`, source `main:/`. Live.
+
+### T43 takeover (stale PR #61)
+
+PR #61 (`arena/9f527e7c-fl3`) fixed the same stale assertion but is CONFLICTING against `main` (COORDINATION.md moved on) and its Pages gate had a repeated CI-only `check_site.py` failure with no retrievable log. This session applied the identical test-only fix on `arena/c6095b01-fl3`: the Week 17 request against a synthetic Week 11 page now asserts the documented `not_published_yet` behavior (exit 0, `NOT PUBLISHED YET`, index row marked `not_published_yet`) instead of drift rc2. Production capture code unchanged. PR #61 is now redundant and should be closed by its owner or an integration session; it is left open here, not merged, because its branch also carries a COORDINATION record that would conflict.
+
+### Flagged for review (do not block)
+
+1. **REG10-LAC-BAL exclusion is now stale.** `data/official/results_feed.json` excludes LAC@BAL because it was not final at capture (2026-11-17T02:47Z, Q2). By 2026-11-19 the game is final in reality, so the 149-game corpus and the 137-game standings snapshot both predate it. The sandbox has no nfl.com egress (TLS EOF), so the final score cannot be verified here and is **not** invented. Next capture session with network access: add the row via `data/official/results_feed.json` (never hand-edit the CSV), re-run `scripts/build_frontier_data.py`, then re-run ablation + leaderboard.
+2. **V-09b / FLG-025** (official offense vs defense table disagreement) remains published as read; non-blocking per G-10.
+3. **Open PRs:** #62 (record-only, MERGEABLE, stale — left for owner), #59 (CONFLICTING, stale — left for owner), #61 (superseded by this session's T43 fix — close when convenient).
+4. **Week 11 injury report:** `snapshots/index.csv` shows reg11 captures returning `empty`/`redirected:reg10` through 2026-11-19T04:10Z. The scheduled capture (snapshot.yml) owns the next attempt; no manual action.
+
+### Integration
+
+PR from `arena/c6095b01-fl3` to `main` opened after the audit; merge without waiting for approval; Pages deploy confirmed via API + live fetch; PR link and merge result recorded here after merge.
+# Session `arena/e0e5d195-fl3` — claim (2026-11-19 UTC)
+
+**Session ID:** `arena/e0e5d195-fl3` · **Branch:** `arena/e0e5d195-fl3` (fixed by the session branch note) · **Base:** `main@233438d`.
+Open PRs checked before claiming: **#59** (`arena/3b7e0210-fl3`, compare-page wording — touches `scripts/build_site.py`, `scripts/check_site.py`, `compare.html`, `data/compare/evaluation.json`, `scripts/build_compare.py`), **#61** (`arena/9f527e7c-fl3`, touches `scripts/test_capture_offline.py`), **#62** (`arena/ce068000-fl3`, touches `COORDINATION.md` only). None of those files are in this claim's scope.
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T-E01 — **Line-by-line verification audit of root datasets vs live official sources** (standings snapshot arithmetic + source links; Week 10 injury rows incl. Lions designations; Week 10 schedule finals vs results feed; correlations n; lines recomputation via existing suites). Each row recorded CONFIRMED / STALE-BY-DESIGN / MISMATCH / NOT VERIFIED with the URL read on 2026-11-19. No dataset value is overwritten; gaps are flagged, never filled. | **in progress** | `arena/e0e5d195-fl3` | `data/verification/session_e0e5d195_2026-11-19.csv` + `.json` (new) |
+| T-E02 — Refresh `docs/EXECUTIVE_SUMMARY.md` counts to the current registers (13 questions, 22 suggestions, 34 flags, 75 requirements, 149-game feed). Docs only; no generated page is touched. | **in progress** | `arena/e0e5d195-fl3` | `docs/EXECUTIVE_SUMMARY.md` |
+| T-E03 — Integration closeout: full suites, PR to `main`, merge, Pages check, record here. | pending | `arena/e0e5d195-fl3` | `COORDINATION.md` |
+
+**Scope boundaries.** Not touched: `scripts/build_site.py`, `scripts/check_site.py`, `compare.html`, `data/compare/*`, `scripts/build_compare.py`, `scripts/test_capture_offline.py`, `board/**`, `verified/**`, `verify/**`, `depth/**`, `site-9b181d31/**`, `legacy/**`, any root `*.html`, any `data/*.json` shared output. Defects found in other tracks are recorded in the audit dataset, not silently edited.
+
+**Verification rule.** Only `nfl.com` / `static.www.nfl.com` / club-operated sites are read as evidence; each row carries the URL read. Anything not readable from the page is left blank and marked NOT VERIFIED.
+
+## Completion record — `arena/e0e5d195-fl3` (2026-11-19 UTC)
+
+| Task | Status | Result |
+|---|---|---|
+| T-E01 — Line-by-line verification audit vs live official sources | **done** | 18 checks in `data/verification/session_e0e5d195_2026-11-19.{csv,json}`: **15 CONFIRMED, 1 STALE-BY-DESIGN, 1 MISMATCH, 1 NOT VERIFIED**. Every row carries the URL read on 2026-11-19. No dataset value overwritten. |
+| T-E02 — Executive summary counts refresh (docs only) | **done** | `docs/EXECUTIVE_SUMMARY.md`: 13 decisions / 22 suggestions / 75 requirements / 149-game feed / 6,216 assertions; §5 corrected (backtest corpus + walk-forward now exist; still no leaderboard entries). |
+| T-E03 — Integration closeout | **in progress** (PR and merge record below) | — |
+
+### Sources (all read on 2026-11-19 via the page reader)
+
+- Standings: https://www.nfl.com/standings/division/2026/REG (both chunks read; all 32 clubs).
+- Week 10 injury report: https://www.nfl.com/injuries/league/2026/reg10 (chunk 0 read; WAS/NYG, NE/DET, KC/ATL tables; page title says "Week 11" while content is Week 10 — re-observes F11).
+- Week 10 schedule: https://www.nfl.com/schedules/2026/by-week/week-10 (both chunks read; all 14 finals + bye clubs CHI/DEN/PHI/TB).
+- Live site: https://sassnarep3-star.github.io/FL3/ (Pages `built`, legacy `main:/`).
+
+### Verification performed
+
+- Standings arithmetic recomputed locally over `data/standings.json`: PF−PA=Net and PCT identities hold for all 32 clubs, 0 mismatches; every row carries an https `src`.
+- Injury counts recomputed locally: 345 players / 185 blank game statuses (matches F04). Lions Joseph/Mays/Reed all Out in both repo rows and the live page (R062 holds). WAS Patrick/Yankoff Out and NE Ben Brown Out confirmed on the live page.
+- Results feed arithmetic recomputed: 149 rows, 0 bad margin/total rows. All 13 Week 10 finals in the feed match the live schedule page exactly; WAS@NYG final matches the lines file `status_line`.
+- Correlations: 4 measured (n=32) + 6 declared assumptions; recomputation passes inside `check_site.py`.
+- Suites on the branch: `check_site.py` (6,216 assertions PASS), `check_links.py` (PASS, 31 pages / 68 external links), `build_readiness.py --check` (OK, 75), `verify_live.py --check` (no diff), `build_board.py --check` (31 pages, deterministic), `verify.py` (G-10 PASS, existing V-09b non-blocking note).
+
+### Irregularities (do not block; flagged for review)
+
+1. **V12 MISMATCH — LAC@BAL final not yet ingested.** Live page reports LAC 23 @ BAL 20 FINAL (Mon Nov 16); the feed still holds 149 rows because the game was in progress (Q2) at capture (2026-11-17T02:47Z) and was correctly excluded then. Ingestion makes the feed 150 and requires updating the hard 149 assertion in `scripts/check_site.py` plus the corpus chain — owned by the PR #59 track, so this session flagged it instead of editing that file. Integration session: ingest `REG10-LAC-BAL` (LAC 23 @ BAL 20, source https://www.nfl.com/schedules/2026/by-week/week-10) once PR #59 lands.
+2. **V03 STALE-BY-DESIGN — standings snapshot predates Week 10 finals** (BUF 7-1 in repo vs 8-1 live). Correct for line origination; must not be overwritten (flag F15).
+3. **V08 — injury page title says "Week 11"** while the table is Week 10 (re-observes F11).
+4. **V18 NOT VERIFIED — no licensed market price** (F07). Market/residual columns stay blank by policy PD-01.
+
+### Request for the integration session (not performed here — shared outputs)
+
+- Ingest LAC@BAL into the results feed after PR #59 (see item 1 above).
+- No other session's files were touched; PRs #59/#61/#62 scopes were avoided.
+
+### Rebase note — `arena/c6095b01-fl3` (T-C6095), 2026-11-19 UTC
+PR #73 (`arena/e0e5d195-fl3`) merged to `main` while PR #75 was open, so this record was rebased onto `main@d593e7c`. Conflict in COORDINATION.md resolved by keeping both sessions' records; no other session's work discarded.
+
+### Merge and deploy record — `arena/c6095b01-fl3` (T-C6095), 2026-11-19 UTC
+
+- **PR:** https://github.com/sassnarep3-star/FL3/pull/72 — "T-C6095: acceptance audit + T43 offline-test fix (8/8), integration closeout".
+- **Merged:** 2026-11-19T05:27:06Z, merge commit `85f253b` on `main` (merge method: `--merge`). No approval waited.
+- **Checks at merge:** `Recompute and verify` pass, `validate` pass, `verify-and-build` pass. `mergeStateStatus` CLEAN.
+- **Post-merge CI on `main@85f253b`:** `Verify data and site` success, `site` success, `Deploy static site to GitHub Pages` success, `pages build and deployment` success.
+- **Pages:** API `status: built`, `build_type: legacy`, source `main:/`. Live: https://sassnarep3-star.github.io/FL3/
+- **T43 handoff:** PR #61 (`arena/9f527e7c-fl3`) is superseded by the identical test fix merged here; it can be closed. PRs #59/#62 remain open for their owners.
+- **Flagged for review (do not block):** REG10-LAC-BAL exclusion stale (re-capture needed with network access); V-09b/FLG-025 official table disagreement published as read.

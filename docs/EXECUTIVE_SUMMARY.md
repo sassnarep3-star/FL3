@@ -9,9 +9,9 @@
 
 | Requirement | Status | Where |
 |---|---|---|
-| Collect and organise a full list of requirements | **Done** — 13 numbered decisions, 22 suggestions, 10 information gaps | `data/decisions.json`, `data/suggestions.json`, `decisions.html`, `suggestions.html` |
+| Collect and organise a full list of requirements | **Done** — 13 numbered decisions, 22 suggestions, 10 information gaps, 75-row requirement register | `data/decisions.json`, `data/suggestions.json`, `data/requirements_readiness.csv`, `decisions.html`, `suggestions.html` |
 | Suggestions to improve decision-making, in a reviewable section | **Done** — every suggestion has 2–3 selectable paths, effort, cost, pros/cons and a recommendation | `suggestions.html` |
-| A clear list of questions, knowns, unknowns before any decision | **Done** — 12 questions, 9 of them blocking, each with a "what discovers it" column | `decisions.html` |
+| A clear list of questions, knowns, unknowns before any decision | **Done** — 13 questions, each with a "what discovers it" column | `decisions.html` |
 | Suggestions that discover missing information | **Done** — all 10 gaps map to at least one suggestion | `decisions.html` ↔ `suggestions.html` |
 | Originate our own NFL lines | **Done** — 14 Week 10 games, spread + total + win probability, each with a 90% band | `data/lines_week10.json`, `lines.html` |
 | Strategies as a leaderboard with rewards | **Built, deliberately empty** — 8 specs, 8 gates, 5 tiers. Zero graded results, and the site says why | `strategies.html` |
@@ -21,7 +21,7 @@
 | Remove luck; be selectively skill-based | **Luck measured per club** (Pythagorean, ±2.17 wins range) and **a luck penalty in the score** | `standings.html`, `strategies.html` |
 | Track injuries and defensive/offensive depth deficiencies | **Injuries done** (345 official rows, split by side of ball). **Depth ordinal is honestly blocked** — no official source exists | `injuries.html`, flag F05 |
 | Executive summary | **This document**, plus the site dashboard | `docs/EXECUTIVE_SUMMARY.md`, `index.html` |
-| No manual input; verification with source links | **6,216 automated assertions pass** (re-verified 2026-11-19 on branch `arena/47333765-fl3`); every table row carries an official link | `scripts/check_site.py`, `sources.html` |
+| No manual input; verification with source links | **6,216 automated assertions pass** (re-verified 2026-11-19 on branch `arena/e0e5d195-fl3`, audit `data/verification/session_e0e5d195_2026-11-19.csv`: 15 CONFIRMED, 1 STALE-BY-DESIGN, 1 MISMATCH, 1 NOT VERIFIED); every table row carries an official link | `scripts/check_site.py`, `sources.html` |
 | GitHub Pages live site | **Done** | https://sassnarep3-star.github.io/FL3/ |
 
 ---
@@ -91,7 +91,7 @@ without a path already chosen.
 - **8–9 games per club.** Every rating is provisional and the bands are wide on purpose.
 - **League aggregates only.** No opponent adjustment, so a club that has played strong teams looks
   worse than it is.
-- **One captured week.** No calibration, no backtest, no leaderboard entries.
+- **One originated week (Week 10).** A 149-game backtest corpus exists and a walk-forward comparison is published (`compare.html`), but no strategy has cleared the skill gates, so there are still no leaderboard entries. The feed is complete except LAC@BAL (see §6).
 - **No price.** No edge, no closing-line value, no top-tier strategies.
 - **No player-level data.** Props stay blocked.
 - **The Munich game** (NE @ DET) is at a neutral site but receives a full home-field advantage
@@ -105,7 +105,7 @@ None of these are hidden. Each is a row on `flagged.html` with a link.
 ## 6. Verification
 
 `python3 scripts/check_site.py` runs **6,216 assertions** and passes with zero warnings, covering:
-Re-verified 2026-11-18 on branch `arena/0c322b0e-fl3`: ALL CHECKS PASSED, zero warnings. The count grew from 3,064 as sessions added the readiness register, matchup matrix, ablations, acceptance audit, comparison lab and character-split regression guards.
+Re-verified 2026-11-19 on branch `arena/e0e5d195-fl3`: ALL CHECKS PASSED, zero warnings. The count grew from 3,064 as sessions added the readiness register, matchup matrix, ablations, acceptance audit, comparison lab and character-split regression guards. The 2026-11-19 live-source audit (`data/verification/session_e0e5d195_2026-11-19.csv`) re-read the standings, Week 10 injury and Week 10 schedule pages on NFL.com: 15 CONFIRMED, 1 STALE-BY-DESIGN (the 2026-11-14 snapshot predates Week 10 finals, flag F15), 1 MISMATCH (LAC@BAL final LAC 23 @ BAL 20 is live but not yet ingested into the 149-game feed — ingestion needs the `check_site.py` 149-assertion update, owned by the PR #59 track), 1 NOT VERIFIED (no licensed market price, flag F07).
 
 - arithmetic on official figures, for all 32 clubs
 - completeness (32 clubs / 8 divisions × 4 / 14 games / 28 clubs on the slate / no club twice)
