@@ -2586,9 +2586,9 @@ the same rule (see the `arena/7c189606-fl3` branch note above). No other branch 
 
 | Task | Status | Owner | Files touched |
 |---|---|---|---|
-| T-32A Week 11 official injury-report capture (immutable, hashed, timestamped) through the existing snapshot pipeline | in progress | `arena/32da553e-fl3` | `snapshots/index.csv`, `snapshots/raw/**` |
-| T-32B Brief status register: every item of the 2026-11-19 brief mapped to repo evidence, blocking gate, and clearance metric | in progress | `arena/32da553e-fl3` | `board/data/brief_status.csv`, `content/board/brief-status.md`, `scripts/build_board.py` (PAGES only) |
-| T-32C Coordination record and PR/merge record | in progress | `arena/32da553e-fl3` | `COORDINATION.md` |
+| T-32A Week 11 official injury-report capture (immutable, hashed, timestamped) through the existing snapshot pipeline | **blocked** (environment; see record below) | `arena/32da553e-fl3` | `snapshots/index.csv`, `snapshots/raw/**` |
+| T-32B Brief status register: every item of the 2026-11-19 brief mapped to repo evidence, blocking gate, and clearance metric | **done — not duplicated** (the existing `scripts/build_coverage_audit.py` already maps all 69 brief bullets B01–B69 to readiness rows R001–R075; re-checked, no bullet unmapped) | `arena/32da553e-fl3` | `board/data/brief_status.csv`, `content/board/brief-status.md`, `scripts/build_board.py` (PAGES only) |
+| T-32C Coordination record and PR/merge record | **done** (this section) | `arena/32da553e-fl3` | `COORDINATION.md` |
 
 Baseline before edits (all green on this branch, 2026-11-19): `verify.py` (G-10 PASS, 1 non-blocking
 discrepancy V-09b/FLG-025), `check_site.py` (6216 assertions), `check_leaderboard_governance.py`
@@ -2599,3 +2599,32 @@ Observed before the capture: `snapshots/index.csv` rows dated 2026-11-18T21:27Z 
 2026-11-19T04:10Z read `empty`, while the official Week 11 page (fetched 2026-11-19) lists
 player rows (e.g. Colts: Will Mallory TE, Hamstring, Did Not Participate, Out). The store is
 therefore behind the source until a new capture is recorded.
+
+### Session `arena/32da553e-fl3` — record (2026-11-19 UTC)
+
+**T-32D (added) — Week 11 schedule and venue recheck against official pages: done.**
+- Official schedule page `https://www.nfl.com/schedules/2026/by-week/week-11` (3 chunks, read in full) compared line by line with `data/2026-week11-games.csv`: 13 of 13 fixtures match on teams, date, kickoff time (ET) and network; the 6 bye teams (ATL, CLE, GB, LA, NE, SEA) match.
+- Official game centre `Game Info` block read for all 13 fixtures (`https://www.nfl.com/games/<away>-at-<home>-2026-reg-11`): location and stadium recorded for each.
+- Output: `data/compare/week11_recheck_2026-11-19.csv` (13 rows, 17 columns, parsed back with field counts checked). Each row carries its official URL and `observed` = 2026-11-19 (fetch tool). This is a **transcription observed through the fetch tool, not a raw-byte capture with a retained hash**.
+- Two rows cross-check against the earlier file `data/compare/week11_venues.csv`: IND@HOU (RELIANT STADIUM, matches) and MIN@SF (ESTADIO BANORTE, matches). The earlier file's `conflict=YES` on IND@HOU is confirmed as a **naming inconsistency on the official site, not a different venue**: the schedule page's hotel-search link uses "NRG Stadium" as its search string, while the game centre's Game Info reads RELIANT STADIUM. The earlier file is left unchanged (it is a prior capture record).
+
+**T-32A — Week 11 official injury-report capture: blocked, not faked.**
+- The sandbox cannot reach nfl.com from the shell (`curl` to `https://www.nfl.com/injuries/league/2026/reg11` returns exit 35, no connection). The fetch tool can read the page, but it does not produce the raw HTTP bytes that `scripts/capture_official_snapshot.py` hashes, so a fetch-tool read cannot be written to `snapshots/` as a hashed capture without misrepresenting it.
+- `gh workflow run snapshot.yml --ref arena/32da553e-fl3 -f week=11` was refused: `HTTP 403 Resource not accessible by integration`. The session token cannot dispatch workflows.
+- Scheduled runs use the default branch. The next scheduled capture on `main` is the existing cron `17 23 * * 3,4,5,6` (UTC), i.e. Thu 2026-11-19 23:17 UTC, and it will run only after this branch is merged. Whether it captures the populated Week 11 page depends on publication timing, which was not confirmed.
+- Observed on 2026-11-19: the Week 11 page currently lists player rows (e.g. Colts TE Will Mallory, Hamstring, "Did Not Participate", Game Status Out, matching the Colts game centre). The snapshot index entries from 2026-11-18T21:27Z and 2026-11-19T04:10Z read `empty`. Whether those were fetched before publication or the parser missed rows is **not established** — flagged below.
+
+**Sources used this session (all fetched 2026-11-19 via the fetch tool; links for manual review):**
+- Week 11 schedule: https://www.nfl.com/schedules/2026/by-week/week-11
+- Week 11 injury report: https://www.nfl.com/injuries/league/2026/reg11
+- Game centres (13): https://www.nfl.com/games/colts-at-texans-2026-reg-11 · https://www.nfl.com/games/dolphins-at-bills-2026-reg-11 · https://www.nfl.com/games/ravens-at-panthers-2026-reg-11 · https://www.nfl.com/games/saints-at-bears-2026-reg-11 · https://www.nfl.com/games/titans-at-cowboys-2026-reg-11 · https://www.nfl.com/games/buccaneers-at-lions-2026-reg-11 · https://www.nfl.com/games/cardinals-at-chiefs-2026-reg-11 · https://www.nfl.com/games/steelers-at-eagles-2026-reg-11 · https://www.nfl.com/games/jets-at-chargers-2026-reg-11 · https://www.nfl.com/games/jaguars-at-giants-2026-reg-11 · https://www.nfl.com/games/raiders-at-broncos-2026-reg-11 · https://www.nfl.com/games/vikings-at-49ers-2026-reg-11 · https://www.nfl.com/games/bengals-at-commanders-2026-reg-11
+
+**Verification performed:** all gates re-run on the branch and green — `verify.py` (G-10 PASS; V-09b / FLG-025 non-blocking, unchanged), `check_site.py` (ALL CHECKS PASSED), `check_coverage_audit.py` (69/69), `check_links.py`, `check_verify.py`, `check_verified_site.py`, `check_leaderboard_governance.py` (10/10), `build_board.py --check`.
+
+**Irregularities (for the Flagged for Review page; do not block):**
+1. **Snapshot store lag.** `snapshots/index.csv` rows at 2026-11-18T21:27Z and 2026-11-19T04:10Z record `empty` for Week 11, while the official page now lists rows. The workflow records `empty` quietly, so a publication-timing miss would look like "no data". Needs a publication-time check on the next scheduled run.
+2. **Venue naming on the official site.** The schedule page's IND@HOU venue link points at "NRG Stadium"; the game centre reads RELIANT STADIUM. Not a venue conflict, but a text inconsistency on NFL.com.
+3. **Capture gap.** No hashed raw-byte Week 11 injury capture exists. Blocked by the sandbox network and the 403 on dispatch (see T-32A).
+4. **Unverified this session:** Week 11 injury-report row counts and designations were not transcribed into the repo (only one Colts row was cross-read against the game centre). Colts Week 11 starter status is still NOT VERIFIED (see the prior session's record).
+
+**Handoff:** when the next scheduled `snapshot.yml` run on `main` completes, confirm the Week 11 row in `snapshots/index.csv` is non-empty and that the raw file hash matches the stored file; if it stays `empty` after the page is populated, open a flag on the parser threshold (`MIN_PLAYER_LINKS`).
