@@ -9,7 +9,7 @@
 
 | Requirement | Status | Where |
 |---|---|---|
-| Collect and organise a full list of requirements | **Done** — 12 numbered decisions, 16 suggestions, 10 information gaps | `data/decisions.json`, `data/suggestions.json`, `decisions.html`, `suggestions.html` |
+| Collect and organise a full list of requirements | **Done** — 13 numbered decisions, 22 suggestions, 10 information gaps | `data/decisions.json`, `data/suggestions.json`, `decisions.html`, `suggestions.html` |
 | Suggestions to improve decision-making, in a reviewable section | **Done** — every suggestion has 2–3 selectable paths, effort, cost, pros/cons and a recommendation | `suggestions.html` |
 | A clear list of questions, knowns, unknowns before any decision | **Done** — 12 questions, 9 of them blocking, each with a "what discovers it" column | `decisions.html` |
 | Suggestions that discover missing information | **Done** — all 10 gaps map to at least one suggestion | `decisions.html` ↔ `suggestions.html` |
@@ -21,7 +21,7 @@
 | Remove luck; be selectively skill-based | **Luck measured per club** (Pythagorean, ±2.17 wins range) and **a luck penalty in the score** | `standings.html`, `strategies.html` |
 | Track injuries and defensive/offensive depth deficiencies | **Injuries done** (345 official rows, split by side of ball). **Depth ordinal is honestly blocked** — no official source exists | `injuries.html`, flag F05 |
 | Executive summary | **This document**, plus the site dashboard | `docs/EXECUTIVE_SUMMARY.md`, `index.html` |
-| No manual input; verification with source links | **6,154 automated assertions pass** (re-verified 2026-11-18 on branch `arena/0c322b0e-fl3`); every table row carries an official link | `scripts/check_site.py`, `sources.html` |
+| No manual input; verification with source links | **6,216 automated assertions pass** (re-verified 2026-11-19 on branch `arena/47333765-fl3`); every table row carries an official link | `scripts/check_site.py`, `sources.html` |
 | GitHub Pages live site | **Done** | https://sassnarep3-star.github.io/FL3/ |
 
 ---
@@ -104,7 +104,7 @@ None of these are hidden. Each is a row on `flagged.html` with a link.
 
 ## 6. Verification
 
-`python3 scripts/check_site.py` runs **6,154 assertions** and passes with zero warnings, covering:
+`python3 scripts/check_site.py` runs **6,216 assertions** and passes with zero warnings, covering:
 Re-verified 2026-11-18 on branch `arena/0c322b0e-fl3`: ALL CHECKS PASSED, zero warnings. The count grew from 3,064 as sessions added the readiness register, matchup matrix, ablations, acceptance audit, comparison lab and character-split regression guards.
 
 - arithmetic on official figures, for all 32 clubs
