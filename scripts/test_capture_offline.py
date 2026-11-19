@@ -59,7 +59,12 @@ r4 = run(DRIFT)
 results.append(("drift body -> rc2 with body snippet", r4.returncode == 2 and "Access Denied" in r4.stderr))
 
 r5 = run(POPULATED, week=17)
-results.append(("wrong-week needle -> rc2", r5.returncode == 2 and "reg17" in r5.stderr))
+# The synthetic page is for Week 11 while Week 17 is requested. An earlier
+# report being served is the documented not-published-yet state, not parser drift.
+r5_index = (ROOT / "snapshots/index.csv").read_text()
+results.append(("earlier week served -> recorded not_published_yet rc0",
+                r5.returncode == 0 and "NOT PUBLISHED YET" in r5.stdout
+                and "not_published_yet" in r5_index))
 
 SMALL_CHALLENGE = '<html><body><th>Practice Status</th><th>Game Status</th><a href="https://www.nfl.com/injuries/league/2026/reg11">w</a>Access Denied</body></html>'
 r7 = run(SMALL_CHALLENGE)
