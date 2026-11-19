@@ -26,3 +26,19 @@ open decision in [Flagged for review](flagged.html) (FLG-046) rather than made s
 - **Copy audit** - row count and club coverage of each Week 10 injury copy in the repo.
 
 Each row carries the source id and the official URL. Blank cells are blank in the source, not guessed.
+
+## Week 11 — immutable machine capture (2026-11-19)
+
+**Captured:** 2026-11-19 05:27:43 UTC from [Official NFL Injury Report - Week 11 of the 2026 Season](https://www.nfl.com/injuries/league/2026/reg11) (SRC-037).
+**Stored:** the raw body, gzip-compressed and never overwritten, at `snapshots/raw/injuries/reg11/2026-11-19T052743Z_f58ecb73ed91.html.gz`
+(374,013 bytes; sha256 `f58ecb73ed91b237829f7678388553b23dab8ab4cc908addb83c9067ee54b528`).
+
+**Method:** a script parses the stored bytes (`scripts/parse_official_snapshot.py`), so no value was typed by hand. Pinned checks passed:
+26 clubs on the matchup strips = 24 club tables + 2 "No Injuries Reported" sections; 13 game pairs; 253 player rows = 253 Practice Status cells.
+The club set matches the official schedule: 13 games, and the six byes (Falcons, Browns, Packers, Rams, Patriots, Seahawks) are the six clubs with no section.
+
+**Cross-check:** the 51 rows of IND at HOU and PIT at PHI were read again from the live page and compared field by field (`scripts/check_official_readings.py`): all match.
+
+**Why the earlier captures showed nothing:** the 2026-11-18 and 2026-11-19 scheduled runs recorded `empty` because the parser counted only one literal URL form. The official page uses relative player links. See [Flagged for review](flagged.html) FLG-067.
+
+**Not yet automatic:** the scheduled workflow does not yet run the parser; each week is parsed by hand until FLG-068 is closed.

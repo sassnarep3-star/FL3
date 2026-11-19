@@ -1,0 +1,40 @@
+{
+  "week": 11,
+  "capture_utc": "2026-11-19T05:27:43Z",
+  "raw_path": "snapshots/raw/injuries/reg11/2026-11-19T052743Z_f58ecb73ed91.html.gz",
+  "raw_sha256": "f58ecb73ed91b237829f7678388553b23dab8ab4cc908addb83c9067ee54b528",
+  "raw_bytes": 374013,
+  "source_url": "https://www.nfl.com/injuries/league/2026/reg11",
+  "game_pairs": [
+    "IND at HOU",
+    "PIT at PHI",
+    "AZ at KC",
+    "BAL at CAR",
+    "TB at DET",
+    "MIA at BUF",
+    "TEN at DAL",
+    "NO at CHI",
+    "NYJ at LAC",
+    "JAX at NYG",
+    "LV at DEN",
+    "MIN at SF",
+    "CIN at WAS"
+  ],
+  "clubs_on_strips": 26,
+  "club_sections_with_table": 24,
+  "club_sections_no_injuries_reported": [
+    "CIN",
+    "WAS"
+  ],
+  "clubs_without_section": [],
+  "player_rows": 253,
+  "practice_status_cells": 253,
+  "rows_missing_game_status": 237,
+  "game_status_counts": {
+    "": 237,
+    "Out": 9,
+    "Questionable": 7
+  },
+  "output_table": "data/official_injury_capture_wk11_2026.csv",
+  "checks": "all pinned checks passed"
+}

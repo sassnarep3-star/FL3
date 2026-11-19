@@ -40,7 +40,7 @@ def run(body: str, week: int = 11):
 def setup():
     shutil.rmtree(ROOT, ignore_errors=True)
     (ROOT / "scripts").mkdir(parents=True)
-    shutil.copy("/home/user/FL3/scripts/capture_official_snapshot.py", SCRIPT)
+    shutil.copy(pathlib.Path(__file__).resolve().parent / "capture_official_snapshot.py", SCRIPT)
 
 
 setup()
@@ -65,6 +65,35 @@ r5_index = (ROOT / "snapshots/index.csv").read_text()
 results.append(("earlier week served -> recorded not_published_yet rc0",
                 r5.returncode == 0 and "NOT PUBLISHED YET" in r5.stdout
                 and "not_published_yet" in r5_index))
+
+# A body with a LATER week than requested is drift.
+LATER = POPULATED.replace("WEEK 11", "WEEK 12").replace("reg11", "reg12")
+r5b = run(LATER, week=11)
+results.append(("later-week body for week 11 -> drift rc2", r5b.returncode == 2))
+
+# Real-world serialisations that the first version missed (player links escaped
+# inside embedded JSON, or relative hrefs). These must be captured, not "empty".
+ESCAPED = POPULATED.replace("https://www.nfl.com/players/", "https:\\/\\/www.nfl.com\\/players\\/")
+r8 = run(ESCAPED)
+results.append(("escaped JSON player links -> captured rc0", r8.returncode == 0 and "captured" in r8.stdout))
+RELATIVE = POPULATED.replace("https://www.nfl.com/players/", "/players/")
+r9 = run(RELATIVE)
+results.append(("relative player hrefs -> captured rc0", r9.returncode == 0 and "captured" in r9.stdout))
+
+# Status cells only (no player links at all) still count as rows.
+STATUS_ONLY = POPULATED.replace("https://www.nfl.com/players/", "#p")
+r10 = run(STATUS_ONLY)
+results.append(("status cells without profile links -> captured rc0", r10.returncode == 0 and "captured" in r10.stdout))
+
+# Partial page (2 rows) is a parser/page-shape problem: loud failure, not "empty".
+PARTIAL = POPULATED.replace("test-player-2/", "test-player-2x/")  # keep structure
+PARTIAL = ('<html><head><title>x</title></head><body>' + _CHROME +
+    '<h2>Injuries - WEEK 11</h2><table><tr><th>Practice Status</th><th>Game Status</th></tr>'
+    '<tr><td><a href="https://www.nfl.com/players/a-one/">A</a></td><td>Full Participation in Practice</td></tr>'
+    '<tr><td><a href="https://www.nfl.com/players/b-two/">B</a></td><td>Out</td></tr></table>'
+    '<a href="https://www.nfl.com/injuries/league/2026/reg11">week link</a></body></html>')
+r11 = run(PARTIAL)
+results.append(("partial page (2 rows) -> drift rc2, nothing stored", r11.returncode == 2 and "only 2 player rows" in r11.stderr))
 
 SMALL_CHALLENGE = '<html><body><th>Practice Status</th><th>Game Status</th><a href="https://www.nfl.com/injuries/league/2026/reg11">w</a>Access Denied</body></html>'
 r7 = run(SMALL_CHALLENGE)

@@ -70,6 +70,12 @@ jobs:
           python3 scripts/build_coverage_audit.py
           python3 scripts/check_coverage_audit.py
 
+      - name: Official-report snapshot - offline capture tests, parser and row-by-row readings check
+        run: |
+          python3 scripts/test_capture_offline.py
+          python3 scripts/capture_official_snapshot.py --selftest
+          python3 scripts/parse_official_snapshot.py --week 11 --sha12 f58ecb73ed91
+          python3 scripts/check_official_readings.py 11
       - name: Confirm generated files are reproducible
         run: |
           if ! git diff --quiet; then
