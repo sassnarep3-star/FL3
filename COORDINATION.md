@@ -2577,3 +2577,57 @@ This session worked on the branch named by its branch note (`arena/7c189606-fl3`
 - **Pages:** `pages build and deployment` success on `643e25b`; Pages status `built`, source `main /`. Live check: `https://sassnarep3-star.github.io/FL3/verify/brief-claims.html` serves the ledger with the verdict counts (CARRIED 1, CONFIRMED 9, NOT VERIFIED 2, OBSERVED 3, REFUTED 2, STALE 1).
 - **Flagged for review (do not block):** BC-01 (refuted), BC-07 (refuted), BC-08 (not verified), BC-09 (stale Seattle depth row), BC-11, BC-12/BC-18 (Texans image, no structured source), BC-14, BC-15, BC-16, BC-17 (carried count). Colts Week 11 starter: NOT VERIFIED (club depth-chart order only).
 - **Handoff:** integration session to add the Flagged for Review items to root `flagged.html` (shared register), and to re-read the Week 11 injury report and Colts Week 11 starter after the game is published.
+
+---
+
+# Session `arena/c6095b01-fl3` — claim (2026-11-19 UTC)
+
+| Task | Status | Owner | Files |
+|---|---|---|---|
+| T-C6095 — Independent acceptance audit + integration closeout: re-run every verifier suite on the merged tree, spot-check published rows against committed official captures, take over stale T43 (PR #61) offline-test fix, then PR + merge + Pages confirmation | **in progress** | `arena/c6095b01-fl3` | `COORDINATION.md`, `scripts/test_capture_offline.py` (T43 takeover) |
+
+Scope is limited to the audit record, the stale test assertion, and the integration record. No dataset value, model output, or generated page content is changed. PR #61 (`arena/9f527e7c-fl3`, T43) is CONFLICTING and its claim is >24h old with no commits, so per the stale-claim rule this session takes over the test fix and notes the handoff here. PR #62 (record-only, MERGEABLE) and PR #59 (CONFLICTING) are left for their owners; their status is recorded in the audit below.
+
+## T-C6095 audit results (2026-11-19 UTC, session `arena/c6095b01-fl3`)
+
+### Verifier suite (re-run on this branch, base `main@233438d`)
+
+| Suite | Result |
+|---|---|
+| `scripts/test_capture_offline.py` | **8/8 PASS** after T43 fix (was 7/8: "wrong-week needle" FAIL) |
+| `scripts/capture_official_snapshot.py --selftest` | PASS (not-published-yet distinguished from drift) |
+| `scripts/check_site.py` | **6,216 assertions, ALL CHECKS PASSED** |
+| `scripts/check_links.py` | 31 pages, 68 external links, PASS (no broken links/orphans) |
+| `scripts/check_verify.py` | 323 assertions, ALL CHECKS PASSED |
+| `scripts/check_verified_site.py` | 645 assertions, ALL CHECKS PASSED |
+| `scripts/verify_live.py --check` | reproduces exactly (no diff) |
+| `scripts/build_readiness.py --check` | 75 requirements OK (53 sourced, 22 source-gap flagged) |
+| `scripts/build_board.py --check` | deterministic, sha1 `3f3265517e7d` |
+| `scripts/build_compare.py --check` | reproduces exactly |
+| `scripts/build_crosscheck.py --check` | 136 → 137 → 148 games; 12/12 Week 10 finals agree; all identities hold |
+| `scripts/check_coverage_audit.py` | 69 bullets, ALL CHECKS PASSED |
+| `scripts/check_leaderboard_governance.py` | ALL 10 CHECKS PASSED (R010: no backtest numbers on prospective board) |
+| `scripts/check_freshness.py` | 107 checks, ALL CHECKS PASSED |
+| `scripts/verify.py` | GATE G-10 PASS; V-09b/FLG-025 non-blocking source discrepancy (official passing-TD 414 vs 415 allowed, INT 202 vs 200 forced — published as read, pricing-ineligible) |
+
+### Offline spot-checks against committed official captures
+
+- **Standings arithmetic** (`data/2026-standings.csv`, 32 clubs, source `https://www.nfl.com/standings/league/2026/REG`): ΣPF = ΣPA = 6,291; every club's PF−PA = net_pts; all rows sourced to nfl.com. PASS.
+- **Results corpus** (`data/week_results_2026.csv` 148 rows + `REG10-PIT-CIN` correction in `data/official/results_feed.json` = 149 games): reconciles 32/32 clubs to official standings per the committed reconciliation. PASS.
+- **Week 11 venues** (`data/compare/week11_venues.csv`): IND@HOU conflict (game centre `RELIANT STADIUM` vs schedule-page `NRG Stadium`) published as read with conflict flag; MIN@SF control agrees. PASS (flagged, not corrected).
+- **Pages**: `gh api repos/sassnarep3-star/FL3/pages` → `status: built`, `build_type: legacy`, source `main:/`. Live.
+
+### T43 takeover (stale PR #61)
+
+PR #61 (`arena/9f527e7c-fl3`) fixed the same stale assertion but is CONFLICTING against `main` (COORDINATION.md moved on) and its Pages gate had a repeated CI-only `check_site.py` failure with no retrievable log. This session applied the identical test-only fix on `arena/c6095b01-fl3`: the Week 17 request against a synthetic Week 11 page now asserts the documented `not_published_yet` behavior (exit 0, `NOT PUBLISHED YET`, index row marked `not_published_yet`) instead of drift rc2. Production capture code unchanged. PR #61 is now redundant and should be closed by its owner or an integration session; it is left open here, not merged, because its branch also carries a COORDINATION record that would conflict.
+
+### Flagged for review (do not block)
+
+1. **REG10-LAC-BAL exclusion is now stale.** `data/official/results_feed.json` excludes LAC@BAL because it was not final at capture (2026-11-17T02:47Z, Q2). By 2026-11-19 the game is final in reality, so the 149-game corpus and the 137-game standings snapshot both predate it. The sandbox has no nfl.com egress (TLS EOF), so the final score cannot be verified here and is **not** invented. Next capture session with network access: add the row via `data/official/results_feed.json` (never hand-edit the CSV), re-run `scripts/build_frontier_data.py`, then re-run ablation + leaderboard.
+2. **V-09b / FLG-025** (official offense vs defense table disagreement) remains published as read; non-blocking per G-10.
+3. **Open PRs:** #62 (record-only, MERGEABLE, stale — left for owner), #59 (CONFLICTING, stale — left for owner), #61 (superseded by this session's T43 fix — close when convenient).
+4. **Week 11 injury report:** `snapshots/index.csv` shows reg11 captures returning `empty`/`redirected:reg10` through 2026-11-19T04:10Z. The scheduled capture (snapshot.yml) owns the next attempt; no manual action.
+
+### Integration
+
+PR from `arena/c6095b01-fl3` to `main` opened after the audit; merge without waiting for approval; Pages deploy confirmed via API + live fetch; PR link and merge result recorded here after merge.
